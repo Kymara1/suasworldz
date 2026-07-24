@@ -1,0 +1,44 @@
+{%- liquid
+  assign enable = section.settings.enable-social
+  assign spacing_above = section.settings.spacing-above
+  assign spacing_below = section.settings.spacing-below
+-%}
+
+{% if enable %}
+  <div
+    class="product-page--social"
+    data-section-id="{{ section.id }}"
+    data-spacing-above="{{ spacing_above }}"
+    data-spacing-below="{{ spacing_below }}"
+  >
+    <div class="product-page--wrapper">
+      {% render 'social-share', view: 'product' %}
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Social sharing",
+  "settings": [
+    {
+      "id": "enable-social",
+      "label": "Enable",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "id": "spacing-above",
+      "label": "Spacing above",
+      "type": "checkbox",
+      "default": true
+    },
+    {
+      "id": "spacing-below",
+      "label": "Spacing below",
+      "type": "checkbox",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

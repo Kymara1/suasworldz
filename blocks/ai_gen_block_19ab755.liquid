@@ -1,0 +1,343 @@
+{% doc %}
+  @prompt
+    Create menu items for my home care products I want them listed in black curved rectangles with white text listed as follows. Candles, Everything Mist 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-menu-items-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-menu-items__container-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: {{ block.settings.gap }}px;
+    justify-content: {{ block.settings.alignment }};
+    width: 100%;
+  }
+
+  .ai-menu-items__item-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .ai-menu-items__item-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.hover_background_color }};
+    color: {{ block.settings.hover_text_color }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-menu-items__container-{{ ai_gen_id }} {
+      justify-content: center;
+    }
+
+    .ai-menu-items__item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+      padding: {{ block.settings.padding_vertical | times: 0.9 }}px {{ block.settings.padding_horizontal | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<menu-items-{{ ai_gen_id }} class="ai-menu-items-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-menu-items__container-{{ ai_gen_id }}">
+    {% if block.settings.item_1_enabled and block.settings.item_1_text != blank %}
+      <a href="{{ block.settings.item_1_link }}" class="ai-menu-items__item-{{ ai_gen_id }}">
+        {{ block.settings.item_1_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.item_2_enabled and block.settings.item_2_text != blank %}
+      <a href="{{ block.settings.item_2_link }}" class="ai-menu-items__item-{{ ai_gen_id }}">
+        {{ block.settings.item_2_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.item_3_enabled %}
+      <a href="{{ block.settings.item_3_link }}" class="ai-menu-items__item-{{ ai_gen_id }}">
+        {{ block.settings.item_3_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.item_4_enabled %}
+      <a href="{{ block.settings.item_4_link }}" class="ai-menu-items__item-{{ ai_gen_id }}">
+        {{ block.settings.item_4_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.item_5_enabled %}
+      <a href="{{ block.settings.item_5_link }}" class="ai-menu-items__item-{{ ai_gen_id }}">
+        {{ block.settings.item_5_text }}
+      </a>
+    {% endif %}
+  </div>
+</menu-items-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class MenuItems{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.items = this.querySelectorAll('.ai-menu-items__item-{{ ai_gen_id }}');
+      }
+    }
+
+    customElements.define('menu-items-{{ ai_gen_id }}', MenuItems{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Menu items",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Space between items",
+      "min": 5,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hover_background_color",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "header",
+      "content": "Menu item 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_1_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "item_1_text",
+      "label": "Text",
+      "default": "Candles"
+    },
+    {
+      "type": "url",
+      "id": "item_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Menu item 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_2_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "item_2_text",
+      "label": "Text",
+      "default": "Everything Mist"
+    },
+    {
+      "type": "url",
+      "id": "item_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Menu item 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_3_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "item_3_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "item_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Menu item 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_4_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "item_4_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "item_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Menu item 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_5_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "item_5_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "item_5_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu items"
+    }
+  ]
+}
+{% endschema %}

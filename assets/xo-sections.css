@@ -1,0 +1,27 @@
+:root, html, body {
+  color-scheme: light !important;
+}
+
+body {
+  background: #fff !important;
+  color: #111 !important;
+}
+
+input, select, textarea, button {
+  background: #fff !important;
+  color: #111 !important;
+  border: 1px solid #ddd !important;
+  -webkit-appearance: none; /* stops iOS from forcing dark mode */
+}
+/* Force LIGHT even if the device/browser is in dark mode */
+:root, html, body { color-scheme: light !important; }
+
+@media (prefers-color-scheme: dark) {
+  html, body { background:#fff !important; color:#111 !important; }
+  input, select, textarea, button {
+    background:#fff !important; color:#111 !important; border:1px solid #ddd !important;
+    -webkit-appearance:none;
+  }
+  /* stop Chrome’s auto-dark tweaks on media */
+  img, picture, video, canvas, svg { filter:none !important; }
+}

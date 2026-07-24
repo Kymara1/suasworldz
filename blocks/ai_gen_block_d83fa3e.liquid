@@ -1,0 +1,471 @@
+{% doc %}
+  @prompt
+    I would like a menu listing - clothing, sunglasses, beanies, trinkets, extras under my image with text
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-menu-listing-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px 20px {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-menu-listing__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-menu-listing__list-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: {{ block.settings.alignment }};
+    gap: {{ block.settings.item_spacing }}px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-menu-listing__item-{{ ai_gen_id }} {
+    margin: 0;
+  }
+
+  .ai-menu-listing__link-{{ ai_gen_id }} {
+    display: inline-block;
+    font-family: {{ block.settings.font.family }}, {{ block.settings.font.fallback_families }};
+    font-weight: {{ block.settings.font.weight }};
+    font-size: {{ block.settings.font_size }}px;
+    color: {{ block.settings.text_color }};
+    text-decoration: none;
+    text-transform: {% if block.settings.uppercase %}uppercase{% else %}none{% endif %};
+    letter-spacing: {% if block.settings.uppercase %}0.05em{% else %}normal{% endif %};
+    transition: color 0.3s ease, transform 0.2s ease;
+    position: relative;
+  }
+
+  .ai-menu-listing__link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.hover_color }};
+    transform: translateY(-2px);
+  }
+
+  {% if block.settings.show_underline %}
+    .ai-menu-listing__link-{{ ai_gen_id }}::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: {{ block.settings.hover_color }};
+      transition: width 0.3s ease;
+    }
+
+    .ai-menu-listing__link-{{ ai_gen_id }}:hover::after {
+      width: 100%;
+    }
+  {% endif %}
+
+  .ai-menu-listing__separator-{{ ai_gen_id }} {
+    color: {{ block.settings.separator_color }};
+    font-size: {{ block.settings.font_size }}px;
+    user-select: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-menu-listing__list-{{ ai_gen_id }} {
+      justify-content: {{ block.settings.mobile_alignment }};
+      gap: {{ block.settings.mobile_item_spacing }}px;
+    }
+
+    .ai-menu-listing__link-{{ ai_gen_id }},
+    .ai-menu-listing__separator-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_font_size }}px;
+    }
+  }
+{% endstyle %}
+
+<menu-listing-{{ ai_gen_id }} class="ai-menu-listing-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-menu-listing__container-{{ ai_gen_id }}">
+    <ul class="ai-menu-listing__list-{{ ai_gen_id }}">
+      {% if block.settings.item_1_enabled %}
+        <li class="ai-menu-listing__item-{{ ai_gen_id }}">
+          <a href="{{ block.settings.item_1_link }}" class="ai-menu-listing__link-{{ ai_gen_id }}">
+            {{ block.settings.item_1_text }}
+          </a>
+        </li>
+        {% if block.settings.show_separator and block.settings.item_2_enabled %}
+          <li class="ai-menu-listing__separator-{{ ai_gen_id }}" aria-hidden="true">{{ block.settings.separator_text }}</li>
+        {% endif %}
+      {% endif %}
+
+      {% if block.settings.item_2_enabled %}
+        <li class="ai-menu-listing__item-{{ ai_gen_id }}">
+          <a href="{{ block.settings.item_2_link }}" class="ai-menu-listing__link-{{ ai_gen_id }}">
+            {{ block.settings.item_2_text }}
+          </a>
+        </li>
+        {% if block.settings.show_separator and block.settings.item_3_enabled %}
+          <li class="ai-menu-listing__separator-{{ ai_gen_id }}" aria-hidden="true">{{ block.settings.separator_text }}</li>
+        {% endif %}
+      {% endif %}
+
+      {% if block.settings.item_3_enabled %}
+        <li class="ai-menu-listing__item-{{ ai_gen_id }}">
+          <a href="{{ block.settings.item_3_link }}" class="ai-menu-listing__link-{{ ai_gen_id }}">
+            {{ block.settings.item_3_text }}
+          </a>
+        </li>
+        {% if block.settings.show_separator and block.settings.item_4_enabled %}
+          <li class="ai-menu-listing__separator-{{ ai_gen_id }}" aria-hidden="true">{{ block.settings.separator_text }}</li>
+        {% endif %}
+      {% endif %}
+
+      {% if block.settings.item_4_enabled %}
+        <li class="ai-menu-listing__item-{{ ai_gen_id }}">
+          <a href="{{ block.settings.item_4_link }}" class="ai-menu-listing__link-{{ ai_gen_id }}">
+            {{ block.settings.item_4_text }}
+          </a>
+        </li>
+        {% if block.settings.show_separator and block.settings.item_5_enabled %}
+          <li class="ai-menu-listing__separator-{{ ai_gen_id }}" aria-hidden="true">{{ block.settings.separator_text }}</li>
+        {% endif %}
+      {% endif %}
+
+      {% if block.settings.item_5_enabled %}
+        <li class="ai-menu-listing__item-{{ ai_gen_id }}">
+          <a href="{{ block.settings.item_5_link }}" class="ai-menu-listing__link-{{ ai_gen_id }}">
+            {{ block.settings.item_5_text }}
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</menu-listing-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class MenuListing{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.links = this.querySelectorAll('.ai-menu-listing__link-{{ ai_gen_id }}');
+        this.setupAccessibility();
+      }
+
+      setupAccessibility() {
+        this.links.forEach((link) => {
+          link.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              link.click();
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('menu-listing-{{ ai_gen_id }}', MenuListing{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Menu listing",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 500,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Desktop alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "mobile_alignment",
+      "label": "Mobile alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Desktop font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile font size",
+      "default": 14
+    },
+    {
+      "type": "checkbox",
+      "id": "uppercase",
+      "label": "Uppercase text",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Desktop spacing",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_item_spacing",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile spacing",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "hover_color",
+      "label": "Hover",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Separator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separator",
+      "label": "Show separator",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "separator_text",
+      "label": "Separator character",
+      "default": "/"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_underline",
+      "label": "Show underline on hover",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Clothing"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_1_enabled",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "item_1_text",
+      "label": "Text",
+      "default": "Clothing"
+    },
+    {
+      "type": "url",
+      "id": "item_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Sunglasses"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_2_enabled",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "item_2_text",
+      "label": "Text",
+      "default": "Sunglasses"
+    },
+    {
+      "type": "url",
+      "id": "item_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Beanies"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_3_enabled",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "item_3_text",
+      "label": "Text",
+      "default": "Beanies"
+    },
+    {
+      "type": "url",
+      "id": "item_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Trinkets"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_4_enabled",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "item_4_text",
+      "label": "Text",
+      "default": "Trinkets"
+    },
+    {
+      "type": "url",
+      "id": "item_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Extras"
+    },
+    {
+      "type": "checkbox",
+      "id": "item_5_enabled",
+      "label": "Show item",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "item_5_text",
+      "label": "Text",
+      "default": "Extras"
+    },
+    {
+      "type": "url",
+      "id": "item_5_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu listing"
+    }
+  ]
+}
+{% endschema %}

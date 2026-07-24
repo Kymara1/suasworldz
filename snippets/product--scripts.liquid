@@ -1,0 +1,33 @@
+{%- if load_model or load_youtube or product.has_only_default_variant == false -%}
+  <script>
+    {%- unless product.has_only_default_variant -%}
+      (() => {
+        const product_root = document.querySelector('[data-product-id="{{ id }}"]');
+        product_root.addEventListener('variantUpdated', event => {
+          const variant = event.detail;
+          // add your callback code here...
+        });
+      })();
+    {%- endunless -%}
+
+    {%- if load_model -%}
+      {%- assign product_models = product.media | where: 'media_type', 'model' -%}
+      {%- assign models_json = product_models | json -%}
+
+      window.ShopifyXR = window.ShopifyXR || function() {
+        (ShopifyXR.q = ShopifyXR.q || []).push(arguments)
+      }
+
+      ShopifyXR('addModels', {{ models_json }});
+    {%- endif -%}
+
+    {%- if load_youtube -%}
+      // YouTube callback
+      if (typeof onYouTubeIframeAPIReady != 'function') {
+        function onYouTubeIframeAPIReady() {
+          window.dispatchEvent(new Event('theme:utils:youtubeAPIReady'));
+        }
+      }
+    {%- endif -%}
+  </script>
+{%- endif -%}

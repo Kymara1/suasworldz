@@ -1,0 +1,184 @@
+{%- liquid
+  comment
+    Translations
+  endcomment
+
+  assign filter_feedback_t = 'general.search.filter_feedback' | t
+  assign search_again_t = 'general.search.search_again' | t
+  assign skip_link_t = 'general.a11y.skip_pagination' | t
+
+  comment
+    Variables
+  endcomment
+
+  assign number_of_rows = section.settings.number-of-rows
+  assign products_per_row_desktop = section.settings.products-per-row--desktop
+  assign products_per_row_mobile = section.settings.products-per-row--mobile
+  assign products_per_page = number_of_rows | times: products_per_row_desktop
+
+  assign result_type = 'article'
+  for item in search.results limit: 1
+    if item.object_type == 'product'
+      assign result_type = 'product'
+    endif
+  endfor
+-%}
+
+{% if result_type == 'product' or search.results.size == 0 %}
+  <div
+    class="search--root"
+    id="search-root"
+    data-js-class="Search"
+    data-section-id="{{ section.id }}"
+    data-body-root
+    data-view="template-product"
+    data-container="section"
+    data-max-columns="{{ products_per_row_desktop }}"
+  >
+    <div
+      class="search--spinner"
+      style="display:none;"
+      data-container="block"
+      data-body-spinner
+    >
+      <div class="search--spinner-wrapper" data-item="spinner">
+        {% render 'loading-spinner' %}
+      </div>
+    </div>
+
+    {% paginate search.results by products_per_page %}
+      {% if paginate.pages > 1 %}
+        <a data-item="a11y-button" href='#search-footer' data-body-pagination-link>
+          {{ skip_link_t }}
+        </a>
+      {% endif %}
+
+      <div
+        class="search--products"
+        data-body-grid
+        data-container="panel"
+        data-columns="{{ products_per_row_desktop }}"
+        data-mobile-columns="{{ products_per_row_mobile }}"
+      >
+        {% if search.results.size > 0 %}
+          {% for product in search.results %}
+            <div class="search--product">
+              {%
+                render 'product--item',
+                product: product,
+                unique_handle: 'filter',
+                section_id: section.id
+              %}
+            </div>
+          {% endfor %}
+
+        {% else %}
+          <div class="search--body--filter-feedback" data-container="block">
+            <p data-item="paragraph">
+              {{ filter_feedback_t }}
+            </p>
+          </div>
+
+        {% endif %}
+      </div>
+
+      <div class="search--footer" id="search-footer" data-container="block">
+        <div class="search--pagination" data-body-pagination>
+          {%- liquid
+            if paginate.pages > 1
+              render 'pagination', paginate: paginate, view: 'search'
+            endif
+          -%}
+        </div>
+
+        <div class="search--again-button" data-item="block-link">
+          <a href="{{ routes.search_url }}">
+            {{ search_again_t }}
+          </a>
+        </div>
+      </div>
+    {% endpaginate %}
+
+  </div>
+
+{% else %}
+  <div
+    class="search--root"
+    id="search-root"
+    data-js-class="Search"
+    data-section-id="{{ section.id }}"
+    data-container="section"
+    data-view="template-article"
+  >
+    {% paginate search.results by 20 %}
+      <div
+        class="search--articles"
+        data-container="panel"
+        data-columns="3"
+        data-mobile-columns="1"
+      >
+        {% for item in search.results %}
+          {%
+            render "article--item",
+            featured_article: item,
+            show_date: true,
+            show_excerpt: true,
+            type: 'full_article'
+          %}
+        {% endfor %}
+      </div>
+
+      <div class="search--footer" id="search-footer" data-container="block">
+        {%- liquid
+          if paginate.pages > 1
+            echo '<div class="search--pagination">'
+            render 'pagination', paginate: paginate, view: 'search'
+            echo '</div>'
+          endif
+        -%}
+
+        <div class="search--again-button" data-item="block-link">
+          <a href="{{ routes.search_url }}">
+            {{ search_again_t }}
+          </a>
+        </div>
+      </div>
+    {% endpaginate %}
+  </div>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Search grid",
+  "settings": [
+    {
+      "label": "Products per row (desktop)",
+      "id": "products-per-row--desktop",
+      "type": "range",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "label": "Product per row (mobile)",
+      "id": "products-per-row--mobile",
+      "type": "radio",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+    {
+      "label": "Maximum amount of rows per page",
+      "id": "number-of-rows",
+      "type": "range",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

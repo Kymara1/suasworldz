@@ -1,0 +1,672 @@
+{% doc %}
+  @prompt
+    I would like a menu for all my body products split into men and women catagories with sub menus listing as follows- for women - Body scrubs, Perfumes, Body Cremes, Body Oils, Cleansing bars, body wash. and for men Body creme, Cologne, Exfoliating body wash, cleansing bars, body oils, Make the menu Items into curved rectangles 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-body-products-menu-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding }}px 0;
+  }
+
+  .ai-body-products-menu__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-body-products-menu__nav-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    gap: {{ block.settings.category_spacing }}px;
+    flex-wrap: wrap;
+  }
+
+  .ai-body-products-menu__category-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-body-products-menu__category-button-{{ ai_gen_id }} {
+    background: {{ block.settings.button_background }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    padding: {{ block.settings.button_padding }}px {{ block.settings.button_padding | times: 2 }}px;
+    font-family: {{ block.settings.menu_font.family }}, {{ block.settings.menu_font.fallback_families }};
+    font-weight: {{ block.settings.menu_font.weight }};
+    font-size: {{ block.settings.font_size }}px;
+    color: {{ block.settings.text_color }};
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-transform: {{ block.settings.text_transform }};
+  }
+
+  .ai-body-products-menu__category-button-{{ ai_gen_id }}:hover {
+    background: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.hover_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+
+  .ai-body-products-menu__arrow-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-body-products-menu__category-{{ ai_gen_id }}.active .ai-body-products-menu__arrow-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-body-products-menu__submenu-{{ ai_gen_id }} {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: {{ block.settings.submenu_background }};
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: {{ block.settings.submenu_border_radius }}px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    z-index: 100;
+    margin-top: 8px;
+  }
+
+  .ai-body-products-menu__category-{{ ai_gen_id }}.active .ai-body-products-menu__submenu-{{ ai_gen_id }} {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .ai-body-products-menu__submenu-list-{{ ai_gen_id }} {
+    list-style: none;
+    margin: 0;
+    padding: {{ block.settings.submenu_padding }}px 0;
+  }
+
+  .ai-body-products-menu__submenu-item-{{ ai_gen_id }} {
+    margin: 0;
+  }
+
+  .ai-body-products-menu__submenu-link-{{ ai_gen_id }} {
+    display: block;
+    padding: {{ block.settings.submenu_item_padding }}px {{ block.settings.submenu_padding }}px;
+    font-family: {{ block.settings.menu_font.family }}, {{ block.settings.menu_font.fallback_families }};
+    font-weight: {{ block.settings.menu_font.weight }};
+    font-size: {{ block.settings.submenu_font_size }}px;
+    color: {{ block.settings.submenu_text_color }};
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .ai-body-products-menu__submenu-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.submenu_hover_background }};
+    color: {{ block.settings.submenu_hover_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-body-products-menu__nav-{{ ai_gen_id }} {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .ai-body-products-menu__category-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-body-products-menu__category-button-{{ ai_gen_id }} {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .ai-body-products-menu__submenu-{{ ai_gen_id }} {
+      position: static;
+      box-shadow: none;
+      border-radius: 0;
+      margin-top: 0;
+      border-left: 2px solid {{ block.settings.hover_color }};
+      margin-left: 20px;
+    }
+  }
+{% endstyle %}
+
+<body-products-menu-{{ ai_gen_id }}
+  class="ai-body-products-menu-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-body-products-menu__container-{{ ai_gen_id }}">
+    <nav class="ai-body-products-menu__nav-{{ ai_gen_id }}">
+      <div class="ai-body-products-menu__category-{{ ai_gen_id }}" data-category="women">
+        <button
+          class="ai-body-products-menu__category-button-{{ ai_gen_id }}"
+          aria-expanded="false"
+          aria-controls="women-submenu-{{ ai_gen_id }}"
+        >
+          {{ block.settings.women_label }}
+          <svg
+            class="ai-body-products-menu__arrow-{{ ai_gen_id }}"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 4L6 8L10 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <div
+          class="ai-body-products-menu__submenu-{{ ai_gen_id }}"
+          id="women-submenu-{{ ai_gen_id }}"
+        >
+          <ul class="ai-body-products-menu__submenu-list-{{ ai_gen_id }}">
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.women_body_scrubs_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Body scrubs
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.women_perfumes_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Perfumes
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.women_body_cremes_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Body Cremes
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.women_body_oils_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Body Oils
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.women_cleansing_bars_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Cleansing bars
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.women_body_wash_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Body wash
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ai-body-products-menu__category-{{ ai_gen_id }}" data-category="men">
+        <button
+          class="ai-body-products-menu__category-button-{{ ai_gen_id }}"
+          aria-expanded="false"
+          aria-controls="men-submenu-{{ ai_gen_id }}"
+        >
+          {{ block.settings.men_label }}
+          <svg
+            class="ai-body-products-menu__arrow-{{ ai_gen_id }}"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 4L6 8L10 4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <div
+          class="ai-body-products-menu__submenu-{{ ai_gen_id }}"
+          id="men-submenu-{{ ai_gen_id }}"
+        >
+          <ul class="ai-body-products-menu__submenu-list-{{ ai_gen_id }}">
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.men_body_creme_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Body creme
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.men_cologne_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Cologne
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.men_exfoliating_wash_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Exfoliating body wash
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.men_cleansing_bars_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Cleansing bars
+              </a>
+            </li>
+            <li class="ai-body-products-menu__submenu-item-{{ ai_gen_id }}">
+              <a
+                href="{{ block.settings.men_body_oils_link }}"
+                class="ai-body-products-menu__submenu-link-{{ ai_gen_id }}"
+              >
+                Body oils
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</body-products-menu-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BodyProductsMenu{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.categories = this.querySelectorAll('.ai-body-products-menu__category-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.categories.forEach((category) => {
+          const button = category.querySelector('.ai-body-products-menu__category-button-{{ ai_gen_id }}');
+          
+          button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isActive = category.classList.contains('active');
+            
+            this.categories.forEach((cat) => {
+              cat.classList.remove('active');
+              const btn = cat.querySelector('.ai-body-products-menu__category-button-{{ ai_gen_id }}');
+              btn.setAttribute('aria-expanded', 'false');
+            });
+            
+            if (!isActive) {
+              category.classList.add('active');
+              button.setAttribute('aria-expanded', 'true');
+            }
+          });
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.ai-body-products-menu__category-{{ ai_gen_id }}')) {
+            this.categories.forEach((category) => {
+              category.classList.remove('active');
+              const button = category.querySelector('.ai-body-products-menu__category-button-{{ ai_gen_id }}');
+              button.setAttribute('aria-expanded', 'false');
+            });
+          }
+        });
+      }
+    }
+
+    customElements.define('body-products-menu-{{ ai_gen_id }}', BodyProductsMenu{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Body products menu",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 100,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Menu alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "category_spacing",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Space between categories",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Category labels"
+    },
+    {
+      "type": "text",
+      "id": "women_label",
+      "label": "Women category label",
+      "default": "Women"
+    },
+    {
+      "type": "text",
+      "id": "men_label",
+      "label": "Men category label",
+      "default": "Men"
+    },
+    {
+      "type": "header",
+      "content": "Women's product links"
+    },
+    {
+      "type": "url",
+      "id": "women_body_scrubs_link",
+      "label": "Body scrubs link"
+    },
+    {
+      "type": "url",
+      "id": "women_perfumes_link",
+      "label": "Perfumes link"
+    },
+    {
+      "type": "url",
+      "id": "women_body_cremes_link",
+      "label": "Body Cremes link"
+    },
+    {
+      "type": "url",
+      "id": "women_body_oils_link",
+      "label": "Body Oils link"
+    },
+    {
+      "type": "url",
+      "id": "women_cleansing_bars_link",
+      "label": "Cleansing bars link"
+    },
+    {
+      "type": "url",
+      "id": "women_body_wash_link",
+      "label": "Body wash link"
+    },
+    {
+      "type": "header",
+      "content": "Men's product links"
+    },
+    {
+      "type": "url",
+      "id": "men_body_creme_link",
+      "label": "Body creme link"
+    },
+    {
+      "type": "url",
+      "id": "men_cologne_link",
+      "label": "Cologne link"
+    },
+    {
+      "type": "url",
+      "id": "men_exfoliating_wash_link",
+      "label": "Exfoliating body wash link"
+    },
+    {
+      "type": "url",
+      "id": "men_cleansing_bars_link",
+      "label": "Cleansing bars link"
+    },
+    {
+      "type": "url",
+      "id": "men_body_oils_link",
+      "label": "Body oils link"
+    },
+    {
+      "type": "header",
+      "content": "Main menu style"
+    },
+    {
+      "type": "font_picker",
+      "id": "menu_font",
+      "label": "Font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button padding",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Button hover border",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "hover_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Submenu style"
+    },
+    {
+      "type": "range",
+      "id": "submenu_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "submenu_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "submenu_padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "submenu_item_padding",
+      "min": 6,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Item padding",
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "submenu_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "submenu_text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "submenu_hover_background",
+      "label": "Hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "submenu_hover_color",
+      "label": "Hover text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Body products menu"
+    }
+  ]
+}
+{% endschema %}

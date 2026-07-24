@@ -1,0 +1,84 @@
+{% comment %}
+    Here's an example of a customization
+    You can paste this at the bottom of the page to see how it works
+
+    /* Author - Date - Customization */
+    /* E.g. Troop Themes - 12th November .... - Changed paragraph colors */
+    @media only screen and (max-width: 767px) { /* mobile */
+      body {
+        color: blue;
+      }
+    }
+
+    @media only screen and (min-width: 768px) { /* desktop */
+      body {
+        color: green;
+      }
+    }
+    @media only screen and (max-width: 767px) {
+    .header--container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header--logo img {
+      width: 140px !important;
+    }
+
+    .header--right-side {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-top: 10px;
+    }
+
+    .cart-link {
+      margin-left: auto;
+    }
+  }
+
+    /* Add your theme customizations below */
+{% endcomment %}
+
+<style>
+  /* New CSS for horizontal header menu */
+  .header--right-side {
+    display: flex;
+    justify-content: space-between; /* Space out menu items */
+    align-items: center;
+  }
+
+  .header--right-side .x-menu {
+    display: flex; /* Align menu items horizontally */
+    flex-direction: row; /* Make menu items go across the top */
+    list-style-type: none; /* Remove default list styling */
+  }
+
+  .header--right-side .x-menu li {
+    margin: 0 15px; /* Space between menu items */
+  }
+
+  .header--right-side .x-menu li a {
+    text-decoration: none; /* Remove underline from links */
+    font-size: 16px; /* Adjust font size */
+    color: #333; /* Text color */
+    font-weight: 500; /* Font weight */
+    padding: 10px 15px; /* Padding for clickable area */
+  }
+
+  .header--right-side .x-menu li a:hover {
+    background-color: #f0f0f0; /* Add hover effect */
+  }
+
+  /* Adjust for mobile view if needed */
+  @media only screen and (max-width: 767px) {
+    .header--right-side .x-menu {
+      flex-direction: column; /* Stack items vertically on mobile */
+      align-items: flex-start; /* Align left */
+    }
+
+    .header--right-side .x-menu li {
+      margin-bottom: 10px; /* Space out items on mobile */
+    }
+  }
+</style>

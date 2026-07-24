@@ -1,0 +1,73 @@
+{%- liquid
+  comment
+    Translations
+  endcomment
+
+  assign success_t = 'general.mailing_list.success_message' | t
+  assign placeholder_t = 'general.mailing_list.placeholder' | t
+  assign button_t = 'general.mailing_list.button' | t
+  assign shopify_disclaimer_t = 'shopify.online_store.spam_detection.disclaimer_html' | t
+
+  unless source
+    assign source = mailing-list
+  endunless
+-%}
+
+<div class="mailing-list" id="newsletter">
+
+  {% form 'customer', id: 'newsletter_contact_form' %}
+    {% if form.posted_successfully? and source != 'popup' %}
+      <p class="success feedback">
+        {{ success_t }}
+      </p>
+    {% endif %}
+
+    {% if form.errors and source != 'popup' %}
+      <p class="error feedback">
+      {% for field in form.errors %}
+        {{ field }} {{ form.errors.messages[field] }}
+      {% endfor %}
+      </p>
+    {% endif %}
+
+    <input
+      type="hidden"
+      name="contact[tags]"
+      value="{{ source }}"
+    />
+    <input
+      type="hidden"
+      name="contact[first_name]"
+      value="Subscriber"
+    />
+    <input
+      type="hidden"
+      name="contact[last_name]"
+      value="Newsletter"
+    />
+    <label for="mailing-list-email" data-item="hidden-text">
+      {{ placeholder_t }}
+    </label>
+    <input
+      type="email"
+      id="mailing-list-email"
+      placeholder="{{ placeholder_t }}"
+      name="contact[email]"
+      required
+    />
+    <div class="mailing-list--submit" data-item='button'>
+      <button type="submit" value="{{ button_t }}">
+        {{ button_t }}
+      </button>
+    </div>
+
+    {% if form.posted_successfully? or form.errors %}
+      <script>window.location.hash = '#newsletter';</script>
+    {% endif %}
+
+    <div data-item="hidden-text">
+      {% comment %} remove the below line to display reCAPTCHA badge {% endcomment %}
+      {{ shopify_disclaimer_t }}
+    </div>
+  {% endform %}
+</div>

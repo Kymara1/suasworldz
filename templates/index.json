@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "suas_world_home": {
+      "type": "suas-world-home",
+      "settings": {
+        "hero_pill": "shut up and smell",
+        "hero_heading": "suas world",
+        "hero_copy": "Fragrance, self care, home scent, and little experiments handmade in Gastonia, NC.",
+        "primary_label": "shop smells",
+        "primary_link": "/collections/all",
+        "secondary_label": "visit the lab",
+        "secondary_link": "/pages/shut-up-and-smell",
+        "third_label": "body care",
+        "third_link": "/collections/body-care",
+        "lab_label": "plan your visit",
+        "lab_link": "/pages/shut-up-and-smell",
+        "visit_text": "167 W Main Ave Suite 180, Gastonia NC 28052",
+        "visit_label": "store info",
+        "visit_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "suas_world_home"
+  ]
+}

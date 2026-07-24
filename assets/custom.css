@@ -1,0 +1,74 @@
+/* 4 bubbles per row on mobile — minimal + safe */
+@media (max-width:749px){
+  .featured-grid--body--container{
+    display:grid !important;
+    grid-template-columns:repeat(4,1fr) !important;
+    gap:10px !important;
+  }
+  .featured-grid--item{
+    width:auto !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    flex:0 0 auto !important;
+  }
+  .featured-grid--item--image{
+    width:100% !important;
+    aspect-ratio:1/1 !important;
+    border-radius:50% !important;
+    overflow:hidden !important;
+  }
+  .featured-grid--item--image img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    display:block !important;
+  }
+}
+
+/* Mobile: put "New Arrivals" + "Best Sellers" side-by-side for AI nav section */
+@media (max-width:749px){
+  /* target any AI-generated nav section */
+  section[id^="shopify-section-"][id*="ai_gen_block"] ul[class^="ai-navigation-menu__list"]{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:24px !important;
+    padding:0 !important;
+    margin:0 auto !important;
+    list-style:none !important;
+  }
+
+  section[id^="shopify-section-"][id*="ai_gen_block"] ul[class^="ai-navigation-menu__list"] li{
+    display:inline-flex !important;
+    width:auto !important;
+    margin:0 !important;
+  }
+
+  /* prevent full-width anchors that force stacking */
+  section[id^="shopify-section-"][id*="ai_gen_block"] ul[class^="ai-navigation-menu__list"] a{
+    display:inline-block !important;
+    width:auto !important;
+    padding:8px 0 !important;
+  }
+
+  /* kill stray <br> that might be inserted */
+  section[id^="shopify-section-"][id*="ai_gen_block"] br{ display:none !important; }
+}
+
+.header--root .header__heading,
+.site-header .header__heading {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 !important;
+}
+
+.header--root,
+.site-header {
+  justify-content: flex-start !important;
+  align-items: center !important;
+}

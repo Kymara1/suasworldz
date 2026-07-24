@@ -1,0 +1,353 @@
+{% doc %}
+  @prompt
+    Create menu items for my products I want them listed in black curved rectangles with white text listed as follows. Clothing, Sunglasses, Beanies, Trinkets, Extras
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-menu-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-product-menu__container-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: {{ block.settings.gap }}px;
+    justify-content: {{ block.settings.alignment }};
+    padding: {{ block.settings.padding }}px 0;
+  }
+
+  .ai-product-menu__item-{{ ai_gen_id }} {
+    background-color: {{ block.settings.item_bg_color }};
+    color: {{ block.settings.item_text_color }};
+    padding: {{ block.settings.item_padding_vertical }}px {{ block.settings.item_padding_horizontal }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    text-decoration: none;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    min-width: {{ block.settings.min_width }}px;
+  }
+
+  .ai-product-menu__item-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.item_hover_bg_color }};
+    color: {{ block.settings.item_hover_text_color }};
+    transform: translateY(-2px);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-menu__container-{{ ai_gen_id }} {
+      justify-content: {{ block.settings.mobile_alignment }};
+    }
+
+    .ai-product-menu__item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+      padding: {{ block.settings.item_padding_vertical | times: 0.9 }}px {{ block.settings.item_padding_horizontal | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<product-menu-{{ ai_gen_id }} class="ai-product-menu-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <nav class="ai-product-menu__container-{{ ai_gen_id }}">
+    {% if block.settings.item_1_text != blank %}
+      <a href="{{ block.settings.item_1_link }}" class="ai-product-menu__item-{{ ai_gen_id }}">
+        {{ block.settings.item_1_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.item_2_text != blank %}
+      <a href="{{ block.settings.item_2_link }}" class="ai-product-menu__item-{{ ai_gen_id }}">
+        {{ block.settings.item_2_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.item_3_text != blank %}
+      <a href="{{ block.settings.item_3_link }}" class="ai-product-menu__item-{{ ai_gen_id }}">
+        {{ block.settings.item_3_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.item_4_text != blank %}
+      <a href="{{ block.settings.item_4_link }}" class="ai-product-menu__item-{{ ai_gen_id }}">
+        {{ block.settings.item_4_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.item_5_text != blank %}
+      <a href="{{ block.settings.item_5_link }}" class="ai-product-menu__item-{{ ai_gen_id }}">
+        {{ block.settings.item_5_text }}
+      </a>
+    {% endif %}
+  </nav>
+</product-menu-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductMenu{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupAccessibility();
+      }
+
+      setupAccessibility() {
+        const links = this.querySelectorAll('.ai-product-menu__item-{{ ai_gen_id }}');
+        links.forEach(link => {
+          if (!link.getAttribute('aria-label')) {
+            link.setAttribute('aria-label', link.textContent.trim());
+          }
+        });
+      }
+    }
+
+    customElements.define('product-menu-{{ ai_gen_id }}', ProductMenu{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product menu",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Menu items"
+    },
+    {
+      "type": "text",
+      "id": "item_1_text",
+      "label": "Item 1 text",
+      "default": "Clothing"
+    },
+    {
+      "type": "url",
+      "id": "item_1_link",
+      "label": "Item 1 link"
+    },
+    {
+      "type": "text",
+      "id": "item_2_text",
+      "label": "Item 2 text",
+      "default": "Sunglasses"
+    },
+    {
+      "type": "url",
+      "id": "item_2_link",
+      "label": "Item 2 link"
+    },
+    {
+      "type": "text",
+      "id": "item_3_text",
+      "label": "Item 3 text",
+      "default": "Beanies"
+    },
+    {
+      "type": "url",
+      "id": "item_3_link",
+      "label": "Item 3 link"
+    },
+    {
+      "type": "text",
+      "id": "item_4_text",
+      "label": "Item 4 text",
+      "default": "Trinkets"
+    },
+    {
+      "type": "url",
+      "id": "item_4_link",
+      "label": "Item 4 link"
+    },
+    {
+      "type": "text",
+      "id": "item_5_text",
+      "label": "Item 5 text",
+      "default": "Extras"
+    },
+    {
+      "type": "url",
+      "id": "item_5_link",
+      "label": "Item 5 link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Desktop alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        },
+        {
+          "value": "space-between",
+          "label": "Space between"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "mobile_alignment",
+      "label": "Mobile alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between items",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Top and bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Item style"
+    },
+    {
+      "type": "color",
+      "id": "item_bg_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "item_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "item_hover_bg_color",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "item_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "item_padding_vertical",
+      "label": "Vertical padding",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "item_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "min_width",
+      "label": "Minimum width",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "500"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product menu"
+    }
+  ]
+}
+{% endschema %}

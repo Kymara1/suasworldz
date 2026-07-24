@@ -1,0 +1,192 @@
+{%- liquid
+  assign bg_color = section.settings.background-color
+  assign collection_title_t = 'sections.onboarding.collection_title' | t
+
+  assign heading = section.settings.heading | escape
+  assign spacing_above = section.settings.spacing-above
+  assign spacing_below = section.settings.spacing-below
+-%}
+
+{% comment %} View {% endcomment %}
+<div
+  class="featured-collections--root"
+  data-js-class="CoreFeaturedCollections"
+  data-section-id="{{ section.id }}"
+  data-background-color="{{ bg_color }}"
+  data-mobile-width="{{ section.settings.mobile-width }}"
+  data-spacing-above="{{ spacing_above }}"
+  data-spacing-below="{{ spacing_below }}"
+>
+  <div class="featured-collections--wrapper" data-container="section">
+    {% if heading != blank %}
+      <div data-container="block">
+        <h2 class="featured-collections--heading" data-item="section-heading">
+          {{ heading }}
+        </h2>
+      </div>
+    {% endif %}
+
+    <div
+      class="featured-collections--body"
+      data-container="panel"
+      data-columns="{{ section.settings.width }}"
+      data-mobile-columns="{{ section.settings.mobile-width }}"
+    >
+      {% for block in section.blocks %}
+        {%- liquid
+          assign collection = collections[block.settings.collection]
+
+          if collection == blank
+            assign title = collection_title_t
+
+            capture image
+              render "placeholder", type: "collection", aspect_ratio: 1, placeholder_index: forloop.index
+            endcapture
+
+          else
+            assign title = collection.title
+
+            if collection.image
+              capture image
+                render "image", image: collection.image, full_width: true
+              endcapture
+
+            elsif collection.products.first.featured_media.preview_image
+              capture image
+                render "image", image: collection.products.first.featured_media.preview_image, full_width: true
+              endcapture
+
+            else
+              capture image
+                render "placeholder", type: "collection", aspect_ratio: 1, placeholder_index: forloop.index
+              endcapture
+
+            endif
+
+          endif
+        -%}
+
+        {% comment %} View {% endcomment %}
+        {% if collection != blank %}
+          <a href="{{ collection.url }}">
+        {% endif %}
+
+        <div
+          class="featured-collections--item"
+          {{ block.shopify_attributes }}
+          data-container="block"
+        >
+          <div class="featured-collections--image" data-item="image">
+            {{ image }}
+            
+          </div>
+          <h3 class="featured-collections--title" data-item="block-heading">
+            {{
+      
+            }}
+
+
+          </h3>
+        </div>
+
+        {% if collection.url %}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Collection list",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout and color"
+      },
+      {
+        "id": "background-color",
+        "label": "Background color",
+        "type": "select",
+        "options": [
+          { "label": "None", "value": "none" },
+          { "label": "Light", "value": "light" },
+          { "label": "Dark", "value": "dark" },
+          { "label": "Accent", "value": "accent" }
+        ],
+        "default": "none"
+      },
+      {
+        "id": "spacing-above",
+        "label": "Spacing above",
+        "type": "checkbox",
+        "default": true
+      },
+      {
+        "id": "spacing-below",
+        "label": "Spacing below",
+        "type": "checkbox",
+        "default": true
+      },
+      {
+        "id": "width",
+        "label": "Blocks per row",
+        "type": "range",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "id": "mobile-width",
+        "label": "Blocks per row for small devices",
+        "type": "radio",
+        "options": [
+          { "value": "1", "label": "1" },
+          { "value": "2", "label": "2" }
+        ],
+        "default": "2"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Collection list"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection list",
+        "blocks": [
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+}
+{% endschema %}
