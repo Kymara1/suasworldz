@@ -72,3 +72,49 @@
   justify-content: flex-start !important;
   align-items: center !important;
 }
+
+@font-face {
+  font-family: 'Casual Human';
+  src: url('CasualHuman.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Casual Human';
+  src: url('CasualHuman-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+header,
+header *,
+nav,
+nav *,
+.header--root,
+.header--root *,
+.header--root a,
+.header--root button,
+.header--root summary,
+.header--root [data-item],
+.site-header,
+.site-header *,
+.suas-cute-menu,
+.suas-cute-menu *,
+.buddha-menu,
+.buddha-menu *,
+.buddha-megamenu,
+.buddha-megamenu *,
+[class*='buddha'],
+[class*='buddha'] *,
+[id*='buddha'],
+[id*='buddha'] *,
+[class*='mega-menu'],
+[class*='mega-menu'] *,
+[class*='fontify'],
+[class*='fontify'] *,
+[data-item='nav-text'],
+[data-item='nav-text'] * {
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
