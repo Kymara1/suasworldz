@@ -35,38 +35,6 @@
     },
     "blocks_M4mTfG": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_41ae62a_fYMABm": {
-          "type": "ai_gen_block_41ae62a",
-          "settings": {
-            "button_text": "BACK TO SHOP",
-            "back_url": "shopify://pages/shut-up-and-shop",
-            "show_icon": true,
-            "icon_size": 32,
-            "icon_spacing": 4,
-            "button_font": "acme_n4",
-            "font_size": 24,
-            "button_bg_color": "#161616",
-            "button_text_color": "#ffffff",
-            "button_hover_bg_color": "#000000",
-            "button_hover_text_color": "#ffffff",
-            "border_width": 0,
-            "border_color": "#161616",
-            "border_hover_color": "#000000",
-            "border_radius": 4,
-            "button_padding_vertical": 12,
-            "button_padding_horizontal": 24,
-            "alignment": "flex-start",
-            "mobile_alignment": "flex-start",
-            "padding_top": 20,
-            "padding_bottom": 20
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_41ae62a_fYMABm"
-      ],
       "name": "Back button",
       "settings": {}
     },
