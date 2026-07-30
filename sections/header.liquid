@@ -133,15 +133,6 @@
   </div>
 
   {% render 'custom-styles' %}
-  <style>
-/* ✴️ Option B styles */
-.off-canvas--container[data-view="menu"]{
-  left:0!important;width:86vw!important;max-width:520px;
-  background:#111!important;color:#fff;
-}
-...
-</style>
-
 <style>
 @font-face {
   font-family: 'Casual Human';
@@ -226,7 +217,7 @@
   transform: translateY(-2px) rotate(45deg);
 }
 
-.suas-menu-item:last-child > a:after,
+.suas-menu-leaf > a:after,
 .suas-menu-nested > a:after {
   display: none;
 }
