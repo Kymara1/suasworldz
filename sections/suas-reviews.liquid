@@ -29,10 +29,10 @@
 
     .suas-reviews-wrap {
       position: relative;
-      width: min(1230px, calc(100vw - 22px));
-      min-height: 690px;
+      width: min(1120px, calc(100vw - 22px));
+      min-height: 610px;
       margin: 0 auto;
-      padding: clamp(48px, 6vw, 74px) 0 clamp(46px, 6vw, 84px);
+      padding: clamp(34px, 5vw, 52px) 0 clamp(42px, 6vw, 72px);
     }
 
     .suas-reviews-head {
@@ -45,19 +45,19 @@
     .suas-reviews-head p {
       margin: 0 0 8px;
       font-family: 'Casual Human', Futura, Arial, sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.2rem, 2vw, 2rem);
+      font-weight: 400 !important;
+      font-size: clamp(1.05rem, 1.65vw, 1.55rem);
       color: #eceb60;
-      transform: rotate(-8deg);
+      transform: rotate(-8deg) translateY(7px);
       text-transform: uppercase;
     }
 
     .suas-reviews-head h2 {
       margin: 0;
       font-family: 'Casual Human', Futura, Arial, sans-serif;
-      font-size: clamp(3.2rem, 7vw, 6.9rem);
-      font-weight: 700;
-      line-height: 0.88;
+      font-size: clamp(2.6rem, 5.15vw, 5.15rem);
+      font-weight: 400 !important;
+      line-height: 0.92;
       letter-spacing: 0;
       text-transform: uppercase;
     }
@@ -71,8 +71,8 @@
 
     .suas-review-scene {
       position: relative;
-      min-height: 470px;
-      margin-top: 26px;
+      min-height: 405px;
+      margin-top: 18px;
     }
 
     .suas-review-bubble {
@@ -85,8 +85,9 @@
       place-items: center;
       border: 3px solid var(--ink);
       border-radius: 999px;
-      background: var(--bubble-bg, var(--pink));
-      color: var(--ink);
+      background: var(--bubble-bg, var(--pink)) !important;
+      background-image: none !important;
+      color: var(--ink) !important;
       box-shadow: 6px 7px 0 rgba(16, 16, 16, 0.92);
       text-align: center;
       padding: 18px;
@@ -98,7 +99,8 @@
 
     .suas-review-bubble:hover,
     .suas-review-bubble.is-active {
-      background: #ff85ad;
+      background: var(--active-bg, var(--bubble-bg, #ff85ad)) !important;
+      background-image: none !important;
       transform: translateY(-10px) scale(1.035) rotate(var(--tilt, -2deg));
       box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.92);
       z-index: 4;
@@ -116,7 +118,7 @@
     .suas-review-bubble span {
       display: block;
       font-family: 'Casual Human', Futura, Arial, sans-serif;
-      font-weight: 700;
+      font-weight: 400 !important;
       font-size: clamp(1.05rem, 1.85vw, 1.75rem);
       line-height: 0.9;
       text-transform: uppercase;
@@ -141,7 +143,7 @@
     .suas-review-note {
       position: absolute;
       left: 50%;
-      bottom: 18px;
+      bottom: 8px;
       z-index: 5;
       width: min(330px, 86vw);
       min-height: 54px;
@@ -151,7 +153,7 @@
       border: 0;
       border-radius: 999px;
       background: var(--ink);
-      color: #fff;
+      color: #fff !important;
       padding: 13px 26px;
       box-shadow: 0 8px 18px rgba(16, 16, 16, 0.18);
     }
@@ -159,7 +161,7 @@
     .suas-review-note p {
       margin: 0;
       font-family: 'Casual Human', Futura, Arial, sans-serif;
-      font-weight: 700;
+      font-weight: 400 !important;
       font-size: clamp(1.1rem, 1.8vw, 1.55rem);
       line-height: 1;
       text-transform: uppercase;
@@ -220,22 +222,22 @@
     </div>
 
     <div class="suas-review-scene">
-      <button class="suas-review-bubble is-active" type="button" style="--size: 126px; --left: 0%; --top: 44px; --mobile-size: 112px; --mobile-left: 1%; --mobile-top: 28px; --bubble-bg: #ff6e9f; --speed: 4.4s; --tilt: -4deg;" data-review="read review +" data-name="Jamie">
+      <button class="suas-review-bubble is-active" type="button" style="--size: 126px; --left: 0%; --top: 26px; --mobile-size: 112px; --mobile-left: 1%; --mobile-top: 28px; --bubble-bg: #ff6e9f; --active-bg: #ff6e9f; --speed: 4.4s; --tilt: -4deg;" data-review="read review +" data-name="Jamie">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jamie</span><em>poppy</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 188px; --left: 11%; --top: 128px; --mobile-size: 172px; --mobile-left: 13%; --mobile-top: 116px; --bubble-bg: #ffc3d7; --speed: 5.1s; --tilt: 2deg;" data-review="body oil lasts all day +" data-name="Jalen">
+      <button class="suas-review-bubble" type="button" style="--size: 188px; --left: 11%; --top: 108px; --mobile-size: 172px; --mobile-left: 13%; --mobile-top: 116px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 5.1s; --tilt: 2deg;" data-review="body oil lasts all day +" data-name="Jalen">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jalen</span>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 222px; --left: 26%; --top: 198px; --mobile-size: 198px; --mobile-left: 30%; --mobile-top: 214px; --bubble-bg: #ffc3d7; --speed: 5.8s; --tilt: -1deg;" data-review="the lab was a whole memory +" data-name="Staci">
+      <button class="suas-review-bubble" type="button" style="--size: 210px; --left: 24%; --top: 168px; --mobile-size: 198px; --mobile-left: 30%; --mobile-top: 214px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 5.8s; --tilt: -1deg;" data-review="the lab was a whole memory +" data-name="Staci">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>staci</span>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 244px; --left: 42%; --top: 250px; --mobile-size: 214px; --mobile-left: 9%; --mobile-top: 304px; --bubble-bg: #ffc3d7; --speed: 5.4s; --tilt: 3deg;" data-review="nobody else smells like me +" data-name="Jess">
+      <button class="suas-review-bubble" type="button" style="--size: 232px; --left: 37%; --top: 214px; --mobile-size: 214px; --mobile-left: 9%; --mobile-top: 304px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 5.4s; --tilt: 3deg;" data-review="nobody else smells like me +" data-name="Jess">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jess</span>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 142px; --left: 55%; --top: 247px; --mobile-size: 134px; --mobile-left: 56%; --mobile-top: 328px; --bubble-bg: #ffc3d7; --speed: 4.8s; --tilt: -2deg;" data-review="cute store cute everything +" data-name="Katrina">
+      <button class="suas-review-bubble" type="button" style="--size: 142px; --left: 51%; --top: 242px; --mobile-size: 134px; --mobile-left: 56%; --mobile-top: 328px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 4.8s; --tilt: -2deg;" data-review="cute store cute everything +" data-name="Katrina">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>katrina</span>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 176px; --left: 72%; --top: 210px; --mobile-size: 154px; --mobile-left: 55%; --mobile-top: 148px; --bubble-bg: #ffc3d7; --speed: 5.2s; --tilt: 2deg;" data-review="my new self-care stop +" data-name="Sherry">
+      <button class="suas-review-bubble" type="button" style="--size: 176px; --left: 66%; --top: 202px; --mobile-size: 154px; --mobile-left: 55%; --mobile-top: 148px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 5.2s; --tilt: 2deg;" data-review="my new self-care stop +" data-name="Sherry">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>sherry</span>
       </button>
 
