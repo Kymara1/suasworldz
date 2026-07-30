@@ -118,10 +118,10 @@
         "custom_css": [],
         "settings": {
           "enabled": false,
-          "home-page-only": true,
+          "home-page-only": false,
           "background-color": "none",
           "light-text": false,
-          "text": "ALL ORDERS ARE PROCESSED WITHIN 3-5 BUSINESS DAYS",
+          "text": "",
           "link": ""
         }
       },
