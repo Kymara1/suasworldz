@@ -79,7 +79,6 @@
           ".modal--mask {background: transparent !important;}"
         ],
         "settings": {
-          "logo": "shopify://shop_images/Untitled_design_43.png",
           "logo-height-range": 80,
           "menu": "main"
         }
