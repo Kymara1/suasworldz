@@ -1,107 +1,738 @@
+{%- liquid
+  assign customer_first = customer.first_name | default: customer.name | default: 'babe'
+  assign suas_points = customer.metafields.suas.total_points.value
+  if suas_points == blank
+    assign suas_points = customer.metafields.custom.total_points.value
+  endif
+  if suas_points == blank
+    assign suas_points = customer.metafields.loyalty.points.value
+  endif
+  assign suas_points = suas_points | default: 0 | plus: 0
+
+  assign reward_goal = 1000
+  assign points_left = reward_goal | minus: suas_points
+  if points_left < 0
+    assign points_left = 0
+  endif
+  assign progress = suas_points | times: 100 | divided_by: reward_goal
+  if progress > 100
+    assign progress = 100
+  endif
+
+  assign saved_blends = customer.metafields.suas.saved_blends_count.value
+  if saved_blends == blank
+    assign saved_blends = customer.metafields.custom.saved_blends_count.value
+  endif
+  assign saved_blends = saved_blends | default: 0 | plus: 0
+
+  assign lab_visits = customer.metafields.suas.lab_visits.value
+  if lab_visits == blank
+    assign lab_visits = customer.metafields.custom.lab_visits.value
+  endif
+  assign lab_visits = lab_visits | default: 0 | plus: 0
+
+  assign favorite_notes = customer.metafields.suas.favorite_notes.value
+  if favorite_notes == blank
+    assign favorite_notes = customer.metafields.custom.favorite_notes.value
+  endif
+-%}
+
 {% paginate customer.orders by 20 %}
+  <style>
+    @font-face {
+      font-family: "Casual Human";
+      src: url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
 
-  <div
-    class="customer--root"
-    data-section-id="{{ section.id }}"
-  >
-    <div class="customer--wrapper">
-      <h1 data-item="section-heading">
-        {{ 'customer.account.page_title' | t }}
-      </h1>
-      <div class="account--breadcrumb-container">
-        {% render 'breadcrumbs' %}
+    @font-face {
+      font-family: "Casual Human";
+      src: url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    .suas-account {
+      --suas-ink: #0d0d0d;
+      --suas-muted: rgba(13, 13, 13, 0.56);
+      --suas-line: rgba(13, 13, 13, 0.12);
+      --suas-cream: #fffaf4;
+      --suas-blush: #ffd7e8;
+      --suas-yellow: #fff3a4;
+      --suas-blue: #cdefff;
+      --suas-green: #dbff9e;
+      background: radial-gradient(circle at 18% 10%, rgba(255, 215, 232, 0.42), transparent 28%), radial-gradient(circle at 86% 6%, rgba(219, 255, 158, 0.28), transparent 24%), #fffdf9;
+      color: var(--suas-ink);
+      font-family: Futura, "Futura PT", Arial, sans-serif;
+      min-height: 80vh;
+      padding: clamp(28px, 4vw, 60px) clamp(16px, 4vw, 48px) 70px;
+    }
+
+    .suas-account * {
+      box-sizing: border-box;
+    }
+
+    .suas-account a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .suas-account-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .suas-account-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .suas-account-kicker,
+    .suas-account-label,
+    .suas-account-meta,
+    .suas-account-small,
+    .suas-account-table th,
+    .suas-account-btn,
+    .suas-account-pill,
+    .suas-account-nav a {
+      font-family: Futura, "Futura PT", Arial, sans-serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .suas-account-kicker {
+      color: var(--suas-muted);
+      font-size: 11px;
+      margin: 0 0 8px;
+    }
+
+    .suas-account-title,
+    .suas-account-card-title,
+    .suas-account-stat-value,
+    .suas-account-mini-title,
+    .suas-account-empty-title,
+    .suas-account-brand {
+      font-family: "Casual Human", Futura, Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: lowercase;
+    }
+
+    .suas-account-title {
+      font-size: clamp(54px, 8vw, 102px);
+      line-height: 0.86;
+      margin: 0;
+    }
+
+    .suas-account-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .suas-account-orb {
+      width: 58px;
+      height: 58px;
+      border-radius: 999px;
+      background: conic-gradient(from 210deg, #f7d1ff, #dbff9e, #bce8ff, #ffc7df, #f7d1ff);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.13);
+    }
+
+    .suas-account-brand {
+      font-size: 40px;
+      line-height: 1;
+    }
+
+    .suas-account-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .suas-account-btn {
+      appearance: none;
+      border: 1.5px solid var(--suas-ink);
+      background: #fff;
+      border-radius: 999px;
+      box-shadow: 0 5px 0 var(--suas-ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 12px 18px;
+      font-size: 11px;
+      font-weight: 700;
+      transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+    }
+
+    .suas-account-btn:hover {
+      background: var(--suas-blush);
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 var(--suas-ink);
+    }
+
+    .suas-account-btn.is-dark {
+      background: var(--suas-ink);
+      color: #fff;
+    }
+
+    .suas-account-btn.is-dark:hover {
+      background: #fff;
+      color: var(--suas-ink);
+    }
+
+    .suas-account-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 0 0 28px;
+    }
+
+    .suas-account-nav a {
+      border: 1px solid var(--suas-line);
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: 999px;
+      padding: 10px 13px;
+      font-size: 10px;
+    }
+
+    .suas-account-nav a:hover {
+      background: var(--suas-yellow);
+      border-color: var(--suas-ink);
+    }
+
+    .suas-account-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .suas-account-stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .suas-account-card {
+      border: 1.5px solid var(--suas-ink);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 8px 0 var(--suas-ink), 0 18px 44px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .suas-account-card-inner {
+      padding: clamp(22px, 3vw, 34px);
+    }
+
+    .suas-account-card-title {
+      font-size: clamp(34px, 4.8vw, 60px);
+      line-height: 0.95;
+      margin: 0;
+    }
+
+    .suas-account-label {
+      color: var(--suas-muted);
+      font-size: 10px;
+      font-weight: 700;
+      margin: 0 0 9px;
+    }
+
+    .suas-account-copy {
+      color: var(--suas-muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin: 10px 0 0;
+      max-width: 56ch;
+    }
+
+    .suas-account-points {
+      background: linear-gradient(135deg, #fff7fb 0%, #fff 50%, #efffca 100%);
+      position: relative;
+    }
+
+    .suas-account-points::after {
+      content: "+";
+      position: absolute;
+      top: 18px;
+      right: 26px;
+      color: rgba(13, 13, 13, 0.08);
+      font-family: "Casual Human", Futura, Arial, sans-serif;
+      font-size: 118px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .suas-account-stat-value {
+      font-size: clamp(74px, 10vw, 126px);
+      line-height: 0.85;
+      margin: 8px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .suas-account-progress {
+      background: rgba(13, 13, 13, 0.09);
+      border-radius: 999px;
+      height: 13px;
+      margin: 24px 0 10px;
+      overflow: hidden;
+    }
+
+    .suas-account-progress span {
+      display: block;
+      width: var(--progress);
+      height: 100%;
+      background: var(--suas-ink);
+      border-radius: inherit;
+    }
+
+    .suas-account-progress-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--suas-muted);
+      font-size: 12px;
+    }
+
+    .suas-account-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .suas-account-metric {
+      border: 1px solid var(--suas-line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.64);
+      padding: 16px 14px;
+      min-height: 110px;
+    }
+
+    .suas-account-mini-title {
+      font-size: 30px;
+      line-height: 0.9;
+      margin: 0 0 8px;
+    }
+
+    .suas-account-small {
+      color: var(--suas-muted);
+      font-size: 9px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .suas-account-info-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .suas-account-info-item {
+      align-items: center;
+      background: #fff;
+      border: 1px solid var(--suas-line);
+      border-radius: 22px;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 46px minmax(0, 1fr) auto;
+      min-height: 72px;
+      padding: 13px 16px;
+    }
+
+    .suas-account-icon {
+      align-items: center;
+      background: var(--suas-blush);
+      border-radius: 999px;
+      display: flex;
+      font-family: "Casual Human", Futura, Arial, sans-serif;
+      font-size: 24px;
+      height: 46px;
+      justify-content: center;
+      width: 46px;
+    }
+
+    .suas-account-info-text {
+      min-width: 0;
+    }
+
+    .suas-account-info-text strong,
+    .suas-account-order-name {
+      display: block;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .suas-account-info-text span,
+    .suas-account-meta {
+      color: var(--suas-muted);
+      display: block;
+      font-size: 11px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .suas-account-arrow {
+      font-family: "Casual Human", Futura, Arial, sans-serif;
+      font-size: 24px;
+    }
+
+    .suas-account-scent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .suas-account-scent {
+      aspect-ratio: 1;
+      align-items: center;
+      background: var(--card-color);
+      border: 1.5px solid var(--suas-ink);
+      border-radius: 999px;
+      box-shadow: 0 6px 0 var(--suas-ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .suas-account-scent strong {
+      font-family: "Casual Human", Futura, Arial, sans-serif;
+      font-size: clamp(25px, 3.5vw, 36px);
+      line-height: 0.9;
+      font-weight: 700;
+    }
+
+    .suas-account-scent span {
+      color: rgba(13, 13, 13, 0.62);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      line-height: 1.35;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    .suas-account-table-wrap {
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    .suas-account-table {
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      min-width: 620px;
+      width: 100%;
+    }
+
+    .suas-account-table th {
+      color: var(--suas-muted);
+      font-size: 9px;
+      text-align: left;
+      padding: 0 14px 3px;
+    }
+
+    .suas-account-table td {
+      background: #fff;
+      border-bottom: 1px solid var(--suas-line);
+      border-top: 1px solid var(--suas-line);
+      font-size: 13px;
+      padding: 16px 14px;
+      vertical-align: middle;
+    }
+
+    .suas-account-table td:first-child {
+      border-left: 1px solid var(--suas-line);
+      border-radius: 18px 0 0 18px;
+    }
+
+    .suas-account-table td:last-child {
+      border-right: 1px solid var(--suas-line);
+      border-radius: 0 18px 18px 0;
+      text-align: right;
+    }
+
+    .suas-account-pill {
+      border: 1px solid var(--suas-line);
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 9px;
+      padding: 7px 9px;
+      white-space: nowrap;
+    }
+
+    .suas-account-empty {
+      background: var(--suas-cream);
+      border: 1px dashed rgba(13, 13, 13, 0.24);
+      border-radius: 24px;
+      margin-top: 20px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .suas-account-empty-title {
+      font-size: 34px;
+      line-height: 1;
+      margin: 0 0 8px;
+    }
+
+    .suas-account-footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 920px) {
+      .suas-account-hero,
+      .suas-account-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .suas-account-actions {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .suas-account {
+        padding: 22px 14px 52px;
+      }
+
+      .suas-account-brand-wrap {
+        margin-bottom: 18px;
+      }
+
+      .suas-account-title {
+        font-size: clamp(46px, 17vw, 68px);
+      }
+
+      .suas-account-metrics,
+      .suas-account-scent-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .suas-account-scent {
+        aspect-ratio: 2.3 / 1;
+        border-radius: 28px;
+      }
+
+      .suas-account-info-item {
+        grid-template-columns: 42px minmax(0, 1fr);
+      }
+
+      .suas-account-info-item .suas-account-arrow {
+        display: none;
+      }
+    }
+  </style>
+
+  <section class="suas-account" data-section-id="{{ section.id }}">
+    <div class="suas-account-shell">
+      <div class="suas-account-brand-wrap">
+        <span class="suas-account-orb" aria-hidden="true"></span>
+        <span class="suas-account-brand">suas</span>
       </div>
 
-      <div class="address--info">
-        <h4 data-item="block-heading">{{ customer.name }}</h4>
-        <p class="address--email" data-item="paragraph">{{ customer.email }}</p>
-        <div class="address--view" data-item="paragraph">
-
-          {% if customer.default_address != nil %}
-            <p>{{ customer.default_address.address1 }}</p>
-
-            {% if customer.default_address.address2 != "" %}
-              <p>{{ customer.default_address.address2 }}</p>
-            {% endif %}
-
-            <p>{{ customer.default_address.city }},
-            {% if address.province_code %}
-              {{ customer.default_address.province_code }},
-            {% endif %}
-            {{ customer.default_address.country }}</p>
-            <p>{{ customer.default_address.zip }}</p>
-            <p>{{ customer.default_address.phone }}</p>
-          {% endif %}
-
-          <div data-item="block-link">
-            <a id="view_address" href="{{ routes.account_addresses_url }}">
-              {{ 'customer.account.view_addresses' | t }}
-            </a>
-          </div>
-
+      <div class="suas-account-hero">
+        <div>
+          <p class="suas-account-kicker">your account</p>
+          <h1 class="suas-account-title">hi, {{ customer_first | downcase }}.</h1>
+        </div>
+        <div class="suas-account-actions">
+          <a class="suas-account-btn" href="{{ routes.account_addresses_url }}">edit profile</a>
+          <a class="suas-account-btn is-dark" href="{{ routes.account_logout_url }}">sign out</a>
         </div>
       </div>
 
-      <div class="account--orders">
-        <h4 data-item="block-heading">{{ 'customer.account.orders' | t }}</h4>
-        {% if customer.orders.size != 0 %}
-          <table class="account--orders-table responsive">
-            <thead data-item="accent-text">
-              <tr>
-                <th>{{ 'customer.account.order' | t }}</th>
-                <th>{{ 'customer.account.date' | t }}</th>
-                <th>{{ 'customer.account.payment_status' | t }}</th>
-                <th>{{ 'customer.account.fulfillment_status' | t }}</th>
-                <th>{{ 'customer.account.total' | t }}</th>
-              </tr>
-            </thead>
-            <tbody data-item="paragraph">
-              {% for order in customer.orders %}
-              <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
-                <td>{{ order.name | link_to: order.customer_url }}</td>
-                <td>
-                  <span class="note">{{ order.created_at | time_tag: format: 'date' }}</span>
-                </td>
-                <td><span class="status_{{ order.financial_status }}">
-                  {%- liquid
-                    assign trans_paid  = 'customer.order.paid' | t
-                    assign trans_pending = 'customer.order.pending' | t
-                    assign trans_authorized = 'customer.order.authorized' | t
-                    assign trans_abandoned = 'customer.order.abandoned' | t
-                    assign trans_refunded = 'customer.order.refunded' | t
-                    assign trans_voided = 'customer.order.voided' | t
-                  -%}
-                  {{ order.financial_status | replace: 'paid', trans_paid | replace: 'pending', trans_pending | replace: 'authorized', trans_authorized | replace: 'abandoned', trans_abandoned | replace: 'refunded', trans_refunded | replace: 'voided', trans_voided }}</span>
-                </td>
-                <td><span class="status_{{ order.fulfillment_status }}">
-                  {% assign trans_fulfilled = 'customer.order.fulfilled' | t %}
-                  {% assign trans_unfulfilled = 'customer.order.unfulfilled' | t %}
-                  {% assign trans_partial = 'customer.order.unfulfilled' | t %}
-                  {{ order.fulfillment_status | replace: 'unfulfilled', trans_unfulfilled | replace: 'fulfilled', trans_fulfilled | replace: 'partial', trans_partial }}</span>
-                </td>
-                <td class="money">
-                  {{ order.total_price | money_with_currency }}
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+      <nav class="suas-account-nav" aria-label="Account shortcuts">
+        <a href="#suas-rewards">rewards</a>
+        <a href="#suas-scent-library">scent library</a>
+        <a href="#suas-orders">orders</a>
+        <a href="/pages/shut-up-and-smell">the lab</a>
+        <a href="/pages/shut-up-and-smell#build-a-fragrance">build a fragrance</a>
+      </nav>
 
-        {% else %}
-          <p data-item="paragraph">{{ 'customer.account.no_orders' | t }}</p>
-        {% endif %}
+      <div class="suas-account-grid">
+        <div class="suas-account-stack">
+          <article class="suas-account-card suas-account-points" id="suas-rewards">
+            <div class="suas-account-card-inner">
+              <p class="suas-account-label">your points</p>
+              <p class="suas-account-stat-value">{{ suas_points }}</p>
+              <h2 class="suas-account-card-title">rewards are loading.</h2>
+              <p class="suas-account-copy">Earn 1 point for every $1 spent. At 1,000 points, unlock $10 off online or in store.</p>
 
-      </div>
+              <div class="suas-account-progress" style="--progress: {{ progress }}%;" aria-label="{{ progress }} percent toward next reward">
+                <span></span>
+              </div>
+              <div class="suas-account-progress-row">
+                <span>0 pts</span>
+                <span>{{ points_left }} pts to next $10</span>
+                <span>{{ reward_goal }} pts</span>
+              </div>
 
-      <div data-item="block-link">{{ 'customer.account.logout' | t | customer_logout_link }}</div>
+              <div class="suas-account-footer-actions">
+                <a class="suas-account-btn is-dark" href="/collections/all">shop smells</a>
+                <a class="suas-account-btn" href="/pages/shut-up-and-smell">visit the lab</a>
+              </div>
+            </div>
+          </article>
 
-      {% if paginate.pages > 1 %}
-        <div class="account--pagination">
-          {% render 'pagination', paginate: paginate %}
+          <article class="suas-account-card" id="suas-scent-library">
+            <div class="suas-account-card-inner">
+              <p class="suas-account-label">lovable account energy</p>
+              <h2 class="suas-account-card-title">scent library.</h2>
+              <p class="suas-account-copy">A soft place for blends, lab visits, and favorite notes. These cards are ready to connect to Shopify customer metafields when your rewards setup is live.</p>
+
+              <div class="suas-account-scent-grid">
+                <div class="suas-account-scent" style="--card-color: #ffd7e8;">
+                  <strong>{{ saved_blends }}</strong>
+                  <span>saved blends</span>
+                </div>
+                <div class="suas-account-scent" style="--card-color: #fff3a4;">
+                  <strong>{{ lab_visits }}</strong>
+                  <span>lab visits</span>
+                </div>
+                <div class="suas-account-scent" style="--card-color: #cdefff;">
+                  <strong>{% if favorite_notes != blank %}yes{% else %}new{% endif %}</strong>
+                  <span>{% if favorite_notes != blank %}{{ favorite_notes }}{% else %}favorite notes{% endif %}</span>
+                </div>
+              </div>
+
+              <div class="suas-account-footer-actions">
+                <a class="suas-account-btn" href="/pages/shut-up-and-smell#build-a-fragrance">build a fragrance</a>
+                <a class="suas-account-btn" href="/pages/shut-up-and-smell">book the lab</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="suas-account-card" id="suas-orders">
+            <div class="suas-account-card-inner">
+              <p class="suas-account-label">recent activity</p>
+              <h2 class="suas-account-card-title">orders.</h2>
+
+              {% if customer.orders.size != 0 %}
+                <div class="suas-account-table-wrap">
+                  <table class="suas-account-table">
+                    <thead>
+                      <tr>
+                        <th>order</th>
+                        <th>date</th>
+                        <th>payment</th>
+                        <th>status</th>
+                        <th>total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order in customer.orders %}
+                        <tr class="{% if order.cancelled %}is-cancelled{% endif %}">
+                          <td><a class="suas-account-order-name" href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                          <td>{{ order.created_at | time_tag: format: 'date' }}</td>
+                          <td><span class="suas-account-pill">{{ order.financial_status_label | default: order.financial_status }}</span></td>
+                          <td><span class="suas-account-pill">{{ order.fulfillment_status_label | default: order.fulfillment_status | default: 'processing' }}</span></td>
+                          <td>{{ order.total_price | money_with_currency }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              {% else %}
+                <div class="suas-account-empty">
+                  <p class="suas-account-empty-title">no orders yet.</p>
+                  <p class="suas-account-copy">When you shop online, your order history will live right here.</p>
+                  <a class="suas-account-btn is-dark" href="/collections/all">shop smells</a>
+                </div>
+              {% endif %}
+
+              {% if paginate.pages > 1 %}
+                <div class="account--pagination">
+                  {% render 'pagination', paginate: paginate %}
+                </div>
+              {% endif %}
+            </div>
+          </article>
         </div>
-      {% endif %}
+
+        <aside class="suas-account-stack">
+          <article class="suas-account-card">
+            <div class="suas-account-card-inner">
+              <p class="suas-account-label">profile</p>
+              <h2 class="suas-account-card-title">your details.</h2>
+
+              <div class="suas-account-info-list">
+                <div class="suas-account-info-item">
+                  <span class="suas-account-icon">@</span>
+                  <span class="suas-account-info-text">
+                    <strong>{{ customer.name }}</strong>
+                    <span>{{ customer.email }}</span>
+                  </span>
+                  <span class="suas-account-arrow" aria-hidden="true">+</span>
+                </div>
+
+                <a class="suas-account-info-item" href="{{ routes.account_addresses_url }}">
+                  <span class="suas-account-icon">pin</span>
+                  <span class="suas-account-info-text">
+                    <strong>addresses</strong>
+                    {% if customer.default_address != nil %}
+                      <span>{{ customer.default_address.city }}, {{ customer.default_address.province_code | default: customer.default_address.province }} {{ customer.default_address.zip }}</span>
+                    {% else %}
+                      <span>add your default address</span>
+                    {% endif %}
+                  </span>
+                  <span class="suas-account-arrow" aria-hidden="true">+</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="suas-account-card">
+            <div class="suas-account-card-inner">
+              <p class="suas-account-label">redemptions</p>
+              <h2 class="suas-account-card-title">$10 off.</h2>
+              {% if suas_points >= reward_goal %}
+                <p class="suas-account-copy">You have enough points for a reward. Show your account at checkout or redeem once we connect your final Shopify rewards flow.</p>
+                <a class="suas-account-btn is-dark" href="/account">claim reward</a>
+              {% else %}
+                <p class="suas-account-copy">Keep mixing and shopping. Your reward unlocks at 1,000 points.</p>
+                <a class="suas-account-btn" href="/collections/all">earn points</a>
+              {% endif %}
+            </div>
+          </article>
+
+          <article class="suas-account-card">
+            <div class="suas-account-card-inner">
+              <p class="suas-account-label">quick doors</p>
+              <div class="suas-account-info-list">
+                <a class="suas-account-info-item" href="/collections/new-arrivals">
+                  <span class="suas-account-icon">new</span>
+                  <span class="suas-account-info-text"><strong>new arrivals</strong><span>fresh from the shelf</span></span>
+                  <span class="suas-account-arrow" aria-hidden="true">+</span>
+                </a>
+                <a class="suas-account-info-item" href="/collections/best-sellers">
+                  <span class="suas-account-icon">best</span>
+                  <span class="suas-account-info-text"><strong>best sellers</strong><span>the ones they love</span></span>
+                  <span class="suas-account-arrow" aria-hidden="true">+</span>
+                </a>
+                <a class="suas-account-info-item" href="/collections/oddities">
+                  <span class="suas-account-icon">odd</span>
+                  <span class="suas-account-info-text"><strong>oddities</strong><span>little experiments</span></span>
+                  <span class="suas-account-arrow" aria-hidden="true">+</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </aside>
+      </div>
     </div>
-  </div>
-
+  </section>
 {% endpaginate %}
-
