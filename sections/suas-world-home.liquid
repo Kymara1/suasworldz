@@ -384,12 +384,13 @@
 
     .suas-shelf-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(138px, 1fr));
       gap: 14px;
     }
 
     .suas-shelf-card {
       min-height: 190px;
+      overflow: hidden;
       display: grid;
       place-items: center;
       border: 2px solid var(--ink);
@@ -411,10 +412,14 @@
 
     .suas-shelf-card span {
       display: block;
-      padding: 16px;
-      font-size: clamp(2.4rem, 3.6vw, 4rem);
-      line-height: 0.9;
+      width: 100%;
+      max-width: 100%;
+      padding: 16px 12px;
+      font-size: clamp(1.75rem, 2.55vw, 3.05rem);
+      line-height: 0.86;
       text-transform: uppercase;
+      overflow-wrap: break-word;
+      word-break: normal;
     }
 
     .suas-lab-teaser {
@@ -604,6 +609,11 @@
 
       .suas-shelf-card {
         min-height: 145px;
+      }
+
+      .suas-shelf-card span {
+        font-size: clamp(1.45rem, 9vw, 2.45rem);
+        padding: 12px 8px;
       }
 
       .suas-scent {
