@@ -1,0 +1,32 @@
+<section class="suas-control-panel" aria-label="SUAS control panel">
+  <style>
+    @font-face { font-family: 'Casual Human'; src: url({{ 'CasualHuman.otf' | asset_url }}) format('opentype'); font-display: swap; }
+    .suas-control-panel { --ink:#111; --pink:#ffe8ef; --lime:#d9ff78; --blue:#c9e7ff; --violet:#eee6ff; background:#fff; color:var(--ink); padding:clamp(48px,6vw,82px) 0; border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); font-family:Futura,'Futura PT',Arial,sans-serif; }
+    .suas-control-panel * { box-sizing:border-box; }
+    .suas-panel-wrap { width:min(1180px,calc(100vw - 28px)); margin:0 auto; }
+    .suas-panel-head { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:24px; }
+    .suas-panel-head h2 { margin:0; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(3rem,7vw,7rem); font-weight:400; line-height:.88; text-transform:lowercase; }
+    .suas-panel-head p { max-width:360px; margin:0; font-size:12px; line-height:1.55; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:rgba(17,17,17,.48); }
+    .suas-panel-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+    .suas-panel-card { min-height:190px; border:2px solid var(--ink); border-radius:28px; background:var(--ink); color:#fff; padding:22px; text-decoration:none; box-shadow:0 8px 0 var(--ink); display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; transition:transform 160ms ease,box-shadow 160ms ease,background 160ms ease,color 160ms ease; }
+    .suas-panel-card:hover { background:var(--hover-bg); color:var(--ink); transform:translateY(3px) rotate(-.6deg); box-shadow:0 5px 0 var(--ink); }
+    .suas-panel-number { font-size:10px; letter-spacing:.28em; text-transform:uppercase; opacity:.64; }
+    .suas-panel-card strong { font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(2.1rem,3.6vw,3.8rem); font-weight:400; line-height:.88; text-transform:lowercase; }
+    @media (max-width:920px){ .suas-panel-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .suas-panel-head{display:block;} .suas-panel-head p{margin-top:14px;} }
+    @media (max-width:560px){ .suas-panel-grid{grid-template-columns:1fr;} .suas-panel-card{min-height:142px;} }
+  </style>
+  <div class="suas-panel-wrap">
+    <div class="suas-panel-head"><h2>control panel.</h2><p>quick doors into the pieces customers already look for.</p></div>
+    <div class="suas-panel-grid">
+      <a class="suas-panel-card" href="/collections/new-arrivals" style="--hover-bg:rgba(217,255,120,.78);"><span class="suas-panel-number">01</span><strong>new arrivals</strong></a>
+      <a class="suas-panel-card" href="/collections/best-sellers" style="--hover-bg:rgba(255,232,239,.84);"><span class="suas-panel-number">02</span><strong>best sellers</strong></a>
+      <a class="suas-panel-card" href="/collections/home-care" style="--hover-bg:rgba(201,231,255,.78);"><span class="suas-panel-number">03</span><strong>home</strong></a>
+      <a class="suas-panel-card" href="/collections/body-care" style="--hover-bg:rgba(255,159,194,.72);"><span class="suas-panel-number">04</span><strong>body</strong></a>
+      <a class="suas-panel-card" href="/collections/oddities" style="--hover-bg:rgba(238,230,255,.84);"><span class="suas-panel-number">05</span><strong>oddities</strong></a>
+      <a class="suas-panel-card" href="/pages/shut-up-and-smell" style="--hover-bg:rgba(217,255,120,.78);"><span class="suas-panel-number">06</span><strong>the lab</strong></a>
+      <a class="suas-panel-card" href="/pages/build-your-formula" style="--hover-bg:rgba(255,232,239,.84);"><span class="suas-panel-number">07</span><strong>formula</strong></a>
+      <a class="suas-panel-card" href="/pages/reviews" style="--hover-bg:rgba(201,231,255,.78);"><span class="suas-panel-number">08</span><strong>reviews</strong></a>
+    </div>
+  </div>
+</section>
+{% schema %}{"name":"SUAS Control Panel","settings":[],"presets":[{"name":"SUAS Control Panel"}]}{% endschema %}
