@@ -422,11 +422,6 @@
       "16222066433a92891f"
     ],
     "blocks": {
-      "15119538188275799212": {
-        "type": "shopify://apps/fontify-google-custom-fonts/blocks/app-embed/334490e2-2153-4a2e-a452-e90bdeffa3cc",
-        "disabled": false,
-        "settings": {}
-      },
       "16278478101612877664": {
         "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
         "disabled": true,
@@ -510,6 +505,13 @@
           "animation_speed": 41,
           "product_list": [],
           "collection_list": []
+        }
+      },
+      "15119538188275799212": {
+        "type": "shopify://apps/fontify/blocks/app-embed/334490e2-2153-4a2e-a452-e90bdeffa3cc",
+        "disabled": true,
+        "settings": {
+          "use_with_weglot": false
         }
       }
     }
