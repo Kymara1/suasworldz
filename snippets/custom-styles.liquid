@@ -41,33 +41,32 @@
 {% endcomment %}
 
 <style>
-  /* New CSS for horizontal header menu */
   .header--right-side {
     display: flex;
-    justify-content: space-between; /* Space out menu items */
+    justify-content: space-between;
     align-items: center;
   }
 
   .header--right-side .x-menu {
-    display: flex; /* Align menu items horizontally */
-    flex-direction: row; /* Make menu items go across the top */
-    list-style-type: none; /* Remove default list styling */
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
   }
 
   .header--right-side .x-menu li {
-    margin: 0 15px; /* Space between menu items */
+    margin: 0 15px;
   }
 
   .header--right-side .x-menu li a {
-    text-decoration: none; /* Remove underline from links */
-    font-size: 16px; /* Adjust font size */
-    color: #333; /* Text color */
-    font-weight: 500; /* Font weight */
-    padding: 10px 15px; /* Padding for clickable area */
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    padding: 10px 15px;
   }
 
   .header--right-side .x-menu li a:hover {
-    background-color: #f0f0f0; /* Add hover effect */
+    background-color: #f0f0f0;
   }
 
   /* SUAS OS, minus the cyberdeck mood */
@@ -229,25 +228,106 @@
     box-shadow: 0 14px 22px -18px rgba(16, 16, 16, 0.5) !important;
   }
 
+  /* Remove the duplicate category shelf now that quick launch carries those doors */
+  html body .suas-world-home > .suas-cyber-hero + .suas-section {
+    display: none !important;
+  }
+
   @media only screen and (max-width: 1023px) {
     html body .suas-world-home .suas-cyber-body {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: minmax(0, 1fr) minmax(150px, 0.64fr) !important;
+      gap: 10px !important;
+      align-items: start !important;
     }
 
     html body .suas-world-home .suas-screen {
       min-height: auto !important;
+      padding: 18px !important;
+      border-radius: 24px !important;
+    }
+
+    html body .suas-world-home .suas-screen h1 {
+      font-size: clamp(2rem, 10vw, 4.2rem) !important;
+    }
+
+    html body .suas-world-home .suas-feature {
+      gap: 10px !important;
+      margin-top: 18px !important;
+    }
+
+    html body .suas-world-home .suas-holo {
+      width: min(46%, 150px) !important;
+    }
+
+    html body .suas-world-home .suas-product-title {
+      font-size: clamp(1.25rem, 5vw, 2rem) !important;
+    }
+
+    html body .suas-world-home .suas-launch-panel {
+      padding: 12px !important;
+      gap: 10px !important;
+      border-left: 1px solid rgba(16, 16, 16, 0.13) !important;
+      border-top: 0 !important;
+      border-radius: 24px !important;
+    }
+
+    html body .suas-world-home .suas-launch-grid {
+      grid-template-columns: 1fr !important;
+      gap: 8px !important;
+    }
+
+    html body .suas-world-home .suas-launch {
+      min-height: 54px !important;
+      padding: 9px 10px !important;
+      border-radius: 18px !important;
+    }
+
+    html body .suas-world-home .suas-launch strong {
+      font-size: clamp(1.05rem, 5vw, 1.45rem) !important;
+    }
+
+    html body .suas-world-home .suas-launch .suas-mono {
+      font-size: 7px !important;
+    }
+
+    html body .suas-world-home .suas-log,
+    html body .suas-world-home .suas-launch-panel > div:last-child {
+      display: none !important;
     }
   }
 
-  /* Adjust for mobile view if needed */
   @media only screen and (max-width: 767px) {
     .header--right-side .x-menu {
-      flex-direction: column; /* Stack items vertically on mobile */
-      align-items: flex-start; /* Align left */
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .header--right-side .x-menu li {
-      margin-bottom: 10px; /* Space out items on mobile */
+      margin-bottom: 10px;
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var grid = document.querySelector('.suas-world-home .suas-launch-grid');
+    if (!grid || grid.querySelector('[data-suas-extra-launch="new-arrivals"]')) return;
+
+    var links = [
+      { key: 'new-arrivals', title: 'new arrivals', href: '/collections/new-arrivals', color: '#c6f76a', glow: '198,247,106' },
+      { key: 'best-sellers', title: 'best sellers', href: '/collections/best-sellers', color: '#ffd8e8', glow: '255,216,232' },
+      { key: 'oddities', title: 'oddities', href: '/collections/oddities', color: '#c7b5ff', glow: '199,181,255' }
+    ];
+
+    links.forEach(function (item) {
+      var link = document.createElement('a');
+      link.className = 'suas-launch';
+      link.href = item.href;
+      link.dataset.suasExtraLaunch = item.key;
+      link.style.setProperty('--launch', item.color);
+      link.style.setProperty('--glow', item.glow);
+      link.innerHTML = '<strong class="suas-font">' + item.title + '</strong><span class="suas-mono">launch</span>';
+      grid.appendChild(link);
+    });
+  });
+</script>
