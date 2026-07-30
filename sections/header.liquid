@@ -140,9 +140,33 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Casual Human';
+  src: url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+
 .header--root {
   border-bottom: 2px solid #111;
   background: #fffaf5;
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+}
+
+.header--root,
+.header--root *,
+.header--root a,
+.header--root button,
+.header--root summary,
+.header--root [data-item],
+.header--root [data-item='nav-text'],
+.header--root .header--search,
+.header--root .cart-link,
+.header--root .login,
+.header--root .popup--open {
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
 }
 
 .header--container {
@@ -193,7 +217,8 @@
   border: 2px solid transparent;
   border-radius: 999px;
   color: #111;
-  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-weight: 700 !important;
   font-size: clamp(1.02rem, 1.4vw, 1.42rem);
   line-height: 0.95;
   letter-spacing: 0;
@@ -205,6 +230,7 @@
 .header--root .suas-cute-menu,
 .header--root .suas-cute-menu a {
   font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-weight: 700 !important;
 }
 
 .suas-menu-item > a:after {
@@ -284,8 +310,9 @@
 .header--right-side a,
 .header--search a,
 .cart-link a {
-  font-family: 'Casual Human', Futura, Arial, sans-serif;
-  letter-spacing: 0;
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
   text-transform: lowercase;
 }
 
