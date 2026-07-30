@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "formula_builder": {
+      "type": "suas-formula-builder",
+      "settings": {}
+    }
+  },
+  "order": [
+    "formula_builder"
+  ]
+}
