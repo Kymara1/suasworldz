@@ -5,6 +5,13 @@
     font-display: swap;
   }
 
+  @font-face {
+    font-family: 'Casual Human';
+    src: url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');
+    font-weight: 700;
+    font-display: swap;
+  }
+
   :root {
     --suas-ink: #101010;
     --suas-cream: #f8f7f4;
@@ -22,6 +29,28 @@
 
   .suas-frame {
     font-family: 'Casual Human', Futura, Arial, sans-serif;
+  }
+
+  .suas-font,
+  .suas-side-brand,
+  .suas-side-label,
+  .suas-panel-brand,
+  .suas-panel-label,
+  .suas-panel-hero h2,
+  .suas-lab-title,
+  .suas-lab-subtitle,
+  .suas-lab-step span,
+  .suas-session h3,
+  .suas-price,
+  .suas-formula-head h2,
+  .suas-size-btn strong,
+  .suas-note-btn strong,
+  .suas-review-title,
+  .suas-review-bubble,
+  .suas-password-title,
+  .suas-password-prompt {
+    font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+    font-weight: 700 !important;
   }
 
   .suas-frame-marquee {
@@ -99,6 +128,7 @@
 
   .suas-side-brand {
     font-size: 2.15rem;
+    font-weight: 700;
     line-height: 0.9;
     text-transform: uppercase;
   }
@@ -171,6 +201,7 @@
 
   .suas-side-label {
     font-size: 1.65rem;
+    font-weight: 700;
     line-height: 0.96;
     text-transform: uppercase;
   }
