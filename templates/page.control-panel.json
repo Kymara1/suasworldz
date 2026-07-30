@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "control_panel": {
+      "type": "suas-control-panel",
+      "settings": {}
+    }
+  },
+  "order": [
+    "control_panel"
+  ]
+}
