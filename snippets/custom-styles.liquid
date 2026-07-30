@@ -1,84 +1,436 @@
 {% comment %}
-    Here's an example of a customization
-    You can paste this at the bottom of the page to see how it works
-
-    /* Author - Date - Customization */
-    /* E.g. Troop Themes - 12th November .... - Changed paragraph colors */
-    @media only screen and (max-width: 767px) { /* mobile */
-      body {
-        color: blue;
-      }
-    }
-
-    @media only screen and (min-width: 768px) { /* desktop */
-      body {
-        color: green;
-      }
-    }
-    @media only screen and (max-width: 767px) {
-    .header--container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .header--logo img {
-      width: 140px !important;
-    }
-
-    .header--right-side {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding-top: 10px;
-    }
-
-    .cart-link {
-      margin-left: auto;
-    }
-  }
-
-    /* Add your theme customizations below */
+  SUAS custom styles.
+  This layer sits above the theme CSS, so selectors use extra specificity to keep the SUAS World look in place.
 {% endcomment %}
 
 <style>
-  /* New CSS for horizontal header menu */
+  :root {
+    --suas-pop-yellow: #f8ff1f;
+    --suas-pop-blue: #1fb7ff;
+    --suas-pop-pink: #ff5bb8;
+    --suas-pop-green: #baff39;
+    --suas-pop-lav: #c7a7ff;
+    --suas-pop-ink: #101010;
+  }
+
   .header--right-side {
     display: flex;
-    justify-content: space-between; /* Space out menu items */
+    justify-content: space-between;
     align-items: center;
   }
 
   .header--right-side .x-menu {
-    display: flex; /* Align menu items horizontally */
-    flex-direction: row; /* Make menu items go across the top */
-    list-style-type: none; /* Remove default list styling */
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
   }
 
   .header--right-side .x-menu li {
-    margin: 0 15px; /* Space between menu items */
+    margin: 0 15px;
   }
 
   .header--right-side .x-menu li a {
-    text-decoration: none; /* Remove underline from links */
-    font-size: 16px; /* Adjust font size */
-    color: #333; /* Text color */
-    font-weight: 500; /* Font weight */
-    padding: 10px 15px; /* Padding for clickable area */
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    padding: 10px 15px;
   }
 
-  .header--right-side .x-menu li a:hover {
-    background-color: #f0f0f0; /* Add hover effect */
+  html body .suas-frame .suas-frame-marquee {
+    background: var(--suas-pop-yellow) !important;
+    color: var(--suas-pop-ink) !important;
+    border-bottom: 3px solid var(--suas-pop-ink) !important;
+    box-shadow: 0 4px 0 var(--suas-pop-ink) !important;
   }
 
-  /* Adjust for mobile view if needed */
-  @media only screen and (max-width: 767px) {
-    .header--right-side .x-menu {
-      flex-direction: column; /* Stack items vertically on mobile */
-      align-items: flex-start; /* Align left */
+  html body .suas-frame .suas-frame-marquee-track span,
+  html body .suas-frame .suas-frame-marquee-track span:after {
+    color: var(--suas-pop-ink) !important;
+    font-weight: 900 !important;
+  }
+
+  html body .suas-frame .suas-side-rail {
+    background: #fff !important;
+    border-right: 3px solid var(--suas-pop-ink) !important;
+    box-shadow: 10px 0 0 rgba(31, 183, 255, 0.25) !important;
+  }
+
+  html body .suas-frame .suas-side-head {
+    justify-content: center !important;
+    padding-top: 22px !important;
+    transform: none !important;
+  }
+
+  html body .suas-frame .suas-side-orb {
+    width: 52px !important;
+    height: 52px !important;
+    background: var(--suas-pop-yellow) !important;
+    border: 3px solid var(--suas-pop-ink) !important;
+    box-shadow: 4px 4px 0 var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-frame .suas-side-orb:after {
+    content: "*" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    color: var(--suas-pop-ink) !important;
+    font-family: "Casual Human", Futura, Arial, sans-serif !important;
+    font-size: 2rem !important;
+    line-height: 1 !important;
+  }
+
+  html body .suas-frame .suas-side-brand {
+    font-size: 1.95rem !important;
+  }
+
+  html body .suas-frame .suas-side-kicker {
+    width: auto !important;
+    margin: 0 14px 14px !important;
+    text-align: center !important;
+    border: 2px solid var(--suas-pop-ink) !important;
+    border-radius: 999px !important;
+    background: var(--suas-pop-pink) !important;
+    color: var(--suas-pop-ink) !important;
+    box-shadow: 4px 4px 0 var(--suas-pop-ink) !important;
+    transform: none !important;
+  }
+
+  html body .suas-frame .suas-side-kicker:after {
+    content: "suas world tabs" !important;
+    font-size: 9px !important;
+  }
+
+  html body .suas-frame .suas-side-link {
+    border: 2px solid var(--suas-pop-ink) !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    box-shadow: 4px 4px 0 var(--suas-pop-ink) !important;
+    transform: none !important;
+  }
+
+  html body .suas-frame .suas-side-link:hover,
+  html body .suas-frame .suas-side-link.is-active {
+    color: var(--suas-pop-ink) !important;
+    background: var(--suas-pop-yellow) !important;
+    transform: translate(-1px, -1px) !important;
+    box-shadow: 6px 6px 0 var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-frame .suas-side-link.is-active .suas-side-icon {
+    background: var(--suas-pop-blue) !important;
+    border-color: var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-frame .suas-side-status {
+    border: 2px solid var(--suas-pop-ink) !important;
+    border-radius: 999px !important;
+    background: var(--suas-pop-green) !important;
+    box-shadow: 4px 4px 0 var(--suas-pop-ink) !important;
+    transform: none !important;
+  }
+
+  html body .suas-frame .suas-side-status span:after {
+    content: "world open" !important;
+    color: var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home,
+  html body .suas-cyber-hero,
+  html body .suas-section,
+  html body .suas-section[data-white] {
+    background:
+      radial-gradient(circle at 16% 18%, rgba(255, 91, 184, 0.28), transparent 19%),
+      radial-gradient(circle at 86% 10%, rgba(186, 255, 57, 0.34), transparent 18%),
+      radial-gradient(circle at 78% 78%, rgba(31, 183, 255, 0.25), transparent 20%),
+      #fff !important;
+  }
+
+  html body .suas-world-home .suas-cyber-deck {
+    position: relative !important;
+    padding: clamp(12px, 2vw, 20px) !important;
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 32px !important;
+    background: var(--suas-pop-yellow) !important;
+    box-shadow: 10px 10px 0 var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-cyber-deck:before,
+  html body .suas-world-home .suas-cyber-deck:after {
+    content: "*" !important;
+    position: absolute !important;
+    z-index: 3 !important;
+    display: grid !important;
+    place-items: center !important;
+    width: 62px !important;
+    height: 62px !important;
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 999px !important;
+    background: var(--suas-pop-pink) !important;
+    box-shadow: 4px 4px 0 var(--suas-pop-ink) !important;
+    color: var(--suas-pop-ink) !important;
+    font-family: "Casual Human", Futura, Arial, sans-serif !important;
+    font-size: 2.4rem !important;
+  }
+
+  html body .suas-world-home .suas-cyber-deck:before {
+    top: -24px !important;
+    left: 28px !important;
+    transform: rotate(-8deg) !important;
+  }
+
+  html body .suas-world-home .suas-cyber-deck:after {
+    right: -18px !important;
+    bottom: 44px !important;
+    background: var(--suas-pop-blue) !important;
+    transform: rotate(10deg) !important;
+  }
+
+  html body .suas-world-home .suas-cyber-window {
+    border-radius: 24px !important;
+  }
+
+  html body .suas-world-home .suas-titlebar {
+    width: auto !important;
+    margin: 0 0 14px !important;
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    box-shadow: 4px 4px 0 var(--suas-pop-ink) !important;
+    transform: none !important;
+  }
+
+  html body .suas-world-home .suas-titlebar-label:after {
+    content: "suas world / shop cute / smell rich" !important;
+  }
+
+  html body .suas-world-home .suas-titlebar > .suas-mono:last-child:after {
+    content: "hi :)" !important;
+  }
+
+  html body .suas-world-home .suas-screen {
+    color: var(--suas-pop-ink) !important;
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 28px !important;
+    background: var(--suas-pop-blue) !important;
+    box-shadow: 7px 7px 0 var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-screen:before {
+    opacity: 0.22 !important;
+    background: radial-gradient(circle, var(--suas-pop-ink) 0 2px, transparent 2px) !important;
+    background-size: 30px 30px !important;
+  }
+
+  html body .suas-world-home .suas-screen:after {
+    content: "" !important;
+    inset: auto 36px 34px auto !important;
+    width: 118px !important;
+    height: 118px !important;
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 999px !important;
+    background: var(--suas-pop-yellow) !important;
+    clip-path: polygon(50% 0%, 61% 34%, 98% 35%, 68% 56%, 79% 91%, 50% 70%, 21% 91%, 32% 56%, 2% 35%, 39% 34%) !important;
+    transform: rotate(12deg) !important;
+  }
+
+  html body .suas-world-home .suas-hud span:first-child:after {
+    content: "new drop energy" !important;
+  }
+
+  html body .suas-world-home .suas-live:after {
+    content: "suas is online" !important;
+  }
+
+  html body .suas-world-home .suas-screen h1 {
+    font-size: 0 !important;
+  }
+
+  html body .suas-world-home .suas-screen h1:after {
+    content: "smell like the main character." !important;
+    display: block !important;
+    max-width: 820px !important;
+    color: var(--suas-pop-ink) !important;
+    font-family: "Casual Human", Futura, Arial, sans-serif !important;
+    font-size: clamp(3rem, 7vw, 6.5rem) !important;
+    line-height: 0.86 !important;
+    text-transform: lowercase !important;
+  }
+
+  html body .suas-world-home .suas-holo {
+    border-radius: 999px !important;
+    background: var(--suas-pop-ink) !important;
+    box-shadow: 6px 6px 0 var(--suas-pop-yellow) !important;
+    transform: rotate(-4deg) !important;
+  }
+
+  html body .suas-world-home .suas-holo:before,
+  html body .suas-world-home .suas-bars {
+    display: none !important;
+  }
+
+  html body .suas-world-home .suas-product-title {
+    font-size: 0 !important;
+  }
+
+  html body .suas-world-home .suas-product-title:after {
+    content: "suas world" !important;
+    color: var(--suas-pop-ink) !important;
+    font-size: clamp(1.9rem, 3.4vw, 3.2rem) !important;
+    line-height: 0.9 !important;
+  }
+
+  html body .suas-world-home .suas-btn,
+  html body .suas-world-home .suas-launch,
+  html body .suas-world-home .suas-shelf-card,
+  html body .suas-world-home .suas-lab-copy,
+  html body .suas-world-home .suas-hours,
+  html body .suas-world-home .suas-step,
+  html body .suas-world-home .suas-scent {
+    border: 3px solid var(--suas-pop-ink) !important;
+    box-shadow: 6px 6px 0 var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-btn {
+    min-height: 48px !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    color: var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-btn[data-dark] {
+    background: var(--suas-pop-pink) !important;
+  }
+
+  html body .suas-world-home .suas-btn:hover,
+  html body .suas-world-home .suas-launch:hover,
+  html body .suas-world-home .suas-shelf-card:hover,
+  html body .suas-world-home .suas-scent:hover {
+    transform: translate(-2px, -2px) rotate(-1deg) !important;
+    box-shadow: 8px 8px 0 var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-launch-panel {
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 28px !important;
+    background: #fff !important;
+    box-shadow: 7px 7px 0 var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-launch-panel > div:first-child > .suas-mono:after {
+    content: "shop the world" !important;
+  }
+
+  html body .suas-world-home .suas-launch {
+    min-height: 96px !important;
+    border-radius: 24px !important;
+    background: var(--launch) !important;
+  }
+
+  html body .suas-world-home .suas-launch .suas-mono:after {
+    content: "shop now" !important;
+  }
+
+  html body .suas-world-home .suas-log {
+    background: var(--suas-pop-yellow) !important;
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 24px !important;
+    box-shadow: 4px 4px 0 var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-log > .suas-mono:after {
+    content: "omg hi :)" !important;
+    color: var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-log p:nth-of-type(1):after {
+    content: "welcome to a tiny world of perfume, body care, home scent, and cute chaos." !important;
+  }
+
+  html body .suas-world-home .suas-log p:nth-of-type(2):after {
+    content: "pick a mood, build a routine, visit the lab." !important;
+  }
+
+  html body .suas-world-home .suas-log p:nth-of-type(3):after {
+    content: "made in gastonia with main-character energy." !important;
+  }
+
+  html body .suas-world-home .suas-led {
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 999px !important;
+    margin-top: 14px !important;
+    background: var(--suas-pop-pink) !important;
+    box-shadow: 4px 4px 0 var(--suas-pop-ink) !important;
+    transform: none !important;
+  }
+
+  html body .suas-world-home .suas-led-track span {
+    color: var(--suas-pop-ink) !important;
+    font-weight: 900 !important;
+  }
+
+  html body .suas-world-home .suas-section-head h2 {
+    border: 3px solid var(--suas-pop-ink) !important;
+    border-radius: 999px !important;
+    background: var(--suas-pop-yellow) !important;
+    box-shadow: 5px 5px 0 var(--suas-pop-ink) !important;
+    transform: none !important;
+  }
+
+  html body .suas-world-home .suas-shelf-card {
+    border-radius: 28px !important;
+    color: var(--suas-pop-ink) !important;
+  }
+
+  html body .suas-world-home .suas-shelf-card:nth-child(1) { background: var(--suas-pop-pink) !important; }
+  html body .suas-world-home .suas-shelf-card:nth-child(2) { background: var(--suas-pop-yellow) !important; }
+  html body .suas-world-home .suas-shelf-card:nth-child(3) { background: var(--suas-pop-blue) !important; }
+  html body .suas-world-home .suas-shelf-card:nth-child(4) { background: var(--suas-pop-green) !important; }
+  html body .suas-world-home .suas-shelf-card:nth-child(5) { background: var(--suas-pop-lav) !important; }
+
+  html body .suas-world-home .suas-shelf-card:before {
+    content: "*" !important;
+    top: 14px !important;
+    left: 18px !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    color: var(--suas-pop-ink) !important;
+    font-family: "Casual Human", Futura, Arial, sans-serif !important;
+    font-size: 2rem !important;
+    transform: none !important;
+  }
+
+  html body .suas-world-home .suas-lab-copy { background: var(--suas-pop-yellow) !important; }
+  html body .suas-world-home .suas-hours { background: var(--suas-pop-blue) !important; }
+  html body .suas-world-home .suas-step:nth-child(1) { background: var(--suas-pop-pink) !important; }
+  html body .suas-world-home .suas-step:nth-child(2) { background: var(--suas-pop-yellow) !important; }
+  html body .suas-world-home .suas-step:nth-child(3) { background: var(--suas-pop-blue) !important; }
+  html body .suas-world-home .suas-step:nth-child(4) { background: var(--suas-pop-green) !important; }
+
+  html body .suas-world-home .suas-scent {
+    border-radius: 999px !important;
+    justify-content: center !important;
+  }
+
+  html body .suas-world-home .suas-scent:nth-child(odd) { background: var(--suas-pop-yellow) !important; }
+  html body .suas-world-home .suas-scent:nth-child(even) { background: #fff !important; }
+
+  @media (max-width: 1023px) {
+    html body .suas-frame .suas-side-rail {
+      border-bottom: 3px solid var(--suas-pop-ink) !important;
+      box-shadow: 0 5px 0 var(--suas-pop-ink) !important;
     }
 
-    .header--right-side .x-menu li {
-      margin-bottom: 10px; /* Space out items on mobile */
+    html body .suas-frame .suas-side-orb {
+      width: 34px !important;
+      height: 34px !important;
+    }
+
+    html body .suas-world-home .suas-cyber-deck {
+      box-shadow: 6px 6px 0 var(--suas-pop-ink) !important;
     }
   }
 </style>
