@@ -1,31 +1,291 @@
 <section class="suas-reviews" aria-label="SUAS reviews">
   <style>
-    @font-face { font-family:'Casual Human'; src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype'); font-display:swap; }
-    .suas-reviews { --ink:#111; --yellow:#fff3a6; --pink:#ff9fc2; color:var(--ink); background:var(--yellow); border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); overflow:hidden; font-family:Futura,'Futura PT',Arial,sans-serif; }
-    .suas-reviews * { box-sizing:border-box; }
-    .suas-reviews-wrap { width:min(1180px,calc(100vw - 28px)); margin:0 auto; padding:clamp(48px,6vw,82px) 0; }
-    .suas-reviews-head { text-align:center; margin-bottom:30px; }
-    .suas-reviews-head p { margin:0 0 10px; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(1.6rem,3.2vw,3rem); color:#c62d72; transform:rotate(-2deg); }
-    .suas-reviews-head h2 { margin:0; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(3rem,7vw,7rem); font-weight:400; line-height:.88; text-transform:lowercase; }
-    .suas-review-bubbles { position:relative; min-height:220px; margin-bottom:24px; }
-    .suas-review-bubble { position:absolute; width:var(--size); height:var(--size); left:var(--left); top:var(--top); display:grid; place-items:center; border:2px solid var(--ink); border-radius:999px; background:var(--bubble-bg); box-shadow:4px 4px 0 var(--ink); text-align:center; padding:14px; animation:suas-review-float var(--speed) ease-in-out infinite alternate; }
-    .suas-review-bubble strong { display:block; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(1rem,2vw,1.8rem); font-weight:400; line-height:.95; text-transform:lowercase; }
-    .suas-review-bubble span { display:block; margin-top:8px; font-size:10px; letter-spacing:.18em; text-transform:uppercase; opacity:.62; }
-    @keyframes suas-review-float { from{transform:translateY(0) rotate(-2deg);} to{transform:translateY(-18px) rotate(2deg);} }
-    .suas-review-widget { border:2px solid var(--ink); border-radius:28px; background:#fff; padding:clamp(18px,3vw,30px); box-shadow:0 8px 0 var(--ink); }
-    .suas-review-widget:empty:after { content:'Review app space is ready. Once AfterShip reviews are active, customer reviews will load here.'; display:block; text-align:center; font-weight:800; color:rgba(17,17,17,.58); }
-    @media (max-width:700px){ .suas-review-bubbles{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; min-height:0;} .suas-review-bubble{position:static; width:100%; height:auto; aspect-ratio:1;} }
+    @font-face {
+      font-family: 'Casual Human';
+      src: url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');
+      font-display: swap;
+    }
+
+    .suas-reviews {
+      --ink: #101010;
+      --soft: #fbfaf7;
+      --pink: #ffc3d7;
+      --hot: #ff6e9f;
+      --lime: #f0ff81;
+      color: var(--ink);
+      background: var(--soft);
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      overflow: hidden;
+      font-family: Futura, 'Futura PT', Arial, sans-serif;
+    }
+
+    .suas-reviews * { box-sizing: border-box; }
+
+    .suas-reviews-wrap {
+      position: relative;
+      width: min(1220px, calc(100vw - 20px));
+      min-height: 620px;
+      margin: 0 auto;
+      padding: clamp(54px, 7vw, 92px) 0 clamp(42px, 6vw, 78px);
+    }
+
+    .suas-reviews-head {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .suas-reviews-head p {
+      margin: 0 0 8px;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(1.4rem, 2.8vw, 2.5rem);
+      color: #eceb60;
+      transform: rotate(-8deg);
+      text-transform: uppercase;
+    }
+
+    .suas-reviews-head h2 {
+      margin: 0;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(3.6rem, 8.5vw, 8.4rem);
+      font-weight: 400;
+      line-height: 0.86;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .suas-reviews-hint {
+      margin: 18px 0 0;
+      font-size: 13px;
+      color: rgba(16, 16, 16, 0.48);
+      text-transform: lowercase;
+    }
+
+    .suas-review-scene {
+      position: relative;
+      min-height: 390px;
+      margin-top: 18px;
+    }
+
+    .suas-review-bubble {
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      left: var(--left);
+      top: var(--top);
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      background: var(--bubble-bg, var(--pink));
+      color: var(--ink);
+      box-shadow: 7px 8px 0 rgba(16, 16, 16, 0.82);
+      text-align: center;
+      padding: 18px;
+      appearance: none;
+      cursor: pointer;
+      animation: suas-review-drift var(--speed, 5s) ease-in-out infinite alternate;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .suas-review-bubble:hover,
+    .suas-review-bubble.is-active {
+      background: #ff85ad;
+      transform: translateY(-10px) scale(1.04) rotate(var(--tilt, -2deg));
+      box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.92);
+      z-index: 4;
+    }
+
+    .suas-review-bubble b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: clamp(13px, 1.4vw, 18px);
+      letter-spacing: 0.18em;
+      line-height: 1;
+    }
+
+    .suas-review-bubble span {
+      display: block;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(1.05rem, 2vw, 1.85rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .suas-review-bubble em {
+      display: block;
+      margin-top: 8px;
+      font-size: 11px;
+      line-height: 1;
+      font-style: normal;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    @keyframes suas-review-drift {
+      from { translate: 0 0; rotate: -2deg; }
+      to { translate: 0 -18px; rotate: 2deg; }
+    }
+
+    .suas-review-note {
+      position: absolute;
+      right: min(3vw, 34px);
+      bottom: 0;
+      z-index: 5;
+      width: min(440px, 92vw);
+      border: 2px solid var(--ink);
+      border-radius: 28px;
+      background: #fff;
+      padding: 22px;
+      box-shadow: 0 8px 0 var(--ink);
+    }
+
+    .suas-review-note p {
+      margin: 0;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(1.35rem, 2.6vw, 2.35rem);
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .suas-review-note strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .suas-review-widget {
+      width: min(900px, 100%);
+      margin: 30px auto 0;
+      border: 2px solid var(--ink);
+      border-radius: 28px;
+      background: #fff;
+      padding: clamp(18px, 3vw, 30px);
+      box-shadow: 0 8px 0 var(--ink);
+    }
+
+    .suas-review-widget:empty:after {
+      content: "AfterShip reviews can load here once the app widget is active.";
+      display: block;
+      text-align: center;
+      font-weight: 800;
+      color: rgba(16, 16, 16, 0.58);
+    }
+
+    @media (max-width: 820px) {
+      .suas-reviews-wrap {
+        min-height: 0;
+      }
+
+      .suas-review-scene {
+        min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .suas-review-bubble {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+      }
+
+      .suas-review-note {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        grid-column: 1 / -1;
+        margin-top: 6px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .suas-review-scene {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
+
   <div class="suas-reviews-wrap">
-    <div class="suas-reviews-head"><p>they said it best</p><h2>{{ section.settings.heading }}</h2></div>
-    <div class="suas-review-bubbles" aria-hidden="true">
-      <div class="suas-review-bubble" style="--size:138px;--left:2%;--top:46px;--bubble-bg:#ffe8ef;--speed:4.6s;"><strong>smells expensive</strong><span>5 stars</span></div>
-      <div class="suas-review-bubble" style="--size:176px;--left:18%;--top:0;--bubble-bg:#d9ff78;--speed:5.2s;"><strong>my new signature</strong><span>real ones</span></div>
-      <div class="suas-review-bubble" style="--size:130px;--left:42%;--top:58px;--bubble-bg:#c9e7ff;--speed:4.9s;"><strong>so pretty</strong><span>verified</span></div>
-      <div class="suas-review-bubble" style="--size:168px;--left:61%;--top:12px;--bubble-bg:#fff;--speed:5.5s;"><strong>the body oil ate</strong><span>love note</span></div>
-      <div class="suas-review-bubble" style="--size:142px;--left:83%;--top:50px;--bubble-bg:#eee6ff;--speed:4.8s;"><strong>need every scent</strong><span>repeat</span></div>
+    <div class="suas-reviews-head">
+      <p>they said it best +</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="suas-reviews-hint">tap a bubble to read</div>
     </div>
-    <div class="suas-review-widget">{% render 'asrv-all-reviews-widget' %}</div>
+
+    <div class="suas-review-scene">
+      <button class="suas-review-bubble is-active" type="button" style="--size: 132px; --left: 1%; --top: 44px; --bubble-bg: #ff6e9f; --speed: 4.4s; --tilt: -4deg;" data-review="Smells so good I had to come back the same week." data-name="Jamie">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jamie</span><em>poppy</em>
+      </button>
+      <button class="suas-review-bubble" type="button" style="--size: 188px; --left: 12%; --top: 118px; --bubble-bg: #ffc3d7; --speed: 5.1s; --tilt: 2deg;" data-review="The body oil is soft, pretty, and lasts all day." data-name="Jalen">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jalen</span>
+      </button>
+      <button class="suas-review-bubble" type="button" style="--size: 214px; --left: 28%; --top: 190px; --bubble-bg: #ffc3d7; --speed: 5.8s; --tilt: -1deg;" data-review="The lab made the whole trip feel like a memory." data-name="Staci">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>staci</span>
+      </button>
+      <button class="suas-review-bubble" type="button" style="--size: 236px; --left: 43%; --top: 238px; --bubble-bg: #ffc3d7; --speed: 5.4s; --tilt: 3deg;" data-review="I made my own scent and now nobody else smells like me." data-name="Jess">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jess</span>
+      </button>
+      <button class="suas-review-bubble" type="button" style="--size: 148px; --left: 56%; --top: 232px; --bubble-bg: #ffc3d7; --speed: 4.8s; --tilt: -2deg;" data-review="Cute store, cute scents, cute everything." data-name="Katrina">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>katrina</span>
+      </button>
+      <button class="suas-review-bubble" type="button" style="--size: 176px; --left: 72%; --top: 196px; --bubble-bg: #ffc3d7; --speed: 5.2s; --tilt: 2deg;" data-review="I already know this is my new self-care stop." data-name="Sherry">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>sherry</span>
+      </button>
+
+      <div class="suas-review-note" aria-live="polite">
+        <p data-suas-review-text>Smells so good I had to come back the same week.</p>
+        <strong data-suas-review-name>Jamie</strong>
+      </div>
+    </div>
+
+    <div class="suas-review-widget">
+      {% render 'asrv-all-reviews-widget' %}
+    </div>
   </div>
+
+  <script>
+    (() => {
+      const section = document.currentScript.closest('.suas-reviews');
+      if (!section) return;
+      const text = section.querySelector('[data-suas-review-text]');
+      const name = section.querySelector('[data-suas-review-name]');
+      const bubbles = section.querySelectorAll('.suas-review-bubble');
+      bubbles.forEach((bubble) => {
+        bubble.addEventListener('click', () => {
+          bubbles.forEach((item) => item.classList.remove('is-active'));
+          bubble.classList.add('is-active');
+          if (text) text.textContent = bubble.dataset.review || '';
+          if (name) name.textContent = bubble.dataset.name || '';
+        });
+      });
+    })();
+  </script>
 </section>
-{% schema %}{"name":"SUAS Reviews","settings":[{"type":"text","id":"heading","label":"Heading","default":"reviews from real ones."}],"presets":[{"name":"SUAS Reviews"}]}{% endschema %}
+
+{% schema %}
+{
+  "name": "SUAS Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "reviews from real ones"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SUAS Reviews"
+    }
+  ]
+}
+{% endschema %}
