@@ -7,7 +7,9 @@
   assign spacing_below = section.settings.spacing-below
 -%}
 
-{% if page.content != blank or show_title %}
+{% if page.handle == 'shut-up-and-smell' %}
+  {% render 'suas-lab-fallback' %}
+{% elsif page.content != blank or show_title %}
   <div
     class="template-page--root"
     data-section-id="{{ section.id }}"
