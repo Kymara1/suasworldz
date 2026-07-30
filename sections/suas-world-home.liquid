@@ -1,4 +1,4 @@
-<section class="suas-world-home" aria-label="SUAS home">
+<section class="suas-world-home" aria-label="SUAS World home">
   <style>
     @font-face {
       font-family: 'Casual Human';
@@ -14,367 +14,467 @@
     }
 
     .suas-world-home {
-      --suas-ink: #111111;
-      --suas-cream: #fffaf5;
-      --suas-blush: #ffe8ef;
-      --suas-pink: #ff9fc2;
-      --suas-green: #d9ff78;
-      --suas-orange: #f0833a;
-      --suas-violet: #8e77e8;
-      --suas-line: rgba(17, 17, 17, 0.16);
-      color: var(--suas-ink);
-      background: var(--suas-cream);
+      --ink: #101010;
+      --cream: #f8f7f4;
+      --world: #f6f7fa;
+      --pink: #ff9bc4;
+      --soft-pink: #ffd8e8;
+      --blue: #9dd7ff;
+      --lav: #c7b5ff;
+      --sun: #ffe86b;
+      --lime: #c6f76a;
+      color: var(--ink);
+      background: var(--world);
       font-family: Futura, 'Futura PT', Arial, sans-serif;
       overflow: hidden;
     }
 
-    .suas-world-home * {
-      box-sizing: border-box;
-    }
+    .suas-world-home * { box-sizing: border-box; }
 
-    .suas-home-wrap {
-      width: min(1380px, calc(100vw - 32px));
-      margin: 0 auto;
-    }
-
-    .suas-casual {
-      font-family: 'Casual Human', Futura, Arial, sans-serif;
+    .suas-font {
+      font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+      font-weight: 400;
       letter-spacing: 0;
     }
 
-    .suas-hero {
-      position: relative;
-      min-height: min(820px, calc(100vh - 80px));
-      display: grid;
-      align-items: end;
-      border-bottom: 2px solid var(--suas-ink);
-      background:
-        linear-gradient(135deg, rgba(255, 232, 239, 0.88) 0%, rgba(255, 250, 245, 0.98) 46%, rgba(217, 255, 120, 0.38) 100%),
-        var(--suas-cream);
+    .suas-mono {
+      font-family: Futura, 'Futura PT', Arial, sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
     }
 
-    .suas-hero:before {
+    .suas-home-wrap {
+      width: min(1280px, calc(100vw - 28px));
+      margin: 0 auto;
+    }
+
+    .suas-cyber-hero {
+      position: relative;
+      padding: clamp(34px, 6vw, 76px) 0 clamp(54px, 8vw, 96px);
+      background:
+        radial-gradient(720px 420px at 10% 20%, rgba(255, 126, 184, 0.22), transparent 62%),
+        radial-gradient(660px 410px at 90% 78%, rgba(157, 215, 255, 0.24), transparent 62%),
+        radial-gradient(520px 320px at 50% 100%, rgba(199, 181, 255, 0.2), transparent 62%),
+        var(--cream);
+    }
+
+    .suas-cyber-deck {
+      position: relative;
+      border-radius: 30px;
+      padding: 3px;
+      background: linear-gradient(145deg, #fff 0%, #d7dbe3 25%, #f6f7fa 45%, #b8bdc6 70%, #fff 100%);
+      box-shadow: 0 30px 60px -20px rgba(16, 16, 16, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      animation: suasBoot 0.8s ease-out both;
+    }
+
+    .suas-cyber-window {
+      border-radius: 27px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #f6f7fa 0%, #e5e8ee 100%);
+    }
+
+    .suas-titlebar {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(16, 16, 16, 0.15);
+      background: linear-gradient(180deg, #fff 0%, #e9ecf1 62%, #d0d4dc 100%);
+    }
+
+    .suas-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .suas-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    .suas-titlebar-label {
+      flex: 1;
+      text-align: center;
+      color: rgba(16, 16, 16, 0.66);
+    }
+
+    .suas-cyber-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.95fr);
+    }
+
+    .suas-screen {
+      position: relative;
+      min-height: 540px;
+      padding: clamp(24px, 4vw, 44px);
+      overflow: hidden;
+      color: #fff;
+      background: radial-gradient(120% 92% at 30% 20%, #1a1533 0%, #0d0b1a 60%, #05040c 100%);
+      animation: suasPower 0.9s ease-out both;
+    }
+
+    .suas-screen:before {
       content: "";
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(17, 17, 17, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(17, 17, 17, 0.06) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mix-blend-mode: multiply;
+      background-image: radial-gradient(rgba(201, 160, 255, 0.34) 1px, transparent 1px);
+      background-size: 22px 22px;
+      mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, transparent 92%);
       pointer-events: none;
     }
 
-    .suas-hero:after {
+    .suas-screen:after {
       content: "";
       position: absolute;
-      width: min(52vw, 620px);
-      aspect-ratio: 1;
-      right: max(24px, 6vw);
-      top: 50%;
-      transform: translateY(-48%) rotate(-10deg);
-      background: url({{ 'suas-logo.png' | asset_url }}) center / contain no-repeat;
-      opacity: 0.08;
-      filter: contrast(1.2);
+      inset: 0;
+      background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.15) 0 1px, transparent 1px 3px);
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.7);
       pointer-events: none;
     }
 
-    .suas-hero-inner {
+    .suas-screen-inner {
       position: relative;
       z-index: 1;
-      padding: clamp(36px, 7vw, 86px) 0;
     }
 
-    .suas-logo-mark {
-      display: block;
-      width: clamp(88px, 12vw, 148px);
-      height: clamp(88px, 12vw, 148px);
-      border-radius: 50%;
-      border: 2px solid var(--suas-ink);
-      background: var(--suas-ink);
-      object-fit: contain;
-      padding: 8px;
-      box-shadow: 0 10px 0 var(--suas-ink);
-      margin-bottom: 24px;
+    .suas-hud {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 30px;
+      color: var(--lav);
     }
 
-    .suas-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      min-height: 38px;
-      border: 2px solid var(--suas-ink);
+    .suas-live {
+      color: var(--blue);
+    }
+
+    .suas-live:before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 8px;
       border-radius: 999px;
-      padding: 8px 14px;
-      background: var(--suas-green);
-      font-size: 12px;
-      line-height: 1;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      box-shadow: 0 4px 0 var(--suas-ink);
+      background: #28c840;
+      animation: suasBlink 1.4s steps(2, end) infinite;
     }
 
-    .suas-hero .suas-pill {
-      min-height: 46px;
-      padding: 11px 18px 10px;
-      font-size: 14px;
-      box-shadow: 0 5px 0 var(--suas-ink);
+    .suas-screen h1 {
+      margin: 0;
+      font-size: clamp(3.1rem, 8vw, 7.5rem);
+      line-height: 0.88;
+      text-transform: lowercase;
+      color: #fff;
     }
 
-    .suas-hero h1 {
-      max-width: 980px;
-      margin: 22px 0 18px;
-      font-size: clamp(4.2rem, 13vw, 12rem);
-      line-height: 0.78;
+    .suas-screen h1 span {
+      display: block;
+      background: linear-gradient(120deg, #ffb4dc 0%, #c9a0ff 46%, #6bb6ea 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .suas-feature {
+      display: flex;
+      align-items: end;
+      gap: 20px;
+      margin-top: 34px;
+    }
+
+    .suas-holo {
+      width: min(55%, 330px);
+      aspect-ratio: 1;
+      position: relative;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      background: radial-gradient(60% 60% at 50% 42%, rgba(255, 180, 220, 0.55), rgba(201, 160, 255, 0.15) 56%, transparent 82%);
+      box-shadow: inset 0 0 42px rgba(201, 160, 255, 0.35);
+    }
+
+    .suas-holo img {
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+      filter: drop-shadow(0 16px 26px rgba(255, 180, 220, 0.44));
+      animation: suasBob 5s ease-in-out infinite;
+    }
+
+    .suas-product-title {
+      min-width: 0;
+      font-size: clamp(2rem, 3.4vw, 3.3rem);
+      line-height: 0.92;
       text-transform: lowercase;
     }
 
-    .suas-hero-copy {
-      max-width: 640px;
-      margin: 0;
-      font-size: clamp(1rem, 1.8vw, 1.35rem);
-      line-height: 1.55;
-      font-weight: 700;
+    .suas-bars {
+      width: min(260px, 100%);
+      margin-top: 16px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .suas-bar {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .suas-bar-track {
+      height: 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .suas-bar-track span {
+      display: block;
+      height: 100%;
+      width: var(--w);
+      border-radius: 999px;
+      background: var(--c);
+      box-shadow: 0 0 10px var(--c);
     }
 
     .suas-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
+      gap: 10px;
+      margin-top: 32px;
     }
 
-    .suas-button {
+    .suas-btn {
+      min-height: 46px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
-      border: 2px solid var(--suas-ink);
+      border: 1px solid rgba(16, 16, 16, 0.16);
       border-radius: 999px;
-      padding: 13px 20px 12px;
-      background: #ffffff;
-      color: var(--suas-ink);
-      font-weight: 900;
+      padding: 12px 18px;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fff 0%, #ffd9ea 100%);
+      box-shadow: 0 8px 18px -6px rgba(255, 126, 184, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.9);
       text-decoration: none;
-      text-transform: lowercase;
-      box-shadow: 0 5px 0 var(--suas-ink);
-      transition: transform 160ms ease, box-shadow 160ms ease;
-    }
-
-    .suas-button:hover {
-      color: var(--suas-ink);
-      transform: translateY(2px);
-      box-shadow: 0 3px 0 var(--suas-ink);
-    }
-
-    .suas-button[data-fill="ink"] {
-      background: var(--suas-ink);
-      color: #ffffff;
-    }
-
-    .suas-button[data-fill="pink"] {
-      background: var(--suas-blush);
-    }
-
-    .suas-marquee {
-      border-bottom: 2px solid var(--suas-ink);
-      background: #ffffff;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    .suas-marquee-track {
-      display: inline-flex;
-      gap: 32px;
-      min-width: 100%;
-      padding: 14px 0;
-      animation: suas-marquee 26s linear infinite;
       font-weight: 900;
+    }
+
+    .suas-btn[data-dark] {
+      color: #fff;
+      background: linear-gradient(180deg, #3a2a66 0%, #1c1338 100%);
+      box-shadow: 0 0 0 1px rgba(201, 160, 255, 0.4), 0 0 18px -4px rgba(201, 160, 255, 0.55);
+    }
+
+    .suas-launch-panel {
+      padding: clamp(20px, 3vw, 30px);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      border-left: 1px solid rgba(16, 16, 16, 0.15);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 236, 244, 0.62) 100%);
+    }
+
+    .suas-launch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .suas-launch {
+      position: relative;
+      min-height: 92px;
+      border-radius: 22px;
+      padding: 16px;
+      color: var(--ink);
+      text-decoration: none;
+      background: linear-gradient(180deg, #fff 0%, var(--launch) 140%);
+      box-shadow: 0 0 0 1px rgba(16, 16, 16, 0.12), 0 6px 14px -4px rgba(var(--glow), 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: transform 170ms ease;
+    }
+
+    .suas-launch:hover {
+      color: var(--ink);
+      transform: translateY(-2px) rotate(-1deg);
+    }
+
+    .suas-launch strong {
+      display: block;
+      font-size: 1.8rem;
+      line-height: 0.9;
       text-transform: lowercase;
     }
 
-    .suas-marquee-track span:after {
-      content: "/";
-      margin-left: 32px;
-      color: var(--suas-pink);
+    .suas-log {
+      border-radius: 18px;
+      padding: 16px;
+      color: #a8ffb8;
+      background: #0d0b1a;
+      box-shadow: inset 0 0 0 1px rgba(201, 160, 255, 0.25);
     }
 
-    @keyframes suas-marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+    .suas-log p {
+      margin: 5px 0;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .suas-led {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(16, 16, 16, 0.15);
+      background: linear-gradient(180deg, #0d0b1a 0%, #1a1533 100%);
+    }
+
+    .suas-led-track {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: suasLed 32s linear infinite;
+    }
+
+    .suas-led-track span {
+      padding: 12px 20px;
+      color: var(--blue);
     }
 
     .suas-section {
-      padding: clamp(52px, 8vw, 104px) 0;
+      position: relative;
+      padding: clamp(52px, 8vw, 102px) 0;
+      background: var(--cream);
+    }
+
+    .suas-section[data-white] {
+      background: #fff;
+    }
+
+    .suas-section:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(16, 16, 16, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 16, 16, 0.045) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    .suas-section > .suas-home-wrap {
+      position: relative;
+      z-index: 1;
     }
 
     .suas-section-head {
       display: flex;
-      align-items: end;
       justify-content: space-between;
+      align-items: end;
       gap: 24px;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
     }
 
     .suas-section-head h2 {
       margin: 0;
-      font-size: clamp(3rem, 8vw, 6.8rem);
+      font-size: clamp(3.4rem, 8vw, 7rem);
       line-height: 0.85;
       text-transform: lowercase;
     }
 
-    .suas-section-head p {
-      max-width: 420px;
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.55;
-      font-weight: 700;
-      color: rgba(17, 17, 17, 0.68);
-    }
-
-    .suas-shop-grid {
+    .suas-shelf-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 14px;
     }
 
-    .suas-shop-card {
-      position: relative;
-      min-height: 210px;
-      overflow: hidden;
-      border: 2px solid var(--suas-ink);
+    .suas-shelf-card {
+      min-height: 190px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--ink);
       border-radius: 22px;
-      background: var(--suas-ink);
-      color: #ffffff;
-      text-decoration: none;
-      box-shadow: 0 8px 0 var(--suas-ink);
-      transition: transform 160ms ease, box-shadow 160ms ease;
-    }
-
-    .suas-shop-card:hover {
-      background: var(--hover-bg, rgba(255, 232, 239, 0.72));
-      color: var(--suas-ink);
-      transform: translateY(3px) rotate(-0.6deg);
-      box-shadow: 0 5px 0 var(--suas-ink);
-      backdrop-filter: blur(8px);
-    }
-
-    .suas-shop-card img {
-      display: none;
-    }
-
-    .suas-card-body {
-      min-height: 210px;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      color: #fff;
+      background: var(--ink);
+      box-shadow: 0 8px 0 var(--ink);
       text-align: center;
+      text-decoration: none;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease;
     }
 
-    .suas-card-kicker {
-      display: none;
+    .suas-shelf-card:hover {
+      color: var(--ink);
+      background: var(--hover);
+      transform: translateY(3px) rotate(-0.8deg);
+      box-shadow: 0 5px 0 var(--ink);
     }
 
-    .suas-shop-card h3 {
-      margin: 0;
-      color: inherit;
-      font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-      font-size: clamp(2.2rem, 3.4vw, 3.7rem);
+    .suas-shelf-card span {
+      display: block;
+      padding: 16px;
+      font-size: clamp(2.4rem, 3.6vw, 4rem);
       line-height: 0.9;
-      text-transform: lowercase;
+      text-transform: uppercase;
     }
 
-    .suas-card-accent {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 46px;
-      height: 46px;
-      border: 2px solid var(--suas-ink);
-      border-radius: 50%;
-      background: var(--accent, var(--suas-pink));
-      box-shadow: 0 4px 0 var(--suas-ink);
-      display: none;
-    }
-
-    .suas-lab-panel {
+    .suas-lab-teaser {
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 0;
-      border: 2px solid var(--suas-ink);
-      border-radius: 32px;
-      overflow: hidden;
-      background: #ffffff;
-      box-shadow: 0 10px 0 var(--suas-ink);
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+      gap: 18px;
+      align-items: stretch;
     }
 
-    .suas-lab-image {
-      min-height: 520px;
-      background:
-        linear-gradient(180deg, rgba(255, 232, 239, 0.1), rgba(255, 232, 239, 0.85)),
-        url({{ 'suas-fragrance-bar.jpg' | asset_url }}) center / cover no-repeat;
+    .suas-lab-copy,
+    .suas-hours {
+      border: 2px solid var(--ink);
+      border-radius: 28px;
+      padding: clamp(24px, 4vw, 44px);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 7px 0 var(--ink);
     }
 
-    .suas-lab-content {
-      padding: clamp(30px, 5vw, 62px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .suas-lab-content h2 {
+    .suas-lab-copy h2 {
       margin: 0;
-      font-size: clamp(3.2rem, 7vw, 6.4rem);
-      line-height: 0.82;
+      font-size: clamp(3.6rem, 8vw, 7rem);
+      line-height: 0.84;
       text-transform: lowercase;
     }
 
-    .suas-lab-content p {
+    .suas-lab-copy p {
+      max-width: 720px;
       margin: 22px 0 0;
-      font-size: 16px;
-      line-height: 1.65;
-      font-weight: 700;
-      color: rgba(17, 17, 17, 0.68);
+      font-size: clamp(1.15rem, 2.2vw, 1.8rem);
+      line-height: 1.18;
+      text-transform: lowercase;
+      color: rgba(16, 16, 16, 0.62);
     }
 
-    .suas-step-grid {
+    .suas-step-row {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin: 28px 0 8px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
     }
 
     .suas-step {
-      min-height: 118px;
-      border: 2px solid var(--suas-ink);
-      border-radius: 20px;
-      padding: 14px;
-      background: var(--suas-blush);
+      min-height: 122px;
+      border: 1px solid rgba(16, 16, 16, 0.12);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.74);
+      padding: 18px;
     }
 
     .suas-step b {
       display: block;
-      font-size: 11px;
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-bottom: 12px;
+      margin-bottom: 22px;
+      color: rgba(16, 16, 16, 0.45);
     }
 
     .suas-step span {
       display: block;
-      font-size: 18px;
+      font-size: 1.45rem;
       line-height: 1;
-      text-transform: lowercase;
-    }
-
-    .suas-scent-band {
-      background: #ffffff;
-      border-top: 2px solid var(--suas-ink);
-      border-bottom: 2px solid var(--suas-ink);
+      text-transform: uppercase;
     }
 
     .suas-scent-grid {
@@ -383,89 +483,89 @@
       gap: 10px;
     }
 
-    .suas-scent-chip {
-      min-height: 188px;
-      border: 2px solid var(--suas-ink);
-      border-radius: 999px 999px 26px 26px;
-      padding: 20px 14px 18px;
-      text-align: center;
-      background: var(--accent);
+    .suas-scent {
+      min-height: 165px;
       display: flex;
       flex-direction: column;
       justify-content: end;
-      color: var(--text-color, var(--suas-ink));
+      align-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 999px 999px 5px 5px;
+      padding: 22px 12px 18px;
+      color: var(--ink);
+      background: #f2f3f5;
+      box-shadow: 0 7px 0 var(--ink);
+      text-align: center;
       text-decoration: none;
-      box-shadow: 0 6px 0 var(--suas-ink);
+      transition: transform 160ms ease, box-shadow 160ms ease;
     }
 
-    .suas-scent-chip:hover {
-      color: var(--text-color, var(--suas-ink));
-      transform: translateY(2px);
-      box-shadow: 0 4px 0 var(--suas-ink);
+    .suas-scent:hover {
+      color: var(--ink);
+      transform: translateY(3px);
+      box-shadow: 0 4px 0 var(--ink);
     }
 
-    .suas-scent-chip h3 {
+    .suas-scent h3 {
       margin: 0;
-      font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-      font-size: clamp(1.7rem, 2.9vw, 3rem);
+      font-size: clamp(1.55rem, 2.7vw, 2.9rem);
       line-height: 0.9;
-      text-transform: lowercase;
+      text-transform: uppercase;
     }
 
-    .suas-scent-chip p {
-      margin: 9px auto 0;
-      max-width: 130px;
-      font-size: 11px;
+    .suas-scent p {
+      margin: 9px 0 0;
+      font-size: 10px;
       line-height: 1.35;
       font-weight: 900;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.74;
+      opacity: 0.72;
     }
 
-    .suas-visit {
-      background:
-        radial-gradient(circle at 14% 22%, rgba(255, 159, 194, 0.44), transparent 24%),
-        radial-gradient(circle at 86% 36%, rgba(217, 255, 120, 0.55), transparent 26%),
-        var(--suas-cream);
+    @keyframes suasBoot {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); filter: blur(6px); }
+      to { opacity: 1; transform: none; filter: blur(0); }
     }
 
-    .suas-visit-box {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 24px;
-      border: 2px solid var(--suas-ink);
-      border-radius: 28px;
-      background: #ffffff;
-      padding: clamp(24px, 4vw, 42px);
-      box-shadow: 0 8px 0 var(--suas-ink);
+    @keyframes suasPower {
+      0% { clip-path: inset(48% 0 48% 0); filter: brightness(2.2) saturate(0.5); }
+      60% { clip-path: inset(0); filter: brightness(1.2) saturate(1.2); }
+      100% { filter: none; }
     }
 
-    .suas-visit-box h2 {
-      margin: 0;
-      font-size: clamp(2.7rem, 7vw, 6rem);
-      line-height: 0.86;
-      text-transform: lowercase;
+    @keyframes suasBob {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-7px) rotate(1deg); }
     }
 
-    .suas-visit-box p {
-      margin: 12px 0 0;
-      font-weight: 800;
-      color: rgba(17, 17, 17, 0.7);
+    @keyframes suasBlink {
+      0%, 60% { opacity: 1; }
+      65%, 100% { opacity: 0.25; }
+    }
+
+    @keyframes suasLed {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
     }
 
     @media (max-width: 990px) {
-      .suas-shop-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .suas-lab-panel {
+      .suas-cyber-body,
+      .suas-lab-teaser {
         grid-template-columns: 1fr;
       }
 
-      .suas-lab-image {
-        min-height: 360px;
+      .suas-launch-panel {
+        border-left: 0;
+        border-top: 1px solid rgba(16, 16, 16, 0.15);
+      }
+
+      .suas-shelf-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .suas-step-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .suas-scent-grid {
@@ -473,228 +573,183 @@
       }
     }
 
-    @media (max-width: 700px) {
-      .suas-home-wrap {
-        width: min(100% - 22px, 1380px);
+    @media (max-width: 620px) {
+      .suas-cyber-hero {
+        padding-top: 24px;
       }
 
-      .suas-hero {
-        min-height: 720px;
+      .suas-screen {
+        min-height: 0;
       }
 
-      .suas-hero:after {
-        width: 86vw;
-        right: -22vw;
-        top: 30%;
-        opacity: 0.06;
-      }
-
+      .suas-hud,
       .suas-section-head {
         display: block;
       }
 
-      .suas-section-head p {
-        margin-top: 12px;
+      .suas-feature {
+        display: block;
       }
 
-      .suas-shop-grid {
-        gap: 10px;
+      .suas-holo {
+        width: 100%;
+        max-width: 260px;
+        margin-bottom: 18px;
       }
 
-      .suas-shop-card {
-        min-height: 260px;
-        border-radius: 22px;
-      }
-
-      .suas-shop-card img {
-        height: 150px;
-      }
-
-      .suas-card-body {
-        min-height: 108px;
-        padding: 14px;
-      }
-
-      .suas-card-accent {
-        width: 36px;
-        height: 36px;
-      }
-
-      .suas-step-grid,
-      .suas-visit-box {
+      .suas-launch-grid,
+      .suas-step-row {
         grid-template-columns: 1fr;
       }
 
-      .suas-scent-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
+      .suas-shelf-card {
+        min-height: 145px;
       }
 
-      .suas-scent-chip {
-        min-height: 118px;
-        border-radius: 999px 999px 18px 18px;
+      .suas-scent {
+        min-height: 112px;
         padding: 18px 8px 14px;
       }
 
-      .suas-scent-chip h3 {
-        font-size: clamp(1.05rem, 7vw, 1.75rem);
+      .suas-scent h3 {
+        font-size: clamp(1.04rem, 7vw, 1.7rem);
       }
 
-      .suas-scent-chip p {
-        max-width: 92px;
+      .suas-scent p {
         font-size: 8px;
-        line-height: 1.25;
-      }
-
-      .suas-visit-box {
-        align-items: start;
       }
     }
   </style>
 
-  <div class="suas-hero">
-    <div class="suas-home-wrap suas-hero-inner">
-      <span class="suas-pill">{{ section.settings.hero_pill }}</span>
-      <h1 class="suas-casual">{{ section.settings.hero_heading }}</h1>
-      <p class="suas-hero-copy">{{ section.settings.hero_copy }}</p>
-      <div class="suas-actions">
-        <a class="suas-button" data-fill="ink" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label }}</a>
-        <a class="suas-button" data-fill="pink" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a>
-        <a class="suas-button" href="{{ section.settings.third_link }}">{{ section.settings.third_label }}</a>
-      </div>
-    </div>
-  </div>
+  <div class="suas-cyber-hero">
+    <div class="suas-home-wrap">
+      <div class="suas-cyber-deck">
+        <div class="suas-cyber-window">
+          <div class="suas-titlebar">
+            <div class="suas-dots" aria-hidden="true"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>
+            <div class="suas-titlebar-label suas-mono">SUAS.OS v2.06 / home / fairy hero</div>
+            <div class="suas-mono">88%</div>
+          </div>
 
-  <div class="suas-marquee" aria-hidden="true">
-    <div class="suas-marquee-track">
-      <span>shut up and smell</span>
-      <span>hand blended in gastonia</span>
-      <span>body care</span>
-      <span>home fragrance</span>
-      <span>fragrance lab</span>
-      <span>free local pickup</span>
-      <span>shut up and smell</span>
-      <span>hand blended in gastonia</span>
-      <span>body care</span>
-      <span>home fragrance</span>
-      <span>fragrance lab</span>
-      <span>free local pickup</span>
+          <div class="suas-cyber-body">
+            <div class="suas-screen">
+              <div class="suas-screen-inner">
+                <div class="suas-hud suas-mono"><span>now_mixing</span><span class="suas-live">live ch.01</span></div>
+                <h1 class="suas-font">scent is the<span>accessory.</span></h1>
+                <div class="suas-feature">
+                  <div class="suas-holo">
+                    <img src="{{ 'suas-logo.png' | asset_url }}" alt="SUAS">
+                  </div>
+                  <div>
+                    <div class="suas-product-title suas-font">suas world</div>
+                    <div class="suas-mono" style="color:var(--sun); margin-top:8px;">fragrance - self care - little experiments</div>
+                    <div class="suas-bars" aria-hidden="true">
+                      <div class="suas-bar"><span class="suas-mono">top</span><div class="suas-bar-track"><span style="--w:82%; --c:#ffb4dc;"></span></div></div>
+                      <div class="suas-bar"><span class="suas-mono">heart</span><div class="suas-bar-track"><span style="--w:64%; --c:#c9a0ff;"></span></div></div>
+                      <div class="suas-bar"><span class="suas-mono">base</span><div class="suas-bar-track"><span style="--w:46%; --c:#6bb6ea;"></span></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="suas-actions">
+                  <a class="suas-btn suas-mono" href="/collections/all">shop product</a>
+                  <a class="suas-btn suas-mono" data-dark href="/collections/all">shop the collection</a>
+                </div>
+              </div>
+            </div>
+
+            <aside class="suas-launch-panel">
+              <div>
+                <div class="suas-mono" style="margin-bottom:10px;">quick_launch</div>
+                <div class="suas-launch-grid">
+                  <a class="suas-launch" href="/collections/body-care" style="--launch:#ff7eb8; --glow:255,126,184;"><strong class="suas-font">body</strong><span class="suas-mono">launch</span></a>
+                  <a class="suas-launch" href="/collections/home-care" style="--launch:#f6e14a; --glow:246,225,74;"><strong class="suas-font">home</strong><span class="suas-mono">launch</span></a>
+                  <a class="suas-launch" href="/collections/masculine" style="--launch:#6bb6ea; --glow:107,182,234;"><strong class="suas-font">masculine</strong><span class="suas-mono">launch</span></a>
+                  <a class="suas-launch" href="/collections/feminine" style="--launch:#c9a0ff; --glow:201,160,255;"><strong class="suas-font">feminine</strong><span class="suas-mono">launch</span></a>
+                </div>
+              </div>
+              <div class="suas-log">
+                <div class="suas-mono" style="color:#c9a0ff;">system_log</div>
+                <p>&gt; booting scent.core v2.06 ........ ok</p>
+                <p>&gt; loading fairy.dust modules ....... ok</p>
+                <p>&gt; mood.analyzer calibrating ......... live</p>
+              </div>
+              <div>
+                <div class="suas-mono" style="margin-bottom:10px;">channels</div>
+                <div class="suas-actions" style="margin-top:0;">
+                  <a class="suas-btn suas-mono" href="/pages/shut-up-and-smell">the bar</a>
+                  <a class="suas-btn suas-mono" href="/pages/reviews">reviews</a>
+                  <a class="suas-btn suas-mono" href="/account">account</a>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          <div class="suas-led" aria-hidden="true">
+            <div class="suas-led-track suas-mono">
+              {% for i in (1..2) %}
+                <span>smell rich</span><span>hand-poured chaos</span><span>gastonia nc</span><span>dopamine on tap</span><span>formula 001</span><span>suas.os online</span>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="suas-section">
     <div class="suas-home-wrap">
       <div class="suas-section-head">
-        <h2 class="suas-casual">shop the shelf.</h2>
+        <h2 class="suas-font">shop the shelf.</h2>
       </div>
-
-      <div class="suas-shop-grid">
-        <a class="suas-shop-card" href="/collections/new-arrivals" style="--hover-bg: rgba(217, 255, 120, 0.78);">
-          <div class="suas-card-body">
-            <h3 class="suas-casual">new arrivals</h3>
-          </div>
-        </a>
-
-        <a class="suas-shop-card" href="/collections/best-sellers" style="--hover-bg: rgba(255, 232, 239, 0.84);">
-          <div class="suas-card-body">
-            <h3 class="suas-casual">best sellers</h3>
-          </div>
-        </a>
-
-        <a class="suas-shop-card" href="/collections/home-care" style="--hover-bg: rgba(157, 215, 255, 0.76);">
-          <div class="suas-card-body">
-            <h3 class="suas-casual">home</h3>
-          </div>
-        </a>
-
-        <a class="suas-shop-card" href="/collections/body-care" style="--hover-bg: rgba(255, 159, 194, 0.72);">
-          <div class="suas-card-body">
-            <h3 class="suas-casual">body</h3>
-          </div>
-        </a>
-
-        <a class="suas-shop-card" href="/collections/oddities" style="--hover-bg: rgba(199, 181, 255, 0.76);">
-          <div class="suas-card-body">
-            <h3 class="suas-casual">oddities</h3>
-          </div>
-        </a>
+      <div class="suas-shelf-grid">
+        <a class="suas-shelf-card" href="/collections/new-arrivals" style="--hover:rgba(217,255,120,.78);"><span class="suas-font">new arrivals</span></a>
+        <a class="suas-shelf-card" href="/collections/best-sellers" style="--hover:rgba(255,232,239,.84);"><span class="suas-font">best sellers</span></a>
+        <a class="suas-shelf-card" href="/collections/home-care" style="--hover:rgba(157,215,255,.76);"><span class="suas-font">home</span></a>
+        <a class="suas-shelf-card" href="/collections/body-care" style="--hover:rgba(255,159,194,.72);"><span class="suas-font">body</span></a>
+        <a class="suas-shelf-card" href="/collections/oddities" style="--hover:rgba(199,181,255,.76);"><span class="suas-font">oddities</span></a>
       </div>
     </div>
   </div>
 
-  <div class="suas-section">
+  <div class="suas-section" data-white>
     <div class="suas-home-wrap">
-      <div class="suas-lab-panel">
-        <div class="suas-lab-image" aria-hidden="true"></div>
-        <div class="suas-lab-content">
-          <span class="suas-pill">the fragrance bar</span>
-          <h2 class="suas-casual">enter the lab.</h2>
-          <p>Customers come in, choose their notes, mix their scent, name the blend, and leave with a custom bottle made in-store.</p>
-          <div class="suas-step-grid">
-            <div class="suas-step">
-              <b>01</b>
-              <span class="suas-casual">choose notes</span>
-            </div>
-            <div class="suas-step">
-              <b>02</b>
-              <span class="suas-casual">mix blend</span>
-            </div>
-            <div class="suas-step">
-              <b>03</b>
-              <span class="suas-casual">label bottle</span>
-            </div>
+      <div class="suas-lab-teaser">
+        <div class="suas-lab-copy">
+          <div class="suas-mono">the lab - experiment 001</div>
+          <h2 class="suas-font">mix your own signature scent.</h2>
+          <p class="suas-font">Pick your session, choose your notes, name it, label it, and leave with something custom made by you.</p>
+          <div class="suas-step-row">
+            <div class="suas-step"><b class="suas-mono">step 01</b><span class="suas-font">choose size</span></div>
+            <div class="suas-step"><b class="suas-mono">step 02</b><span class="suas-font">add notes</span></div>
+            <div class="suas-step"><b class="suas-mono">step 03</b><span class="suas-font">mix formula</span></div>
+            <div class="suas-step"><b class="suas-mono">step 04</b><span class="suas-font">bottle it</span></div>
           </div>
           <div class="suas-actions">
-            <a class="suas-button" data-fill="ink" href="{{ section.settings.lab_link }}">{{ section.settings.lab_label }}</a>
+            <a class="suas-btn suas-mono" href="/pages/shut-up-and-smell">enter the lab</a>
+            <a class="suas-btn suas-mono" data-dark href="/pages/build-your-formula">build formula</a>
           </div>
         </div>
+        <div class="suas-hours">
+          <div class="suas-mono">lab sessions</div>
+          <h3 class="suas-font" style="font-size:clamp(2.4rem,5vw,4.8rem); line-height:.88; margin:16px 0;">mini lab - 30<br>full lab - 45<br>combo sesh - 60</h3>
+          <p style="font-weight:800; line-height:1.55; color:rgba(16,16,16,.62);">15 mL perfume, 30 mL perfume, or perfume plus 1 oz body oil.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="suas-section suas-scent-band">
+  <div class="suas-section">
     <div class="suas-home-wrap">
       <div class="suas-section-head">
-        <h2 class="suas-casual">signature scents.</h2>
+        <h2 class="suas-font">signature scents.</h2>
       </div>
-
       <div class="suas-scent-grid">
-        <a class="suas-scent-chip" href="/products/apple-tease" style="--accent: #f0833a;">
-          <h3 class="suas-casual">nectar</h3>
-          <p>passionfruit pineapple juicy</p>
-        </a>
-        <a class="suas-scent-chip" href="/products/good-girl" style="--accent: #6fa15b;">
-          <h3 class="suas-casual">good girl</h3>
-          <p>sweet feminine addictive</p>
-        </a>
-        <a class="suas-scent-chip" href="/products/shocking-ice" style="--accent: #382763; --text-color: #ffffff;">
-          <h3 class="suas-casual">tonic</h3>
-          <p>fresh citrus minty</p>
-        </a>
-        <a class="suas-scent-chip" href="/products/milkd" style="--accent: #ebf094;">
-          <h3 class="suas-casual">haze</h3>
-          <p>dreamy soft comforting</p>
-        </a>
-        <a class="suas-scent-chip" href="/products/brown-suga" style="--accent: #5d3d29; --text-color: #ffffff;">
-          <h3 class="suas-casual">ember</h3>
-          <p>warm vanilla magnetic</p>
-        </a>
-        <a class="suas-scent-chip" href="/products/plumeria" style="--accent: #de0f3f; --text-color: #ffffff;">
-          <h3 class="suas-casual">crimson</h3>
-          <p>bold sweet tempting</p>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="suas-section suas-visit">
-    <div class="suas-home-wrap">
-      <div class="suas-visit-box">
-        <div>
-          <h2 class="suas-casual">come smell us.</h2>
-          <p>{{ section.settings.visit_text }}</p>
-        </div>
-        <a class="suas-button" data-fill="ink" href="{{ section.settings.visit_link }}">{{ section.settings.visit_label }}</a>
+        <a class="suas-scent" href="/products/apple-tease"><h3 class="suas-font">nectar</h3><p>passionfruit pineapple juicy</p></a>
+        <a class="suas-scent" href="/products/good-girl"><h3 class="suas-font">good girl</h3><p>sweet feminine addictive</p></a>
+        <a class="suas-scent" href="/products/shocking-ice"><h3 class="suas-font">tonic</h3><p>fresh citrus minty</p></a>
+        <a class="suas-scent" href="/products/milkd"><h3 class="suas-font">haze</h3><p>dreamy soft comforting</p></a>
+        <a class="suas-scent" href="/products/brown-suga"><h3 class="suas-font">ember</h3><p>warm vanilla magnetic</p></a>
+        <a class="suas-scent" href="/products/plumeria"><h3 class="suas-font">crimson</h3><p>bold sweet tempting</p></a>
       </div>
     </div>
   </div>
@@ -703,87 +758,7 @@
 {% schema %}
 {
   "name": "SUAS World Home",
-  "settings": [
-    {
-      "type": "text",
-      "id": "hero_pill",
-      "label": "Hero pill",
-      "default": "shut up and smell"
-    },
-    {
-      "type": "text",
-      "id": "hero_heading",
-      "label": "Hero heading",
-      "default": "suas world"
-    },
-    {
-      "type": "textarea",
-      "id": "hero_copy",
-      "label": "Hero copy",
-      "default": "Fragrance, self care, home scent, and little experiments handmade in Gastonia, NC."
-    },
-    {
-      "type": "text",
-      "id": "primary_label",
-      "label": "Primary button label",
-      "default": "shop smells"
-    },
-    {
-      "type": "url",
-      "id": "primary_link",
-      "label": "Primary button link"
-    },
-    {
-      "type": "text",
-      "id": "secondary_label",
-      "label": "Secondary button label",
-      "default": "visit the lab"
-    },
-    {
-      "type": "url",
-      "id": "secondary_link",
-      "label": "Secondary button link"
-    },
-    {
-      "type": "text",
-      "id": "third_label",
-      "label": "Third button label",
-      "default": "body care"
-    },
-    {
-      "type": "url",
-      "id": "third_link",
-      "label": "Third button link"
-    },
-    {
-      "type": "text",
-      "id": "lab_label",
-      "label": "Lab button label",
-      "default": "plan your visit"
-    },
-    {
-      "type": "url",
-      "id": "lab_link",
-      "label": "Lab button link"
-    },
-    {
-      "type": "textarea",
-      "id": "visit_text",
-      "label": "Visit copy",
-      "default": "167 W Main Ave Suite 180, Gastonia NC 28052"
-    },
-    {
-      "type": "text",
-      "id": "visit_label",
-      "label": "Visit button label",
-      "default": "store info"
-    },
-    {
-      "type": "url",
-      "id": "visit_link",
-      "label": "Visit button link"
-    }
-  ],
+  "settings": [],
   "presets": [
     {
       "name": "SUAS World Home"
