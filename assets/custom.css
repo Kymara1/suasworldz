@@ -138,3 +138,179 @@ nav *,
     padding-top: 6px !important;
   }
 }
+
+/* SUAS OS desktop scale pass */
+@media (min-width: 1024px) {
+  .suas-side-rail {
+    width: 220px !important;
+    padding-top: 4px !important;
+  }
+
+  .template--index .off-canvas--main-content,
+  .template--page--control-panel .off-canvas--main-content,
+  .template--page--shut-up-and-smell .off-canvas--main-content,
+  .template--page--build-your-formula .off-canvas--main-content,
+  .template--page--visit-us .off-canvas--main-content {
+    margin-left: 220px !important;
+    width: calc(100% - 220px) !important;
+  }
+
+  .suas-frame-marquee {
+    margin-left: 220px !important;
+    width: calc(100% - 220px) !important;
+    height: 28px !important;
+  }
+
+  .suas-frame-marquee-track span {
+    font-size: 13px !important;
+    padding: 0 15px !important;
+  }
+
+  .suas-side-head {
+    gap: 10px !important;
+    padding: 18px 16px 14px !important;
+  }
+
+  .suas-side-orb {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .suas-side-brand {
+    font-size: 1.78rem !important;
+  }
+
+  .suas-side-kicker {
+    padding: 13px 16px 8px !important;
+    font-size: 9px !important;
+  }
+
+  .suas-side-nav {
+    padding: 4px 10px 12px !important;
+  }
+
+  .suas-side-link {
+    min-height: 50px !important;
+    gap: 9px !important;
+    padding: 7px 10px !important;
+  }
+
+  .suas-side-link.is-active {
+    min-height: 58px !important;
+  }
+
+  .suas-side-icon {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 15px !important;
+  }
+
+  .suas-side-label {
+    font-size: 1.34rem !important;
+  }
+
+  .suas-side-num {
+    font-size: 9px !important;
+  }
+
+  .suas-side-status {
+    min-height: 62px !important;
+    margin: 10px 14px 14px !important;
+    padding: 13px 16px !important;
+  }
+
+  .suas-side-status span {
+    font-size: 0.94rem !important;
+  }
+
+  .suas-side-foot {
+    padding: 0 12px 12px !important;
+  }
+
+  .suas-world-home {
+    font-size: 9px !important;
+  }
+
+  .suas-home-wrap {
+    width: min(1120px, calc(100vw - 280px)) !important;
+  }
+
+  .suas-cyber-hero {
+    padding: 54px 0 72px !important;
+  }
+
+  .suas-cyber-titlebar {
+    min-height: 38px !important;
+    padding: 8px 14px !important;
+  }
+
+  .suas-cyber-body {
+    grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.78fr) !important;
+    min-height: 440px !important;
+  }
+
+  .suas-screen {
+    padding: 30px !important;
+    min-height: 440px !important;
+  }
+
+  .suas-screen h1 {
+    font-size: clamp(2.75rem, 6vw, 5.7rem) !important;
+  }
+
+  .suas-feature {
+    gap: 16px !important;
+    margin-top: 28px !important;
+  }
+
+  .suas-holo {
+    width: min(42%, 250px) !important;
+  }
+
+  .suas-product-title {
+    font-size: clamp(1.65rem, 2.6vw, 2.55rem) !important;
+  }
+
+  .suas-launch-panel {
+    padding: 22px !important;
+    gap: 16px !important;
+  }
+
+  .suas-launch {
+    min-height: 76px !important;
+    padding: 13px !important;
+  }
+
+  .suas-launch strong {
+    font-size: 1.45rem !important;
+  }
+
+  .suas-log {
+    padding: 14px !important;
+  }
+
+  .suas-section {
+    padding: 72px 0 !important;
+  }
+
+  .suas-section-head h2 {
+    font-size: clamp(2.85rem, 6vw, 5.5rem) !important;
+  }
+
+  .suas-shelf-card {
+    min-height: 160px !important;
+  }
+
+  .suas-shelf-card span {
+    font-size: clamp(1.45rem, 2vw, 2.35rem) !important;
+  }
+
+  .suas-lab-copy,
+  .suas-hours {
+    padding: 32px !important;
+  }
+
+  .suas-lab-copy h2 {
+    font-size: clamp(3rem, 6vw, 5.5rem) !important;
+  }
+}
