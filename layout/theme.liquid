@@ -225,6 +225,9 @@
     <a data-item="a11y-button" href="#main-content">
       {{ 'general.a11y.skip_main' | t }}
     </a>
+    {% unless request.page_type == 'password' %}
+      {% render 'suas-lovable-frame' %}
+    {% endunless %}
 
     <div
       class="off-canvas--viewport"
