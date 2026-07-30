@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "suas_world_home": {
@@ -7,10 +16,10 @@
         "hero_heading": "suas world",
         "hero_copy": "Fragrance, self care, home scent, and little experiments handmade in Gastonia, NC.",
         "primary_label": "shop smells",
-        "primary_link": "/collections/all",
+        "primary_link": "shopify://pages/smells",
         "secondary_label": "visit the lab",
-        "secondary_link": "/pages/shut-up-and-smell",
-        "third_label": "body care",
+        "secondary_link": "shopify://pages/the-lab",
+        "third_label": "",
         "third_link": "/collections/body-care",
         "lab_label": "plan your visit",
         "lab_link": "/pages/shut-up-and-smell",
