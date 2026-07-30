@@ -1,318 +1,44 @@
 <style>
-  @font-face {
-    font-family: 'Casual Human';
-    src: url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Casual Human';
-    src: url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');
-    font-weight: 700;
-    font-display: swap;
-  }
-
-  :root {
-    --suas-ink: #101010;
-    --suas-cream: #f8f7f4;
-    --suas-world: #f6f7fa;
-    --suas-pink: #ff9bc4;
-    --suas-blue: #9dd7ff;
-    --suas-sun: #ffe86b;
-    --suas-lime: #c6f76a;
-    --suas-lav: #c7b5ff;
-  }
-
-  body {
-    background: var(--suas-world);
-  }
-
-  .suas-frame {
-    font-family: 'Casual Human', Futura, Arial, sans-serif;
-  }
-
-  .suas-font,
-  .suas-side-brand,
-  .suas-side-label,
-  .suas-panel-brand,
-  .suas-panel-label,
-  .suas-panel-hero h2,
-  .suas-lab-title,
-  .suas-lab-subtitle,
-  .suas-lab-step span,
-  .suas-session h3,
-  .suas-price,
-  .suas-formula-head h2,
-  .suas-size-btn strong,
-  .suas-note-btn strong,
-  .suas-review-title,
-  .suas-review-bubble,
-  .suas-password-title,
-  .suas-password-prompt {
-    font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-    font-weight: 700 !important;
-  }
-
-  .suas-frame-marquee {
-    position: sticky;
-    top: 0;
-    z-index: 60;
-    height: 30px;
-    overflow: hidden;
-    background: var(--suas-ink);
-    color: #fff;
-    border-bottom: 1px solid rgba(16, 16, 16, 0.12);
-  }
-
-  .suas-frame-marquee-track {
-    display: inline-flex;
-    min-width: 200%;
-    height: 100%;
-    align-items: center;
-    gap: 0;
-    white-space: nowrap;
-    animation: suasFrameMarquee 34s linear infinite;
-  }
-
-  .suas-frame-marquee-track span {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    padding: 0 18px;
-    font-size: 15px;
-    line-height: 1;
-    text-transform: lowercase;
-  }
-
-  .suas-frame-marquee-track span:after {
-    content: "+";
-    color: rgba(255, 255, 255, 0.56);
-  }
-
-  @keyframes suasFrameMarquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  .suas-side-rail {
-    position: fixed;
-    inset: 30px auto 0 0;
-    z-index: 55;
-    width: 252px;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(180deg, #fff 0%, #f6f7fa 60%, #eef0f5 100%);
-    border-right: 1px solid rgba(16, 16, 16, 0.1);
-    box-shadow: inset -8px 0 20px -20px rgba(16, 16, 16, 0.2);
-  }
-
-  .suas-side-head {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 24px 20px 17px;
-    color: var(--suas-ink);
-    text-decoration: none;
-  }
-
-  .suas-side-orb {
-    position: relative;
-    width: 45px;
-    height: 45px;
-    border-radius: 999px;
-    background:
-      radial-gradient(circle at 32% 20%, #fff 0 10%, transparent 32%),
-      conic-gradient(from 210deg, #ffd8e8, #c9e7ff, #d8e26a, #ffd8e8);
-    box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.16), inset 0 6px 12px rgba(255, 255, 255, 0.85), 0 8px 16px -8px rgba(16, 16, 16, 0.35);
-  }
-
-  .suas-side-brand {
-    font-size: 2.15rem;
-    font-weight: 700;
-    line-height: 0.9;
-    text-transform: uppercase;
-  }
-
-  .suas-side-kicker,
-  .suas-side-status b,
-  .suas-side-foot a,
-  .suas-side-foot span {
-    font-family: Futura, 'Futura PT', Arial, sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-  }
-
-  .suas-side-kicker {
-    margin: 0 20px 12px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(16, 16, 16, 0.13);
-    color: rgba(16, 16, 16, 0.42);
-  }
-
-  .suas-side-nav {
-    flex: 1;
-    overflow-y: auto;
-    padding: 6px 12px 14px;
-  }
-
-  .suas-side-link {
-    min-height: 58px;
-    display: grid;
-    grid-template-columns: 42px 1fr auto;
-    align-items: center;
-    gap: 11px;
-    padding: 9px 12px;
-    border-radius: 999px;
-    color: var(--suas-ink);
-    text-decoration: none;
-    transition: transform 180ms ease, background 180ms ease, color 180ms ease;
-  }
-
-  .suas-side-link:hover {
-    color: var(--suas-ink);
-    background: rgba(255, 255, 255, 0.85);
-    transform: translateX(3px);
-  }
-
-  .suas-side-link.is-active {
-    min-height: 70px;
-    margin: 8px -2px;
-    color: #fff;
-    background: var(--suas-ink);
-  }
-
-  .suas-side-icon {
-    width: 38px;
-    height: 38px;
-    display: grid;
-    place-items: center;
-    border: 1px solid rgba(16, 16, 16, 0.08);
-    border-radius: 999px;
-    background: linear-gradient(180deg, #fff 0%, var(--tint) 130%);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    font-size: 18px;
-  }
-
-  .suas-side-link.is-active .suas-side-icon {
-    border-color: rgba(255, 255, 255, 0.28);
-    background: rgba(255, 255, 255, 0.14);
-  }
-
-  .suas-side-label {
-    font-size: 1.65rem;
-    font-weight: 700;
-    line-height: 0.96;
-    text-transform: uppercase;
-  }
-
-  .suas-side-num {
-    font-family: Futura, 'Futura PT', Arial, sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    opacity: 0.45;
-  }
-
-  .suas-side-status {
-    margin: 10px 15px 12px;
-    min-height: 74px;
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 16px 20px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.84);
-    box-shadow: 0 13px 30px rgba(16, 16, 16, 0.08);
-  }
-
-  .suas-side-status-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 999px;
-    background: var(--suas-lime);
-    box-shadow: 0 0 14px rgba(198, 247, 106, 0.9);
-    animation: suasPulse 1.6s ease-in-out infinite;
-  }
-
-  .suas-side-status b,
-  .suas-side-status span {
-    display: block;
-  }
-
-  .suas-side-status b {
-    color: rgba(16, 16, 16, 0.42);
-    margin-bottom: 5px;
-  }
-
-  .suas-side-status span {
-    font-size: 1.08rem;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .suas-side-foot {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 0 14px 16px;
-  }
-
-  .suas-side-foot a,
-  .suas-side-foot span {
-    color: rgba(16, 16, 16, 0.46);
-    text-decoration: none;
-  }
-
-  @keyframes suasPulse {
-    0%, 100% { opacity: 0.35; transform: scale(0.86); }
-    50% { opacity: 1; transform: scale(1.1); }
-  }
-
-  @media (min-width: 1024px) {
-    .off-canvas--main-content {
-      margin-left: 252px;
-      width: calc(100% - 252px);
-    }
-
-    .header--root {
-      display: none !important;
-    }
-
-    .announcement--root {
-      display: none !important;
-    }
-  }
-
-  @media (max-width: 1023px) {
-    .suas-side-rail {
-      display: none;
-    }
-
-    .suas-frame-marquee {
-      height: 28px;
-    }
-  }
+  @font-face { font-family: 'Casual Human'; src: url({{ 'CasualHuman.otf' | asset_url }}) format('opentype'); font-display: swap; }
+  @font-face { font-family: 'Casual Human'; src: url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype'); font-weight: 700; font-display: swap; }
+  :root { --suas-ink:#101010; --suas-cream:#f8f7f4; --suas-world:#f6f7fa; --suas-pink:#ff9bc4; --suas-blue:#9dd7ff; --suas-sun:#ffe86b; --suas-lime:#c6f76a; --suas-lav:#c7b5ff; }
+  body { background: var(--suas-world); }
+  .suas-frame, .suas-side-brand, .suas-side-label { font-family:'Casual Human',Futura,Arial,sans-serif!important; font-weight:700!important; letter-spacing:0!important; }
+  .suas-frame-marquee { position:sticky; top:0; z-index:60; height:30px; overflow:hidden; background:var(--suas-ink); color:#fff; border-bottom:1px solid rgba(16,16,16,.12); }
+  .suas-frame-marquee-track { display:inline-flex; min-width:200%; height:100%; align-items:center; white-space:nowrap; animation:suasFrameMarquee 34s linear infinite; }
+  .suas-frame-marquee-track span { display:inline-flex; align-items:center; gap:14px; padding:0 18px; font-size:15px; line-height:1; text-transform:lowercase; }
+  .suas-frame-marquee-track span:after { content:'+'; color:rgba(255,255,255,.56); }
+  @keyframes suasFrameMarquee { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  .suas-side-rail { position:fixed; inset:30px auto 0 0; z-index:55; width:252px; display:flex; flex-direction:column; background:linear-gradient(180deg,#fff 0%,#f6f7fa 60%,#eef0f5 100%); border-right:1px solid rgba(16,16,16,.1); box-shadow:inset -8px 0 20px -20px rgba(16,16,16,.2); }
+  .suas-side-head { display:flex; align-items:center; gap:13px; padding:24px 20px 17px; color:var(--suas-ink); text-decoration:none; }
+  .suas-side-orb { width:45px; height:45px; border-radius:999px; background:radial-gradient(circle at 32% 20%,#fff 0 10%,transparent 32%),conic-gradient(from 210deg,#ffd8e8,#c9e7ff,#d8e26a,#ffd8e8); box-shadow:inset 0 -6px 12px rgba(0,0,0,.16), inset 0 6px 12px rgba(255,255,255,.85),0 8px 16px -8px rgba(16,16,16,.35); }
+  .suas-side-brand { font-size:2.15rem; line-height:.9; text-transform:uppercase; }
+  .suas-side-kicker, .suas-side-status b, .suas-side-foot a, .suas-side-foot span, .suas-side-num { font-family:Futura,'Futura PT',Arial,sans-serif; text-transform:uppercase; }
+  .suas-side-kicker { margin:0 20px 12px; padding-top:16px; border-top:1px solid rgba(16,16,16,.13); color:rgba(16,16,16,.42); font-size:10px; letter-spacing:.28em; }
+  .suas-side-nav { flex:1; overflow-y:auto; padding:6px 12px 14px; }
+  .suas-side-link { min-height:58px; display:grid; grid-template-columns:42px 1fr auto; align-items:center; gap:11px; padding:9px 12px; border-radius:999px; color:var(--suas-ink); text-decoration:none; transition:transform 180ms ease,background 180ms ease,color 180ms ease; }
+  .suas-side-link:hover { color:var(--suas-ink); background:rgba(255,255,255,.85); transform:translateX(3px); }
+  .suas-side-link.is-active { min-height:70px; margin:8px -2px; color:#fff; background:var(--suas-ink); }
+  .suas-side-icon { width:38px; height:38px; display:grid; place-items:center; border:1px solid rgba(16,16,16,.08); border-radius:999px; background:linear-gradient(180deg,#fff 0%,var(--tint) 130%); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); font-size:18px; }
+  .suas-side-link.is-active .suas-side-icon { border-color:rgba(255,255,255,.28); background:rgba(255,255,255,.14); }
+  .suas-side-label { font-size:1.65rem; line-height:.96; text-transform:uppercase; }
+  .suas-side-num { font-size:11px; letter-spacing:.2em; opacity:.45; }
+  .suas-side-status { margin:10px 15px 12px; min-height:74px; display:flex; align-items:center; gap:11px; padding:16px 20px; border-radius:999px; background:rgba(255,255,255,.84); box-shadow:0 13px 30px rgba(16,16,16,.08); }
+  .suas-side-status-dot { width:9px; height:9px; border-radius:999px; background:var(--suas-lime); box-shadow:0 0 14px rgba(198,247,106,.9); animation:suasPulse 1.6s ease-in-out infinite; }
+  .suas-side-status b, .suas-side-status span { display:block; }
+  .suas-side-status b { color:rgba(16,16,16,.42); margin-bottom:5px; font-size:10px; letter-spacing:.28em; }
+  .suas-side-status span { font-size:1.08rem; line-height:1; text-transform:uppercase; }
+  .suas-side-foot { display:flex; justify-content:space-between; gap:8px; padding:0 14px 16px; }
+  .suas-side-foot a, .suas-side-foot span { color:rgba(16,16,16,.46); text-decoration:none; font-size:10px; letter-spacing:.28em; }
+  @keyframes suasPulse { 0%,100% { opacity:.35; transform:scale(.86); } 50% { opacity:1; transform:scale(1.1); } }
+  @media (min-width:1024px){ .suas-frame-marquee{margin-left:252px;width:calc(100% - 252px);} .suas-side-rail{inset:0 auto 0 0;padding-top:6px;} .off-canvas--main-content{margin-left:252px;width:calc(100% - 252px);} .header--root,.announcement--root{display:none!important;} }
+  @media (max-width:1023px){ .suas-side-rail{display:none;} .suas-frame-marquee{height:28px;} }
 </style>
 
 <div class="suas-frame" aria-label="SUAS site frame">
-  <div class="suas-frame-marquee" aria-hidden="true">
-    <div class="suas-frame-marquee-track">
-      {% for i in (1..2) %}
-        <span>shut up & smell</span>
-        <span>suas.os online</span>
-        <span>the lab is mixing</span>
-        <span>handmade in gastonia</span>
-        <span>dopamine on tap</span>
-        <span>formula 001</span>
-      {% endfor %}
-    </div>
-  </div>
-
+  <div class="suas-frame-marquee" aria-hidden="true"><div class="suas-frame-marquee-track">{% for i in (1..2) %}<span>shut up & smell</span><span>suas.os online</span><span>the lab is mixing</span><span>handmade in gastonia</span><span>dopamine on tap</span><span>formula 001</span>{% endfor %}</div></div>
   <aside class="suas-side-rail" aria-label="SUAS control panel">
-    <a class="suas-side-head" href="/">
-      <span class="suas-side-orb" aria-hidden="true"></span>
-      <span class="suas-side-brand">SUAS</span>
-    </a>
+    <a class="suas-side-head" href="/"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">SUAS</span></a>
     <p class="suas-side-kicker">control panel</p>
     <nav class="suas-side-nav">
       <a class="suas-side-link{% if request.path contains '/collections/body' %} is-active{% endif %}" href="/collections/body-care"><span class="suas-side-icon" style="--tint: var(--suas-pink);">o</span><span class="suas-side-label">body</span><span class="suas-side-num">01</span></a>
@@ -321,16 +47,9 @@
       <a class="suas-side-link{% if request.path contains '/collections/feminine' %} is-active{% endif %}" href="/collections/feminine"><span class="suas-side-icon" style="--tint: var(--suas-pink);">x</span><span class="suas-side-label">feminine</span><span class="suas-side-num">04</span></a>
       <a class="suas-side-link{% if request.path contains '/collections/oddities' %} is-active{% endif %}" href="/collections/oddities"><span class="suas-side-icon" style="--tint: var(--suas-lav);">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">05</span></a>
       <a class="suas-side-link{% if request.path contains '/pages/shut-up-and-smell' or request.path contains '/pages/build-your-formula' %} is-active{% endif %}" href="/pages/shut-up-and-smell"><span class="suas-side-icon" style="--tint: var(--suas-lime);">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">06</span></a>
-      <a class="suas-side-link{% if request.path contains '/pages/contact' %} is-active{% endif %}" href="/pages/contact"><span class="suas-side-icon" style="--tint: var(--suas-blue);">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
+      <a class="suas-side-link{% if request.path contains '/pages/visit-us' or request.path contains '/pages/contact' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint: var(--suas-blue);">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
     </nav>
-    <div class="suas-side-status">
-      <span class="suas-side-status-dot" aria-hidden="true"></span>
-      <div><b>lab status</b><span>open + mixing</span></div>
-    </div>
-    <div class="suas-side-foot" aria-hidden="true">
-      <a href="/account">account</a>
-      <a href="/pages/about">about</a>
-      <span>v.04</span>
-    </div>
+    <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>lab status</b><span>open + mixing</span></div></div>
+    <div class="suas-side-foot" aria-hidden="true"><a href="/account">account</a><a href="/pages/about">about</a><span>v.04</span></div>
   </aside>
 </div>
