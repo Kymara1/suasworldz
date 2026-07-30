@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "reviews": {
+      "type": "suas-reviews",
+      "settings": {
+        "heading": "reviews from real ones."
+      }
+    }
+  },
+  "order": [
+    "reviews"
+  ]
+}
