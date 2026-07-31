@@ -228,7 +228,7 @@
       {{ 'general.a11y.skip_main' | t }}
     </a>
     {% unless request.page_type == 'password' %}
-      {% render 'suas-lovable-frame' %}
+      {% section 'suas-lovable-frame' %}
     {% endunless %}
     {% render 'suas-cart-button' %}
 
