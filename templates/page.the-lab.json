@@ -1,10 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "suas_lab": {
       "type": "suas-lab-page",
       "settings": {
-        "kicker": "the lab / experiment 001",
-        "heading": "mix your own signature scent.",
+        "kicker": "the lab",
+        "heading": "Create your Signature Scent",
         "copy": "Pick a session, add your notes, name it, save the idea, then bottle the good one in-store.",
         "cta_label": "build a fragrance",
         "cta_link": "#build-a-fragrance"
