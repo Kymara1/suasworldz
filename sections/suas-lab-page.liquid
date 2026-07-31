@@ -22,11 +22,13 @@
     .suas-lab-menu { padding:42px 0 58px; border-top:2px solid var(--ink); background:#fff; }
     .suas-lab-menu h2 { margin:0 0 20px; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(2.45rem,4.7vw,4.8rem); font-weight:400; line-height:.9; text-transform:lowercase; }
     .suas-session-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; align-items:stretch; }
-    .suas-session { min-height:246px; border:2px solid var(--ink); border-radius:22px; padding:18px; background:var(--card-bg); box-shadow:0 7px 0 var(--ink); display:flex; flex-direction:column; justify-content:space-between; }
+    .suas-session { min-height:246px; border:2px solid var(--ink); border-radius:22px; padding:18px; background:var(--card-bg); box-shadow:0 7px 0 var(--ink); display:flex; flex-direction:column; justify-content:space-between; gap:16px; }
+    .suas-session > div { display:flex; flex-direction:column; align-items:flex-start; }
     .suas-session h3 { margin:0; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(1.28rem,1.75vw,1.86rem); font-weight:400; line-height:.94; text-transform:uppercase; }
     .suas-session p { margin:12px 0; font-size:12px; line-height:1.38; font-weight:700; color:rgba(17,17,17,.68); }
-    .suas-session em { display:inline-flex; width:fit-content; max-width:100%; align-items:center; justify-content:center; margin-top:4px; border:2px solid var(--ink); border-radius:999px; padding:7px 9px 6px; background:rgba(255,255,255,.72); box-shadow:0 3px 0 rgba(17,17,17,.18); font-size:8.5px; line-height:1.15; font-style:normal; font-weight:900; letter-spacing:.03em; text-align:center; text-transform:uppercase; }
-    .suas-price { font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(1.62rem,1.9vw,2rem); line-height:.95; }
+    .suas-session em { display:inline-flex; width:fit-content; max-width:100%; align-items:center; justify-content:center; margin:6px 0 10px; border:2px solid var(--ink); border-radius:999px; padding:6px 9px 5px; background:rgba(255,255,255,.72); box-shadow:0 3px 0 rgba(17,17,17,.18); font-size:8px; line-height:1.15; font-style:normal; font-weight:900; letter-spacing:.025em; text-align:center; text-transform:uppercase; }
+    .suas-price { display:block; margin-top:auto; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:clamp(1.62rem,1.9vw,2rem); line-height:.95; }
+    .suas-session:last-child em { max-width:168px; padding-inline:8px; font-size:7.6px; margin-bottom:16px; }
     .suas-session:last-child .suas-price { font-size:clamp(1.28rem,1.6vw,1.62rem); max-width:9ch; }
     @media (max-width:1100px){ .suas-session-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
     @media (max-width:900px){ .suas-lab-hero{min-height:auto;} .suas-lab-steps{grid-template-columns:repeat(2,minmax(0,1fr));} }
