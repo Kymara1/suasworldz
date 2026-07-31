@@ -310,6 +310,17 @@
 </style>
 
 <script>
+  (function () {
+    var path = window.location.pathname.replace(/\/$/, '');
+    if (path === '/pages/shut-up-and-smell') {
+      window.location.replace('/pages/the-lab');
+    }
+
+    if (path === '/pages/build-your-formula') {
+      window.location.replace('/pages/the-lab#build-a-fragrance');
+    }
+  })();
+
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('a[href="/pages/shut-up-and-smell"], a[href*="/pages/shut-up-and-smell?"]').forEach(function (link) {
       link.setAttribute('href', '/pages/the-lab');
