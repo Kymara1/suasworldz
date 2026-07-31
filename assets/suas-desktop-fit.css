@@ -145,3 +145,173 @@
 .suas-hours p:before {
   content: "Self-guided 1 oz body oil, self-guided 30 mL eau de parfum, combo perfume plus body oil, or guided deluxe appointment." !important;
 }
+
+/* Mobile home top block: compact, centered, and less empty. */
+@media (max-width: 620px) {
+  .suas-world-home .suas-cyber-hero {
+    padding: 10px 0 22px !important;
+  }
+
+  .suas-world-home .suas-home-wrap {
+    width: min(100% - 18px, 480px) !important;
+  }
+
+  .suas-world-home .suas-cyber-deck {
+    border-radius: 22px !important;
+    padding: 2px !important;
+    box-shadow: 0 16px 34px -22px rgba(16, 16, 16, 0.45) !important;
+  }
+
+  .suas-world-home .suas-cyber-window {
+    border-radius: 20px !important;
+  }
+
+  .suas-world-home .suas-titlebar {
+    min-height: 32px !important;
+    gap: 7px !important;
+    padding: 7px 9px !important;
+  }
+
+  .suas-world-home .suas-dots span {
+    width: 9px !important;
+    height: 9px !important;
+  }
+
+  .suas-world-home .suas-titlebar-label {
+    font-size: 7px !important;
+    letter-spacing: .14em !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .suas-world-home .suas-titlebar > .suas-mono:last-child {
+    display: none !important;
+  }
+
+  .suas-world-home .suas-screen {
+    padding: 12px !important;
+  }
+
+  .suas-world-home .suas-screen:after {
+    box-shadow: inset 0 0 54px rgba(0, 0, 0, 0.62) !important;
+  }
+
+  .suas-world-home .suas-hud {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin-bottom: 9px !important;
+    font-size: 7.5px !important;
+    letter-spacing: .18em !important;
+  }
+
+  .suas-world-home .suas-live:before {
+    width: 6px !important;
+    height: 6px !important;
+    margin-right: 5px !important;
+  }
+
+  .suas-world-home .suas-product-rotator {
+    min-height: 284px !important;
+  }
+
+  .suas-world-home .suas-product-slide {
+    justify-items: center !important;
+    align-content: start !important;
+    gap: 9px !important;
+    text-align: center !important;
+  }
+
+  .suas-world-home .suas-product-photo {
+    width: min(54vw, 148px) !important;
+    border-radius: 18px !important;
+  }
+
+  .suas-world-home .suas-product-photo img {
+    width: 84% !important;
+    height: 84% !important;
+  }
+
+  .suas-world-home .suas-product-copy {
+    width: min(100%, 270px) !important;
+    justify-items: center !important;
+    padding: 11px 12px !important;
+    border-radius: 18px !important;
+    gap: 6px !important;
+  }
+
+  .suas-world-home .suas-product-title {
+    font-size: clamp(1.8rem, 9.4vw, 2.7rem) !important;
+    line-height: .86 !important;
+  }
+
+  .suas-world-home .suas-product-price {
+    min-height: 28px !important;
+    padding: 6px 9px !important;
+    margin-top: 2px !important;
+    font-size: 8px !important;
+  }
+
+  .suas-world-home .suas-screen-inner > .suas-actions {
+    justify-content: center !important;
+    margin-top: 10px !important;
+    gap: 8px !important;
+  }
+
+  .suas-world-home .suas-screen-inner > .suas-actions .suas-btn {
+    min-height: 34px !important;
+    padding: 9px 11px !important;
+    font-size: 8px !important;
+    letter-spacing: .16em !important;
+  }
+
+  .suas-world-home .suas-launch-panel {
+    padding: 12px !important;
+    gap: 12px !important;
+  }
+
+  .suas-world-home .suas-launch-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .suas-world-home .suas-launch {
+    min-height: 62px !important;
+    padding: 10px !important;
+    border-radius: 16px !important;
+  }
+
+  .suas-world-home .suas-launch strong {
+    font-size: 1.15rem !important;
+  }
+
+  .suas-world-home .suas-launch .suas-mono,
+  .suas-world-home .suas-launch-panel > div > .suas-mono {
+    font-size: 7.5px !important;
+    letter-spacing: .17em !important;
+  }
+
+  .suas-world-home .suas-log {
+    display: none !important;
+  }
+
+  .suas-world-home .suas-launch-panel .suas-actions {
+    justify-content: center !important;
+    gap: 7px !important;
+  }
+
+  .suas-world-home .suas-launch-panel .suas-btn {
+    min-height: 32px !important;
+    padding: 8px 10px !important;
+    font-size: 7.5px !important;
+    letter-spacing: .15em !important;
+  }
+
+  .suas-world-home .suas-led-track span {
+    padding: 8px 14px !important;
+    font-size: 7.5px !important;
+    letter-spacing: .16em !important;
+  }
+}
