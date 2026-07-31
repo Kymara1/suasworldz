@@ -7,6 +7,28 @@
     display: none !important;
   }
 
+  body .suas-bookings-page .suas-time-grid .suas-slot input[type="radio"] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 18px !important;
+    height: 18px !important;
+    flex: 0 0 18px !important;
+    border: 2px solid #101010 !important;
+    border-radius: 5px !important;
+    background: #fff !important;
+    box-shadow: inset 0 0 0 3px #fff !important;
+  }
+
+  body .suas-bookings-page .suas-time-grid .suas-slot input[type="radio"]:checked {
+    background: #101010 !important;
+  }
+
+  body .suas-bookings-page .suas-time-grid .suas-slot:has(input:checked) {
+    background: #fff !important;
+    border-color: #101010 !important;
+    box-shadow: 0 4px 0 rgba(16, 16, 16, 0.22) !important;
+  }
+
   @media only screen and (max-width: 1023px) {
     body .suas-world-home .suas-launch-grid > a[href="/collections/body-care"],
     body .suas-world-home .suas-launch-grid > a[href="/collections/home-care"] {
