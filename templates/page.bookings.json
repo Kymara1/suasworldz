@@ -15,7 +15,8 @@
         "body_oil_product": "lab-session-body-oil",
         "parfum_product": "lab-session-eau-de-parfum",
         "combo_product": "lab-session-combo-sesh",
-        "deluxe_product": ""
+        "deluxe_product": "deluxe-lab-session",
+        "deluxe_product_handle": ""
       }
     }
   },
