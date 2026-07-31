@@ -139,7 +139,7 @@
 
 /* Keep every Lab Sessions summary in the same order as the Lab page cards. */
 .suas-hours h3:before {
-  content: "body oil - 25\A eau de parfum - 35\A combo sesh - 60\A deluxe lab sesh - 85" !important;
+  content: "body oil - 25\A eau de parfum - 35\A combo session - 60\A deluxe lab session - 85" !important;
 }
 
 .suas-hours p:before {
