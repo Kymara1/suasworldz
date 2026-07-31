@@ -1,1 +1,91 @@
-{"sections":{"d52f90ec-c849-4fed-a232-1b3ffa40111b":{"type":"image-with-text","settings":{"text-color":"auto","background-color":"none","container-width":1,"spacing-above":false,"spacing-below":false,"image-height":0,"darken-image":false,"parallax-enabled":false,"text-position":"center","text-width":"medium","overlap":false,"box-around-text":false,"mobile-overlay":false,"image":"shopify:\/\/shop_images\/Your_paragraph_text_-_2026-01-12T074602.856.png","overline":"","title":"","description":"","link-url":"shopify:\/\/collections\/body-butter","link-text":""}},"blocks_Q6GVf8":{"type":"_blocks","blocks":{"ai_gen_block_41ae62a_CTnk3L":{"type":"ai_gen_block_41ae62a","settings":{"button_text":"Back to Shop","back_url":"shopify:\/\/pages\/shut-up-and-smell","show_icon":true,"icon_size":20,"icon_spacing":8,"button_font":"outfit_n5","font_size":20,"button_bg_color":"#161616","button_text_color":"#ffffff","button_hover_bg_color":"#000000","button_hover_text_color":"#ffffff","border_width":0,"border_color":"#161616","border_hover_color":"#000000","border_radius":50,"button_padding_vertical":8,"button_padding_horizontal":16,"alignment":"flex-start","mobile_alignment":"flex-start","padding_top":20,"padding_bottom":20},"blocks":{}}},"block_order":["ai_gen_block_41ae62a_CTnk3L"],"name":"Back button","settings":{}},"navigation":{"type":"collection--navigation","custom_css":[],"settings":{"show-browse-button":true,"show-sort-button":false,"show-refine-button":true,"show-layout-buttons":true,"show-collections-list":false,"custom-list-collections":"","show-sort-list":false,"show-refine-list":true,"swatches-enabled":false,"show-search-link":true}},"collection-header":{"type":"collection--header","custom_css":["h3 {font-size: 0x;}"],"settings":{"enable-header":true,"show-title":false,"title-alignment":"center","show-description":false,"show-image":false,"use-image-fallback":false,"image-height":"original","alt-color":false,"apply-overlay":false}},"main":{"type":"collection--body","custom_css":[],"settings":{"products-per-row--desktop":4,"products-per-row--mobile":"2","number-of-rows":7}}},"order":["d52f90ec-c849-4fed-a232-1b3ffa40111b","blocks_Q6GVf8","navigation","collection-header","main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d52f90ec-c849-4fed-a232-1b3ffa40111b": {
+      "type": "image-with-text",
+      "settings": {
+        "text-color": "auto",
+        "background-color": "none",
+        "container-width": 1,
+        "spacing-above": false,
+        "spacing-below": false,
+        "image-height": 0,
+        "darken-image": false,
+        "parallax-enabled": false,
+        "text-position": "center",
+        "text-width": "medium",
+        "overlap": false,
+        "box-around-text": false,
+        "mobile-overlay": false,
+        "image": "shopify://shop_images/Your_paragraph_text_-_2026-01-12T074602.856.png",
+        "overline": "",
+        "title": "",
+        "description": "",
+        "link-url": "shopify://collections/body-butter",
+        "link-text": ""
+      }
+    },
+    "blocks_Q6GVf8": {
+      "type": "_blocks",
+      "name": "Back button",
+      "settings": {}
+    },
+    "navigation": {
+      "type": "collection--navigation",
+      "custom_css": [],
+      "settings": {
+        "show-browse-button": true,
+        "show-sort-button": false,
+        "show-refine-button": true,
+        "show-layout-buttons": true,
+        "show-collections-list": false,
+        "custom-list-collections": "",
+        "show-sort-list": false,
+        "show-refine-list": true,
+        "swatches-enabled": false,
+        "show-search-link": true
+      }
+    },
+    "collection-header": {
+      "type": "collection--header",
+      "custom_css": [
+        "h3 {font-size: 0x;}"
+      ],
+      "settings": {
+        "enable-header": true,
+        "show-title": false,
+        "title-alignment": "center",
+        "show-description": false,
+        "show-image": false,
+        "use-image-fallback": false,
+        "image-height": "original",
+        "alt-color": false,
+        "apply-overlay": false
+      }
+    },
+    "main": {
+      "type": "collection--body",
+      "custom_css": [],
+      "settings": {
+        "products-per-row--desktop": 4,
+        "products-per-row--mobile": "2",
+        "number-of-rows": 7
+      }
+    }
+  },
+  "order": [
+    "d52f90ec-c849-4fed-a232-1b3ffa40111b",
+    "blocks_Q6GVf8",
+    "navigation",
+    "collection-header",
+    "main"
+  ]
+}
