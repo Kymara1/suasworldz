@@ -234,6 +234,74 @@
     display: none !important;
   }
 
+  .suas-panel-dropdown {
+    display: block;
+    position: relative;
+  }
+
+  .suas-panel-dropdown > summary {
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .suas-panel-dropdown > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .suas-panel-dropdown > summary .suas-panel-number:after,
+  .suas-panel-dropdown > summary .suas-side-num:after {
+    content: "+";
+    display: inline-block;
+    margin-left: 7px;
+    opacity: 0.8;
+  }
+
+  .suas-panel-dropdown[open] > summary .suas-panel-number:after,
+  .suas-panel-dropdown[open] > summary .suas-side-num:after {
+    content: "-";
+  }
+
+  .suas-panel-submenu {
+    display: grid;
+    gap: 7px;
+    margin: -2px 12px 10px 62px;
+    padding: 8px 0 8px 12px;
+    border-left: 1px solid rgba(16, 16, 16, 0.12);
+  }
+
+  .suas-side-dropdown .suas-panel-submenu {
+    margin-left: 54px;
+  }
+
+  .suas-panel-submenu a {
+    min-height: 31px;
+    display: flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 6px 11px;
+    color: #101010;
+    background: rgba(255, 255, 255, 0.74);
+    text-decoration: none;
+    font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+    transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  }
+
+  .suas-panel-submenu a:hover {
+    color: #101010;
+    background: rgba(255, 196, 220, 0.68);
+    box-shadow: 0 4px 0 rgba(16, 16, 16, 0.12);
+    transform: translateX(3px);
+  }
+
+  .suas-side-dropdown .suas-panel-submenu a {
+    font-size: 0.94rem;
+  }
+
   @media only screen and (max-width: 1023px) {
     html body .suas-world-home .suas-cyber-body {
       grid-template-columns: minmax(0, 1fr) minmax(150px, 0.64fr) !important;
@@ -295,6 +363,25 @@
     html body .suas-world-home .suas-launch-panel > div:last-child {
       display: none !important;
     }
+
+    .suas-side-dropdown {
+      flex: 0 0 auto;
+    }
+
+    .suas-side-dropdown .suas-panel-submenu {
+      margin: 8px 0 0;
+      padding: 8px;
+      border-left: 0;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 12px 26px -18px rgba(16, 16, 16, 0.48);
+    }
+
+    .suas-side-dropdown .suas-panel-submenu a {
+      min-height: 29px;
+      white-space: nowrap;
+      font-size: 0.82rem;
+    }
   }
 
   @media only screen and (max-width: 767px) {
@@ -329,6 +416,54 @@
     document.querySelectorAll('a[href="/pages/build-your-formula"], a[href*="/pages/build-your-formula?"]').forEach(function (link) {
       link.setAttribute('href', '/pages/the-lab#build-a-fragrance');
     });
+
+    var panelSubmenus = {
+      body: [
+        { title: 'butter creme', href: '/collections/butter-creme' },
+        { title: 'body scrub', href: '/collections/body-scrub' },
+        { title: 'body jelly', href: '/collections/body-jelly' },
+        { title: 'body oil', href: '/collections/body-oil' },
+        { title: 'cleansing bar', href: '/collections/cleansing-bar' },
+        { title: 'body wash', href: '/collections/body-wash' }
+      ],
+      home: [
+        { title: 'candles', href: '/collections/candles' },
+        { title: 'everything mist', href: '/collections/everything-mist' },
+        { title: 'burnt oils', href: '/collections/burnt-oils' }
+      ]
+    };
+
+    function addControlSubmenu(selector, items, dropdownClass) {
+      document.querySelectorAll(selector).forEach(function (link) {
+        if (link.closest('.suas-panel-dropdown')) return;
+
+        var details = document.createElement('details');
+        details.className = 'suas-panel-dropdown ' + dropdownClass;
+
+        var summary = document.createElement('summary');
+        summary.className = link.className;
+        summary.innerHTML = link.innerHTML;
+        details.appendChild(summary);
+
+        var menu = document.createElement('div');
+        menu.className = 'suas-panel-submenu';
+
+        items.forEach(function (item) {
+          var child = document.createElement('a');
+          child.href = item.href;
+          child.textContent = item.title;
+          menu.appendChild(child);
+        });
+
+        details.appendChild(menu);
+        link.replaceWith(details);
+      });
+    }
+
+    addControlSubmenu('.suas-side-nav > a.suas-side-link[href="/collections/body-care"]', panelSubmenus.body, 'suas-side-dropdown');
+    addControlSubmenu('.suas-side-nav > a.suas-side-link[href="/collections/home-care"]', panelSubmenus.home, 'suas-side-dropdown');
+    addControlSubmenu('.suas-panel-nav > a.suas-panel-link[href="/collections/body-care"]', panelSubmenus.body, 'suas-home-panel-dropdown');
+    addControlSubmenu('.suas-panel-nav > a.suas-panel-link[href="/collections/home-care"]', panelSubmenus.home, 'suas-home-panel-dropdown');
 
     var grid = document.querySelector('.suas-world-home .suas-launch-grid');
     if (!grid || grid.querySelector('[data-suas-extra-launch="new-arrivals"]')) return;
