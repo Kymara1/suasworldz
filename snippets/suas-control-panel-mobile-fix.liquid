@@ -130,6 +130,19 @@
       { title: 'refund policy', href: '/policies/refund-policy' }
     ];
 
+    function addBookLabQuickLaunch() {
+      var grid = document.querySelector('.suas-world-home .suas-launch-grid');
+      if (!grid || grid.querySelector('a[href="/pages/bookings"]')) return;
+
+      var link = document.createElement('a');
+      link.className = 'suas-launch';
+      link.href = '/pages/bookings';
+      link.style.setProperty('--launch', '#d9ff78');
+      link.style.setProperty('--glow', '217,255,120');
+      link.innerHTML = '<strong class="suas-font">book the lab</strong><span class="suas-mono">booking</span>';
+      grid.appendChild(link);
+    }
+
     function removeMobileQuickLaunchBodyHome() {
       var isMobileView = window.innerWidth <= 1023 || document.documentElement.clientWidth <= 1023;
       if (!isMobileView) return;
@@ -183,6 +196,7 @@
       nav.appendChild(details);
     }
 
+    addBookLabQuickLaunch();
     removeMobileQuickLaunchBodyHome();
     window.addEventListener('resize', removeMobileQuickLaunchBodyHome);
     addSideAboutMenu();
