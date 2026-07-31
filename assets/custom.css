@@ -390,3 +390,19 @@ nav *,
     font-size: clamp(2.3rem, 14vw, 4.2rem) !important;
   }
 }
+
+/* Clean up extra copy in home product rotator */
+.suas-product-kicker,
+.suas-product-review {
+  display: none !important;
+}
+
+.suas-product-copy {
+  display: grid !important;
+  align-content: center !important;
+  gap: 14px !important;
+}
+
+.suas-product-price {
+  margin-top: 0 !important;
+}
