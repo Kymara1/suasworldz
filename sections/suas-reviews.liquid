@@ -15,12 +15,12 @@
 
     .suas-reviews {
       --ink: #101010;
-      --soft: #fbfaf8;
-      --pink: #ffc3d7;
-      --hot: #ff6e9f;
-      --lime: #f0ff81;
+      --paper: #fbfaf7;
+      --pink: #ffc7d9;
+      --hot: #ff6f99;
+      --soft-yellow: #f3ef62;
       color: var(--ink);
-      background: var(--soft);
+      background: var(--paper);
       overflow: hidden;
       font-family: Futura, 'Futura PT', Arial, sans-serif;
     }
@@ -30,34 +30,34 @@
     .suas-reviews-wrap {
       position: relative;
       width: min(1120px, calc(100vw - 22px));
-      min-height: 610px;
+      min-height: 650px;
       margin: 0 auto;
-      padding: clamp(34px, 5vw, 52px) 0 clamp(42px, 6vw, 72px);
+      padding: clamp(34px, 5vw, 52px) 0 clamp(44px, 6vw, 78px);
     }
 
     .suas-reviews-head {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       text-align: center;
-      margin-bottom: 26px;
+      margin-bottom: 18px;
     }
 
     .suas-reviews-head p {
-      margin: 0 0 8px;
+      margin: 0 0 7px;
       font-family: 'Casual Human', Futura, Arial, sans-serif;
-      font-weight: 400 !important;
-      font-size: clamp(1.05rem, 1.65vw, 1.55rem);
-      color: #eceb60;
-      transform: rotate(-8deg) translateY(7px);
+      font-weight: 700 !important;
+      font-size: clamp(1rem, 1.45vw, 1.35rem);
+      color: var(--soft-yellow);
+      transform: rotate(-8deg) translateY(8px);
       text-transform: uppercase;
     }
 
     .suas-reviews-head h2 {
       margin: 0;
       font-family: 'Casual Human', Futura, Arial, sans-serif;
-      font-size: clamp(2.6rem, 5.15vw, 5.15rem);
+      font-size: clamp(3.1rem, 6.2vw, 5.9rem);
       font-weight: 400 !important;
-      line-height: 0.92;
+      line-height: 0.86;
       letter-spacing: 0;
       text-transform: uppercase;
     }
@@ -71,8 +71,8 @@
 
     .suas-review-scene {
       position: relative;
-      min-height: 405px;
-      margin-top: 18px;
+      min-height: 420px;
+      margin-top: 20px;
     }
 
     .suas-review-bubble {
@@ -83,35 +83,35 @@
       top: var(--top);
       display: grid;
       place-items: center;
-      border: 3px solid var(--ink);
+      border: 2px solid var(--ink);
       border-radius: 999px;
       background: var(--bubble-bg, var(--pink)) !important;
-      background-image: none !important;
       color: var(--ink) !important;
-      box-shadow: 6px 7px 0 rgba(16, 16, 16, 0.92);
+      box-shadow: 5px 6px 0 rgba(16, 16, 16, 0.9);
       text-align: center;
-      padding: 18px;
+      padding: 16px;
       appearance: none;
       cursor: pointer;
-      animation: suas-review-drift var(--speed, 5s) ease-in-out infinite alternate;
-      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      animation: suas-review-float var(--speed, 5s) ease-in-out infinite alternate;
+      transition: transform 170ms ease, box-shadow 170ms ease, background 170ms ease;
     }
 
     .suas-review-bubble:hover,
+    .suas-review-bubble:focus-visible,
     .suas-review-bubble.is-active {
       background: var(--active-bg, var(--bubble-bg, #ff85ad)) !important;
-      background-image: none !important;
-      transform: translateY(-10px) scale(1.035) rotate(var(--tilt, -2deg));
-      box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.92);
-      z-index: 4;
+      transform: translateY(-8px) scale(1.025) rotate(var(--tilt, -2deg));
+      box-shadow: 3px 4px 0 rgba(16, 16, 16, 0.92);
+      outline: none;
+      z-index: 5;
     }
 
     .suas-review-bubble b {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
       font-family: Futura, 'Futura PT', Arial, sans-serif;
-      font-size: clamp(12px, 1.2vw, 17px);
-      letter-spacing: 0.12em;
+      font-size: clamp(12px, 1.1vw, 16px);
+      letter-spacing: 0.08em;
       line-height: 1;
     }
 
@@ -119,7 +119,7 @@
       display: block;
       font-family: 'Casual Human', Futura, Arial, sans-serif;
       font-weight: 400 !important;
-      font-size: clamp(1.05rem, 1.85vw, 1.75rem);
+      font-size: clamp(1.05rem, 1.7vw, 1.6rem);
       line-height: 0.9;
       text-transform: uppercase;
     }
@@ -127,7 +127,7 @@
     .suas-review-bubble em {
       display: block;
       margin-top: 8px;
-      font-size: 11px;
+      font-size: 10px;
       line-height: 1;
       font-style: normal;
       letter-spacing: 0.06em;
@@ -135,81 +135,159 @@
       opacity: 0.5;
     }
 
-    @keyframes suas-review-drift {
+    @keyframes suas-review-float {
       from { translate: 0 0; rotate: -2deg; }
-      to { translate: 0 -18px; rotate: 2deg; }
+      to { translate: 0 -16px; rotate: 2deg; }
     }
 
-    .suas-review-note {
+    .suas-review-read-pill {
       position: absolute;
       left: 50%;
       bottom: 8px;
-      z-index: 5;
-      width: min(330px, 86vw);
+      z-index: 6;
       min-height: 54px;
-      display: grid;
-      place-items: center;
       transform: translateX(-50%);
       border: 0;
       border-radius: 999px;
       background: var(--ink);
-      color: #fff !important;
-      padding: 13px 26px;
+      color: #fff;
+      padding: 13px 36px;
       box-shadow: 0 8px 18px rgba(16, 16, 16, 0.18);
-    }
-
-    .suas-review-note p {
-      margin: 0;
       font-family: 'Casual Human', Futura, Arial, sans-serif;
-      font-weight: 400 !important;
-      font-size: clamp(1.1rem, 1.8vw, 1.55rem);
+      font-size: clamp(1.1rem, 1.7vw, 1.45rem);
       line-height: 1;
       text-transform: uppercase;
-      text-align: center;
+      white-space: nowrap;
+      cursor: pointer;
     }
 
-    .suas-review-note strong {
-      display: none;
+    .suas-review-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(16, 16, 16, 0.46);
+      backdrop-filter: blur(8px);
+    }
+
+    .suas-review-modal[hidden] {
+      display: none !important;
+    }
+
+    .suas-review-card {
+      width: min(510px, 94vw);
+      position: relative;
+      border: 2px solid var(--ink);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(255, 199, 217, 0.68), transparent 32%),
+        radial-gradient(circle at 88% 8%, rgba(240, 255, 129, 0.38), transparent 34%),
+        #fff;
+      box-shadow: 8px 9px 0 var(--ink), 0 22px 42px rgba(16, 16, 16, 0.22);
+      padding: clamp(24px, 5vw, 36px);
+      text-align: center;
+      animation: suas-review-pop 180ms ease-out both;
+    }
+
+    @keyframes suas-review-pop {
+      from { opacity: 0; transform: translateY(12px) scale(0.96) rotate(-1deg); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .suas-review-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 3px 0 var(--ink);
+      cursor: pointer;
+      font: 900 17px/1 Futura, Arial, sans-serif;
+    }
+
+    .suas-review-product {
+      display: inline-flex;
+      min-height: 34px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 7px 15px;
+      background: var(--hot);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .suas-review-stars {
+      margin: 24px 0 10px;
+      font-size: 17px;
+      letter-spacing: 0.12em;
+    }
+
+    .suas-review-name {
+      margin: 0;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(2.1rem, 7vw, 3.4rem);
+      font-weight: 400 !important;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .suas-review-copy {
+      margin: 20px auto 0;
+      max-width: 390px;
+      font-size: clamp(1rem, 2.4vw, 1.18rem);
+      line-height: 1.55;
+      font-weight: 800;
+      color: rgba(16, 16, 16, 0.68);
     }
 
     .suas-review-widget {
       display: none;
     }
 
-    .suas-review-widget:empty:after {
-      content: "AfterShip reviews can load here once the app widget is active.";
-      display: block;
-      text-align: center;
-      font-weight: 800;
-      color: rgba(16, 16, 16, 0.58);
-    }
-
     @media (max-width: 820px) {
       .suas-reviews-wrap {
         min-height: 0;
+        padding-bottom: 54px;
       }
 
       .suas-review-scene {
-        min-height: 560px;
+        min-height: 575px;
         margin-inline: -12px;
-        display: block;
       }
 
       .suas-review-bubble {
-        width: calc(var(--mobile-size, var(--size)) * 0.82);
-        height: calc(var(--mobile-size, var(--size)) * 0.82);
+        width: calc(var(--mobile-size, var(--size)) * 0.84);
+        height: calc(var(--mobile-size, var(--size)) * 0.84);
         left: var(--mobile-left, var(--left));
         top: var(--mobile-top, var(--top));
+        padding: 12px;
+        box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.9);
       }
 
-      .suas-review-note {
-        bottom: 12px;
+      .suas-review-read-pill {
+        bottom: 6px;
       }
     }
 
     @media (max-width: 520px) {
       .suas-review-scene {
-        min-height: 520px;
+        min-height: 545px;
+      }
+
+      .suas-reviews-head h2 {
+        font-size: clamp(2.75rem, 15vw, 4.2rem);
       }
     }
   </style>
@@ -222,28 +300,35 @@
     </div>
 
     <div class="suas-review-scene">
-      <button class="suas-review-bubble is-active" type="button" style="--size: 126px; --left: 0%; --top: 26px; --mobile-size: 112px; --mobile-left: 1%; --mobile-top: 28px; --bubble-bg: #ff6e9f; --active-bg: #ff6e9f; --speed: 4.4s; --tilt: -4deg;" data-review="read review +" data-name="Jamie">
+      <button class="suas-review-bubble is-active" type="button" style="--size: 124px; --left: 0%; --top: 26px; --mobile-size: 118px; --mobile-left: 2%; --mobile-top: 28px; --bubble-bg: #ff6f99; --active-bg: #ff6f99; --speed: 4.4s; --tilt: -4deg;" data-name="Jamie" data-product="Poppy" data-review="Poppy smells sweet, playful, and so pretty. I got stopped twice the same day I wore it.">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jamie</span><em>poppy</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 188px; --left: 11%; --top: 108px; --mobile-size: 172px; --mobile-left: 13%; --mobile-top: 116px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 5.1s; --tilt: 2deg;" data-review="body oil lasts all day +" data-name="Jalen">
-        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jalen</span>
+      <button class="suas-review-bubble" type="button" style="--size: 184px; --left: 11%; --top: 110px; --mobile-size: 172px; --mobile-left: 13%; --mobile-top: 116px; --bubble-bg: #ffc7d9; --active-bg: #ffc7d9; --speed: 5.1s; --tilt: 2deg;" data-name="Jalen" data-product="Body Oil" data-review="The body oil lasts all day without feeling heavy. It made my skin soft and the scent stayed with me.">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jalen</span><em>body oil</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 210px; --left: 24%; --top: 168px; --mobile-size: 198px; --mobile-left: 30%; --mobile-top: 214px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 5.8s; --tilt: -1deg;" data-review="the lab was a whole memory +" data-name="Staci">
-        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>staci</span>
+      <button class="suas-review-bubble" type="button" style="--size: 206px; --left: 24%; --top: 170px; --mobile-size: 198px; --mobile-left: 30%; --mobile-top: 214px; --bubble-bg: #ffc7d9; --active-bg: #ffc7d9; --speed: 5.8s; --tilt: -1deg;" data-name="Staci" data-product="The Lab" data-review="The Lab was a whole memory. Mixing my own scent made it feel personal, not like buying something everybody else has.">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>staci</span><em>the lab</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 232px; --left: 37%; --top: 214px; --mobile-size: 214px; --mobile-left: 9%; --mobile-top: 304px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 5.4s; --tilt: 3deg;" data-review="nobody else smells like me +" data-name="Jess">
-        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jess</span>
+      <button class="suas-review-bubble" type="button" style="--size: 224px; --left: 38%; --top: 216px; --mobile-size: 214px; --mobile-left: 8%; --mobile-top: 304px; --bubble-bg: #ffc7d9; --active-bg: #ffc7d9; --speed: 5.4s; --tilt: 3deg;" data-name="Jess" data-product="Custom Blend" data-review="Nobody else smells like me now. I love that I got to name my blend and make it mine.">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jess</span><em>custom blend</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 142px; --left: 51%; --top: 242px; --mobile-size: 134px; --mobile-left: 56%; --mobile-top: 328px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 4.8s; --tilt: -2deg;" data-review="cute store cute everything +" data-name="Katrina">
-        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>katrina</span>
+      <button class="suas-review-bubble" type="button" style="--size: 138px; --left: 52%; --top: 244px; --mobile-size: 134px; --mobile-left: 56%; --mobile-top: 328px; --bubble-bg: #ffc7d9; --active-bg: #ffc7d9; --speed: 4.8s; --tilt: -2deg;" data-name="Katrina" data-product="In Store" data-review="Cute store, cute packaging, cute everything. The whole visit felt fun from start to finish.">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>katrina</span><em>in store</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 176px; --left: 66%; --top: 202px; --mobile-size: 154px; --mobile-left: 55%; --mobile-top: 148px; --bubble-bg: #ffc3d7; --active-bg: #ffc3d7; --speed: 5.2s; --tilt: 2deg;" data-review="my new self-care stop +" data-name="Sherry">
-        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>sherry</span>
+      <button class="suas-review-bubble" type="button" style="--size: 174px; --left: 67%; --top: 204px; --mobile-size: 154px; --mobile-left: 56%; --mobile-top: 148px; --bubble-bg: #ffc7d9; --active-bg: #ffc7d9; --speed: 5.2s; --tilt: 2deg;" data-name="Sherry" data-product="Self Care" data-review="This is my new self-care stop. Everything smelled good and the service made me want to come back.">
+        <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>sherry</span><em>self care</em>
       </button>
 
-      <div class="suas-review-note" aria-live="polite">
-        <p data-suas-review-text>read review +</p>
-        <strong data-suas-review-name>Jamie</strong>
+      <button class="suas-review-read-pill" type="button" data-suas-open-active-review>read review +</button>
+    </div>
+
+    <div class="suas-review-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="suas-review-modal-name">
+      <div class="suas-review-card">
+        <button class="suas-review-close" type="button" aria-label="Close review">x</button>
+        <div class="suas-review-product" data-suas-modal-product>Poppy</div>
+        <div class="suas-review-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <h3 class="suas-review-name" id="suas-review-modal-name" data-suas-modal-name>Jamie</h3>
+        <p class="suas-review-copy" data-suas-modal-review>Poppy smells sweet, playful, and so pretty. I got stopped twice the same day I wore it.</p>
       </div>
     </div>
 
@@ -256,16 +341,59 @@
     (() => {
       const section = document.currentScript.closest('.suas-reviews');
       if (!section) return;
-      const text = section.querySelector('[data-suas-review-text]');
-      const name = section.querySelector('[data-suas-review-name]');
-      const bubbles = section.querySelectorAll('.suas-review-bubble');
+
+      const bubbles = Array.from(section.querySelectorAll('.suas-review-bubble'));
+      const modal = section.querySelector('.suas-review-modal');
+      const modalProduct = section.querySelector('[data-suas-modal-product]');
+      const modalName = section.querySelector('[data-suas-modal-name]');
+      const modalReview = section.querySelector('[data-suas-modal-review]');
+      const closeButton = section.querySelector('.suas-review-close');
+      const openActiveButton = section.querySelector('[data-suas-open-active-review]');
+      let activeBubble = section.querySelector('.suas-review-bubble.is-active') || bubbles[0];
+
+      function setActive(bubble) {
+        if (!bubble) return;
+        activeBubble = bubble;
+        bubbles.forEach((item) => item.classList.toggle('is-active', item === bubble));
+      }
+
+      function openReview(bubble) {
+        setActive(bubble);
+        if (!modal || !bubble) return;
+        if (modalProduct) modalProduct.textContent = bubble.dataset.product || 'SUAS';
+        if (modalName) modalName.textContent = bubble.dataset.name || 'review';
+        if (modalReview) modalReview.textContent = bubble.dataset.review || '';
+        modal.hidden = false;
+        modal.setAttribute('aria-hidden', 'false');
+        if (closeButton) closeButton.focus({ preventScroll: true });
+      }
+
+      function closeReview() {
+        if (!modal) return;
+        modal.hidden = true;
+        modal.setAttribute('aria-hidden', 'true');
+        if (activeBubble) activeBubble.focus({ preventScroll: true });
+      }
+
       bubbles.forEach((bubble) => {
-        bubble.addEventListener('click', () => {
-          bubbles.forEach((item) => item.classList.remove('is-active'));
-          bubble.classList.add('is-active');
-          if (text) text.textContent = bubble.dataset.review || '';
-          if (name) name.textContent = bubble.dataset.name || '';
+        bubble.addEventListener('click', () => openReview(bubble));
+        bubble.addEventListener('mouseenter', () => setActive(bubble));
+        bubble.addEventListener('focus', () => setActive(bubble));
+      });
+
+      if (openActiveButton) {
+        openActiveButton.addEventListener('click', () => openReview(activeBubble));
+      }
+
+      if (closeButton) closeButton.addEventListener('click', closeReview);
+      if (modal) {
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) closeReview();
         });
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal && !modal.hidden) closeReview();
       });
     })();
   </script>
