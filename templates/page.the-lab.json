@@ -1,58 +1,29 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "8dd359d2-613e-4901-9ed2-84f6c9f56b8f": {
-      "type": "image-with-text",
+    "suas_lab": {
+      "type": "suas-lab-page",
       "settings": {
-        "text-color": "auto",
-        "background-color": "none",
-        "container-width": 1,
-        "spacing-above": false,
-        "spacing-below": false,
-        "image-height": 0,
-        "darken-image": false,
-        "parallax-enabled": false,
-        "text-position": "center",
-        "text-width": "medium",
-        "overlap": true,
-        "box-around-text": false,
-        "mobile-overlay": false,
-        "image": "shopify://shop_images/Your_paragraph_text_1_e313733d-a42c-4d77-897c-99708a092fa7.png",
-        "overline": "",
-        "title": "",
-        "description": "",
-        "link-url": "",
-        "link-text": ""
+        "kicker": "the lab / experiment 001",
+        "heading": "mix your own signature scent.",
+        "copy": "Pick a session, add your notes, name it, save the idea, then bottle the good one in-store.",
+        "cta_label": "build a fragrance",
+        "cta_link": "#build-a-fragrance"
       }
     },
-    "blocks_M4mTfG": {
-      "type": "_blocks",
-      "name": "Back button",
+    "formula_builder": {
+      "type": "suas-formula-builder",
       "settings": {}
     },
-    "main": {
-      "type": "page",
+    "reviews": {
+      "type": "suas-reviews",
       "settings": {
-        "show-title": false,
-        "background-color": "none",
-        "light-text": false,
-        "container-width": 4,
-        "spacing-above": true,
-        "spacing-below": true
+        "heading": "lab love notes."
       }
     }
   },
   "order": [
-    "8dd359d2-613e-4901-9ed2-84f6c9f56b8f",
-    "blocks_M4mTfG",
-    "main"
+    "suas_lab",
+    "formula_builder",
+    "reviews"
   ]
 }
