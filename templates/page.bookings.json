@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "bookings": {
+      "type": "suas-bookings-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "bookings"
+  ]
+}
