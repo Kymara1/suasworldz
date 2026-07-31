@@ -1,0 +1,51 @@
+/* Final cart fit overrides loaded after the main SUAS styles. */
+.template--cart .layout--main-content {
+  padding-top: clamp(28px, 4vw, 48px) !important;
+}
+
+.template--cart .cart--root[data-is-drawer="false"] {
+  padding-top: clamp(24px, 2.8vw, 36px) !important;
+}
+
+.template--cart .cart--header {
+  margin: 0 0 clamp(18px, 2.6vw, 28px) !important;
+  padding-top: 0 !important;
+}
+
+.template--cart .cart--title {
+  display: block !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  font-size: clamp(2rem, 3.7vw, 3.55rem) !important;
+  line-height: .9 !important;
+  transform: none !important;
+}
+
+.template--cart .cart--title:after {
+  margin-top: 8px !important;
+  transform: none !important;
+}
+
+@media (min-width: 1024px) {
+  .template--cart .cart--root[data-is-drawer="false"] {
+    width: min(850px, calc(100vw - 80px)) !important;
+  }
+}
+
+@media (max-width: 749px) {
+  .template--cart .layout--main-content {
+    padding-top: 14px !important;
+  }
+
+  .template--cart .cart--root[data-is-drawer="false"] {
+    padding-top: 18px !important;
+  }
+
+  .template--cart .cart--header {
+    margin-bottom: 16px !important;
+  }
+
+  .template--cart .cart--title {
+    font-size: clamp(1.95rem, 10.5vw, 2.85rem) !important;
+  }
+}
