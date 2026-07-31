@@ -314,3 +314,79 @@ nav *,
     font-size: clamp(3rem, 6vw, 5.5rem) !important;
   }
 }
+
+/* Home hero product rotator tuning */
+.suas-product-slide {
+  color: var(--ink) !important;
+  animation-name: suasProductSpinSlow !important;
+}
+
+.suas-product-copy {
+  color: var(--ink) !important;
+  border: 2px solid rgba(16, 16, 16, 0.18) !important;
+  border-radius: 26px !important;
+  padding: clamp(18px, 3vw, 28px) !important;
+  background: rgba(255, 255, 255, 0.86) !important;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+}
+
+.suas-product-kicker {
+  display: inline-flex !important;
+  width: fit-content !important;
+  color: var(--ink) !important;
+  background: rgba(255, 232, 107, 0.78) !important;
+  border-radius: 999px !important;
+  padding: 7px 10px !important;
+}
+
+.suas-product-title,
+.suas-product-review,
+.suas-product-review b,
+.suas-product-copy .suas-mono,
+.suas-product-copy .suas-bar > span {
+  color: var(--ink) !important;
+}
+
+.suas-product-review {
+  color: rgba(16, 16, 16, 0.68) !important;
+}
+
+.suas-product-copy .suas-bar-track {
+  background: rgba(16, 16, 16, 0.12) !important;
+}
+
+.suas-product-rotator[data-count="2"] .suas-product-slide { --duration: 16s !important; }
+.suas-product-rotator[data-count="3"] .suas-product-slide { --duration: 24s !important; }
+.suas-product-rotator[data-count="4"] .suas-product-slide { --duration: 32s !important; }
+.suas-product-rotator[data-count="5"] .suas-product-slide { --duration: 40s !important; }
+.suas-product-rotator[data-count="6"] .suas-product-slide { --duration: 48s !important; }
+
+.suas-product-rotator .suas-product-slide:nth-child(1) { --delay: 0s !important; }
+.suas-product-rotator .suas-product-slide:nth-child(2) { --delay: 8s !important; }
+.suas-product-rotator .suas-product-slide:nth-child(3) { --delay: 16s !important; }
+.suas-product-rotator .suas-product-slide:nth-child(4) { --delay: 24s !important; }
+.suas-product-rotator .suas-product-slide:nth-child(5) { --delay: 32s !important; }
+.suas-product-rotator .suas-product-slide:nth-child(6) { --delay: 40s !important; }
+
+@keyframes suasProductSpinSlow {
+  0%, 5% { opacity: 0; transform: translateY(18px) scale(0.985); }
+  8%, 20% { opacity: 1; transform: translateY(0) scale(1); }
+  25%, 100% { opacity: 0; transform: translateY(-18px) scale(0.99); }
+}
+
+@media (min-width: 1024px) {
+  .suas-product-title {
+    font-size: clamp(2.15rem, 4vw, 4.4rem) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .suas-product-copy {
+    padding: 18px !important;
+  }
+
+  .suas-product-title {
+    font-size: clamp(2.3rem, 14vw, 4.2rem) !important;
+  }
+}
