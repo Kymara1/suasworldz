@@ -13,9 +13,9 @@
   <style>
     .suas-floating-cart {
       position: fixed;
-      top: 24px;
-      left: 190px;
-      right: auto;
+      top: 48px;
+      left: auto;
+      right: 18px;
       bottom: auto;
       z-index: 9999;
       display: inline-grid;
@@ -92,7 +92,7 @@
     @media (max-width: 1023px) {
       .suas-floating-cart {
         top: 45px;
-        left: calc(50% + 49px);
+        right: 16px;
         width: 34px;
         height: 34px;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 6px 14px -10px rgba(16, 16, 16, 0.5);
@@ -111,13 +111,6 @@
         height: 18px;
         padding: 0 4px;
         font-size: 9px;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .suas-floating-cart {
-        left: auto;
-        right: 16px;
       }
     }
   </style>
