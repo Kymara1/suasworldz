@@ -1,0 +1,585 @@
+<style>
+  @font-face {
+    font-family: 'Casual Human';
+    src: url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Casual Human';
+    src: url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  :root {
+    --suas-ink: {{ section.settings.ink_color }};
+    --suas-cream: {{ section.settings.cream_color }};
+    --suas-world: {{ section.settings.page_color }};
+    --suas-pink: {{ section.settings.pink_color }};
+    --suas-blue: {{ section.settings.blue_color }};
+    --suas-sun: {{ section.settings.sun_color }};
+    --suas-lime: {{ section.settings.lime_color }};
+    --suas-lav: {{ section.settings.lav_color }};
+  }
+
+  body {
+    background: var(--suas-world);
+  }
+
+  .suas-frame {
+    font-family: 'Casual Human', Futura, Arial, sans-serif;
+  }
+
+  .suas-font,
+  .suas-side-brand,
+  .suas-side-label,
+  .suas-panel-brand,
+  .suas-panel-label,
+  .suas-panel-hero h2,
+  .suas-lab-title,
+  .suas-lab-subtitle,
+  .suas-lab-step span,
+  .suas-session h3,
+  .suas-price,
+  .suas-formula-head h2,
+  .suas-size-btn strong,
+  .suas-note-btn strong,
+  .suas-review-title,
+  .suas-review-bubble,
+  .suas-password-title,
+  .suas-password-prompt {
+    font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+    font-weight: 700 !important;
+  }
+
+  .suas-frame-marquee {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 80;
+    height: 36px;
+    overflow: hidden;
+    background: var(--suas-ink);
+    color: #fff;
+    border-bottom: 1px solid rgba(16, 16, 16, 0.12);
+    box-shadow: 0 8px 20px -18px rgba(16, 16, 16, 0.85);
+  }
+
+  .suas-frame-marquee-track {
+    display: inline-flex;
+    min-width: 200%;
+    height: 100%;
+    align-items: center;
+    gap: 0;
+    white-space: nowrap;
+    animation: suasFrameMarquee {{ section.settings.marquee_speed }}s linear infinite;
+  }
+
+  .suas-frame-marquee-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 22px;
+    font-size: 17px;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+
+  .suas-frame-marquee-track span:after {
+    content: "+";
+    color: rgba(255, 255, 255, 0.56);
+  }
+
+  @keyframes suasFrameMarquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .suas-side-rail {
+    position: fixed;
+    inset: 36px auto 0 0;
+    z-index: 55;
+    width: 252px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #fff 0%, #f6f7fa 60%, #eef0f5 100%);
+    border-right: 1px solid rgba(16, 16, 16, 0.1);
+    box-shadow: inset -8px 0 20px -20px rgba(16, 16, 16, 0.2);
+  }
+
+  .suas-side-head {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 24px 20px 17px;
+    color: var(--suas-ink);
+    text-decoration: none;
+  }
+
+  .suas-side-orb {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 32% 20%, #fff 0 10%, transparent 32%),
+      conic-gradient(from 210deg, #ffd8e8, #c9e7ff, #d8e26a, #ffd8e8);
+    box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.16), inset 0 6px 12px rgba(255, 255, 255, 0.85), 0 8px 16px -8px rgba(16, 16, 16, 0.35);
+  }
+
+  .suas-side-brand {
+    font-size: 2.15rem;
+    font-weight: 700;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  .suas-side-kicker,
+  .suas-side-status b,
+  .suas-side-foot a,
+  .suas-side-foot span {
+    font-family: Futura, 'Futura PT', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .suas-side-kicker {
+    margin: 0 20px 12px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(16, 16, 16, 0.13);
+    color: rgba(16, 16, 16, 0.42);
+  }
+
+  .suas-side-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 6px 12px 14px;
+  }
+
+  .suas-side-link {
+    min-height: 58px;
+    display: grid;
+    grid-template-columns: 42px 1fr auto;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 12px;
+    border-radius: 999px;
+    color: var(--suas-ink);
+    text-decoration: none;
+    transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+  }
+
+  .suas-side-link:hover {
+    color: var(--suas-ink);
+    background: rgba(255, 255, 255, 0.85);
+    transform: translateX(3px);
+  }
+
+  .suas-side-link.is-active {
+    min-height: 70px;
+    margin: 8px -2px;
+    color: #fff;
+    background: var(--suas-ink);
+  }
+
+  .suas-side-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(16, 16, 16, 0.08);
+    border-radius: 999px;
+    background: linear-gradient(180deg, #fff 0%, var(--tint) 130%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+  }
+
+  .suas-side-link.is-active .suas-side-icon {
+    border-color: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .suas-side-label {
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 0.96;
+    text-transform: uppercase;
+  }
+
+  .suas-side-num {
+    font-family: Futura, 'Futura PT', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    opacity: 0.45;
+  }
+
+  .suas-side-dropdown {
+    position: relative;
+  }
+
+  .suas-side-dropdown summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .suas-side-dropdown summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .suas-panel-submenu {
+    display: grid;
+    gap: 6px;
+    padding: 0 4px 8px 52px;
+  }
+
+  .suas-panel-submenu a {
+    width: fit-content;
+    max-width: 100%;
+    padding: 6px 9px;
+    border-radius: 999px;
+    color: rgba(16, 16, 16, 0.7);
+    background: rgba(255, 255, 255, 0.78);
+    font-family: Futura, 'Futura PT', Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .suas-panel-submenu a:hover {
+    color: var(--suas-ink);
+    background: var(--suas-pink);
+  }
+
+  .suas-side-status {
+    margin: 10px 15px 12px;
+    min-height: 74px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 16px 20px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0 13px 30px rgba(16, 16, 16, 0.08);
+  }
+
+  .suas-side-status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--suas-lime);
+    box-shadow: 0 0 14px rgba(198, 247, 106, 0.9);
+    animation: suasPulse 1.6s ease-in-out infinite;
+  }
+
+  .suas-side-status b,
+  .suas-side-status span {
+    display: block;
+  }
+
+  .suas-side-status b {
+    color: rgba(16, 16, 16, 0.42);
+    margin-bottom: 5px;
+  }
+
+  .suas-side-status span {
+    font-size: 1.08rem;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .suas-side-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 14px 16px;
+  }
+
+  .suas-side-foot a,
+  .suas-side-foot span {
+    color: rgba(16, 16, 16, 0.46);
+    text-decoration: none;
+  }
+
+  @keyframes suasPulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.86); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  @media (min-width: 1024px) {
+    .suas-frame-marquee {
+      left: 0;
+      right: auto;
+      width: 100%;
+    }
+
+    .suas-side-rail {
+      inset: 0 auto 0 0;
+      padding-top: 6px;
+    }
+
+    .off-canvas--main-content {
+      margin-left: 252px;
+      width: calc(100% - 252px);
+    }
+
+    .header--root {
+      display: none !important;
+    }
+
+    .announcement--root {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .header--root,
+    .announcement--root {
+      display: none !important;
+    }
+
+    .suas-side-rail {
+      position: sticky;
+      inset: auto;
+      top: 36px;
+      z-index: 59;
+      width: 100%;
+      display: block;
+      padding: 8px 10px 10px;
+      background: rgba(255, 255, 255, 0.96);
+      border-right: 0;
+      border-bottom: 1px solid rgba(16, 16, 16, 0.1);
+      box-shadow: 0 10px 24px -20px rgba(16, 16, 16, 0.45);
+    }
+
+    .suas-frame-marquee {
+      height: 34px;
+    }
+
+    .suas-frame-marquee-track span {
+      padding: 0 18px;
+      font-size: 15px;
+    }
+
+    .suas-side-head {
+      justify-content: center;
+      gap: 10px;
+      padding: 4px 0 8px;
+    }
+
+    .suas-side-orb {
+      width: 28px;
+      height: 28px;
+    }
+
+    .suas-side-brand {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .suas-side-kicker,
+    .suas-side-status,
+    .suas-side-foot {
+      display: none;
+    }
+
+    .suas-side-nav {
+      flex: none;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 0 4px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .suas-side-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .suas-side-link {
+      min-height: 40px;
+      flex: 0 0 auto;
+      grid-template-columns: 26px auto;
+      gap: 7px;
+      padding: 7px 11px 7px 8px;
+      border: 1px solid rgba(16, 16, 16, 0.1);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 4px 0 rgba(16, 16, 16, 0.12);
+    }
+
+    .suas-side-link.is-active {
+      min-height: 40px;
+      margin: 0;
+      box-shadow: 0 4px 0 rgba(16, 16, 16, 0.25);
+    }
+
+    .suas-side-icon {
+      width: 24px;
+      height: 24px;
+      font-size: 12px;
+    }
+
+    .suas-side-label {
+      font-size: 1rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .suas-side-num {
+      display: none;
+    }
+  }
+</style>
+
+<div class="suas-frame" aria-label="SUAS site frame">
+  <div class="suas-frame-marquee" aria-hidden="true">
+    <div class="suas-frame-marquee-track">
+      {% for i in (1..2) %}
+        {% if section.settings.marquee_1 != blank %}<span>{{ section.settings.marquee_1 }}</span>{% endif %}
+        {% if section.settings.marquee_2 != blank %}<span>{{ section.settings.marquee_2 }}</span>{% endif %}
+        {% if section.settings.marquee_3 != blank %}<span>{{ section.settings.marquee_3 }}</span>{% endif %}
+        {% if section.settings.marquee_4 != blank %}<span>{{ section.settings.marquee_4 }}</span>{% endif %}
+        {% if section.settings.marquee_5 != blank %}<span>{{ section.settings.marquee_5 }}</span>{% endif %}
+        {% if section.settings.marquee_6 != blank %}<span>{{ section.settings.marquee_6 }}</span>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <aside class="suas-side-rail" aria-label="SUAS control panel">
+    <a class="suas-side-head" href="{{ section.settings.home_link }}">
+      <span class="suas-side-orb" aria-hidden="true"></span>
+      <span class="suas-side-brand">{{ section.settings.brand_text }}</span>
+    </a>
+    <p class="suas-side-kicker">{{ section.settings.control_label }}</p>
+    <nav class="suas-side-nav">
+      {% for block in section.blocks %}
+        {% liquid
+          assign is_active = false
+          if block.settings.active_match != blank and request.path contains block.settings.active_match
+            assign is_active = true
+          endif
+          assign has_submenu = false
+          if block.settings.submenu_1_label != blank or block.settings.submenu_2_label != blank or block.settings.submenu_3_label != blank or block.settings.submenu_4_label != blank or block.settings.submenu_5_label != blank or block.settings.submenu_6_label != blank
+            assign has_submenu = true
+          endif
+        %}
+
+        {% if has_submenu %}
+          <details class="suas-side-dropdown" {{ block.shopify_attributes }}>
+            <summary class="suas-side-link{% if is_active %} is-active{% endif %}">
+              <span class="suas-side-icon" style="--tint: {{ block.settings.tint_color }};">{{ block.settings.icon }}</span>
+              <span class="suas-side-label">{{ block.settings.title }}</span>
+              <span class="suas-side-num">{{ block.settings.number }}</span>
+            </summary>
+            <div class="suas-panel-submenu">
+              {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{{ block.settings.title }}</a>{% endif %}
+              {% if block.settings.submenu_1_label != blank %}<a href="{{ block.settings.submenu_1_link }}">{{ block.settings.submenu_1_label }}</a>{% endif %}
+              {% if block.settings.submenu_2_label != blank %}<a href="{{ block.settings.submenu_2_link }}">{{ block.settings.submenu_2_label }}</a>{% endif %}
+              {% if block.settings.submenu_3_label != blank %}<a href="{{ block.settings.submenu_3_link }}">{{ block.settings.submenu_3_label }}</a>{% endif %}
+              {% if block.settings.submenu_4_label != blank %}<a href="{{ block.settings.submenu_4_link }}">{{ block.settings.submenu_4_label }}</a>{% endif %}
+              {% if block.settings.submenu_5_label != blank %}<a href="{{ block.settings.submenu_5_link }}">{{ block.settings.submenu_5_label }}</a>{% endif %}
+              {% if block.settings.submenu_6_label != blank %}<a href="{{ block.settings.submenu_6_link }}">{{ block.settings.submenu_6_label }}</a>{% endif %}
+            </div>
+          </details>
+        {% else %}
+          <a class="suas-side-link{% if is_active %} is-active{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
+            <span class="suas-side-icon" style="--tint: {{ block.settings.tint_color }};">{{ block.settings.icon }}</span>
+            <span class="suas-side-label">{{ block.settings.title }}</span>
+            <span class="suas-side-num">{{ block.settings.number }}</span>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+    <div class="suas-side-status">
+      <span class="suas-side-status-dot" aria-hidden="true"></span>
+      <div><b>{{ section.settings.status_label }}</b><span>{{ section.settings.status_text }}</span></div>
+    </div>
+    <div class="suas-side-foot" aria-hidden="true">
+      <a href="{{ section.settings.footer_link_1 }}">{{ section.settings.footer_label_1 }}</a>
+      <a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a>
+      <span>{{ section.settings.version_text }}</span>
+    </div>
+  </aside>
+</div>
+
+{% schema %}
+{
+  "name": "SUAS OS frame",
+  "settings": [
+    { "type": "text", "id": "brand_text", "label": "Brand text", "default": "SUAS" },
+    { "type": "url", "id": "home_link", "label": "Brand/home link", "default": "/" },
+    { "type": "text", "id": "control_label", "label": "Control panel label", "default": "control panel" },
+    { "type": "text", "id": "status_label", "label": "Status label", "default": "lab status" },
+    { "type": "text", "id": "status_text", "label": "Status text", "default": "open + mixing" },
+    { "type": "text", "id": "version_text", "label": "Version text", "default": "v.04" },
+    { "type": "text", "id": "footer_label_1", "label": "Footer label 1", "default": "account" },
+    { "type": "url", "id": "footer_link_1", "label": "Footer link 1", "default": "/account" },
+    { "type": "text", "id": "footer_label_2", "label": "Footer label 2", "default": "about" },
+    { "type": "url", "id": "footer_link_2", "label": "Footer link 2", "default": "/pages/about" },
+    { "type": "header", "content": "Marquee" },
+    { "type": "range", "id": "marquee_speed", "label": "Marquee speed", "min": 16, "max": 60, "step": 2, "unit": "s", "default": 34 },
+    { "type": "text", "id": "marquee_1", "label": "Marquee text 1", "default": "shut up & smell" },
+    { "type": "text", "id": "marquee_2", "label": "Marquee text 2", "default": "suas.os online" },
+    { "type": "text", "id": "marquee_3", "label": "Marquee text 3", "default": "the lab is mixing" },
+    { "type": "text", "id": "marquee_4", "label": "Marquee text 4", "default": "handmade in gastonia" },
+    { "type": "text", "id": "marquee_5", "label": "Marquee text 5", "default": "dopamine on tap" },
+    { "type": "text", "id": "marquee_6", "label": "Marquee text 6", "default": "formula 001" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "ink_color", "label": "Ink", "default": "#101010" },
+    { "type": "color", "id": "cream_color", "label": "Cream", "default": "#f8f7f4" },
+    { "type": "color", "id": "page_color", "label": "Page background", "default": "#f6f7fa" },
+    { "type": "color", "id": "pink_color", "label": "Pink", "default": "#ff9bc4" },
+    { "type": "color", "id": "blue_color", "label": "Blue", "default": "#9dd7ff" },
+    { "type": "color", "id": "sun_color", "label": "Yellow", "default": "#ffe86b" },
+    { "type": "color", "id": "lime_color", "label": "Lime", "default": "#c6f76a" },
+    { "type": "color", "id": "lav_color", "label": "Lavender", "default": "#c7b5ff" }
+  ],
+  "blocks": [
+    {
+      "type": "menu_item",
+      "name": "Control panel item",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "body" },
+        { "type": "text", "id": "icon", "label": "Icon/symbol", "default": "o" },
+        { "type": "text", "id": "number", "label": "Number", "default": "01" },
+        { "type": "url", "id": "link", "label": "Main link", "default": "/collections/body-care" },
+        { "type": "text", "id": "active_match", "label": "Active URL contains", "default": "/collections/body" },
+        { "type": "color", "id": "tint_color", "label": "Bubble color", "default": "#ff9bc4" },
+        { "type": "header", "content": "Submenu items" },
+        { "type": "text", "id": "submenu_1_label", "label": "Submenu 1 label" },
+        { "type": "url", "id": "submenu_1_link", "label": "Submenu 1 link" },
+        { "type": "text", "id": "submenu_2_label", "label": "Submenu 2 label" },
+        { "type": "url", "id": "submenu_2_link", "label": "Submenu 2 link" },
+        { "type": "text", "id": "submenu_3_label", "label": "Submenu 3 label" },
+        { "type": "url", "id": "submenu_3_link", "label": "Submenu 3 link" },
+        { "type": "text", "id": "submenu_4_label", "label": "Submenu 4 label" },
+        { "type": "url", "id": "submenu_4_link", "label": "Submenu 4 link" },
+        { "type": "text", "id": "submenu_5_label", "label": "Submenu 5 label" },
+        { "type": "url", "id": "submenu_5_link", "label": "Submenu 5 link" },
+        { "type": "text", "id": "submenu_6_label", "label": "Submenu 6 label" },
+        { "type": "url", "id": "submenu_6_link", "label": "Submenu 6 link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SUAS OS frame",
+      "blocks": [
+        { "type": "menu_item", "settings": { "title": "body", "icon": "o", "number": "01", "link": "/collections/body-care", "active_match": "/collections/body", "tint_color": "#ff9bc4", "submenu_1_label": "Butter Creme", "submenu_1_link": "/collections/butter-creme", "submenu_2_label": "Body Scrub", "submenu_2_link": "/collections/body-scrub", "submenu_3_label": "Body Jelly", "submenu_3_link": "/collections/body-jelly", "submenu_4_label": "Body Oil", "submenu_4_link": "/collections/body-oil", "submenu_5_label": "Cleansing Bar", "submenu_5_link": "/collections/cleansing-bar", "submenu_6_label": "Body Wash", "submenu_6_link": "/collections/body-wash" } },
+        { "type": "menu_item", "settings": { "title": "home", "icon": "i", "number": "02", "link": "/collections/home-care", "active_match": "/collections/home", "tint_color": "#ffe86b", "submenu_1_label": "Candles", "submenu_1_link": "/collections/candles", "submenu_2_label": "Everything Mist", "submenu_2_link": "/collections/everything-mist", "submenu_3_label": "Burnt Oils", "submenu_3_link": "/collections/burnt-oils" } },
+        { "type": "menu_item", "settings": { "title": "masculine", "icon": "*", "number": "03", "link": "/collections/masculine", "active_match": "/collections/masculine", "tint_color": "#9dd7ff" } },
+        { "type": "menu_item", "settings": { "title": "feminine", "icon": "x", "number": "04", "link": "/collections/feminine", "active_match": "/collections/feminine", "tint_color": "#ff9bc4" } },
+        { "type": "menu_item", "settings": { "title": "oddities", "icon": "*", "number": "05", "link": "/collections/oddities", "active_match": "/collections/oddities", "tint_color": "#c7b5ff" } },
+        { "type": "menu_item", "settings": { "title": "the lab", "icon": "/", "number": "06", "link": "/pages/shut-up-and-smell", "active_match": "/pages/shut-up-and-smell", "tint_color": "#c6f76a" } },
+        { "type": "menu_item", "settings": { "title": "visit us", "icon": "!", "number": "07", "link": "/pages/visit-us", "active_match": "/pages/visit-us", "tint_color": "#9dd7ff" } },
+        { "type": "menu_item", "settings": { "title": "about us", "icon": "?", "number": "08", "link": "/pages/about", "active_match": "/pages/about", "tint_color": "#c7b5ff", "submenu_1_label": "Who are we", "submenu_1_link": "/pages/about", "submenu_2_label": "Bookings", "submenu_2_link": "/pages/bookings", "submenu_3_label": "Contact Us", "submenu_3_link": "/pages/contact", "submenu_4_label": "Refund Policy", "submenu_4_link": "/policies/refund-policy" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
