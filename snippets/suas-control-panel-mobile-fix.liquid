@@ -95,6 +95,17 @@
     border-radius: 15px !important;
   }
 
+  body .suas-bookings-page .suas-self-time-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+  }
+
+  body .suas-bookings-page .suas-estimated-time-field {
+    grid-column: 1 / -1 !important;
+  }
+
   body .suas-bookings-page .suas-slot {
     min-height: 42px !important;
     padding: 8px 9px !important;
@@ -125,6 +136,12 @@
     background: #fff !important;
     border-color: #101010 !important;
     box-shadow: 0 4px 0 rgba(16, 16, 16, 0.22) !important;
+  }
+
+  body .suas-bookings-page .suas-time-grid .suas-slot.is-full,
+  body .suas-bookings-page .suas-self-time-grid .suas-slot.is-full {
+    opacity: 0.42 !important;
+    cursor: not-allowed !important;
   }
 
   body .suas-bookings-page .suas-booking-date-error {
@@ -299,8 +316,16 @@
       5: [{ start: '12:00', end: '17:30' }],
       6: [{ start: '12:00', end: '15:30' }]
     };
+    var selfGuidedTimes = [
+      { label: '12:00 PM', value: '12:00 PM estimated timeframe', minutes: 720 },
+      { label: '1:00 PM', value: '1:00 PM estimated timeframe', minutes: 780 },
+      { label: '2:00 PM', value: '2:00 PM estimated timeframe', minutes: 840 },
+      { label: '3:00 PM', value: '3:00 PM estimated timeframe', minutes: 900 },
+      { label: '4:00 PM', value: '4:00 PM estimated timeframe', minutes: 960 },
+      { label: '5:00 PM', value: '5:00 PM estimated timeframe', minutes: 1020 }
+    ];
     var selfGuidedDayMessage = 'Self-guided sessions are available Thursday, Friday, Saturday, and Sunday only.';
-    var selfGuidedTimeMessage = 'Please choose a self-guided time inside booking hours: Thu/Fri 12:00 PM - 5:30 PM, Sat 12:00 PM - 3:30 PM, Sun 12:00 PM - 5:00 PM.';
+    var selfGuidedTimeMessage = 'Please choose an estimated self-guided time inside booking hours: Thu/Fri 12:00 PM - 5:30 PM, Sat 12:00 PM - 3:30 PM, Sun 12:00 PM - 5:00 PM.';
 
     function addBookLabQuickLaunch() {
       var grid = document.querySelector('.suas-world-home .suas-launch-grid');
@@ -346,13 +371,24 @@
       return form ? form.querySelector('input[name="properties[Preferred date]"]') : null;
     }
 
-    function getSelfGuidedTimeInput(form) {
-      return form ? form.querySelector('input[name="properties[Preferred time]"]') : null;
+    function getSelfGuidedTimeControls(form) {
+      return form ? Array.prototype.slice.call(form.querySelectorAll('input[name="properties[Preferred time]"]')) : [];
+    }
+
+    function getSelectedSelfGuidedTimeInput(form) {
+      var controls = getSelfGuidedTimeControls(form);
+      return controls.find(function (input) { return input.checked; }) || controls[0] || null;
     }
 
     function getSelfGuidedWindows(dateInput) {
       var day = getDateDay(dateInput && dateInput.value);
       return day === null ? [] : (selfGuidedSchedule[day] || []);
+    }
+
+    function getControlMinutes(input) {
+      if (!input) return null;
+      if (input.dataset && input.dataset.minutes) return parseInt(input.dataset.minutes, 10);
+      return timeToMinutes(input.value);
     }
 
     function showBookingDateError(input, message) {
@@ -364,7 +400,7 @@
         error = document.createElement('div');
         error.className = 'suas-booking-date-error';
         error.setAttribute('role', 'alert');
-        input.insertAdjacentElement('afterend', error);
+        input.closest('.suas-time-grid') ? input.closest('.suas-time-grid').insertAdjacentElement('afterend', error) : input.insertAdjacentElement('afterend', error);
       }
 
       error.textContent = message;
@@ -383,22 +419,61 @@
       error.classList.remove('is-visible');
     }
 
+    function buildSelfGuidedTimePicker(form) {
+      var timeInput = form.querySelector('input[type="time"][name="properties[Preferred time]"]');
+      if (!timeInput || form.querySelector('.suas-self-time-grid')) return;
+
+      var field = timeInput.closest('.suas-book-field') || timeInput.parentElement;
+      if (!field) return;
+
+      field.classList.add('suas-estimated-time-field');
+      field.setAttribute('data-wide', 'true');
+      field.innerHTML = '<span class="suas-book-label">estimated arrival time</span>';
+
+      var grid = document.createElement('div');
+      grid.className = 'suas-time-grid suas-self-time-grid';
+      grid.setAttribute('role', 'radiogroup');
+      grid.setAttribute('aria-label', 'Estimated self-guided arrival time');
+
+      selfGuidedTimes.forEach(function (slot, index) {
+        var label = document.createElement('label');
+        label.className = 'suas-slot';
+        label.innerHTML = '<input type="radio" name="properties[Preferred time]" value="' + slot.value + '" data-minutes="' + slot.minutes + '"' + (index === 0 ? ' required' : '') + '><span><b>' + slot.label + '</b><small>estimated timeframe</small></span>';
+        grid.appendChild(label);
+      });
+
+      field.appendChild(grid);
+    }
+
     function syncSelfGuidedTimeRules(form) {
       var dateInput = getSelfGuidedDateInput(form);
-      var timeInput = getSelfGuidedTimeInput(form);
-      if (!dateInput || !timeInput) return;
+      var controls = getSelfGuidedTimeControls(form);
+      if (!dateInput || !controls.length) return;
 
       var windows = getSelfGuidedWindows(dateInput);
-      timeInput.required = true;
-      timeInput.step = 900;
-      if (!windows.length) {
-        timeInput.removeAttribute('min');
-        timeInput.removeAttribute('max');
-        return;
-      }
+      controls.forEach(function (control, index) {
+        control.required = index === 0;
+        if (control.type === 'time') {
+          control.step = 900;
+          if (!windows.length) {
+            control.removeAttribute('min');
+            control.removeAttribute('max');
+            return;
+          }
+          control.min = windows[0].start;
+          control.max = windows[0].end;
+          return;
+        }
 
-      timeInput.min = windows[0].start;
-      timeInput.max = windows[0].end;
+        var minutes = getControlMinutes(control);
+        var isOpen = windows.length ? windows.some(function (window) {
+          return minutes >= timeToMinutes(window.start) && minutes <= timeToMinutes(window.end);
+        }) : true;
+        var slot = control.closest('.suas-slot');
+        control.disabled = !isOpen;
+        if (slot) slot.classList.toggle('is-full', !isOpen);
+        if (!isOpen && control.checked) control.checked = false;
+      });
     }
 
     function validateBookingDate(input, shouldClear) {
@@ -445,23 +520,31 @@
     }
 
     function validateSelfGuidedTime(input, shouldClear) {
-      if (!input || input.type !== 'time') return true;
+      if (!input || input.name !== 'properties[Preferred time]') return true;
       var form = input.closest('form');
       var dateInput = getSelfGuidedDateInput(form);
       if (!dateInput) return true;
 
+      var selected = input.type === 'radio' ? getSelectedSelfGuidedTimeInput(form) : input;
       var windows = getSelfGuidedWindows(dateInput);
       if (!dateInput.value || !windows.length) {
-        input.setCustomValidity(selfGuidedDayMessage);
-        showBookingDateError(input, selfGuidedDayMessage);
-        input.reportValidity();
+        selected.setCustomValidity(selfGuidedDayMessage);
+        showBookingDateError(selected, selfGuidedDayMessage);
+        selected.reportValidity();
         return false;
       }
 
-      var chosen = timeToMinutes(input.value);
-      if (chosen === null) {
-        input.setCustomValidity('Please choose a self-guided booking time.');
-        showBookingDateError(input, 'Please choose a self-guided booking time.');
+      if (!selected.value || (selected.type === 'radio' && !selected.checked)) {
+        selected.setCustomValidity('Please choose an estimated self-guided booking time.');
+        showBookingDateError(selected, 'Please choose an estimated self-guided booking time.');
+        selected.reportValidity();
+        return false;
+      }
+
+      var chosen = getControlMinutes(selected);
+      if (chosen === null || isNaN(chosen)) {
+        selected.setCustomValidity('Please choose an estimated self-guided booking time.');
+        showBookingDateError(selected, 'Please choose an estimated self-guided booking time.');
         return false;
       }
 
@@ -469,19 +552,20 @@
         return chosen >= timeToMinutes(window.start) && chosen <= timeToMinutes(window.end);
       });
 
-      if (isInWindow) {
-        input.setCustomValidity('');
-        clearBookingDateError(input);
+      if (isInWindow && !selected.disabled) {
+        getSelfGuidedTimeControls(form).forEach(function (control) { control.setCustomValidity(''); });
+        clearBookingDateError(selected);
         return true;
       }
 
-      input.setCustomValidity(selfGuidedTimeMessage);
-      showBookingDateError(input, selfGuidedTimeMessage);
-      input.reportValidity();
+      selected.setCustomValidity(selfGuidedTimeMessage);
+      showBookingDateError(selected, selfGuidedTimeMessage);
+      selected.reportValidity();
       if (shouldClear) {
         window.setTimeout(function () {
-          input.value = '';
-          input.setCustomValidity('');
+          if (selected.type === 'radio') selected.checked = false;
+          else selected.value = '';
+          selected.setCustomValidity('');
         }, 0);
       }
       return false;
@@ -493,19 +577,20 @@
       page.dataset.closedDaysReady = 'true';
 
       page.querySelectorAll('form').forEach(function (form) {
+        buildSelfGuidedTimePicker(form);
         syncSelfGuidedTimeRules(form);
       });
 
       page.querySelectorAll('input[type="date"]').forEach(function (input) {
         input.addEventListener('change', function () {
           validateBookingDate(input, true);
-          validateSelfGuidedTime(getSelfGuidedTimeInput(input.closest('form')), true);
+          var form = input.closest('form');
+          syncSelfGuidedTimeRules(form);
+          validateSelfGuidedTime(getSelectedSelfGuidedTimeInput(form), true);
         });
       });
 
       page.querySelectorAll('input[name="properties[Preferred time]"]').forEach(function (input) {
-        input.required = true;
-        input.step = 900;
         input.addEventListener('change', function () {
           validateSelfGuidedTime(input, true);
         });
@@ -517,7 +602,7 @@
           form.querySelectorAll('input[type="date"]').forEach(function (input) {
             if (!validateBookingDate(input, false)) datesAreOpen = false;
           });
-          var selfGuidedTime = getSelfGuidedTimeInput(form);
+          var selfGuidedTime = getSelectedSelfGuidedTimeInput(form);
           if (selfGuidedTime && !validateSelfGuidedTime(selfGuidedTime, false)) datesAreOpen = false;
           if (!datesAreOpen) event.preventDefault();
         });
