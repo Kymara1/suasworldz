@@ -1,4 +1,57 @@
-{{ 'suas-cart-fit.css' | asset_url | stylesheet_tag }}
+<style>
+  body.template--cart .layout--main-content {
+    padding-top: clamp(32px, 4vw, 52px) !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"] {
+    padding-top: clamp(30px, 3vw, 44px) !important;
+    overflow: visible !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"] .cart--header {
+    display: grid !important;
+    justify-items: center !important;
+    margin: 0 0 24px !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"] .cart--title {
+    display: block !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    font-size: clamp(1.85rem, 3.15vw, 3.05rem) !important;
+    line-height: 1 !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"] .cart--title:after {
+    margin-top: 8px !important;
+    padding: 5px 10px 4px !important;
+    font-size: 8px !important;
+    line-height: 1 !important;
+    transform: none !important;
+  }
+
+  @media (max-width: 749px) {
+    body.template--cart .layout--main-content {
+      padding-top: 16px !important;
+    }
+
+    body.template--cart .cart--root[data-is-drawer="false"] {
+      padding-top: 22px !important;
+    }
+
+    body.template--cart .cart--root[data-is-drawer="false"] .cart--header {
+      margin-bottom: 18px !important;
+    }
+
+    body.template--cart .cart--root[data-is-drawer="false"] .cart--title {
+      font-size: clamp(1.65rem, 9vw, 2.45rem) !important;
+    }
+  }
+</style>
 
 {%- liquid
   render 'cart', view: 'desktop'
