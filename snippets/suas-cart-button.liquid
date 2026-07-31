@@ -1,0 +1,109 @@
+{% unless request.page_type == 'password' %}
+  <a class="suas-floating-cart" href="{{ routes.cart_url }}" aria-label="Open cart">
+    <span class="suas-floating-cart__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M7 8h13l-1.25 7.25a2 2 0 0 1-1.97 1.66H9.28a2 2 0 0 1-1.97-1.66L5.75 5.8H3" />
+        <path d="M9.5 20.2h.01M17 20.2h.01" />
+      </svg>
+    </span>
+    <span class="suas-floating-cart__label">cart</span>
+    <span class="suas-floating-cart__count" data-suas-cart-count>{{ cart.item_count }}</span>
+  </a>
+
+  <style>
+    .suas-floating-cart {
+      position: fixed;
+      top: 60px;
+      right: 18px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 9px 12px 8px;
+      border: 2px solid #101010;
+      border-radius: 999px;
+      background: #101010;
+      color: #fff;
+      box-shadow: 0 4px 0 #f8cddd;
+      font-family: 'Casual Human', 'CasualHuman', 'Futura', sans-serif;
+      font-size: 20px;
+      line-height: 1;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .suas-floating-cart:hover,
+    .suas-floating-cart:focus-visible {
+      background: #fff;
+      color: #101010;
+      box-shadow: 0 4px 0 #101010;
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .suas-floating-cart__icon {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+    }
+
+    .suas-floating-cart__icon svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .suas-floating-cart__count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 23px;
+      height: 23px;
+      padding: 0 6px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      background: #f8cddd;
+      color: #101010;
+      font-family: Futura, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    @media (max-width: 749px) {
+      .suas-floating-cart {
+        top: auto;
+        right: 14px;
+        bottom: 14px;
+        min-height: 46px;
+        padding: 10px 12px 9px;
+        font-size: 18px;
+      }
+    }
+  </style>
+
+  <script>
+    (() => {
+      const countNode = document.querySelector('[data-suas-cart-count]');
+      if (!countNode) return;
+
+      fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
+        .then((response) => response.ok ? response.json() : null)
+        .then((cart) => {
+          if (cart && typeof cart.item_count === 'number') {
+            countNode.textContent = cart.item_count;
+          }
+        })
+        .catch(() => {});
+    })();
+  </script>
+{% endunless %}
