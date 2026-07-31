@@ -95,15 +95,28 @@
     border-radius: 15px !important;
   }
 
-  body .suas-bookings-page .suas-self-time-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    grid-column: 1 / -1 !important;
-    width: 100% !important;
-  }
-
   body .suas-bookings-page .suas-estimated-time-field {
     grid-column: 1 / -1 !important;
+  }
+
+  body .suas-bookings-page .suas-self-time-select {
+    width: 100% !important;
+    min-height: 44px !important;
+    border: 2px solid rgba(16, 16, 16, 0.18) !important;
+    border-radius: 16px !important;
+    padding: 10px 14px !important;
+    background: rgba(255, 255, 255, 0.82) !important;
+    color: #101010 !important;
+    font: 900 12px/1.2 Futura, 'Futura PT', Arial, sans-serif !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 4px 0 rgba(16, 16, 16, 0.1) !important;
+  }
+
+  body .suas-bookings-page .suas-self-time-select:focus {
+    border-color: #101010 !important;
+    box-shadow: 0 0 0 4px rgba(255, 159, 194, 0.22), 0 4px 0 rgba(16, 16, 16, 0.16) !important;
+    outline: none !important;
   }
 
   body .suas-bookings-page .suas-slot {
@@ -138,8 +151,7 @@
     box-shadow: 0 4px 0 rgba(16, 16, 16, 0.22) !important;
   }
 
-  body .suas-bookings-page .suas-time-grid .suas-slot.is-full,
-  body .suas-bookings-page .suas-self-time-grid .suas-slot.is-full {
+  body .suas-bookings-page .suas-time-grid .suas-slot.is-full {
     opacity: 0.42 !important;
     cursor: not-allowed !important;
   }
@@ -177,6 +189,11 @@
 
     body .suas-bookings-page .suas-book-title {
       font-size: clamp(2.25rem, 11vw, 3.75rem) !important;
+    }
+
+    body .suas-bookings-page .suas-self-time-select {
+      min-height: 48px !important;
+      font-size: 12px !important;
     }
 
     body .suas-world-home .suas-launch-grid > a[href="/collections/body-care"],
@@ -372,11 +389,13 @@
     }
 
     function getSelfGuidedTimeControls(form) {
-      return form ? Array.prototype.slice.call(form.querySelectorAll('input[name="properties[Preferred time]"]')) : [];
+      return form ? Array.prototype.slice.call(form.querySelectorAll('input[name="properties[Preferred time]"], select[name="properties[Preferred time]"]')) : [];
     }
 
     function getSelectedSelfGuidedTimeInput(form) {
       var controls = getSelfGuidedTimeControls(form);
+      var select = controls.find(function (input) { return input.tagName === 'SELECT'; });
+      if (select) return select;
       return controls.find(function (input) { return input.checked; }) || controls[0] || null;
     }
 
@@ -387,6 +406,10 @@
 
     function getControlMinutes(input) {
       if (!input) return null;
+      if (input.tagName === 'SELECT') {
+        var option = input.options[input.selectedIndex];
+        return option && option.dataset.minutes ? parseInt(option.dataset.minutes, 10) : null;
+      }
       if (input.dataset && input.dataset.minutes) return parseInt(input.dataset.minutes, 10);
       return timeToMinutes(input.value);
     }
@@ -400,7 +423,7 @@
         error = document.createElement('div');
         error.className = 'suas-booking-date-error';
         error.setAttribute('role', 'alert');
-        input.closest('.suas-time-grid') ? input.closest('.suas-time-grid').insertAdjacentElement('afterend', error) : input.insertAdjacentElement('afterend', error);
+        input.insertAdjacentElement('afterend', error);
       }
 
       error.textContent = message;
@@ -421,28 +444,34 @@
 
     function buildSelfGuidedTimePicker(form) {
       var timeInput = form.querySelector('input[type="time"][name="properties[Preferred time]"]');
-      if (!timeInput || form.querySelector('.suas-self-time-grid')) return;
+      if (!timeInput || form.querySelector('.suas-self-time-select')) return;
 
       var field = timeInput.closest('.suas-book-field') || timeInput.parentElement;
       if (!field) return;
 
       field.classList.add('suas-estimated-time-field');
       field.setAttribute('data-wide', 'true');
-      field.innerHTML = '<span class="suas-book-label">estimated arrival time</span>';
+      field.innerHTML = '<label class="suas-book-label">estimated arrival time</label>';
 
-      var grid = document.createElement('div');
-      grid.className = 'suas-time-grid suas-self-time-grid';
-      grid.setAttribute('role', 'radiogroup');
-      grid.setAttribute('aria-label', 'Estimated self-guided arrival time');
+      var select = document.createElement('select');
+      select.className = 'suas-book-select suas-self-time-select';
+      select.name = 'properties[Preferred time]';
+      select.required = true;
 
-      selfGuidedTimes.forEach(function (slot, index) {
-        var label = document.createElement('label');
-        label.className = 'suas-slot';
-        label.innerHTML = '<input type="radio" name="properties[Preferred time]" value="' + slot.value + '" data-minutes="' + slot.minutes + '"' + (index === 0 ? ' required' : '') + '><span><b>' + slot.label + '</b><small>estimated timeframe</small></span>';
-        grid.appendChild(label);
+      var placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = 'choose estimated timeframe';
+      select.appendChild(placeholder);
+
+      selfGuidedTimes.forEach(function (slot) {
+        var option = document.createElement('option');
+        option.value = slot.value;
+        option.textContent = slot.label + ' - estimated timeframe';
+        option.dataset.minutes = slot.minutes;
+        select.appendChild(option);
       });
 
-      field.appendChild(grid);
+      field.appendChild(select);
     }
 
     function syncSelfGuidedTimeRules(form) {
@@ -451,8 +480,8 @@
       if (!dateInput || !controls.length) return;
 
       var windows = getSelfGuidedWindows(dateInput);
-      controls.forEach(function (control, index) {
-        control.required = index === 0;
+      controls.forEach(function (control) {
+        control.required = true;
         if (control.type === 'time') {
           control.step = 900;
           if (!windows.length) {
@@ -462,6 +491,23 @@
           }
           control.min = windows[0].start;
           control.max = windows[0].end;
+          return;
+        }
+
+        if (control.tagName === 'SELECT') {
+          Array.prototype.slice.call(control.options).forEach(function (option) {
+            if (!option.value) {
+              option.disabled = false;
+              return;
+            }
+            var minutes = option.dataset.minutes ? parseInt(option.dataset.minutes, 10) : null;
+            var isOpen = windows.length ? windows.some(function (window) {
+              return minutes >= timeToMinutes(window.start) && minutes <= timeToMinutes(window.end);
+            }) : true;
+            option.disabled = !isOpen;
+          });
+
+          if (control.selectedOptions.length && control.selectedOptions[0].disabled) control.value = '';
           return;
         }
 
@@ -525,7 +571,7 @@
       var dateInput = getSelfGuidedDateInput(form);
       if (!dateInput) return true;
 
-      var selected = input.type === 'radio' ? getSelectedSelfGuidedTimeInput(form) : input;
+      var selected = getSelectedSelfGuidedTimeInput(form);
       var windows = getSelfGuidedWindows(dateInput);
       if (!dateInput.value || !windows.length) {
         selected.setCustomValidity(selfGuidedDayMessage);
@@ -534,7 +580,7 @@
         return false;
       }
 
-      if (!selected.value || (selected.type === 'radio' && !selected.checked)) {
+      if (!selected.value) {
         selected.setCustomValidity('Please choose an estimated self-guided booking time.');
         showBookingDateError(selected, 'Please choose an estimated self-guided booking time.');
         selected.reportValidity();
@@ -563,8 +609,7 @@
       selected.reportValidity();
       if (shouldClear) {
         window.setTimeout(function () {
-          if (selected.type === 'radio') selected.checked = false;
-          else selected.value = '';
+          selected.value = '';
           selected.setCustomValidity('');
         }, 0);
       }
@@ -590,7 +635,7 @@
         });
       });
 
-      page.querySelectorAll('input[name="properties[Preferred time]"]').forEach(function (input) {
+      page.querySelectorAll('select[name="properties[Preferred time]"], input[name="properties[Preferred time]"]').forEach(function (input) {
         input.addEventListener('change', function () {
           validateSelfGuidedTime(input, true);
         });
