@@ -291,8 +291,16 @@
       { title: 'contact us', href: '/pages/contact' },
       { title: 'refund policy', href: '/policies/refund-policy' }
     ];
-    var closedBookingDays = [0, 1, 2, 3];
-    var closedBookingMessage = 'Bookings are closed Monday, Tuesday, Wednesday, and Sunday. Please choose Thursday, Friday, or Saturday.';
+    var guidedClosedDays = [0, 1, 2, 3];
+    var guidedBookingMessage = 'Guided Deluxe classes are available Thursday, Friday, and Saturday only. Please choose an available class day.';
+    var selfGuidedSchedule = {
+      0: [{ start: '12:00', end: '17:00' }],
+      4: [{ start: '12:00', end: '17:30' }],
+      5: [{ start: '12:00', end: '17:30' }],
+      6: [{ start: '12:00', end: '15:30' }]
+    };
+    var selfGuidedDayMessage = 'Self-guided sessions are available Thursday, Friday, Saturday, and Sunday only.';
+    var selfGuidedTimeMessage = 'Please choose a self-guided time inside booking hours: Thu/Fri 12:00 PM - 5:30 PM, Sat 12:00 PM - 3:30 PM, Sun 12:00 PM - 5:00 PM.';
 
     function addBookLabQuickLaunch() {
       var grid = document.querySelector('.suas-world-home .suas-launch-grid');
@@ -316,15 +324,39 @@
       });
     }
 
-    function isClosedBookingDate(value) {
-      if (!value) return false;
+    function getDateDay(value) {
+      if (!value) return null;
       var parts = value.split('-').map(function (part) { return parseInt(part, 10); });
-      if (parts.length !== 3 || parts.some(isNaN)) return false;
-      return closedBookingDays.indexOf(new Date(parts[0], parts[1] - 1, parts[2]).getDay()) !== -1;
+      if (parts.length !== 3 || parts.some(isNaN)) return null;
+      return new Date(parts[0], parts[1] - 1, parts[2]).getDay();
     }
 
-    function showBookingDateError(input) {
-      var field = input.closest('.suas-field') || input.parentElement;
+    function timeToMinutes(value) {
+      if (!value) return null;
+      var parts = value.split(':').map(function (part) { return parseInt(part, 10); });
+      if (parts.length < 2 || parts.some(isNaN)) return null;
+      return parts[0] * 60 + parts[1];
+    }
+
+    function isGuidedDateInput(input) {
+      return input && input.name === 'properties[Class date]';
+    }
+
+    function getSelfGuidedDateInput(form) {
+      return form ? form.querySelector('input[name="properties[Preferred date]"]') : null;
+    }
+
+    function getSelfGuidedTimeInput(form) {
+      return form ? form.querySelector('input[name="properties[Preferred time]"]') : null;
+    }
+
+    function getSelfGuidedWindows(dateInput) {
+      var day = getDateDay(dateInput && dateInput.value);
+      return day === null ? [] : (selfGuidedSchedule[day] || []);
+    }
+
+    function showBookingDateError(input, message) {
+      var field = input.closest('.suas-book-field') || input.closest('.suas-field') || input.parentElement;
       if (!field) return;
 
       var error = field.querySelector('.suas-booking-date-error');
@@ -335,32 +367,116 @@
         input.insertAdjacentElement('afterend', error);
       }
 
-      error.textContent = closedBookingMessage;
+      error.textContent = message;
       error.classList.add('is-visible');
       window.clearTimeout(error._suasTimer);
       error._suasTimer = window.setTimeout(function () {
         error.classList.remove('is-visible');
-      }, 6500);
+      }, 7500);
     }
 
     function clearBookingDateError(input) {
-      var field = input.closest('.suas-field') || input.parentElement;
+      var field = input.closest('.suas-book-field') || input.closest('.suas-field') || input.parentElement;
       if (!field) return;
       var error = field.querySelector('.suas-booking-date-error');
       if (!error) return;
       error.classList.remove('is-visible');
     }
 
+    function syncSelfGuidedTimeRules(form) {
+      var dateInput = getSelfGuidedDateInput(form);
+      var timeInput = getSelfGuidedTimeInput(form);
+      if (!dateInput || !timeInput) return;
+
+      var windows = getSelfGuidedWindows(dateInput);
+      timeInput.required = true;
+      timeInput.step = 900;
+      if (!windows.length) {
+        timeInput.removeAttribute('min');
+        timeInput.removeAttribute('max');
+        return;
+      }
+
+      timeInput.min = windows[0].start;
+      timeInput.max = windows[0].end;
+    }
+
     function validateBookingDate(input, shouldClear) {
       if (!input || input.type !== 'date') return true;
-      if (!isClosedBookingDate(input.value)) {
+      var form = input.closest('form');
+      var day = getDateDay(input.value);
+      if (day === null) {
         input.setCustomValidity('');
         clearBookingDateError(input);
         return true;
       }
 
-      input.setCustomValidity(closedBookingMessage);
-      showBookingDateError(input);
+      if (isGuidedDateInput(input)) {
+        if (guidedClosedDays.indexOf(day) === -1) {
+          input.setCustomValidity('');
+          clearBookingDateError(input);
+          return true;
+        }
+
+        input.setCustomValidity(guidedBookingMessage);
+        showBookingDateError(input, guidedBookingMessage);
+        input.reportValidity();
+      } else {
+        syncSelfGuidedTimeRules(form);
+        if (selfGuidedSchedule[day]) {
+          input.setCustomValidity('');
+          clearBookingDateError(input);
+          return true;
+        }
+
+        input.setCustomValidity(selfGuidedDayMessage);
+        showBookingDateError(input, selfGuidedDayMessage);
+        input.reportValidity();
+      }
+
+      if (shouldClear) {
+        window.setTimeout(function () {
+          input.value = '';
+          input.setCustomValidity('');
+          if (form) syncSelfGuidedTimeRules(form);
+        }, 0);
+      }
+      return false;
+    }
+
+    function validateSelfGuidedTime(input, shouldClear) {
+      if (!input || input.type !== 'time') return true;
+      var form = input.closest('form');
+      var dateInput = getSelfGuidedDateInput(form);
+      if (!dateInput) return true;
+
+      var windows = getSelfGuidedWindows(dateInput);
+      if (!dateInput.value || !windows.length) {
+        input.setCustomValidity(selfGuidedDayMessage);
+        showBookingDateError(input, selfGuidedDayMessage);
+        input.reportValidity();
+        return false;
+      }
+
+      var chosen = timeToMinutes(input.value);
+      if (chosen === null) {
+        input.setCustomValidity('Please choose a self-guided booking time.');
+        showBookingDateError(input, 'Please choose a self-guided booking time.');
+        return false;
+      }
+
+      var isInWindow = windows.some(function (window) {
+        return chosen >= timeToMinutes(window.start) && chosen <= timeToMinutes(window.end);
+      });
+
+      if (isInWindow) {
+        input.setCustomValidity('');
+        clearBookingDateError(input);
+        return true;
+      }
+
+      input.setCustomValidity(selfGuidedTimeMessage);
+      showBookingDateError(input, selfGuidedTimeMessage);
       input.reportValidity();
       if (shouldClear) {
         window.setTimeout(function () {
@@ -376,9 +492,22 @@
       if (!page || page.dataset.closedDaysReady === 'true') return;
       page.dataset.closedDaysReady = 'true';
 
+      page.querySelectorAll('form').forEach(function (form) {
+        syncSelfGuidedTimeRules(form);
+      });
+
       page.querySelectorAll('input[type="date"]').forEach(function (input) {
         input.addEventListener('change', function () {
           validateBookingDate(input, true);
+          validateSelfGuidedTime(getSelfGuidedTimeInput(input.closest('form')), true);
+        });
+      });
+
+      page.querySelectorAll('input[name="properties[Preferred time]"]').forEach(function (input) {
+        input.required = true;
+        input.step = 900;
+        input.addEventListener('change', function () {
+          validateSelfGuidedTime(input, true);
         });
       });
 
@@ -388,6 +517,8 @@
           form.querySelectorAll('input[type="date"]').forEach(function (input) {
             if (!validateBookingDate(input, false)) datesAreOpen = false;
           });
+          var selfGuidedTime = getSelfGuidedTimeInput(form);
+          if (selfGuidedTime && !validateSelfGuidedTime(selfGuidedTime, false)) datesAreOpen = false;
           if (!datesAreOpen) event.preventDefault();
         });
       });
