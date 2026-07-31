@@ -1,0 +1,110 @@
+<section class="suas-bookings-page" aria-label="Book The Lab">
+  <style>
+    @font-face { font-family:'Casual Human'; src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype'); font-display:swap; }
+    .suas-bookings-page { --ink:#101010; --cream:#fffaf5; --pink:#ffe8ef; --hot:#ff9fc2; --lime:#d9ff78; --blue:#c9e7ff; --sun:#fff2a8; min-height:100vh; color:var(--ink); background:radial-gradient(circle at 10% 12%,rgba(255,159,194,.24),transparent 28%),radial-gradient(circle at 92% 18%,rgba(217,255,120,.32),transparent 27%),linear-gradient(180deg,#fff 0%,#fffaf5 100%); font-family:Futura,'Futura PT',Arial,sans-serif; }
+    .suas-bookings-page * { box-sizing:border-box; }
+    .suas-book-wrap { width:min(1080px,calc(100vw - 36px)); margin:0 auto; padding:clamp(42px,7vw,86px) 0 72px; }
+    .suas-book-hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,.72fr); gap:18px; align-items:stretch; }
+    .suas-book-card { border:2px solid var(--ink); border-radius:28px; background:rgba(255,255,255,.78); box-shadow:0 8px 0 var(--ink); padding:clamp(22px,4vw,38px); }
+    .suas-book-kicker, .suas-book-label, .suas-book-pill, .suas-book-button { font-family:Futura,'Futura PT',Arial,sans-serif; font-size:10px; letter-spacing:.22em; text-transform:uppercase; font-weight:900; }
+    .suas-book-title, .suas-book-session h3 { font-family:'Casual Human',Futura,Arial,sans-serif; font-weight:400; letter-spacing:0; text-transform:uppercase; }
+    .suas-book-title { margin:10px 0 18px; font-size:clamp(3.2rem,8vw,6.8rem); line-height:.86; }
+    .suas-book-copy { max-width:760px; margin:0; font-size:clamp(1rem,1.65vw,1.25rem); line-height:1.55; font-weight:800; color:rgba(16,16,16,.62); }
+    .suas-book-stack { display:grid; gap:12px; }
+    .suas-book-session { min-height:118px; display:flex; flex-direction:column; justify-content:space-between; border:2px solid var(--ink); border-radius:22px; padding:16px; background:var(--card); box-shadow:0 6px 0 var(--ink); }
+    .suas-book-session h3 { margin:0 0 8px; font-size:clamp(1.35rem,2.4vw,2rem); line-height:.92; }
+    .suas-book-session p { margin:0; font-size:12px; line-height:1.35; font-weight:800; color:rgba(16,16,16,.64); }
+    .suas-book-price { margin-top:12px; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:1.55rem; line-height:1; }
+    .suas-book-form { margin-top:18px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .suas-book-field { display:grid; gap:7px; }
+    .suas-book-field[data-wide] { grid-column:1 / -1; }
+    .suas-book-label { color:rgba(16,16,16,.52); }
+    .suas-book-input, .suas-book-select, .suas-book-textarea { width:100%; min-height:48px; border:2px solid rgba(16,16,16,.16); border-radius:18px; padding:12px 14px; background:#fff; color:var(--ink); font:800 14px/1.2 Futura,'Futura PT',Arial,sans-serif; outline:none; }
+    .suas-book-input:focus, .suas-book-select:focus, .suas-book-textarea:focus { border-color:var(--ink); box-shadow:0 0 0 4px rgba(255,159,194,.22); }
+    .suas-book-textarea { min-height:104px; resize:vertical; }
+    .suas-book-button { min-height:54px; border:2px solid var(--ink); border-radius:999px; padding:14px 20px; color:var(--ink); background:linear-gradient(180deg,#ffd4e5 0%,#ff9fc2 100%); box-shadow:0 6px 0 var(--ink); cursor:pointer; }
+    .suas-book-note { margin:12px 0 0; font-size:12px; line-height:1.45; font-weight:800; color:rgba(16,16,16,.52); }
+    .suas-book-success { grid-column:1 / -1; border:2px solid var(--ink); border-radius:18px; padding:14px; background:var(--lime); font-weight:900; }
+    @media (max-width:900px){ .suas-book-hero{grid-template-columns:1fr;} }
+    @media (max-width:620px){ .suas-book-wrap{width:min(100% - 24px,520px); padding:28px 0 52px;} .suas-book-card{border-radius:22px; padding:18px;} .suas-book-title{font-size:clamp(2.8rem,15vw,4.9rem);} .suas-book-form{grid-template-columns:1fr;} }
+  </style>
+
+  <div class="suas-book-wrap">
+    <div class="suas-book-hero">
+      <div class="suas-book-card">
+        <div class="suas-book-kicker">about us / bookings</div>
+        <h1 class="suas-book-title">book the lab.</h1>
+        <p class="suas-book-copy">Reserve time for the fragrance bar, choose your session, and let us know how many people are coming. We will confirm your time before it is locked in.</p>
+
+        {% form 'contact', class: 'suas-book-form' %}
+          {% if form.posted_successfully? %}
+            <div class="suas-book-success">Request sent. We will confirm your Lab time soon.</div>
+          {% endif %}
+          {{ form.errors | default_errors }}
+
+          <input type="hidden" name="contact[booking_source]" value="SUAS Lab Booking Page">
+          <div class="suas-book-field">
+            <label class="suas-book-label" for="BookingName">name</label>
+            <input class="suas-book-input" id="BookingName" type="text" name="contact[name]" autocomplete="name" required>
+          </div>
+          <div class="suas-book-field">
+            <label class="suas-book-label" for="BookingEmail">email</label>
+            <input class="suas-book-input" id="BookingEmail" type="email" name="contact[email]" autocomplete="email" required>
+          </div>
+          <div class="suas-book-field">
+            <label class="suas-book-label" for="BookingPhone">phone</label>
+            <input class="suas-book-input" id="BookingPhone" type="tel" name="contact[phone]" autocomplete="tel">
+          </div>
+          <div class="suas-book-field">
+            <label class="suas-book-label" for="BookingGuests">party size</label>
+            <input class="suas-book-input" id="BookingGuests" type="number" name="contact[party_size]" min="1" max="12" value="1">
+          </div>
+          <div class="suas-book-field" data-wide>
+            <label class="suas-book-label" for="BookingSession">session</label>
+            <select class="suas-book-select" id="BookingSession" name="contact[session]" required>
+              <option value="Lab Session: Body Oil">Lab Session: Body Oil - $25</option>
+              <option value="Lab Session: Eau De Parfum">Lab Session: Eau De Parfum - $35</option>
+              <option value="Combo Session">Combo Session - $60</option>
+              <option value="Deluxe Lab Session">Deluxe Lab Session - $85 per person</option>
+            </select>
+          </div>
+          <div class="suas-book-field">
+            <label class="suas-book-label" for="BookingDate">preferred date</label>
+            <input class="suas-book-input" id="BookingDate" type="date" name="contact[preferred_date]">
+          </div>
+          <div class="suas-book-field">
+            <label class="suas-book-label" for="BookingTime">preferred time</label>
+            <input class="suas-book-input" id="BookingTime" type="time" name="contact[preferred_time]">
+          </div>
+          <div class="suas-book-field" data-wide>
+            <label class="suas-book-label" for="BookingMessage">notes</label>
+            <textarea class="suas-book-textarea" id="BookingMessage" name="contact[body]" placeholder="Tell us what you want to make, if this is for a group, birthday, private session, etc."></textarea>
+          </div>
+          <div class="suas-book-field" data-wide>
+            <button class="suas-book-button" type="submit">send booking request</button>
+            <p class="suas-book-note">This sends a booking request to the store. Your appointment is confirmed once SUAS replies.</p>
+          </div>
+        {% endform %}
+      </div>
+
+      <div class="suas-book-stack">
+        <article class="suas-book-session" style="--card:#fff2a8;"><h3>Lab Session: Body Oil</h3><p>Self-guided 1 oz body oil, up to 3 notes.</p><strong class="suas-book-price">$25</strong></article>
+        <article class="suas-book-session" style="--card:#ffe8ef;"><h3>Lab Session: Eau De Parfum</h3><p>Self-guided 30 mL perfume, up to 3 notes.</p><strong class="suas-book-price">$35</strong></article>
+        <article class="suas-book-session" style="--card:#c9e7ff;"><h3>Combo Session</h3><p>Self-guided 30 mL perfume plus 1 oz body oil.</p><strong class="suas-book-price">$60</strong></article>
+        <article class="suas-book-session" style="--card:#d9ff78;"><h3>Deluxe Lab Session</h3><p>Guided appointment-only classroom-style session.</p><strong class="suas-book-price">$85 per person</strong></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "SUAS Bookings Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "SUAS Bookings Page"
+    }
+  ]
+}
+{% endschema %}
