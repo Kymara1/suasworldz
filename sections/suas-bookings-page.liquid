@@ -31,7 +31,8 @@
     .suas-book-button:hover { color:var(--ink); transform:translateY(2px); box-shadow:0 3px 0 var(--ink); }
     .suas-book-button[disabled] { cursor:not-allowed; opacity:.58; background:#fff; }
     .suas-book-note { margin:0; font-size:11px; line-height:1.42; font-weight:800; color:rgba(16,16,16,.56); }
-    .suas-slot-grid { display:grid; grid-template-columns:1fr; gap:8px; grid-column:1 / -1; }
+    .suas-slot-grid, .suas-time-grid { display:grid; grid-template-columns:1fr; gap:8px; grid-column:1 / -1; }
+    .suas-time-grid { margin-top:2px; border:2px solid rgba(16,16,16,.18); border-radius:18px; padding:10px; background:rgba(255,255,255,.42); }
     .suas-slot { display:flex; align-items:center; gap:9px; min-height:48px; border:2px solid rgba(16,16,16,.16); border-radius:16px; padding:9px 10px; background:rgba(255,255,255,.7); cursor:pointer; }
     .suas-slot input { width:16px; height:16px; accent-color:#101010; }
     .suas-slot span { display:grid; gap:2px; }
@@ -118,7 +119,7 @@
       </article>
 
       <article class="suas-book-option" style="--card:#d9ff78;">
-        <div><span class="suas-book-badge">guided class</span><h2>Deluxe Lab Session</h2><p class="suas-book-desc">Guided classroom experience. Select an available class variant below. Sold-out variants show as full.</p><strong class="suas-book-price">$85 per person</strong></div>
+        <div><span class="suas-book-badge">guided class</span><h2>Deluxe Lab Session</h2><p class="suas-book-desc">Guided classroom experience. Choose your Deluxe option, then select an available guided class time.</p><strong class="suas-book-price">$85 per person</strong></div>
         {% if deluxe_product != blank %}
           {% form 'product', deluxe_product, class: 'suas-book-form' %}
             <input type="hidden" name="properties[Booking type]" value="Guided Deluxe Lab Session">
@@ -127,7 +128,7 @@
               <div class="suas-book-field" data-wide><span class="suas-book-badge">add class time variants for 12-seat capacity</span></div>
             {% else %}
               <div class="suas-slot-grid">
-                <span class="suas-book-label">available class / add-on</span>
+                <span class="suas-book-label">deluxe option / add-on</span>
                 {% assign selected_deluxe_id = deluxe_product.selected_or_first_available_variant.id %}
                 {% for variant in deluxe_product.variants %}
                   <label class="suas-slot{% unless variant.available %} is-full{% endunless %}">
@@ -140,6 +141,13 @@
                 {% endfor %}
               </div>
             {% endif %}
+            <div class="suas-time-grid" role="radiogroup" aria-label="Guided session times">
+              <span class="suas-book-label">guided session time</span>
+              <label class="suas-slot"><input type="radio" name="properties[Class time]" value="Thursday 6:00 PM - 7:30 PM" required><span><b>Thursday</b><small>6:00 PM - 7:30 PM</small></span></label>
+              <label class="suas-slot"><input type="radio" name="properties[Class time]" value="Friday 6:00 PM - 7:30 PM" required><span><b>Friday</b><small>6:00 PM - 7:30 PM</small></span></label>
+              <label class="suas-slot"><input type="radio" name="properties[Class time]" value="Saturday 4:00 PM - 5:00 PM" required><span><b>Saturday</b><small>4:00 PM - 5:00 PM</small></span></label>
+              <label class="suas-slot"><input type="radio" name="properties[Class time]" value="Saturday 5:30 PM - 6:30 PM" required><span><b>Saturday</b><small>5:30 PM - 6:30 PM</small></span></label>
+            </div>
             <div class="suas-book-field" data-wide><label class="suas-book-label" for="DeluxeDate">class date</label><input class="suas-book-input" id="DeluxeDate" type="date" name="properties[Class date]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="DeluxeGuests">guests</label><input class="suas-book-input" id="DeluxeGuests" type="number" name="quantity" min="1" max="12" value="1"></div>
             <div class="suas-book-field"><label class="suas-book-label" for="DeluxeName">name</label><input class="suas-book-input" id="DeluxeName" type="text" name="properties[Guest name]"></div>
