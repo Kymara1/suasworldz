@@ -406,3 +406,28 @@ nav *,
 .suas-product-price {
   margin-top: 0 !important;
 }
+
+/* Homepage lab teaser package copy */
+.suas-hours h3,
+.suas-hours p {
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.suas-hours h3:before {
+  content: "lab session - 35\A deluxe lab - 85\A combo lab sesh - 60";
+  display: block;
+  white-space: pre-line;
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-size: clamp(2.35rem, 5vw, 4.5rem) !important;
+  line-height: .9 !important;
+}
+
+.suas-hours p:before {
+  content: "Self-guided 30 mL perfume, guided deluxe appointment, or 30 mL perfume plus 1 oz body oil.";
+  display: block;
+  font-size: 15px !important;
+  line-height: 1.55 !important;
+  font-weight: 800 !important;
+  color: rgba(16,16,16,.62) !important;
+}
