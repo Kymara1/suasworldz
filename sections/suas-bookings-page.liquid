@@ -1,38 +1,47 @@
 <section class="suas-bookings-page" aria-label="Book The Lab">
   <style>
     @font-face { font-family:'Casual Human'; src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype'); font-display:swap; }
-    .suas-bookings-page { --ink:#101010; --cream:#fffaf5; --pink:#ffe8ef; --hot:#ff9fc2; --lime:#d9ff78; --blue:#c9e7ff; --sun:#fff2a8; min-height:100vh; color:var(--ink); background:radial-gradient(circle at 10% 12%,rgba(255,159,194,.24),transparent 28%),radial-gradient(circle at 92% 18%,rgba(217,255,120,.32),transparent 27%),linear-gradient(180deg,#fff 0%,#fffaf5 100%); font-family:Futura,'Futura PT',Arial,sans-serif; }
+    .suas-bookings-page { --ink:#101010; --pink:#ffe8ef; --hot:#ff9fc2; --lime:#d9ff78; --blue:#c9e7ff; --sun:#fff2a8; min-height:100vh; color:var(--ink); background:radial-gradient(circle at 12% 8%,rgba(255,159,194,.2),transparent 28%),radial-gradient(circle at 92% 16%,rgba(217,255,120,.24),transparent 28%),linear-gradient(180deg,#fff 0%,#fffaf5 100%); font-family:Futura,'Futura PT',Arial,sans-serif; }
     .suas-bookings-page * { box-sizing:border-box; }
-    .suas-book-wrap { width:min(1080px,calc(100vw - 36px)); margin:0 auto; padding:clamp(34px,5vw,68px) 0 64px; }
-    .suas-book-hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(270px,.55fr); gap:18px; align-items:stretch; margin-bottom:20px; }
-    .suas-book-card, .suas-book-panel { border:2px solid var(--ink); border-radius:26px; background:rgba(255,255,255,.8); box-shadow:0 7px 0 var(--ink); padding:clamp(20px,3.2vw,34px); }
-    .suas-book-kicker, .suas-book-label, .suas-book-pill, .suas-book-button, .suas-book-mini, .suas-book-badge { font-family:Futura,'Futura PT',Arial,sans-serif; font-size:10px; letter-spacing:.2em; text-transform:uppercase; font-weight:900; }
-    .suas-book-title, .suas-book-session h3, .suas-book-option h2 { font-family:'Casual Human',Futura,Arial,sans-serif; font-weight:400; letter-spacing:0; text-transform:uppercase; }
-    .suas-book-title { margin:10px 0 16px; font-size:clamp(3rem,7vw,6rem); line-height:.86; }
-    .suas-book-copy { max-width:720px; margin:0; font-size:clamp(1rem,1.45vw,1.18rem); line-height:1.5; font-weight:800; color:rgba(16,16,16,.62); }
-    .suas-book-panel { display:flex; flex-direction:column; gap:14px; background:#fff; }
-    .suas-book-panel h2 { margin:0; font-family:'Casual Human',Futura,Arial,sans-serif; font-size:2.1rem; line-height:.95; text-transform:uppercase; font-weight:400; }
-    .suas-book-list { display:grid; gap:10px; margin:0; padding:0; list-style:none; }
-    .suas-book-list li { border:1px solid rgba(16,16,16,.14); border-radius:18px; padding:12px; background:var(--chip,#fff); font-size:12px; line-height:1.35; font-weight:900; }
-    .suas-book-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .suas-book-option { display:flex; flex-direction:column; gap:14px; border:2px solid var(--ink); border-radius:26px; background:var(--card); box-shadow:0 7px 0 var(--ink); padding:20px; }
-    .suas-book-option h2 { margin:0; font-size:clamp(1.85rem,3.4vw,3.15rem); line-height:.92; }
-    .suas-book-desc { margin:0; min-height:58px; font-size:13px; line-height:1.42; font-weight:900; color:rgba(16,16,16,.66); }
-    .suas-book-price { font-family:'Casual Human',Futura,Arial,sans-serif; font-size:2rem; line-height:1; }
-    .suas-book-badge { display:inline-flex; width:fit-content; max-width:100%; align-items:center; justify-content:center; border:2px solid var(--ink); border-radius:999px; padding:7px 10px 6px; background:rgba(255,255,255,.72); line-height:1.15; box-shadow:0 3px 0 rgba(16,16,16,.18); }
-    .suas-book-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:auto; }
-    .suas-book-field { display:grid; gap:6px; }
-    .suas-book-field[data-wide] { grid-column:1 / -1; }
+    .suas-book-wrap { width:min(980px,calc(100vw - 34px)); margin:0 auto; padding:clamp(26px,4vw,48px) 0 56px; }
+    .suas-book-hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,.48fr); gap:14px; align-items:stretch; margin-bottom:16px; }
+    .suas-book-card, .suas-book-panel, .suas-book-option { border:2px solid var(--ink); border-radius:22px; box-shadow:0 6px 0 var(--ink); }
+    .suas-book-card, .suas-book-panel { background:rgba(255,255,255,.82); padding:clamp(18px,2.7vw,28px); }
+    .suas-book-kicker, .suas-book-label, .suas-book-button, .suas-book-badge, .suas-slot small { font-family:Futura,'Futura PT',Arial,sans-serif; font-size:9px; letter-spacing:.18em; text-transform:uppercase; font-weight:900; }
+    .suas-book-title, .suas-book-option h2, .suas-book-panel h2, .suas-book-price, .suas-slot b { font-family:'Casual Human',Futura,Arial,sans-serif; font-weight:400; letter-spacing:0; text-transform:uppercase; }
+    .suas-book-title { margin:8px 0 12px; font-size:clamp(2.6rem,6vw,5.1rem); line-height:.86; }
+    .suas-book-copy { max-width:680px; margin:0; font-size:clamp(.92rem,1.25vw,1.08rem); line-height:1.48; font-weight:800; color:rgba(16,16,16,.64); }
+    .suas-book-panel { display:flex; flex-direction:column; gap:10px; background:#fff; }
+    .suas-book-panel h2 { margin:0; font-size:1.8rem; line-height:.95; }
+    .suas-book-list { display:grid; gap:8px; margin:0; padding:0; list-style:none; }
+    .suas-book-list li { border:1px solid rgba(16,16,16,.14); border-radius:15px; padding:10px; background:var(--chip,#fff); font-size:11px; line-height:1.32; font-weight:900; }
+    .suas-book-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .suas-book-option { display:flex; flex-direction:column; gap:12px; background:var(--card); padding:18px; }
+    .suas-book-option h2 { margin:8px 0 0; font-size:clamp(1.55rem,2.65vw,2.45rem); line-height:.9; }
+    .suas-book-desc { margin:9px 0 0; min-height:48px; font-size:12px; line-height:1.38; font-weight:900; color:rgba(16,16,16,.66); }
+    .suas-book-price { display:block; margin-top:10px; font-size:clamp(1.55rem,2.3vw,2.05rem); line-height:1; }
+    .suas-book-badge { display:inline-flex; width:fit-content; max-width:100%; align-items:center; justify-content:center; border:2px solid var(--ink); border-radius:999px; padding:6px 9px 5px; background:rgba(255,255,255,.72); line-height:1.15; box-shadow:0 3px 0 rgba(16,16,16,.18); }
+    .suas-book-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin-top:auto; }
+    .suas-book-field { display:grid; gap:5px; }
+    .suas-book-field[data-wide], .suas-book-button { grid-column:1 / -1; }
     .suas-book-label { color:rgba(16,16,16,.54); }
-    .suas-book-input, .suas-book-select, .suas-book-textarea { width:100%; min-height:44px; border:2px solid rgba(16,16,16,.16); border-radius:16px; padding:11px 12px; background:#fff; color:var(--ink); font:800 13px/1.2 Futura,'Futura PT',Arial,sans-serif; outline:none; }
-    .suas-book-input:focus, .suas-book-select:focus, .suas-book-textarea:focus { border-color:var(--ink); box-shadow:0 0 0 4px rgba(255,159,194,.22); }
-    .suas-book-textarea { min-height:76px; resize:vertical; }
-    .suas-book-button { grid-column:1 / -1; min-height:50px; border:2px solid var(--ink); border-radius:999px; padding:13px 18px; color:var(--ink); background:linear-gradient(180deg,#ffd4e5 0%,#ff9fc2 100%); box-shadow:0 5px 0 var(--ink); cursor:pointer; text-decoration:none; text-align:center; }
+    .suas-book-input, .suas-book-select { width:100%; min-height:40px; border:2px solid rgba(16,16,16,.16); border-radius:14px; padding:9px 11px; background:#fff; color:var(--ink); font:800 12px/1.2 Futura,'Futura PT',Arial,sans-serif; outline:none; }
+    .suas-book-input:focus, .suas-book-select:focus { border-color:var(--ink); box-shadow:0 0 0 4px rgba(255,159,194,.2); }
+    .suas-book-button { min-height:46px; border:2px solid var(--ink); border-radius:999px; padding:12px 16px; color:var(--ink); background:linear-gradient(180deg,#ffd4e5 0%,#ff9fc2 100%); box-shadow:0 5px 0 var(--ink); cursor:pointer; text-align:center; }
     .suas-book-button:hover { color:var(--ink); transform:translateY(2px); box-shadow:0 3px 0 var(--ink); }
-    .suas-book-button[disabled] { cursor:not-allowed; opacity:.55; background:#fff; }
-    .suas-book-note { margin:0; font-size:12px; line-height:1.45; font-weight:800; color:rgba(16,16,16,.56); }
+    .suas-book-button[disabled] { cursor:not-allowed; opacity:.58; background:#fff; }
+    .suas-book-note { margin:0; font-size:11px; line-height:1.42; font-weight:800; color:rgba(16,16,16,.56); }
+    .suas-slot-grid { display:grid; grid-template-columns:1fr; gap:8px; grid-column:1 / -1; }
+    .suas-slot { display:flex; align-items:center; gap:9px; min-height:48px; border:2px solid rgba(16,16,16,.16); border-radius:16px; padding:9px 10px; background:rgba(255,255,255,.7); cursor:pointer; }
+    .suas-slot input { width:16px; height:16px; accent-color:#101010; }
+    .suas-slot span { display:grid; gap:2px; }
+    .suas-slot b { font-size:1.06rem; line-height:.95; }
+    .suas-slot small { color:rgba(16,16,16,.55); line-height:1.25; }
+    .suas-slot:has(input:checked) { border-color:var(--ink); background:#fff; box-shadow:0 4px 0 rgba(16,16,16,.2); }
+    .suas-slot.is-full { opacity:.5; cursor:not-allowed; }
+    .suas-deluxe-fallback { grid-column:1 / -1; border:2px dashed rgba(16,16,16,.35); border-radius:16px; padding:12px; background:rgba(255,255,255,.55); font-size:11px; line-height:1.45; font-weight:900; }
     @media (max-width:980px){ .suas-book-hero,.suas-book-grid{grid-template-columns:1fr;} }
-    @media (max-width:620px){ .suas-book-wrap{width:min(100% - 24px,520px); padding:26px 0 48px;} .suas-book-card,.suas-book-panel,.suas-book-option{border-radius:22px; padding:18px;} .suas-book-title{font-size:clamp(2.75rem,14vw,4.8rem);} .suas-book-form{grid-template-columns:1fr;} .suas-book-desc{min-height:0;} }
+    @media (max-width:620px){ .suas-book-wrap{width:min(100% - 22px,520px); padding:22px 0 44px;} .suas-book-card,.suas-book-panel,.suas-book-option{border-radius:20px; padding:16px;} .suas-book-title{font-size:clamp(2.55rem,13vw,4.45rem);} .suas-book-form{grid-template-columns:1fr;} .suas-book-desc{min-height:0;} }
   </style>
 
   <div class="suas-book-wrap">
@@ -49,7 +58,7 @@
           <li style="--chip:#c9e7ff;">Guided Deluxe Lab: Saturday, 4:00 PM - 5:00 PM or 5:30 PM - 6:30 PM.</li>
           <li style="--chip:#fff2a8;">Sundays are self-guided only.</li>
         </ul>
-        <p class="suas-book-note">Your selected time is saved on the cart item so staff can see it on the order.</p>
+        <p class="suas-book-note">For class capacity, create one Deluxe variant per class/date and set inventory to 12.</p>
       </aside>
     </div>
 
@@ -58,28 +67,16 @@
       {% assign parfum_product = section.settings.parfum_product %}
       {% assign combo_product = section.settings.combo_product %}
       {% assign deluxe_product = section.settings.deluxe_product %}
+      {% if deluxe_product == blank and section.settings.deluxe_product_handle != blank %}
+        {% assign deluxe_handle = section.settings.deluxe_product_handle | handleize %}
+        {% assign deluxe_product = all_products[deluxe_handle] %}
+      {% endif %}
 
       <article class="suas-book-option" style="--card:#fff2a8;">
-        <div>
-          <span class="suas-book-badge">self-guided</span>
-          <h2>Lab Session: Body Oil</h2>
-          <p class="suas-book-desc">Self-guided 1 oz body oil creation. Choose up to 3 notes and blend your body oil in the Lab.</p>
-          <strong class="suas-book-price">$25</strong>
-        </div>
+        <div><span class="suas-book-badge">self-guided</span><h2>Lab Session: Body Oil</h2><p class="suas-book-desc">Self-guided 1 oz body oil creation. Choose up to 3 notes and blend your body oil in the Lab.</p><strong class="suas-book-price">$25</strong></div>
         {% if body_oil_product != blank %}
           {% form 'product', body_oil_product, class: 'suas-book-form' %}
-            {% if body_oil_product.has_only_default_variant %}
-              <input type="hidden" name="id" value="{{ body_oil_product.selected_or_first_available_variant.id }}">
-            {% else %}
-              <div class="suas-book-field" data-wide>
-                <label class="suas-book-label" for="BodyOilVariant">option</label>
-                <select class="suas-book-select" id="BodyOilVariant" name="id">
-                  {% for variant in body_oil_product.variants %}
-                    <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            {% endif %}
+            {% if body_oil_product.has_only_default_variant %}<input type="hidden" name="id" value="{{ body_oil_product.selected_or_first_available_variant.id }}">{% else %}<div class="suas-book-field" data-wide><label class="suas-book-label" for="BodyOilVariant">option</label><select class="suas-book-select" id="BodyOilVariant" name="id">{% for variant in body_oil_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}{% unless variant.available %} - full{% endunless %}</option>{% endfor %}</select></div>{% endif %}
             <input type="hidden" name="properties[Booking type]" value="Self-guided Lab Session">
             <div class="suas-book-field"><label class="suas-book-label" for="BodyOilDate">date</label><input class="suas-book-input" id="BodyOilDate" type="date" name="properties[Preferred date]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BodyOilTime">time</label><input class="suas-book-input" id="BodyOilTime" type="time" name="properties[Preferred time]"></div>
@@ -87,33 +84,14 @@
             <div class="suas-book-field"><label class="suas-book-label" for="BodyOilName">name</label><input class="suas-book-input" id="BodyOilName" type="text" name="properties[Guest name]"></div>
             <button class="suas-book-button" type="submit">add booking to cart</button>
           {% endform %}
-        {% else %}
-          <button class="suas-book-button" disabled>connect product in theme editor</button>
-        {% endif %}
+        {% else %}<button class="suas-book-button" disabled>connect product in theme editor</button>{% endif %}
       </article>
 
       <article class="suas-book-option" style="--card:#ffe8ef;">
-        <div>
-          <span class="suas-book-badge">self-guided</span>
-          <h2>Lab Session: Eau De Parfum</h2>
-          <p class="suas-book-desc">Self-guided 30 mL perfume creation. Add a 15 mL sample as a Shopify product variant if you want checkout to charge it.</p>
-          <strong class="suas-book-price">$35</strong>
-        </div>
+        <div><span class="suas-book-badge">self-guided</span><h2>Lab Session: Eau De Parfum</h2><p class="suas-book-desc">Self-guided 30 mL perfume creation. Choose standard or the 15 mL sample add-on variant.</p><strong class="suas-book-price">$35</strong></div>
         {% if parfum_product != blank %}
           {% form 'product', parfum_product, class: 'suas-book-form' %}
-            {% if parfum_product.has_only_default_variant %}
-              <input type="hidden" name="id" value="{{ parfum_product.selected_or_first_available_variant.id }}">
-              <div class="suas-book-field" data-wide><span class="suas-book-badge">15 mL sample add-on: create as product variant</span></div>
-            {% else %}
-              <div class="suas-book-field" data-wide>
-                <label class="suas-book-label" for="ParfumVariant">option</label>
-                <select class="suas-book-select" id="ParfumVariant" name="id">
-                  {% for variant in parfum_product.variants %}
-                    <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            {% endif %}
+            {% if parfum_product.has_only_default_variant %}<input type="hidden" name="id" value="{{ parfum_product.selected_or_first_available_variant.id }}"><div class="suas-book-field" data-wide><span class="suas-book-badge">15 mL sample add-on: create as product variant</span></div>{% else %}<div class="suas-book-field" data-wide><label class="suas-book-label" for="ParfumVariant">option</label><select class="suas-book-select" id="ParfumVariant" name="id">{% for variant in parfum_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}{% unless variant.available %} - full{% endunless %}</option>{% endfor %}</select></div>{% endif %}
             <input type="hidden" name="properties[Booking type]" value="Self-guided Lab Session">
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumTime">time</label><input class="suas-book-input" id="ParfumTime" type="time" name="properties[Preferred time]"></div>
@@ -121,32 +99,14 @@
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumName">name</label><input class="suas-book-input" id="ParfumName" type="text" name="properties[Guest name]"></div>
             <button class="suas-book-button" type="submit">add booking to cart</button>
           {% endform %}
-        {% else %}
-          <button class="suas-book-button" disabled>connect product in theme editor</button>
-        {% endif %}
+        {% else %}<button class="suas-book-button" disabled>connect product in theme editor</button>{% endif %}
       </article>
 
       <article class="suas-book-option" style="--card:#c9e7ff;">
-        <div>
-          <span class="suas-book-badge">self-guided</span>
-          <h2>Combo Session</h2>
-          <p class="suas-book-desc">Self-guided 30 mL perfume and 1 oz body oil experience. Create both formulas and check out together.</p>
-          <strong class="suas-book-price">$60</strong>
-        </div>
+        <div><span class="suas-book-badge">self-guided</span><h2>Combo Session</h2><p class="suas-book-desc">Self-guided 30 mL perfume and 1 oz body oil experience. Create both formulas and check out together.</p><strong class="suas-book-price">$60</strong></div>
         {% if combo_product != blank %}
           {% form 'product', combo_product, class: 'suas-book-form' %}
-            {% if combo_product.has_only_default_variant %}
-              <input type="hidden" name="id" value="{{ combo_product.selected_or_first_available_variant.id }}">
-            {% else %}
-              <div class="suas-book-field" data-wide>
-                <label class="suas-book-label" for="ComboVariant">option</label>
-                <select class="suas-book-select" id="ComboVariant" name="id">
-                  {% for variant in combo_product.variants %}
-                    <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            {% endif %}
+            {% if combo_product.has_only_default_variant %}<input type="hidden" name="id" value="{{ combo_product.selected_or_first_available_variant.id }}">{% else %}<div class="suas-book-field" data-wide><label class="suas-book-label" for="ComboVariant">option</label><select class="suas-book-select" id="ComboVariant" name="id">{% for variant in combo_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}{% unless variant.available %} - full{% endunless %}</option>{% endfor %}</select></div>{% endif %}
             <input type="hidden" name="properties[Booking type]" value="Self-guided Combo Session">
             <div class="suas-book-field"><label class="suas-book-label" for="ComboDate">date</label><input class="suas-book-input" id="ComboDate" type="date" name="properties[Preferred date]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ComboTime">time</label><input class="suas-book-input" id="ComboTime" type="time" name="properties[Preferred time]"></div>
@@ -154,63 +114,52 @@
             <div class="suas-book-field"><label class="suas-book-label" for="ComboName">name</label><input class="suas-book-input" id="ComboName" type="text" name="properties[Guest name]"></div>
             <button class="suas-book-button" type="submit">add booking to cart</button>
           {% endform %}
-        {% else %}
-          <button class="suas-book-button" disabled>connect product in theme editor</button>
-        {% endif %}
+        {% else %}<button class="suas-book-button" disabled>connect product in theme editor</button>{% endif %}
       </article>
 
       <article class="suas-book-option" style="--card:#d9ff78;">
-        <div>
-          <span class="suas-book-badge">guided class</span>
-          <h2>Deluxe Lab Session</h2>
-          <p class="suas-book-desc">Guided appointment-only classroom experience. Add the 1 oz body oil upgrade as a Shopify product variant if you want checkout to charge it.</p>
-          <strong class="suas-book-price">$85 per person</strong>
-        </div>
+        <div><span class="suas-book-badge">guided class</span><h2>Deluxe Lab Session</h2><p class="suas-book-desc">Guided classroom experience. Select an available class variant below. Sold-out variants show as full.</p><strong class="suas-book-price">$85 per person</strong></div>
         {% if deluxe_product != blank %}
           {% form 'product', deluxe_product, class: 'suas-book-form' %}
+            <input type="hidden" name="properties[Booking type]" value="Guided Deluxe Lab Session">
             {% if deluxe_product.has_only_default_variant %}
               <input type="hidden" name="id" value="{{ deluxe_product.selected_or_first_available_variant.id }}">
-              <div class="suas-book-field" data-wide><span class="suas-book-badge">1 oz body oil add-on: create as product variant</span></div>
+              <div class="suas-book-field" data-wide><span class="suas-book-badge">add class time variants for 12-seat capacity</span></div>
             {% else %}
-              <div class="suas-book-field" data-wide>
-                <label class="suas-book-label" for="DeluxeVariant">option</label>
-                <select class="suas-book-select" id="DeluxeVariant" name="id">
-                  {% for variant in deluxe_product.variants %}
-                    <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>
-                  {% endfor %}
-                </select>
+              <div class="suas-slot-grid">
+                <span class="suas-book-label">available class / add-on</span>
+                {% assign selected_deluxe_id = deluxe_product.selected_or_first_available_variant.id %}
+                {% for variant in deluxe_product.variants %}
+                  <label class="suas-slot{% unless variant.available %} is-full{% endunless %}">
+                    <input type="radio" name="id" value="{{ variant.id }}"{% if variant.id == selected_deluxe_id and variant.available %} checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                    <span>
+                      <b>{{ variant.title }}</b>
+                      <small>{{ variant.price | money }}{% if variant.available %}{% if variant.inventory_management and variant.inventory_policy == 'deny' and variant.inventory_quantity <= 3 and variant.inventory_quantity > 0 %} - {{ variant.inventory_quantity }} left{% endif %}{% else %} - class full{% endif %}</small>
+                    </span>
+                  </label>
+                {% endfor %}
               </div>
             {% endif %}
-            <input type="hidden" name="properties[Booking type]" value="Guided Deluxe Lab Session">
-            <div class="suas-book-field" data-wide>
-              <label class="suas-book-label" for="DeluxeSlot">class time</label>
-              <select class="suas-book-select" id="DeluxeSlot" name="properties[Class time]" required>
-                <option value="Thursday 6:00 PM - 7:30 PM">Thursday 6:00 PM - 7:30 PM</option>
-                <option value="Friday 6:00 PM - 7:30 PM">Friday 6:00 PM - 7:30 PM</option>
-                <option value="Saturday 4:00 PM - 5:00 PM">Saturday 4:00 PM - 5:00 PM</option>
-                <option value="Saturday 5:30 PM - 6:30 PM">Saturday 5:30 PM - 6:30 PM</option>
-              </select>
-            </div>
-            <div class="suas-book-field"><label class="suas-book-label" for="DeluxeDate">class date</label><input class="suas-book-input" id="DeluxeDate" type="date" name="properties[Class date]" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="DeluxeGuests">guests</label><input class="suas-book-input" id="DeluxeGuests" type="number" name="quantity" min="1" value="1"></div>
-            <div class="suas-book-field" data-wide><label class="suas-book-label" for="DeluxeName">name</label><input class="suas-book-input" id="DeluxeName" type="text" name="properties[Guest name]"></div>
-            <button class="suas-book-button" type="submit">add booking to cart</button>
+            <div class="suas-book-field" data-wide><label class="suas-book-label" for="DeluxeDate">class date</label><input class="suas-book-input" id="DeluxeDate" type="date" name="properties[Class date]" required></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="DeluxeGuests">guests</label><input class="suas-book-input" id="DeluxeGuests" type="number" name="quantity" min="1" max="12" value="1"></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="DeluxeName">name</label><input class="suas-book-input" id="DeluxeName" type="text" name="properties[Guest name]"></div>
+            {% if deluxe_product.available %}<button class="suas-book-button" type="submit">add booking to cart</button>{% else %}<button class="suas-book-button" disabled>all deluxe classes full</button>{% endif %}
           {% endform %}
         {% else %}
-          <button class="suas-book-button" disabled>connect product in theme editor</button>
+          <div class="suas-deluxe-fallback">Deluxe is not connected yet. Select the product in the theme editor, or paste its handle in the Deluxe fallback handle setting.</div>
+          <button class="suas-book-button" disabled>connect deluxe product</button>
         {% endif %}
       </article>
     </div>
   </div>
+
   <script>
     (() => {
       const today = new Date();
       const yyyy = today.getFullYear();
       const mm = String(today.getMonth() + 1).padStart(2, '0');
       const dd = String(today.getDate()).padStart(2, '0');
-      document.querySelectorAll('.suas-bookings-page input[type="date"]').forEach((input) => {
-        input.min = `${yyyy}-${mm}-${dd}`;
-      });
+      document.querySelectorAll('.suas-bookings-page input[type="date"]').forEach((input) => { input.min = `${yyyy}-${mm}-${dd}`; });
     })();
   </script>
 </section>
@@ -219,31 +168,14 @@
 {
   "name": "SUAS Bookings Page",
   "settings": [
-    {
-      "type": "product",
-      "id": "body_oil_product",
-      "label": "Lab Session: Body Oil product"
-    },
-    {
-      "type": "product",
-      "id": "parfum_product",
-      "label": "Lab Session: Eau De Parfum product"
-    },
-    {
-      "type": "product",
-      "id": "combo_product",
-      "label": "Combo Session product"
-    },
-    {
-      "type": "product",
-      "id": "deluxe_product",
-      "label": "Deluxe Lab Session product"
-    }
+    { "type": "product", "id": "body_oil_product", "label": "Lab Session: Body Oil product" },
+    { "type": "product", "id": "parfum_product", "label": "Lab Session: Eau De Parfum product" },
+    { "type": "product", "id": "combo_product", "label": "Combo Session product" },
+    { "type": "product", "id": "deluxe_product", "label": "Deluxe Lab Session product" },
+    { "type": "text", "id": "deluxe_product_handle", "label": "Deluxe fallback product handle", "info": "Use this if the product picker will not load Deluxe. Example: deluxe-lab-session" }
   ],
   "presets": [
-    {
-      "name": "SUAS Bookings Page"
-    }
+    { "name": "SUAS Bookings Page" }
   ]
 }
 {% endschema %}
