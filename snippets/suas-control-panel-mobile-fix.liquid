@@ -159,6 +159,8 @@
       { title: 'contact us', href: '/pages/contact' },
       { title: 'refund policy', href: '/policies/refund-policy' }
     ];
+    var closedBookingDays = [0, 1, 2, 3];
+    var closedBookingMessage = 'Bookings are closed Monday, Tuesday, Wednesday, and Sunday. Please choose Thursday, Friday, or Saturday.';
 
     function addBookLabQuickLaunch() {
       var grid = document.querySelector('.suas-world-home .suas-launch-grid');
@@ -179,6 +181,53 @@
 
       document.querySelectorAll('.suas-world-home .suas-launch-grid > a[href="/collections/body-care"], .suas-world-home .suas-launch-grid > a[href="/collections/home-care"]').forEach(function (link) {
         link.remove();
+      });
+    }
+
+    function isClosedBookingDate(value) {
+      if (!value) return false;
+      var parts = value.split('-').map(function (part) { return parseInt(part, 10); });
+      if (parts.length !== 3 || parts.some(isNaN)) return false;
+      return closedBookingDays.indexOf(new Date(parts[0], parts[1] - 1, parts[2]).getDay()) !== -1;
+    }
+
+    function validateBookingDate(input, shouldClear) {
+      if (!input || input.type !== 'date') return true;
+      if (!isClosedBookingDate(input.value)) {
+        input.setCustomValidity('');
+        return true;
+      }
+
+      input.setCustomValidity(closedBookingMessage);
+      input.reportValidity();
+      if (shouldClear) {
+        window.setTimeout(function () {
+          input.value = '';
+          input.setCustomValidity('');
+        }, 0);
+      }
+      return false;
+    }
+
+    function blockClosedBookingDates() {
+      var page = document.querySelector('.suas-bookings-page');
+      if (!page || page.dataset.closedDaysReady === 'true') return;
+      page.dataset.closedDaysReady = 'true';
+
+      page.querySelectorAll('input[type="date"]').forEach(function (input) {
+        input.addEventListener('change', function () {
+          validateBookingDate(input, true);
+        });
+      });
+
+      page.querySelectorAll('form').forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          var datesAreOpen = true;
+          form.querySelectorAll('input[type="date"]').forEach(function (input) {
+            if (!validateBookingDate(input, false)) datesAreOpen = false;
+          });
+          if (!datesAreOpen) event.preventDefault();
+        });
       });
     }
 
@@ -228,6 +277,7 @@
 
     addBookLabQuickLaunch();
     removeMobileQuickLaunchBodyHome();
+    blockClosedBookingDates();
     window.addEventListener('resize', removeMobileQuickLaunchBodyHome);
     addSideAboutMenu();
     addHomePanelAboutMenu();
