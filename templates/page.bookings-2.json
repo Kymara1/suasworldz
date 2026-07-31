@@ -11,7 +11,12 @@
   "sections": {
     "bookings": {
       "type": "suas-bookings-page",
-      "settings": {}
+      "settings": {
+        "body_oil_product": "lab-session-body-oil",
+        "parfum_product": "lab-session-eau-de-parfum",
+        "combo_product": "lab-session-combo-sesh",
+        "deluxe_product": "deluxe-lab-session"
+      }
     }
   },
   "order": [
