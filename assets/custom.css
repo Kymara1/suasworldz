@@ -415,16 +415,16 @@ nav *,
 }
 
 .suas-hours h3:before {
-  content: "lab session - 35\A deluxe lab - 85\A combo lab sesh - 60";
+  content: "lab session - 35\A body oil - 25\A combo lab sesh - 60\A deluxe lab - 85";
   display: block;
   white-space: pre-line;
   font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-  font-size: clamp(2.35rem, 5vw, 4.5rem) !important;
-  line-height: .9 !important;
+  font-size: clamp(2.05rem, 4.55vw, 4rem) !important;
+  line-height: .92 !important;
 }
 
 .suas-hours p:before {
-  content: "Self-guided 30 mL perfume, guided deluxe appointment, or 30 mL perfume plus 1 oz body oil.";
+  content: "Self-guided 30 mL perfume, self-guided 1 oz body oil, combo perfume plus body oil, or guided deluxe appointment.";
   display: block;
   font-size: 15px !important;
   line-height: 1.55 !important;
