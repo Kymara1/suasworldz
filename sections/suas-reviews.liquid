@@ -85,13 +85,13 @@
       border-radius: 999px;
       background: var(--bubble-bg) !important;
       color: var(--ink) !important;
-      box-shadow: 5px 6px 0 rgba(16, 16, 16, 0.9);
+      box-shadow: 4px 5px 0 rgba(16, 16, 16, 0.9);
       text-align: center;
       padding: 16px;
       appearance: none;
       cursor: pointer;
       transform: translate3d(0, 0, 0) rotate(var(--base-tilt, -2deg));
-      animation: suas-review-float var(--speed, 5s) ease-in-out infinite alternate;
+      animation: suas-review-float var(--speed, 4.6s) ease-in-out infinite;
       transition: box-shadow 170ms ease, filter 170ms ease;
       will-change: transform;
     }
@@ -99,14 +99,14 @@
     .suas-review-bubble:hover,
     .suas-review-bubble:focus-visible,
     .suas-review-bubble.is-active {
-      filter: saturate(1.08) brightness(1.02);
-      box-shadow: 3px 4px 0 rgba(16, 16, 16, 0.92);
+      filter: saturate(1.15) brightness(1.03);
+      box-shadow: 2px 3px 0 rgba(16, 16, 16, 0.95);
       outline: none;
       z-index: 5;
     }
 
     .suas-review-bubble.is-active {
-      animation-duration: calc(var(--speed, 5s) * 0.78);
+      animation-duration: calc(var(--speed, 4.6s) * 0.72);
     }
 
     .suas-review-bubble b {
@@ -140,8 +140,10 @@
 
     @keyframes suas-review-float {
       0% { transform: translate3d(0, 0, 0) rotate(var(--base-tilt, -2deg)); }
-      50% { transform: translate3d(10px, -14px, 0) rotate(var(--float-tilt, 2deg)); }
-      100% { transform: translate3d(-4px, -24px, 0) rotate(var(--end-tilt, -1deg)); }
+      22% { transform: translate3d(var(--drift-a, 12px), -15px, 0) rotate(var(--float-tilt, 2deg)); }
+      50% { transform: translate3d(var(--drift-b, -9px), -28px, 0) rotate(var(--end-tilt, -1deg)); }
+      74% { transform: translate3d(var(--drift-c, 16px), -13px, 0) rotate(var(--float-tilt, 2deg)); }
+      100% { transform: translate3d(0, 0, 0) rotate(var(--base-tilt, -2deg)); }
     }
 
     .suas-review-read-pill {
@@ -187,8 +189,8 @@
       border: 2px solid var(--ink);
       border-radius: 30px;
       background:
-        radial-gradient(circle at 14% 18%, color-mix(in srgb, var(--review-color) 70%, white 30%), transparent 34%),
-        radial-gradient(circle at 88% 10%, rgba(240, 255, 129, 0.38), transparent 34%),
+        radial-gradient(circle at 15% 18%, color-mix(in srgb, var(--review-color) 78%, white 22%), transparent 36%),
+        linear-gradient(135deg, color-mix(in srgb, var(--review-color) 28%, white 72%), #fff 58%),
         #fff;
       box-shadow: 8px 9px 0 var(--ink), 0 22px 42px rgba(16, 16, 16, 0.22);
       padding: clamp(24px, 5vw, 36px);
@@ -267,8 +269,8 @@
     @supports not (background: color-mix(in srgb, red, white)) {
       .suas-review-card {
         background:
-          radial-gradient(circle at 14% 18%, rgba(255, 213, 176, 0.86), transparent 34%),
-          radial-gradient(circle at 88% 10%, rgba(240, 255, 129, 0.38), transparent 34%),
+          radial-gradient(circle at 15% 18%, rgba(255, 159, 61, 0.72), transparent 36%),
+          linear-gradient(135deg, rgba(255, 159, 61, 0.22), #fff 58%),
           #fff;
       }
     }
@@ -317,22 +319,22 @@
     </div>
 
     <div class="suas-review-scene">
-      <button class="suas-review-bubble is-active" type="button" style="--size: 142px; --left: 0%; --top: 34px; --mobile-size: 128px; --mobile-left: 2%; --mobile-top: 32px; --bubble-bg: #ff9f3d; --speed: 4.2s; --base-tilt: -5deg; --float-tilt: 2deg; --end-tilt: -1deg;" data-name="Jamie" data-product="Nectar" data-color="#ff9f3d" data-review="Nectar is juicy and bright without being too sweet. It gives passionfruit, pineapple, and sunshine in a bottle.">
+      <button class="suas-review-bubble is-active" type="button" style="--size: 142px; --left: 0%; --top: 34px; --mobile-size: 128px; --mobile-left: 2%; --mobile-top: 32px; --bubble-bg: #ff9f3d; --speed: 3.9s; --base-tilt: -5deg; --float-tilt: 3deg; --end-tilt: -1deg; --drift-a: 18px; --drift-b: -12px; --drift-c: 12px;" data-name="Jamie" data-product="Nectar" data-color="#ff9f3d" data-review="Nectar is juicy and bright without being too sweet. It gives passionfruit, pineapple, and sunshine in a bottle.">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jamie</span><em>nectar</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 180px; --left: 12%; --top: 118px; --mobile-size: 166px; --mobile-left: 14%; --mobile-top: 120px; --bubble-bg: #ff9bc4; --speed: 5.1s; --base-tilt: 3deg; --float-tilt: -2deg; --end-tilt: 1deg;" data-name="Jalen" data-product="Good Girl" data-color="#ff9bc4" data-review="Good Girl smells sweet, feminine, and addictive. It is soft but people still notice it.">
+      <button class="suas-review-bubble" type="button" style="--size: 180px; --left: 12%; --top: 118px; --mobile-size: 166px; --mobile-left: 14%; --mobile-top: 120px; --bubble-bg: #ff9bc4; --speed: 4.6s; --base-tilt: 3deg; --float-tilt: -3deg; --end-tilt: 1deg; --drift-a: -14px; --drift-b: 16px; --drift-c: -10px;" data-name="Jalen" data-product="Good Girl" data-color="#ff9bc4" data-review="Good Girl smells sweet, feminine, and addictive. It is soft but people still notice it.">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jalen</span><em>good girl</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 204px; --left: 25%; --top: 174px; --mobile-size: 190px; --mobile-left: 31%; --mobile-top: 214px; --bubble-bg: #9dd7ff; --speed: 5.6s; --base-tilt: -1deg; --float-tilt: 2deg; --end-tilt: -3deg;" data-name="Staci" data-product="Tonic" data-color="#9dd7ff" data-review="Tonic is fresh citrus and minty in the best way. It smells clean, awake, and different.">
+      <button class="suas-review-bubble" type="button" style="--size: 204px; --left: 25%; --top: 174px; --mobile-size: 190px; --mobile-left: 31%; --mobile-top: 214px; --bubble-bg: #9dd7ff; --speed: 5s; --base-tilt: -1deg; --float-tilt: 3deg; --end-tilt: -3deg; --drift-a: 15px; --drift-b: -18px; --drift-c: 18px;" data-name="Staci" data-product="Tonic" data-color="#9dd7ff" data-review="Tonic is fresh citrus and minty in the best way. It smells clean, awake, and different.">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>staci</span><em>tonic</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 224px; --left: 38%; --top: 216px; --mobile-size: 210px; --mobile-left: 8%; --mobile-top: 306px; --bubble-bg: #c7b5ff; --speed: 5.3s; --base-tilt: 4deg; --float-tilt: -2deg; --end-tilt: 2deg;" data-name="Jess" data-product="Haze" data-color="#c7b5ff" data-review="Haze is dreamy and comforting. It feels soft, cozy, and like something I want on my hoodie.">
+      <button class="suas-review-bubble" type="button" style="--size: 224px; --left: 38%; --top: 216px; --mobile-size: 210px; --mobile-left: 8%; --mobile-top: 306px; --bubble-bg: #c7b5ff; --speed: 4.8s; --base-tilt: 4deg; --float-tilt: -3deg; --end-tilt: 2deg; --drift-a: -16px; --drift-b: 14px; --drift-c: -20px;" data-name="Jess" data-product="Haze" data-color="#c7b5ff" data-review="Haze is dreamy and comforting. It feels soft, cozy, and like something I want on my hoodie.">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>jess</span><em>haze</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 142px; --left: 53%; --top: 248px; --mobile-size: 132px; --mobile-left: 57%; --mobile-top: 330px; --bubble-bg: #d49a56; --speed: 4.7s; --base-tilt: -3deg; --float-tilt: 2deg; --end-tilt: -1deg;" data-name="Katrina" data-product="Ember" data-color="#d49a56" data-review="Ember is warm vanilla but not basic. It smells grown, magnetic, and expensive.">
+      <button class="suas-review-bubble" type="button" style="--size: 142px; --left: 53%; --top: 248px; --mobile-size: 132px; --mobile-left: 57%; --mobile-top: 330px; --bubble-bg: #d49a56; --speed: 4.2s; --base-tilt: -3deg; --float-tilt: 2deg; --end-tilt: -1deg; --drift-a: 13px; --drift-b: -15px; --drift-c: 10px;" data-name="Katrina" data-product="Ember" data-color="#d49a56" data-review="Ember is warm vanilla but not basic. It smells grown, magnetic, and expensive.">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>katrina</span><em>ember</em>
       </button>
-      <button class="suas-review-bubble" type="button" style="--size: 176px; --left: 68%; --top: 206px; --mobile-size: 154px; --mobile-left: 57%; --mobile-top: 150px; --bubble-bg: #ff6b6b; --speed: 5.2s; --base-tilt: 2deg; --float-tilt: -2deg; --end-tilt: 3deg;" data-name="Sherry" data-product="Crimson" data-color="#ff6b6b" data-review="Crimson is bold and sweet. It is tempting in that one-more-spray kind of way.">
+      <button class="suas-review-bubble" type="button" style="--size: 176px; --left: 68%; --top: 206px; --mobile-size: 154px; --mobile-left: 57%; --mobile-top: 150px; --bubble-bg: #ff6b6b; --speed: 4.7s; --base-tilt: 2deg; --float-tilt: -3deg; --end-tilt: 3deg; --drift-a: -13px; --drift-b: 16px; --drift-c: -14px;" data-name="Sherry" data-product="Crimson" data-color="#ff6b6b" data-review="Crimson is bold and sweet. It is tempting in that one-more-spray kind of way.">
         <span><b>&#9733;&#9733;&#9733;&#9733;&#9733;</b>sherry</span><em>crimson</em>
       </button>
 
