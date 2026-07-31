@@ -1,0 +1,138 @@
+/* SUAS OS desktop fit pass
+   Keeps the expressive handwritten style, but pulls desktop layouts down so they feel usable instead of zoomed-in. */
+@media (min-width: 1024px) {
+  .suas-lab-page .suas-lab-wrap {
+    width: min(1060px, calc(100vw - 310px)) !important;
+  }
+
+  .suas-lab-page .suas-lab-menu {
+    padding: 42px 0 58px !important;
+  }
+
+  .suas-lab-page .suas-lab-menu h2 {
+    font-size: clamp(2.8rem, 5.1vw, 5rem) !important;
+    line-height: .9 !important;
+    margin: 0 0 22px !important;
+  }
+
+  .suas-lab-page .suas-session-grid {
+    gap: 12px !important;
+  }
+
+  .suas-lab-page .suas-session {
+    min-height: 260px !important;
+    padding: 18px !important;
+    border-radius: 22px !important;
+    box-shadow: 0 7px 0 var(--ink) !important;
+  }
+
+  .suas-lab-page .suas-session h3 {
+    font-size: clamp(1.42rem, 1.9vw, 2.05rem) !important;
+    line-height: .95 !important;
+    margin: 0 0 16px !important;
+  }
+
+  .suas-lab-page .suas-session p {
+    margin: 12px 0 !important;
+    font-size: 12.5px !important;
+    line-height: 1.38 !important;
+  }
+
+  .suas-lab-page .suas-session em {
+    display: inline-flex !important;
+    max-width: 100% !important;
+    width: fit-content !important;
+    white-space: normal !important;
+    font-size: 8.5px !important;
+    line-height: 1.15 !important;
+    letter-spacing: .03em !important;
+    padding: 7px 9px 6px !important;
+    border-radius: 999px !important;
+  }
+
+  .suas-lab-page .suas-price {
+    font-size: clamp(1.72rem, 2vw, 2.15rem) !important;
+    line-height: .95 !important;
+  }
+
+  .suas-lab-page .suas-session:last-child .suas-price {
+    font-size: clamp(1.38rem, 1.7vw, 1.82rem) !important;
+    max-width: 9ch !important;
+  }
+
+  .suas-world-home .suas-home-wrap {
+    width: min(1080px, calc(100vw - 300px)) !important;
+  }
+
+  .suas-world-home .suas-section {
+    padding: 54px 0 !important;
+  }
+
+  .suas-world-home .suas-lab-teaser {
+    gap: 16px !important;
+    align-items: stretch !important;
+  }
+
+  .suas-world-home .suas-lab-copy,
+  .suas-world-home .suas-hours {
+    padding: 24px !important;
+    border-radius: 24px !important;
+  }
+
+  .suas-world-home .suas-lab-copy h2 {
+    font-size: clamp(2.65rem, 4.55vw, 4.45rem) !important;
+    line-height: .92 !important;
+  }
+
+  .suas-world-home .suas-lab-copy p {
+    font-size: clamp(.98rem, 1.45vw, 1.22rem) !important;
+    line-height: 1.48 !important;
+    margin-top: 16px !important;
+  }
+
+  .suas-world-home .suas-step-row {
+    gap: 9px !important;
+    margin-top: 22px !important;
+  }
+
+  .suas-world-home .suas-step {
+    min-height: 94px !important;
+    padding: 13px !important;
+    border-radius: 18px !important;
+  }
+
+  .suas-world-home .suas-step b {
+    margin-bottom: 14px !important;
+    font-size: 9px !important;
+  }
+
+  .suas-world-home .suas-step span {
+    font-size: 1.12rem !important;
+    line-height: 1 !important;
+  }
+
+  .suas-world-home .suas-hours h3:before {
+    font-size: clamp(1.65rem, 3.35vw, 3.05rem) !important;
+    line-height: .95 !important;
+  }
+
+  .suas-world-home .suas-hours p:before {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .suas-lab-page .suas-lab-wrap,
+  .suas-world-home .suas-home-wrap {
+    max-width: 1120px !important;
+  }
+}
+
+/* Keep mobile comfy: do not shrink the touch-first phone layout. */
+@media (max-width: 749px) {
+  .suas-lab-page .suas-lab-menu,
+  .suas-world-home .suas-lab-teaser {
+    width: 100% !important;
+  }
+}
