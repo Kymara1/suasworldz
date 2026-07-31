@@ -13,36 +13,43 @@
   <style>
     .suas-floating-cart {
       position: fixed;
-      top: 60px;
-      right: 18px;
+      top: 24px;
+      left: 190px;
+      right: auto;
+      bottom: auto;
       z-index: 9999;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 44px;
-      padding: 9px 12px 8px;
-      border: 2px solid #101010;
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(16, 16, 16, 0.14);
       border-radius: 999px;
-      background: #101010;
-      color: #fff;
-      box-shadow: 0 4px 0 #f8cddd;
-      font-family: 'Casual Human', 'CasualHuman', 'Futura', sans-serif;
-      font-size: 20px;
+      background: linear-gradient(180deg, #fff 0%, #ffd8e8 150%);
+      color: #101010;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 8px 18px -11px rgba(16, 16, 16, 0.42);
+      font-family: 'Casual Human', 'CasualHuman', Futura, sans-serif;
       line-height: 1;
       text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0;
       transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
     }
 
     .suas-floating-cart:hover,
     .suas-floating-cart:focus-visible {
-      background: #fff;
-      color: #101010;
-      box-shadow: 0 4px 0 #101010;
+      background: #101010;
+      color: #fff;
+      box-shadow: 0 5px 0 #f8cddd;
       transform: translateY(-2px);
       text-decoration: none;
+      outline: none;
+    }
+
+    .suas-floating-cart__label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
 
     .suas-floating-cart__icon {
@@ -64,29 +71,53 @@
     }
 
     .suas-floating-cart__count {
+      position: absolute;
+      top: -6px;
+      right: -7px;
       display: inline-grid;
       place-items: center;
-      min-width: 23px;
-      height: 23px;
-      padding: 0 6px;
-      border: 1px solid currentColor;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 5px;
+      border: 1.5px solid #101010;
       border-radius: 999px;
-      background: #f8cddd;
+      background: #d9ff78;
       color: #101010;
       font-family: Futura, Arial, sans-serif;
-      font-size: 12px;
-      font-weight: 800;
+      font-size: 10px;
+      font-weight: 900;
       line-height: 1;
     }
 
-    @media (max-width: 749px) {
+    @media (max-width: 1023px) {
       .suas-floating-cart {
-        top: auto;
-        right: 14px;
-        bottom: 14px;
-        min-height: 46px;
-        padding: 10px 12px 9px;
-        font-size: 18px;
+        top: 45px;
+        left: calc(50% + 49px);
+        width: 34px;
+        height: 34px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 6px 14px -10px rgba(16, 16, 16, 0.5);
+      }
+
+      .suas-floating-cart__icon,
+      .suas-floating-cart__icon svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .suas-floating-cart__count {
+        top: -5px;
+        right: -7px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 4px;
+        font-size: 9px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .suas-floating-cart {
+        left: auto;
+        right: 16px;
       }
     }
   </style>
