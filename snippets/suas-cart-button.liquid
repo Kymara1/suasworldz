@@ -1,5 +1,5 @@
 {% unless request.page_type == 'password' %}
-  <a class="suas-floating-cart" href="{{ routes.cart_url }}" aria-label="Open cart">
+  <a class="suas-floating-cart" href="{{ routes.cart_url }}" aria-label="Open cart" data-suas-cart-button>
     <span class="suas-floating-cart__icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" focusable="false">
         <path d="M7 8h13l-1.25 7.25a2 2 0 0 1-1.97 1.66H9.28a2 2 0 0 1-1.97-1.66L5.75 5.8H3" />
@@ -11,13 +11,15 @@
   </a>
 
   <style>
-    .suas-floating-cart {
+    .suas-side-rail {
       position: fixed;
-      top: 48px;
-      left: auto;
+    }
+
+    .suas-floating-cart {
+      position: absolute;
+      top: 24px;
       right: 18px;
-      bottom: auto;
-      z-index: 9999;
+      z-index: 4;
       display: inline-grid;
       place-items: center;
       width: 44px;
@@ -90,9 +92,13 @@
     }
 
     @media (max-width: 1023px) {
+      .suas-side-rail {
+        position: sticky;
+      }
+
       .suas-floating-cart {
-        top: 45px;
-        right: 16px;
+        top: 11px;
+        right: 14px;
         width: 34px;
         height: 34px;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 6px 14px -10px rgba(16, 16, 16, 0.5);
@@ -117,7 +123,15 @@
 
   <script>
     (() => {
+      const cartButton = document.querySelector('[data-suas-cart-button]');
       const countNode = document.querySelector('[data-suas-cart-count]');
+      const rail = document.querySelector('.suas-side-rail');
+      const kicker = rail ? rail.querySelector('.suas-side-kicker') : null;
+
+      if (cartButton && rail && !rail.contains(cartButton)) {
+        rail.insertBefore(cartButton, kicker || rail.firstChild);
+      }
+
       if (!countNode) return;
 
       fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
