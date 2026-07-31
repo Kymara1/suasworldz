@@ -15,22 +15,33 @@
       overflow-y: visible !important;
     }
 
+    body .suas-side-nav > a.suas-side-link {
+      display: none !important;
+    }
+
     body .suas-side-dropdown {
       position: relative !important;
-      flex: 0 0 auto !important;
+      flex: 1 1 calc(33.333% - 6px) !important;
       width: auto !important;
+      min-width: 96px !important;
       max-width: none !important;
     }
 
     body .suas-side-dropdown > summary.suas-side-link {
-      width: auto !important;
-      min-width: 112px !important;
+      width: 100% !important;
+      min-width: 0 !important;
       max-width: none !important;
-      display: inline-grid !important;
-      grid-template-columns: 26px auto !important;
-      gap: 8px !important;
-      padding: 8px 14px 8px 9px !important;
+      display: grid !important;
+      grid-template-columns: 24px minmax(0, 1fr) !important;
+      gap: 7px !important;
+      padding: 8px 9px !important;
       border-radius: 999px !important;
+      white-space: nowrap !important;
+    }
+
+    body .suas-side-dropdown > summary .suas-side-label {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
       white-space: nowrap !important;
     }
 
@@ -42,7 +53,8 @@
     }
 
     body .suas-side-dropdown[open] > summary.suas-side-link {
-      width: auto !important;
+      width: fit-content !important;
+      min-width: 112px !important;
       min-height: 42px !important;
       margin: 0 auto 10px !important;
       color: #101010 !important;
@@ -88,6 +100,10 @@
   }
 
   @media only screen and (max-width: 390px) {
+    body .suas-side-dropdown {
+      min-width: 90px !important;
+    }
+
     body .suas-side-dropdown[open] .suas-panel-submenu {
       max-height: 44vh !important;
       padding: 10px !important;
@@ -102,6 +118,60 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    var aboutItems = [
+      { title: 'who are we', href: '/pages/about' },
+      { title: 'bookings', href: '/pages/bookings' },
+      { title: 'contact us', href: '/pages/contact' },
+      { title: 'refund policy', href: '/policies/refund-policy' }
+    ];
+
+    function buildMenu(items) {
+      var menu = document.createElement('div');
+      menu.className = 'suas-panel-submenu';
+      items.forEach(function (item) {
+        var child = document.createElement('a');
+        child.href = item.href;
+        child.textContent = item.title;
+        menu.appendChild(child);
+      });
+      return menu;
+    }
+
+    function addSideAboutMenu() {
+      var nav = document.querySelector('.suas-side-nav');
+      if (!nav || nav.querySelector('.suas-side-about-dropdown')) return;
+
+      var details = document.createElement('details');
+      details.className = 'suas-panel-dropdown suas-side-dropdown suas-side-about-dropdown';
+
+      var summary = document.createElement('summary');
+      summary.className = 'suas-side-link';
+      summary.innerHTML = '<span class="suas-side-icon" style="--tint: var(--suas-lav);">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">08</span>';
+
+      details.appendChild(summary);
+      details.appendChild(buildMenu(aboutItems));
+      nav.appendChild(details);
+    }
+
+    function addHomePanelAboutMenu() {
+      var nav = document.querySelector('.suas-panel-nav');
+      if (!nav || nav.querySelector('.suas-panel-about-dropdown')) return;
+
+      var details = document.createElement('details');
+      details.className = 'suas-panel-dropdown suas-home-panel-dropdown suas-panel-about-dropdown';
+
+      var summary = document.createElement('summary');
+      summary.className = 'suas-panel-link';
+      summary.innerHTML = '<span class="suas-panel-icon" style="--icon-bg: var(--violet);">?</span><span class="suas-panel-label">about us</span><span class="suas-panel-number">08</span>';
+
+      details.appendChild(summary);
+      details.appendChild(buildMenu(aboutItems));
+      nav.appendChild(details);
+    }
+
+    addSideAboutMenu();
+    addHomePanelAboutMenu();
+
     document.addEventListener('toggle', function (event) {
       var opened = event.target;
       if (!opened.matches || !opened.matches('.suas-side-dropdown[open]')) return;
