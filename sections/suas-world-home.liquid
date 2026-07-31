@@ -691,6 +691,7 @@
 
       .suas-screen {
         min-height: 0;
+        padding: 18px;
       }
 
       .suas-hud,
@@ -698,22 +699,43 @@
         display: block;
       }
 
+      .suas-hud {
+        margin-bottom: 14px;
+      }
+
       .suas-product-rotator {
-        min-height: 540px;
+        min-height: 342px;
       }
 
       .suas-product-slide {
         grid-template-columns: 1fr;
         align-content: start;
-        gap: 16px;
+        gap: 12px;
       }
 
       .suas-product-photo {
-        width: min(100%, 255px);
+        width: min(68vw, 188px);
+        border-radius: 22px;
+      }
+
+      .suas-product-copy {
+        padding: 14px !important;
+        border-radius: 20px !important;
+        gap: 8px !important;
       }
 
       .suas-product-title {
-        font-size: clamp(3.1rem, 18vw, 5rem);
+        font-size: clamp(2rem, 11vw, 3.2rem);
+      }
+
+      .suas-product-price {
+        min-height: 30px;
+        margin-top: 4px;
+        padding: 7px 10px;
+      }
+
+      .suas-bars {
+        display: none;
       }
 
       .suas-launch-grid,
