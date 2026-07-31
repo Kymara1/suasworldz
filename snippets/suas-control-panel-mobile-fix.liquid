@@ -130,6 +130,15 @@
       { title: 'refund policy', href: '/policies/refund-policy' }
     ];
 
+    function removeMobileQuickLaunchBodyHome() {
+      var isMobileView = window.innerWidth <= 1023 || document.documentElement.clientWidth <= 1023;
+      if (!isMobileView) return;
+
+      document.querySelectorAll('.suas-world-home .suas-launch-grid > a[href="/collections/body-care"], .suas-world-home .suas-launch-grid > a[href="/collections/home-care"]').forEach(function (link) {
+        link.remove();
+      });
+    }
+
     function buildMenu(items) {
       var menu = document.createElement('div');
       menu.className = 'suas-panel-submenu';
@@ -174,6 +183,8 @@
       nav.appendChild(details);
     }
 
+    removeMobileQuickLaunchBodyHome();
+    window.addEventListener('resize', removeMobileQuickLaunchBodyHome);
     addSideAboutMenu();
     addHomePanelAboutMenu();
 
