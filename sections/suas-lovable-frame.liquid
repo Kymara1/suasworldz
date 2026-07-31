@@ -14,23 +14,14 @@
 
   :root {
     --suas-ink: {{ section.settings.ink_color }};
-    --suas-cream: {{ section.settings.cream_color }};
     --suas-world: {{ section.settings.page_color }};
     --suas-pink: {{ section.settings.pink_color }};
-    --suas-blue: {{ section.settings.blue_color }};
-    --suas-sun: {{ section.settings.sun_color }};
     --suas-lime: {{ section.settings.lime_color }};
-    --suas-lav: {{ section.settings.lav_color }};
   }
 
-  body {
-    background: var(--suas-world);
-  }
+  body { background: var(--suas-world); }
 
-  .suas-frame {
-    font-family: 'Casual Human', Futura, Arial, sans-serif;
-  }
-
+  .suas-frame,
   .suas-font,
   .suas-side-brand,
   .suas-side-label,
@@ -72,7 +63,6 @@
     min-width: 200%;
     height: 100%;
     align-items: center;
-    gap: 0;
     white-space: nowrap;
     animation: suasFrameMarquee {{ section.settings.marquee_speed }}s linear infinite;
   }
@@ -119,19 +109,15 @@
   }
 
   .suas-side-orb {
-    position: relative;
     width: 45px;
     height: 45px;
     border-radius: 999px;
-    background:
-      radial-gradient(circle at 32% 20%, #fff 0 10%, transparent 32%),
-      conic-gradient(from 210deg, #ffd8e8, #c9e7ff, #d8e26a, #ffd8e8);
+    background: radial-gradient(circle at 32% 20%, #fff 0 10%, transparent 32%), conic-gradient(from 210deg, #ffd8e8, #c9e7ff, #d8e26a, #ffd8e8);
     box-shadow: inset 0 -6px 12px rgba(0, 0, 0, 0.16), inset 0 6px 12px rgba(255, 255, 255, 0.85), 0 8px 16px -8px rgba(16, 16, 16, 0.35);
   }
 
   .suas-side-brand {
     font-size: 2.15rem;
-    font-weight: 700;
     line-height: 0.9;
     text-transform: uppercase;
   }
@@ -204,7 +190,6 @@
 
   .suas-side-label {
     font-size: 1.65rem;
-    font-weight: 700;
     line-height: 0.96;
     text-transform: uppercase;
   }
@@ -216,18 +201,12 @@
     opacity: 0.45;
   }
 
-  .suas-side-dropdown {
-    position: relative;
-  }
-
   .suas-side-dropdown summary {
     cursor: pointer;
     list-style: none;
   }
 
-  .suas-side-dropdown summary::-webkit-details-marker {
-    display: none;
-  }
+  .suas-side-dropdown summary::-webkit-details-marker { display: none; }
 
   .suas-panel-submenu {
     display: grid;
@@ -277,20 +256,9 @@
   }
 
   .suas-side-status b,
-  .suas-side-status span {
-    display: block;
-  }
-
-  .suas-side-status b {
-    color: rgba(16, 16, 16, 0.42);
-    margin-bottom: 5px;
-  }
-
-  .suas-side-status span {
-    font-size: 1.08rem;
-    line-height: 1;
-    text-transform: uppercase;
-  }
+  .suas-side-status span { display: block; }
+  .suas-side-status b { color: rgba(16, 16, 16, 0.42); margin-bottom: 5px; }
+  .suas-side-status span { font-size: 1.08rem; line-height: 1; text-transform: uppercase; }
 
   .suas-side-foot {
     display: flex;
@@ -311,41 +279,24 @@
   }
 
   @media (min-width: 1024px) {
-    .suas-frame-marquee {
-      left: 0;
-      right: auto;
-      width: 100%;
-    }
-
-    .suas-side-rail {
-      inset: 0 auto 0 0;
-      padding-top: 6px;
-    }
-
-    .off-canvas--main-content {
-      margin-left: 252px;
-      width: calc(100% - 252px);
-    }
-
-    .header--root {
-      display: none !important;
-    }
-
-    .announcement--root {
-      display: none !important;
-    }
+    .suas-frame-marquee { left: 0; right: auto; width: 100%; }
+    .suas-side-rail { inset: 0 auto 0 0; padding-top: 6px; }
+    .off-canvas--main-content { margin-left: 252px; width: calc(100% - 252px); }
+    .header--root,
+    .announcement--root { display: none !important; }
   }
 
   @media (max-width: 1023px) {
     .header--root,
-    .announcement--root {
-      display: none !important;
-    }
+    .announcement--root { display: none !important; }
+
+    .suas-frame-marquee { height: 34px; }
+    .suas-frame-marquee-track span { padding: 0 18px; font-size: 15px; }
 
     .suas-side-rail {
       position: sticky;
       inset: auto;
-      top: 36px;
+      top: 34px;
       z-index: 59;
       width: 100%;
       display: block;
@@ -356,36 +307,12 @@
       box-shadow: 0 10px 24px -20px rgba(16, 16, 16, 0.45);
     }
 
-    .suas-frame-marquee {
-      height: 34px;
-    }
-
-    .suas-frame-marquee-track span {
-      padding: 0 18px;
-      font-size: 15px;
-    }
-
-    .suas-side-head {
-      justify-content: center;
-      gap: 10px;
-      padding: 4px 0 8px;
-    }
-
-    .suas-side-orb {
-      width: 28px;
-      height: 28px;
-    }
-
-    .suas-side-brand {
-      font-size: 1.35rem;
-      line-height: 1;
-    }
-
+    .suas-side-head { justify-content: center; gap: 10px; padding: 4px 0 8px; }
+    .suas-side-orb { width: 28px; height: 28px; }
+    .suas-side-brand { font-size: 1.35rem; line-height: 1; }
     .suas-side-kicker,
     .suas-side-status,
-    .suas-side-foot {
-      display: none;
-    }
+    .suas-side-foot { display: none; }
 
     .suas-side-nav {
       flex: none;
@@ -397,10 +324,9 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .suas-side-nav::-webkit-scrollbar {
-      display: none;
-    }
+    .suas-side-nav::-webkit-scrollbar { display: none; }
 
+    .suas-side-dropdown { flex: 0 0 auto; }
     .suas-side-link {
       min-height: 40px;
       flex: 0 0 auto;
@@ -412,26 +338,22 @@
       box-shadow: 0 4px 0 rgba(16, 16, 16, 0.12);
     }
 
-    .suas-side-link.is-active {
-      min-height: 40px;
-      margin: 0;
-      box-shadow: 0 4px 0 rgba(16, 16, 16, 0.25);
-    }
+    .suas-side-link.is-active { min-height: 40px; margin: 0; box-shadow: 0 4px 0 rgba(16, 16, 16, 0.25); }
+    .suas-side-icon { width: 24px; height: 24px; font-size: 12px; }
+    .suas-side-label { font-size: 1rem; line-height: 1; white-space: nowrap; }
+    .suas-side-num { display: none; }
 
-    .suas-side-icon {
-      width: 24px;
-      height: 24px;
-      font-size: 12px;
-    }
-
-    .suas-side-label {
-      font-size: 1rem;
-      line-height: 1;
-      white-space: nowrap;
-    }
-
-    .suas-side-num {
-      display: none;
+    .suas-panel-submenu {
+      position: absolute;
+      z-index: 65;
+      min-width: 170px;
+      max-width: min(86vw, 240px);
+      padding: 8px;
+      margin-top: 6px;
+      border: 1px solid rgba(16, 16, 16, 0.12);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 16px 32px rgba(16, 16, 16, 0.16);
     }
   }
 </style>
@@ -451,49 +373,69 @@
   </div>
 
   <aside class="suas-side-rail" aria-label="SUAS control panel">
-    <a class="suas-side-head" href="{{ section.settings.home_link }}">
+    <a class="suas-side-head" href="{{ section.settings.home_link | default: '/' }}">
       <span class="suas-side-orb" aria-hidden="true"></span>
       <span class="suas-side-brand">{{ section.settings.brand_text }}</span>
     </a>
     <p class="suas-side-kicker">{{ section.settings.control_label }}</p>
     <nav class="suas-side-nav">
-      {% for block in section.blocks %}
-        {% liquid
-          assign is_active = false
-          if block.settings.active_match != blank and request.path contains block.settings.active_match
-            assign is_active = true
-          endif
-          assign has_submenu = false
-          if block.settings.submenu_1_label != blank or block.settings.submenu_2_label != blank or block.settings.submenu_3_label != blank or block.settings.submenu_4_label != blank or block.settings.submenu_5_label != blank or block.settings.submenu_6_label != blank
-            assign has_submenu = true
-          endif
-        %}
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          {% liquid
+            assign is_active = false
+            if block.settings.active_match != blank and request.path contains block.settings.active_match
+              assign is_active = true
+            endif
+            assign has_submenu = false
+            if block.settings.submenu_1_label != blank or block.settings.submenu_2_label != blank or block.settings.submenu_3_label != blank or block.settings.submenu_4_label != blank or block.settings.submenu_5_label != blank or block.settings.submenu_6_label != blank
+              assign has_submenu = true
+            endif
+          %}
 
-        {% if has_submenu %}
-          <details class="suas-side-dropdown" {{ block.shopify_attributes }}>
-            <summary class="suas-side-link{% if is_active %} is-active{% endif %}">
+          {% if has_submenu %}
+            <details class="suas-side-dropdown" {{ block.shopify_attributes }}>
+              <summary class="suas-side-link{% if is_active %} is-active{% endif %}">
+                <span class="suas-side-icon" style="--tint: {{ block.settings.tint_color }};">{{ block.settings.icon }}</span>
+                <span class="suas-side-label">{{ block.settings.title }}</span>
+                <span class="suas-side-num">{{ block.settings.number }}</span>
+              </summary>
+              <div class="suas-panel-submenu">
+                {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{{ block.settings.title }}</a>{% endif %}
+                {% if block.settings.submenu_1_label != blank %}<a href="{{ block.settings.submenu_1_link }}">{{ block.settings.submenu_1_label }}</a>{% endif %}
+                {% if block.settings.submenu_2_label != blank %}<a href="{{ block.settings.submenu_2_link }}">{{ block.settings.submenu_2_label }}</a>{% endif %}
+                {% if block.settings.submenu_3_label != blank %}<a href="{{ block.settings.submenu_3_link }}">{{ block.settings.submenu_3_label }}</a>{% endif %}
+                {% if block.settings.submenu_4_label != blank %}<a href="{{ block.settings.submenu_4_link }}">{{ block.settings.submenu_4_label }}</a>{% endif %}
+                {% if block.settings.submenu_5_label != blank %}<a href="{{ block.settings.submenu_5_link }}">{{ block.settings.submenu_5_label }}</a>{% endif %}
+                {% if block.settings.submenu_6_label != blank %}<a href="{{ block.settings.submenu_6_link }}">{{ block.settings.submenu_6_label }}</a>{% endif %}
+              </div>
+            </details>
+          {% else %}
+            <a class="suas-side-link{% if is_active %} is-active{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
               <span class="suas-side-icon" style="--tint: {{ block.settings.tint_color }};">{{ block.settings.icon }}</span>
               <span class="suas-side-label">{{ block.settings.title }}</span>
               <span class="suas-side-num">{{ block.settings.number }}</span>
-            </summary>
-            <div class="suas-panel-submenu">
-              {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{{ block.settings.title }}</a>{% endif %}
-              {% if block.settings.submenu_1_label != blank %}<a href="{{ block.settings.submenu_1_link }}">{{ block.settings.submenu_1_label }}</a>{% endif %}
-              {% if block.settings.submenu_2_label != blank %}<a href="{{ block.settings.submenu_2_link }}">{{ block.settings.submenu_2_label }}</a>{% endif %}
-              {% if block.settings.submenu_3_label != blank %}<a href="{{ block.settings.submenu_3_link }}">{{ block.settings.submenu_3_label }}</a>{% endif %}
-              {% if block.settings.submenu_4_label != blank %}<a href="{{ block.settings.submenu_4_link }}">{{ block.settings.submenu_4_label }}</a>{% endif %}
-              {% if block.settings.submenu_5_label != blank %}<a href="{{ block.settings.submenu_5_link }}">{{ block.settings.submenu_5_label }}</a>{% endif %}
-              {% if block.settings.submenu_6_label != blank %}<a href="{{ block.settings.submenu_6_link }}">{{ block.settings.submenu_6_label }}</a>{% endif %}
-            </div>
-          </details>
-        {% else %}
-          <a class="suas-side-link{% if is_active %} is-active{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
-            <span class="suas-side-icon" style="--tint: {{ block.settings.tint_color }};">{{ block.settings.icon }}</span>
-            <span class="suas-side-label">{{ block.settings.title }}</span>
-            <span class="suas-side-num">{{ block.settings.number }}</span>
-          </a>
-        {% endif %}
-      {% endfor %}
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <details class="suas-side-dropdown">
+          <summary class="suas-side-link{% if request.path contains '/collections/body' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #ff9bc4;">o</span><span class="suas-side-label">body</span><span class="suas-side-num">01</span></summary>
+          <div class="suas-panel-submenu"><a href="/collections/body-care">Body</a><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/collections/body-jelly">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/collections/cleansing-bar">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div>
+        </details>
+        <details class="suas-side-dropdown">
+          <summary class="suas-side-link{% if request.path contains '/collections/home' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #ffe86b;">i</span><span class="suas-side-label">home</span><span class="suas-side-num">02</span></summary>
+          <div class="suas-panel-submenu"><a href="/collections/home-care">Home</a><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/collections/burnt-oils">Burnt Oils</a></div>
+        </details>
+        <a class="suas-side-link{% if request.path contains '/collections/masculine' %} is-active{% endif %}" href="/collections/masculine"><span class="suas-side-icon" style="--tint: #9dd7ff;">*</span><span class="suas-side-label">masculine</span><span class="suas-side-num">03</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/feminine' %} is-active{% endif %}" href="/collections/feminine"><span class="suas-side-icon" style="--tint: #ff9bc4;">x</span><span class="suas-side-label">feminine</span><span class="suas-side-num">04</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/oddities' %} is-active{% endif %}" href="/collections/oddities"><span class="suas-side-icon" style="--tint: #c7b5ff;">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">05</span></a>
+        <a class="suas-side-link{% if request.path contains '/pages/shut-up-and-smell' %} is-active{% endif %}" href="/pages/shut-up-and-smell"><span class="suas-side-icon" style="--tint: #c6f76a;">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">06</span></a>
+        <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint: #9dd7ff;">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
+        <details class="suas-side-dropdown">
+          <summary class="suas-side-link{% if request.path contains '/pages/about' or request.path contains '/pages/bookings' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #c7b5ff;">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">08</span></summary>
+          <div class="suas-panel-submenu"><a href="/pages/about">Who are we</a><a href="/pages/bookings">Bookings</a><a href="/pages/contact">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div>
+        </details>
+      {% endif %}
     </nav>
     <div class="suas-side-status">
       <span class="suas-side-status-dot" aria-hidden="true"></span>
@@ -512,15 +454,15 @@
   "name": "SUAS OS frame",
   "settings": [
     { "type": "text", "id": "brand_text", "label": "Brand text", "default": "SUAS" },
-    { "type": "url", "id": "home_link", "label": "Brand/home link", "default": "/" },
+    { "type": "text", "id": "home_link", "label": "Brand/home link", "default": "/" },
     { "type": "text", "id": "control_label", "label": "Control panel label", "default": "control panel" },
     { "type": "text", "id": "status_label", "label": "Status label", "default": "lab status" },
     { "type": "text", "id": "status_text", "label": "Status text", "default": "open + mixing" },
     { "type": "text", "id": "version_text", "label": "Version text", "default": "v.04" },
     { "type": "text", "id": "footer_label_1", "label": "Footer label 1", "default": "account" },
-    { "type": "url", "id": "footer_link_1", "label": "Footer link 1", "default": "/account" },
+    { "type": "text", "id": "footer_link_1", "label": "Footer link 1", "default": "/account" },
     { "type": "text", "id": "footer_label_2", "label": "Footer label 2", "default": "about" },
-    { "type": "url", "id": "footer_link_2", "label": "Footer link 2", "default": "/pages/about" },
+    { "type": "text", "id": "footer_link_2", "label": "Footer link 2", "default": "/pages/about" },
     { "type": "header", "content": "Marquee" },
     { "type": "range", "id": "marquee_speed", "label": "Marquee speed", "min": 16, "max": 60, "step": 2, "unit": "s", "default": 34 },
     { "type": "text", "id": "marquee_1", "label": "Marquee text 1", "default": "shut up & smell" },
@@ -531,13 +473,9 @@
     { "type": "text", "id": "marquee_6", "label": "Marquee text 6", "default": "formula 001" },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "ink_color", "label": "Ink", "default": "#101010" },
-    { "type": "color", "id": "cream_color", "label": "Cream", "default": "#f8f7f4" },
     { "type": "color", "id": "page_color", "label": "Page background", "default": "#f6f7fa" },
     { "type": "color", "id": "pink_color", "label": "Pink", "default": "#ff9bc4" },
-    { "type": "color", "id": "blue_color", "label": "Blue", "default": "#9dd7ff" },
-    { "type": "color", "id": "sun_color", "label": "Yellow", "default": "#ffe86b" },
-    { "type": "color", "id": "lime_color", "label": "Lime", "default": "#c6f76a" },
-    { "type": "color", "id": "lav_color", "label": "Lavender", "default": "#c7b5ff" }
+    { "type": "color", "id": "lime_color", "label": "Lime", "default": "#c6f76a" }
   ],
   "blocks": [
     {
@@ -547,22 +485,22 @@
         { "type": "text", "id": "title", "label": "Title", "default": "body" },
         { "type": "text", "id": "icon", "label": "Icon/symbol", "default": "o" },
         { "type": "text", "id": "number", "label": "Number", "default": "01" },
-        { "type": "url", "id": "link", "label": "Main link", "default": "/collections/body-care" },
+        { "type": "text", "id": "link", "label": "Main link", "default": "/collections/body-care" },
         { "type": "text", "id": "active_match", "label": "Active URL contains", "default": "/collections/body" },
         { "type": "color", "id": "tint_color", "label": "Bubble color", "default": "#ff9bc4" },
         { "type": "header", "content": "Submenu items" },
         { "type": "text", "id": "submenu_1_label", "label": "Submenu 1 label" },
-        { "type": "url", "id": "submenu_1_link", "label": "Submenu 1 link" },
+        { "type": "text", "id": "submenu_1_link", "label": "Submenu 1 link" },
         { "type": "text", "id": "submenu_2_label", "label": "Submenu 2 label" },
-        { "type": "url", "id": "submenu_2_link", "label": "Submenu 2 link" },
+        { "type": "text", "id": "submenu_2_link", "label": "Submenu 2 link" },
         { "type": "text", "id": "submenu_3_label", "label": "Submenu 3 label" },
-        { "type": "url", "id": "submenu_3_link", "label": "Submenu 3 link" },
+        { "type": "text", "id": "submenu_3_link", "label": "Submenu 3 link" },
         { "type": "text", "id": "submenu_4_label", "label": "Submenu 4 label" },
-        { "type": "url", "id": "submenu_4_link", "label": "Submenu 4 link" },
+        { "type": "text", "id": "submenu_4_link", "label": "Submenu 4 link" },
         { "type": "text", "id": "submenu_5_label", "label": "Submenu 5 label" },
-        { "type": "url", "id": "submenu_5_link", "label": "Submenu 5 link" },
+        { "type": "text", "id": "submenu_5_link", "label": "Submenu 5 link" },
         { "type": "text", "id": "submenu_6_label", "label": "Submenu 6 label" },
-        { "type": "url", "id": "submenu_6_link", "label": "Submenu 6 link" }
+        { "type": "text", "id": "submenu_6_link", "label": "Submenu 6 link" }
       ]
     }
   ],
