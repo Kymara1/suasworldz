@@ -136,3 +136,12 @@
     width: 100% !important;
   }
 }
+
+/* Keep every Lab Sessions summary in the same order as the Lab page cards. */
+.suas-hours h3:before {
+  content: "body oil - 25\A eau de parfum - 35\A combo sesh - 60\A deluxe lab sesh - 85" !important;
+}
+
+.suas-hours p:before {
+  content: "Self-guided 1 oz body oil, self-guided 30 mL eau de parfum, combo perfume plus body oil, or guided deluxe appointment." !important;
+}
