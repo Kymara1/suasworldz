@@ -405,6 +405,32 @@
           "heading": "Subscribe to our newsletter",
           "newsletter--subheading": "<p>A short sentence describing what someone will receive by subscribing</p>"
         }
+      },
+      "suas-lovable-frame": {
+        "type": "suas-lovable-frame",
+        "settings": {
+          "brand_text": "SUAS",
+          "home_link": "/",
+          "control_label": "control panel",
+          "status_label": "lab status",
+          "status_text": "open + mixing",
+          "version_text": "v.04",
+          "footer_label_1": "account",
+          "footer_link_1": "/account",
+          "footer_label_2": "about",
+          "footer_link_2": "/pages/about",
+          "marquee_speed": 52,
+          "marquee_1": "shut up & smell",
+          "marquee_2": "suas.os online",
+          "marquee_3": "",
+          "marquee_4": "handmade in gastonia",
+          "marquee_5": "dopamine on tap",
+          "marquee_6": "formula 001",
+          "ink_color": "#101010",
+          "page_color": "#f6f7fa",
+          "pink_color": "#ff9bc4",
+          "lime_color": "#c6f76a"
+        }
       }
     },
     "content_for_index": [
