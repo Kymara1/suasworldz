@@ -56,6 +56,137 @@
         localStorage.removeItem('suasReviewMessages');
         localStorage.removeItem('suasLikedReviews');
       } catch (error) {}
+
+      const section = document.currentScript.closest('.suas-reviews');
+      const host = section && section.querySelector('.suas-aftership-host');
+      if (!host || host.dataset.suasForced === 'true') return;
+      host.dataset.suasForced = 'true';
+
+      const ink = '#101010';
+      const casual = "'Casual Human', Futura, Arial, sans-serif";
+      const futura = "Futura, 'Futura PT', Arial, sans-serif";
+      const tones = ['#ffd8e8', '#cdeeff', '#d9ff78', '#fff1a8', '#e4d5ff'];
+
+      const force = (element, styles) => {
+        if (!element || !element.style) return;
+        Object.entries(styles).forEach(([property, value]) => {
+          element.style.setProperty(property, value, 'important');
+        });
+      };
+
+      const collectRoots = (start) => {
+        const roots = [start];
+        const walk = (root) => {
+          root.querySelectorAll('*').forEach((element) => {
+            if (element.shadowRoot && !roots.includes(element.shadowRoot)) {
+              roots.push(element.shadowRoot);
+              walk(element.shadowRoot);
+            }
+          });
+        };
+        walk(start);
+        return roots;
+      };
+
+      const decorateRoot = (root) => {
+        root.querySelectorAll('h1,h2,h3,h4').forEach((heading) => force(heading, {
+          'font-family': casual,
+          'font-weight': '400',
+          'letter-spacing': '0',
+          'line-height': '.95',
+          'color': ink
+        }));
+
+        root.querySelectorAll('button,a[role="button"],input[type="submit"]').forEach((button) => force(button, {
+          'min-height': '40px',
+          'border': '2px solid ' + ink,
+          'border-radius': '999px',
+          'background': '#ffd8e8',
+          'color': ink,
+          'box-shadow': '0 4px 0 ' + ink,
+          'font-family': futura,
+          'font-weight': '900',
+          'letter-spacing': '.07em',
+          'text-transform': 'uppercase'
+        }));
+
+        root.querySelectorAll('select,input:not([type="submit"]),textarea').forEach((field) => force(field, {
+          'border': '1.5px solid ' + ink,
+          'border-radius': '14px',
+          'background': '#ffffff',
+          'color': ink,
+          'font-family': futura
+        }));
+
+        const all = [...root.querySelectorAll('*')];
+        const summaryText = all.find((element) => {
+          const text = (element.textContent || '').trim().toLowerCase();
+          return text.includes('customer reviews') && text.length < 600 && element.children.length > 1;
+        });
+        if (summaryText) {
+          let summary = summaryText;
+          while (summary.parentElement && summary.parentElement !== root && summary.parentElement.textContent.length < 900) {
+            summary = summary.parentElement;
+          }
+          force(summary, {
+            'border': '2px solid ' + ink,
+            'border-radius': '22px',
+            'background': 'linear-gradient(135deg,#ffd8e8,#d9ff78)',
+            'box-shadow': '4px 5px 0 ' + ink,
+            'padding': '18px'
+          });
+        }
+
+        const cards = all.filter((element) => {
+          const name = String(element.className || '');
+          return /review[-_ ]?(item|card|content)|reviewItem|ReviewCard/i.test(name);
+        });
+        const uniqueCards = cards.filter((card) => !cards.some((other) => other !== card && card.contains(other)));
+        uniqueCards.forEach((card, index) => force(card, {
+          '--suas-tone': tones[index % tones.length],
+          'margin': '12px 0',
+          'border': '2px solid ' + ink,
+          'border-radius': '20px',
+          'background': tones[index % tones.length],
+          'box-shadow': '4px 5px 0 ' + ink,
+          'padding': '15px'
+        }));
+
+        root.querySelectorAll('[role="dialog"],[class*="modal" i]').forEach((dialog) => {
+          if (!/write a review|review our store/i.test(dialog.textContent || '')) return;
+          force(dialog, {
+            'border': '2px solid ' + ink,
+            'border-radius': '24px',
+            'background': 'linear-gradient(145deg,#fff,#ffd8e8)',
+            'box-shadow': '7px 8px 0 ' + ink,
+            'font-family': futura
+          });
+        });
+      };
+
+      const decorate = () => {
+        collectRoots(host).forEach(decorateRoot);
+        document.querySelectorAll('[role="dialog"],[class*="modal" i]').forEach((dialog) => {
+          if (!/write a review|review our store/i.test(dialog.textContent || '')) return;
+          decorateRoot(dialog);
+          force(dialog, {
+            'border': '2px solid ' + ink,
+            'border-radius': '24px',
+            'background': 'linear-gradient(145deg,#fff,#ffd8e8)',
+            'box-shadow': '7px 8px 0 ' + ink
+          });
+        });
+        host.querySelectorAll('iframe').forEach((frame) => {
+          try {
+            if (frame.contentDocument) collectRoots(frame.contentDocument).forEach(decorateRoot);
+          } catch (error) {}
+        });
+      };
+
+      const observer = new MutationObserver(decorate);
+      observer.observe(document.body, { childList: true, subtree: true });
+      decorate();
+      [300, 800, 1600, 3000, 5000, 8000].forEach((delay) => setTimeout(decorate, delay));
     })();
   </script>
 </section>
