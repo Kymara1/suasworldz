@@ -105,6 +105,10 @@
         "spacing-below": true
       }
     },
+    "suas_product_review_style": {
+      "type": "suas-product-review-style",
+      "settings": {}
+    },
     "social-sharing": {
       "type": "product-social",
       "settings": {
@@ -128,6 +132,7 @@
     "blocks_z9tNqE",
     "main",
     "16946386895a53231c",
+    "suas_product_review_style",
     "social-sharing",
     "recommendations"
   ]
