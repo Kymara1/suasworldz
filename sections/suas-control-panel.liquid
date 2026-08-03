@@ -59,11 +59,11 @@
               if title_down == 'home'
                 assign panel_url = '/'
               elsif title_down contains 'body jelly'
-                assign panel_url = '/search?q=body+jelly&type=product'
+                assign panel_url = '/collections/body-jelly'
               elsif title_down contains 'cleansing bar'
-                assign panel_url = '/search?q=cleansing+bar&type=product'
+                assign panel_url = '/collections/cleansing-bar'
               elsif title_down contains 'burnt oil'
-                assign panel_url = '/search?q=burnt+oils&type=product'
+                assign panel_url = '/collections/burnt-oils'
               endif
               if title_down contains 'body'
                 assign panel_icon = 'o'
@@ -99,11 +99,11 @@
                       if child_down == 'home'
                         assign child_url = '/'
                       elsif child_down contains 'body jelly'
-                        assign child_url = '/search?q=body+jelly&type=product'
+                        assign child_url = '/collections/body-jelly'
                       elsif child_down contains 'cleansing bar'
-                        assign child_url = '/search?q=cleansing+bar&type=product'
+                        assign child_url = '/collections/cleansing-bar'
                       elsif child_down contains 'burnt oil'
-                        assign child_url = '/search?q=burnt+oils&type=product'
+                        assign child_url = '/collections/burnt-oils'
                       endif
                     -%}
                     <a href="{{ child_url }}">{{ childlink.title }}</a>
@@ -115,12 +115,12 @@
             {%- endif -%}
           {%- endfor -%}
         {%- else -%}
-          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">o</span><span class="suas-panel-label">body</span><span class="suas-panel-number">01</span></summary><div class="suas-panel-submenu"><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/search?q=body+jelly&type=product">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/search?q=cleansing+bar&type=product">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div></details>
-          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--yellow);">i</span><span class="suas-panel-label">home</span><span class="suas-panel-number">02</span></summary><div class="suas-panel-submenu"><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/search?q=burnt+oils&type=product">Burnt Oils</a></div></details>
+          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">o</span><span class="suas-panel-label">body</span><span class="suas-panel-number">01</span></summary><div class="suas-panel-submenu"><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/collections/body-jelly">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/collections/cleansing-bar">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div></details>
+          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--yellow);">i</span><span class="suas-panel-label">home</span><span class="suas-panel-number">02</span></summary><div class="suas-panel-submenu"><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/collections/burnt-oils">Burnt Oils</a></div></details>
           <a class="suas-panel-link" href="/collections/masculine"><span class="suas-panel-icon" style="--icon-bg: var(--blue);">*</span><span class="suas-panel-label">masculine</span><span class="suas-panel-number">03</span></a>
           <a class="suas-panel-link" href="/collections/feminine"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">x</span><span class="suas-panel-label">feminine</span><span class="suas-panel-number">04</span></a>
           <a class="suas-panel-link" href="/collections/oddities"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">*</span><span class="suas-panel-label">oddities</span><span class="suas-panel-number">05</span></a>
-          <a class="suas-panel-link is-active" href="/pages/shut-up-and-smell"><span class="suas-panel-icon" style="--icon-bg: var(--lime);">/</span><span class="suas-panel-label">the lab</span><span class="suas-panel-number">06</span></a>
+          <a class="suas-panel-link is-active" href="/pages/the-lab"><span class="suas-panel-icon" style="--icon-bg: var(--lime);">/</span><span class="suas-panel-label">the lab</span><span class="suas-panel-number">06</span></a>
           <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">?</span><span class="suas-panel-label">about us</span><span class="suas-panel-number">07</span></summary><div class="suas-panel-submenu"><a href="/pages/about">Who Are We</a><a href="/pages/bookings">Bookings</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
         {%- endif -%}
       </nav>
@@ -138,7 +138,7 @@
     { "type": "text", "id": "hero_title", "label": "Hero title", "default": "pick your door." },
     { "type": "textarea", "id": "hero_text", "label": "Hero text", "default": "A softer way into the SUAS world: shop by mood, visit the lab, or jump straight into the pieces people ask for in store." },
     { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "enter the lab" },
-    { "type": "url", "id": "primary_url", "label": "Primary button link", "default": "/pages/shut-up-and-smell" },
+    { "type": "url", "id": "primary_url", "label": "Primary button link", "default": "/pages/the-lab" },
     { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "shop smells" },
     { "type": "url", "id": "secondary_url", "label": "Secondary button link", "default": "/collections/all" }
   ],
