@@ -8,7 +8,7 @@
     {%- for media in product.media -%}
       {%- if media.media_type == 'image' -%}
         {%- if image_count > 0 -%},{%- endif -%}
-        {"src":"{{ media | image_url: width: 1100 }}","alt":{{ media.alt | default: product.title | json }}}
+        {"src":"{{ media.preview_image | image_url: width: 1100 }}","alt":{{ media.alt | default: product.title | json }}}
         {%- assign image_count = image_count | plus: 1 -%}
       {%- endif -%}
     {%- endfor -%}
