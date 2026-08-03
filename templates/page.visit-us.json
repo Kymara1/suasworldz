@@ -24,10 +24,20 @@
         "spacing-above": true,
         "spacing-below": true
       }
+    },
+    "suas_visit_page_JpN3kV": {
+      "type": "suas-visit-page",
+      "name": "SUAS Visit Page",
+      "settings": {
+        "kicker": "suas.os / visit us",
+        "heading": "come smell with us.",
+        "copy": "<p>Pull up for scent, self care, home fragrance, and The Lab in Gastonia, NC.</p>"
+      }
     }
   },
   "order": [
     "blocks_M4mTfG",
-    "main"
+    "main",
+    "suas_visit_page_JpN3kV"
   ]
 }
