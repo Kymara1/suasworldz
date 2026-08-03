@@ -6,23 +6,27 @@
     .suas-world-home *{box-sizing:border-box}
     .suas-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
-    .suas-home-wrap{width:min(1180px,calc(100vw - 32px));margin:0 auto}
+    .suas-home-wrap{width:min(1260px,calc(100vw - 32px));margin:0 auto}
     .suas-hero{padding:clamp(14px,2vw,22px) 0 18px}
-    .suas-hero-grid{display:grid!important;grid-template-columns:minmax(0,1.32fr) minmax(285px,.52fr)!important;gap:14px!important;align-items:start!important}
+    .suas-hero-grid{display:grid!important;grid-template-columns:minmax(0,1.48fr) minmax(285px,.52fr)!important;gap:14px!important;align-items:start!important}
     .suas-now-card,.suas-launch-panel{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
     .suas-window-bar{display:flex;align-items:center;gap:8px;min-height:34px;padding:7px 12px;border-bottom:1.5px solid rgba(16,16,16,.14);background:linear-gradient(180deg,#fff,#e9edf3)}
     .suas-dot{width:10px;height:10px;border-radius:999px;background:var(--dot)}
     .suas-window-title{margin-left:auto;color:rgba(16,16,16,.58)}
-    .suas-product-rotator{position:relative;height:330px!important;min-height:0!important;padding:14px;isolation:isolate}
-    .suas-product-slide{position:absolute!important;inset:14px!important;display:grid!important;grid-template-columns:minmax(245px,318px) minmax(265px,360px);justify-content:center;align-items:center;justify-items:center;gap:clamp(18px,3vw,36px);color:var(--ink);text-decoration:none;opacity:0;pointer-events:none;transform:translateY(8px) scale(.985);transition:opacity 950ms ease,transform 950ms ease}
+    .suas-product-rotator{position:relative;height:430px!important;min-height:0!important;padding:18px;isolation:isolate}
+    .suas-product-slide{position:absolute!important;inset:18px!important;display:grid!important;grid-template-columns:minmax(310px,385px) minmax(310px,430px);justify-content:center;align-items:center;justify-items:center;gap:clamp(22px,3.6vw,46px);color:var(--ink);text-decoration:none;opacity:0;pointer-events:none;transform:translateY(8px) scale(.985);transition:opacity 950ms ease,transform 950ms ease}
     .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
-    .suas-product-photo{width:min(100%,310px);aspect-ratio:1;display:grid;place-items:center;border:2px solid var(--ink);border-radius:24px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:6px 7px 0 var(--ink);overflow:hidden}
+    .suas-product-photo{width:min(100%,370px);aspect-ratio:1;display:grid;place-items:center;border:2px solid var(--ink);border-radius:26px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:7px 8px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
     .suas-product-photo img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 12px 16px rgba(16,16,16,.15));animation:suasBob 6.8s ease-in-out infinite}
     .suas-product-fallback{width:72%;aspect-ratio:1;display:grid;place-items:center;border-radius:999px;background:#fff;color:var(--ink);font-size:4rem}
     .suas-world-home .suas-product-kicker{display:none!important}
-    .suas-product-copy{width:100%;min-height:228px;display:grid;align-content:center;border:1.5px solid rgba(16,16,16,.17);border-radius:25px;background:rgba(255,255,255,.95);box-shadow:0 18px 32px rgba(16,16,16,.1);padding:24px 28px}
-    .suas-product-title{font-size:clamp(2.55rem,4vw,4.45rem);line-height:.82;text-transform:lowercase}
+    .suas-product-copy{width:100%;min-height:288px;display:grid;align-content:center;border:1.5px solid rgba(16,16,16,.17);border-radius:25px;background:rgba(255,255,255,.95);box-shadow:0 18px 32px rgba(16,16,16,.1);padding:28px 30px}
+    .suas-product-title{display:block;color:var(--ink);text-decoration:none;font-size:clamp(2.8rem,4.2vw,4.75rem);line-height:.82;text-transform:lowercase}
+    .suas-product-title:hover{color:var(--ink)}
     .suas-product-price{display:inline-flex;width:max-content;min-height:34px;align-items:center;margin-top:18px;padding:8px 13px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 3px 0 var(--ink);font-weight:900}
+    .suas-product-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .suas-feed-btn{min-height:36px;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:9px 13px;color:var(--ink);background:var(--feed-btn,#fff);box-shadow:0 3px 0 var(--ink);text-decoration:none;font-weight:900;transition:transform 160ms ease,box-shadow 160ms ease}
+    .suas-feed-btn:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
     .suas-launch-panel{padding:15px;display:flex;flex-direction:column;justify-content:flex-start;gap:11px;min-height:0!important}
     .suas-launch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .suas-launch-grid .suas-launch:nth-of-type(n+7){display:none!important}
@@ -50,8 +54,8 @@
     .suas-scent h3{margin:0;font-size:clamp(1.35rem,2.2vw,2.1rem);line-height:.9;text-transform:uppercase}
     .suas-scent p{margin:9px 0 0;font-size:9px;line-height:1.35;font-weight:900;letter-spacing:.09em;text-transform:uppercase;opacity:.72}
     @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}@keyframes suasLed{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    @media(max-width:990px){.suas-home-wrap{width:min(100% - 14px,760px)}.suas-hero-grid{grid-template-columns:minmax(0,1fr) minmax(122px,.36fr)!important;gap:8px!important}.suas-now-card,.suas-launch-panel{border-radius:18px;box-shadow:3px 4px 0 var(--ink)}.suas-window-bar{min-height:28px;padding:6px 8px}.suas-dot{width:8px;height:8px}.suas-window-title{font-size:6.5px;letter-spacing:.1em}.suas-product-rotator{height:168px!important;padding:7px}.suas-product-slide{inset:7px!important;grid-template-columns:84px minmax(0,1fr);gap:8px}.suas-product-photo{width:84px;border-radius:14px;box-shadow:2px 3px 0 var(--ink)}.suas-product-copy{min-height:80px;padding:8px 9px;border-radius:15px;box-shadow:0 8px 18px rgba(16,16,16,.07)}.suas-product-title{font-size:clamp(1rem,4vw,1.45rem)}.suas-product-price{min-height:24px;margin-top:7px;padding:5px 7px;font-size:7px;letter-spacing:.12em}.suas-launch-panel{padding:8px;gap:7px}.suas-launch-panel>.suas-actions{display:none}.suas-launch-grid{grid-template-columns:1fr!important;gap:6px}.suas-launch{min-height:31px;padding:5px 7px;border-radius:11px;box-shadow:0 2px 0 var(--ink)}.suas-launch strong{font-size:.74rem}.suas-launch span{display:none}.suas-scent-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    @media(max-width:430px){.suas-home-wrap{width:calc(100vw - 10px)}.suas-hero{padding-top:8px}.suas-hero-grid{grid-template-columns:minmax(0,1fr) 108px!important;gap:6px!important}.suas-product-rotator{height:150px!important}.suas-product-slide{grid-template-columns:70px minmax(0,1fr);gap:6px}.suas-product-photo{width:70px}.suas-product-copy{min-height:72px;padding:7px 8px}.suas-product-title{font-size:clamp(.86rem,4.8vw,1.14rem)}.suas-product-price{font-size:6px}.suas-launch-panel{padding:6px}.suas-launch-grid{gap:5px}.suas-launch{min-height:28px;padding:5px 6px}.suas-launch strong{font-size:.66rem}.suas-section-head h2{font-size:clamp(2.5rem,14vw,4rem)}.suas-scent-grid{gap:9px}.suas-scent{min-height:104px;padding:16px 7px 12px}.suas-scent h3{font-size:clamp(.95rem,5.4vw,1.35rem)}.suas-scent p{font-size:7px}}
+    @media(max-width:990px){.suas-home-wrap{width:min(100% - 14px,760px)}.suas-hero-grid{grid-template-columns:minmax(0,1fr) minmax(122px,.36fr)!important;gap:8px!important}.suas-now-card,.suas-launch-panel{border-radius:18px;box-shadow:3px 4px 0 var(--ink)}.suas-window-bar{min-height:28px;padding:6px 8px}.suas-dot{width:8px;height:8px}.suas-window-title{font-size:6.5px;letter-spacing:.1em}.suas-product-rotator{height:245px!important;padding:8px}.suas-product-slide{inset:8px!important;grid-template-columns:118px minmax(0,1fr);gap:10px}.suas-product-photo{width:118px;border-radius:16px;box-shadow:3px 4px 0 var(--ink)}.suas-product-copy{min-height:132px;padding:10px 11px;border-radius:16px;box-shadow:0 8px 18px rgba(16,16,16,.07)}.suas-product-title{font-size:clamp(1.15rem,4.2vw,1.72rem)}.suas-product-price{min-height:24px;margin-top:7px;padding:5px 7px;font-size:7px;letter-spacing:.12em}.suas-product-actions{gap:6px;margin-top:9px}.suas-feed-btn{min-height:27px;padding:6px 8px;font-size:6.5px;letter-spacing:.1em}.suas-launch-panel{padding:8px;gap:7px}.suas-launch-panel>.suas-actions{display:none}.suas-launch-grid{grid-template-columns:1fr!important;gap:6px}.suas-launch{min-height:31px;padding:5px 7px;border-radius:11px;box-shadow:0 2px 0 var(--ink)}.suas-launch strong{font-size:.74rem}.suas-launch span{display:none}.suas-scent-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:430px){.suas-home-wrap{width:calc(100vw - 10px)}.suas-hero{padding-top:8px}.suas-hero-grid{grid-template-columns:minmax(0,1fr) 108px!important;gap:6px!important}.suas-product-rotator{height:235px!important}.suas-product-slide{grid-template-columns:1fr;align-content:start;gap:7px}.suas-product-photo{width:min(128px,88%);justify-self:center}.suas-product-copy{min-height:90px;padding:8px 8px;text-align:center}.suas-product-title{font-size:clamp(1.02rem,5.6vw,1.32rem)}.suas-product-price{margin:7px auto 0;font-size:6px}.suas-product-actions{justify-content:center}.suas-feed-btn{min-height:25px;padding:5px 7px;font-size:5.9px}.suas-launch-panel{padding:6px}.suas-launch-grid{gap:5px}.suas-launch{min-height:28px;padding:5px 6px}.suas-launch strong{font-size:.66rem}.suas-section-head h2{font-size:clamp(2.5rem,14vw,4rem)}.suas-scent-grid{gap:9px}.suas-scent{min-height:104px;padding:16px 7px 12px}.suas-scent h3{font-size:clamp(.95rem,5.4vw,1.35rem)}.suas-scent p{font-size:7px}}
   </style>
   {% liquid
     assign butter_collection = collections['butter-creme']
@@ -77,15 +81,15 @@
           <div class="suas-product-rotator" data-suas-product-rotator data-count="{{ butter_count }}">
             {% if butter_collection != blank and butter_collection.products_count > 0 %}
               {% for product in butter_collection.products limit:6 %}
-                <a class="suas-product-slide{% if forloop.first %} is-active{% endif %}" href="{{ product.url }}">
-                  <div class="suas-product-photo">
+                <div class="suas-product-slide{% if forloop.first %} is-active{% endif %}">
+                  <a class="suas-product-photo" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
                     {% if product.featured_image %}{{ product.featured_image | image_url: width: 900 | image_tag: loading: 'eager', alt: product.title }}{% else %}<div class="suas-product-fallback suas-font">s.</div>{% endif %}
-                  </div>
-                  <div class="suas-product-copy"><div class="suas-product-title suas-font">{{ product.title }}</div><div class="suas-product-price suas-mono">{{ product.price | money }}</div></div>
-                </a>
+                  </a>
+                  <div class="suas-product-copy"><a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a><div class="suas-product-price suas-mono">{{ product.price | money }}</div><div class="suas-product-actions"><a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a><a class="suas-feed-btn suas-mono" href="/account" style="--feed-btn:#ffd8e8">account</a></div></div>
+                </div>
               {% endfor %}
             {% else %}
-              <a class="suas-product-slide is-static is-active" href="/collections/butter-creme"><div class="suas-product-photo"><div class="suas-product-fallback suas-font">s.</div></div><div class="suas-product-copy"><div class="suas-product-title suas-font">butter creme</div><div class="suas-product-price suas-mono">shop</div></div></a>
+              <div class="suas-product-slide is-static is-active"><a class="suas-product-photo" href="/collections/butter-creme"><div class="suas-product-fallback suas-font">s.</div></a><div class="suas-product-copy"><a class="suas-product-title suas-font" href="/collections/butter-creme">butter creme</a><div class="suas-product-price suas-mono">shop</div><div class="suas-product-actions"><a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a><a class="suas-feed-btn suas-mono" href="/account" style="--feed-btn:#ffd8e8">account</a></div></div></div>
             {% endif %}
           </div>
         </div>
