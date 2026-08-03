@@ -55,6 +55,16 @@
               assign title_down = link.title | downcase
               assign panel_icon = forloop.index
               assign panel_color = 'var(--violet)'
+              assign panel_url = link.url
+              if title_down == 'home'
+                assign panel_url = '/'
+              elsif title_down contains 'body jelly'
+                assign panel_url = '/search?q=body+jelly&type=product'
+              elsif title_down contains 'cleansing bar'
+                assign panel_url = '/search?q=cleansing+bar&type=product'
+              elsif title_down contains 'burnt oil'
+                assign panel_url = '/search?q=burnt+oils&type=product'
+              endif
               if title_down contains 'body'
                 assign panel_icon = 'o'
                 assign panel_color = 'var(--pink)'
@@ -82,11 +92,26 @@
               <details class="suas-panel-dropdown">
                 <summary class="suas-panel-link{% if link.active or link.child_active %} is-active{% endif %}"><span class="suas-panel-icon" style="--icon-bg: {{ panel_color }};">{{ panel_icon }}</span><span class="suas-panel-label">{{ link.title }}</span><span class="suas-panel-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></summary>
                 <div class="suas-panel-submenu">
-                  {%- for childlink in link.links -%}<a href="{{ childlink.url }}">{{ childlink.title }}</a>{%- endfor -%}
+                  {%- for childlink in link.links -%}
+                    {%- liquid
+                      assign child_down = childlink.title | downcase
+                      assign child_url = childlink.url
+                      if child_down == 'home'
+                        assign child_url = '/'
+                      elsif child_down contains 'body jelly'
+                        assign child_url = '/search?q=body+jelly&type=product'
+                      elsif child_down contains 'cleansing bar'
+                        assign child_url = '/search?q=cleansing+bar&type=product'
+                      elsif child_down contains 'burnt oil'
+                        assign child_url = '/search?q=burnt+oils&type=product'
+                      endif
+                    -%}
+                    <a href="{{ child_url }}">{{ childlink.title }}</a>
+                  {%- endfor -%}
                 </div>
               </details>
             {%- else -%}
-              <a class="suas-panel-link{% if link.active %} is-active{% endif %}" href="{{ link.url }}"><span class="suas-panel-icon" style="--icon-bg: {{ panel_color }};">{{ panel_icon }}</span><span class="suas-panel-label">{{ link.title }}</span><span class="suas-panel-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></a>
+              <a class="suas-panel-link{% if link.active %} is-active{% endif %}" href="{{ panel_url }}"><span class="suas-panel-icon" style="--icon-bg: {{ panel_color }};">{{ panel_icon }}</span><span class="suas-panel-label">{{ link.title }}</span><span class="suas-panel-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></a>
             {%- endif -%}
           {%- endfor -%}
         {%- else -%}
