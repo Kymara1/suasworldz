@@ -1,3 +1,9 @@
+{%- liquid
+  assign panel_menu = linklists[section.settings.control_menu]
+  if panel_menu == blank or panel_menu.links.size == 0
+    assign panel_menu = linklists['suas-control-panel']
+  endif
+-%}
 <section class="suas-control-panel" aria-label="SUAS control panel">
   <style>
     @font-face { font-family:'Casual Human'; src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype'); font-display:swap; }
@@ -13,6 +19,9 @@
     .suas-panel-brand { font-size:2rem; line-height:1; }
     .suas-panel-kicker { margin:24px 0 14px; font-size:10px; letter-spacing:.45em; text-transform:uppercase; color:rgba(16,16,16,.34); }
     .suas-panel-nav { display:grid; gap:10px; }
+    .suas-panel-dropdown { position:relative; display:block; }
+    .suas-panel-dropdown > summary { list-style:none; cursor:pointer; }
+    .suas-panel-dropdown > summary::-webkit-details-marker { display:none; }
     .suas-panel-link { min-height:56px; display:grid; grid-template-columns:50px 1fr auto; align-items:center; gap:10px; padding:8px 12px; border-radius:999px; color:var(--ink); text-decoration:none; transition:transform 160ms ease,background 160ms ease,color 160ms ease,box-shadow 160ms ease; }
     .suas-panel-link:hover { color:var(--ink); background:rgba(255,196,220,.42); transform:translateX(4px); }
     .suas-panel-link.is-active { min-height:70px; margin:6px -4px; padding:10px 16px; color:#fff; background:var(--ink); box-shadow:0 10px 0 rgba(16,16,16,.18); }
@@ -20,6 +29,9 @@
     .suas-panel-link.is-active .suas-panel-icon { border-color:rgba(255,255,255,.28); background:rgba(255,255,255,.1); }
     .suas-panel-label { font-size:1.65rem; line-height:1; text-transform:uppercase; }
     .suas-panel-number { font-size:11px; letter-spacing:.22em; color:currentColor; opacity:.48; font-weight:800; }
+    .suas-panel-submenu { display:grid; gap:7px; margin:4px 0 8px 58px; padding:9px; border:1px solid rgba(16,16,16,.1); border-radius:18px; background:rgba(255,255,255,.78); box-shadow:0 10px 24px -20px rgba(16,16,16,.45); }
+    .suas-panel-submenu a { min-height:32px; display:flex; align-items:center; padding:7px 11px; border-radius:999px; color:var(--ink); background:#fff; text-decoration:none; font-family:Futura,'Futura PT',Arial,sans-serif; font-size:10px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
+    .suas-panel-submenu a:hover { background:rgba(255,196,220,.54); }
     .suas-panel-status { margin-top:auto; min-height:82px; border-radius:999px; background:rgba(255,255,255,.86); box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 14px 34px rgba(16,16,16,.08); display:flex; align-items:center; gap:12px; padding:18px 22px; }
     .suas-panel-status-dot { width:9px; height:9px; border-radius:999px; background:var(--lime); box-shadow:0 0 16px rgba(217,255,120,.86); }
     .suas-panel-status b, .suas-panel-status span { display:block; font-size:11px; letter-spacing:.28em; text-transform:uppercase; }
@@ -30,25 +42,81 @@
     .suas-panel-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
     .suas-panel-button { min-height:52px; display:inline-flex; align-items:center; justify-content:center; border:2px solid var(--ink); border-radius:999px; padding:0 24px; background:#fff; color:var(--ink); box-shadow:0 5px 0 var(--ink); font-size:1.35rem; line-height:1; text-decoration:none; text-transform:uppercase; transition:transform 160ms ease,box-shadow 160ms ease,background 160ms ease; }
     .suas-panel-button:hover { background:var(--pink); color:var(--ink); transform:translateY(2px); box-shadow:0 3px 0 var(--ink); }
-    @media (max-width:860px){ .suas-panel-stage{min-height:0;grid-template-columns:1fr;} .suas-panel-shell{max-width:390px;margin:0 auto;border-radius:24px;} .suas-panel-copy{text-align:center;order:-1;} .suas-panel-copy p{margin-left:auto;margin-right:auto;} .suas-panel-actions{justify-content:center;} }
+    @media (max-width:860px){ .suas-panel-stage{min-height:0;grid-template-columns:1fr;} .suas-panel-shell{max-width:390px;margin:0 auto;border-radius:24px;} .suas-panel-copy{text-align:center;order:-1;} .suas-panel-copy p{margin-left:auto;margin-right:auto;} .suas-panel-actions{justify-content:center;} .suas-panel-submenu{margin-left:0;} }
   </style>
   <div class="suas-panel-stage">
     <aside class="suas-panel-shell"><div class="suas-panel-inner">
       <div class="suas-panel-logo-row"><span class="suas-panel-orb" aria-hidden="true"></span><span class="suas-panel-brand">SUAS</span></div>
       <p class="suas-panel-kicker">control panel</p>
       <nav class="suas-panel-nav" aria-label="SUAS quick links">
-        <a class="suas-panel-link" href="/collections/body-care"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">o</span><span class="suas-panel-label">body</span><span class="suas-panel-number">01</span></a>
-        <a class="suas-panel-link" href="/collections/home-care"><span class="suas-panel-icon" style="--icon-bg: var(--yellow);">i</span><span class="suas-panel-label">home</span><span class="suas-panel-number">02</span></a>
-        <a class="suas-panel-link" href="/collections/masculine"><span class="suas-panel-icon" style="--icon-bg: var(--blue);">*</span><span class="suas-panel-label">masculine</span><span class="suas-panel-number">03</span></a>
-        <a class="suas-panel-link" href="/collections/feminine"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">x</span><span class="suas-panel-label">feminine</span><span class="suas-panel-number">04</span></a>
-        <a class="suas-panel-link" href="/collections/oddities"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">*</span><span class="suas-panel-label">oddities</span><span class="suas-panel-number">05</span></a>
-        <a class="suas-panel-link is-active" href="/pages/the-lab"><span class="suas-panel-icon" style="--icon-bg: var(--lime);">/</span><span class="suas-panel-label">the lab</span><span class="suas-panel-number">06</span></a>
-        <a class="suas-panel-link" href="/pages/visit-us"><span class="suas-panel-icon" style="--icon-bg: var(--blue);">!</span><span class="suas-panel-label">visit us</span><span class="suas-panel-number">07</span></a>
+        {%- if panel_menu != blank and panel_menu.links.size > 0 -%}
+          {%- for link in panel_menu.links -%}
+            {%- liquid
+              assign title_down = link.title | downcase
+              assign panel_icon = forloop.index
+              assign panel_color = 'var(--violet)'
+              if title_down contains 'body'
+                assign panel_icon = 'o'
+                assign panel_color = 'var(--pink)'
+              elsif title_down contains 'home'
+                assign panel_icon = 'i'
+                assign panel_color = 'var(--yellow)'
+              elsif title_down contains 'masculine'
+                assign panel_icon = '*'
+                assign panel_color = 'var(--blue)'
+              elsif title_down contains 'feminine'
+                assign panel_icon = 'x'
+                assign panel_color = 'var(--pink)'
+              elsif title_down contains 'lab'
+                assign panel_icon = '/'
+                assign panel_color = 'var(--lime)'
+              elsif title_down contains 'visit'
+                assign panel_icon = '!'
+                assign panel_color = 'var(--blue)'
+              elsif title_down contains 'about'
+                assign panel_icon = '?'
+                assign panel_color = 'var(--violet)'
+              endif
+            -%}
+            {%- if link.links.size > 0 -%}
+              <details class="suas-panel-dropdown">
+                <summary class="suas-panel-link{% if link.active or link.child_active %} is-active{% endif %}"><span class="suas-panel-icon" style="--icon-bg: {{ panel_color }};">{{ panel_icon }}</span><span class="suas-panel-label">{{ link.title }}</span><span class="suas-panel-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></summary>
+                <div class="suas-panel-submenu">
+                  {%- for childlink in link.links -%}<a href="{{ childlink.url }}">{{ childlink.title }}</a>{%- endfor -%}
+                </div>
+              </details>
+            {%- else -%}
+              <a class="suas-panel-link{% if link.active %} is-active{% endif %}" href="{{ link.url }}"><span class="suas-panel-icon" style="--icon-bg: {{ panel_color }};">{{ panel_icon }}</span><span class="suas-panel-label">{{ link.title }}</span><span class="suas-panel-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></a>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">o</span><span class="suas-panel-label">body</span><span class="suas-panel-number">01</span></summary><div class="suas-panel-submenu"><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/search?q=body+jelly&type=product">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/search?q=cleansing+bar&type=product">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div></details>
+          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--yellow);">i</span><span class="suas-panel-label">home</span><span class="suas-panel-number">02</span></summary><div class="suas-panel-submenu"><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/search?q=burnt+oils&type=product">Burnt Oils</a></div></details>
+          <a class="suas-panel-link" href="/collections/masculine"><span class="suas-panel-icon" style="--icon-bg: var(--blue);">*</span><span class="suas-panel-label">masculine</span><span class="suas-panel-number">03</span></a>
+          <a class="suas-panel-link" href="/collections/feminine"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">x</span><span class="suas-panel-label">feminine</span><span class="suas-panel-number">04</span></a>
+          <a class="suas-panel-link" href="/collections/oddities"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">*</span><span class="suas-panel-label">oddities</span><span class="suas-panel-number">05</span></a>
+          <a class="suas-panel-link is-active" href="/pages/shut-up-and-smell"><span class="suas-panel-icon" style="--icon-bg: var(--lime);">/</span><span class="suas-panel-label">the lab</span><span class="suas-panel-number">06</span></a>
+          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">?</span><span class="suas-panel-label">about us</span><span class="suas-panel-number">07</span></summary><div class="suas-panel-submenu"><a href="/pages/about">Who Are We</a><a href="/pages/bookings">Bookings</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
+        {%- endif -%}
       </nav>
       <div class="suas-panel-status"><span class="suas-panel-status-dot" aria-hidden="true"></span><div><b>lab status</b><span>open + mixing</span></div></div>
       <div class="suas-panel-foot" aria-hidden="true"><span>account</span><span>about</span><span>v.04</span></div>
     </div></aside>
-    <div class="suas-panel-copy"><h2>pick your door.</h2><p>A softer way into the SUAS world: shop by mood, visit the lab, or jump straight into the pieces people ask for in store.</p><div class="suas-panel-actions"><a class="suas-panel-button" href="/pages/the-lab">enter the lab</a><a class="suas-panel-button" href="/collections/all">shop smells</a></div></div>
+    <div class="suas-panel-copy"><h2>{{ section.settings.hero_title }}</h2><p>{{ section.settings.hero_text }}</p><div class="suas-panel-actions"><a class="suas-panel-button" href="{{ section.settings.primary_url }}">{{ section.settings.primary_label }}</a><a class="suas-panel-button" href="{{ section.settings.secondary_url }}">{{ section.settings.secondary_label }}</a></div></div>
   </div>
 </section>
-{% schema %}{"name":"SUAS Control Panel","settings":[],"presets":[{"name":"SUAS Control Panel"}]}{% endschema %}
+{% schema %}
+{
+  "name": "SUAS Control Panel",
+  "settings": [
+    { "type": "link_list", "id": "control_menu", "label": "Control panel menu", "default": "suas-control-panel" },
+    { "type": "text", "id": "hero_title", "label": "Hero title", "default": "pick your door." },
+    { "type": "textarea", "id": "hero_text", "label": "Hero text", "default": "A softer way into the SUAS world: shop by mood, visit the lab, or jump straight into the pieces people ask for in store." },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "enter the lab" },
+    { "type": "url", "id": "primary_url", "label": "Primary button link", "default": "/pages/shut-up-and-smell" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "shop smells" },
+    { "type": "url", "id": "secondary_url", "label": "Secondary button link", "default": "/collections/all" }
+  ],
+  "presets": [{ "name": "SUAS Control Panel" }]
+}
+{% endschema %}
