@@ -67,38 +67,6 @@
     },
     "blocks_qe9Wxt": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_41ae62a_cKzqwa": {
-          "type": "ai_gen_block_41ae62a",
-          "settings": {
-            "button_text": "Back to Shop",
-            "back_url": "shopify://pages/shut-up-and-smell",
-            "show_icon": true,
-            "icon_size": 20,
-            "icon_spacing": 10,
-            "button_font": "outfit_n5",
-            "font_size": 20,
-            "button_bg_color": "#161616",
-            "button_text_color": "#ffffff",
-            "button_hover_bg_color": "#000000",
-            "button_hover_text_color": "#ffffff",
-            "border_width": 0,
-            "border_color": "#161616",
-            "border_hover_color": "#000000",
-            "border_radius": 50,
-            "button_padding_vertical": 16,
-            "button_padding_horizontal": 16,
-            "alignment": "flex-start",
-            "mobile_alignment": "flex-start",
-            "padding_top": 20,
-            "padding_bottom": 20
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_41ae62a_cKzqwa"
-      ],
       "name": "Back button",
       "settings": {}
     },
