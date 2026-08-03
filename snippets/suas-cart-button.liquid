@@ -11,13 +11,8 @@
   </a>
 
   <style>
-    .suas-side-rail {
-      position: fixed;
-    }
-
-    .suas-side-about-dropdown {
-      display: none !important;
-    }
+    .suas-side-rail { position: fixed; }
+    .suas-side-about-dropdown { display: none !important; }
 
     .suas-floating-cart {
       position: absolute;
@@ -95,11 +90,150 @@
       line-height: 1;
     }
 
-    @media (max-width: 1023px) {
-      .suas-side-rail {
-        position: sticky;
-      }
+    .suas-lab-floater { display: none !important; }
+    .suas-product-rotator .suas-product-slide { pointer-events: none !important; }
+    .suas-product-rotator .suas-product-slide.is-suas-active-product { pointer-events: auto !important; }
 
+    .suas-bookings-page .suas-book-select,
+    .suas-bookings-page .suas-self-time-select {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .suas-click-list {
+      display: grid;
+      gap: 8px;
+      margin: 8px 0 16px;
+    }
+
+    .suas-click-list[data-columns="2"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .suas-click-option {
+      min-height: 46px;
+      padding: 10px 13px;
+      border: 1.8px solid #101010;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      color: #101010;
+      box-shadow: 0 3px 0 #101010;
+      font: 900 11px/1.1 Futura, Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .suas-click-option:hover,
+    .suas-click-option:focus-visible {
+      background: #ffd8e8;
+      transform: translateY(1px);
+      box-shadow: 0 2px 0 #101010;
+      outline: none;
+    }
+
+    .suas-click-option.is-selected {
+      background: #101010;
+      color: #fff;
+      box-shadow: 0 4px 0 rgba(16, 16, 16, 0.38);
+    }
+
+    .suas-click-option:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      box-shadow: none;
+    }
+
+    .suas-formula-save,
+    .suas-review-submit-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 24px;
+      border: 2px solid #101010;
+      border-radius: 999px;
+      background: #d9ff78;
+      color: #101010;
+      box-shadow: 0 4px 0 #101010;
+      font: 900 12px/1 Futura, Arial, sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .suas-formula-save-note,
+    .suas-review-save-note {
+      margin-top: 8px;
+      font: 700 12px/1.35 Futura, Arial, sans-serif;
+      color: rgba(16, 16, 16, 0.58);
+    }
+
+    .suas-review-form-card {
+      width: min(760px, 100%);
+      margin: 24px auto 0;
+      padding: clamp(18px, 3vw, 28px);
+      border: 2px solid #101010;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #fff 0%, #ffd8e8 130%);
+      box-shadow: 6px 7px 0 #101010;
+    }
+
+    .suas-review-form-card h3 {
+      margin: 0 0 14px;
+      font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 400 !important;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .suas-review-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .suas-review-form-card input,
+    .suas-review-form-card select,
+    .suas-review-form-card textarea {
+      width: 100%;
+      min-height: 48px;
+      border: 1.5px solid rgba(16, 16, 16, 0.24);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 12px 14px;
+      color: #101010;
+      font: 700 14px/1.25 Futura, Arial, sans-serif;
+    }
+
+    .suas-review-form-card textarea {
+      grid-column: 1 / -1;
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .shopify-policy__container {
+      max-width: 900px !important;
+      margin: 0 auto !important;
+      padding: clamp(48px, 7vw, 92px) 22px !important;
+      font-family: Futura, Arial, sans-serif;
+    }
+
+    .shopify-policy__title h1 {
+      font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+      font-size: clamp(3.8rem, 8vw, 7rem) !important;
+      font-weight: 400 !important;
+      line-height: 0.85 !important;
+      text-transform: lowercase;
+    }
+
+    @media (max-width: 1023px) {
+      .suas-side-rail { position: sticky; }
       .suas-floating-cart {
         top: 11px;
         right: 14px;
@@ -107,21 +241,12 @@
         height: 34px;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 6px 14px -10px rgba(16, 16, 16, 0.5);
       }
-
       .suas-floating-cart__icon,
-      .suas-floating-cart__icon svg {
-        width: 18px;
-        height: 18px;
-      }
-
-      .suas-floating-cart__count {
-        top: -5px;
-        right: -7px;
-        min-width: 18px;
-        height: 18px;
-        padding: 0 4px;
-        font-size: 9px;
-      }
+      .suas-floating-cart__icon svg { width: 18px; height: 18px; }
+      .suas-floating-cart__count { top: -5px; right: -7px; min-width: 18px; height: 18px; padding: 0 4px; font-size: 9px; }
+      .suas-click-list[data-columns="2"] { grid-template-columns: 1fr; }
+      .suas-click-option { min-height: 42px; padding: 9px 12px; font-size: 10px; }
+      .suas-review-form-grid { grid-template-columns: 1fr; }
     }
   </style>
 
@@ -136,16 +261,170 @@
         rail.insertBefore(cartButton, kicker || rail.firstChild);
       }
 
-      if (!countNode) return;
+      if (countNode) {
+        fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
+          .then((response) => response.ok ? response.json() : null)
+          .then((cart) => {
+            if (cart && typeof cart.item_count === 'number') countNode.textContent = cart.item_count;
+          })
+          .catch(() => {});
+      }
 
-      fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
-        .then((response) => response.ok ? response.json() : null)
-        .then((cart) => {
-          if (cart && typeof cart.item_count === 'number') {
-            countNode.textContent = cart.item_count;
+      const ready = (callback) => {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', callback, { once: true });
+        else callback();
+      };
+
+      const rewriteControlPanelLinks = () => {
+        document.querySelectorAll('.suas-side-rail a, .suas-mobile-panel a').forEach((link) => {
+          const label = (link.textContent || '').trim().toLowerCase();
+          if (label.includes('who are we')) link.href = '/pages/who-are-we';
+          if (label.includes('contact us')) link.href = '/pages/contact';
+          if (label.includes('refund policy')) link.href = '/pages/refund-policy';
+          if (label.includes('bookings')) link.href = '/pages/bookings';
+        });
+      };
+
+      const syncProductRotatorLinks = () => {
+        document.querySelectorAll('.suas-product-rotator').forEach((rotator) => {
+          const slides = Array.from(rotator.querySelectorAll('.suas-product-slide[href]'));
+          if (!slides.length) return;
+          const secondsPerSlide = 4;
+          const startedAt = Date.now();
+          const activate = () => {
+            const index = Math.floor(((Date.now() - startedAt) / 1000) / secondsPerSlide) % slides.length;
+            slides.forEach((slide, slideIndex) => {
+              slide.classList.toggle('is-suas-active-product', slideIndex === index);
+              slide.setAttribute('aria-hidden', slideIndex === index ? 'false' : 'true');
+            });
+          };
+          activate();
+          window.setInterval(activate, 450);
+        });
+      };
+
+      const makeClickList = (select, columns) => {
+        if (!select || select.dataset.suasClickListReady === 'true') return;
+        const options = Array.from(select.options).filter((option) => option.value);
+        if (!options.length) return;
+        select.dataset.suasClickListReady = 'true';
+        const list = document.createElement('div');
+        list.className = 'suas-click-list';
+        list.dataset.columns = columns || (options.length > 3 ? '2' : '1');
+        options.forEach((option) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'suas-click-option';
+          button.textContent = option.textContent.trim();
+          button.disabled = option.disabled;
+          button.addEventListener('click', () => {
+            select.value = option.value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            Array.from(list.children).forEach((child) => child.classList.remove('is-selected'));
+            button.classList.add('is-selected');
+          });
+          if (option.selected) button.classList.add('is-selected');
+          list.appendChild(button);
+        });
+        select.insertAdjacentElement('afterend', list);
+      };
+
+      const polishBookings = () => {
+        document.querySelectorAll('.suas-bookings-page select.suas-book-select').forEach((select) => makeClickList(select, '1'));
+        document.querySelectorAll('.suas-bookings-page select.suas-self-time-select').forEach((select) => makeClickList(select, '2'));
+      };
+
+      const polishFormulaBuilder = () => {
+        const builder = document.querySelector('.suas-formula-builder');
+        if (!builder || builder.dataset.suasFormulaPolished === 'true') return;
+        builder.dataset.suasFormulaPolished = 'true';
+        builder.querySelectorAll('[data-size]').forEach((button) => {
+          button.dataset.max = '4';
+          button.innerHTML = button.innerHTML.replace(/Up to [23] notes/gi, 'Up to 4 notes').replace(/Combo Sesh/g, 'Combo Session');
+        });
+        builder.querySelectorAll('*').forEach((node) => {
+          if (node.childNodes.length === 1 && node.firstChild.nodeType === Node.TEXT_NODE) {
+            node.textContent = node.textContent.replace(/up to [23] scent notes/gi, 'up to 4 scent notes').replace(/up to four notes/gi, 'up to four notes');
           }
-        })
-        .catch(() => {});
+        });
+        const actionRow = builder.querySelector('.suas-formula-actions') || builder.querySelector('button[data-copy]')?.parentElement;
+        if (!actionRow || actionRow.querySelector('[data-suas-save-formula]')) return;
+        const save = document.createElement('button');
+        save.type = 'button';
+        save.className = 'suas-formula-save';
+        save.dataset.suasSaveFormula = 'true';
+        save.textContent = 'save formula';
+        const note = document.createElement('div');
+        note.className = 'suas-formula-save-note';
+        note.textContent = 'Saved formulas stay on this device for now. Customer-profile sync needs Shopify app/backend access.';
+        save.addEventListener('click', () => {
+          const formulaText = builder.querySelector('[data-formula-output], .suas-formula-output, textarea, pre')?.textContent || builder.innerText;
+          const saved = JSON.parse(localStorage.getItem('suasSavedFormulas') || '[]');
+          saved.unshift({ createdAt: new Date().toISOString(), formula: formulaText.slice(0, 1200) });
+          localStorage.setItem('suasSavedFormulas', JSON.stringify(saved.slice(0, 20)));
+          note.textContent = 'Formula saved to this device.';
+        });
+        actionRow.append(save, note);
+        const active = builder.querySelector('[data-size].is-active, [data-size][aria-pressed="true"]') || builder.querySelector('[data-size]');
+        if (active) setTimeout(() => active.click(), 50);
+      };
+
+      const labReviews = [
+        ['Lab Session: Body Oil', 'Maya', 'I made a body oil that smells like my actual personality. Smooth, cute, not too loud.', '#fff2a6'],
+        ['Lab Session: Eau De Parfum', 'Jalen', 'The 30 mL perfume session was easy to follow and my scent came out better than I expected.', '#ffd8e8'],
+        ['Combo Session', 'Staci', 'Perfume and body oil together was the move. I left smelling expensive and proud.', '#bfe8ff'],
+        ['Deluxe Lab Session', 'Katrina', 'The guided class made me feel like I knew what I was doing. Loved the whole setup.', '#d9ff78'],
+        ['The Lab', 'Jess', 'Cute, calm, and personal. I would do this again with friends.', '#e4d5ff'],
+        ['The Lab', 'Sherry', 'Such a good date idea. The label moment made it feel finished.', '#ffc3d7']
+      ];
+
+      const addReviewsForm = () => {
+        document.querySelectorAll('.suas-reviews').forEach((section) => {
+          if (section.dataset.suasReviewFormReady === 'true') return;
+          section.dataset.suasReviewFormReady = 'true';
+          const wrap = section.querySelector('.suas-reviews-wrap') || section;
+          const heading = section.querySelector('h2')?.textContent || '';
+          const isLabPage = /lab love|shut-up-and-smell|the lab/i.test(heading + ' ' + location.pathname);
+          if (isLabPage) {
+            section.querySelectorAll('.suas-review-bubble').forEach((bubble, index) => {
+              const review = labReviews[index % labReviews.length];
+              bubble.dataset.product = review[0];
+              bubble.dataset.name = review[1];
+              bubble.dataset.review = review[2];
+              bubble.dataset.color = review[3];
+              bubble.style.setProperty('--bubble-bg', review[3]);
+              const label = bubble.querySelector('span');
+              const name = bubble.querySelector('em');
+              if (label) label.textContent = review[0];
+              if (name) name.textContent = review[1];
+            });
+          }
+          const form = document.createElement('form');
+          form.className = 'suas-review-form-card';
+          form.innerHTML = '<h3>leave a love note.</h3><div class="suas-review-form-grid"><select name="type" aria-label="Review type"><option>Lab Experience</option><option>Product Review</option></select><input name="product" placeholder="Product or experiment name" required><input name="name" placeholder="Your name" required><select name="rating" aria-label="Rating"><option>★★★★★</option><option>★★★★☆</option><option>★★★☆☆</option></select><textarea name="review" placeholder="Tell us what you loved" required></textarea></div><button class="suas-review-submit-button" type="submit">submit review</button><p class="suas-review-save-note">Your note appears on this device. Public review publishing needs a review app or backend connection.</p>';
+          form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const data = Object.fromEntries(new FormData(form).entries());
+            const key = data.type === 'Product Review' ? 'suasProductReviews' : 'suasLabReviews';
+            const saved = JSON.parse(localStorage.getItem(key) || '[]');
+            saved.unshift({ ...data, createdAt: new Date().toISOString() });
+            localStorage.setItem(key, JSON.stringify(saved.slice(0, 30)));
+            form.querySelector('.suas-review-save-note').textContent = 'Review saved. Thank you for the love note.';
+            form.reset();
+          });
+          wrap.appendChild(form);
+        });
+      };
+
+      ready(() => {
+        rewriteControlPanelLinks();
+        syncProductRotatorLinks();
+        polishBookings();
+        polishFormulaBuilder();
+        addReviewsForm();
+        setTimeout(polishBookings, 350);
+        setTimeout(polishBookings, 900);
+      });
     })();
   </script>
 {% endunless %}
