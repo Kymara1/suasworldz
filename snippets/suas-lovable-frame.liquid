@@ -52,10 +52,11 @@
     .suas-frame-marquee{height:34px;}.suas-frame-marquee-track span{padding:0 18px;font-size:15px;}
     .suas-side-head{justify-content:center;gap:10px;padding:4px 0 8px;}.suas-side-orb{width:28px;height:28px;}.suas-side-brand{font-size:1.35rem;line-height:1;}
     .suas-side-kicker,.suas-side-status,.suas-side-foot{display:none;}
-    .suas-side-nav{flex:none;display:flex;gap:8px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}.suas-side-nav::-webkit-scrollbar{display:none;}
-    .suas-side-link{min-height:40px;flex:0 0 auto;grid-template-columns:26px auto;gap:7px;padding:7px 11px 7px 8px;border:1px solid rgba(16,16,16,.1);background:rgba(255,255,255,.82);box-shadow:0 4px 0 rgba(16,16,16,.12);}
-    .suas-side-link.is-active{min-height:40px;margin:0;box-shadow:0 4px 0 rgba(16,16,16,.25);}.suas-side-icon{width:24px;height:24px;font-size:12px;}.suas-side-label{font-size:1rem;line-height:1;white-space:nowrap;}.suas-side-num{display:none;}
-    .suas-side-dropdown[open]{flex:1 0 100%;order:99;width:100%;margin-top:4px;}.suas-side-dropdown[open] > .suas-side-link{width:fit-content;margin:0 auto 8px;background:#ffd8e8;}
+    .suas-side-nav{flex:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;overflow:visible;padding:2px 0 4px;}
+    .suas-side-nav > :not([data-suas-mobile-keep="true"]){display:none!important;}
+    .suas-side-link{min-height:38px;width:100%;grid-template-columns:24px minmax(0,1fr);gap:6px;padding:7px 8px;border:1px solid rgba(16,16,16,.1);background:rgba(255,255,255,.82);box-shadow:0 4px 0 rgba(16,16,16,.12);}
+    .suas-side-link.is-active{min-height:38px;margin:0;box-shadow:0 4px 0 rgba(16,16,16,.25);}.suas-side-icon{width:23px;height:23px;font-size:12px;}.suas-side-label{font-size:.96rem;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.suas-side-num{display:none;}
+    .suas-side-dropdown[open]{grid-column:1/-1;order:99;width:100%;margin-top:4px;}.suas-side-dropdown[open] > .suas-side-link{width:fit-content;min-width:104px;margin:0 auto 8px;background:#ffd8e8;}
     .suas-side-dropdown[open] .suas-panel-submenu{margin:0;padding:10px;max-height:46vh;overflow-y:auto;border-radius:20px;background:rgba(255,255,255,.98);}.suas-panel-submenu a{justify-content:center;min-height:40px;text-align:center;font-size:.92rem;line-height:1.05;}
   }
 </style>
@@ -70,14 +71,19 @@
         {%- for link in side_menu.links -%}
           {%- liquid
             assign title_down = link.title | downcase
+            assign title_handle = link.title | handleize
+            assign mobile_keep = false
+            assign is_about = false
             assign side_icon = forloop.index
             assign side_color = 'var(--suas-lav)'
             if title_down contains 'body'
               assign side_icon = 'o'
               assign side_color = 'var(--suas-pink)'
+              assign mobile_keep = true
             elsif title_down contains 'home'
               assign side_icon = 'i'
               assign side_color = 'var(--suas-sun)'
+              assign mobile_keep = true
             elsif title_down contains 'masculine'
               assign side_icon = '*'
               assign side_color = 'var(--suas-blue)'
@@ -93,25 +99,35 @@
             elsif title_down contains 'about'
               assign side_icon = '?'
               assign side_color = 'var(--suas-lav)'
+              assign mobile_keep = true
+              assign is_about = true
             endif
           -%}
-          {%- if link.links.size > 0 -%}
-            <details class="suas-panel-dropdown suas-side-dropdown">
+          {%- if link.links.size > 0 or is_about -%}
+            {%- liquid assign has_visit = false -%}
+            <details class="suas-panel-dropdown suas-side-dropdown" data-suas-menu-title="{{ title_handle }}"{% if mobile_keep %} data-suas-mobile-keep="true"{% endif %}>
               <summary class="suas-side-link{% if link.active or link.child_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: {{ side_color }};">{{ side_icon }}</span><span class="suas-side-label">{{ link.title }}</span><span class="suas-side-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></summary>
-              <div class="suas-panel-submenu">{%- for childlink in link.links -%}<a href="{{ childlink.url }}">{{ childlink.title }}</a>{%- endfor -%}</div>
+              <div class="suas-panel-submenu">
+                {%- for childlink in link.links -%}
+                  {%- liquid assign child_down = childlink.title | downcase -%}
+                  {%- if child_down contains 'visit' -%}{%- liquid assign has_visit = true -%}{%- endif -%}
+                  <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+                {%- endfor -%}
+                {%- if is_about and has_visit == false -%}<a href="/pages/visit-us">Visit Us</a>{%- endif -%}
+              </div>
             </details>
           {%- else -%}
-            <a class="suas-side-link{% if link.active %} is-active{% endif %}" href="{{ link.url }}"><span class="suas-side-icon" style="--tint: {{ side_color }};">{{ side_icon }}</span><span class="suas-side-label">{{ link.title }}</span><span class="suas-side-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></a>
+            <a class="suas-side-link{% if link.active %} is-active{% endif %}" data-suas-menu-title="{{ title_handle }}"{% if mobile_keep %} data-suas-mobile-keep="true"{% endif %} href="{{ link.url }}"><span class="suas-side-icon" style="--tint: {{ side_color }};">{{ side_icon }}</span><span class="suas-side-label">{{ link.title }}</span><span class="suas-side-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></a>
           {%- endif -%}
         {%- endfor -%}
       {%- else -%}
-        <details class="suas-panel-dropdown suas-side-dropdown"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-pink);">o</span><span class="suas-side-label">body</span><span class="suas-side-num">01</span></summary><div class="suas-panel-submenu"><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/search?q=body+jelly&type=product">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/search?q=cleansing+bar&type=product">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div></details>
-        <details class="suas-panel-dropdown suas-side-dropdown"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-sun);">i</span><span class="suas-side-label">home</span><span class="suas-side-num">02</span></summary><div class="suas-panel-submenu"><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/search?q=burnt+oils&type=product">Burnt Oils</a></div></details>
+        <details class="suas-panel-dropdown suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-pink);">o</span><span class="suas-side-label">body</span><span class="suas-side-num">01</span></summary><div class="suas-panel-submenu"><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/search?q=body+jelly&type=product">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/search?q=cleansing+bar&type=product">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div></details>
+        <details class="suas-panel-dropdown suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-sun);">i</span><span class="suas-side-label">home</span><span class="suas-side-num">02</span></summary><div class="suas-panel-submenu"><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/search?q=burnt+oils&type=product">Burnt Oils</a></div></details>
         <a class="suas-side-link" href="/collections/masculine"><span class="suas-side-icon" style="--tint: var(--suas-blue);">*</span><span class="suas-side-label">masculine</span><span class="suas-side-num">03</span></a>
         <a class="suas-side-link" href="/collections/feminine"><span class="suas-side-icon" style="--tint: var(--suas-pink);">x</span><span class="suas-side-label">feminine</span><span class="suas-side-num">04</span></a>
         <a class="suas-side-link" href="/collections/oddities"><span class="suas-side-icon" style="--tint: var(--suas-lav);">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">05</span></a>
         <a class="suas-side-link{% if request.path contains '/pages/shut-up-and-smell' or request.path contains '/pages/build-your-formula' %} is-active{% endif %}" href="/pages/shut-up-and-smell"><span class="suas-side-icon" style="--tint: var(--suas-lime);">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">06</span></a>
-        <details class="suas-panel-dropdown suas-side-dropdown"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-lav);">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">07</span></summary><div class="suas-panel-submenu"><a href="/pages/about">Who Are We</a><a href="/pages/bookings">Bookings</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
+        <details class="suas-panel-dropdown suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-lav);">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">07</span></summary><div class="suas-panel-submenu"><a href="/pages/about">Who Are We</a><a href="/pages/bookings">Bookings</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
       {%- endif -%}
     </nav>
     <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>lab status</b><span>open + mixing</span></div></div>
