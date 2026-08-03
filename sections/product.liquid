@@ -275,9 +275,16 @@
           echo content_blocks
           echo '</div>'
         endunless
-
-        echo variant_media
       -%}
+
+      {%- unless variant_media == blank -%}
+        <div class="suas-product-media-gallery" aria-label="More product photos">
+          <div class="suas-product-gallery-label">smells like this.</div>
+          <div class="suas-product-gallery-track">
+            {{ variant_media }}
+          </div>
+        </div>
+      {%- endunless -%}
     </div>
   </div>
 
