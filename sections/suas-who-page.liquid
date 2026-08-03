@@ -1,0 +1,22 @@
+<section class="suas-story-page" aria-label="Who are we">
+  <style>
+    @font-face { font-family:'Casual Human'; src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype'); font-display:swap; }
+    @font-face { font-family:'Casual Human'; src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype'); font-weight:700; font-display:swap; }
+    .suas-story-page{--ink:#101010;--pink:#ffd8e8;--blue:#cdeeff;--lime:#d9ff78;min-height:86vh;padding:clamp(42px,6vw,78px) clamp(18px,4vw,56px);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 88% 18%,rgba(217,255,120,.28),transparent 28%),radial-gradient(circle at 8% 82%,rgba(255,216,232,.52),transparent 30%),#fbfaf7;background-size:22px 22px,22px 22px,auto,auto,auto;color:var(--ink)}
+    .suas-story-inner{max-width:980px;margin:0 auto}.suas-story-kicker{font:800 .78rem/1 Futura,Arial,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:rgba(16,16,16,.48)}
+    .suas-story-title,.suas-story-card h2,.suas-story-pill{font-family:'Casual Human',Futura,Arial,sans-serif!important;letter-spacing:0!important}.suas-story-title{margin:18px 0 24px;font-size:clamp(4.2rem,10vw,8.4rem);font-weight:400!important;line-height:.82;text-transform:lowercase}.suas-story-lede{max-width:760px;font:700 clamp(1.02rem,1.5vw,1.25rem)/1.7 Futura,Arial,sans-serif;color:rgba(16,16,16,.68)}
+    .suas-story-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:34px}.suas-story-card{border:2px solid var(--ink);border-radius:26px;background:rgba(255,255,255,.78);box-shadow:7px 8px 0 var(--ink);padding:clamp(20px,3vw,30px)}.suas-story-card:nth-child(2){background:linear-gradient(140deg,#fff 0%,var(--blue) 150%)}.suas-story-card h2{margin:0 0 16px;font-size:clamp(2.5rem,5vw,4.6rem);font-weight:400!important;line-height:.9;text-transform:lowercase}.suas-story-card p{margin:0 0 14px;font:700 1rem/1.68 Futura,Arial,sans-serif;color:rgba(16,16,16,.68)}
+    .suas-story-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.suas-story-pill{display:inline-flex;align-items:center;min-height:42px;padding:8px 16px;border:2px solid var(--ink);border-radius:999px;background:var(--pink);box-shadow:0 3px 0 var(--ink);font-size:1.25rem;text-transform:lowercase}.suas-story-pill:nth-child(2n){background:var(--lime)}.suas-story-pill:nth-child(3n){background:var(--blue)}
+    @media(max-width:820px){.suas-story-grid{grid-template-columns:1fr}.suas-story-title{font-size:clamp(3.6rem,17vw,5.8rem)}}
+  </style>
+  <div class="suas-story-inner">
+    <p class="suas-story-kicker">suas.os / about</p>
+    <h1 class="suas-story-title">who are we?</h1>
+    <div class="suas-story-lede"><p>SUAS is Shut Up & Smell: a Gastonia scent studio for people who like their self care with a little personality, a little softness, and a lot of “wait, what is that?”</p></div>
+    <div class="suas-story-grid">
+      <article class="suas-story-card"><h2>the short version.</h2><p>We make fragrance, body care, home scent, and tiny little mood experiments by hand. The store is part shop, part lab, part place to remember that smelling good can be an actual activity.</p><p>Come in for your favorites, build something custom, or wander until a scent chooses you. We support all three methods.</p></article>
+      <article class="suas-story-card"><h2>what we’re about.</h2><p>Playful formulas. Soft skin. Good stories. Scent memories you can wear, spray, burn, gift, or keep all to yourself.</p><div class="suas-story-pills"><span class="suas-story-pill">handmade</span><span class="suas-story-pill">gastonia grown</span><span class="suas-story-pill">fragrance first</span><span class="suas-story-pill">a little weird</span></div></article>
+    </div>
+  </div>
+</section>
+{% schema %}{"name":"SUAS Who We Are","settings":[],"presets":[{"name":"SUAS Who We Are"}]}{% endschema %}
