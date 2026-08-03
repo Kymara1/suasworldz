@@ -34,6 +34,10 @@ html body.template--product .product-page--content-blocks:empty {
   display: none !important;
 }
 
+html body.template--product .suas-product-media-gallery:not(:has(img)) {
+  display: none !important;
+}
+
 html body.template--product .suas-product-media-gallery {
   width: min(760px, 100%) !important;
   margin: 0 auto clamp(34px, 5vw, 58px) !important;
@@ -192,6 +196,19 @@ html body.template--product .suas-review-app-stage {
   background: transparent !important;
 }
 
+html body.template--product .suas-review-app-stage *,
+html body.template--product .suas-review-app-stage *::before,
+html body.template--product .suas-review-app-stage *::after {
+  box-sizing: border-box !important;
+}
+
+html body.template--product .suas-review-app-stage div,
+html body.template--product .suas-review-app-stage section,
+html body.template--product .suas-review-app-stage article,
+html body.template--product .suas-review-app-stage form {
+  background-color: transparent !important;
+}
+
 html body.template--product .suas-review-app-stage .shopify-app-block,
 html body.template--product .suas-review-app-stage #aftership_reviews_carousel_v2_production,
 html body.template--product .suas-review-app-stage #aftership_reviews_all_reviews_widget_production,
@@ -201,12 +218,16 @@ html body.template--product .suas-review-app-stage .spr-container,
 html body.template--product .suas-review-app-stage #shopify-product-reviews {
   width: 100% !important;
   max-width: 100% !important;
-  min-height: 160px !important;
+  min-height: 150px !important;
   margin: 0 !important;
   padding: clamp(16px, 2vw, 24px) !important;
   border: 2px solid var(--suas-ink) !important;
   border-radius: 24px !important;
-  background: rgba(255, 255, 255, .72) !important;
+  background:
+    linear-gradient(rgba(16, 16, 16, .02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, .02) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255, 216, 232, .74), rgba(255,255,255,.7) 55%, rgba(217, 255, 120, .42)) !important;
+  background-size: 18px 18px, 18px 18px, auto !important;
   box-shadow: 5px 6px 0 var(--suas-ink) !important;
   overflow: hidden !important;
 }
@@ -217,6 +238,48 @@ html body.template--product .suas-review-app-stage iframe {
   border: 0 !important;
   border-radius: 18px !important;
   background: transparent !important;
+}
+
+html body.template--product div:has(input[type='email']):has(textarea),
+html body.template--product section:has(input[type='email']):has(textarea),
+html body.template--product form:has(input[type='email']):has(textarea) {
+  border: 2px solid var(--suas-ink) !important;
+  border-radius: 28px !important;
+  background:
+    linear-gradient(rgba(16,16,16,.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,16,16,.026) 1px, transparent 1px),
+    radial-gradient(circle at 12% 18%, rgba(255,216,232,.92), transparent 30%),
+    radial-gradient(circle at 88% 80%, rgba(217,255,120,.55), transparent 30%),
+    #fffafc !important;
+  background-size: 18px 18px, 18px 18px, auto, auto, auto !important;
+  box-shadow: 8px 9px 0 var(--suas-ink), 0 20px 70px rgba(16,16,16,.28) !important;
+  color: var(--suas-ink) !important;
+}
+
+html body.template--product div:has(input[type='email']):has(textarea) input,
+html body.template--product div:has(input[type='email']):has(textarea) textarea,
+html body.template--product section:has(input[type='email']):has(textarea) input,
+html body.template--product section:has(input[type='email']):has(textarea) textarea,
+html body.template--product form:has(input[type='email']):has(textarea) input,
+html body.template--product form:has(input[type='email']):has(textarea) textarea {
+  border: 1.5px solid var(--suas-ink) !important;
+  border-radius: 16px !important;
+  background: rgba(255,255,255,.96) !important;
+  color: var(--suas-ink) !important;
+  font-family: Futura, Arial, sans-serif !important;
+}
+
+html body.template--product div:has(input[type='email']):has(textarea) button,
+html body.template--product section:has(input[type='email']):has(textarea) button,
+html body.template--product form:has(input[type='email']):has(textarea) button {
+  border: 2px solid var(--suas-ink) !important;
+  border-radius: 999px !important;
+  background: var(--suas-pink) !important;
+  color: var(--suas-ink) !important;
+  box-shadow: 0 5px 0 var(--suas-ink) !important;
+  font: 900 11px/1 Futura, Arial, sans-serif !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
 }
 
 html body.template--product [role='dialog'],
