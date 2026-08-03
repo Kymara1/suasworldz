@@ -17,6 +17,12 @@
     "main": {
       "type": "product",
       "blocks": {
+        "suas_product_polish": {
+          "type": "liquid",
+          "settings": {
+            "custom-liquid": "{% render 'suas-product-polish' %}"
+          }
+        },
         "heading": {
           "type": "heading",
           "settings": {}
@@ -66,6 +72,7 @@
         }
       },
       "block_order": [
+        "suas_product_polish",
         "heading",
         "vendor",
         "buy-buttons",
