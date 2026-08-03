@@ -1,6 +1,27 @@
 <style>
   body .suas-world-home .suas-lab-teaser{grid-template-columns:1fr!important}
   body .suas-world-home .suas-hours{display:none!important}
+  body .suas-world-home .suas-scent{min-height:112px!important;border-radius:36% 64% 43% 57%/57% 38% 62% 43%!important;background:var(--scent-bg,rgba(255,255,255,.82))!important;box-shadow:0 5px 0 #101010!important;padding:18px 12px 14px!important;transform:rotate(-1deg)!important}
+  body .suas-world-home .suas-scent:nth-child(2n){--scent-bg:rgba(205,238,255,.7);border-radius:58% 42% 61% 39%/40% 61% 39% 60%!important;transform:rotate(1deg)!important}
+  body .suas-world-home .suas-scent:nth-child(3n){--scent-bg:rgba(255,241,168,.74);border-radius:44% 56% 39% 61%/62% 40% 60% 38%!important}
+  body .suas-world-home .suas-scent:nth-child(4n){--scent-bg:rgba(228,213,255,.72)}
+  body .suas-world-home .suas-scent:before{inset:5px -6px 7px 5px!important;border-radius:44% 56% 61% 39%/58% 36% 64% 42%!important;background:transparent!important;opacity:.85!important;transform:rotate(8deg)!important}
+  body .suas-world-home .suas-scent:after{inset:-5px 8px 8px -5px!important;border-radius:63% 37% 45% 55%/38% 62% 36% 64%!important;background:transparent!important;opacity:.65!important;transform:rotate(-9deg)!important}
+  body .suas-world-home .suas-scent h3{font-size:clamp(.98rem,1.6vw,1.42rem)!important;line-height:.9!important;max-width:92%!important;overflow-wrap:anywhere!important}
+  body .suas-world-home .suas-scent p{font-size:7.5px!important;line-height:1.22!important;max-width:90%!important}
+  body .product-page--root{padding-top:clamp(22px,3vw,42px)!important;background:linear-gradient(rgba(16,16,16,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.03) 1px,transparent 1px),#fbfaf7!important;background-size:22px 22px!important}
+  body .product-page--top-panel{padding:0!important;background:transparent!important}
+  body .product-page--panel-wrapper{width:min(1050px,calc(100vw - 34px))!important;margin:0 auto!important;display:grid!important;grid-template-columns:minmax(280px,500px) minmax(280px,500px)!important;gap:24px!important;align-items:start!important}
+  body .product-page--featured-media,body .product-page--featured-blocks{border:2px solid #101010!important;border-radius:24px!important;background:#fff!important;box-shadow:7px 8px 0 #101010!important;padding:24px!important;overflow:hidden!important}
+  body .product-page--featured-media img{width:100%!important;max-height:430px!important;object-fit:contain!important;border-radius:14px!important}
+  body .product-page--heading{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-size:clamp(2rem,3.05vw,3.45rem)!important;line-height:.86!important;letter-spacing:0!important;margin:0 0 14px!important;text-transform:uppercase!important}
+  body .product-page--block{margin-bottom:13px!important}
+  body .product-page--description{font-size:13px!important;line-height:1.48!important;max-height:310px!important;overflow:auto!important;padding-right:8px!important}
+  body .product-page--description p{margin:0 0 9px!important}
+  body .product-page--description ul,body .product-page--description ol{margin:8px 0 8px 18px!important;padding:0!important}
+  body .product-page--description li{margin-bottom:4px!important}
+  body .product-page--price,body [data-product-block='price']{font-size:18px!important}
+  body .shopify-payment-button__button,body .product-buy-buttons--cta,body .product-form--add-to-cart{min-height:44px!important;border-radius:999px!important}
   body .suas-bookings-page .suas-book-wrap{width:min(1120px,calc(100vw - 28px))!important;padding:clamp(16px,2.4vw,28px) 0 40px!important}
   body .suas-bookings-page .suas-book-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:start!important;gap:12px!important}
   body .suas-bookings-page .suas-book-card,body .suas-bookings-page .suas-book-panel,body .suas-bookings-page .suas-book-option{border-radius:18px!important;box-shadow:0 5px 0 #101010!important}
@@ -17,6 +38,12 @@
   body .suas-bookings-page .suas-booking-date-error{display:none!important;margin-top:8px!important;padding:9px 12px!important;border:1.5px solid #101010!important;border-radius:999px!important;background:#ffd8e8!important;color:#101010!important;font:800 11px/1.2 Futura,Arial,sans-serif!important;box-shadow:0 3px 0 rgba(16,16,16,.18)!important}
   body .suas-bookings-page .suas-booking-date-error.is-visible{display:block!important}
   @media only screen and (max-width:1023px){
+    body .product-page--root{padding-top:12px!important}
+    body .product-page--panel-wrapper{width:min(100% - 14px,620px)!important;grid-template-columns:1fr!important;gap:12px!important}
+    body .product-page--featured-media,body .product-page--featured-blocks{border-radius:18px!important;box-shadow:4px 5px 0 #101010!important;padding:14px!important}
+    body .product-page--featured-media img{max-height:300px!important}
+    body .product-page--heading{font-size:clamp(1.9rem,10vw,2.85rem)!important;line-height:.86!important;margin-bottom:10px!important}
+    body .product-page--description{font-size:12px!important;line-height:1.42!important;max-height:220px!important}
     body .suas-bookings-page .suas-book-wrap{width:min(100% - 14px,760px)!important;padding:14px 0 34px!important}
     body .suas-bookings-page .suas-book-hero{grid-template-columns:1fr!important;gap:9px!important}
     body .suas-bookings-page .suas-book-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
@@ -27,9 +54,11 @@
     body .suas-bookings-page .suas-book-input,body .suas-bookings-page .suas-book-select{min-height:32px!important;font-size:10px!important}
     body .suas-side-rail{overflow:visible!important;padding-bottom:12px!important}
     body .suas-side-nav{display:flex!important;flex-wrap:wrap!important;align-items:flex-start!important;gap:8px!important;padding:2px 0 6px!important;overflow:visible!important}
+    body .suas-side-nav>[data-suas-mobile-hidden='true']{display:none!important}
     body .suas-side-nav>a.suas-side-link{position:relative!important;flex:1 1 calc(33.333% - 6px)!important;width:auto!important;min-width:96px!important;max-width:none!important;display:grid!important;grid-template-columns:24px minmax(0,1fr)!important;gap:7px!important;padding:8px 9px!important;border-radius:999px!important;white-space:nowrap!important}
     body .suas-side-nav>a.suas-side-link .suas-side-label{overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
     body .suas-side-dropdown{position:relative!important;flex:1 1 calc(33.333% - 6px)!important;width:auto!important;min-width:96px!important;max-width:none!important}
+    body .suas-side-dropdown[data-suas-mobile-hidden='true']{display:none!important}
     body .suas-side-dropdown>summary.suas-side-link{width:100%!important;min-width:0!important;display:grid!important;grid-template-columns:24px minmax(0,1fr)!important;gap:7px!important;padding:8px 9px!important;border-radius:999px!important;white-space:nowrap!important}
     body .suas-side-dropdown>summary .suas-side-label{overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
     body .suas-side-dropdown[open]{flex:1 0 100%!important;order:99!important;width:100%!important;margin-top:4px!important}
@@ -42,11 +71,16 @@
 <script>
   document.addEventListener('DOMContentLoaded',function(){
     function quickKey(link){var strong=link.querySelector('strong');var raw=(strong?strong.textContent:link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return raw.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}
-    function dedupeQuickLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(function(grid){var seen={};Array.prototype.slice.call(grid.querySelectorAll('a')).forEach(function(link){var key=quickKey(link);if(seen[key])link.remove();else seen[key]=true})})}
+    function dedupeQuickLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(function(grid){var seen={};Array.prototype.slice.call(grid.querySelectorAll('a')).forEach(function(link){var key=quickKey(link);if(seen[key]||Object.keys(seen).length>=6)link.remove();else seen[key]=true})})}
     function addBookLabQuickLaunch(){var grid=document.querySelector('.suas-world-home .suas-launch-grid');if(!grid)return;dedupeQuickLaunch();var hasBook=Array.prototype.some.call(grid.querySelectorAll('a'),function(link){return quickKey(link)==='book the lab'});if(hasBook)return;var link=document.createElement('a');link.className='suas-launch';link.href='/pages/bookings';link.style.setProperty('--launch','#d9ff78');link.innerHTML='<strong class="suas-font">book the lab</strong><span class="suas-mono">reserve</span>';grid.appendChild(link);dedupeQuickLaunch()}
-    function dedupeControlPanel(selector){document.querySelectorAll(selector).forEach(function(nav){var seen={};Array.prototype.slice.call(nav.children).forEach(function(item){var label=(item.querySelector('.suas-side-label,.suas-panel-label')||item).textContent.trim().toLowerCase();var href=(item.querySelector('a[href],summary')||item).getAttribute('href')||label;if(seen[label+'|'+href])item.remove();else seen[label+'|'+href]=true})})}
-    addBookLabQuickLaunch();dedupeControlPanel('.suas-side-nav');dedupeControlPanel('.suas-panel-nav');
+    function itemLabel(item){return ((item.querySelector('.suas-side-label,.suas-panel-label')||item).textContent||'').trim().toLowerCase().replace(/\s+/g,' ')}
+    function setMobilePanelItems(){var mobile=window.matchMedia('(max-width: 1023px)').matches;var keep={'body':true,'home':true,'about us':true};document.querySelectorAll('.suas-side-nav>a.suas-side-link,.suas-side-nav>.suas-side-dropdown').forEach(function(item){var label=itemLabel(item);if(mobile&&!keep[label])item.setAttribute('data-suas-mobile-hidden','true');else item.removeAttribute('data-suas-mobile-hidden')})}
+    function dedupeControlPanel(selector){document.querySelectorAll(selector).forEach(function(nav){var seen={};Array.prototype.slice.call(nav.children).forEach(function(item){var label=itemLabel(item);var href=(item.querySelector('a[href],summary')||item).getAttribute('href')||label;if(seen[label+'|'+href])item.remove();else seen[label+'|'+href]=true})})}
+    addBookLabQuickLaunch();dedupeControlPanel('.suas-side-nav');dedupeControlPanel('.suas-panel-nav');setMobilePanelItems();
+    [100,400,1000,2500].forEach(function(t){setTimeout(function(){dedupeQuickLaunch();dedupeControlPanel('.suas-side-nav');setMobilePanelItems()},t)});
+    window.addEventListener('resize',setMobilePanelItems);
     document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(function(grid){new MutationObserver(dedupeQuickLaunch).observe(grid,{childList:true,subtree:true})});
+    document.querySelectorAll('.suas-side-nav').forEach(function(nav){new MutationObserver(function(){dedupeControlPanel('.suas-side-nav');setMobilePanelItems()}).observe(nav,{childList:true,subtree:true})});
     document.addEventListener('toggle',function(event){var opened=event.target;if(!opened.matches||!opened.matches('.suas-side-dropdown[open]'))return;document.querySelectorAll('.suas-side-dropdown[open]').forEach(function(dropdown){if(dropdown!==opened)dropdown.removeAttribute('open')})},true);
   });
 </script>
