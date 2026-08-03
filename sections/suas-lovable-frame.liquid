@@ -358,6 +358,14 @@
   }
 </style>
 
+{% liquid
+  assign suas_contact_page = pages['contact-us']
+  if suas_contact_page == blank
+    assign suas_contact_page = pages['contact']
+  endif
+  assign suas_contact_url = suas_contact_page.url | default: '/pages/contact-us'
+%}
+
 <div class="suas-frame" aria-label="SUAS site frame">
   <div class="suas-frame-marquee" aria-hidden="true">
     <div class="suas-frame-marquee-track">
@@ -401,12 +409,12 @@
               </summary>
               <div class="suas-panel-submenu">
                 {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{{ block.settings.title }}</a>{% endif %}
-                {% if block.settings.submenu_1_label != blank %}<a href="{{ block.settings.submenu_1_link }}">{{ block.settings.submenu_1_label }}</a>{% endif %}
-                {% if block.settings.submenu_2_label != blank %}<a href="{{ block.settings.submenu_2_link }}">{{ block.settings.submenu_2_label }}</a>{% endif %}
-                {% if block.settings.submenu_3_label != blank %}<a href="{{ block.settings.submenu_3_link }}">{{ block.settings.submenu_3_label }}</a>{% endif %}
-                {% if block.settings.submenu_4_label != blank %}<a href="{{ block.settings.submenu_4_link }}">{{ block.settings.submenu_4_label }}</a>{% endif %}
-                {% if block.settings.submenu_5_label != blank %}<a href="{{ block.settings.submenu_5_link }}">{{ block.settings.submenu_5_label }}</a>{% endif %}
-                {% if block.settings.submenu_6_label != blank %}<a href="{{ block.settings.submenu_6_link }}">{{ block.settings.submenu_6_label }}</a>{% endif %}
+                {% if block.settings.submenu_1_label != blank %}{% assign submenu_1_url = block.settings.submenu_1_link %}{% if block.settings.submenu_1_label contains 'Contact' %}{% assign submenu_1_url = suas_contact_url %}{% endif %}<a href="{{ submenu_1_url }}">{{ block.settings.submenu_1_label }}</a>{% endif %}
+                {% if block.settings.submenu_2_label != blank %}{% assign submenu_2_url = block.settings.submenu_2_link %}{% if block.settings.submenu_2_label contains 'Contact' %}{% assign submenu_2_url = suas_contact_url %}{% endif %}<a href="{{ submenu_2_url }}">{{ block.settings.submenu_2_label }}</a>{% endif %}
+                {% if block.settings.submenu_3_label != blank %}{% assign submenu_3_url = block.settings.submenu_3_link %}{% if block.settings.submenu_3_label contains 'Contact' %}{% assign submenu_3_url = suas_contact_url %}{% endif %}<a href="{{ submenu_3_url }}">{{ block.settings.submenu_3_label }}</a>{% endif %}
+                {% if block.settings.submenu_4_label != blank %}{% assign submenu_4_url = block.settings.submenu_4_link %}{% if block.settings.submenu_4_label contains 'Contact' %}{% assign submenu_4_url = suas_contact_url %}{% endif %}<a href="{{ submenu_4_url }}">{{ block.settings.submenu_4_label }}</a>{% endif %}
+                {% if block.settings.submenu_5_label != blank %}{% assign submenu_5_url = block.settings.submenu_5_link %}{% if block.settings.submenu_5_label contains 'Contact' %}{% assign submenu_5_url = suas_contact_url %}{% endif %}<a href="{{ submenu_5_url }}">{{ block.settings.submenu_5_label }}</a>{% endif %}
+                {% if block.settings.submenu_6_label != blank %}{% assign submenu_6_url = block.settings.submenu_6_link %}{% if block.settings.submenu_6_label contains 'Contact' %}{% assign submenu_6_url = suas_contact_url %}{% endif %}<a href="{{ submenu_6_url }}">{{ block.settings.submenu_6_label }}</a>{% endif %}
               </div>
             </details>
           {% else %}
@@ -433,7 +441,7 @@
         <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint: #9dd7ff;">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
         <details class="suas-side-dropdown">
           <summary class="suas-side-link{% if request.path contains '/pages/about' or request.path contains '/pages/bookings' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #c7b5ff;">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">08</span></summary>
-          <div class="suas-panel-submenu"><a href="/pages/about">Who are we</a><a href="/pages/bookings">Bookings</a><a href="/pages/contact">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div>
+          <div class="suas-panel-submenu"><a href="/pages/about">Who are we</a><a href="/pages/bookings">Bookings</a><a href="{{ suas_contact_url }}">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div>
         </details>
       {% endif %}
     </nav>
