@@ -1,1 +1,85 @@
-{"sections":{"d52f90ec-c849-4fed-a232-1b3ffa40111b":{"type":"image-with-text","settings":{"text-color":"auto","background-color":"none","container-width":6,"spacing-above":false,"spacing-below":false,"image-height":0,"darken-image":false,"parallax-enabled":false,"text-position":"center","text-width":"medium","overlap":false,"box-around-text":false,"mobile-overlay":false,"image":"shopify:\/\/shop_images\/Best_seller_collection_image_23.png","overline":"","title":"","description":"","link-url":"shopify:\/\/pages\/scent-profile","link-text":""}},"navigation":{"type":"collection--navigation","custom_css":[],"settings":{"show-browse-button":false,"show-sort-button":true,"show-refine-button":true,"show-layout-buttons":true,"show-collections-list":true,"custom-list-collections":"scent-profile","show-sort-list":false,"show-refine-list":false,"swatches-enabled":false,"show-search-link":true}},"collection-header":{"type":"collection--header","custom_css":["h3 {font-size: 0x;}"],"settings":{"enable-header":true,"show-title":false,"title-alignment":"center","show-description":false,"show-image":false,"use-image-fallback":false,"image-height":"original","alt-color":false,"apply-overlay":false}},"main":{"type":"collection--body","custom_css":[],"settings":{"products-per-row--desktop":4,"products-per-row--mobile":"2","number-of-rows":7}}},"order":["d52f90ec-c849-4fed-a232-1b3ffa40111b","navigation","collection-header","main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d52f90ec-c849-4fed-a232-1b3ffa40111b": {
+      "type": "image-with-text",
+      "settings": {
+        "text-color": "auto",
+        "background-color": "none",
+        "container-width": 1,
+        "spacing-above": false,
+        "spacing-below": false,
+        "image-height": 0,
+        "darken-image": false,
+        "parallax-enabled": false,
+        "text-position": "center",
+        "text-width": "medium",
+        "overlap": false,
+        "box-around-text": false,
+        "mobile-overlay": false,
+        "image": "shopify://shop_images/Your_paragraph_text_10_22e283ef-26c1-490d-a5f1-c3446be599ad.png",
+        "overline": "",
+        "title": "",
+        "description": "",
+        "link-url": "shopify://pages/scent-profile",
+        "link-text": ""
+      }
+    },
+    "navigation": {
+      "type": "collection--navigation",
+      "custom_css": [],
+      "settings": {
+        "show-browse-button": false,
+        "show-sort-button": true,
+        "show-refine-button": true,
+        "show-layout-buttons": true,
+        "show-collections-list": true,
+        "custom-list-collections": "",
+        "show-sort-list": false,
+        "show-refine-list": false,
+        "swatches-enabled": false,
+        "show-search-link": true
+      }
+    },
+    "collection-header": {
+      "type": "collection--header",
+      "custom_css": [
+        "h3 {font-size: 0x;}"
+      ],
+      "settings": {
+        "enable-header": true,
+        "show-title": false,
+        "title-alignment": "center",
+        "show-description": false,
+        "show-image": false,
+        "use-image-fallback": false,
+        "image-height": "original",
+        "alt-color": false,
+        "apply-overlay": false
+      }
+    },
+    "main": {
+      "type": "collection--body",
+      "custom_css": [],
+      "settings": {
+        "products-per-row--desktop": 4,
+        "products-per-row--mobile": "2",
+        "number-of-rows": 7
+      }
+    }
+  },
+  "order": [
+    "d52f90ec-c849-4fed-a232-1b3ffa40111b",
+    "navigation",
+    "collection-header",
+    "main"
+  ]
+}
