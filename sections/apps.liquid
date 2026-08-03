@@ -4,6 +4,11 @@
   assign light_text = section.settings.light-text
   assign spacing_above = section.settings.spacing-above
   assign spacing_below = section.settings.spacing-below
+  assign is_product_review_shell = false
+
+  if request.page_type == 'product'
+    assign is_product_review_shell = true
+  endif
 
   capture app_blocks
     for block in section.blocks
@@ -13,7 +18,7 @@
 -%}
 
 <div
-  class="apps--root"
+  class="apps--root{% if is_product_review_shell %} suas-product-review-shell{% endif %}"
   data-section-id="{{ section.id }}"
   data-background-color="{{ bg_color }}"
   data-container-width="{{ container_width }}"
@@ -21,8 +26,21 @@
   data-spacing-above="{{ spacing_above }}"
   data-spacing-below="{{ spacing_below }}"
 >
-  <div class="apps--wrapper">
-    {{ app_blocks }}
+  {% if is_product_review_shell %}
+    <div class="suas-review-shell-label">smell reports.</div>
+  {% endif %}
+
+  <div class="apps--wrapper{% if is_product_review_shell %} suas-review-shell-window{% endif %}">
+    {% if is_product_review_shell %}
+      <div class="suas-review-window-bar" aria-hidden="true">
+        <span></span><span></span><span></span>
+        <strong>real ones only</strong>
+      </div>
+    {% endif %}
+
+    <div class="suas-review-app-stage">
+      {{ app_blocks }}
+    </div>
   </div>
 </div>
 
