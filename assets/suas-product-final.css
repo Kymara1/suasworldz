@@ -1,0 +1,276 @@
+/* Final product page polish: loads last so older SUAS/product overrides cannot cut off text. */
+html body.template--product,
+html body.template--product .layout--main-content,
+html body.template--product .off-canvas--main-content {
+  background:
+    linear-gradient(rgba(16,16,16,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,16,16,.03) 1px, transparent 1px),
+    #fbfaf7 !important;
+  background-size: 22px 22px, 22px 22px, auto !important;
+}
+
+html body.template--product .layout--main-content {
+  padding: clamp(18px, 3vw, 42px) 14px 54px !important;
+}
+
+@media (min-width: 1024px) {
+  html body.template--product .off-canvas--main-content {
+    margin-left: 220px !important;
+    width: calc(100% - 220px) !important;
+  }
+}
+
+html body.template--product .product-page--root {
+  width: min(1080px, calc(100vw - 34px)) !important;
+  max-width: 1080px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+html body.template--product .product-page--top-panel,
+html body.template--product .product-page--content,
+html body.template--product .product-page--single-column {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+html body.template--product .product-page--panel-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  grid-template-columns: minmax(290px, 500px) minmax(300px, 440px) !important;
+  justify-content: center !important;
+  align-items: start !important;
+  gap: clamp(18px, 3vw, 34px) !important;
+}
+
+html body.template--product .product-page--featured-media,
+html body.template--product .product-page--featured-blocks {
+  border: 2px solid #101010 !important;
+  border-radius: 24px !important;
+  background: rgba(255,255,255,.94) !important;
+  box-shadow: 7px 8px 0 #101010 !important;
+  padding: clamp(16px, 2vw, 24px) !important;
+  overflow: visible !important;
+}
+
+html body.template--product .product-page--featured-media {
+  min-height: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+html body.template--product .product-page--featured-media img,
+html body.template--product .product-page--featured-media picture,
+html body.template--product .product-page--featured-media .image--root img,
+html body.template--product .product-media--root img {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 430px !important;
+  max-height: 430px !important;
+  object-fit: contain !important;
+  border-radius: 18px !important;
+  image-rendering: auto !important;
+}
+
+html body.template--product .product-page--featured-blocks {
+  width: 100% !important;
+  max-width: 440px !important;
+  min-height: 0 !important;
+}
+
+html body.template--product .product-page--block {
+  margin: 0 0 12px !important;
+}
+
+html body.template--product .product-page--heading,
+html body.template--product .product-page--heading *,
+html body.template--product [data-block-type="heading"],
+html body.template--product [data-block-type="heading"] *,
+html body.template--product [data-item="section-heading"],
+html body.template--product h1 {
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-size: clamp(2rem, 3.25vw, 3.35rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.02 !important;
+  letter-spacing: 0 !important;
+  text-transform: uppercase !important;
+  color: #101010 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  max-width: 100% !important;
+}
+
+html body.template--product .product-page--heading {
+  margin: 0 0 12px !important;
+}
+
+html body.template--product .asrv-star-widget,
+html body.template--product [class*="star"] {
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+html body.template--product .product-page--featured-blocks p,
+html body.template--product .product-page--featured-blocks li,
+html body.template--product .product-page--featured-blocks div:not(.product-page--heading),
+html body.template--product .product-page--description,
+html body.template--product .product-page--description *,
+html body.template--product [data-block-type*="tabs_product_descriptions"],
+html body.template--product [data-block-type*="tabs_product_descriptions"] * {
+  font-family: Futura, 'Futura PT', Arial, sans-serif !important;
+  font-size: 12px !important;
+  line-height: 1.48 !important;
+  color: #101010 !important;
+}
+
+html body.template--product .product-page--description,
+html body.template--product [data-block-type*="tabs_product_descriptions"] {
+  max-height: 260px !important;
+  overflow: auto !important;
+  padding: 12px 8px 0 0 !important;
+  border-top: 1px dashed rgba(16,16,16,.24) !important;
+}
+
+html body.template--product .product-price--root .money,
+html body.template--product .product-page--price .money,
+html body.template--product [data-block-type="price"] .money {
+  display: inline-flex !important;
+  width: fit-content !important;
+  border: 2px solid #101010 !important;
+  border-radius: 999px !important;
+  background: #d9ff78 !important;
+  box-shadow: 0 4px 0 #101010 !important;
+  padding: 7px 13px !important;
+  color: #101010 !important;
+  font: 900 13px/1 Futura, Arial, sans-serif !important;
+}
+
+html body.template--product .product-buy-buttons--primary button,
+html body.template--product .product-page--block button,
+html body.template--product .shopify-payment-button__button,
+html body.template--product form[action*="/cart/add"] button[type="submit"] {
+  min-height: 40px !important;
+  border: 2px solid #101010 !important;
+  border-radius: 999px !important;
+  background: #ffd8e8 !important;
+  color: #101010 !important;
+  box-shadow: 0 4px 0 #101010 !important;
+  font: 900 10px/1 Futura, Arial, sans-serif !important;
+  letter-spacing: .14em !important;
+  text-transform: uppercase !important;
+}
+
+html body.template--product .shopify-payment-button__button {
+  background: #311858 !important;
+  color: #fff !important;
+}
+
+html body.template--product .product-page--media-variant {
+  width: min(430px, 100%) !important;
+  margin: 24px auto !important;
+  border: 2px solid #101010 !important;
+  border-radius: 22px !important;
+  background: #fff !important;
+  box-shadow: 6px 7px 0 #101010 !important;
+  padding: 14px !important;
+  overflow: visible !important;
+}
+
+html body.template--product .product-page--media-variant img {
+  max-height: 360px !important;
+  object-fit: contain !important;
+  border-radius: 16px !important;
+}
+
+html body.template--product .shopify-section:has([class*='aftership']),
+html body.template--product .shopify-section:has([class*='automizely']),
+html body.template--product .shopify-section:has([class*='asrv']),
+html body.template--product .shopify-section:has([id*='aftership']),
+html body.template--product .shopify-section:has([id*='automizely']) {
+  width: min(900px, calc(100vw - 34px)) !important;
+  margin: 34px auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+html body.template--product .shopify-section:has([class*='aftership'])::before,
+html body.template--product .shopify-section:has([class*='automizely'])::before,
+html body.template--product .shopify-section:has([class*='asrv'])::before,
+html body.template--product .shopify-section:has([id*='aftership'])::before,
+html body.template--product .shopify-section:has([id*='automizely'])::before {
+  content: 'product love notes.';
+  display: block;
+  margin: 0 0 12px;
+  text-align: center;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1;
+  color: #101010;
+  text-transform: uppercase;
+}
+
+html body.template--product .shopify-section:has([class*='aftership']) .shopify-app-block,
+html body.template--product .shopify-section:has([class*='automizely']) .shopify-app-block,
+html body.template--product .shopify-section:has([class*='asrv']) .shopify-app-block,
+html body.template--product .shopify-section:has([id*='aftership']) .shopify-app-block,
+html body.template--product .shopify-section:has([id*='automizely']) .shopify-app-block {
+  border: 2px solid #101010 !important;
+  border-radius: 24px !important;
+  background: #fff !important;
+  box-shadow: 7px 8px 0 #101010 !important;
+  padding: 16px !important;
+  min-height: 260px !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 749px) {
+  html body.template--product .layout--main-content {
+    padding: 12px 8px 42px !important;
+  }
+
+  html body.template--product .product-page--root {
+    width: min(430px, calc(100vw - 14px)) !important;
+  }
+
+  html body.template--product .product-page--panel-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  html body.template--product .product-page--featured-media,
+  html body.template--product .product-page--featured-blocks,
+  html body.template--product .product-page--media-variant {
+    border-radius: 20px !important;
+    box-shadow: 5px 6px 0 #101010 !important;
+    padding: 12px !important;
+  }
+
+  html body.template--product .product-page--featured-media img,
+  html body.template--product .product-page--featured-media .image--root img,
+  html body.template--product .product-media--root img {
+    max-height: 310px !important;
+  }
+
+  html body.template--product .product-page--heading,
+  html body.template--product .product-page--heading *,
+  html body.template--product [data-item="section-heading"],
+  html body.template--product h1 {
+    font-size: clamp(1.75rem, 9.5vw, 2.65rem) !important;
+    line-height: 1.04 !important;
+  }
+
+  html body.template--product .product-page--description,
+  html body.template--product [data-block-type*="tabs_product_descriptions"] {
+    max-height: 220px !important;
+  }
+}
