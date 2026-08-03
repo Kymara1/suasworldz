@@ -11,17 +11,10 @@
   "sections": {
     "main": {
       "type": "404",
-      "disabled": true,
-      "settings": {}
-    },
-    "suas_who_page_ADPFyy": {
-      "type": "suas-who-page",
-      "name": "SUAS Who We Are",
       "settings": {}
     }
   },
   "order": [
-    "main",
-    "suas_who_page_ADPFyy"
+    "main"
   ]
 }
