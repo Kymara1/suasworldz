@@ -24,10 +24,16 @@
         "spacing-above": true,
         "spacing-below": true
       }
+    },
+    "suas_refund_page_C3AARt": {
+      "type": "suas-refund-page",
+      "name": "SUAS Refund Page",
+      "settings": {}
     }
   },
   "order": [
     "blocks_M4mTfG",
-    "main"
+    "main",
+    "suas_refund_page_C3AARt"
   ]
 }
