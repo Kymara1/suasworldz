@@ -63,6 +63,9 @@
       .suas-product-rotator{height:222px!important;min-height:222px!important;padding:7px!important;overflow:hidden!important}
       .suas-product-slide{
         inset:7px!important;
+        z-index:0!important;
+        visibility:hidden!important;
+        pointer-events:none!important;
         display:grid!important;
         grid-template-columns:minmax(0,1fr) 76px!important;
         grid-template-rows:148px 48px!important;
@@ -71,6 +74,13 @@
         align-items:center!important;
         align-content:start!important;
         justify-items:stretch!important;
+      }
+      .suas-product-slide.is-active,
+      .suas-product-slide.is-static,
+      .suas-product-rotator[data-count='1'] .suas-product-slide{
+        z-index:3!important;
+        visibility:visible!important;
+        pointer-events:auto!important;
       }
       .suas-product-photo{
         grid-column:1!important;
@@ -136,6 +146,14 @@
         gap:5px!important;
         width:100%!important;
         margin:0!important;
+      }
+      .suas-product-photo,
+      .suas-product-title,
+      .suas-feed-btn{
+        position:relative!important;
+        z-index:8!important;
+        pointer-events:auto!important;
+        touch-action:manipulation!important;
       }
       .suas-feed-btn{
         width:100%!important;
@@ -203,6 +221,6 @@
   </div>
   <div class="suas-led" aria-hidden="true"><div class="suas-led-track suas-mono">{% for i in (1..2) %}<span>smell rich</span><span>handmade in gastonia</span><span>dopamine on tap</span><span>formula 001</span><span>shut up & smell</span><span>suas.os online</span>{% endfor %}</div></div>
   <div class="suas-section"><div class="suas-home-wrap"><div class="suas-section-head"><h2 class="suas-font">signature scents.</h2></div><div class="suas-scent-grid"><a class="suas-scent" href="/products/apple-tease"><h3 class="suas-font">nectar</h3><p>passionfruit pineapple juicy</p></a><a class="suas-scent" href="/products/good-girl"><h3 class="suas-font">good girl</h3><p>sweet feminine addictive</p></a><a class="suas-scent" href="/products/shocking-ice"><h3 class="suas-font">tonic</h3><p>fresh citrus minty</p></a><a class="suas-scent" href="/products/milkd"><h3 class="suas-font">haze</h3><p>dreamy soft comforting</p></a><a class="suas-scent" href="/products/brown-suga"><h3 class="suas-font">ember</h3><p>warm vanilla magnetic</p></a><a class="suas-scent" href="/products/plumeria"><h3 class="suas-font">crimson</h3><p>bold sweet tempting</p></a></div></div></div>
-  <script>(()=>{function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=6){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500,3000,5200].forEach(t=>setTimeout(dedupeLaunch,t));const root=document.currentScript.closest('.suas-world-home');if(root)new MutationObserver(dedupeLaunch).observe(root,{childList:true,subtree:true});document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;let active=0;setInterval(()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')},7600)})})();</script>
+  <script>(()=>{function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-product-photo,.suas-world-home .suas-product-title,.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();const href=link.getAttribute('href')||'';if(!href)return;if(href.charAt(0)==='#'){const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}}else{window.location.assign(link.href)}},{capture:true})})}wireFeedLinks();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=6){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500,3000,5200].forEach(t=>setTimeout(dedupeLaunch,t));const root=document.currentScript.closest('.suas-world-home');if(root)new MutationObserver(dedupeLaunch).observe(root,{childList:true,subtree:true});document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;let active=0;setInterval(()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')},7600)})})();</script>
 </section>
 {% schema %}{"name":"SUAS World Home","settings":[],"presets":[{"name":"SUAS World Home"}]}{% endschema %}
