@@ -408,6 +408,9 @@ html body.template--product [aria-modal='true'] {
     object-position: center !important;
     margin: 0 auto !important;
     border-radius: 13px !important;
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
   }
 
   html body.template--product .product-page--featured-blocks {
@@ -500,9 +503,11 @@ html body.template--product [aria-modal='true'] {
     min-height: 0 !important;
     height: auto !important;
     margin: 0 auto 28px !important;
-    padding: 10px !important;
-    border-radius: 20px !important;
-    box-shadow: 4px 5px 0 var(--suas-ink) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
     overflow: visible !important;
   }
 
@@ -559,6 +564,9 @@ html body.template--product [aria-modal='true'] {
     object-fit: cover !important;
     margin: 0 auto !important;
     border-radius: 12px !important;
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
   }
 
   html body.template--product .shopify-section:has(.suas-product-review-shell) {
