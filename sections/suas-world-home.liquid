@@ -42,6 +42,9 @@
     .suas-launch{min-height:72px;display:flex;flex-direction:column;justify-content:center;border:1.75px solid var(--ink);border-radius:18px;padding:12px;color:var(--ink);background:var(--launch);box-shadow:0 4px 0 var(--ink);text-decoration:none;transition:transform 160ms ease,box-shadow 160ms ease}
     .suas-launch:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
     .suas-launch strong{font-size:1.13rem;line-height:.9;text-transform:lowercase}
+    .suas-charm-launch{width:100%;min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.75px solid var(--ink);border-radius:18px;padding:10px 13px;color:var(--ink);background:linear-gradient(135deg,#cdeeff,#ffd8e8);box-shadow:0 4px 0 var(--ink);text-decoration:none}
+    .suas-charm-launch:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
+    .suas-charm-launch strong{font-size:1.18rem;line-height:.9;text-transform:lowercase}
     .suas-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
     .suas-btn{min-height:38px;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:999px;padding:9px 14px;color:var(--ink);background:#fff;box-shadow:0 4px 0 var(--ink);text-decoration:none;font-weight:900}
     .suas-btn[data-dark]{color:#fff;background:var(--ink)}
@@ -239,6 +242,7 @@
             <a class="suas-launch" href="/pages/bookings" style="--launch:#ff9bc4"><strong class="suas-font">book the lab</strong><span class="suas-mono">reserve</span></a>
             <a class="suas-launch" href="{{ section.settings.charm_bar_link | default: '/pages/charm-bar' }}" style="--launch:#cdeeff"><strong class="suas-font">the charm bar</strong><span class="suas-mono">reserve</span></a>
           </div>
+          <a class="suas-charm-launch" href="{{ section.settings.charm_bar_link | default: '/pages/charm-bar' }}"><strong class="suas-font">the charm bar</strong><span class="suas-mono">reserve</span></a>
           <div class="suas-actions"><a class="suas-btn suas-mono" data-dark href="/collections/all">shop all</a><a class="suas-btn suas-mono" href="/pages/shut-up-and-smell">the lab</a></div>
         </aside>
       </div>
