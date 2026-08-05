@@ -136,7 +136,7 @@
                         <div class="suas-panel-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div>
                       </details>
                     {%- else -%}
-                      <a href="{{ child_url }}">{{ childlink.title }}</a>
+{%- unless child_down contains 'parties' or child_down contains 'events' -%}<a href="{{ child_url }}">{{ childlink.title }}</a>{%- endunless -%}
                     {%- endif -%}
                   {%- endfor -%}
                 </div>
