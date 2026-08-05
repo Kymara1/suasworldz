@@ -363,12 +363,30 @@
     margin: 0;
   }
   .suas-booking-subgroup > summary {
+    width: fit-content;
+    min-width: 118px;
+    max-width: 100%;
     list-style: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 14px;
+    padding: 7px 11px;
+    border: 1px solid rgba(16, 16, 16, 0.12);
+    border-radius: 999px;
+    color: var(--suas-ink);
+    background: var(--suas-pink);
+    box-shadow: 0 3px 0 rgba(16, 16, 16, 0.9);
+    font-family: Futura, 'Futura PT', Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .suas-booking-subgroup > summary:hover {
+    background: var(--suas-lime);
+    transform: translateY(-1px);
   }
   .suas-booking-subgroup > summary::-webkit-details-marker { display: none; }
   .suas-booking-subgroup > summary::after {
