@@ -9,30 +9,6 @@
  */
 {
   "sections": {
-    "8dd359d2-613e-4901-9ed2-84f6c9f56b8f": {
-      "type": "image-with-text",
-      "settings": {
-        "text-color": "auto",
-        "background-color": "none",
-        "container-width": 1,
-        "spacing-above": false,
-        "spacing-below": false,
-        "image-height": 0,
-        "darken-image": false,
-        "parallax-enabled": false,
-        "text-position": "center",
-        "text-width": "medium",
-        "overlap": true,
-        "box-around-text": false,
-        "mobile-overlay": false,
-        "image": "shopify://shop_images/Your_paragraph_text_19_f68553b5-b3fa-4e69-8026-e70b6038dca0.png",
-        "overline": "",
-        "title": "",
-        "description": "",
-        "link-url": "",
-        "link-text": ""
-      }
-    },
     "blocks_M4mTfG": {
       "type": "_blocks",
       "name": "Back button",
@@ -48,10 +24,34 @@
         "spacing-above": true,
         "spacing-below": true
       }
+    },
+    "image_with_text_mJtKFj": {
+      "type": "image-with-text",
+      "name": "Image with text",
+      "settings": {
+        "text-color": "auto",
+        "background-color": "none",
+        "container-width": 6,
+        "spacing-above": false,
+        "spacing-below": false,
+        "image-height": 3,
+        "darken-image": true,
+        "parallax-enabled": false,
+        "text-position": "center",
+        "text-width": "medium",
+        "overlap": false,
+        "box-around-text": false,
+        "mobile-overlay": true,
+        "overline": "Overline text",
+        "title": "Image with text",
+        "description": "<p>Combine imagery with text to create stand-out campaign sections, eye-catching promotions, information blocks and more.</p>",
+        "link-url": "",
+        "link-text": ""
+      }
     }
   },
   "order": [
-    "8dd359d2-613e-4901-9ed2-84f6c9f56b8f",
+    "image_with_text_mJtKFj",
     "blocks_M4mTfG",
     "main"
   ]
