@@ -1,0 +1,165 @@
+<section class="suas-charm-booking" aria-label="Book the Charm Bar">
+  <style>
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
+    .suas-charm-booking{--ink:#101010;--pink:#ffd8e8;--hot:#ff9bc4;--blue:#cdeeff;--lime:#d9ff78;--lav:#e4d5ff;--sun:#fff1a8;padding:34px 24px;color:var(--ink);font-family:Futura,'Futura PT',Arial,sans-serif}
+    .suas-charm-wrap{width:min(1080px,100%);margin:0 auto}
+    .suas-charm-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:20px}
+    .suas-charm-kicker,.suas-charm-label,.suas-charm-badge,.suas-charm-button{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .suas-charm-title{margin:4px 0 0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(42px,6vw,72px);font-weight:700;line-height:.9;letter-spacing:0}
+    .suas-charm-intro{max-width:440px;margin:0;font-size:14px;font-weight:700;line-height:1.45}
+    .suas-charm-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px;align-items:stretch}
+    .suas-charm-menu,.suas-charm-form-shell{border:2px solid var(--ink);border-radius:8px;box-shadow:6px 7px 0 var(--ink)}
+    .suas-charm-menu{padding:18px;background:linear-gradient(135deg,var(--pink),#fff 60%,var(--sun))}
+    .suas-charm-form-shell{padding:20px;background:var(--lime)}
+    .suas-charm-menu h2,.suas-charm-form-shell h2{margin:0 0 14px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:30px;line-height:1}
+    .suas-charm-prices{display:grid;gap:7px}
+    .suas-charm-price-row{display:flex;justify-content:space-between;gap:16px;padding:9px 11px;border:1.5px solid var(--ink);border-radius:7px;background:rgba(255,255,255,.82);font-size:12px;font-weight:800}
+    .suas-charm-price-row span:last-child{white-space:nowrap}
+    .suas-charm-extras{margin-top:14px;padding-top:12px;border-top:1.5px dashed var(--ink)}
+    .suas-charm-extras p{margin:5px 0;font-size:12px;font-weight:700}
+    .suas-charm-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .suas-charm-field{display:grid;gap:6px}
+    .suas-charm-field[data-wide]{grid-column:1/-1}
+    .suas-charm-input,.suas-charm-select{width:100%;min-width:0;height:46px;border:1.5px solid rgba(16,16,16,.28);border-radius:7px;background:#fff;padding:0 12px;color:var(--ink);font:700 13px Futura,'Futura PT',Arial,sans-serif}
+    .suas-charm-addons{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    .suas-charm-addon{display:grid;gap:5px}
+    .suas-charm-addon .suas-charm-select,.suas-charm-addon .suas-charm-input{height:42px}
+    .suas-charm-button{grid-column:1/-1;min-height:48px;border:2px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 5px 0 var(--ink);cursor:pointer}
+    .suas-charm-button:hover{background:var(--pink);transform:translateY(-1px)}
+    .suas-charm-button:disabled{opacity:.55;cursor:not-allowed}
+    .suas-charm-status{grid-column:1/-1;margin:0;font-size:12px;font-weight:800;min-height:1.2em}
+    .suas-charm-policy{margin-top:18px;padding:12px 14px;border:1.5px solid var(--ink);border-radius:7px;background:rgba(255,255,255,.72);font-size:12px;font-weight:700;line-height:1.45}
+    .suas-charm-policy strong{display:block;margin-bottom:3px;font-size:10px;letter-spacing:.13em;text-transform:uppercase}
+    @media(max-width:749px){
+      .suas-charm-booking{padding:24px 12px}
+      .suas-charm-head{display:block}
+      .suas-charm-intro{margin-top:12px}
+      .suas-charm-layout{grid-template-columns:1fr}
+      .suas-charm-menu,.suas-charm-form-shell{padding:14px;box-shadow:4px 5px 0 var(--ink)}
+      .suas-charm-title{font-size:46px}
+      .suas-charm-form{grid-template-columns:1fr 1fr;gap:9px}
+      .suas-charm-addons{grid-template-columns:1fr}
+      .suas-charm-price-row{font-size:11px}
+    }
+  </style>
+  <div class="suas-charm-wrap">
+    <header class="suas-charm-head">
+      <div><span class="suas-charm-kicker">bookings / charm bar</span><h1 class="suas-charm-title">build your little extra.</h1></div>
+      <p class="suas-charm-intro">Choose your base, add the details, and reserve a seat at the Charm Bar. Five seats are available per time slot.</p>
+    </header>
+    <div class="suas-charm-layout">
+      <aside class="suas-charm-menu">
+        <h2>pick your piece.</h2>
+        <div class="suas-charm-prices">
+          <div class="suas-charm-price-row"><span>Bracelet + 5 charms</span><span>$28</span></div>
+          <div class="suas-charm-price-row"><span>Necklace + 5 charms</span><span>$42</span></div>
+          <div class="suas-charm-price-row"><span>Bag tag + 5 charms</span><span>$24</span></div>
+          <div class="suas-charm-price-row"><span>Bag chain + 5 charms</span><span>$35</span></div>
+          <div class="suas-charm-price-row"><span>Keychain + 5 charms</span><span>$25</span></div>
+          <div class="suas-charm-price-row"><span>Paracord name chain</span><span>$27</span></div>
+        </div>
+        <div class="suas-charm-extras">
+          <span class="suas-charm-badge">extras</span>
+          <p>Additional charms: $6 each or 3 for $16</p>
+          <p>Plushie / collectible: $8 each</p>
+          <p>Bead sticks: $4 each or 3 for $10</p>
+          <p>Paracord name chains include first names only.</p>
+        </div>
+      </aside>
+      <article class="suas-charm-form-shell">
+        <h2>reserve your seat.</h2>
+        {% assign booking_product = section.settings.booking_product %}
+        {% assign charm_addon_product = section.settings.charm_addon_product %}
+        {% assign plushie_product = section.settings.plushie_product %}
+        {% assign bead_product = section.settings.bead_product %}
+        {% if booking_product != blank %}
+          <form class="suas-charm-form" data-charm-booking-form>
+            <div class="suas-charm-field" data-wide>
+              <label class="suas-charm-label" for="CharmExperience">choose your Charm Bar experience</label>
+              <select class="suas-charm-select" id="CharmExperience" name="id" required>
+                <option value="">choose experience</option>
+                {% for variant in booking_product.variants %}
+                  <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}{% unless variant.available %} - unavailable{% endunless %}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="suas-charm-field"><label class="suas-charm-label" for="CharmDate">date</label><input class="suas-charm-input" id="CharmDate" type="date" required></div>
+            <div class="suas-charm-field"><label class="suas-charm-label" for="CharmTime">estimated arrival</label><select class="suas-charm-select" id="CharmTime" required><option value="">choose time</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div>
+            <div class="suas-charm-field"><label class="suas-charm-label" for="CharmGuests">seats</label><input class="suas-charm-input" id="CharmGuests" type="number" min="1" max="5" value="1" required></div>
+            <div class="suas-charm-field"><label class="suas-charm-label" for="CharmPhone">phone</label><input class="suas-charm-input" id="CharmPhone" type="tel" required></div>
+            <div class="suas-charm-field" data-wide><label class="suas-charm-label" for="CharmName">name</label><input class="suas-charm-input" id="CharmName" type="text" required></div>
+            <div class="suas-charm-addons">
+              {% if charm_addon_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmExtras">extra charms</label><select class="suas-charm-select" id="CharmExtras" data-addon-select><option value="">none</option>{% for variant in charm_addon_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
+              {% if plushie_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmPlushie">plushie / collectible</label><select class="suas-charm-select" id="CharmPlushie" data-addon-select><option value="">none</option>{% for variant in plushie_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
+              {% if bead_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmBeads">bead sticks</label><select class="suas-charm-select" id="CharmBeads" data-addon-select><option value="">none</option>{% for variant in bead_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
+            </div>
+            <p class="suas-charm-status" data-charm-status aria-live="polite"></p>
+            <button class="suas-charm-button" type="submit">add reservation to cart</button>
+          </form>
+        {% else %}
+          <p class="suas-charm-status">Select your Charm Bar booking product in the Theme Editor to activate reservations.</p>
+          <button class="suas-charm-button" type="button" disabled>connect booking product</button>
+        {% endif %}
+        <div class="suas-charm-policy"><strong>Reservation note</strong>Walk-ins are always welcome; however, advance reservations are strongly recommended because the Charm Bar is limited to five seats per time slot. Booking online secures the selected number of seats for your party.</div>
+      </article>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const section = document.currentScript.closest('.suas-charm-booking');
+      const form = section?.querySelector('[data-charm-booking-form]');
+      if (!form) return;
+      const date = form.querySelector('#CharmDate');
+      const today = new Date();
+      date.min = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const status = form.querySelector('[data-charm-status]');
+        const submit = form.querySelector('button[type="submit"]');
+        const experience = form.querySelector('#CharmExperience');
+        const guests = Math.max(1, Math.min(5, Number(form.querySelector('#CharmGuests').value || 1)));
+        if (!experience.value || !date.value || !form.querySelector('#CharmTime').value) {
+          status.textContent = 'Choose an experience, date, and arrival time.';
+          return;
+        }
+        const properties = {
+          'Booking type': 'Charm Bar Reservation',
+          'Experience': experience.options[experience.selectedIndex].text.replace(/\s+-\s+\$[\d.,]+.*$/, ''),
+          'Reservation date': date.value,
+          'Estimated arrival': form.querySelector('#CharmTime').value,
+          'Guest name': form.querySelector('#CharmName').value,
+          'Phone number': form.querySelector('#CharmPhone').value,
+          'Seats reserved': String(guests)
+        };
+        const items = [{id:Number(experience.value),quantity:guests,properties}];
+        form.querySelectorAll('[data-addon-select]').forEach(select => {
+          if (select.value) items.push({id:Number(select.value),quantity:1,properties:{'Add-on for':properties.Experience,'Reservation date':date.value,'Guest name':properties['Guest name']}});
+        });
+        submit.disabled = true;
+        status.textContent = 'Adding your Charm Bar reservation...';
+        try {
+          const response = await fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items})});
+          if (!response.ok) throw new Error('Cart request failed');
+          window.location.href = '/cart';
+        } catch (error) {
+          status.textContent = 'That reservation could not be added. Please check availability and try again.';
+          submit.disabled = false;
+        }
+      });
+    })();
+  </script>
+</section>
+{% schema %}
+{
+  "name": "SUAS Charm Bar Booking",
+  "settings": [
+    {"type":"product","id":"booking_product","label":"Charm Bar booking product"},
+    {"type":"header","content":"Optional add-on products"},
+    {"type":"product","id":"charm_addon_product","label":"Additional charms product"},
+    {"type":"product","id":"plushie_product","label":"Plushie / collectible product"},
+    {"type":"product","id":"bead_product","label":"Bead sticks product"}
+  ],
+  "presets": [{"name":"SUAS Charm Bar Booking"}]
+}
+{% endschema %}
