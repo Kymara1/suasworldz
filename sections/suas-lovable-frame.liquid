@@ -486,11 +486,11 @@
         <a class="suas-side-link{% if request.path contains '/collections/feminine' %} is-active{% endif %}" href="/collections/feminine"><span class="suas-side-icon" style="--tint: #ff9bc4;">x</span><span class="suas-side-label">feminine</span><span class="suas-side-num">04</span></a>
         <a class="suas-side-link{% if request.path contains '/collections/oddities' %} is-active{% endif %}" href="/collections/oddities"><span class="suas-side-icon" style="--tint: #c7b5ff;">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">05</span></a>
         <a class="suas-side-link{% if request.path contains '/pages/shut-up-and-smell' %} is-active{% endif %}" href="/pages/shut-up-and-smell"><span class="suas-side-icon" style="--tint: #c6f76a;">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">06</span></a>
-        <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint: #9dd7ff;">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
         <details class="suas-side-dropdown">
           <summary class="suas-side-link{% if request.path contains '/pages/about' or request.path contains '/pages/bookings' or request.path contains '/pages/charm-bar' or request.path contains '/pages/parties-events' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #c7b5ff;">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">08</span></summary>
           <div class="suas-panel-submenu"><a href="/pages/about">Who are we</a><details class="suas-booking-subgroup"><summary>Bookings</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details><a href="{{ suas_contact_url }}">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div>
         </details>
+        <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint: #9dd7ff;">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
       {% endif %}
     </nav>
     <div class="suas-side-status">
@@ -505,6 +505,20 @@
   </aside>
 </div>
 
+<script>
+  (() => {
+    function placeVisitAfterAbout(scope) {
+      const nav = (scope || document).querySelector('.suas-side-nav');
+      if (!nav) return;
+      const items = Array.from(nav.children);
+      const about = items.find(item => (item.querySelector('.suas-side-label')?.textContent || '').trim().toLowerCase() === 'about us');
+      const visit = items.find(item => (item.querySelector('.suas-side-label')?.textContent || '').trim().toLowerCase() === 'visit us');
+      if (about && visit && about.nextElementSibling !== visit) about.insertAdjacentElement('afterend', visit);
+    }
+    placeVisitAfterAbout(document);
+    document.addEventListener('shopify:section:load', event => placeVisitAfterAbout(event.target));
+  })();
+</script>
 {% schema %}
 {
   "name": "SUAS OS frame",
