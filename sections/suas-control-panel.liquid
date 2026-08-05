@@ -124,18 +124,16 @@
                               assign grand_url = grandlink.url
                               if grand_down contains 'charm'
                                 assign grand_url = '/pages/charm-bar'
-                              elsif grand_down contains 'parties' or grand_down contains 'events'
-                                assign grand_url = '/pages/parties-events'
                               endif
                             -%}
-                            <a href="{{ grand_url }}">{{ grandlink.title }}</a>
+                            {%- unless grand_down contains 'parties' or grand_down contains 'events' -%}<a href="{{ grand_url }}">{{ grandlink.title }}</a>{%- endunless -%}
                           {%- endfor -%}
                         </div>
                       </details>
                     {%- elsif child_down == 'bookings' -%}
                       <details class="suas-panel-subgroup">
                         <summary>Bookings</summary>
-                        <div class="suas-panel-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div>
+                        <div class="suas-panel-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div>
                       </details>
                     {%- else -%}
                       <a href="{{ child_url }}">{{ childlink.title }}</a>
