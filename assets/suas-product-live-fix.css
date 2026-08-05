@@ -322,9 +322,22 @@ html body.template--product [aria-modal='true'] {
 
 
 /* SUAS MOBILE PRODUCT COMPACT V2 */
-@media (max-width: 749px) {
+@media screen and (max-width: 749px), screen and (max-device-width: 749px) {
+  html,
   html body.template--product {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
     overflow-x: hidden !important;
+  }
+
+  html body.template--product .off-canvas--viewport,
+  html body.template--product .off-canvas--main-content,
+  html body.template--product .layout--main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
   }
 
   html body.template--product .layout--main-content {
@@ -379,6 +392,7 @@ html body.template--product [aria-modal='true'] {
   html body.template--product .product-page--featured-media .modal--link,
   html body.template--product .product-page--featured-media .product-media--root,
   html body.template--product .product-page--featured-media .image--root,
+  html body.template--product .product-page--featured-media .image--container,
   html body.template--product .product-page--featured-media picture {
     display: block !important;
     width: 100% !important;
@@ -393,6 +407,12 @@ html body.template--product [aria-modal='true'] {
     position: static !important;
     inset: auto !important;
     transform: none !important;
+  }
+
+  html body.template--product .product-page--featured-media .image--container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    overflow: hidden !important;
   }
 
   html body.template--product .product-page--featured-media img,
@@ -541,6 +561,7 @@ html body.template--product [aria-modal='true'] {
   html body.template--product .suas-product-gallery-track .modal--link,
   html body.template--product .suas-product-gallery-track .product-media--root,
   html body.template--product .suas-product-gallery-track .image--root,
+  html body.template--product .suas-product-gallery-track .image--container,
   html body.template--product .suas-product-gallery-track picture {
     display: block !important;
     width: 100% !important;
@@ -551,6 +572,12 @@ html body.template--product [aria-modal='true'] {
     padding: 0 !important;
     position: static !important;
     transform: none !important;
+  }
+
+  html body.template--product .suas-product-gallery-track .image--container {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    overflow: hidden !important;
   }
 
   html body.template--product .suas-product-gallery-track img,
@@ -585,7 +612,7 @@ html body.template--product [aria-modal='true'] {
   }
 
   html body.template--product .suas-review-app-stage iframe {
-    min-height: 330px !important;
+    min-height: 260px !important;
   }
 }
 /* END SUAS MOBILE PRODUCT COMPACT V2 */
