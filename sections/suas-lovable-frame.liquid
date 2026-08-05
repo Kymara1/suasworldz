@@ -356,6 +356,35 @@
       box-shadow: 0 16px 32px rgba(16, 16, 16, 0.16);
     }
   }
+
+  .suas-booking-subgroup {
+    display: grid;
+    gap: 5px;
+    margin: 0;
+  }
+  .suas-booking-subgroup > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .suas-booking-subgroup > summary::-webkit-details-marker { display: none; }
+  .suas-booking-subgroup > summary::after {
+    content: '+';
+    font-family: Futura, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .suas-booking-subgroup[open] > summary::after { content: '-'; }
+  .suas-booking-subgroup-links {
+    display: grid;
+    gap: 5px;
+    padding: 2px 0 2px 12px;
+    border-left: 2px solid var(--suas-pink);
+  }
+
 </style>
 
 {% liquid
@@ -409,12 +438,12 @@
               </summary>
               <div class="suas-panel-submenu">
                 {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{{ block.settings.title }}</a>{% endif %}
-                {% if block.settings.submenu_1_label != blank %}{% assign submenu_1_url = block.settings.submenu_1_link %}{% if block.settings.submenu_1_label contains 'Contact' %}{% assign submenu_1_url = suas_contact_url %}{% endif %}<a href="{{ submenu_1_url }}">{{ block.settings.submenu_1_label }}</a>{% endif %}
-                {% if block.settings.submenu_2_label != blank %}{% assign submenu_2_url = block.settings.submenu_2_link %}{% if block.settings.submenu_2_label contains 'Contact' %}{% assign submenu_2_url = suas_contact_url %}{% endif %}<a href="{{ submenu_2_url }}">{{ block.settings.submenu_2_label }}</a>{% endif %}
-                {% if block.settings.submenu_3_label != blank %}{% assign submenu_3_url = block.settings.submenu_3_link %}{% if block.settings.submenu_3_label contains 'Contact' %}{% assign submenu_3_url = suas_contact_url %}{% endif %}<a href="{{ submenu_3_url }}">{{ block.settings.submenu_3_label }}</a>{% endif %}
-                {% if block.settings.submenu_4_label != blank %}{% assign submenu_4_url = block.settings.submenu_4_link %}{% if block.settings.submenu_4_label contains 'Contact' %}{% assign submenu_4_url = suas_contact_url %}{% endif %}<a href="{{ submenu_4_url }}">{{ block.settings.submenu_4_label }}</a>{% endif %}
-                {% if block.settings.submenu_5_label != blank %}{% assign submenu_5_url = block.settings.submenu_5_link %}{% if block.settings.submenu_5_label contains 'Contact' %}{% assign submenu_5_url = suas_contact_url %}{% endif %}<a href="{{ submenu_5_url }}">{{ block.settings.submenu_5_label }}</a>{% endif %}
-                {% if block.settings.submenu_6_label != blank %}{% assign submenu_6_url = block.settings.submenu_6_link %}{% if block.settings.submenu_6_label contains 'Contact' %}{% assign submenu_6_url = suas_contact_url %}{% endif %}<a href="{{ submenu_6_url }}">{{ block.settings.submenu_6_label }}</a>{% endif %}
+                {% if block.settings.submenu_1_label != blank %}{% assign submenu_1_url = block.settings.submenu_1_link %}{% if block.settings.submenu_1_label contains 'Contact' %}{% assign submenu_1_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_1_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_1_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_1_url }}">{{ block.settings.submenu_1_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_2_label != blank %}{% assign submenu_2_url = block.settings.submenu_2_link %}{% if block.settings.submenu_2_label contains 'Contact' %}{% assign submenu_2_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_2_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_2_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_2_url }}">{{ block.settings.submenu_2_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_3_label != blank %}{% assign submenu_3_url = block.settings.submenu_3_link %}{% if block.settings.submenu_3_label contains 'Contact' %}{% assign submenu_3_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_3_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_3_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_3_url }}">{{ block.settings.submenu_3_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_4_label != blank %}{% assign submenu_4_url = block.settings.submenu_4_link %}{% if block.settings.submenu_4_label contains 'Contact' %}{% assign submenu_4_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_4_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_4_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_4_url }}">{{ block.settings.submenu_4_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_5_label != blank %}{% assign submenu_5_url = block.settings.submenu_5_link %}{% if block.settings.submenu_5_label contains 'Contact' %}{% assign submenu_5_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_5_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_5_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_5_url }}">{{ block.settings.submenu_5_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_6_label != blank %}{% assign submenu_6_url = block.settings.submenu_6_link %}{% if block.settings.submenu_6_label contains 'Contact' %}{% assign submenu_6_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_6_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_6_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_6_url }}">{{ block.settings.submenu_6_label }}</a>{% endif %}{% endif %}
               </div>
             </details>
           {% else %}
@@ -440,8 +469,8 @@
         <a class="suas-side-link{% if request.path contains '/pages/shut-up-and-smell' %} is-active{% endif %}" href="/pages/shut-up-and-smell"><span class="suas-side-icon" style="--tint: #c6f76a;">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">06</span></a>
         <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint: #9dd7ff;">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
         <details class="suas-side-dropdown">
-          <summary class="suas-side-link{% if request.path contains '/pages/about' or request.path contains '/pages/bookings' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #c7b5ff;">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">08</span></summary>
-          <div class="suas-panel-submenu"><a href="/pages/about">Who are we</a><a href="/pages/bookings">Bookings</a><a href="{{ suas_contact_url }}">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div>
+          <summary class="suas-side-link{% if request.path contains '/pages/about' or request.path contains '/pages/bookings' or request.path contains '/pages/charm-bar' or request.path contains '/pages/parties-events' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #c7b5ff;">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">08</span></summary>
+          <div class="suas-panel-submenu"><a href="/pages/about">Who are we</a><details class="suas-booking-subgroup"><summary>Bookings</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details><a href="{{ suas_contact_url }}">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div>
         </details>
       {% endif %}
     </nav>
