@@ -211,7 +211,7 @@
     {% render 'shogun-head' %}
 
     {% render 'custom-styles' %}
-    {% render 'suas-control-panel-mobile-fix' %}
+    {% comment %}Emergency disabled while storefront stability is verified.{% endcomment %}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
     {{ 'suas-desktop-fit.css' | asset_url | stylesheet_tag }}
     {{ 'suas-product-final.css' | asset_url | stylesheet_tag }}
