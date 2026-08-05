@@ -1,1 +1,60 @@
-{"sections":{"main":{"type":"suas-booking-service-page","settings":{"kicker":"bookings / parties + events","heading":"bring the whole crew.","intro":"<p>Birthdays, private gatherings, team moments, and celebrations with a little more scent and personality. Customize this page with your packages and policies.</p>","accent":"#d9ff78","primary_label":"plan your event","primary_link":"/pages/contact","secondary_label":"explore the lab","secondary_link":"/pages/bookings"},"blocks":{"event":{"type":"detail","settings":{"title":"pick the occasion","copy":"<p>List the celebrations and event types SUAS can host.</p>","color":"#d9ff78"}},"package":{"type":"detail","settings":{"title":"build the package","copy":"<p>Add group sizes, experience options, deposits, timing, and what guests take home.</p>","color":"#ffe8ef"}},"plan":{"type":"detail","settings":{"title":"let us plan it","copy":"<p>Share the preferred date, guest count, and the energy you want. We will help shape the rest.</p>","color":"#eee2ff"}}},"block_order":["event","package","plan"]}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "suas-booking-service-page",
+      "settings": {
+        "kicker": "bookings / parties + events",
+        "heading": "bring the whole crew.",
+        "intro": "<p>Birthdays, private gatherings, team moments, and celebrations with a little more scent and personality. Customize this page with your packages and policies.</p>",
+        "accent": "#d9ff78",
+        "primary_label": "plan your event",
+        "primary_link": "/pages/contact",
+        "secondary_label": "explore the lab",
+        "secondary_link": "/pages/bookings"
+      },
+      "blocks": {
+        "event": {
+          "type": "detail",
+          "settings": {
+            "title": "pick the occasion",
+            "copy": "<p>List the celebrations and event types SUAS can host.</p>",
+            "color": "#d9ff78"
+          }
+        },
+        "package": {
+          "type": "detail",
+          "settings": {
+            "title": "build the package",
+            "copy": "<p>Add group sizes, experience options, deposits, timing, and what guests take home.</p>",
+            "color": "#ffe8ef"
+          }
+        },
+        "plan": {
+          "type": "detail",
+          "settings": {
+            "title": "let us plan it",
+            "copy": "<p>Share the preferred date, guest count, and the energy you want. We will help shape the rest.</p>",
+            "color": "#eee2ff"
+          }
+        }
+      },
+      "block_order": [
+        "event",
+        "package",
+        "plan"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,1 +1,58 @@
-{"sections":{"main":{"type":"suas-booking-service-page","settings":{"kicker":"bookings / charm bar","heading":"charm it your way.","intro":"<p>Pick your pieces, layer your story, and leave with something that feels unmistakably yours. Add your Charm Bar details, pricing, and availability here.</p>","accent":"#ffc4dc","primary_label":"start planning","primary_link":"/pages/contact","secondary_label":"book the lab","secondary_link":"/pages/bookings"},"blocks":{"how":{"type":"detail","settings":{"title":"how it works","copy":"<p>Choose your base, browse the charm selection, and build your piece in store.</p>","color":"#ffe8ef"}},"details":{"type":"detail","settings":{"title":"good to know","copy":"<p>Add your age guidance, estimated time, walk-in availability, and starting price.</p>","color":"#fff2a9"}},"groups":{"type":"detail","settings":{"title":"bring your people","copy":"<p>Use this space for group reservations, birthdays, private events, and special requests.</p>","color":"#c9e7ff"}}},"block_order":["how","details","groups"]}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "8dd359d2-613e-4901-9ed2-84f6c9f56b8f": {
+      "type": "image-with-text",
+      "settings": {
+        "text-color": "auto",
+        "background-color": "none",
+        "container-width": 1,
+        "spacing-above": false,
+        "spacing-below": false,
+        "image-height": 0,
+        "darken-image": false,
+        "parallax-enabled": false,
+        "text-position": "center",
+        "text-width": "medium",
+        "overlap": true,
+        "box-around-text": false,
+        "mobile-overlay": false,
+        "image": "shopify://shop_images/Your_paragraph_text_1_e313733d-a42c-4d77-897c-99708a092fa7.png",
+        "overline": "",
+        "title": "",
+        "description": "",
+        "link-url": "",
+        "link-text": ""
+      }
+    },
+    "blocks_M4mTfG": {
+      "type": "_blocks",
+      "name": "Back button",
+      "settings": {}
+    },
+    "main": {
+      "type": "page",
+      "settings": {
+        "show-title": false,
+        "background-color": "none",
+        "light-text": false,
+        "container-width": 4,
+        "spacing-above": true,
+        "spacing-below": true
+      }
+    }
+  },
+  "order": [
+    "8dd359d2-613e-4901-9ed2-84f6c9f56b8f",
+    "blocks_M4mTfG",
+    "main"
+  ]
+}
