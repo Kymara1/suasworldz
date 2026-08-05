@@ -11,17 +11,10 @@
   "sections": {
     "main": {
       "type": "404",
-      "disabled": true,
-      "settings": {}
-    },
-    "suas_refund_page_qQzKKz": {
-      "type": "suas-refund-page",
-      "name": "SUAS Refund Page",
       "settings": {}
     }
   },
   "order": [
-    "suas_refund_page_qQzKKz",
     "main"
   ]
 }
