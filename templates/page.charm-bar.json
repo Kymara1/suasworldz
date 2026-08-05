@@ -9,25 +9,9 @@
  */
 {
   "sections": {
-    "blocks_M4mTfG": {
-      "type": "_blocks",
-      "name": "Back button",
-      "settings": {}
-    },
-    "main": {
-      "type": "page",
-      "settings": {
-        "show-title": false,
-        "background-color": "none",
-        "light-text": false,
-        "container-width": 4,
-        "spacing-above": true,
-        "spacing-below": true
-      }
-    }
+    "blocks_M4mTfG": {"type":"_blocks","name":"Back button","settings":{}},
+    "charm_bar_booking": {"type":"suas-charm-bar-booking","settings":{}},
+    "main": {"type":"page","settings":{"show-title":false,"background-color":"none","light-text":false,"container-width":4,"spacing-above":false,"spacing-below":true}}
   },
-  "order": [
-    "blocks_M4mTfG",
-    "main"
-  ]
+  "order": ["blocks_M4mTfG","charm_bar_booking","main"]
 }
