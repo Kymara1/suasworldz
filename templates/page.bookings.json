@@ -16,6 +16,8 @@
         "parfum_product": "lab-session-eau-de-parfum",
         "combo_product": "lab-session-combo-sesh",
         "roll_on_product": "lab-session-body-oil",
+        "roll_on_addon_product": "lab-session-add-on-10ml-roll-on-perfume-oil",
+        "travel_addon_product": "lab-session-add-on-15ml-eau-de-parfum",
         "deluxe_product": "deluxe-lab-session",
         "deluxe_product_handle": ""
       }
