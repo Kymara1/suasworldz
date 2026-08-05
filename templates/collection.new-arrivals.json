@@ -1,1 +1,89 @@
-{"sections":{"d52f90ec-c849-4fed-a232-1b3ffa40111b":{"type":"image-with-text","custom_css":[],"settings":{"text-color":"auto","background-color":"none","container-width":1,"spacing-above":false,"spacing-below":false,"image-height":0,"darken-image":false,"parallax-enabled":false,"text-position":"center","text-width":"medium","overlap":false,"box-around-text":false,"mobile-overlay":false,"image":"shopify:\/\/shop_images\/Your_paragraph_text_68.png","overline":"","title":"","description":"","link-url":"shopify:\/\/pages\/new-arrivals","link-text":""}},"navigation":{"type":"collection--navigation","custom_css":[],"settings":{"show-browse-button":false,"show-sort-button":false,"show-refine-button":true,"show-layout-buttons":false,"show-collections-list":false,"custom-list-collections":"","show-sort-list":true,"show-refine-list":true,"swatches-enabled":false,"show-search-link":true}},"collection-header":{"type":"collection--header","custom_css":["h3 {font-size: 0x;}"],"settings":{"enable-header":true,"show-title":false,"title-alignment":"center","show-description":false,"show-image":false,"use-image-fallback":false,"image-height":"original","alt-color":false,"apply-overlay":false}},"main":{"type":"collection--body","custom_css":["img.lazyautosizes,img.lazyloaded,img.ls-is-cached {border-radius: 20px !important; object-fit: cover; overflow: hidden;}","section[id*=\"featured_collection\"] a.button,section[id*=\"featured-collection\"] a.button {display: none !important;}"],"settings":{"products-per-row--desktop":4,"products-per-row--mobile":"2","number-of-rows":7}}},"order":["d52f90ec-c849-4fed-a232-1b3ffa40111b","navigation","collection-header","main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d52f90ec-c849-4fed-a232-1b3ffa40111b": {
+      "type": "image-with-text",
+      "custom_css": [],
+      "settings": {
+        "text-color": "auto",
+        "background-color": "none",
+        "container-width": 1,
+        "spacing-above": false,
+        "spacing-below": false,
+        "image-height": 0,
+        "darken-image": false,
+        "parallax-enabled": false,
+        "text-position": "center",
+        "text-width": "medium",
+        "overlap": false,
+        "box-around-text": false,
+        "mobile-overlay": false,
+        "image": "shopify://shop_images/Your_paragraph_text_22_6b9cc555-6532-4993-a2c9-b5e06e49ec2d.png",
+        "overline": "",
+        "title": "",
+        "description": "",
+        "link-url": "shopify://pages/new-arrivals",
+        "link-text": ""
+      }
+    },
+    "navigation": {
+      "type": "collection--navigation",
+      "custom_css": [],
+      "settings": {
+        "show-browse-button": false,
+        "show-sort-button": false,
+        "show-refine-button": true,
+        "show-layout-buttons": false,
+        "show-collections-list": false,
+        "custom-list-collections": "",
+        "show-sort-list": true,
+        "show-refine-list": true,
+        "swatches-enabled": false,
+        "show-search-link": true
+      }
+    },
+    "collection-header": {
+      "type": "collection--header",
+      "custom_css": [
+        "h3 {font-size: 0x;}"
+      ],
+      "settings": {
+        "enable-header": true,
+        "show-title": false,
+        "title-alignment": "center",
+        "show-description": false,
+        "show-image": false,
+        "use-image-fallback": false,
+        "image-height": "original",
+        "alt-color": false,
+        "apply-overlay": false
+      }
+    },
+    "main": {
+      "type": "collection--body",
+      "custom_css": [
+        "img.lazyautosizes,img.lazyloaded,img.ls-is-cached {border-radius: 20px !important; object-fit: cover; overflow: hidden;}",
+        "section[id*=\"featured_collection\"] a.button,section[id*=\"featured-collection\"] a.button {display: none !important;}"
+      ],
+      "settings": {
+        "products-per-row--desktop": 4,
+        "products-per-row--mobile": "2",
+        "number-of-rows": 7
+      }
+    }
+  },
+  "order": [
+    "d52f90ec-c849-4fed-a232-1b3ffa40111b",
+    "navigation",
+    "collection-header",
+    "main"
+  ]
+}
