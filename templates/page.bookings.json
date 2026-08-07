@@ -11,7 +11,6 @@
   "sections": {
     "bookings": {
       "type": "suas-bookings-page",
-      "disabled": true,
       "settings": {
         "body_oil_product": "lab-session-body-oil",
         "parfum_product": "lab-session-eau-de-parfum",
