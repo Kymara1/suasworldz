@@ -512,26 +512,6 @@
           "custom_css": ""
         }
       },
-      "8320280246761091756": {
-        "type": "shopify://apps/announcement-bar/blocks/sales-banner-site-wide/9350a41f-5964-4405-9bba-bbffcbe501a2",
-        "disabled": false,
-        "settings": {
-          "block_height": 40,
-          "marquee_text": "<p>All Orders are processed within 3-5 business days </p>",
-          "banner_text_font_family": "sans_serif_n4",
-          "banner_text_font_size": 16,
-          "marquee_text_gap": 100,
-          "background": "#000000",
-          "banner_text_color": "#ffffff",
-          "pattern_image_size": "contain",
-          "fit_image_text_height": false,
-          "animation_direction": "left",
-          "stop_on_hover": true,
-          "animation_speed": 41,
-          "product_list": [],
-          "collection_list": []
-        }
-      },
       "15119538188275799212": {
         "type": "shopify://apps/fontify/blocks/app-embed/334490e2-2153-4a2e-a452-e90bdeffa3cc",
         "disabled": true,
@@ -541,6 +521,11 @@
       },
       "14060646107696862457": {
         "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      },
+      "15375132698272382055": {
+        "type": "shopify://apps/numos-bookings/blocks/booking_form/614e11f2-576a-448c-a2be-3691957d645c",
         "disabled": false,
         "settings": {}
       }
