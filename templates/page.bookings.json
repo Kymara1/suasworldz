@@ -11,6 +11,7 @@
   "sections": {
     "bookings": {
       "type": "suas-bookings-page",
+      "disabled": true,
       "settings": {
         "body_oil_product": "lab-session-body-oil",
         "parfum_product": "lab-session-eau-de-parfum",
@@ -21,9 +22,50 @@
         "deluxe_product": "deluxe-lab-session",
         "deluxe_product_handle": ""
       }
+    },
+    "1786103321a45cc25f": {
+      "type": "apps",
+      "blocks": {
+        "numos_bookings_event_calendar_fjgkf3": {
+          "type": "shopify://apps/numos-bookings/blocks/event_calendar/614e11f2-576a-448c-a2be-3691957d645c",
+          "settings": {
+            "show_price": true,
+            "no_events_message": "<p>No events for this day<br/>Please select another date</p>",
+            "week_start": "sunday",
+            "show_availability": true,
+            "availability_count_mode": "always",
+            "availability_hide_above": 10,
+            "available_message": "{count} available",
+            "sold_out_message": "Sold out",
+            "availability_low_enabled": false,
+            "availability_low_at": 5,
+            "low_availability_message": "Only {count} left",
+            "color_border": "#808080",
+            "color_accent_background": "#000000",
+            "color_accent_foreground": "#ffffff",
+            "title_content": "",
+            "title_alignment": "center",
+            "title_size": "medium",
+            "title_color": "#000000",
+            "padding_top": 60,
+            "padding_bottom": 60
+          }
+        }
+      },
+      "block_order": [
+        "numos_bookings_event_calendar_fjgkf3"
+      ],
+      "settings": {
+        "background-color": "none",
+        "light-text": false,
+        "container-width": 4,
+        "spacing-above": true,
+        "spacing-below": true
+      }
     }
   },
   "order": [
-    "bookings"
+    "bookings",
+    "1786103321a45cc25f"
   ]
 }
