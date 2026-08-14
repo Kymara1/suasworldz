@@ -1,0 +1,190 @@
+{{ 'suas-stations.css' | asset_url | stylesheet_tag }}
+<script>
+  document.body.classList.add('suas-stations-template');
+  window.SUAS_STATION_LOGO = {{ 'suas-stations-logo.png' | asset_url | json }};
+</script>
+<div id="suas-station-root">
+<div class="ticker" aria-hidden="true"><div>SUAS.OS ONLINE <i>+</i> THE LAB IS MIXING <i>+</i> HANDMADE IN GASTONIA <i>+</i> DOPAMINE ON TAP <i>+</i> FORMULA 001 <i>+</i> SHUT UP &amp; SMELL <i>+</i></div></div>
+
+  <div class="os-shell">
+    <aside class="control-panel">
+      <button class="os-brand" data-view="home" type="button"><span class="brand-halo"></span><b>SUAS</b></button>
+      <p class="panel-label">CONTROL PANEL</p>
+      <nav class="panel-menu" aria-label="Station menu">
+        <button class="panel-link is-active" data-view="home" type="button"><i class="dot-pink">01</i><span>START</span><small>01</small></button>
+        <button class="panel-link" data-view="guides" type="button"><i class="dot-yellow">02</i><span>GUIDES</span><small>02</small></button>
+        <button class="panel-link" data-view="oilbook" type="button"><i class="dot-blue">03</i><span>OIL BOOK</span><small>03</small></button>
+        <button class="panel-link" data-view="studio" type="button"><i class="dot-purple">04</i><span>LABELS</span><small>04</small></button>
+        <button class="panel-link" data-view="accounts" type="button"><i class="dot-green">05</i><span>ACCOUNT</span><small>05</small></button>
+      </nav>
+      <div class="lab-status"><span></span><div><small>STATION STATUS</small><b>READY + MIXING</b></div></div>
+      <button class="admin-link" data-staff-login type="button">STAFF SETTINGS</button>
+    </aside>
+
+    <main class="workspace">
+      <header class="mobile-header">
+        <button class="mobile-brand" data-view="home" type="button"><span class="brand-halo"></span><b>SUAS</b></button>
+        <nav aria-label="Mobile station menu">
+          <button data-view="guides" type="button">GUIDES</button>
+          <button data-view="studio" type="button">LABELS</button>
+          <button data-view="accounts" type="button">ACCOUNT</button>
+          <button data-staff-login type="button">STAFF</button>
+        </nav>
+      </header>
+
+      <section class="view is-visible" id="home">
+        <div class="window-bar"><span><i></i><i></i><i></i></span><b>SUAS.OS V3.0 / IN-STORE STATION</b><em id="stationClock">READY</em></div>
+        <div class="home-grid">
+          <article class="home-feature">
+            <p class="eyebrow"><span></span> FRAGRANCE ROOM / CHARM BAR</p>
+            <h1>MAKE<br>SOMETHING<br>VERY YOU.</h1>
+            <p class="lead">Choose your experience for a visual walkthrough. We will keep your place and take you straight to label creation when you finish.</p>
+            <button class="primary-command" data-view="guides" type="button">START A GUIDE <span>-></span></button>
+          </article>
+          <aside class="quick-launch">
+            <p class="eyebrow">QUICK LAUNCH</p>
+            <button class="launch-tile pink" data-start-guide="lab" type="button"><span>THE LAB</span><small>PERFUME + BODY OIL</small></button>
+            <button class="launch-tile lime" data-start-guide="charm" type="button"><span>CHARM BAR</span><small>BUILD YOUR LITTLE EXTRA</small></button>
+            <button class="launch-tile blue" data-view="studio" type="button"><span>LABEL STUDIO</span><small>DESIGN + PRINT</small></button>
+            <button class="launch-tile purple" data-view="oilbook" type="button"><span>OIL BOOK</span><small>MEET THE BASES</small></button>
+          </aside>
+        </div>
+        <div class="station-strip">
+          <article><b>01</b><span>CHOOSE A GUIDE</span></article>
+          <i></i><article><b>02</b><span>FOLLOW THE VISUALS</span></article>
+          <i></i><article><b>03</b><span>MAKE IT YOURS</span></article>
+          <i></i><article><b>04</b><span>LABEL + FINISH</span></article>
+        </div>
+      </section>
+
+      <section class="view" id="guides">
+        <div class="page-heading"><p class="eyebrow">GUIDES / CHOOSE YOUR PATH</p><h2>WHAT ARE WE<br>MAKING TODAY?</h2></div>
+        <div class="guide-picker">
+          <button class="guide-door lab-door" data-start-guide="lab" type="button">
+            <div class="door-art lab-process-art"><div class="mini-dispenser"><i></i><i></i><i></i></div><b>CHOOSE</b><span class="flow-arrow">&darr;</span><div class="mini-products"><i></i><i></i><i></i></div><b>MAKE</b></div>
+            <div><small>EXPERIMENT 001</small><h3>THE LAB</h3><p>Follow a picture-first walkthrough to choose notes, measure, mix, finish, and label your product.</p><b>OPEN GUIDE <span>-></span></b></div>
+          </button>
+          <button class="guide-door charm-door" data-start-guide="charm" type="button">
+            <div class="door-art charm-process-art"><div class="mini-pliers"></div><span class="flow-arrow">+</span><div class="mini-ring"><i></i></div><span class="flow-arrow">&rarr;</span><div class="mini-chain"></div><b>OPEN / ATTACH / CLOSE</b></div>
+            <div><small>EXPERIMENT 002</small><h3>THE CHARM BAR</h3><p>Browse the charm wall, choose any five, lay them out, then attach them yourself with the provided pliers.</p><b>OPEN GUIDE <span>-></span></b></div>
+          </button>
+        </div>
+      </section>
+
+      <section class="view" id="guide">
+        <div class="guide-topline">
+          <button class="back-command" data-view="guides" type="button"><- ALL GUIDES</button>
+          <div class="guide-progress"><span id="guideProgressText">STEP 01 / 05</span><i><b id="guideProgressBar"></b></i></div>
+          <div class="guide-top-actions"><button class="restart-command" id="saveGuideFormula" type="button">SAVE FORMULA</button><button class="restart-command" id="restartGuide" type="button">RESTART</button></div>
+        </div>
+        <div class="guide-layout">
+          <article class="visual-stage" id="visualStage" aria-live="polite">
+            <div class="stage-label" id="stageLabel">THE LAB</div>
+            <div class="stage-art" id="stageArt"></div>
+            <div class="stage-caption"><span id="stageNumber">01</span><div><h2 id="stageTitle">CHOOSE YOUR EXPERIMENT.</h2><p id="stageCopy">Pick what you are making today.</p></div></div>
+          </article>
+          <aside class="step-console">
+            <p class="eyebrow" id="guideKicker">THE LAB / VISUAL GUIDE</p>
+            <div class="step-list" id="stepList"></div>
+            <div class="selection-panel" id="selectionPanel"></div>
+            <div class="guide-actions">
+              <button class="secondary-command" id="previousStep" type="button">BACK</button>
+              <button class="primary-command" id="nextStep" type="button">NEXT STEP <span>-></span></button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="oilbook">
+        <div class="page-heading"><p class="eyebrow">THE LAB / BODY OIL ENCYCLOPEDIA</p><h2>MEET YOUR<br>BASE.</h2></div>
+        <div class="base-tabs" id="baseTabs"></div>
+        <div class="oil-layout">
+          <article class="oil-visual" id="oilVisual"><div class="oil-drop"></div><h3 id="oilName">GLOW BASE</h3><p id="oilFeel">balanced + luminous</p></article>
+          <article class="oil-details">
+            <p class="eyebrow">WHAT IS INSIDE</p>
+            <div class="ingredient-list" id="ingredientList"></div>
+            <div class="ingredient-detail" id="ingredientDetail"><small>TAP AN INGREDIENT</small><h3>JOJOBA OIL</h3><p>Lightweight, skin-friendly moisture that helps the blend feel smooth without feeling heavy.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="studio">
+        <div class="page-heading studio-heading"><div><p class="eyebrow">SUAS DESIGN STUDIO</p><h2>LABEL YOUR<br>CREATION.</h2></div><p>Your guide selections are carried here automatically. Adjust the words, preview the real label shape, then print from this iPad.</p></div>
+        <div class="studio-layout">
+          <form class="label-controls" id="labelForm">
+            <div class="control-row"><label>PRODUCT<label class="select-wrap"><select id="labelProductType"><option>Eau De Parfum</option><option>Body Oil</option><option>Roll-On Perfume Oil</option><option>Butter Creme</option></select></label></label><label>LABEL SIZE<label class="select-wrap"><select id="sizeSelect"><option value="round175">30 mL EDP - 1.75 in round</option><option value="rect13">30 mL Body Oil - 1 x 3 in</option><option value="round125">Travel / Roll-On - 1.25 in round</option></select></label></label></div>
+            <label>BLEND NAME<input id="productName" maxlength="28" value="MIDNIGHT HONEY"></label>
+            <label>CREATED BY<input id="customerName" maxlength="34" value="MIXED BY AMARA"></label>
+            <label>SCENT NOTES<input id="scentNotes" maxlength="72" value="VANILLA / AMBER / SOFT MUSK"></label>
+            <div class="control-row"><label>GUEST LINE FONT<label class="select-wrap"><select id="customerFont"><option value="futura">Futura</option><option value="casual">Casual Human</option></select></label></label><label>NOTES FONT<label class="select-wrap"><select id="notesFont"><option value="futura">Futura</option><option value="casual">Casual Human</option></select></label></label></div>
+            <div class="template-swatches" aria-label="Label color"><button class="is-active" data-template="white" type="button"><i></i>WHITE</button><button data-template="pink" type="button"><i></i>BLUSH</button><button data-template="black" type="button"><i></i>BLACK</button></div>
+          </form>
+          <div class="label-stage">
+            <div class="print-label is-round theme-white" id="labelPreview">
+              <img src="{{ 'suas-stations-logo.png' | asset_url }}" alt="">
+              <strong id="previewProduct">MIDNIGHT HONEY</strong>
+              <small id="previewProductType">EAU DE PARFUM</small>
+              <em id="previewCustomer">MIXED BY AMARA</em>
+              <p id="previewNotes">VANILLA / AMBER / SOFT MUSK</p>
+            </div>
+            <div class="print-actions"><button class="secondary-command" id="saveLabel" type="button">SAVE DRAFT</button><button class="primary-command" id="printLabel" type="button">PRINT LABEL <span>-></span></button></div>
+            <p id="studioStatus">Printer pairing is managed on this iPad.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="staff-login">
+        <div class="staff-gate">
+          <div class="staff-gate-mark"><img src="{{ 'suas-stations-logo.png' | asset_url }}" alt=""><span>STAFF<br>ONLY</span></div>
+          <form class="staff-gate-form" id="staffLoginForm">
+            <p class="eyebrow">SUAS OS / PROTECTED AREA</p>
+            <h2 id="staffGateTitle">UNLOCK<br>SETTINGS.</h2>
+            <p id="staffGateCopy">Enter the station password to continue.</p>
+            <label id="staffPasswordLabel">PASSWORD<input id="staffPassword" type="password" autocomplete="current-password" required></label>
+            <label id="staffConfirmLabel" hidden>CONFIRM PASSWORD<input id="staffPasswordConfirm" type="password" autocomplete="new-password"></label>
+            <p class="staff-gate-error" id="staffGateError" role="alert"></p>
+            <button class="primary-command" id="staffUnlock" type="submit">UNLOCK SETTINGS <span>-></span></button>
+            <button class="secondary-command" data-view="home" type="button">BACK TO STATION</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="view" id="accounts">
+        <div class="page-heading account-heading"><div><p class="eyebrow">SUAS OS / STATION ACCOUNT</p><h2>SAVE YOUR<br>CREATIONS.</h2></div><p>Create a profile on this iPad to keep formulas, product names, and Charm Bar plans together.</p></div>
+        <div class="account-shell">
+          <article class="account-intro">
+            <span class="account-orbit"><i></i><i></i><i></i></span>
+            <p class="eyebrow">YOUR FORMULA BOOK</p>
+            <h3>MAKE IT.<br>SAVE IT.<br>REMIX IT.</h3>
+            <p>Save the current guide, your selected notes, product, oil base, and label name before leaving the station.</p>
+          </article>
+          <div class="account-panel" id="accountPanel"></div>
+        </div>
+      </section>
+
+      <section class="view" id="admin">
+        <div class="page-heading"><p class="eyebrow">STAFF ONLY</p><h2>STATION<br>SETTINGS.</h2></div>
+        <div class="admin-grid">
+          <article><span>STATION NAME</span><input id="stationName" value="MIXING STATION 01"><button class="secondary-command" id="saveStation" type="button">SAVE STATION</button></article>
+          <article><span>GUIDE SESSION</span><b id="savedProgress">NO ACTIVE GUIDE</b><button class="secondary-command" id="clearProgress" type="button">CLEAR CUSTOMER SESSION</button></article>
+          <article><span>PRINTER</span><b>PAIRED THROUGH IPAD</b><button class="secondary-command" id="testPrint" type="button">OPEN TEST PRINT</button></article>
+          <article><span>SECURITY</span><b>STAFF AREA UNLOCKED</b><button class="secondary-command" id="lockStaff" type="button">LOCK STAFF SETTINGS</button><button class="secondary-command" id="resetStaffPassword" type="button">CHANGE PASSWORD</button></article>
+          <article><span>EXPERIENCES AVAILABLE</span><div class="settings-checks"><label><input type="checkbox" id="enableSelfGuided"> SELF-GUIDED LAB</label><label><input type="checkbox" id="enableGuided"> GUIDED CLASS</label><label><input type="checkbox" id="enableCharm"> CHARM BAR</label></div><button class="secondary-command" id="saveExperiences" type="button">SAVE AVAILABILITY</button></article>
+          <article><span>STATION MODE</span><b id="stationModeText">OPEN + READY</b><button class="secondary-command" id="toggleStationMode" type="button">CLOSE STATION</button></article>
+          <article><span>SCENT NAME CATALOG</span><b>ONE NAME PER LINE</b><label>PERFUME BAR / UP TO 24<textarea id="perfumeScentCatalog" rows="7"></textarea></label><label>BODY OIL BAR / UP TO 12<textarea id="oilScentCatalog" rows="5"></textarea></label><button class="secondary-command" id="saveScentCatalog" type="button">SAVE SCENT NAMES</button></article>
+          <article><span>GUEST ACCOUNTS</span><b id="guestAccountCount">0 SAVED</b><button class="secondary-command" id="exportAccounts" type="button">EXPORT FOR EXCEL</button><button class="secondary-command" id="signOutGuest" type="button">SIGN OUT CURRENT GUEST</button></article>
+          <article><span>STATION DATA</span><b>RESET BETWEEN GUESTS</b><button class="secondary-command danger-command" id="clearLabelDraft" type="button">CLEAR LABEL DRAFT</button><button class="secondary-command danger-command" id="clearAllGuestData" type="button">CLEAR ALL GUEST ACCOUNTS</button></article>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="{{ 'suas-stations.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "SUAS OS station",
+  "settings": [],
+  "presets": [{ "name": "SUAS OS station" }]
+}
+{% endschema %}
