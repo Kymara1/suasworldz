@@ -226,6 +226,9 @@
     data-theme-version="7.3.0"
     data-tabbing="false"
   >
+    {% if template.suffix == 'suas-stations' %}
+      <main id="main-content">{{ content_for_layout }}</main>
+    {% else %}
     <a data-item="a11y-button" href="#main-content">
       {{ 'general.a11y.skip_main' | t }}
     </a>
@@ -320,9 +323,6 @@
     <!-- **END** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
     <script src="//code.tidio.co/yi2efwcyp4seqmcpmlw5twampktjzvxl.js" async></script>
     <link rel="stylesheet" href="https://gravity-software.com/js/shopify/rondell/jquery.rondellf85.css?v=123">
-   
-
-
-
+    {% endif %}
   </body>
 </html>
