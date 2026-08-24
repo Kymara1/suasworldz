@@ -13,9 +13,10 @@
       <nav class="panel-menu" aria-label="Station menu">
         <button class="panel-link is-active" data-view="home" type="button"><i class="dot-pink">01</i><span>START</span><small>01</small></button>
         <button class="panel-link" data-view="guides" type="button"><i class="dot-yellow">02</i><span>GUIDES</span><small>02</small></button>
-        <button class="panel-link" data-view="oilbook" type="button"><i class="dot-blue">03</i><span>OIL BOOK</span><small>03</small></button>
-        <button class="panel-link" data-view="studio" type="button"><i class="dot-purple">04</i><span>LABELS</span><small>04</small></button>
-        <button class="panel-link" data-view="accounts" type="button"><i class="dot-green">05</i><span>ACCOUNT</span><small>05</small></button>
+        <button class="panel-link" data-staff-view="instructor" type="button"><i class="dot-green">03</i><span>LAB GUIDE</span><small>03</small></button>
+        <button class="panel-link" data-view="oilbook" type="button"><i class="dot-blue">04</i><span>OIL BOOK</span><small>04</small></button>
+        <button class="panel-link" data-view="studio" type="button"><i class="dot-purple">05</i><span>LABELS</span><small>05</small></button>
+        <button class="panel-link" data-view="accounts" type="button"><i class="dot-pink">06</i><span>ACCOUNT</span><small>06</small></button>
       </nav>
       <div class="lab-status"><span></span><div><small>STATION STATUS</small><b>READY + MIXING</b></div></div>
       <button class="admin-link" data-staff-login type="button">STAFF SETTINGS</button>
@@ -39,7 +40,7 @@
             <p class="eyebrow"><span></span> FRAGRANCE ROOM / CHARM BAR</p>
             <h1>MAKE<br>SOMETHING<br>VERY YOU.</h1>
             <p class="lead">Choose your experience for a visual walkthrough. We will keep your place and take you straight to label creation when you finish.</p>
-            <button class="primary-command" data-view="guides" type="button">START A GUIDE <span>-></span></button>
+            <button class="primary-command" data-view="checkin" type="button">BEGIN EXPERIENCE <span>-></span></button>
           </article>
           <aside class="quick-launch">
             <p class="eyebrow">QUICK LAUNCH</p>
@@ -54,6 +55,54 @@
           <i></i><article><b>02</b><span>FOLLOW THE VISUALS</span></article>
           <i></i><article><b>03</b><span>MAKE IT YOURS</span></article>
           <i></i><article><b>04</b><span>LABEL + FINISH</span></article>
+        </div>
+      </section>
+
+      <section class="view" id="checkin">
+        <div class="checkin-shell">
+          <article class="checkin-intro">
+            <p class="eyebrow">WELCOME TO THE STATION</p>
+            <h2>LET'S MAKE<br>SOMETHING.</h2>
+            <p>Check in once, choose your experience, and this iPad will keep your name and progress together through the guide and label.</p>
+            <div class="checkin-steps"><span><b>01</b> CHECK IN</span><span><b>02</b> FOLLOW THE GUIDE</span><span><b>03</b> REVIEW + LABEL</span></div>
+          </article>
+          <form class="checkin-form" id="checkinForm">
+            <p class="eyebrow">GUEST CHECK-IN</p>
+            <label>YOUR NAME<input id="checkinName" autocomplete="name" required placeholder="FIRST NAME IS PERFECT"></label>
+            <label>EXPERIENCE<select id="checkinExperience"><option value="lab-self">SELF-GUIDED LAB</option><option value="lab-guided">GUIDED LAB CLASS / 90 MIN</option><option value="charm">CHARM BAR</option></select></label>
+            <div class="guided-checkin-fields" id="guidedCheckinFields" hidden>
+              <label>PURCHASED EXPERIMENT<select id="guidedPurchase"><option value="guided-perfume">GUIDED CUSTOM PERFUME</option><option value="guided-candle">CANDLE EXPERIMENT</option><option value="guided-perfume-oil">PERFUME + BODY OIL</option><option value="guided-perfume-butter">PERFUME + BUTTER CREME</option><option value="guided-collection">SIGNATURE COLLECTION</option></select></label>
+              <label>LAB STATION<select id="guidedStation"><option value="1">STATION 01</option><option value="2">STATION 02</option><option value="3">STATION 03</option><option value="4">STATION 04</option><option value="5">STATION 05</option><option value="6">STATION 06</option></select></label>
+              <div class="reservation-summary" id="reservationSummary"></div>
+            </div>
+            <label>PARTY SIZE<input id="checkinParty" type="number" min="1" max="12" value="1" required></label>
+            <label>EMAIL <small>OPTIONAL / FOR YOUR FORMULA BOOK</small><input id="checkinEmail" type="email" autocomplete="email" placeholder="YOU@EMAIL.COM"></label>
+            <p class="checkin-error" id="checkinError" role="alert"></p>
+            <button class="primary-command" type="submit">START MY GUIDE <span>-></span></button>
+            <button class="secondary-command" data-view="home" type="button">CANCEL</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="view" id="guided">
+        <div class="guided-os">
+          <header class="guided-header">
+            <div><p class="eyebrow">GUIDED LAB / 90-MINUTE SESSION</p><h2 id="guidedModuleTitle">WELCOME.EXE</h2></div>
+            <div class="guided-guest-chip"><small id="guidedStationLabel">STATION 01</small><b id="guidedGuestName">GUEST</b><span id="guidedStatusChip">IN PROGRESS</span></div>
+          </header>
+          <div class="guided-timeline" id="guidedTimeline"></div>
+          <div class="guided-layout">
+            <article class="guided-stage">
+              <div class="window-bar"><span><i></i><i></i><i></i></span><b id="guidedWindowTitle">SHARED LAB FILE</b><em id="guidedTimeGuide">00–20 MIN</em></div>
+              <div class="guided-visual" id="guidedVisual"></div>
+              <div class="guided-copy"><span id="guidedStepCode">01</span><div><h3 id="guidedStepTitle">WELCOME TO THE LAB.</h3><p id="guidedStepCopy"></p></div></div>
+            </article>
+            <aside class="guided-console">
+              <p class="eyebrow" id="guidedConsoleKicker">SHARED INTRODUCTION</p>
+              <div id="guidedControls"></div>
+              <div class="guided-actions"><button class="secondary-command" id="guidedBack" type="button">BACK</button><button class="primary-command" id="guidedNext" type="button">NEXT <span>-&gt;</span></button></div>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -127,9 +176,36 @@
               <em id="previewCustomer">MIXED BY AMARA</em>
               <p id="previewNotes">VANILLA / AMBER / SOFT MUSK</p>
             </div>
+            <div class="printer-chip"><i></i><span>PRINTER</span><b id="printerStatus">READY ON THIS IPAD</b></div>
             <div class="print-actions"><button class="secondary-command" id="saveLabel" type="button">SAVE DRAFT</button><button class="primary-command" id="printLabel" type="button">PRINT LABEL <span>-></span></button></div>
-            <p id="studioStatus">Printer pairing is managed on this iPad.</p>
+            <p id="studioStatus">Review the label, then print one copy.</p>
           </div>
+        </div>
+      </section>
+
+      <section class="view" id="summary">
+        <div class="summary-shell">
+          <article class="summary-card">
+            <p class="eyebrow">FINAL CHECK / BEFORE THE LABEL</p>
+            <h2>YOUR<br>CREATION.</h2>
+            <div class="summary-grid" id="summaryGrid"></div>
+            <div class="summary-actions">
+              <button class="secondary-command" id="summaryBack" type="button"><- EDIT GUIDE</button>
+              <button class="secondary-command" id="summarySave" type="button">SAVE FORMULA</button>
+              <button class="primary-command" id="summaryContinue" type="button">CREATE LABEL <span>-></span></button>
+            </div>
+          </article>
+          <aside class="summary-ticket" id="summaryTicket"></aside>
+        </div>
+      </section>
+
+      <section class="view" id="finish">
+        <div class="finish-shell">
+          <p class="eyebrow">SESSION COMPLETE</p>
+          <div class="finish-mark"><span>DONE</span><i>+</i></div>
+          <h2>YOU MADE<br>THAT.</h2>
+          <p>Your creation is finished and your label is ready. Take your product, tools, and anything saved to your formula book.</p>
+          <div class="finish-actions"><button class="secondary-command" id="makeAnother" type="button">MAKE ANOTHER</button><button class="primary-command" id="finishSession" type="button">FINISH + CLEAR STATION <span>-></span></button></div>
         </div>
       </section>
 
@@ -168,15 +244,42 @@
           <article><span>STATION NAME</span><input id="stationName" value="MIXING STATION 01"><button class="secondary-command" id="saveStation" type="button">SAVE STATION</button></article>
           <article><span>GUIDE SESSION</span><b id="savedProgress">NO ACTIVE GUIDE</b><button class="secondary-command" id="clearProgress" type="button">CLEAR CUSTOMER SESSION</button></article>
           <article><span>PRINTER</span><b>PAIRED THROUGH IPAD</b><button class="secondary-command" id="testPrint" type="button">OPEN TEST PRINT</button></article>
+          <article><span>ASSISTANCE REQUESTS</span><b id="helpRequestStatus">NO ACTIVE REQUEST</b><button class="secondary-command" id="clearHelpRequest" type="button">MARK AS HELPED</button></article>
+          <article><span>HELP ALERT CONNECTION</span><b id="helpConnectionStatus">LOCAL TO THIS IPAD</b><label>WEBHOOK URL<input id="helpWebhookUrl" type="url" inputmode="url" placeholder="https://script.google.com/.../exec"></label><button class="secondary-command" id="saveHelpWebhook" type="button">SAVE ALERT CONNECTION</button></article>
+          <article><span>GUEST PRIVACY</span><b>AUTO RESET</b><label>INACTIVITY MINUTES<input id="privacyTimeout" type="number" min="2" max="30" value="8"></label><button class="secondary-command" id="savePrivacyTimeout" type="button">SAVE AUTO RESET</button></article>
           <article><span>SECURITY</span><b>STAFF AREA UNLOCKED</b><button class="secondary-command" id="lockStaff" type="button">LOCK STAFF SETTINGS</button><button class="secondary-command" id="resetStaffPassword" type="button">CHANGE PASSWORD</button></article>
           <article><span>EXPERIENCES AVAILABLE</span><div class="settings-checks"><label><input type="checkbox" id="enableSelfGuided"> SELF-GUIDED LAB</label><label><input type="checkbox" id="enableGuided"> GUIDED CLASS</label><label><input type="checkbox" id="enableCharm"> CHARM BAR</label></div><button class="secondary-command" id="saveExperiences" type="button">SAVE AVAILABILITY</button></article>
+          <article><span>GUIDED LAB CONTROL</span><b>ACTIVE STATIONS</b><button class="primary-command" data-view="instructor" type="button">OPEN LAB GUIDE DASHBOARD <span>-&gt;</span></button></article>
+          <article class="admin-wide"><span>CANDLE.EXE SETTINGS</span><b>GUIDED / SATURDAY</b><div class="admin-setting-grid"><label>PRICE / PERSON<input id="candlePrice" type="number" min="0" step="1"></label><label>BOOKABLE DAY<select id="candleDay"><option value="6">SATURDAY</option><option value="5">FRIDAY</option><option value="0">SUNDAY</option></select></label><label>VESSEL WAX / GRAMS<input id="candleWaxGrams" type="number" min="1" step="1"></label><label>MAX FRAGRANCE LOAD / %<input id="candleLoad" type="number" min="0.1" max="20" step="0.1"></label><label>CURE DAYS<input id="candleCureDays" type="number" min="1" max="30"></label><label>COOLING MINUTES<input id="candleCoolingMinutes" type="number" min="1" max="120"></label></div><label>LAB DROP VESSEL COLOR<input id="candleLabDrop" placeholder="IRIDESCENT"></label><label>CANDLE-APPROVED NOTES / ONE PER LINE<textarea id="candleScentCatalog" rows="5"></textarea></label><button class="secondary-command" id="saveCandleSettings" type="button">SAVE CANDLE SETTINGS</button></article>
+          <article class="admin-wide"><span>PRODUCT FORMULA LIMITS</span><b>APPROVED LOADS</b><div class="admin-setting-grid"><label>PERFUME FRAGRANCE / mL<input id="perfumeFragranceMl" type="number" min="0.1" max="30" step="0.1"></label><label>BODY OIL LOAD / %<input id="bodyOilLoad" type="number" min="0.1" max="10" step="0.1"></label><label>BUTTER CREME LOAD / %<input id="butterLoad" type="number" min="0.1" max="10" step="0.1"></label></div><button class="secondary-command" id="saveFormulaSettings" type="button">SAVE FORMULA LIMITS</button></article>
           <article><span>STATION MODE</span><b id="stationModeText">OPEN + READY</b><button class="secondary-command" id="toggleStationMode" type="button">CLOSE STATION</button></article>
           <article><span>SCENT NAME CATALOG</span><b>ONE NAME PER LINE</b><label>PERFUME BAR / UP TO 24<textarea id="perfumeScentCatalog" rows="7"></textarea></label><label>BODY OIL BAR / UP TO 12<textarea id="oilScentCatalog" rows="5"></textarea></label><button class="secondary-command" id="saveScentCatalog" type="button">SAVE SCENT NAMES</button></article>
           <article><span>GUEST ACCOUNTS</span><b id="guestAccountCount">0 SAVED</b><button class="secondary-command" id="exportAccounts" type="button">EXPORT FOR EXCEL</button><button class="secondary-command" id="signOutGuest" type="button">SIGN OUT CURRENT GUEST</button></article>
           <article><span>STATION DATA</span><b>RESET BETWEEN GUESTS</b><button class="secondary-command danger-command" id="clearLabelDraft" type="button">CLEAR LABEL DRAFT</button><button class="secondary-command danger-command" id="clearAllGuestData" type="button">CLEAR ALL GUEST ACCOUNTS</button></article>
         </div>
       </section>
+
+      <section class="view" id="instructor">
+        <div class="instructor-heading"><div><p class="eyebrow">LAB GUIDE / LIVE FLOOR</p><h2>ACTIVE<br>STATIONS.</h2></div><div class="floor-summary" id="floorSummary"></div></div>
+        <div class="station-dashboard" id="stationDashboard"></div>
+        <div class="dashboard-actions"><button class="secondary-command" id="refreshDashboard" type="button">REFRESH FLOOR</button><button class="secondary-command" data-view="admin" type="button">STAFF SETTINGS</button></div>
+      </section>
     </main>
+  </div>
+  <button class="help-button" id="needHelp" type="button" aria-label="Request help from a staff member" title="Request staff help">
+    <span class="help-icon" aria-hidden="true"><i></i></span>
+    <span class="help-button-copy"><b>HELP</b><small>ASK STAFF</small></span>
+  </button>
+  <div class="help-notice" id="helpNotice" role="status" aria-live="polite" hidden>
+    <span class="help-notice-icon" aria-hidden="true">✓</span>
+    <div><b id="helpNoticeTitle">REQUEST SAVED</b><small id="helpNoticeCopy">Please stay at your station.</small></div>
+    <button id="closeHelpNotice" type="button" aria-label="Close help request message">×</button>
+  </div>
+  <div class="timeout-modal" id="timeoutModal" hidden>
+    <div><p class="eyebrow">STILL CREATING?</p><h2>YOUR SESSION<br>IS PAUSED.</h2><p>Tap continue to keep your work. This station will clear private guest details in <b id="timeoutCountdown">60</b> seconds.</p><button class="primary-command" id="continueSession" type="button">CONTINUE SESSION</button></div>
+  </div>
+  <div class="checkpoint-modal" id="checkpointModal" hidden>
+    <form id="checkpointForm"><p class="eyebrow">LAB GUIDE CHECKPOINT</p><h2>APPROVAL<br>REQUIRED.</h2><p>Confirm the wax temperature is inside the approved working range before this station continues.</p><label>STAFF PASSWORD<input id="checkpointPassword" type="password" autocomplete="current-password" required></label><p id="checkpointError" role="alert"></p><button class="primary-command" type="submit">APPROVE + CONTINUE</button><button class="secondary-command" id="cancelCheckpoint" type="button">NOT YET</button></form>
   </div>
 </div>
 <script src="{{ 'suas-stations.js' | asset_url }}" defer></script>
@@ -188,3 +291,4 @@
   "presets": [{ "name": "SUAS OS station" }]
 }
 {% endschema %}
+
