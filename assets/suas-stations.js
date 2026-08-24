@@ -292,7 +292,7 @@ function renderStageArt(type, step) {
 }
 
 function choiceButton(label, selected, attrs = '') {
-  return `<button class="selection-choice${selected ? ' is-selected' : ''}" ${attrs} type="button">${label}</button>`;
+  return `<button class="selection-choice${selected ? ' is-selected' : ''}" ${attrs} type="button"><span class="selection-choice-copy">${label}</span></button>`;
 }
 
 function numberedBoard(title, items) {
