@@ -16,3 +16,5 @@ Shopify expects these folders at the repository root:
 - templates
 
 Do not upload the ZIP files to GitHub for the Shopify integration. Upload/commit the folders themselves.
+
+Sync note: sidebar menu update pushed 2026-09-12.
