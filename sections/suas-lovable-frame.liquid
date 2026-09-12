@@ -436,7 +436,16 @@
     <p class="suas-side-kicker">{{ section.settings.control_label }}</p>
     <nav class="suas-side-nav">
       {% if section.blocks.size > 0 %}
+        {% assign scent_profile_shown = false %}
         {% for block in section.blocks %}
+          {% assign menu_title = block.settings.title | strip | downcase %}
+          {% if menu_title == 'masculine' or menu_title == 'feminine' or menu_title == 'scent profile' %}
+            {% unless scent_profile_shown %}
+              <a class="suas-side-link{% if request.path contains '/pages/scent-profile' %} is-active{% endif %}" href="/pages/scent-profile" {{ block.shopify_attributes }}><span class="suas-side-icon" style="--tint: #9dd7ff;">*</span><span class="suas-side-label">Scent Profile</span><span class="suas-side-num">03</span></a>
+              {% assign scent_profile_shown = true %}
+            {% endunless %}
+            {% continue %}
+          {% endif %}
           {% liquid
             assign is_active = false
             if block.settings.active_match != blank and request.path contains block.settings.active_match
@@ -482,8 +491,7 @@
           <summary class="suas-side-link{% if request.path contains '/collections/home' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #ffe86b;">i</span><span class="suas-side-label">home</span><span class="suas-side-num">02</span></summary>
           <div class="suas-panel-submenu"><a href="/collections/home-care">Home</a><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/collections/burnt-oils">Burnt Oils</a></div>
         </details>
-        <a class="suas-side-link{% if request.path contains '/collections/masculine' %} is-active{% endif %}" href="/collections/masculine"><span class="suas-side-icon" style="--tint: #9dd7ff;">*</span><span class="suas-side-label">masculine</span><span class="suas-side-num">03</span></a>
-        <a class="suas-side-link{% if request.path contains '/collections/feminine' %} is-active{% endif %}" href="/collections/feminine"><span class="suas-side-icon" style="--tint: #ff9bc4;">x</span><span class="suas-side-label">feminine</span><span class="suas-side-num">04</span></a>
+        <a class="suas-side-link{% if request.path contains '/pages/scent-profile' %} is-active{% endif %}" href="/pages/scent-profile"><span class="suas-side-icon" style="--tint: #9dd7ff;">*</span><span class="suas-side-label">Scent Profile</span><span class="suas-side-num">03</span></a>
         <a class="suas-side-link{% if request.path contains '/collections/oddities' %} is-active{% endif %}" href="/collections/oddities"><span class="suas-side-icon" style="--tint: #c7b5ff;">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">05</span></a>
         <a class="suas-side-link{% if request.path contains '/pages/shut-up-and-smell' %} is-active{% endif %}" href="/pages/shut-up-and-smell"><span class="suas-side-icon" style="--tint: #c6f76a;">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">06</span></a>
         <details class="suas-side-dropdown">
@@ -580,8 +588,7 @@
       "blocks": [
         { "type": "menu_item", "settings": { "title": "body", "icon": "o", "number": "01", "link": "/collections/body-care", "active_match": "/collections/body", "tint_color": "#ff9bc4", "submenu_1_label": "Butter Creme", "submenu_1_link": "/collections/butter-creme", "submenu_2_label": "Body Scrub", "submenu_2_link": "/collections/body-scrub", "submenu_3_label": "Body Jelly", "submenu_3_link": "/collections/body-jelly", "submenu_4_label": "Body Oil", "submenu_4_link": "/collections/body-oil", "submenu_5_label": "Cleansing Bar", "submenu_5_link": "/collections/cleansing-bar", "submenu_6_label": "Body Wash", "submenu_6_link": "/collections/body-wash" } },
         { "type": "menu_item", "settings": { "title": "home", "icon": "i", "number": "02", "link": "/collections/home-care", "active_match": "/collections/home", "tint_color": "#ffe86b", "submenu_1_label": "Candles", "submenu_1_link": "/collections/candles", "submenu_2_label": "Everything Mist", "submenu_2_link": "/collections/everything-mist", "submenu_3_label": "Burnt Oils", "submenu_3_link": "/collections/burnt-oils" } },
-        { "type": "menu_item", "settings": { "title": "masculine", "icon": "*", "number": "03", "link": "/collections/masculine", "active_match": "/collections/masculine", "tint_color": "#9dd7ff" } },
-        { "type": "menu_item", "settings": { "title": "feminine", "icon": "x", "number": "04", "link": "/collections/feminine", "active_match": "/collections/feminine", "tint_color": "#ff9bc4" } },
+        { "type": "menu_item", "settings": { "title": "Scent Profile", "icon": "*", "number": "03", "link": "/pages/scent-profile", "active_match": "/pages/scent-profile", "tint_color": "#9dd7ff" } },
         { "type": "menu_item", "settings": { "title": "oddities", "icon": "*", "number": "05", "link": "/collections/oddities", "active_match": "/collections/oddities", "tint_color": "#c7b5ff" } },
         { "type": "menu_item", "settings": { "title": "the lab", "icon": "/", "number": "06", "link": "/pages/shut-up-and-smell", "active_match": "/pages/shut-up-and-smell", "tint_color": "#c6f76a" } },
         { "type": "menu_item", "settings": { "title": "visit us", "icon": "!", "number": "07", "link": "/pages/visit-us", "active_match": "/pages/visit-us", "tint_color": "#9dd7ff" } },
