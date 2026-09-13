@@ -280,7 +280,7 @@
 
   @media (min-width: 1024px) {
     .suas-frame-marquee { left: 0; right: auto; width: 100%; }
-    .suas-side-rail { inset: 0 auto 0 0; padding-top: 6px; }
+    .suas-side-rail { inset: 30px auto 0 0; padding-top: 14px; height: calc(100vh - 30px); }
     .off-canvas--main-content { margin-left: 252px; width: calc(100% - 252px); }
     .header--root,
     .announcement--root { display: none !important; }
@@ -436,19 +436,40 @@
     <p class="suas-side-kicker">{{ section.settings.control_label }}</p>
     <nav class="suas-side-nav">
       {% if section.blocks.size > 0 %}
-        {% assign scent_profile_shown = false %}
         {% for block in section.blocks %}
-          {% assign menu_title = block.settings.title | strip | downcase %}
-          {% if menu_title == 'masculine' or menu_title == 'feminine' or menu_title == 'scent profile' %}
-            {% unless scent_profile_shown %}
-              <a class="suas-side-link{% if request.path contains '/pages/scent-profile' %} is-active{% endif %}" href="/pages/scent-profile" {{ block.shopify_attributes }}><span class="suas-side-icon" style="--tint: #9dd7ff;">*</span><span class="suas-side-label">Scent Profile</span><span class="suas-side-num">03</span></a>
-              {% assign scent_profile_shown = true %}
-            {% endunless %}
-            {% continue %}
-          {% endif %}
           {% liquid
+            assign menu_title = block.settings.title
+            assign menu_icon = block.settings.icon
+            assign menu_number = block.settings.number
+            assign menu_link = block.settings.link
+            assign menu_tint = block.settings.tint_color
+            assign menu_active_match = block.settings.active_match
+            assign normalized_title = block.settings.title | downcase | strip
+            if normalized_title == 'feminine'
+              continue
+            endif
+            if normalized_title == 'masculine'
+              assign menu_title = 'Scent Profile'
+              assign menu_icon = '✦'
+              assign menu_number = '03'
+              assign menu_link = '/pages/scent-profile'
+              assign menu_tint = '#b9ff39'
+              assign menu_active_match = '/pages/scent-profile'
+            elsif normalized_title == 'oddities'
+              assign menu_number = '04'
+            elsif normalized_title == 'the lab'
+              assign menu_number = '05'
+              if menu_link == '/pages/shut-up-and-smell'
+                assign menu_link = '/pages/the-lab'
+              endif
+              assign menu_active_match = '/pages/the-lab'
+            elsif normalized_title == 'about us'
+              assign menu_number = '06'
+            elsif normalized_title == 'visit us'
+              assign menu_number = '07'
+            endif
             assign is_active = false
-            if block.settings.active_match != blank and request.path contains block.settings.active_match
+            if menu_active_match != blank and request.path contains menu_active_match
               assign is_active = true
             endif
             assign has_submenu = false
@@ -460,25 +481,25 @@
           {% if has_submenu %}
             <details class="suas-side-dropdown" {{ block.shopify_attributes }}>
               <summary class="suas-side-link{% if is_active %} is-active{% endif %}">
-                <span class="suas-side-icon" style="--tint: {{ block.settings.tint_color }};">{{ block.settings.icon }}</span>
-                <span class="suas-side-label">{{ block.settings.title }}</span>
-                <span class="suas-side-num">{{ block.settings.number }}</span>
+                <span class="suas-side-icon" style="--tint: {{ menu_tint }};">{{ menu_icon }}</span>
+                <span class="suas-side-label">{{ menu_title }}</span>
+                <span class="suas-side-num">{{ menu_number }}</span>
               </summary>
               <div class="suas-panel-submenu">
-                {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{{ block.settings.title }}</a>{% endif %}
-                {% if block.settings.submenu_1_label != blank %}{% assign submenu_1_url = block.settings.submenu_1_link %}{% if block.settings.submenu_1_label contains 'Contact' %}{% assign submenu_1_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_1_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_1_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details>{% else %}<a href="{{ submenu_1_url }}">{{ block.settings.submenu_1_label }}</a>{% endif %}{% endif %}
-                {% if block.settings.submenu_2_label != blank %}{% assign submenu_2_url = block.settings.submenu_2_link %}{% if block.settings.submenu_2_label contains 'Contact' %}{% assign submenu_2_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_2_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_2_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details>{% else %}<a href="{{ submenu_2_url }}">{{ block.settings.submenu_2_label }}</a>{% endif %}{% endif %}
-                {% if block.settings.submenu_3_label != blank %}{% assign submenu_3_url = block.settings.submenu_3_link %}{% if block.settings.submenu_3_label contains 'Contact' %}{% assign submenu_3_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_3_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_3_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details>{% else %}<a href="{{ submenu_3_url }}">{{ block.settings.submenu_3_label }}</a>{% endif %}{% endif %}
-                {% if block.settings.submenu_4_label != blank %}{% assign submenu_4_url = block.settings.submenu_4_link %}{% if block.settings.submenu_4_label contains 'Contact' %}{% assign submenu_4_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_4_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_4_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details>{% else %}<a href="{{ submenu_4_url }}">{{ block.settings.submenu_4_label }}</a>{% endif %}{% endif %}
-                {% if block.settings.submenu_5_label != blank %}{% assign submenu_5_url = block.settings.submenu_5_link %}{% if block.settings.submenu_5_label contains 'Contact' %}{% assign submenu_5_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_5_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_5_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details>{% else %}<a href="{{ submenu_5_url }}">{{ block.settings.submenu_5_label }}</a>{% endif %}{% endif %}
-                {% if block.settings.submenu_6_label != blank %}{% assign submenu_6_url = block.settings.submenu_6_link %}{% if block.settings.submenu_6_label contains 'Contact' %}{% assign submenu_6_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_6_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_6_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details>{% else %}<a href="{{ submenu_6_url }}">{{ block.settings.submenu_6_label }}</a>{% endif %}{% endif %}
+                {% if menu_link != blank %}<a href="{{ menu_link }}">{{ menu_title }}</a>{% endif %}
+                {% if block.settings.submenu_1_label != blank %}{% assign submenu_1_url = block.settings.submenu_1_link %}{% if block.settings.submenu_1_label contains 'Contact' %}{% assign submenu_1_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_1_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_1_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_1_url }}">{{ block.settings.submenu_1_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_2_label != blank %}{% assign submenu_2_url = block.settings.submenu_2_link %}{% if block.settings.submenu_2_label contains 'Contact' %}{% assign submenu_2_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_2_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_2_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_2_url }}">{{ block.settings.submenu_2_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_3_label != blank %}{% assign submenu_3_url = block.settings.submenu_3_link %}{% if block.settings.submenu_3_label contains 'Contact' %}{% assign submenu_3_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_3_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_3_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_3_url }}">{{ block.settings.submenu_3_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_4_label != blank %}{% assign submenu_4_url = block.settings.submenu_4_link %}{% if block.settings.submenu_4_label contains 'Contact' %}{% assign submenu_4_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_4_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_4_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_4_url }}">{{ block.settings.submenu_4_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_5_label != blank %}{% assign submenu_5_url = block.settings.submenu_5_link %}{% if block.settings.submenu_5_label contains 'Contact' %}{% assign submenu_5_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_5_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_5_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_5_url }}">{{ block.settings.submenu_5_label }}</a>{% endif %}{% endif %}
+                {% if block.settings.submenu_6_label != blank %}{% assign submenu_6_url = block.settings.submenu_6_link %}{% if block.settings.submenu_6_label contains 'Contact' %}{% assign submenu_6_url = suas_contact_url %}{% endif %}{% if block.settings.submenu_6_label contains 'Booking' %}<details class="suas-booking-subgroup"><summary>{{ block.settings.submenu_6_label }}</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>{% else %}<a href="{{ submenu_6_url }}">{{ block.settings.submenu_6_label }}</a>{% endif %}{% endif %}
               </div>
             </details>
           {% else %}
-            <a class="suas-side-link{% if is_active %} is-active{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}>
-              <span class="suas-side-icon" style="--tint: {{ block.settings.tint_color }};">{{ block.settings.icon }}</span>
-              <span class="suas-side-label">{{ block.settings.title }}</span>
-              <span class="suas-side-num">{{ block.settings.number }}</span>
+            <a class="suas-side-link{% if is_active %} is-active{% endif %}" href="{{ menu_link }}" {{ block.shopify_attributes }}>
+              <span class="suas-side-icon" style="--tint: {{ menu_tint }};">{{ menu_icon }}</span>
+              <span class="suas-side-label">{{ menu_title }}</span>
+              <span class="suas-side-num">{{ menu_number }}</span>
             </a>
           {% endif %}
         {% endfor %}
@@ -490,13 +511,16 @@
         <details class="suas-side-dropdown">
           <summary class="suas-side-link{% if request.path contains '/collections/home' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #ffe86b;">i</span><span class="suas-side-label">home</span><span class="suas-side-num">02</span></summary>
           <div class="suas-panel-submenu"><a href="/collections/home-care">Home</a><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/collections/burnt-oils">Burnt Oils</a></div>
-        </details>
-        <a class="suas-side-link{% if request.path contains '/pages/scent-profile' %} is-active{% endif %}" href="/pages/scent-profile"><span class="suas-side-icon" style="--tint: #9dd7ff;">*</span><span class="suas-side-label">Scent Profile</span><span class="suas-side-num">03</span></a>
-        <a class="suas-side-link{% if request.path contains '/collections/oddities' %} is-active{% endif %}" href="/collections/oddities"><span class="suas-side-icon" style="--tint: #c7b5ff;">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">05</span></a>
-        <a class="suas-side-link{% if request.path contains '/pages/shut-up-and-smell' %} is-active{% endif %}" href="/pages/shut-up-and-smell"><span class="suas-side-icon" style="--tint: #c6f76a;">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">06</span></a>
+        </details>        <a class="suas-side-link {% if request.path contains '/pages/scent-profile' %}is-active{% endif %}" href="/pages/scent-profile">
+          <span class="suas-side-icon">✦</span>
+          <span class="suas-side-label">Scent Profile</span>
+          <span class="suas-side-num">03</span>
+        </a>
+        <a class="suas-side-link{% if request.path contains '/collections/oddities' %} is-active{% endif %}" href="/collections/oddities"><span class="suas-side-icon" style="--tint: #c7b5ff;">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">04</span></a>
+        <a class="suas-side-link{% if request.path contains '/pages/shut-up-and-smell' %} is-active{% endif %}" href="/pages/shut-up-and-smell"><span class="suas-side-icon" style="--tint: #c6f76a;">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">05</span></a>
         <details class="suas-side-dropdown">
-          <summary class="suas-side-link{% if request.path contains '/pages/about' or request.path contains '/pages/bookings' or request.path contains '/pages/charm-bar' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #c7b5ff;">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">08</span></summary>
-          <div class="suas-panel-submenu"><a href="/pages/about">Who are we</a><details class="suas-booking-subgroup"><summary>Bookings</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details><a href="{{ suas_contact_url }}">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div>
+          <summary class="suas-side-link{% if request.path contains '/pages/about' or request.path contains '/pages/bookings' or request.path contains '/pages/charm-bar' or request.path contains '/pages/parties-events' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #c7b5ff;">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">06</span></summary>
+          <div class="suas-panel-submenu"><a href="/pages/about">Who are we</a><details class="suas-booking-subgroup"><summary>Bookings</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details><a href="{{ suas_contact_url }}">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div>
         </details>
         <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint: #9dd7ff;">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
       {% endif %}
@@ -588,11 +612,11 @@
       "blocks": [
         { "type": "menu_item", "settings": { "title": "body", "icon": "o", "number": "01", "link": "/collections/body-care", "active_match": "/collections/body", "tint_color": "#ff9bc4", "submenu_1_label": "Butter Creme", "submenu_1_link": "/collections/butter-creme", "submenu_2_label": "Body Scrub", "submenu_2_link": "/collections/body-scrub", "submenu_3_label": "Body Jelly", "submenu_3_link": "/collections/body-jelly", "submenu_4_label": "Body Oil", "submenu_4_link": "/collections/body-oil", "submenu_5_label": "Cleansing Bar", "submenu_5_link": "/collections/cleansing-bar", "submenu_6_label": "Body Wash", "submenu_6_link": "/collections/body-wash" } },
         { "type": "menu_item", "settings": { "title": "home", "icon": "i", "number": "02", "link": "/collections/home-care", "active_match": "/collections/home", "tint_color": "#ffe86b", "submenu_1_label": "Candles", "submenu_1_link": "/collections/candles", "submenu_2_label": "Everything Mist", "submenu_2_link": "/collections/everything-mist", "submenu_3_label": "Burnt Oils", "submenu_3_link": "/collections/burnt-oils" } },
-        { "type": "menu_item", "settings": { "title": "Scent Profile", "icon": "*", "number": "03", "link": "/pages/scent-profile", "active_match": "/pages/scent-profile", "tint_color": "#9dd7ff" } },
+        { "type": "menu_item", "settings": { "title": "masculine", "icon": "*", "number": "03", "link": "/collections/masculine", "active_match": "/collections/masculine", "tint_color": "#9dd7ff" } },
+        { "type": "menu_item", "settings": { "title": "feminine", "icon": "x", "number": "04", "link": "/collections/feminine", "active_match": "/collections/feminine", "tint_color": "#ff9bc4" } },
         { "type": "menu_item", "settings": { "title": "oddities", "icon": "*", "number": "05", "link": "/collections/oddities", "active_match": "/collections/oddities", "tint_color": "#c7b5ff" } },
         { "type": "menu_item", "settings": { "title": "the lab", "icon": "/", "number": "06", "link": "/pages/shut-up-and-smell", "active_match": "/pages/shut-up-and-smell", "tint_color": "#c6f76a" } },
-        { "type": "menu_item", "settings": { "title": "visit us", "icon": "!", "number": "07", "link": "/pages/visit-us", "active_match": "/pages/visit-us", "tint_color": "#9dd7ff" } },
-        { "type": "menu_item", "settings": { "title": "about us", "icon": "?", "number": "08", "link": "/pages/about", "active_match": "/pages/about", "tint_color": "#c7b5ff", "submenu_1_label": "Who are we", "submenu_1_link": "/pages/about", "submenu_2_label": "Bookings", "submenu_2_link": "/pages/bookings", "submenu_3_label": "Contact Us", "submenu_3_link": "/pages/contact", "submenu_4_label": "Refund Policy", "submenu_4_link": "/policies/refund-policy" } }
+        { "type": "menu_item", "settings": { "title": "about us", "icon": "?", "number": "08", "link": "/pages/about", "active_match": "/pages/about", "tint_color": " #c7b5ff", "submenu_1_label": "Who are we", "submenu_1_link": "/pages/about", "submenu_2_label": "Bookings", "submenu_2_link": "/pages/bookings", "submenu_3_label": "Contact Us", "submenu_3_link": "/pages/contact", "submenu_4_label": "Refund Policy", "submenu_4_link": "/policies/refund-policy" } }
       ]
     }
   ]
