@@ -1,43 +1,72 @@
 {%- liquid
-  comment
-    Translations
-  endcomment
+  assign current_path = request.path | default: ''
+  assign is_root_404 = false
+  if current_path == '/' or current_path == ''
+    assign is_root_404 = true
+  endif
 
-  assign intro_t = 'general.404.intro' | t
-  assign home_page_link = 'general.404.home_page_link' | t
-  assign page_title_t = 'general.404.page_title' | t
-  assign products_link_t = 'general.404.products_link' | t
+  assign is_contact_alias = false
+  if current_path == '/pages/contact'
+    assign is_contact_alias = true
+  endif
+
+  assign is_scent_profile_alias = false
+  if current_path == '/pages/scent-profile'
+    assign is_scent_profile_alias = true
+  endif
 -%}
 
-{%- capture home_page_link -%}
-  <a href="{{ shop.url }}">{{ home_page_link }}</a>
-{%- endcapture -%}
+{%- if is_contact_alias -%}
+  <script>window.location.replace('/pages/contact-us');</script>
+  <noscript><meta http-equiv="refresh" content="0; url=/pages/contact-us"></noscript>
+  <p style="padding: 2rem;"><a href="/pages/contact-us">Go to Contact Us</a></p>
+{%- elsif is_scent_profile_alias -%}
+  <style>.suas-world-home{display:none!important}</style>
+  <script>window.location.replace('/collections/all');</script>
+  <noscript><meta http-equiv="refresh" content="0; url=/collections/all"></noscript>
+  <p style="padding: 2rem;"><a href="/collections/all">Shop all products</a></p>
+{%- elsif is_root_404 -%}
+  {%- comment -%}Shopify is currently routing the store root through the 404 template. Keep this empty so templates/404.json can render the SUAS homepage section underneath.{%- endcomment -%}
+{%- else -%}
+  <style>.suas-world-home{display:none!important}</style>
 
-{%- capture products_link -%}
-  <a href="{{ routes.all_products_collection_url }}">{{ products_link_t }}</a>
-{%- endcapture -%}
+  {%- liquid
+    assign intro_t = 'general.404.intro' | t
+    assign home_page_link = 'general.404.home_page_link' | t
+    assign page_title_t = 'general.404.page_title' | t
+    assign products_link_t = 'general.404.products_link' | t
+  -%}
 
-<div
-  class="four-o-four--root"
-  data-section-id="{{ section.id }}"
->
-  <div class="four-o-four--wrapper">
-    <h1 class="four-o-four--heading" data-item="section-heading">
-      {{ page_title_t }}
-    </h1>
+  {%- capture home_page_link -%}
+    <a href="{{ shop.url }}">{{ home_page_link }}</a>
+  {%- endcapture -%}
 
-    <h3 class="four-o-four--info" data-item="block-heading">
-      {{ intro_t }}
-    </h3>
+  {%- capture products_link -%}
+    <a href="{{ routes.all_products_collection_url }}">{{ products_link_t }}</a>
+  {%- endcapture -%}
 
-    <p>
-      {{
-        'general.404.return_links_html' | t:
-        home_page_link: home_page_link, products_link: products_link
-      }}
-    </p>
+  <div
+    class="four-o-four--root"
+    data-section-id="{{ section.id }}"
+  >
+    <div class="four-o-four--wrapper">
+      <h1 class="four-o-four--heading" data-item="section-heading">
+        {{ page_title_t }}
+      </h1>
+
+      <h3 class="four-o-four--info" data-item="block-heading">
+        {{ intro_t }}
+      </h3>
+
+      <p>
+        {{
+          'general.404.return_links_html' | t:
+          home_page_link: home_page_link, products_link: products_link
+        }}
+      </p>
+    </div>
   </div>
-</div>
+{%- endif -%}
 
 {% schema %}
   {
