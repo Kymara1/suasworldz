@@ -1,16 +1,1 @@
-{
-  "sections": {
-    "main": {
-      "type": "404",
-      "settings": {}
-    },
-    "home_fallback_97608b7": {
-      "type": "suas-world-home",
-      "settings": {}
-    }
-  },
-  "order": [
-    "main",
-    "home_fallback_97608b7"
-  ]
-}
+{"sections":{"main":{"type":"404","settings":{}}},"order":["main"]}
