@@ -15,7 +15,7 @@
         "text-color": "auto",
         "background-color": "none",
         "container-width": 1,
-        "spacing-above": false,
+        "spacing-above": true,
         "spacing-below": false,
         "image-height": 0,
         "darken-image": false,
