@@ -1,9 +1,9 @@
 <!doctype html>
 <html class="no-js flexbox-gap" lang="{{ request.locale.iso_code }}" dir="ltr">
   <head>
-<meta name="color-scheme" content ="light">
-<meta name="supported-color-schemes" content ="light">
-<meta name="theme-color" content="ffffff">
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    <meta name="theme-color" content="#ffffff">
     {% render 'pagefly-head' %}
     <!-- Maker Theme - Version 7.3.0 by Troop Themes - https://troopthemes.com/ -->
 
@@ -35,11 +35,7 @@
     {% if request.page_type == 'index' %}
       <title>{{ page_title }}</title>
     {% else %}
-      <title>
-        {{ page_title }}
-        |
-        {{ shop.name }}
-      </title>
+      <title>{{ page_title }} | {{ shop.name }}</title>
     {% endif %}
 
     {%- liquid
@@ -65,25 +61,21 @@
           script.src = url;
           script.onload = () => {
             theme.libraries[name] = 'loaded';
-            if (callback) callback()
-          }
+            if (callback) callback();
+          };
           document.body.appendChild(script);
         } else if (callback && theme.libraries[name] === 'loaded') {
           callback();
         }
       }
     </script>
+
     <noscript>
       <link href="{{ 'theme--async.css' | asset_url }}" rel="stylesheet">
     </noscript>
 
     <link href="{{ 'theme--critical.css' | asset_url }}" rel="stylesheet" media="all">
-    <link
-      href="{{ 'theme--async.css' | asset_url }}"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all';onLoadStylesheet()"
-    >
+    <link href="{{ 'theme--async.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all';onLoadStylesheet()">
 
     <style>
       {% render 'custom-styles' %}
@@ -113,110 +105,13 @@
     {%- endif %}
 
     {% render 'edt_p' %}
-
-    <!-- GSSTART Slider code start. Do not change -->
-    {% if product.id > 1 %}
-      <script src="https://gravity-software.com//js/shopify/slider_prod{{ product.id }}.js?v=290434"></script>
-      <script
-        type="text/javascript"
-        src="https://gravity-software.com/js/shopify/slider_shop34319.js?v=bfd96e4895d8e64cfd61d14025a6e41b"
-      ></script>
-      {% if product.variants.size > 1 %}
-        <script>
-          gsSliderDefaultV = "{{ product.selected_or_first_available_variant.id }}";
-          var variantImagesByVarianName = {};
-          var variantImagesByVarianNameMix = {};
-           var variantImagesGS = {},
-              thumbnails,
-              variant,
-              variantImage,
-              optionValue,
-              cntImages;
-              productOptions = [];
-              cntImages = 0;
-              {% for variant in product.variants %}
-                 variant = {{ variant | json }};
-                 if ( typeof variant.featured_image !== 'undefined' && variant.featured_image !== null ) {
-                   variantImage =  variant.featured_image.src.split('?')[0].replace(/http(s)?:/,'');
-                   variantImagesGS[variant.id] = variantImage;
-                   variantImagesByVarianName[variant.option1] = variantImage;
-          var variantMixName = "";
-          if(variant.option1 != null) {
-          variantMixName = variant.option1;
-          }
-          	 if(variant.option2 != null) {
-          		var variantImagesByVarianName[variant.option2] = variantImage;
-          		var variantMixName = variantMixName + ";gs;" + variant.option2;
-          	 }
-                   if(variant.option3 != null) {
-                          variantImagesByVarianName[variant.option3] = variantImage;
-          		var variantMixName = variantMixName + ";gs;" + variant.option3;
-                   }
-
-          if(variantMixName != "") {
-          variantImagesByVarianNameMix[variantMixName] = variantImage;
-          }
-
-                   cntImages++;
-                 }
-              {% endfor %}
-                          if(cntImages == 0) {
-                    variantImagesGS = undefined;
-                          }
-        </script>
-      {% endif %}
-      <script>
-        var imageDimensionsWidth = {};
-        var imageDimensionsHeight = {};
-        var imageSrcAttr = {};
-        var altTag = {};
-
-        var mediaGS = [];
-          var productImagesGS = [];
-        var productImagesGSUrls = [];
-        {% for image in product.images %}
-          var productImageUrl = "{{ image.src }}";
-          var dotPosition = productImageUrl.lastIndexOf(".");
-          productImageUrl = productImageUrl.substr(0, dotPosition);
-          productImagesGS.push(productImageUrl);
-          imageDimensionsWidth[{{ image.id }}] = "{{ image.width }}";
-          imageDimensionsHeight[{{ image.id }}] = "{{ image.height }}";
-          altTag[{{ image.id }}] = "{{ image.alt | replace: '\"', '"' | replace: '"', '\"' | strip | strip_newlines }}";
-          imageSrcAttr[{{ image.id }}] = "{{ image.src }}";
-          productImagesGSUrls.push("{{ image.src | img_url: '240x' }}");
-        {% endfor %}
-
-        {%- for media in product.media -%}
-            {% case media.media_type %}
-        	{% when "image" %}
-                                   var mediaObjectGS ={id: "{{ media.image.id  }}", mediaType:"{{ media.media_type }}", previewImgURL:"{{ media.image.src | img_url: "240x" }}", previewImg:"{{ media.image.src }}", tag:"{{ media.image.src | img_url: "240x" }}"};
-                    mediaGS.push(mediaObjectGS);
-            {% when "video" %}
-                      var productImageUrl = "{{ media.preview_image }}";
-          var dotPosition = productImageUrl.lastIndexOf(".");
-          productImageUrl = productImageUrl.substr(0, dotPosition);
-          var mediaObjectGS ={id: "{{ media.id }}", mediaType:"{{ media.media_type }}", width: "{{ media.preview_image.width }}", height: "{{ media.preview_image.height }}", previewImgURL:"{{ media.preview_image | img_url: "500x" }}", previewImg:"" + productImageUrl +  "", tag:'{{ media | video_tag: controls: true }}'};
-                    mediaGS.push(mediaObjectGS);
-        	{% when "external_video" %}
-                      var productImageUrl = "{{ media.preview_image }}";
-          var dotPosition = productImageUrl.lastIndexOf(".");
-          productImageUrl = productImageUrl.substr(0, dotPosition);
-                    var mediaObjectGS ={id: "{{ media.id }}", mediaType:"{{ media.media_type }}", width: "{{ media.preview_image.width }}", height: "{{ media.preview_image.height }}", previewImgURL:"{{ media.preview_image | img_url: "500x" }}", previewImg:"" + productImageUrl +  "", tag:'{{ media | external_video_tag }}'};
-                    mediaGS.push(mediaObjectGS);
-            {% endcase %}
-        {%- endfor -%}
-      </script>
-    {% endif %}
-    <!-- Slider code end. Do not change GSEND -->
     {% render 'shogun-head' %}
-
     {% render 'custom-styles' %}
     {% render 'suas-control-panel-mobile-fix' %}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
     {{ 'suas-desktop-fit.css' | asset_url | stylesheet_tag }}
     {{ 'suas-product-final.css' | asset_url | stylesheet_tag }}
     {{ 'suas-product-live-fix.css' | asset_url | stylesheet_tag }}
-    
   </head>
 
   <body
@@ -229,22 +124,15 @@
     <a data-item="a11y-button" href="#main-content">
       {{ 'general.a11y.skip_main' | t }}
     </a>
+
     {% unless request.page_type == 'password' %}
       {% section 'suas-lovable-frame' %}
     {% endunless %}
     {% render 'suas-cart-button' %}
 
-    <div
-      class="off-canvas--viewport"
-      data-js-class="OffCanvas"
-      data-off-canvas--state="closed"
-    >
+    <div class="off-canvas--viewport" data-js-class="OffCanvas" data-off-canvas--state="closed">
       <div class="off-canvas--overlay" data-js-class="Transition"></div>
-      <div
-        aria-label="{{ 'general.a11y.close' | t }}"
-        data-js-class="Transition"
-        data-off-canvas--close
-      >
+      <div aria-label="{{ 'general.a11y.close' | t }}" data-js-class="Transition" data-off-canvas--close>
         {% render 'icons', icon: 'cross' %}
       </div>
 
@@ -259,11 +147,7 @@
         {% section 'footer' %}
       </div>
 
-      <div
-        class="off-canvas--right-sidebar"
-        data-active="cart"
-        data-js-class="Transition"
-      >
+      <div class="off-canvas--right-sidebar" data-active="cart" data-js-class="Transition">
         <div class="off-canvas--focus-trigger" tabindex="0"></div>
 
         {%- liquid
@@ -289,17 +173,11 @@
         <div class="off-canvas--focus-trigger" tabindex="0"></div>
       </div>
 
-      <div
-        class="off-canvas--left-sidebar"
-        data-active="menu"
-        data-js-class="Transition"
-      >
+      <div class="off-canvas--left-sidebar" data-active="menu" data-js-class="Transition">
         <div class="off-canvas--focus-trigger" tabindex="0"></div>
-
         <div class="off-canvas--container" data-view="menu">
           {% render 'mobile-nav' %}
         </div>
-
         <div class="off-canvas--focus-trigger" tabindex="0"></div>
       </div>
     </div>
@@ -313,16 +191,10 @@
       render 'modal'
       render 'feedback-bar'
     -%}
-    {{ '//cdn.shopify.com/s/files/1/0194/1736/6592/t/1/assets/booster-page-speed-optimizer.js?23' | script_tag }}
 
-    <!-- **BEGIN** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+    {{ '//cdn.shopify.com/s/files/1/0194/1736/6592/t/1/assets/booster-page-speed-optimizer.js?23' | script_tag }}
     {% render 'hextom_fsb_main', product: product, customer: customer %}
-    <!-- **END** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
     <script src="//code.tidio.co/yi2efwcyp4seqmcpmlw5twampktjzvxl.js" async></script>
     <link rel="stylesheet" href="https://gravity-software.com/js/shopify/rondell/jquery.rondellf85.css?v=123">
-   
-
-
-
   </body>
 </html>
