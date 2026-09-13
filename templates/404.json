@@ -4,13 +4,13 @@
       "type": "404",
       "settings": {}
     },
-    "suas_world_home": {
+    "home_fallback_97608b7": {
       "type": "suas-world-home",
       "settings": {}
     }
   },
   "order": [
     "main",
-    "suas_world_home"
+    "home_fallback_97608b7"
   ]
 }
