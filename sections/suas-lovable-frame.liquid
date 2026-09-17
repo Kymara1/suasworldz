@@ -54,7 +54,7 @@
       <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint:#9dd7ff">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
     </nav>
     <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>{{ section.settings.status_label }}</b><span>{{ section.settings.status_text }}</span></div></div>
-    <div class="suas-side-foot" aria-hidden="true"><a href="/pages/suas-accounts">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span></div>
+    <div class="suas-side-foot" aria-hidden="true"><a href="/pages/accounts">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span></div>
   </aside>
 </div>
 
@@ -62,7 +62,7 @@
   (() => {
     const routes = {
       reviews: '/pages/reviews',
-      account: '/pages/suas-accounts'
+      account: '/pages/accounts'
     };
 
     const rewriteSuasHomeLinks = () => {
@@ -70,7 +70,7 @@
         link.setAttribute('href', routes.reviews);
       });
 
-      document.querySelectorAll('.suas-world-home a[href="/account"], .suas-world-home a[href="/pages/suas-account"], .suas-side-foot a[href="/account"], .suas-side-foot a[href="/pages/suas-account"]').forEach((link) => {
+      document.querySelectorAll('.suas-world-home a[href="/account"], .suas-world-home a[href="/pages/suas-account"], .suas-world-home a[href="/pages/suas-accounts"], .suas-side-foot a[href="/account"], .suas-side-foot a[href="/pages/suas-account"], .suas-side-foot a[href="/pages/suas-accounts"]').forEach((link) => {
         link.setAttribute('href', routes.account);
       });
     };
@@ -90,7 +90,7 @@
     {"type":"text","id":"status_text","label":"Status text","default":"open + mixing"},
     {"type":"text","id":"version_text","label":"Version text","default":"v.04"},
     {"type":"text","id":"footer_label_1","label":"Footer label 1","default":"account"},
-    {"type":"text","id":"footer_link_1","label":"Footer link 1","default":"/pages/suas-accounts"},
+    {"type":"text","id":"footer_link_1","label":"Footer link 1","default":"/pages/accounts"},
     {"type":"text","id":"footer_label_2","label":"Footer label 2","default":"about"},
     {"type":"text","id":"footer_link_2","label":"Footer link 2","default":"/pages/about"},
     {"type":"header","content":"Marquee"},
