@@ -9,9 +9,45 @@
   if current_path == '/pages/contact'
     assign is_contact_alias = true
   endif
+
+  assign is_account_alias = false
+  if current_path == '/pages/accounts' or current_path == '/pages/suas-accounts' or current_path == '/pages/suas-account'
+    assign is_account_alias = true
+  endif
 -%}
 
-{%- if is_contact_alias -%}
+{%- if is_account_alias -%}
+  <style>
+    .suas-world-home,.suas-reviews{display:none!important}
+    .suas-account-fallback{--ink:#101010;--paper:#fffaf4;--pink:#ffd8e8;--lime:#d9ff78;--blue:#cdeeff;--lav:#e4d5ff;min-height:72vh;padding:clamp(34px,6vw,72px) 16px;background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 10% 14%,rgba(255,216,232,.7),transparent 30%),radial-gradient(circle at 88% 78%,rgba(217,255,120,.38),transparent 32%),var(--paper);background-size:22px 22px,22px 22px,auto,auto,auto;color:var(--ink);font-family:Futura,'Futura PT',Arial,sans-serif}
+    .suas-account-fallback *{box-sizing:border-box}.suas-account-fallback-wrap{width:min(1040px,100%);margin:0 auto}.suas-account-fallback-card{border:2px solid var(--ink);border-radius:28px;background:rgba(255,255,255,.94);box-shadow:7px 8px 0 var(--ink);overflow:hidden}.suas-account-fallback-bar{display:flex;gap:8px;align-items:center;min-height:40px;padding:9px 13px;border-bottom:2px solid var(--ink);background:#eef2f6}.suas-account-fallback-dot{width:11px;height:11px;border-radius:999px;background:var(--dot)}.suas-account-fallback-label{margin-left:auto;font-size:10px;font-weight:900;letter-spacing:.22em;text-transform:uppercase}.suas-account-fallback-body{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);gap:18px;align-items:stretch;padding:clamp(22px,4vw,42px)}.suas-account-fallback-orb{width:56px;height:56px;border-radius:999px;background:conic-gradient(from 210deg,#ffd8e8,#cdeeff,#d9ff78,#e4d5ff,#ffd8e8);box-shadow:inset 0 -7px 14px rgba(0,0,0,.16),0 12px 24px rgba(0,0,0,.13);margin-bottom:16px}.suas-account-fallback-title{margin:0;font-size:clamp(3.2rem,8vw,7rem);line-height:.78;letter-spacing:-.04em;text-transform:lowercase}.suas-account-fallback-copy{margin:16px 0 0;max-width:580px;font-size:clamp(1rem,2vw,1.2rem);font-weight:800;line-height:1.42;color:rgba(16,16,16,.68)}.suas-account-fallback-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.suas-account-fallback-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 16px;border:2px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 4px 0 var(--ink);color:var(--ink);text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.suas-account-fallback-btn[data-dark]{background:var(--ink);color:#fff}.suas-account-fallback-panel{display:grid;gap:10px}.suas-account-fallback-tile{display:grid;grid-template-columns:46px minmax(0,1fr);gap:11px;align-items:center;min-height:76px;padding:12px;border:2px solid var(--ink);border-radius:20px;background:var(--tile,#fff);box-shadow:0 4px 0 var(--ink);color:var(--ink);text-decoration:none}.suas-account-fallback-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:999px;background:rgba(255,255,255,.74);font-weight:900}.suas-account-fallback-tile strong{display:block;font-size:15px;text-transform:lowercase}.suas-account-fallback-tile small{display:block;margin-top:3px;font-size:11px;font-weight:800;color:rgba(16,16,16,.62)}@media(max-width:760px){.suas-account-fallback-body{grid-template-columns:1fr;padding:22px}.suas-account-fallback-card{border-radius:22px;box-shadow:5px 6px 0 var(--ink)}.suas-account-fallback-title{font-size:clamp(3rem,16vw,5.4rem)}}
+  </style>
+  <section class="suas-account-fallback" aria-label="SUAS account hub">
+    <div class="suas-account-fallback-wrap">
+      <div class="suas-account-fallback-card">
+        <div class="suas-account-fallback-bar"><span class="suas-account-fallback-dot" style="--dot:#ff5f57"></span><span class="suas-account-fallback-dot" style="--dot:#febc2e"></span><span class="suas-account-fallback-dot" style="--dot:#28c840"></span><span class="suas-account-fallback-label">suas account / fallback</span></div>
+        <div class="suas-account-fallback-body">
+          <div>
+            <div class="suas-account-fallback-orb" aria-hidden="true"></div>
+            <h1 class="suas-account-fallback-title">your scent world lives here.</h1>
+            <p class="suas-account-fallback-copy">This is the SUAS account front door. Login for Shopify orders now; rewards, saved formulas, label designs, games, and lab memories can plug in here next.</p>
+            <div class="suas-account-fallback-actions">
+              <a class="suas-account-fallback-btn" data-dark href="{{ routes.account_login_url }}">login</a>
+              <a class="suas-account-fallback-btn" href="/account/register">create account</a>
+              <a class="suas-account-fallback-btn" href="/collections/all">shop all</a>
+            </div>
+          </div>
+          <div class="suas-account-fallback-panel">
+            <a class="suas-account-fallback-tile" href="{{ routes.account_url }}" style="--tile:#ffd8e8"><span class="suas-account-fallback-icon">lock</span><span><strong>orders + profile</strong><small>Shopify customer account tools</small></span></a>
+            <a class="suas-account-fallback-tile" href="/pages/bookings" style="--tile:#d9ff78"><span class="suas-account-fallback-icon">lab</span><span><strong>book the lab</strong><small>self-guided or guided scent time</small></span></a>
+            <a class="suas-account-fallback-tile" href="/pages/scent-profile" style="--tile:#cdeeff"><span class="suas-account-fallback-icon">s.</span><span><strong>scent profile</strong><small>find your scent lane</small></span></a>
+            <a class="suas-account-fallback-tile" href="/pages/reviews" style="--tile:#e4d5ff"><span class="suas-account-fallback-icon">★</span><span><strong>reviews</strong><small>AfterShip all-product reviews</small></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%- elsif is_contact_alias -%}
   <style>.suas-world-home,.suas-reviews{display:none!important}</style>
   <script>window.location.replace('/pages/contact-us');</script>
   <noscript><meta http-equiv="refresh" content="0; url=/pages/contact-us"></noscript>
