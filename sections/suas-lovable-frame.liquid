@@ -448,7 +448,10 @@
             if normalized_title == 'feminine'
               continue
             endif
-            if normalized_title == 'masculine'
+            if normalized_title == 'home'
+              assign menu_link = routes.root_url
+              assign menu_active_match = '/'
+            elsif normalized_title == 'masculine'
               assign menu_title = 'Scent Profile'
               assign menu_icon = '✦'
               assign menu_number = '03'
@@ -475,6 +478,9 @@
             assign has_submenu = false
             if block.settings.submenu_1_label != blank or block.settings.submenu_2_label != blank or block.settings.submenu_3_label != blank or block.settings.submenu_4_label != blank or block.settings.submenu_5_label != blank or block.settings.submenu_6_label != blank
               assign has_submenu = true
+            endif
+            if normalized_title == 'home'
+              assign has_submenu = false
             endif
           %}
 
@@ -508,10 +514,8 @@
           <summary class="suas-side-link{% if request.path contains '/collections/body' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #ff9bc4;">o</span><span class="suas-side-label">body</span><span class="suas-side-num">01</span></summary>
           <div class="suas-panel-submenu"><a href="/collections/body-care">Body</a><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/collections/body-jelly">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/collections/cleansing-bar">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div>
         </details>
-        <details class="suas-side-dropdown">
-          <summary class="suas-side-link{% if request.path contains '/collections/home' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint: #ffe86b;">i</span><span class="suas-side-label">home</span><span class="suas-side-num">02</span></summary>
-          <div class="suas-panel-submenu"><a href="/collections/home-care">Home</a><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/collections/burnt-oils">Burnt Oils</a></div>
-        </details>        <a class="suas-side-link {% if request.path contains '/pages/scent-profile' %}is-active{% endif %}" href="/pages/scent-profile">
+        <a class="suas-side-link{% if request.path == '/' %} is-active{% endif %}" href="{{ routes.root_url }}"><span class="suas-side-icon" style="--tint: #ffe86b;">i</span><span class="suas-side-label">home</span><span class="suas-side-num">02</span></a>
+        <a class="suas-side-link {% if request.path contains '/pages/scent-profile' %}is-active{% endif %}" href="/pages/scent-profile">
           <span class="suas-side-icon">✦</span>
           <span class="suas-side-label">Scent Profile</span>
           <span class="suas-side-num">03</span>
