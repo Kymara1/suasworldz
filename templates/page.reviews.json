@@ -5,9 +5,23 @@
       "settings": {
         "heading": "reviews from real ones."
       }
+    },
+    "aftership_all_reviews": {
+      "type": "apps",
+      "blocks": {
+        "all_reviews_widget": {
+          "type": "shopify://apps/aftership-product-reviews/blocks/all_reviews_widget/505a3762bb36def119e5a94c67efd1f3",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "all_reviews_widget"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "reviews"
+    "reviews",
+    "aftership_all_reviews"
   ]
 }
