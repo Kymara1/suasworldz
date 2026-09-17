@@ -17,10 +17,30 @@
   <noscript><meta http-equiv="refresh" content="0; url=/pages/contact-us"></noscript>
   <p style="padding: 2rem;"><a href="/pages/contact-us">Go to Contact Us</a></p>
 {%- elsif is_root_404 -%}
-  {%- comment -%}
-    Shopify is routing the store root through the 404 template on the active theme.
-    Leave this section empty so templates/404.json can render the SUAS homepage sections underneath.
-  {%- endcomment -%}
+  <section class="suas-root-rescue" aria-label="SUAS home">
+    <style>
+      .suas-root-rescue{--ink:#101010;--cream:#fbfaf7;--pink:#ffd8e8;--blue:#cdeeff;--lime:#d9ff78;--lav:#e4d5ff;min-height:70vh;padding:clamp(42px,7vw,90px) 18px;background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 15% 20%,rgba(255,216,232,.75),transparent 30%),radial-gradient(circle at 85% 75%,rgba(217,255,120,.42),transparent 32%),var(--cream);background-size:22px 22px,22px 22px,auto,auto,auto;color:var(--ink);font-family:Futura,'Futura PT',Arial,sans-serif}
+      .suas-root-rescue *{box-sizing:border-box}.suas-root-rescue-wrap{width:min(1040px,100%);margin:0 auto;display:grid;gap:18px}.suas-root-card{border:2px solid var(--ink);border-radius:28px;background:rgba(255,255,255,.94);box-shadow:7px 8px 0 var(--ink);overflow:hidden}.suas-root-bar{display:flex;gap:8px;align-items:center;min-height:38px;padding:9px 13px;border-bottom:2px solid var(--ink);background:#eef2f6}.suas-root-dot{width:11px;height:11px;border-radius:999px;background:var(--dot)}.suas-root-label{margin-left:auto;font-size:10px;font-weight:900;letter-spacing:.22em;text-transform:uppercase}.suas-root-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:18px;align-items:center;padding:clamp(22px,4vw,42px)}.suas-root-title{margin:0;font-size:clamp(3.4rem,9vw,7.5rem);line-height:.78;letter-spacing:-.04em;text-transform:lowercase}.suas-root-copy{margin:16px 0 0;max-width:520px;font-size:clamp(1rem,2vw,1.25rem);font-weight:800;line-height:1.35}.suas-root-panel{display:grid;gap:10px}.suas-root-launch{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;padding:14px 16px;border:2px solid var(--ink);border-radius:18px;background:var(--bg,#fff);box-shadow:0 4px 0 var(--ink);color:var(--ink);text-decoration:none;font-weight:900;text-transform:lowercase}.suas-root-launch span{font-size:10px;letter-spacing:.2em;text-transform:uppercase}.suas-root-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.suas-root-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 16px;border:2px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 4px 0 var(--ink);color:var(--ink);text-decoration:none;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.suas-root-btn[data-dark]{background:var(--ink);color:#fff}@media(max-width:760px){.suas-root-body{grid-template-columns:1fr;padding:22px}.suas-root-card{border-radius:22px;box-shadow:5px 6px 0 var(--ink)}.suas-root-title{font-size:clamp(3.2rem,16vw,5.6rem)}}
+    </style>
+    <div class="suas-root-rescue-wrap">
+      <div class="suas-root-card">
+        <div class="suas-root-bar"><span class="suas-root-dot" style="--dot:#ff5f57"></span><span class="suas-root-dot" style="--dot:#febc2e"></span><span class="suas-root-dot" style="--dot:#28c840"></span><span class="suas-root-label">suas world / home</span></div>
+        <div class="suas-root-body">
+          <div>
+            <h1 class="suas-root-title">suas world.</h1>
+            <p class="suas-root-copy">Welcome back to the control panel. Shop the drops, build your formula, book the lab, and keep smelling rich.</p>
+            <div class="suas-root-actions"><a class="suas-root-btn" data-dark href="/collections/all">shop all</a><a class="suas-root-btn" href="/pages/scent-profile">scent profile</a><a class="suas-root-btn" href="/pages/the-lab">the lab</a></div>
+          </div>
+          <div class="suas-root-panel">
+            <a class="suas-root-launch" href="/collections/new-arrivals" style="--bg:#ffd8e8">new arrivals <span>shop</span></a>
+            <a class="suas-root-launch" href="/collections/best-sellers" style="--bg:#d9ff78">best sellers <span>shop</span></a>
+            <a class="suas-root-launch" href="/collections/oddities" style="--bg:#e4d5ff">oddities <span>shop</span></a>
+            <a class="suas-root-launch" href="/pages/bookings" style="--bg:#cdeeff">book the lab <span>reserve</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {%- else -%}
   <style>.suas-world-home,.suas-reviews{display:none!important}</style>
 
