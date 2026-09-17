@@ -3,35 +3,337 @@
   if customer
     assign account_name = customer.first_name | default: customer.name | default: 'babe'
   endif
-  assign suas_points = 0
+
+  assign saved_points = 0
   if customer
-    assign suas_points = customer.metafields.suas.total_points.value
-    if suas_points == blank
-      assign suas_points = customer.metafields.custom.total_points.value
+    assign saved_points = customer.metafields.suas.total_points.value
+    if saved_points == blank
+      assign saved_points = customer.metafields.custom.total_points.value
     endif
-    if suas_points == blank
-      assign suas_points = customer.metafields.loyalty.points.value
+    if saved_points == blank
+      assign saved_points = customer.metafields.loyalty.points.value
     endif
-    assign suas_points = suas_points | default: 0 | plus: 0
   endif
-  assign reward_goal = 1000
-  assign points_left = reward_goal | minus: suas_points
-  if points_left < 0
-    assign points_left = 0
-  endif
-  assign progress = suas_points | times: 100 | divided_by: reward_goal
-  if progress > 100
-    assign progress = 100
-  endif
+  assign saved_points = saved_points | default: 0 | plus: 0
 -%}
+
 <style>
-  @font-face{font-family:"Casual Human";src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-weight:400;font-display:swap}@font-face{font-family:"Casual Human";src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}.suas-account-hub{--ink:#0d0d0d;--muted:rgba(13,13,13,.58);--paper:#fffaf4;--pink:#ffd7e8;--hot:#ff9fc6;--yellow:#fff3a4;--blue:#cdefff;--green:#dbff9e;--lav:#e4d5ff;min-height:86vh;padding:clamp(22px,4vw,58px) 14px 62px;color:var(--ink);background:linear-gradient(rgba(13,13,13,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(13,13,13,.035) 1px,transparent 1px),radial-gradient(circle at 8% 12%,rgba(255,215,232,.58),transparent 28%),radial-gradient(circle at 88% 6%,rgba(219,255,158,.42),transparent 26%),linear-gradient(180deg,#fffaf4,#fff 54%,#fff8fb);background-size:24px 24px,24px 24px,auto,auto,auto;font-family:Futura,"Futura PT",Arial,sans-serif;overflow:hidden}.suas-account-hub *{box-sizing:border-box}.suas-account-hub a{color:inherit;text-decoration:none}.suas-ah-shell{width:min(1120px,100%);margin:0 auto}.suas-ah-brand{display:flex;align-items:center;gap:13px;margin-bottom:18px}.suas-ah-orb{width:50px;height:50px;border-radius:999px;background:conic-gradient(from 210deg,#f7d1ff,#dbff9e,#bce8ff,#ffc7df,#f7d1ff);box-shadow:0 12px 24px rgba(0,0,0,.13)}.suas-ah-logo,.suas-ah-title,.suas-ah-card h2,.suas-ah-number,.suas-ah-feature strong{font-family:"Casual Human",Futura,Arial,sans-serif!important;font-weight:700!important;letter-spacing:0!important}.suas-ah-logo{font-size:38px;line-height:1;text-transform:lowercase}.suas-ah-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.42fr);gap:16px;align-items:stretch;margin-bottom:16px}.suas-ah-panel,.suas-ah-card,.suas-ah-feature,.suas-ah-ticket{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.9);box-shadow:6px 7px 0 var(--ink)}.suas-ah-panel{padding:clamp(18px,3vw,30px)}.suas-ah-kicker,.suas-ah-btn,.suas-ah-mini,.suas-ah-label{font:900 9px/1 Futura,"Futura PT",Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}.suas-ah-kicker,.suas-ah-label{color:var(--muted)}.suas-ah-title{max-width:760px;margin:10px 0 12px;font-size:clamp(3rem,7vw,6.2rem);line-height:.82;text-transform:lowercase}.suas-ah-copy{max-width:58ch;margin:0;color:var(--muted);font-size:13px;line-height:1.55;font-weight:800}.suas-ah-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.suas-ah-btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:11px 15px;border:2px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 4px 0 var(--ink);transition:transform 160ms ease,box-shadow 160ms ease}.suas-ah-btn:hover{transform:translateY(2px);box-shadow:0 2px 0 var(--ink);background:var(--pink)}.suas-ah-btn.is-dark{background:var(--ink);color:#fff}.suas-ah-status{display:grid;align-content:center;gap:11px;background:#050505;color:#fff}.suas-ah-status .suas-ah-copy{color:rgba(255,255,255,.72)}.suas-ah-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(280px,.72fr);gap:16px}.suas-ah-stack{display:grid;gap:16px}.suas-ah-card{padding:clamp(16px,2.4vw,24px)}.suas-ah-card h2{margin:5px 0 9px;font-size:clamp(2rem,4vw,3.5rem);line-height:.88;text-transform:lowercase}.suas-ah-number{margin:6px 0;font-size:clamp(4.2rem,8vw,7rem);line-height:.82}.suas-ah-progress{height:12px;margin:18px 0 8px;border-radius:999px;background:rgba(13,13,13,.1);overflow:hidden}.suas-ah-progress span{display:block;height:100%;width:var(--progress);border-radius:inherit;background:#101010}.suas-ah-row{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;font-weight:800}.suas-ah-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.suas-ah-feature{min-height:142px;padding:13px;display:flex;flex-direction:column;justify-content:space-between;background:var(--tile);transition:transform 160ms ease,box-shadow 160ms ease}.suas-ah-feature:hover{transform:translateY(2px);box-shadow:4px 5px 0 var(--ink)}.suas-ah-feature span{font-size:22px}.suas-ah-feature strong{font-size:clamp(1.4rem,2.4vw,2rem);line-height:.9;text-transform:lowercase}.suas-ah-feature small{color:rgba(13,13,13,.62);font-size:10px;line-height:1.3;font-weight:800}.suas-ah-ticket{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:11px;align-items:center;min-height:70px;padding:12px;margin-top:10px;background:#fff}.suas-ah-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:999px;background:var(--tile);font-family:"Casual Human",Futura,Arial,sans-serif;font-weight:700}.suas-ah-ticket strong{display:block;font-size:14px}.suas-ah-ticket small{display:block;color:var(--muted);font-size:11px;line-height:1.35}.suas-ah-pill{display:inline-flex;width:max-content;max-width:100%;padding:7px 9px;border:1.5px solid var(--ink);border-radius:999px;background:var(--yellow);box-shadow:0 3px 0 var(--ink)}@media(max-width:900px){.suas-ah-hero,.suas-ah-grid{grid-template-columns:1fr}.suas-ah-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.suas-account-hub{padding:18px 10px 48px}.suas-ah-title{font-size:clamp(2.65rem,16vw,4.8rem)}.suas-ah-feature-grid{grid-template-columns:1fr 1fr;gap:8px}.suas-ah-feature{min-height:116px;border-radius:18px;padding:11px}.suas-ah-feature strong{font-size:1.1rem}.suas-ah-feature small{font-size:8.5px}.suas-ah-ticket{grid-template-columns:38px minmax(0,1fr);border-radius:18px}.suas-ah-icon{width:38px;height:38px}.suas-ah-ticket .suas-ah-mini{display:none}}
+  @font-face{font-family:"Casual Human";src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-weight:400;font-display:swap}
+  @font-face{font-family:"Casual Human";src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
+  .suas-account-hub{--ink:#101010;--muted:rgba(16,16,16,.62);--paper:#fffaf4;--pink:#ffd8e8;--hot:#ff9bc4;--yellow:#fff1a8;--blue:#cdeeff;--green:#d9ff78;--lav:#e4d5ff;min-height:86vh;padding:clamp(22px,4vw,54px) 14px 62px;color:var(--ink);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 9% 12%,rgba(255,216,232,.65),transparent 28%),radial-gradient(circle at 88% 7%,rgba(217,255,120,.4),transparent 26%),linear-gradient(180deg,#fffaf4,#fff 54%,#fff8fb);background-size:24px 24px,24px 24px,auto,auto,auto;font-family:Futura,"Futura PT",Arial,sans-serif;overflow:hidden}.suas-account-hub *{box-sizing:border-box}.suas-account-hub a{color:inherit;text-decoration:none}.suas-ah-shell{width:min(1180px,100%);margin:0 auto}.suas-ah-brand{display:flex;align-items:center;gap:13px;margin-bottom:18px}.suas-ah-orb{width:50px;height:50px;border-radius:999px;background:conic-gradient(from 210deg,#ffd8e8,#cdeeff,#d9ff78,#e4d5ff,#ffd8e8);box-shadow:inset 0 -7px 14px rgba(0,0,0,.16),0 12px 24px rgba(0,0,0,.13)}.suas-ah-logo,.suas-ah-title,.suas-ah-card h2,.suas-ah-number,.suas-ah-feature strong,.suas-ah-hand{font-family:"Casual Human",Futura,Arial,sans-serif!important;font-weight:700!important;letter-spacing:0!important}.suas-ah-logo{font-size:38px;line-height:1;text-transform:lowercase}.suas-ah-panel,.suas-ah-card,.suas-ah-feature,.suas-ah-ticket,.suas-ah-module{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.92);box-shadow:6px 7px 0 var(--ink)}.suas-ah-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.42fr);gap:16px;align-items:stretch;margin-bottom:16px}.suas-ah-panel{padding:clamp(18px,3vw,30px)}.suas-ah-kicker,.suas-ah-btn,.suas-ah-mini,.suas-ah-label,.suas-ah-tab,.suas-ah-input label{font:900 9px/1 Futura,"Futura PT",Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}.suas-ah-kicker,.suas-ah-label{color:var(--muted)}.suas-ah-title{max-width:800px;margin:10px 0 12px;font-size:clamp(3rem,7vw,6.2rem);line-height:.82;text-transform:lowercase}.suas-ah-copy{max-width:64ch;margin:0;color:var(--muted);font-size:13px;line-height:1.55;font-weight:800}.suas-ah-actions,.suas-ah-tabs,.suas-ah-point-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.suas-ah-btn,.suas-ah-tab{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:11px 15px;border:2px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 4px 0 var(--ink);transition:transform 160ms ease,box-shadow 160ms ease,background 160ms ease;cursor:pointer}.suas-ah-btn:hover,.suas-ah-tab:hover{transform:translateY(2px);box-shadow:0 2px 0 var(--ink);background:var(--pink)}.suas-ah-btn.is-dark,.suas-ah-tab.is-active{background:var(--ink);color:#fff}.suas-ah-status{display:grid;align-content:center;gap:11px;background:#050505;color:#fff}.suas-ah-status .suas-ah-copy{color:rgba(255,255,255,.72)}.suas-ah-pill{display:inline-flex;width:max-content;max-width:100%;padding:7px 9px;border:1.5px solid var(--ink);border-radius:999px;background:var(--yellow);box-shadow:0 3px 0 var(--ink);color:var(--ink)}.suas-ah-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(300px,.74fr);gap:16px}.suas-ah-stack{display:grid;gap:16px}.suas-ah-card,.suas-ah-module{padding:clamp(16px,2.4vw,24px)}.suas-ah-card h2,.suas-ah-module h2{margin:5px 0 9px;font-size:clamp(2rem,4vw,3.35rem);line-height:.88;text-transform:lowercase}.suas-ah-number{margin:6px 0;font-size:clamp(4.2rem,8vw,7rem);line-height:.82}.suas-ah-progress{height:13px;margin:18px 0 8px;border-radius:999px;background:rgba(16,16,16,.1);overflow:hidden}.suas-ah-progress span{display:block;height:100%;width:var(--progress,0%);border-radius:inherit;background:#101010;transition:width 280ms ease}.suas-ah-row{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;font-weight:800}.suas-ah-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.suas-ah-feature{min-height:132px;padding:13px;display:flex;flex-direction:column;justify-content:space-between;background:var(--tile);transition:transform 160ms ease,box-shadow 160ms ease;cursor:pointer;text-align:left}.suas-ah-feature:hover{transform:translateY(2px);box-shadow:4px 5px 0 var(--ink)}.suas-ah-feature span{font-size:22px}.suas-ah-feature strong{font-size:clamp(1.35rem,2.4vw,2rem);line-height:.9;text-transform:lowercase}.suas-ah-feature small{color:rgba(16,16,16,.62);font-size:10px;line-height:1.3;font-weight:800}.suas-ah-ticket{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:11px;align-items:center;min-height:70px;padding:12px;margin-top:10px;background:#fff}.suas-ah-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:999px;background:var(--tile);font-family:"Casual Human",Futura,Arial,sans-serif;font-weight:700}.suas-ah-ticket strong{display:block;font-size:14px}.suas-ah-ticket small{display:block;color:var(--muted);font-size:11px;line-height:1.35}.suas-ah-view{display:none}.suas-ah-view.is-active{display:block}.suas-ah-form{display:grid;gap:12px;margin-top:14px}.suas-ah-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.suas-ah-input{display:grid;gap:6px}.suas-ah-input input,.suas-ah-input textarea,.suas-ah-input select{width:100%;min-height:44px;border:2px solid var(--ink);border-radius:16px;background:#fff;padding:11px 12px;color:var(--ink);font:800 13px/1.35 Futura,"Futura PT",Arial,sans-serif;box-shadow:0 3px 0 rgba(16,16,16,.12)}.suas-ah-input textarea{min-height:110px;resize:vertical}.suas-ah-list{display:grid;gap:10px;margin-top:14px}.suas-ah-entry{display:grid;gap:7px;padding:13px;border:1.75px solid var(--ink);border-radius:18px;background:var(--tile,#fff);box-shadow:0 4px 0 var(--ink)}.suas-ah-entry strong{font-size:15px}.suas-ah-entry small{color:var(--muted);font-weight:800}.suas-ah-entry p{margin:0;color:rgba(16,16,16,.72);font-size:12px;line-height:1.45;font-weight:800}.suas-ah-game-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.suas-ah-game-option{min-height:62px;border:2px solid var(--ink);border-radius:18px;background:var(--tile,#fff);box-shadow:0 4px 0 var(--ink);padding:12px;font-weight:900;text-align:left;cursor:pointer}.suas-ah-game-option.is-right{background:var(--green)}.suas-ah-game-option.is-wrong{background:var(--pink)}.suas-ah-note{margin-top:10px;padding:10px 12px;border:1.5px solid rgba(16,16,16,.18);border-radius:16px;background:rgba(255,255,255,.72);color:var(--muted);font-size:11px;line-height:1.4;font-weight:800}.suas-ah-empty{padding:13px;border:1.5px dashed rgba(16,16,16,.35);border-radius:18px;color:var(--muted);font-size:12px;font-weight:800}.suas-ah-toast{position:fixed;right:16px;bottom:16px;z-index:9999;max-width:min(330px,calc(100vw - 32px));padding:13px 15px;border:2px solid var(--ink);border-radius:18px;background:var(--green);box-shadow:5px 6px 0 var(--ink);font-size:12px;font-weight:900;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity 180ms ease,transform 180ms ease}.suas-ah-toast.is-live{opacity:1;transform:translateY(0)}@media(max-width:900px){.suas-ah-hero,.suas-ah-grid{grid-template-columns:1fr}.suas-ah-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.suas-account-hub{padding:18px 10px 48px}.suas-ah-title{font-size:clamp(2.65rem,16vw,4.8rem)}.suas-ah-feature-grid,.suas-ah-two,.suas-ah-game-options{grid-template-columns:1fr}.suas-ah-feature{min-height:112px;border-radius:18px;padding:11px}.suas-ah-feature strong{font-size:1.15rem}.suas-ah-feature small{font-size:8.5px}.suas-ah-ticket{grid-template-columns:38px minmax(0,1fr);border-radius:18px}.suas-ah-icon{width:38px;height:38px}.suas-ah-ticket .suas-ah-mini{display:none}.suas-ah-tabs{position:sticky;top:0;z-index:2;padding:8px 0;background:rgba(255,250,244,.92);backdrop-filter:blur(8px)}}
 </style>
-<section class="suas-account-hub">
+
+<section class="suas-account-hub" data-suas-account-hub data-shopify-points="{{ saved_points }}">
   <div class="suas-ah-shell">
     <div class="suas-ah-brand"><span class="suas-ah-orb"></span><span class="suas-ah-logo">suas</span></div>
-    <div class="suas-ah-hero"><article class="suas-ah-panel"><p class="suas-ah-kicker">account hub / suas 2.0</p><h1 class="suas-ah-title">{% if customer %}hi, {{ account_name | downcase }}.{% else %}your scent world lives here.{% endif %}</h1><p class="suas-ah-copy">Login, rewards, saved formulas, orders, design tools, games, and lab memories all get one cute front door.</p><div class="suas-ah-actions">{% if customer %}<a class="suas-ah-btn is-dark" href="{{ routes.account_url }}">orders + profile</a><a class="suas-ah-btn" href="{{ routes.account_logout_url }}">sign out</a>{% else %}<a class="suas-ah-btn is-dark" href="{{ routes.account_login_url }}">login</a><a class="suas-ah-btn" href="/account/register">create account</a>{% endif %}<a class="suas-ah-btn" href="/pages/bookings">book the lab</a></div></article><aside class="suas-ah-panel suas-ah-status"><span class="suas-ah-pill suas-ah-mini">lab status: open + mixing</span><p class="suas-ah-copy">Next up: connect Shopify customer metafields or a loyalty app so points, formulas, and saved designs become live account data.</p></aside></div>
-    <div class="suas-ah-grid"><main class="suas-ah-stack"><article class="suas-ah-card"><p class="suas-ah-label">points</p><p class="suas-ah-number">{{ suas_points }}</p><h2>rewards loading.</h2><p class="suas-ah-copy">Earn points online and in store, then redeem them with a code, barcode, or reward card once the loyalty backend is connected.</p><div class="suas-ah-progress" style="--progress: {{ progress }}%;"><span></span></div><div class="suas-ah-row"><span>0 pts</span><span>{{ points_left }} pts to next reward</span><span>{{ reward_goal }} pts</span></div></article><article class="suas-ah-card"><p class="suas-ah-label">account doors</p><div class="suas-ah-feature-grid"><a class="suas-ah-feature" style="--tile:#ffd7e8" href="{{ routes.account_url }}"><span>lock</span><strong>security</strong><small>profile, address, login settings</small></a><a class="suas-ah-feature" style="--tile:#dbff9e" href="/pages/shut-up-and-smell#build-a-fragrance"><span>mix</span><strong>formula book</strong><small>save blends + scent notes</small></a><a class="suas-ah-feature" style="--tile:#cdefff" href="/pages/shut-up-and-smell#build-a-fragrance"><span>label</span><strong>design studio</strong><small>labels and bottle looks</small></a><a class="suas-ah-feature" style="--tile:#fff3a4" href="/pages/rewards"><span>pts</span><strong>rewards</strong><small>points, perks, coupons</small></a><a class="suas-ah-feature" style="--tile:#e4d5ff" href="/pages/games"><span>play</span><strong>games</strong><small>scent quizzes and minis</small></a><a class="suas-ah-feature" style="--tile:#ffc7df" href="/collections/all"><span>shop</span><strong>orders</strong><small>reorder the good stuff</small></a></div></article></main><aside class="suas-ah-stack"><article class="suas-ah-card"><p class="suas-ah-label">quick links</p><a class="suas-ah-ticket" href="/pages/bookings"><span class="suas-ah-icon" style="--tile:#dbff9e">+</span><span><strong>Book the Lab</strong><small>self-guided or guided class</small></span><span class="suas-ah-mini">go</span></a><a class="suas-ah-ticket" href="/pages/shut-up-and-smell"><span class="suas-ah-icon" style="--tile:#ffd7e8">s.</span><span><strong>Build a Formula</strong><small>up to four scent notes</small></span><span class="suas-ah-mini">go</span></a><a class="suas-ah-ticket" href="/pages/visit-us"><span class="suas-ah-icon" style="--tile:#cdefff">pin</span><span><strong>Visit Us</strong><small>188 W Franklin Blvd, Gastonia</small></span><span class="suas-ah-mini">map</span></a></article><article class="suas-ah-card"><p class="suas-ah-label">customer data</p><h2>{% if customer %}profile connected.{% else %}login required.{% endif %}</h2><p class="suas-ah-copy">{% if customer %}Signed in as {{ customer.email }}. Shopify orders are live; rewards and formulas can connect through metafields next.{% else %}Sign in first so Shopify can show order history. The SUAS-only extras are staged here for the next backend connection.{% endif %}</p></article></aside></div>
+
+    <div class="suas-ah-hero">
+      <article class="suas-ah-panel">
+        <p class="suas-ah-kicker">account hub / suas 2.0</p>
+        <h1 class="suas-ah-title">{% if customer %}hi, {{ account_name | downcase }}.{% else %}your scent world lives here.{% endif %}</h1>
+        <p class="suas-ah-copy">Security, points, scent journal, games, formulas, and quick account tools now live on this page. Your journal and game progress save on this device; Shopify order/account data stays inside Shopify login.</p>
+        <div class="suas-ah-actions">
+          {% if customer %}
+            <a class="suas-ah-btn is-dark" href="{{ routes.account_url }}">shopify profile</a>
+            <a class="suas-ah-btn" href="{{ routes.account_logout_url }}">sign out</a>
+          {% else %}
+            <a class="suas-ah-btn is-dark" href="{{ routes.account_login_url }}">login</a>
+            <a class="suas-ah-btn" href="/account/register">create account</a>
+          {% endif %}
+          <button class="suas-ah-btn" type="button" data-suas-open="journal">open journal</button>
+          <button class="suas-ah-btn" type="button" data-suas-open="games">play games</button>
+        </div>
+      </article>
+
+      <aside class="suas-ah-panel suas-ah-status">
+        <span class="suas-ah-pill suas-ah-mini">live module: browser saved</span>
+        <p class="suas-ah-copy">A loyalty app or Shopify metafield automation can replace the local points later. For now, customers can save scent notes, earn on-page points, and use security/account links.</p>
+      </aside>
+    </div>
+
+    <div class="suas-ah-tabs" role="tablist" aria-label="Account tools">
+      <button class="suas-ah-tab is-active" type="button" data-suas-open="overview">overview</button>
+      <button class="suas-ah-tab" type="button" data-suas-open="security">security</button>
+      <button class="suas-ah-tab" type="button" data-suas-open="journal">scent journal</button>
+      <button class="suas-ah-tab" type="button" data-suas-open="points">points</button>
+      <button class="suas-ah-tab" type="button" data-suas-open="games">games</button>
+    </div>
+
+    <div class="suas-ah-grid">
+      <main class="suas-ah-stack">
+        <section class="suas-ah-view is-active" data-suas-view="overview">
+          <article class="suas-ah-card">
+            <p class="suas-ah-label">account doors</p>
+            <div class="suas-ah-feature-grid">
+              <button class="suas-ah-feature" type="button" style="--tile:#ffd8e8" data-suas-open="security"><span>lock</span><strong>security</strong><small>login, profile, address, orders</small></button>
+              <button class="suas-ah-feature" type="button" style="--tile:#d9ff78" data-suas-open="journal"><span>mix</span><strong>scent journal</strong><small>save formulas and notes</small></button>
+              <button class="suas-ah-feature" type="button" style="--tile:#cdeeff" data-suas-open="points"><span>pts</span><strong>points</strong><small>track and earn local points</small></button>
+              <button class="suas-ah-feature" type="button" style="--tile:#e4d5ff" data-suas-open="games"><span>play</span><strong>games</strong><small>scent quiz and minis</small></button>
+              <a class="suas-ah-feature" style="--tile:#fff1a8" href="/pages/scent-profile"><span>s.</span><strong>scent profile</strong><small>shop by scent lane</small></a>
+              <a class="suas-ah-feature" style="--tile:#ffc7df" href="/collections/all"><span>bag</span><strong>orders</strong><small>shop and reorder</small></a>
+            </div>
+          </article>
+
+          <article class="suas-ah-card">
+            <p class="suas-ah-label">latest journal</p>
+            <div class="suas-ah-list" data-suas-latest-journal></div>
+          </article>
+        </section>
+
+        <section class="suas-ah-view" data-suas-view="security">
+          <article class="suas-ah-card">
+            <p class="suas-ah-label">security center</p>
+            <h2>{% if customer %}profile connected.{% else %}login required.{% endif %}</h2>
+            <p class="suas-ah-copy">Use Shopify’s secure customer account tools for passwordless login, order history, address info, and sign out. SUAS journal/game data saves on this device until a backend is connected.</p>
+            <div class="suas-ah-list">
+              {% if customer %}
+                <a class="suas-ah-ticket" href="{{ routes.account_url }}"><span class="suas-ah-icon" style="--tile:#ffd8e8">id</span><span><strong>Open Shopify profile</strong><small>{{ customer.email }}</small></span><span class="suas-ah-mini">go</span></a>
+                <a class="suas-ah-ticket" href="{{ routes.account_logout_url }}"><span class="suas-ah-icon" style="--tile:#fff1a8">bye</span><span><strong>Sign out</strong><small>End the current customer session</small></span><span class="suas-ah-mini">go</span></a>
+              {% else %}
+                <a class="suas-ah-ticket" href="{{ routes.account_login_url }}"><span class="suas-ah-icon" style="--tile:#d9ff78">in</span><span><strong>Login</strong><small>Open Shopify customer login</small></span><span class="suas-ah-mini">go</span></a>
+                <a class="suas-ah-ticket" href="/account/register"><span class="suas-ah-icon" style="--tile:#cdeeff">new</span><span><strong>Create account</strong><small>Start a Shopify customer profile</small></span><span class="suas-ah-mini">go</span></a>
+              {% endif %}
+              <button class="suas-ah-ticket" type="button" data-suas-export><span class="suas-ah-icon" style="--tile:#e4d5ff">save</span><span><strong>Export local data</strong><small>Download points and scent journal JSON</small></span><span class="suas-ah-mini">file</span></button>
+              <button class="suas-ah-ticket" type="button" data-suas-clear><span class="suas-ah-icon" style="--tile:#ffc7df">wipe</span><span><strong>Clear this-device data</strong><small>Resets local points, games, and journal</small></span><span class="suas-ah-mini">reset</span></button>
+            </div>
+          </article>
+        </section>
+
+        <section class="suas-ah-view" data-suas-view="journal">
+          <article class="suas-ah-card">
+            <p class="suas-ah-label">scent journal</p>
+            <h2>save your formulas.</h2>
+            <p class="suas-ah-copy">Record what you made, the product type, notes, and how it smelled. Entries save on this device and can be exported from Security.</p>
+            <form class="suas-ah-form" data-suas-journal-form>
+              <div class="suas-ah-two">
+                <div class="suas-ah-input"><label for="suas-journal-name">formula name</label><input id="suas-journal-name" name="name" placeholder="pink sugar villain" required></div>
+                <div class="suas-ah-input"><label for="suas-journal-product">product</label><select id="suas-journal-product" name="product"><option>30 mL Perfume / Cologne</option><option>10 mL Roll-On</option><option>1 oz Body Oil</option><option>Butter Creme</option><option>Everything Mist</option><option>Candle</option></select></div>
+              </div>
+              <div class="suas-ah-input"><label for="suas-journal-notes">scent notes</label><input id="suas-journal-notes" name="notes" placeholder="mandarin, vanilla, amber"></div>
+              <div class="suas-ah-input"><label for="suas-journal-vibe">how did it smell?</label><textarea id="suas-journal-vibe" name="vibe" placeholder="sweet, warm, clean, loud, soft, date-night, etc."></textarea></div>
+              <button class="suas-ah-btn is-dark" type="submit">save scent entry +10 pts</button>
+            </form>
+            <div class="suas-ah-list" data-suas-journal-list></div>
+          </article>
+        </section>
+
+        <section class="suas-ah-view" data-suas-view="points">
+          <article class="suas-ah-card">
+            <p class="suas-ah-label">points wallet</p>
+            <p class="suas-ah-number" data-suas-points>{{ saved_points }}</p>
+            <h2>earn towards perks.</h2>
+            <p class="suas-ah-copy">This wallet works on the page now. A real loyalty app can sync purchases and redemptions later; the page is ready for that connection.</p>
+            <div class="suas-ah-progress" data-suas-progress style="--progress:0%;"><span></span></div>
+            <div class="suas-ah-row"><span>0 pts</span><span data-suas-points-left>1000 pts to next reward</span><span>1000 pts</span></div>
+            <div class="suas-ah-point-actions"><button class="suas-ah-btn" type="button" data-suas-add-points="25" data-reason="profile check">profile check +25</button><button class="suas-ah-btn" type="button" data-suas-add-points="15" data-reason="scent quiz">quiz +15</button><button class="suas-ah-btn" type="button" data-suas-add-points="10" data-reason="journal entry">journal +10</button></div>
+            <div class="suas-ah-list" data-suas-points-log></div>
+          </article>
+        </section>
+
+        <section class="suas-ah-view" data-suas-view="games">
+          <article class="suas-ah-card">
+            <p class="suas-ah-label">games</p>
+            <h2>scent quiz.</h2>
+            <p class="suas-ah-copy" data-suas-game-question>Which note gives a creamy sweet gourmand base?</p>
+            <div class="suas-ah-game-options" data-suas-game-options></div>
+            <p class="suas-ah-note" data-suas-game-status>Pick an answer. Correct answers add 15 points once per question.</p>
+            <button class="suas-ah-btn" type="button" data-suas-next-question>next question</button>
+          </article>
+        </section>
+      </main>
+
+      <aside class="suas-ah-stack">
+        <article class="suas-ah-card">
+          <p class="suas-ah-label">quick links</p>
+          <a class="suas-ah-ticket" href="/pages/bookings"><span class="suas-ah-icon" style="--tile:#d9ff78">+</span><span><strong>Book the Lab</strong><small>self-guided or guided class</small></span><span class="suas-ah-mini">go</span></a>
+          <a class="suas-ah-ticket" href="/pages/shut-up-and-smell"><span class="suas-ah-icon" style="--tile:#ffd8e8">s.</span><span><strong>Build a Formula</strong><small>up to four scent notes</small></span><span class="suas-ah-mini">go</span></a>
+          <a class="suas-ah-ticket" href="/pages/visit-us"><span class="suas-ah-icon" style="--tile:#cdeeff">pin</span><span><strong>Visit Us</strong><small>188 W Franklin Blvd, Gastonia</small></span><span class="suas-ah-mini">map</span></a>
+        </article>
+        <article class="suas-ah-card">
+          <p class="suas-ah-label">live status</p>
+          <h2 data-suas-mini-title>ready.</h2>
+          <p class="suas-ah-copy" data-suas-mini-copy>Open a module to manage your SUAS account tools.</p>
+        </article>
+      </aside>
+    </div>
   </div>
+  <div class="suas-ah-toast" data-suas-toast></div>
 </section>
+
+<script>
+(() => {
+  const root = document.querySelector('[data-suas-account-hub]');
+  if (!root || root.dataset.ready === 'true') return;
+  root.dataset.ready = 'true';
+
+  const storageKey = 'suasAccountPortal.v2';
+  const shopifyPoints = parseInt(root.dataset.shopifyPoints || '0', 10) || 0;
+  const rewardGoal = 1000;
+  const emptyState = { points: shopifyPoints, journal: [], log: [], answered: [] };
+
+  const load = () => {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      return { ...emptyState, ...(parsed || {}), points: Math.max(shopifyPoints, Number(parsed?.points || 0)) };
+    } catch (error) {
+      return { ...emptyState };
+    }
+  };
+
+  let state = load();
+  let currentQuestion = 0;
+
+  const save = () => localStorage.setItem(storageKey, JSON.stringify(state));
+  const $ = (selector) => root.querySelector(selector);
+  const $$ = (selector) => [...root.querySelectorAll(selector)];
+  const toast = (message) => {
+    const box = $('[data-suas-toast]');
+    if (!box) return;
+    box.textContent = message;
+    box.classList.add('is-live');
+    window.clearTimeout(box._timer);
+    box._timer = window.setTimeout(() => box.classList.remove('is-live'), 2400);
+  };
+
+  const addPoints = (amount, reason) => {
+    const pts = Number(amount) || 0;
+    state.points += pts;
+    state.log.unshift({ amount: pts, reason, date: new Date().toLocaleString() });
+    state.log = state.log.slice(0, 12);
+    save();
+    render();
+    toast(`+${pts} points: ${reason}`);
+  };
+
+  const openView = (name) => {
+    $$('[data-suas-view]').forEach((view) => view.classList.toggle('is-active', view.dataset.suasView === name));
+    $$('[data-suas-open]').forEach((button) => button.classList.toggle('is-active', button.dataset.suasOpen === name));
+    const titles = { overview: 'ready.', security: 'security center.', journal: 'journal open.', points: 'points wallet.', games: 'game mode.' };
+    const copy = { overview: 'Open a module to manage your SUAS account tools.', security: 'Shopify handles login/profile security; SUAS local data can be exported or cleared here.', journal: 'Save scent formulas and notes on this device.', points: 'Track page points and activity while the loyalty app is pending.', games: 'Play scent quizzes and earn local points.' };
+    const title = $('[data-suas-mini-title]');
+    const mini = $('[data-suas-mini-copy]');
+    if (title) title.textContent = titles[name] || 'ready.';
+    if (mini) mini.textContent = copy[name] || copy.overview;
+  };
+
+  const renderPoints = () => {
+    $$('[data-suas-points]').forEach((el) => { el.textContent = state.points; });
+    const progress = Math.min(100, Math.round((state.points / rewardGoal) * 100));
+    const bar = $('[data-suas-progress]');
+    if (bar) bar.style.setProperty('--progress', `${progress}%`);
+    const left = $('[data-suas-points-left]');
+    if (left) left.textContent = `${Math.max(0, rewardGoal - state.points)} pts to next reward`;
+    const log = $('[data-suas-points-log]');
+    if (log) {
+      log.innerHTML = state.log.length ? state.log.map((item) => `<div class="suas-ah-entry" style="--tile:#fff1a8"><strong>+${item.amount} ${item.reason}</strong><small>${item.date}</small></div>`).join('') : '<div class="suas-ah-empty">No point activity yet. Save a journal entry or play a quiz.</div>';
+    }
+  };
+
+  const renderJournal = () => {
+    const html = state.journal.length ? state.journal.map((entry, index) => `<div class="suas-ah-entry" style="--tile:${index % 2 ? '#cdeeff' : '#ffd8e8'}"><strong>${entry.name}</strong><small>${entry.product} • ${entry.date}</small><p><b>Notes:</b> ${entry.notes || 'not listed'}</p><p>${entry.vibe || ''}</p><button class="suas-ah-btn" type="button" data-delete-journal="${entry.id}">delete</button></div>`).join('') : '<div class="suas-ah-empty">No scents saved yet. Add your first formula above.</div>';
+    const list = $('[data-suas-journal-list]');
+    const latest = $('[data-suas-latest-journal]');
+    if (list) list.innerHTML = html;
+    if (latest) latest.innerHTML = state.journal[0] ? `<div class="suas-ah-entry" style="--tile:#d9ff78"><strong>${state.journal[0].name}</strong><small>${state.journal[0].product} • ${state.journal[0].date}</small><p>${state.journal[0].notes || 'No notes saved.'}</p></div>` : '<div class="suas-ah-empty">No saved formula yet. Open scent journal to add one.</div>';
+  };
+
+  const questions = [
+    { q: 'Which note gives a creamy sweet gourmand base?', a: 'Vanilla', options: ['Mandarin', 'Vanilla', 'Mint', 'Grapefruit'] },
+    { q: 'Which note usually reads bright and juicy?', a: 'Mandarin', options: ['Amber', 'Musk', 'Mandarin', 'Tonka'] },
+    { q: 'Which note feels warm, resinous, and cozy?', a: 'Amber', options: ['Amber', 'Cucumber', 'Lavender', 'Lemon'] },
+    { q: 'Which note is soft, clean, and skin-like?', a: 'Musk', options: ['Pineapple', 'Musk', 'Coffee', 'Peach'] }
+  ];
+
+  const renderGame = () => {
+    const question = questions[currentQuestion % questions.length];
+    const q = $('[data-suas-game-question]');
+    const options = $('[data-suas-game-options]');
+    const status = $('[data-suas-game-status]');
+    if (q) q.textContent = question.q;
+    if (status) status.textContent = 'Pick an answer. Correct answers add 15 points once per question.';
+    if (options) options.innerHTML = question.options.map((option) => `<button class="suas-ah-game-option" style="--tile:#fff" type="button" data-answer="${option}">${option}</button>`).join('');
+  };
+
+  const render = () => {
+    renderPoints();
+    renderJournal();
+    renderGame();
+  };
+
+  root.addEventListener('click', (event) => {
+    const open = event.target.closest('[data-suas-open]');
+    if (open) openView(open.dataset.suasOpen);
+
+    const add = event.target.closest('[data-suas-add-points]');
+    if (add) addPoints(add.dataset.suasAddPoints, add.dataset.reason || 'account activity');
+
+    const del = event.target.closest('[data-delete-journal]');
+    if (del) {
+      state.journal = state.journal.filter((entry) => entry.id !== del.dataset.deleteJournal);
+      save();
+      render();
+      toast('Journal entry deleted.');
+    }
+
+    const answer = event.target.closest('[data-answer]');
+    if (answer) {
+      const question = questions[currentQuestion % questions.length];
+      const status = $('[data-suas-game-status]');
+      const id = `q-${currentQuestion % questions.length}`;
+      const correct = answer.dataset.answer === question.a;
+      $$('[data-answer]').forEach((btn) => {
+        btn.classList.toggle('is-right', btn.dataset.answer === question.a);
+        btn.classList.toggle('is-wrong', btn === answer && !correct);
+      });
+      if (correct && !state.answered.includes(id)) {
+        state.answered.push(id);
+        addPoints(15, 'scent quiz');
+        if (status) status.textContent = 'Correct. You earned 15 points.';
+      } else if (correct) {
+        if (status) status.textContent = 'Correct, but points for this question were already claimed.';
+      } else if (status) {
+        status.textContent = `Not that one. The answer is ${question.a}.`;
+      }
+    }
+
+    if (event.target.closest('[data-suas-next-question]')) {
+      currentQuestion = (currentQuestion + 1) % questions.length;
+      renderGame();
+    }
+
+    if (event.target.closest('[data-suas-export]')) {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'suas-account-data.json';
+      link.click();
+      URL.revokeObjectURL(link.href);
+      toast('Export downloaded.');
+    }
+
+    if (event.target.closest('[data-suas-clear]')) {
+      state = { ...emptyState, points: shopifyPoints, journal: [], log: [], answered: [] };
+      save();
+      render();
+      toast('Local account data cleared.');
+    }
+  });
+
+  const form = $('[data-suas-journal-form]');
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      state.journal.unshift({ id: `${Date.now()}`, name: data.get('name') || 'untitled formula', product: data.get('product') || 'product', notes: data.get('notes') || '', vibe: data.get('vibe') || '', date: new Date().toLocaleDateString() });
+      state.journal = state.journal.slice(0, 24);
+      form.reset();
+      addPoints(10, 'journal entry');
+      openView('journal');
+    });
+  }
+
+  render();
+})();
+</script>
+
 {% schema %}{"name":"SUAS account portal","settings":[],"presets":[{"name":"SUAS account portal"}]}{% endschema %}
