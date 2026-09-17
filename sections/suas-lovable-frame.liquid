@@ -429,7 +429,7 @@
   </div>
 
   <aside class="suas-side-rail" aria-label="SUAS control panel">
-    <a class="suas-side-head" href="{{ section.settings.home_link | default: '/' }}">
+    <a class="suas-side-head" href="{{ routes.root_url }}">
       <span class="suas-side-orb" aria-hidden="true"></span>
       <span class="suas-side-brand">{{ section.settings.brand_text }}</span>
     </a>
@@ -616,7 +616,8 @@
         { "type": "menu_item", "settings": { "title": "feminine", "icon": "x", "number": "04", "link": "/collections/feminine", "active_match": "/collections/feminine", "tint_color": "#ff9bc4" } },
         { "type": "menu_item", "settings": { "title": "oddities", "icon": "*", "number": "05", "link": "/collections/oddities", "active_match": "/collections/oddities", "tint_color": "#c7b5ff" } },
         { "type": "menu_item", "settings": { "title": "the lab", "icon": "/", "number": "06", "link": "/pages/shut-up-and-smell", "active_match": "/pages/shut-up-and-smell", "tint_color": "#c6f76a" } },
-        { "type": "menu_item", "settings": { "title": "about us", "icon": "?", "number": "08", "link": "/pages/about", "active_match": "/pages/about", "tint_color": " #c7b5ff", "submenu_1_label": "Who are we", "submenu_1_link": "/pages/about", "submenu_2_label": "Bookings", "submenu_2_link": "/pages/bookings", "submenu_3_label": "Contact Us", "submenu_3_link": "/pages/contact", "submenu_4_label": "Refund Policy", "submenu_4_link": "/policies/refund-policy" } }
+        { "type": "menu_item", "settings": { "title": "visit us", "icon": "!", "number": "07", "link": "/pages/visit-us", "active_match": "/pages/visit-us", "tint_color": "#9dd7ff" } },
+        { "type": "menu_item", "settings": { "title": "about us", "icon": "?", "number": "08", "link": "/pages/about", "active_match": "/pages/about", "tint_color": "#c7b5ff", "submenu_1_label": "Who are we", "submenu_1_link": "/pages/about", "submenu_2_label": "Bookings", "submenu_2_link": "/pages/bookings", "submenu_3_label": "Contact Us", "submenu_3_link": "/pages/contact", "submenu_4_label": "Refund Policy", "submenu_4_link": "/policies/refund-policy" } }
       ]
     }
   ]
