@@ -119,8 +119,8 @@
         {%- when 'heading' -%}
           <h2 class="product-page--heading" data-item="section-heading">
             {{ product.title }}
+            <!--BEGIN_AM_REVIEWS:production:PRODUCT_COLLECTION_STAR_WIDGET-->{% render 'asrv-star-widget' , product: product, size: 14 , anchor: false %}<!--END_AM_REVIEWS:production:PRODUCT_COLLECTION_STAR_WIDGET-->
           </h2>
-          {%- render 'product-rating', product: product -%}
 
         {%- when 'vendor' -%}
           <div
@@ -185,7 +185,7 @@
           {%- render 'collapsible-tab', block: block -%}
 
         {%- when 'rating' -%}
-          {%- render 'product-rating', product: product -%}
+          {%- render 'product-rating' -%}
 
         {%- when 'liquid' -%}
           {{- block.settings.custom-liquid -}}
@@ -287,8 +287,6 @@
       {%- endunless -%}
     </div>
   </div>
-
-  {% render 'suas-product-reviews', product: product %}
 
   {% if modal_enabled %}
       <div class="product-page--modal-wrapper">
