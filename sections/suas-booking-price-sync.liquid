@@ -41,6 +41,9 @@
     endif
   endif
 %}
+<style>
+  .suas-guided-tier-wrap{grid-column:1/-1;display:grid;gap:8px;margin:1px 0 2px}.suas-guided-tier-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.suas-guided-tier{position:relative;display:grid;gap:7px;min-height:118px;border:2px solid rgba(16,16,16,.2);border-radius:16px;background:#fff;padding:10px;cursor:pointer;box-shadow:0 3px 0 rgba(16,16,16,.22);transition:transform .14s ease,box-shadow .14s ease,background .14s ease,border-color .14s ease}.suas-guided-tier input{position:absolute;opacity:0;pointer-events:none}.suas-guided-tier b{font:900 9px/1.15 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}.suas-guided-tier strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.45rem;font-weight:400;line-height:.9;text-transform:uppercase}.suas-guided-tier small{font:800 9px/1.25 Futura,Arial,sans-serif;color:rgba(16,16,16,.62)}.suas-guided-tier.is-selected{border-color:#101010;background:#fff2a8;box-shadow:0 4px 0 #101010;transform:translateY(-1px)}.suas-guided-tier-note{margin:0;border:1px solid rgba(16,16,16,.16);border-radius:13px;background:rgba(255,255,255,.72);padding:8px 10px;font:800 9.5px/1.35 Futura,Arial,sans-serif;color:rgba(16,16,16,.62)}@media(max-width:700px){.suas-guided-tier-grid{grid-template-columns:1fr}.suas-guided-tier{min-height:0}.suas-guided-tier strong{font-size:1.25rem}}
+</style>
 <script>
 (() => {
   const data = {
@@ -50,27 +53,91 @@
     rollOn: {% if roll_on_main_variant != blank %}{ id: {{ roll_on_main_variant.id | json }}, price: {{ roll_on_main_variant.price | money | json }}, label: 'Lab Session: Roll-On Perfume (10mL)', description: 'Create a portable 10mL roll-on perfume oil with up to four scent notes.' }{% else %}null{% endif %}
   };
 
-  const select = document.querySelector('#SelfExperience');
-  if (!select) return;
+  const selfSelect = document.querySelector('#SelfExperience');
+  if (selfSelect) {
+    const targets = [
+      ['Lab Session: Eau De Parfum', data.parfum],
+      ['Lab Session: Body Oil', data.bodyOil],
+      ['Lab Session Combo', data.combo],
+      ['Lab Session: Roll-On Perfume', data.rollOn]
+    ];
 
-  const targets = [
-    ['Lab Session: Eau De Parfum', data.parfum],
-    ['Lab Session: Body Oil', data.bodyOil],
-    ['Lab Session Combo', data.combo],
-    ['Lab Session: Roll-On Perfume', data.rollOn]
+    targets.forEach(([needle, item]) => {
+      if (!item) return;
+      const option = [...selfSelect.options].find(opt => opt.textContent.includes(needle));
+      if (!option) return;
+      option.value = item.id;
+      option.dataset.price = item.price;
+      option.dataset.description = item.description;
+      option.textContent = `${item.label} • ${item.price}`;
+    });
+
+    selfSelect.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  const guidedForm = document.querySelector('[data-booking-form="guided"]');
+  const guidedVariant = document.querySelector('#GuidedVariant');
+  const guidedPrice = document.querySelector('[data-guided-price]');
+  const guidedDescription = document.querySelector('[data-guided-description]');
+  if (!guidedForm || !guidedVariant) return;
+
+  const tiers = [
+    { name: '30 mL Perfume / Cologne', price: '$85.00', shortPrice: '$85', copy: 'Guided 30 mL custom perfume or cologne.' },
+    { name: '30 mL Perfume + 1 oz Body Oil OR 4 oz Butter Creme', price: '$115.00', shortPrice: '$115', copy: 'Guided perfume plus one body add-on.' },
+    { name: 'Signature Sesh', price: '$150.00', shortPrice: '$150', copy: '30 mL perfume, 1 oz body oil, and 4 oz butter creme.' }
   ];
 
-  targets.forEach(([needle, item]) => {
-    if (!item) return;
-    const option = [...select.options].find(opt => opt.textContent.includes(needle));
-    if (!option) return;
-    option.value = item.id;
-    option.dataset.price = item.price;
-    option.dataset.description = item.description;
-    option.textContent = `${item.label} • ${item.price}`;
+  const existingTier = guidedForm.querySelector('[data-guided-tier-wrap]');
+  if (existingTier) existingTier.remove();
+
+  const tierWrap = document.createElement('div');
+  tierWrap.className = 'suas-guided-tier-wrap';
+  tierWrap.dataset.guidedTierWrap = 'true';
+  tierWrap.innerHTML = `
+    <span class="suas-book-label">choose your guided package</span>
+    <div class="suas-guided-tier-grid">
+      ${tiers.map((tier, index) => `
+        <label class="suas-guided-tier${index === 0 ? ' is-selected' : ''}">
+          <input type="radio" name="_guided_tier_picker" value="${tier.name}" data-price="${tier.price}" data-copy="${tier.copy}" ${index === 0 ? 'checked' : ''}>
+          <b>${tier.name}</b>
+          <strong>${tier.shortPrice}</strong>
+          <small>${tier.copy}</small>
+        </label>
+      `).join('')}
+    </div>
+    <p class="suas-guided-tier-note">Package choice is saved with the booking. To have Shopify collect $115/$150 at checkout, add matching guided package variants or products in Shopify.</p>
+  `;
+
+  const firstField = guidedForm.querySelector('.suas-book-field');
+  guidedForm.insertBefore(tierWrap, firstField || guidedForm.firstChild);
+
+  const tierProperty = document.createElement('input');
+  tierProperty.type = 'hidden';
+  tierProperty.name = 'properties[Guided package]';
+  const tierPriceProperty = document.createElement('input');
+  tierPriceProperty.type = 'hidden';
+  tierPriceProperty.name = 'properties[Guided package price]';
+  guidedForm.appendChild(tierProperty);
+  guidedForm.appendChild(tierPriceProperty);
+
+  const guidedLabel = guidedForm.querySelector('label[for="GuidedVariant"]');
+  if (guidedLabel) guidedLabel.textContent = 'choose your class date';
+  [...guidedVariant.options].forEach(option => {
+    option.textContent = option.textContent.replace(' / Guided Lab Session', '').replace(/ • \$85\.00$/, '');
   });
 
-  select.dispatchEvent(new Event('change', { bubbles: true }));
+  const syncTier = () => {
+    const checked = tierWrap.querySelector('input:checked');
+    if (!checked) return;
+    tierWrap.querySelectorAll('.suas-guided-tier').forEach(label => label.classList.toggle('is-selected', label.contains(checked)));
+    tierProperty.value = checked.value;
+    tierPriceProperty.value = checked.dataset.price || '';
+    if (guidedPrice) guidedPrice.textContent = checked.dataset.price || '$85.00';
+    if (guidedDescription) guidedDescription.textContent = checked.dataset.copy || 'Choose your guided package, then choose your class date and time.';
+  };
+
+  tierWrap.addEventListener('change', syncTier);
+  syncTier();
 })();
 </script>
 {% schema %}
