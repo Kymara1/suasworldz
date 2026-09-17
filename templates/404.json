@@ -1,1 +1,23 @@
-{"sections":{"main":{"type":"404","settings":{}}},"order":["main"]}
+{
+  "sections": {
+    "main": {
+      "type": "404",
+      "settings": {}
+    },
+    "suas_world_home": {
+      "type": "suas-world-home",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "suas-reviews",
+      "settings": {
+        "heading": "reviews from real ones."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "suas_world_home",
+    "reviews"
+  ]
+}
