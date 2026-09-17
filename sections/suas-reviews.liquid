@@ -35,7 +35,7 @@
     .suas-judge-empty{display:grid;place-items:center;min-height:220px;border:1.5px dashed rgba(16,16,16,.28);border-radius:22px;background:rgba(255,255,255,.72);color:rgba(16,16,16,.58);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;text-align:center}
     .suas-aftership-note{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-top:2px solid var(--ink);background:#fff}
     .suas-aftership-note span{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-    .suas-review-shop{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border:2px solid var(--ink);border-radius:999px;background:var(--pink);box-shadow:0 3px 0 var(--ink);color:var(--ink);text-decoration:none;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .suas-review-shop{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border:2px solid var(--ink);border-radius:999px;background:var(--pink);box-shadow:0 3px 0 var(--ink);color:var(--ink);text-decoration:none;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
     .suas-review-shop:hover{color:var(--ink);transform:translateY(1px);box-shadow:0 2px 0 var(--ink)}
     @media(max-width:600px){.suas-reviews-wrap{width:calc(100vw - 14px);padding:22px 0}.suas-review-window{border-radius:19px;box-shadow:4px 5px 0 var(--ink)}.suas-judgeme-host{min-height:300px;padding:9px}.suas-review-status{grid-template-columns:1fr;border-radius:18px;box-shadow:3px 4px 0 var(--ink)}.suas-review-score{width:100%;min-height:78px}.suas-judge-panel{border-radius:18px;padding:10px;box-shadow:3px 4px 0 var(--ink)}.suas-judge-panel :is(.jdgm-carousel-item,.jdgm-rev,.jdgm-rev-widg__reviews .jdgm-rev){border-radius:16px!important;padding:12px!important;box-shadow:3px 4px 0 var(--ink)!important}.suas-aftership-note{align-items:stretch;flex-direction:column;padding:10px}.suas-review-shop{width:100%}}
   </style>
@@ -81,10 +81,11 @@
       </div>
       <div class="suas-aftership-note">
         <span>Reviews from real ones.</span>
-        <a class="suas-review-shop" href="/collections/all">review a product</a>
+        <button class="suas-review-shop" type="button" data-suas-review-open-picker>review a product</button>
       </div>
     </div>
   </div>
+  {% render 'suas-review-product-picker' %}
   <script>
     (() => {
       const section = document.currentScript.closest('.suas-reviews');
