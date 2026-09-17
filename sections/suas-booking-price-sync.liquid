@@ -1,0 +1,78 @@
+{% liquid
+  assign parfum_product = section.settings.parfum_product
+  assign body_oil_product = section.settings.body_oil_product
+  assign combo_product = section.settings.combo_product
+  assign roll_on_product = section.settings.roll_on_product
+
+  assign parfum_main_variant = blank
+  if parfum_product != blank
+    for variant in parfum_product.variants
+      assign variant_name = variant.title | downcase
+      unless variant_name contains '15ml' or variant_name contains '15 ml' or variant_name contains 'travel' or variant_name contains 'second perfume'
+        if variant.available
+          if parfum_main_variant == blank or variant.price > parfum_main_variant.price
+            assign parfum_main_variant = variant
+          endif
+        endif
+      endunless
+    endfor
+    if parfum_main_variant == blank
+      assign parfum_main_variant = parfum_product.selected_or_first_available_variant
+    endif
+  endif
+
+  assign body_oil_main_variant = body_oil_product.selected_or_first_available_variant
+  assign combo_main_variant = combo_product.selected_or_first_available_variant
+
+  assign roll_on_main_variant = blank
+  if roll_on_product != blank
+    for variant in roll_on_product.variants
+      assign variant_name = variant.title | downcase
+      unless variant_name contains 'add-on' or variant_name contains 'add on' or variant_name contains 'addon'
+        if variant.available
+          if roll_on_main_variant == blank or variant.price > roll_on_main_variant.price
+            assign roll_on_main_variant = variant
+          endif
+        endif
+      endunless
+    endfor
+    if roll_on_main_variant == blank
+      assign roll_on_main_variant = roll_on_product.selected_or_first_available_variant
+    endif
+  endif
+%}
+<script>
+(() => {
+  const data = {
+    parfum: {% if parfum_main_variant != blank %}{ id: {{ parfum_main_variant.id | json }}, price: {{ parfum_main_variant.price | money | json }}, label: 'Lab Session: Eau De Parfum (30mL)', description: 'Create a custom 30mL eau de parfum with up to four scent notes.' }{% else %}null{% endif %},
+    bodyOil: {% if body_oil_main_variant != blank %}{ id: {{ body_oil_main_variant.id | json }}, price: {{ body_oil_main_variant.price | money | json }}, label: 'Lab Session: Body Oil (30mL)', description: 'Create a custom 30mL body oil with up to four scent notes.' }{% else %}null{% endif %},
+    combo: {% if combo_main_variant != blank %}{ id: {{ combo_main_variant.id | json }}, price: {{ combo_main_variant.price | money | json }}, label: 'Lab Session Combo', description: 'Create both a custom 30mL eau de parfum and a custom 30mL body oil.' }{% else %}null{% endif %},
+    rollOn: {% if roll_on_main_variant != blank %}{ id: {{ roll_on_main_variant.id | json }}, price: {{ roll_on_main_variant.price | money | json }}, label: 'Lab Session: Roll-On Perfume (10mL)', description: 'Create a portable 10mL roll-on perfume oil with up to four scent notes.' }{% else %}null{% endif %}
+  };
+
+  const select = document.querySelector('#SelfExperience');
+  if (!select) return;
+
+  const targets = [
+    ['Lab Session: Eau De Parfum', data.parfum],
+    ['Lab Session: Body Oil', data.bodyOil],
+    ['Lab Session Combo', data.combo],
+    ['Lab Session: Roll-On Perfume', data.rollOn]
+  ];
+
+  targets.forEach(([needle, item]) => {
+    if (!item) return;
+    const option = [...select.options].find(opt => opt.textContent.includes(needle));
+    if (!option) return;
+    option.value = item.id;
+    option.dataset.price = item.price;
+    option.dataset.description = item.description;
+    option.textContent = `${item.label} • ${item.price}`;
+  });
+
+  select.dispatchEvent(new Event('change', { bubbles: true }));
+})();
+</script>
+{% schema %}
+{"name":"SUAS Booking Price Sync","settings":[{"type":"product","id":"parfum_product","label":"Self-Guided Lab Experiment product"},{"type":"product","id":"body_oil_product","label":"Self-Guided Body Oil product"},{"type":"product","id":"combo_product","label":"Self-Guided Combo product"},{"type":"product","id":"roll_on_product","label":"Self-Guided Roll-On Perfume product"}],"presets":[{"name":"SUAS Booking Price Sync"}]}
+{% endschema %}
