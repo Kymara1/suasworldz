@@ -4,6 +4,10 @@
   if product.metafields.reviews.rating.value != blank
     assign jm_rating = product.metafields.reviews.rating.value.rating | default: 0 | plus: 0
   endif
+  assign has_legacy = false
+  if product.metafields.judgeme.widget.size > 20
+    assign has_legacy = true
+  endif
 -%}
 
 <section class="suas-product-review-station" id="suas-product-review-station" aria-label="Review {{ product.title | escape }}">
@@ -31,8 +35,6 @@
     .suas-pr-widget :is(.jdgm-star,.jdgm-star:before){color:var(--ink)!important}
     .suas-pr-widget :is(button,.jdgm-btn,.jdgm-write-rev-link,input[type='submit']){min-height:40px!important;border:2px solid var(--ink)!important;border-radius:999px!important;background:var(--pink)!important;color:var(--ink)!important;box-shadow:0 4px 0 var(--ink)!important;font-family:Futura,'Futura PT',Arial,sans-serif!important;font-weight:900!important;letter-spacing:.08em!important;text-transform:uppercase!important;text-decoration:none!important}
     .suas-pr-widget :is(input,textarea,select){border:1.5px solid var(--ink)!important;border-radius:14px!important;background:#fff!important;color:var(--ink)!important;font-family:Futura,'Futura PT',Arial,sans-serif!important;font-weight:800!important}
-    .suas-pr-loading{display:grid;place-items:center;min-height:110px;border:1.5px dashed rgba(16,16,16,.28);border-radius:18px;background:rgba(255,255,255,.72);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:rgba(16,16,16,.58)}
-    .suas-pr-widget:has(.jdgm-rev-widg__reviews,.jdgm-form-wrapper,.jdgm-write-rev-link) .suas-pr-loading{display:none}
     @media(max-width:650px){.suas-product-review-station{width:calc(100vw - 14px);margin:24px auto 34px}.suas-pr-window{border-radius:19px;box-shadow:4px 5px 0 var(--ink)}.suas-pr-hero{grid-template-columns:1fr;border-radius:18px}.suas-pr-score{width:100%;min-height:76px}.suas-pr-button{width:100%}.suas-pr-widget{border-radius:18px;box-shadow:3px 4px 0 var(--ink)}}
   </style>
 
@@ -59,8 +61,15 @@
         <a class="suas-pr-button" href="/pages/reviews">see all reviews</a>
       </div>
       <div class="suas-pr-widget" data-suas-product-review-widget>
-        <div class="suas-pr-loading">review form loading</div>
-        <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}" data-product-id="{{ product.id }}"></div>
+        <div style="clear:both"></div>
+        <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}" data-product-id="{{ product.id }}" data-widget="review" data-auto-install="false" data-shop-reviews-count="{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}" data-entry-point="review_widget.js" data-entry-key="review-widget/main.js">
+          {% if has_legacy %}
+            <div class="jdgm-legacy-widget-content" style="display:none;">{{ product.metafields.judgeme.widget }}</div>
+          {% endif %}
+        </div>
+        {% if product.metafields.judgeme.review_widget_data %}
+          <script>window.jdgm=window.jdgm||{};jdgm.data=jdgm.data||{};jdgm.data.reviewWidget=jdgm.data.reviewWidget||{};jdgm.data.reviewWidget[{{ product.id }}]={{ product.metafields.judgeme.review_widget_data }}</script>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -75,7 +84,7 @@
       openButton && openButton.addEventListener('click', () => {
         widget && widget.scrollIntoView({ behavior: 'smooth', block: 'center' });
         setTimeout(() => {
-          const judgeButton = section.querySelector('.jdgm-write-rev-link,.jdgm-btn[class*="write"],button[class*="write"],a[class*="write"]');
+          const judgeButton = section.querySelector('.jdgm-write-rev-link,.jdgm-write-rev-link.jdgm-write-rev-link,button[class*="write" i],a[class*="write" i]');
           if (judgeButton) judgeButton.click();
         }, 450);
       });

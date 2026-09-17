@@ -12,28 +12,18 @@
     "bookings": {
       "type": "suas-bookings-page",
       "settings": {
-        "body_oil_product": "lab-session-body-oil",
+        "body_oil_product": "",
         "parfum_product": "lab-session-eau-de-parfum",
         "combo_product": "lab-session-combo-sesh",
         "roll_on_product": "lab-session-body-oil",
         "roll_on_addon_product": "lab-session-add-on-10ml-roll-on-perfume-oil",
-        "travel_addon_product": "lab-session-add-on-15ml-eau-de-parfum",
+        "travel_addon_product": "",
         "deluxe_product": "deluxe-lab-session",
         "deluxe_product_handle": ""
-      }
-    },
-    "booking_price_sync": {
-      "type": "suas-booking-price-sync",
-      "settings": {
-        "body_oil_product": "lab-session-body-oil",
-        "parfum_product": "lab-session-eau-de-parfum",
-        "combo_product": "lab-session-combo-sesh",
-        "roll_on_product": "lab-session-body-oil"
       }
     }
   },
   "order": [
-    "bookings",
-    "booking_price_sync"
+    "bookings"
   ]
 }
