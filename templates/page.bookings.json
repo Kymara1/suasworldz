@@ -21,9 +21,19 @@
         "deluxe_product": "deluxe-lab-session",
         "deluxe_product_handle": ""
       }
+    },
+    "booking_price_sync": {
+      "type": "suas-booking-price-sync",
+      "settings": {
+        "body_oil_product": "lab-session-body-oil",
+        "parfum_product": "lab-session-eau-de-parfum",
+        "combo_product": "lab-session-combo-sesh",
+        "roll_on_product": "lab-session-body-oil"
+      }
     }
   },
   "order": [
-    "bookings"
+    "bookings",
+    "booking_price_sync"
   ]
 }
