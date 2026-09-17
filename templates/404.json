@@ -1,23 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "404",
+      "disabled": true,
       "settings": {}
     },
-    "suas_world_home": {
-      "type": "suas-world-home",
-      "settings": {}
-    },
-    "reviews": {
+    "suas_reviews_n7XfXz": {
       "type": "suas-reviews",
+      "name": "SUAS Reviews",
       "settings": {
-        "heading": "reviews from real ones."
+        "heading": "reviews from real ones"
       }
     }
   },
   "order": [
     "main",
-    "suas_world_home",
-    "reviews"
+    "suas_reviews_n7XfXz"
   ]
 }
