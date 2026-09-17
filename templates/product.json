@@ -93,25 +93,6 @@
         "loop-enabled": false
       }
     },
-    "16946386895a53231c": {
-      "type": "apps",
-      "blocks": {
-        "fae2c516-0800-4e17-b45b-475b6d1cda7f": {
-          "type": "shopify://apps/aftership-product-reviews/blocks/product_page_main_widget/beb80d6c-6526-44ce-8946-4a762954ca6d",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "fae2c516-0800-4e17-b45b-475b6d1cda7f"
-      ],
-      "settings": {
-        "background-color": "none",
-        "light-text": false,
-        "container-width": 4,
-        "spacing-above": true,
-        "spacing-below": true
-      }
-    },
     "suas_product_review_style": {
       "type": "suas-product-review-style",
       "settings": {}
@@ -138,7 +119,6 @@
   "order": [
     "blocks_z9tNqE",
     "main",
-    "16946386895a53231c",
     "suas_product_review_style",
     "social-sharing",
     "recommendations"
