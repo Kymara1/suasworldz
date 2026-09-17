@@ -47,15 +47,18 @@
     const grid = picker.querySelector('[data-suas-review-grid]');
     const search = picker.querySelector('[data-suas-review-search]');
     let products = [];
+    const escapeHtml = (value) => String(value || '').replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
     const close = () => { picker.hidden = true; document.documentElement.style.overflow = ''; };
     const open = () => { picker.hidden = false; document.documentElement.style.overflow = 'hidden'; search && search.focus(); loadProducts(); };
     const render = () => {
       const q = (search && search.value || '').trim().toLowerCase();
-      const shown = products.filter((p) => !q || p.title.toLowerCase().includes(q)).slice(0, 30);
+      const shown = products.filter((p) => !q || String(p.title || '').toLowerCase().includes(q)).slice(0, 30);
       grid.innerHTML = shown.length ? shown.map((p) => {
-        const image = p.images && p.images[0] ? p.images[0].src : '';
-        const href = `/products/${p.handle}#suas-product-review-station`;
-        return `<a class="suas-review-picker__item" href="${href}">${image ? `<img class="suas-review-picker__thumb" src="${image}" alt="">` : `<span class="suas-review-picker__thumb"></span>`}<span><span class="suas-review-picker__name">${p.title}</span><span class="suas-review-picker__cta">open review form →</span></span></a>`;
+        const image = p.images && p.images[0] ? escapeHtml(p.images[0].src) : '';
+        const title = escapeHtml(p.title);
+        const handle = encodeURIComponent(p.handle || '');
+        const href = `/products/${handle}#suas-product-review-station`;
+        return `<a class="suas-review-picker__item" href="${href}">${image ? `<img class="suas-review-picker__thumb" src="${image}" alt="">` : `<span class="suas-review-picker__thumb"></span>`}<span><span class="suas-review-picker__name">${title}</span><span class="suas-review-picker__cta">open review form →</span></span></a>`;
       }).join('') : '<div class="suas-review-picker__empty">no products found</div>';
     };
     const loadProducts = async () => {
