@@ -1,0 +1,80 @@
+<div class="suas-review-picker" data-suas-review-picker hidden>
+  <style>
+    .suas-review-picker[hidden]{display:none!important}
+    .suas-review-picker{position:fixed;inset:0;z-index:999999;display:grid;place-items:center;padding:18px;background:rgba(16,16,16,.48);font-family:Futura,'Futura PT',Arial,sans-serif;color:#101010}
+    .suas-review-picker__panel{width:min(720px,100%);max-height:min(760px,92vh);overflow:auto;border:2px solid #101010;border-radius:28px;background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),#fbfaf7;background-size:18px 18px,18px 18px,auto;box-shadow:8px 9px 0 #101010}
+    .suas-review-picker__bar{display:flex;align-items:center;gap:7px;min-height:38px;padding:8px 13px;border-bottom:2px solid #101010;background:linear-gradient(180deg,#fff,#edf0f5);position:sticky;top:0;z-index:2}
+    .suas-review-picker__dot{width:10px;height:10px;border-radius:999px;background:var(--dot)}
+    .suas-review-picker__label{margin-left:auto;padding:6px 10px;border:1.5px solid #101010;border-radius:999px;background:#fff1a8;box-shadow:0 2px 0 #101010;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+    .suas-review-picker__close{margin-left:8px;border:1.5px solid #101010;border-radius:999px;background:#ffd8e8;box-shadow:0 2px 0 #101010;font-weight:900;cursor:pointer}
+    .suas-review-picker__body{padding:clamp(16px,3vw,26px)}
+    .suas-review-picker h3{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif!important;font-size:clamp(2.4rem,6vw,4.4rem);font-weight:400!important;line-height:.85;text-transform:lowercase}
+    .suas-review-picker p{margin:8px 0 16px;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#303030}
+    .suas-review-picker__search{width:100%;min-height:46px;margin-bottom:14px;padding:10px 14px;border:2px solid #101010;border-radius:18px;background:#fff;color:#101010;font-size:14px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;box-shadow:3px 4px 0 #101010}
+    .suas-review-picker__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .suas-review-picker__item{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;padding:10px;border:2px solid #101010;border-radius:20px;background:var(--tone,#ffd8e8);box-shadow:4px 5px 0 #101010;color:#101010;text-decoration:none;transition:transform 160ms ease,box-shadow 160ms ease}
+    .suas-review-picker__item:hover{color:#101010;transform:translateY(2px);box-shadow:2px 3px 0 #101010}
+    .suas-review-picker__item:nth-child(4n+1){--tone:#ffd8e8}.suas-review-picker__item:nth-child(4n+2){--tone:#cdeeff}.suas-review-picker__item:nth-child(4n+3){--tone:#d9ff78}.suas-review-picker__item:nth-child(4n){--tone:#fff1a8}
+    .suas-review-picker__thumb{width:72px;height:72px;border:1.5px solid #101010;border-radius:16px;background:#fff;object-fit:cover}
+    .suas-review-picker__name{display:block;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;line-height:1.15}
+    .suas-review-picker__cta{display:block;margin-top:6px;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .suas-review-picker__empty{padding:18px;border:1.5px dashed rgba(16,16,16,.35);border-radius:18px;background:rgba(255,255,255,.78);text-align:center;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    @media(max-width:650px){.suas-review-picker{padding:9px}.suas-review-picker__panel{border-radius:22px;box-shadow:4px 5px 0 #101010}.suas-review-picker__grid{grid-template-columns:1fr}.suas-review-picker__item{grid-template-columns:62px minmax(0,1fr)}.suas-review-picker__thumb{width:62px;height:62px}}
+  </style>
+  <div class="suas-review-picker__panel" role="dialog" aria-modal="true" aria-label="Choose a product to review">
+    <div class="suas-review-picker__bar">
+      <span class="suas-review-picker__dot" style="--dot:#ff5f57"></span>
+      <span class="suas-review-picker__dot" style="--dot:#febc2e"></span>
+      <span class="suas-review-picker__dot" style="--dot:#28c840"></span>
+      <span class="suas-review-picker__label">review form launcher</span>
+      <button class="suas-review-picker__close" type="button" data-suas-review-close aria-label="Close">×</button>
+    </div>
+    <div class="suas-review-picker__body">
+      <h3>pick what you smelled.</h3>
+      <p>Choose a product and the product page will open its review form.</p>
+      <input class="suas-review-picker__search" type="search" placeholder="Search products" data-suas-review-search>
+      <div class="suas-review-picker__grid" data-suas-review-grid>
+        <div class="suas-review-picker__empty">loading products...</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (() => {
+    const picker = document.querySelector('[data-suas-review-picker]');
+    if (!picker || picker.dataset.ready === 'true') return;
+    picker.dataset.ready = 'true';
+    const grid = picker.querySelector('[data-suas-review-grid]');
+    const search = picker.querySelector('[data-suas-review-search]');
+    let products = [];
+    const close = () => { picker.hidden = true; document.documentElement.style.overflow = ''; };
+    const open = () => { picker.hidden = false; document.documentElement.style.overflow = 'hidden'; search && search.focus(); loadProducts(); };
+    const render = () => {
+      const q = (search && search.value || '').trim().toLowerCase();
+      const shown = products.filter((p) => !q || p.title.toLowerCase().includes(q)).slice(0, 30);
+      grid.innerHTML = shown.length ? shown.map((p) => {
+        const image = p.images && p.images[0] ? p.images[0].src : '';
+        const href = `/products/${p.handle}#suas-product-review-station`;
+        return `<a class="suas-review-picker__item" href="${href}">${image ? `<img class="suas-review-picker__thumb" src="${image}" alt="">` : `<span class="suas-review-picker__thumb"></span>`}<span><span class="suas-review-picker__name">${p.title}</span><span class="suas-review-picker__cta">open review form →</span></span></a>`;
+      }).join('') : '<div class="suas-review-picker__empty">no products found</div>';
+    };
+    const loadProducts = async () => {
+      if (products.length) return render();
+      try {
+        const response = await fetch('/products.json?limit=250', { credentials: 'same-origin' });
+        const data = await response.json();
+        products = Array.isArray(data.products) ? data.products : [];
+      } catch (error) {
+        products = [];
+      }
+      render();
+    };
+    document.addEventListener('click', (event) => {
+      const opener = event.target.closest('[data-suas-review-open-picker]');
+      if (opener) { event.preventDefault(); open(); }
+      if (event.target.closest('[data-suas-review-close]') || event.target === picker) close();
+    });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !picker.hidden) close(); });
+    search && search.addEventListener('input', render);
+  })();
+</script>
