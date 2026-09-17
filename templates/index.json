@@ -1,18 +1,11 @@
 {
   "sections": {
-    "suas_world_home": {
+    "main": {
       "type": "suas-world-home",
       "settings": {}
-    },
-    "reviews": {
-      "type": "suas-reviews",
-      "settings": {
-        "heading": "reviews from real ones."
-      }
     }
   },
   "order": [
-    "suas_world_home",
-    "reviews"
+    "main"
   ]
 }
