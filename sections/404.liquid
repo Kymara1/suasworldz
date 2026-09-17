@@ -17,9 +17,13 @@
   <noscript><meta http-equiv="refresh" content="0; url=/pages/contact-us"></noscript>
   <p style="padding: 2rem;"><a href="/pages/contact-us">Go to Contact Us</a></p>
 {%- elsif is_root_404 -%}
+  <style>
+    .four-o-four--root{display:none!important}
+    .suas-world-home,.suas-reviews{display:block!important}
+  </style>
   {%- comment -%}
     Shopify is routing the store root through the 404 template on the active theme.
-    Leave this section empty so templates/404.json can render the SUAS homepage sections underneath.
+    The 404 template includes the SUAS homepage sections after this section; keep this empty and force-hide the default 404 box.
   {%- endcomment -%}
 {%- else -%}
   <style>.suas-world-home,.suas-reviews{display:none!important}</style>
@@ -32,7 +36,7 @@
   -%}
 
   {%- capture home_page_link -%}
-    <a href="{{ routes.root_url }}">{{ home_page_link }}</a>
+    <a href="{{ routes.all_products_collection_url }}">{{ home_page_link }}</a>
   {%- endcapture -%}
 
   {%- capture products_link -%}
