@@ -97,9 +97,45 @@ Refund Policy|/pages/refund-policy{% endcapture %}
         <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
       {% endif %}
 
-      {% if section.settings.scent_enabled %}{% liquid assign item_active = false; assign active_paths = section.settings.scent_active_paths | default: '/pages/scent-profile' | split: ','; for active_path in active_paths; assign clean_path = active_path | strip; if clean_path != blank and request.path contains clean_path; assign item_active = true; endif; endfor %}<a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.scent_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.scent_tint }}">{{ section.settings.scent_icon }}</span><span class="suas-side-label">{{ section.settings.scent_label }}</span><span class="suas-side-num">{{ section.settings.scent_number }}</span></a>{% endif %}
-      {% if section.settings.oddities_enabled %}{% liquid assign item_active = false; assign active_paths = section.settings.oddities_active_paths | default: '/collections/oddities' | split: ','; for active_path in active_paths; assign clean_path = active_path | strip; if clean_path != blank and request.path contains clean_path; assign item_active = true; endif; endfor %}<a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.oddities_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.oddities_tint }}">{{ section.settings.oddities_icon }}</span><span class="suas-side-label">{{ section.settings.oddities_label }}</span><span class="suas-side-num">{{ section.settings.oddities_number }}</span></a>{% endif %}
-      {% if section.settings.lab_enabled %}{% liquid assign item_active = false; assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/charm-bar,/pages/parties-events' | split: ','; for active_path in active_paths; assign clean_path = active_path | strip; if clean_path != blank and request.path contains clean_path; assign item_active = true; endif; endfor %}<a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.lab_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.lab_tint }}">{{ section.settings.lab_icon }}</span><span class="suas-side-label">{{ section.settings.lab_label }}</span><span class="suas-side-num">{{ section.settings.lab_number }}</span></a>{% endif %}
+      {% if section.settings.scent_enabled %}
+        {% liquid
+          assign item_active = false
+          assign active_paths = section.settings.scent_active_paths | default: '/pages/scent-profile' | split: ','
+          for active_path in active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+        %}
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.scent_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.scent_tint }}">{{ section.settings.scent_icon }}</span><span class="suas-side-label">{{ section.settings.scent_label }}</span><span class="suas-side-num">{{ section.settings.scent_number }}</span></a>
+      {% endif %}
+      {% if section.settings.oddities_enabled %}
+        {% liquid
+          assign item_active = false
+          assign active_paths = section.settings.oddities_active_paths | default: '/collections/oddities' | split: ','
+          for active_path in active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+        %}
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.oddities_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.oddities_tint }}">{{ section.settings.oddities_icon }}</span><span class="suas-side-label">{{ section.settings.oddities_label }}</span><span class="suas-side-num">{{ section.settings.oddities_number }}</span></a>
+      {% endif %}
+      {% if section.settings.lab_enabled %}
+        {% liquid
+          assign item_active = false
+          assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/charm-bar,/pages/parties-events' | split: ','
+          for active_path in active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+        %}
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.lab_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.lab_tint }}">{{ section.settings.lab_icon }}</span><span class="suas-side-label">{{ section.settings.lab_label }}</span><span class="suas-side-num">{{ section.settings.lab_number }}</span></a>
+      {% endif %}
 
       {% if section.settings.about_enabled %}
         {% liquid
@@ -116,7 +152,19 @@ Refund Policy|/pages/refund-policy{% endcapture %}
         %}
         <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
       {% endif %}
-      {% if section.settings.visit_enabled %}{% liquid assign item_active = false; assign active_paths = section.settings.visit_active_paths | default: '/pages/visit-us' | split: ','; for active_path in active_paths; assign clean_path = active_path | strip; if clean_path != blank and request.path contains clean_path; assign item_active = true; endif; endfor %}<a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.visit_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.visit_tint }}">{{ section.settings.visit_icon }}</span><span class="suas-side-label">{{ section.settings.visit_label }}</span><span class="suas-side-num">{{ section.settings.visit_number }}</span></a>{% endif %}
+      {% if section.settings.visit_enabled %}
+        {% liquid
+          assign item_active = false
+          assign active_paths = section.settings.visit_active_paths | default: '/pages/visit-us' | split: ','
+          for active_path in active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+        %}
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.visit_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.visit_tint }}">{{ section.settings.visit_icon }}</span><span class="suas-side-label">{{ section.settings.visit_label }}</span><span class="suas-side-num">{{ section.settings.visit_number }}</span></a>
+      {% endif %}
 
       {% for block in section.blocks %}
         {% liquid
