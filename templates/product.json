@@ -66,9 +66,7 @@
         "price",
         "options",
         "buy-buttons",
-        "pickup",
-        "divider",
-        "description"
+        "pickup"
       ],
       "custom_css": [
         ".featured-collection--title {display: none !important;}",
@@ -78,6 +76,25 @@
         "modal-enabled": true,
         "hide-variant-media": false,
         "loop-enabled": false
+      }
+    },
+    "product_reviews": {
+      "type": "apps",
+      "blocks": {
+        "aftership_product_reviews_all_reviews_widget_product": {
+          "type": "shopify://apps/aftership-product-reviews/blocks/all_reviews_widget/beb80d6c-6526-44ce-8946-4a762954ca6d",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "aftership_product_reviews_all_reviews_widget_product"
+      ],
+      "settings": {
+        "background-color": "none",
+        "light-text": false,
+        "container-width": 4,
+        "spacing-above": true,
+        "spacing-below": true
       }
     },
     "social-sharing": {
@@ -102,6 +119,7 @@
   "order": [
     "blocks_z9tNqE",
     "main",
+    "product_reviews",
     "social-sharing",
     "recommendations"
   ]
