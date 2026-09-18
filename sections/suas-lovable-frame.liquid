@@ -29,6 +29,26 @@
   assign suas_contact_url = suas_contact_page.url | default: '/pages/contact-us'
 %}
 
+{% capture body_submenu_default %}Body|/collections/body-care
+Butter Creme|/collections/butter-creme
+Body Scrub|/collections/body-scrub
+Body Jelly|/collections/body-jelly
+Body Oil|/collections/body-oil
+Cleansing Bar|/collections/cleansing-bar
+Body Wash|/collections/body-wash{% endcapture %}
+{% capture home_submenu_default %}Home Products|/collections/home-care
+Candles|/collections/candles
+Everything Mist|/collections/everything-mist
+Burnt Oils|/collections/burnt-oils
+Carpet Dust|/collections/carpet-dust
+All Purpose Cleaner|/collections/all-purpose-cleaner{% endcapture %}
+{% capture about_submenu_default %}Who are we|/pages/who-are-we
+Book the Lab|/pages/bookings
+Charm Bar|/pages/charm-bar
+Parties & Events|/pages/parties-events
+Contact Us|{{ suas_contact_url }}
+Refund Policy|/pages/refund-policy{% endcapture %}
+
 <div class="suas-frame" aria-label="SUAS site frame">
   <div class="suas-frame-marquee" aria-hidden="true"><div class="suas-frame-marquee-track">
     {% for i in (1..2) %}
@@ -42,19 +62,84 @@
   </div></div>
 
   <aside class="suas-side-rail" aria-label="SUAS control panel">
-    <a class="suas-side-head" href="{{ routes.root_url }}" aria-label="Go to SUAS homepage"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{{ section.settings.brand_text }}</span></a>
+    <a class="suas-side-head" href="{{ section.settings.home_link | default: routes.root_url }}" aria-label="Go to SUAS homepage"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{{ section.settings.brand_text }}</span></a>
     <p class="suas-side-kicker">{{ section.settings.control_label }}</p>
     <nav class="suas-side-nav">
-      <details class="suas-side-dropdown"><summary class="suas-side-link{% if request.path contains '/collections/body' or request.path contains '/collections/butter-creme' or request.path contains '/collections/cleansing-bar' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#ff9bc4">o</span><span class="suas-side-label">body</span><span class="suas-side-num">01</span></summary><div class="suas-panel-submenu"><a href="/collections/body-care">Body</a><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/collections/body-jelly">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/collections/cleansing-bar">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div></details>
-      <details class="suas-side-dropdown"><summary class="suas-side-link{% if request.path contains '/collections/home' or request.path contains '/collections/candles' or request.path contains '/collections/everything-mist' or request.path contains '/collections/burnt-oils' or request.path contains '/collections/carpet-dust' or request.path contains '/collections/all-purpose-cleaner' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#ffe86b">i</span><span class="suas-side-label">home</span><span class="suas-side-num">02</span></summary><div class="suas-panel-submenu"><a href="/collections/home-care">Home Products</a><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/collections/burnt-oils">Burnt Oils</a><a href="/collections/carpet-dust">Carpet Dust</a><a href="/collections/all-purpose-cleaner">All Purpose Cleaner</a></div></details>
-      <a class="suas-side-link{% if request.path contains '/pages/scent-profile' %} is-active{% endif %}" href="/pages/scent-profile"><span class="suas-side-icon" style="--tint:#b9ff39">✦</span><span class="suas-side-label">Scent Profile</span><span class="suas-side-num">03</span></a>
-      <a class="suas-side-link{% if request.path contains '/collections/oddities' %} is-active{% endif %}" href="/collections/oddities"><span class="suas-side-icon" style="--tint:#c7b5ff">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">04</span></a>
-      <a class="suas-side-link{% if request.path contains '/pages/the-lab' %} is-active{% endif %}" href="/pages/the-lab"><span class="suas-side-icon" style="--tint:#c6f76a">/</span><span class="suas-side-label">the lab</span><span class="suas-side-num">05</span></a>
-      <details class="suas-side-dropdown"><summary class="suas-side-link{% if request.path contains '/pages/about' or request.path contains '/pages/who-are-we' or request.path contains '/pages/bookings' or request.path contains '/pages/charm-bar' or request.path contains '/pages/parties-events' or request.path contains '/pages/contact' or request.path contains '/pages/refund-policy' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#c7b5ff">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">06</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who are we</a><details class="suas-booking-subgroup"><summary>Bookings</summary><div class="suas-booking-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details><a href="{{ suas_contact_url }}">Contact Us</a><a href="/pages/refund-policy">Refund Policy</a></div></details>
-      <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint:#9dd7ff">!</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
+      {% if section.settings.body_enabled %}
+        {% liquid
+          assign item_active = false
+          assign body_active_paths = section.settings.body_active_paths | default: '/collections/body,/collections/body-care,/collections/butter-creme,/collections/cleansing-bar,/collections/body-scrub,/collections/body-jelly,/collections/body-oil,/collections/body-wash' | split: ','
+          for active_path in body_active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+          assign body_submenu = section.settings.body_submenu | default: body_submenu_default
+          assign body_rows = body_submenu | newline_to_br | split: '<br />'
+        %}
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.body_tint }}">{{ section.settings.body_icon }}</span><span class="suas-side-label">{{ section.settings.body_label }}</span><span class="suas-side-num">{{ section.settings.body_number }}</span></summary><div class="suas-panel-submenu">{% for row in body_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
+      {% endif %}
+
+      {% if section.settings.home_enabled %}
+        {% liquid
+          assign item_active = false
+          assign home_active_paths = section.settings.home_active_paths | default: '/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/carpet-dust,/collections/all-purpose-cleaner' | split: ','
+          for active_path in home_active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+          assign home_submenu = section.settings.home_submenu | default: home_submenu_default
+          assign home_rows = home_submenu | newline_to_br | split: '<br />'
+        %}
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
+      {% endif %}
+
+      {% if section.settings.scent_enabled %}{% liquid assign item_active = false; assign active_paths = section.settings.scent_active_paths | default: '/pages/scent-profile' | split: ','; for active_path in active_paths; assign clean_path = active_path | strip; if clean_path != blank and request.path contains clean_path; assign item_active = true; endif; endfor %}<a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.scent_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.scent_tint }}">{{ section.settings.scent_icon }}</span><span class="suas-side-label">{{ section.settings.scent_label }}</span><span class="suas-side-num">{{ section.settings.scent_number }}</span></a>{% endif %}
+      {% if section.settings.oddities_enabled %}{% liquid assign item_active = false; assign active_paths = section.settings.oddities_active_paths | default: '/collections/oddities' | split: ','; for active_path in active_paths; assign clean_path = active_path | strip; if clean_path != blank and request.path contains clean_path; assign item_active = true; endif; endfor %}<a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.oddities_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.oddities_tint }}">{{ section.settings.oddities_icon }}</span><span class="suas-side-label">{{ section.settings.oddities_label }}</span><span class="suas-side-num">{{ section.settings.oddities_number }}</span></a>{% endif %}
+      {% if section.settings.lab_enabled %}{% liquid assign item_active = false; assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/charm-bar,/pages/parties-events' | split: ','; for active_path in active_paths; assign clean_path = active_path | strip; if clean_path != blank and request.path contains clean_path; assign item_active = true; endif; endfor %}<a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.lab_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.lab_tint }}">{{ section.settings.lab_icon }}</span><span class="suas-side-label">{{ section.settings.lab_label }}</span><span class="suas-side-num">{{ section.settings.lab_number }}</span></a>{% endif %}
+
+      {% if section.settings.about_enabled %}
+        {% liquid
+          assign item_active = false
+          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/parties-events,/pages/contact,/pages/refund-policy' | split: ','
+          for active_path in about_active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+          assign about_submenu = section.settings.about_submenu | default: about_submenu_default
+          assign about_rows = about_submenu | newline_to_br | split: '<br />'
+        %}
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
+      {% endif %}
+      {% if section.settings.visit_enabled %}{% liquid assign item_active = false; assign active_paths = section.settings.visit_active_paths | default: '/pages/visit-us' | split: ','; for active_path in active_paths; assign clean_path = active_path | strip; if clean_path != blank and request.path contains clean_path; assign item_active = true; endif; endfor %}<a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.visit_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.visit_tint }}">{{ section.settings.visit_icon }}</span><span class="suas-side-label">{{ section.settings.visit_label }}</span><span class="suas-side-num">{{ section.settings.visit_number }}</span></a>{% endif %}
+
+      {% for block in section.blocks %}
+        {% liquid
+          assign item_active = false
+          assign extra_active_paths = block.settings.active_paths | split: ','
+          for active_path in extra_active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+          assign extra_submenu = block.settings.submenu
+          assign extra_rows = extra_submenu | newline_to_br | split: '<br />'
+        %}
+        {% if block.settings.submenu != blank %}
+          <details class="suas-side-dropdown" {{ block.shopify_attributes }}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ block.settings.label }}</span><span class="suas-side-num">{{ block.settings.number }}</span></summary><div class="suas-panel-submenu">{% for row in extra_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
+        {% else %}
+          <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ block.settings.label }}</span><span class="suas-side-num">{{ block.settings.number }}</span></a>
+        {% endif %}
+      {% endfor %}
     </nav>
     <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>{{ section.settings.status_label }}</b><span>{{ section.settings.status_text }}</span></div></div>
-    <div class="suas-side-foot" aria-hidden="true"><a href="/pages/account">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span></div>
+    <div class="suas-side-foot" aria-hidden="true"><a href="{{ section.settings.footer_link_1 }}">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span></div>
   </aside>
 </div>
 
@@ -85,6 +170,7 @@
   "name":"SUAS OS frame",
   "settings":[
     {"type":"text","id":"brand_text","label":"Brand text","default":"SUAS"},
+    {"type":"text","id":"home_link","label":"Brand home link","default":"/"},
     {"type":"text","id":"control_label","label":"Control panel label","default":"control panel"},
     {"type":"text","id":"status_label","label":"Status label","default":"lab status"},
     {"type":"text","id":"status_text","label":"Status text","default":"open + mixing"},
@@ -93,6 +179,62 @@
     {"type":"text","id":"footer_link_1","label":"Footer link 1","default":"/pages/account"},
     {"type":"text","id":"footer_label_2","label":"Footer label 2","default":"about"},
     {"type":"text","id":"footer_link_2","label":"Footer link 2","default":"/pages/about"},
+    {"type":"header","content":"Control panel item 01 - dropdown"},
+    {"type":"checkbox","id":"body_enabled","label":"Show item 01","default":true},
+    {"type":"text","id":"body_label","label":"Label","default":"body"},
+    {"type":"text","id":"body_icon","label":"Icon","default":"o"},
+    {"type":"text","id":"body_number","label":"Number","default":"01"},
+    {"type":"color","id":"body_tint","label":"Icon color","default":"#ff9bc4"},
+    {"type":"textarea","id":"body_submenu","label":"Dropdown links, one per line as Label|URL","default":"Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash"},
+    {"type":"text","id":"body_active_paths","label":"Active URL matches, separated by commas","default":"/collections/body,/collections/body-care,/collections/butter-creme,/collections/cleansing-bar,/collections/body-scrub,/collections/body-jelly,/collections/body-oil,/collections/body-wash"},
+    {"type":"header","content":"Control panel item 02 - dropdown"},
+    {"type":"checkbox","id":"home_enabled","label":"Show item 02","default":true},
+    {"type":"text","id":"home_label","label":"Label","default":"home"},
+    {"type":"text","id":"home_icon","label":"Icon","default":"i"},
+    {"type":"text","id":"home_number","label":"Number","default":"02"},
+    {"type":"color","id":"home_tint","label":"Icon color","default":"#ffe86b"},
+    {"type":"textarea","id":"home_submenu","label":"Dropdown links, one per line as Label|URL","default":"Home Products|/collections/home-care\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
+    {"type":"text","id":"home_active_paths","label":"Active URL matches, separated by commas","default":"/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/carpet-dust,/collections/all-purpose-cleaner"},
+    {"type":"header","content":"Control panel item 03"},
+    {"type":"checkbox","id":"scent_enabled","label":"Show item 03","default":true},
+    {"type":"text","id":"scent_label","label":"Label","default":"Scent Profile"},
+    {"type":"text","id":"scent_link","label":"Link","default":"/pages/scent-profile"},
+    {"type":"text","id":"scent_icon","label":"Icon","default":"✦"},
+    {"type":"text","id":"scent_number","label":"Number","default":"03"},
+    {"type":"color","id":"scent_tint","label":"Icon color","default":"#b9ff39"},
+    {"type":"text","id":"scent_active_paths","label":"Active URL matches, separated by commas","default":"/pages/scent-profile"},
+    {"type":"header","content":"Control panel item 04"},
+    {"type":"checkbox","id":"oddities_enabled","label":"Show item 04","default":true},
+    {"type":"text","id":"oddities_label","label":"Label","default":"oddities"},
+    {"type":"text","id":"oddities_link","label":"Link","default":"/collections/oddities"},
+    {"type":"text","id":"oddities_icon","label":"Icon","default":"*"},
+    {"type":"text","id":"oddities_number","label":"Number","default":"04"},
+    {"type":"color","id":"oddities_tint","label":"Icon color","default":"#c7b5ff"},
+    {"type":"text","id":"oddities_active_paths","label":"Active URL matches, separated by commas","default":"/collections/oddities"},
+    {"type":"header","content":"Control panel item 05"},
+    {"type":"checkbox","id":"lab_enabled","label":"Show item 05","default":true},
+    {"type":"text","id":"lab_label","label":"Label","default":"the lab"},
+    {"type":"text","id":"lab_link","label":"Link","default":"/pages/the-lab"},
+    {"type":"text","id":"lab_icon","label":"Icon","default":"/"},
+    {"type":"text","id":"lab_number","label":"Number","default":"05"},
+    {"type":"color","id":"lab_tint","label":"Icon color","default":"#c6f76a"},
+    {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/charm-bar,/pages/parties-events"},
+    {"type":"header","content":"Control panel item 06 - dropdown"},
+    {"type":"checkbox","id":"about_enabled","label":"Show item 06","default":true},
+    {"type":"text","id":"about_label","label":"Label","default":"about us"},
+    {"type":"text","id":"about_icon","label":"Icon","default":"?"},
+    {"type":"text","id":"about_number","label":"Number","default":"06"},
+    {"type":"color","id":"about_tint","label":"Icon color","default":"#c7b5ff"},
+    {"type":"textarea","id":"about_submenu","label":"Dropdown links, one per line as Label|URL","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nCharm Bar|/pages/charm-bar\nParties & Events|/pages/parties-events\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
+    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/parties-events,/pages/contact,/pages/refund-policy"},
+    {"type":"header","content":"Control panel item 07"},
+    {"type":"checkbox","id":"visit_enabled","label":"Show item 07","default":true},
+    {"type":"text","id":"visit_label","label":"Label","default":"visit us"},
+    {"type":"text","id":"visit_link","label":"Link","default":"/pages/visit-us"},
+    {"type":"text","id":"visit_icon","label":"Icon","default":"!"},
+    {"type":"text","id":"visit_number","label":"Number","default":"07"},
+    {"type":"color","id":"visit_tint","label":"Icon color","default":"#9dd7ff"},
+    {"type":"text","id":"visit_active_paths","label":"Active URL matches, separated by commas","default":"/pages/visit-us"},
     {"type":"header","content":"Marquee"},
     {"type":"range","id":"marquee_speed","label":"Marquee speed","min":16,"max":60,"step":2,"unit":"s","default":34},
     {"type":"text","id":"marquee_1","label":"Marquee text 1","default":"shut up & smell"},
@@ -106,6 +248,17 @@
     {"type":"color","id":"page_color","label":"Page background","default":"#f6f7fa"},
     {"type":"color","id":"pink_color","label":"Pink","default":"#ff9bc4"},
     {"type":"color","id":"lime_color","label":"Lime","default":"#c6f76a"}
+  ],
+  "blocks":[
+    {"type":"panel_item","name":"Extra control panel item","settings":[
+      {"type":"text","id":"label","label":"Label","default":"new item"},
+      {"type":"text","id":"link","label":"Link","default":"/collections/all"},
+      {"type":"text","id":"icon","label":"Icon","default":"+"},
+      {"type":"text","id":"number","label":"Number","default":"08"},
+      {"type":"color","id":"tint","label":"Icon color","default":"#c9e7ff"},
+      {"type":"text","id":"active_paths","label":"Active URL matches, separated by commas","default":"/collections/all"},
+      {"type":"textarea","id":"submenu","label":"Optional dropdown links, one per line as Label|URL"}
+    ]}
   ],
   "presets":[{"name":"SUAS OS frame"}]
 }
