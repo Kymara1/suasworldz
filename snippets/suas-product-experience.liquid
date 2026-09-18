@@ -1,0 +1,56 @@
+{% liquid
+  assign desc_text = product.description | strip_html
+  assign desc_down = desc_text | downcase
+  assign product_title_down = product.title | downcase
+  assign has_notes = false
+%}
+
+<section class="suas-product-experience" aria-label="SUAS product details">
+  <div class="suas-product-vibe-card">
+    <div class="suas-window-strip" aria-hidden="true"><span></span><span></span><span></span><b>formula file / {{ product.handle }}</b></div>
+    <div class="suas-product-vibe-copy">
+      <p class="suas-kicker">what it smells like</p>
+      {% if product.description != blank %}
+        <div class="suas-product-description rte">{{ product.description }}</div>
+      {% else %}
+        <p>{{ product.title }} is mixed for the SUAS world: handmade, playful, and made to layer into your daily routine.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="suas-note-collection" id="scent-notes">
+    <div class="suas-note-head">
+      <p class="suas-kicker">star notes</p>
+      <h2>smell it before it ships.</h2>
+    </div>
+    <div class="suas-note-grid">
+      {% if desc_down contains 'coconut' %}{% assign has_notes = true %}<article class="suas-note-card note-coconut"><div class="suas-note-art"><i></i><b></b><em></em></div><span>creamy coconut</span></article>{% endif %}
+      {% if desc_down contains 'jasmine' %}{% assign has_notes = true %}<article class="suas-note-card note-jasmine"><div class="suas-note-art"><i></i><b></b><em></em></div><span>jasmine blossom</span></article>{% endif %}
+      {% if desc_down contains 'musk' %}{% assign has_notes = true %}<article class="suas-note-card note-musk"><div class="suas-note-art"><i></i><b></b><em></em></div><span>soft white musk</span></article>{% endif %}
+      {% if desc_down contains 'ocean' or desc_down contains 'salty air' or desc_down contains 'sea' %}{% assign has_notes = true %}<article class="suas-note-card note-ocean"><div class="suas-note-art"><i></i><b></b><em></em></div><span>fresh ocean breeze</span></article>{% endif %}
+      {% if desc_down contains 'vanilla' %}{% assign has_notes = true %}<article class="suas-note-card note-vanilla"><div class="suas-note-art"><i></i><b></b><em></em></div><span>vanilla</span></article>{% endif %}
+      {% if desc_down contains 'amber' %}{% assign has_notes = true %}<article class="suas-note-card note-amber"><div class="suas-note-art"><i></i><b></b><em></em></div><span>amber</span></article>{% endif %}
+      {% if desc_down contains 'lavender' %}{% assign has_notes = true %}<article class="suas-note-card note-lavender"><div class="suas-note-art"><i></i><b></b><em></em></div><span>lavender</span></article>{% endif %}
+      {% if desc_down contains 'mandarin' %}{% assign has_notes = true %}<article class="suas-note-card note-mandarin"><div class="suas-note-art"><i></i><b></b><em></em></div><span>mandarin</span></article>{% endif %}
+      {% if desc_down contains 'peach' %}{% assign has_notes = true %}<article class="suas-note-card note-peach"><div class="suas-note-art"><i></i><b></b><em></em></div><span>peach</span></article>{% endif %}
+      {% if desc_down contains 'plum' %}{% assign has_notes = true %}<article class="suas-note-card note-plum"><div class="suas-note-art"><i></i><b></b><em></em></div><span>plum</span></article>{% endif %}
+      {% if desc_down contains 'strawberry' %}{% assign has_notes = true %}<article class="suas-note-card note-strawberry"><div class="suas-note-art"><i></i><b></b><em></em></div><span>strawberry</span></article>{% endif %}
+      {% if desc_down contains 'rose' %}{% assign has_notes = true %}<article class="suas-note-card note-rose"><div class="suas-note-art"><i></i><b></b><em></em></div><span>rose</span></article>{% endif %}
+      {% if desc_down contains 'sandalwood' %}{% assign has_notes = true %}<article class="suas-note-card note-wood"><div class="suas-note-art"><i></i><b></b><em></em></div><span>sandalwood</span></article>{% endif %}
+      {% if desc_down contains 'cedar' %}{% assign has_notes = true %}<article class="suas-note-card note-wood"><div class="suas-note-art"><i></i><b></b><em></em></div><span>cedarwood</span></article>{% endif %}
+      {% if desc_down contains 'lemon' %}{% assign has_notes = true %}<article class="suas-note-card note-lemon"><div class="suas-note-art"><i></i><b></b><em></em></div><span>lemon</span></article>{% endif %}
+      {% if desc_down contains 'mint' %}{% assign has_notes = true %}<article class="suas-note-card note-mint"><div class="suas-note-art"><i></i><b></b><em></em></div><span>mint</span></article>{% endif %}
+      {% unless has_notes %}
+        <article class="suas-note-card note-signature"><div class="suas-note-art"><i></i><b></b><em></em></div><span>signature blend</span></article>
+        <article class="suas-note-card note-cream"><div class="suas-note-art"><i></i><b></b><em></em></div><span>soft finish</span></article>
+        <article class="suas-note-card note-spark"><div class="suas-note-art"><i></i><b></b><em></em></div><span>made to layer</span></article>
+      {% endunless %}
+    </div>
+  </div>
+
+  <div class="suas-product-lane-grid">
+    <article><small>texture</small><strong>{% if product_title_down contains 'butter' or desc_down contains 'butter' %}thick + creamy{% elsif product_title_down contains 'oil' %}glossy oil{% elsif product_title_down contains 'mist' %}air-light mist{% else %}small-batch finish{% endif %}</strong></article>
+    <article><small>best for</small><strong>{% if product_title_down contains 'butter' %}after shower glow{% elsif product_title_down contains 'oil' %}body layering{% elsif product_title_down contains 'candle' %}room mood{% else %}daily ritual{% endif %}</strong></article>
+    <article><small>made by</small><strong>SUAS CO.</strong></article>
+  </div>
+</section>
