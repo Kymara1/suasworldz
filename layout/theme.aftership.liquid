@@ -63,6 +63,10 @@
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
+      if (window.location.pathname === '/collections/home-care') {
+        window.location.replace('/pages/home-care-products');
+      }
+
       function onLoadStylesheet() {
         const link = document.querySelector(`link[href="${theme.assets.stylesheet}"]`);
         link.loaded = true;
