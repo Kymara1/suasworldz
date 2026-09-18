@@ -63,8 +63,8 @@
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
-      if (window.location.pathname === '/collections/home-care') {
-        window.location.replace('/pages/home-care-products');
+      if (window.location.pathname === '/collections/home-care' || window.location.pathname === '/pages/home-care-products') {
+        window.location.replace('/pages/home-products');
       }
 
       function onLoadStylesheet() {
