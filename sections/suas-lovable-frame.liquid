@@ -15,7 +15,6 @@
   .suas-side-nav{flex:1;overflow-y:auto;padding:6px 12px 14px}.suas-side-link{min-height:58px;display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:11px;padding:9px 12px;border-radius:999px;color:var(--suas-ink);text-decoration:none;transition:transform 180ms ease,background 180ms ease,color 180ms ease}.suas-side-link:hover{color:var(--suas-ink);background:rgba(255,255,255,.85);transform:translateX(3px);text-decoration:none}.suas-side-link.is-active{min-height:70px;margin:8px -2px;color:#fff;background:var(--suas-ink)}
   .suas-side-icon{width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(16,16,16,.08);border-radius:999px;background:linear-gradient(180deg,#fff 0%,var(--tint) 130%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9);font-size:18px}.suas-side-link.is-active .suas-side-icon{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.14)}.suas-side-label{font-size:1.65rem;line-height:.96;text-transform:uppercase}.suas-side-num{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:11px;letter-spacing:.2em;opacity:.45}
   .suas-side-dropdown summary{cursor:pointer;list-style:none}.suas-side-dropdown summary::-webkit-details-marker{display:none}.suas-panel-submenu{display:grid;gap:6px;padding:0 4px 8px 52px}.suas-panel-submenu a{width:fit-content;max-width:100%;padding:6px 9px;border-radius:999px;color:rgba(16,16,16,.7);background:rgba(255,255,255,.78);font-family:Futura,'Futura PT',Arial,sans-serif;font-size:9px;font-weight:900;letter-spacing:.12em;text-decoration:none;text-transform:uppercase}.suas-panel-submenu a:hover{color:var(--suas-ink);background:var(--suas-pink)}
-  .suas-booking-subgroup{display:grid;gap:5px;margin:0}.suas-booking-subgroup>summary{width:fit-content;min-width:118px;max-width:100%;list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:7px 11px;border:1px solid rgba(16,16,16,.12);border-radius:999px;color:var(--suas-ink);background:var(--suas-pink);box-shadow:0 3px 0 rgba(16,16,16,.9);font-family:'Casual Human',Futura,Arial,sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;line-height:1.1}.suas-booking-subgroup>summary:after{content:'+';font-family:Futura,Arial,sans-serif}.suas-booking-subgroup[open]>summary:after{content:'-'}.suas-booking-subgroup-links{display:grid;gap:5px;padding:2px 0 2px 12px;border-left:2px solid var(--suas-pink)}
   .suas-side-status{margin:10px 15px 12px;min-height:74px;display:flex;align-items:center;gap:11px;padding:16px 20px;border-radius:999px;background:rgba(255,255,255,.84);box-shadow:0 13px 30px rgba(16,16,16,.08)}.suas-side-status-dot{width:9px;height:9px;border-radius:999px;background:var(--suas-lime);box-shadow:0 0 14px rgba(198,247,106,.9);animation:suasPulse 1.6s ease-in-out infinite}.suas-side-status b,.suas-side-status span{display:block}.suas-side-status b{color:rgba(16,16,16,.42);margin-bottom:5px}.suas-side-status span{font-size:1.08rem;line-height:1;text-transform:uppercase}.suas-side-foot{display:flex;justify-content:space-between;gap:8px;padding:0 14px 16px}.suas-side-foot a,.suas-side-foot span{color:rgba(16,16,16,.46);text-decoration:none}@keyframes suasPulse{0%,100%{opacity:.35;transform:scale(.86)}50%{opacity:1;transform:scale(1.1)}}
   @media(min-width:1024px){.suas-side-rail{inset:30px auto 0 0;padding-top:14px;height:calc(100vh - 30px)}.off-canvas--main-content{margin-left:252px;width:calc(100% - 252px)}.header--root,.announcement--root{display:none!important}}
   @media(max-width:1023px){.header--root,.announcement--root{display:none!important}.suas-frame-marquee{height:34px}.suas-frame-marquee-track span{padding:0 18px;font-size:15px}.suas-side-rail{position:sticky;inset:auto;top:34px;z-index:59;width:100%;display:block;margin-top:34px;padding:8px 10px 10px;background:rgba(255,255,255,.96);border-right:0;border-bottom:1px solid rgba(16,16,16,.1);box-shadow:0 10px 24px -20px rgba(16,16,16,.45)}.suas-side-head{justify-content:center;gap:10px;padding:4px 0 8px}.suas-side-orb{width:28px;height:28px}.suas-side-brand{font-size:1.35rem;line-height:1}.suas-side-kicker,.suas-side-status,.suas-side-foot{display:none}.suas-side-nav{flex:none;display:flex;gap:8px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.suas-side-nav::-webkit-scrollbar{display:none}.suas-side-dropdown{flex:0 0 auto}.suas-side-link{min-height:40px;flex:0 0 auto;grid-template-columns:26px auto;gap:7px;padding:7px 11px 7px 8px;border:1px solid rgba(16,16,16,.1);background:rgba(255,255,255,.82);box-shadow:0 4px 0 rgba(16,16,16,.12)}.suas-side-link.is-active{min-height:40px;margin:0;box-shadow:0 4px 0 rgba(16,16,16,.25)}.suas-side-icon{width:24px;height:24px;font-size:12px}.suas-side-label{font-size:1rem;line-height:1;white-space:nowrap}.suas-side-num{display:none}.suas-panel-submenu{position:absolute;z-index:65;min-width:170px;max-width:min(86vw,240px);padding:8px;margin-top:6px;border:1px solid rgba(16,16,16,.12);border-radius:14px;background:#fff;box-shadow:0 16px 32px rgba(16,16,16,.16)}}
@@ -75,10 +74,11 @@ Refund Policy|/pages/refund-policy{% endcapture %}
               assign item_active = true
             endif
           endfor
+          assign body_menu = linklists[section.settings.body_menu]
           assign body_submenu = section.settings.body_submenu | default: body_submenu_default
           assign body_rows = body_submenu | newline_to_br | split: '<br />'
         %}
-        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.body_tint }}">{{ section.settings.body_icon }}</span><span class="suas-side-label">{{ section.settings.body_label }}</span><span class="suas-side-num">{{ section.settings.body_number }}</span></summary><div class="suas-panel-submenu">{% for row in body_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.body_tint }}">{{ section.settings.body_icon }}</span><span class="suas-side-label">{{ section.settings.body_label }}</span><span class="suas-side-num">{{ section.settings.body_number }}</span></summary><div class="suas-panel-submenu">{% if body_menu.links.size > 0 %}{% for link in body_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in body_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
       {% if section.settings.home_enabled %}
@@ -91,10 +91,11 @@ Refund Policy|/pages/refund-policy{% endcapture %}
               assign item_active = true
             endif
           endfor
+          assign home_menu = linklists[section.settings.home_menu]
           assign home_submenu = section.settings.home_submenu | default: home_submenu_default
           assign home_rows = home_submenu | newline_to_br | split: '<br />'
         %}
-        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% if home_menu.links.size > 0 %}{% for link in home_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
       {% if section.settings.scent_enabled %}
@@ -147,10 +148,11 @@ Refund Policy|/pages/refund-policy{% endcapture %}
               assign item_active = true
             endif
           endfor
+          assign about_menu = linklists[section.settings.about_menu]
           assign about_submenu = section.settings.about_submenu | default: about_submenu_default
           assign about_rows = about_submenu | newline_to_br | split: '<br />'
         %}
-        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% if about_menu.links.size > 0 %}{% for link in about_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
       {% if section.settings.visit_enabled %}
         {% liquid
@@ -168,7 +170,26 @@ Refund Policy|/pages/refund-policy{% endcapture %}
 
       {% for block in section.blocks %}
         {% liquid
+          assign extra_title = block.settings.label
+          assign extra_url = block.settings.link
+          if block.settings.collection != blank
+            assign extra_url = block.settings.collection.url
+            if extra_title == blank
+              assign extra_title = block.settings.collection.title
+            endif
+          elsif block.settings.page != blank
+            assign extra_url = block.settings.page.url
+            if extra_title == blank
+              assign extra_title = block.settings.page.title
+            endif
+          endif
+          if extra_title == blank
+            assign extra_title = 'new item'
+          endif
           assign item_active = false
+          if extra_url != blank and request.path contains extra_url
+            assign item_active = true
+          endif
           assign extra_active_paths = block.settings.active_paths | split: ','
           for active_path in extra_active_paths
             assign clean_path = active_path | strip
@@ -176,13 +197,14 @@ Refund Policy|/pages/refund-policy{% endcapture %}
               assign item_active = true
             endif
           endfor
+          assign extra_menu = linklists[block.settings.menu]
           assign extra_submenu = block.settings.submenu
           assign extra_rows = extra_submenu | newline_to_br | split: '<br />'
         %}
-        {% if block.settings.submenu != blank %}
-          <details class="suas-side-dropdown" {{ block.shopify_attributes }}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ block.settings.label }}</span><span class="suas-side-num">{{ block.settings.number }}</span></summary><div class="suas-panel-submenu">{% for row in extra_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}</div></details>
+        {% if extra_menu.links.size > 0 or block.settings.submenu != blank %}
+          <details class="suas-side-dropdown" {{ block.shopify_attributes }}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ extra_title }}</span><span class="suas-side-num">{{ block.settings.number }}</span></summary><div class="suas-panel-submenu">{% if extra_menu.links.size > 0 %}{% for link in extra_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in extra_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
         {% else %}
-          <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ block.settings.link }}" {{ block.shopify_attributes }}><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ block.settings.label }}</span><span class="suas-side-num">{{ block.settings.number }}</span></a>
+          <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ extra_url | default: routes.root_url }}" {{ block.shopify_attributes }}><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ extra_title }}</span><span class="suas-side-num">{{ block.settings.number }}</span></a>
         {% endif %}
       {% endfor %}
     </nav>
@@ -193,21 +215,11 @@ Refund Policy|/pages/refund-policy{% endcapture %}
 
 <script>
   (() => {
-    const routes = {
-      reviews: '/pages/reviews',
-      account: '/pages/account'
-    };
-
+    const routes = { reviews: '/pages/reviews', account: '/pages/account' };
     const rewriteSuasHomeLinks = () => {
-      document.querySelectorAll('.suas-world-home a[href="#suas-reviews"]').forEach((link) => {
-        link.setAttribute('href', routes.reviews);
-      });
-
-      document.querySelectorAll('.suas-world-home a[href="/account"], .suas-world-home a[href="/pages/suas-account"], .suas-world-home a[href="/pages/suas-accounts"], .suas-world-home a[href="/pages/accounts"], .suas-side-foot a[href="/account"], .suas-side-foot a[href="/pages/suas-account"], .suas-side-foot a[href="/pages/suas-accounts"], .suas-side-foot a[href="/pages/accounts"]').forEach((link) => {
-        link.setAttribute('href', routes.account);
-      });
+      document.querySelectorAll('.suas-world-home a[href="#suas-reviews"]').forEach((link) => { link.setAttribute('href', routes.reviews); });
+      document.querySelectorAll('.suas-world-home a[href="/account"], .suas-world-home a[href="/pages/suas-account"], .suas-world-home a[href="/pages/suas-accounts"], .suas-world-home a[href="/pages/accounts"], .suas-side-foot a[href="/account"], .suas-side-foot a[href="/pages/suas-account"], .suas-side-foot a[href="/pages/suas-accounts"], .suas-side-foot a[href="/pages/accounts"]').forEach((link) => { link.setAttribute('href', routes.account); });
     };
-
     rewriteSuasHomeLinks();
     new MutationObserver(rewriteSuasHomeLinks).observe(document.documentElement, { childList: true, subtree: true });
   })();
@@ -227,62 +239,73 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"footer_link_1","label":"Footer link 1","default":"/pages/account"},
     {"type":"text","id":"footer_label_2","label":"Footer label 2","default":"about"},
     {"type":"text","id":"footer_link_2","label":"Footer link 2","default":"/pages/about"},
-    {"type":"header","content":"Control panel item 01 - dropdown"},
-    {"type":"checkbox","id":"body_enabled","label":"Show item 01","default":true},
+
+    {"type":"header","content":"Body dropdown"},
+    {"type":"checkbox","id":"body_enabled","label":"Show Body dropdown","default":true},
     {"type":"text","id":"body_label","label":"Label","default":"body"},
     {"type":"text","id":"body_icon","label":"Icon","default":"o"},
     {"type":"text","id":"body_number","label":"Number","default":"01"},
     {"type":"color","id":"body_tint","label":"Icon color","default":"#ff9bc4"},
-    {"type":"textarea","id":"body_submenu","label":"Dropdown links, one per line as Label|URL","default":"Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash"},
+    {"type":"link_list","id":"body_menu","label":"Body dropdown menu","info":"Choose a Shopify Navigation menu. Add collection links to that menu instead of typing URLs here."},
+    {"type":"textarea","id":"body_submenu","label":"Fallback typed links","info":"Used only if no menu is selected. Format: Label|URL, one per line.","default":"Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash"},
     {"type":"text","id":"body_active_paths","label":"Active URL matches, separated by commas","default":"/collections/body,/collections/body-care,/collections/butter-creme,/collections/cleansing-bar,/collections/body-scrub,/collections/body-jelly,/collections/body-oil,/collections/body-wash"},
-    {"type":"header","content":"Control panel item 02 - dropdown"},
-    {"type":"checkbox","id":"home_enabled","label":"Show item 02","default":true},
+
+    {"type":"header","content":"Home dropdown"},
+    {"type":"checkbox","id":"home_enabled","label":"Show Home dropdown","default":true},
     {"type":"text","id":"home_label","label":"Label","default":"home"},
     {"type":"text","id":"home_icon","label":"Icon","default":"i"},
     {"type":"text","id":"home_number","label":"Number","default":"02"},
     {"type":"color","id":"home_tint","label":"Icon color","default":"#ffe86b"},
-    {"type":"textarea","id":"home_submenu","label":"Dropdown links, one per line as Label|URL","default":"Home Products|/collections/home-care\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
+    {"type":"link_list","id":"home_menu","label":"Home dropdown menu","info":"Choose a Shopify Navigation menu. Add collection links to that menu instead of typing URLs here."},
+    {"type":"textarea","id":"home_submenu","label":"Fallback typed links","info":"Used only if no menu is selected. Format: Label|URL, one per line.","default":"Home Products|/collections/home-care\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
     {"type":"text","id":"home_active_paths","label":"Active URL matches, separated by commas","default":"/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/carpet-dust,/collections/all-purpose-cleaner"},
-    {"type":"header","content":"Control panel item 03"},
-    {"type":"checkbox","id":"scent_enabled","label":"Show item 03","default":true},
+
+    {"type":"header","content":"Scent Profile item"},
+    {"type":"checkbox","id":"scent_enabled","label":"Show Scent Profile","default":true},
     {"type":"text","id":"scent_label","label":"Label","default":"Scent Profile"},
     {"type":"text","id":"scent_link","label":"Link","default":"/pages/scent-profile"},
     {"type":"text","id":"scent_icon","label":"Icon","default":"✦"},
     {"type":"text","id":"scent_number","label":"Number","default":"03"},
     {"type":"color","id":"scent_tint","label":"Icon color","default":"#b9ff39"},
     {"type":"text","id":"scent_active_paths","label":"Active URL matches, separated by commas","default":"/pages/scent-profile"},
-    {"type":"header","content":"Control panel item 04"},
-    {"type":"checkbox","id":"oddities_enabled","label":"Show item 04","default":true},
+
+    {"type":"header","content":"Oddities item"},
+    {"type":"checkbox","id":"oddities_enabled","label":"Show Oddities","default":true},
     {"type":"text","id":"oddities_label","label":"Label","default":"oddities"},
     {"type":"text","id":"oddities_link","label":"Link","default":"/collections/oddities"},
     {"type":"text","id":"oddities_icon","label":"Icon","default":"*"},
     {"type":"text","id":"oddities_number","label":"Number","default":"04"},
     {"type":"color","id":"oddities_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"text","id":"oddities_active_paths","label":"Active URL matches, separated by commas","default":"/collections/oddities"},
-    {"type":"header","content":"Control panel item 05"},
-    {"type":"checkbox","id":"lab_enabled","label":"Show item 05","default":true},
+
+    {"type":"header","content":"The Lab item"},
+    {"type":"checkbox","id":"lab_enabled","label":"Show The Lab","default":true},
     {"type":"text","id":"lab_label","label":"Label","default":"the lab"},
     {"type":"text","id":"lab_link","label":"Link","default":"/pages/the-lab"},
     {"type":"text","id":"lab_icon","label":"Icon","default":"/"},
     {"type":"text","id":"lab_number","label":"Number","default":"05"},
     {"type":"color","id":"lab_tint","label":"Icon color","default":"#c6f76a"},
     {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/charm-bar,/pages/parties-events"},
-    {"type":"header","content":"Control panel item 06 - dropdown"},
-    {"type":"checkbox","id":"about_enabled","label":"Show item 06","default":true},
+
+    {"type":"header","content":"About dropdown"},
+    {"type":"checkbox","id":"about_enabled","label":"Show About dropdown","default":true},
     {"type":"text","id":"about_label","label":"Label","default":"about us"},
     {"type":"text","id":"about_icon","label":"Icon","default":"?"},
     {"type":"text","id":"about_number","label":"Number","default":"06"},
     {"type":"color","id":"about_tint","label":"Icon color","default":"#c7b5ff"},
-    {"type":"textarea","id":"about_submenu","label":"Dropdown links, one per line as Label|URL","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nCharm Bar|/pages/charm-bar\nParties & Events|/pages/parties-events\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
+    {"type":"link_list","id":"about_menu","label":"About dropdown menu","info":"Choose a Shopify Navigation menu. Add page links to that menu instead of typing URLs here."},
+    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu is selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nCharm Bar|/pages/charm-bar\nParties & Events|/pages/parties-events\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
     {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/parties-events,/pages/contact,/pages/refund-policy"},
-    {"type":"header","content":"Control panel item 07"},
-    {"type":"checkbox","id":"visit_enabled","label":"Show item 07","default":true},
+
+    {"type":"header","content":"Visit Us item"},
+    {"type":"checkbox","id":"visit_enabled","label":"Show Visit Us","default":true},
     {"type":"text","id":"visit_label","label":"Label","default":"visit us"},
     {"type":"text","id":"visit_link","label":"Link","default":"/pages/visit-us"},
     {"type":"text","id":"visit_icon","label":"Icon","default":"!"},
     {"type":"text","id":"visit_number","label":"Number","default":"07"},
     {"type":"color","id":"visit_tint","label":"Icon color","default":"#9dd7ff"},
     {"type":"text","id":"visit_active_paths","label":"Active URL matches, separated by commas","default":"/pages/visit-us"},
+
     {"type":"header","content":"Marquee"},
     {"type":"range","id":"marquee_speed","label":"Marquee speed","min":16,"max":60,"step":2,"unit":"s","default":34},
     {"type":"text","id":"marquee_1","label":"Marquee text 1","default":"shut up & smell"},
@@ -299,13 +322,16 @@ Refund Policy|/pages/refund-policy{% endcapture %}
   ],
   "blocks":[
     {"type":"panel_item","name":"Extra control panel item","settings":[
-      {"type":"text","id":"label","label":"Label","default":"new item"},
-      {"type":"text","id":"link","label":"Link","default":"/collections/all"},
+      {"type":"text","id":"label","label":"Label override","info":"Optional. Leave blank to use the selected collection or page title."},
+      {"type":"collection","id":"collection","label":"Collection"},
+      {"type":"page","id":"page","label":"Page"},
+      {"type":"url","id":"link","label":"Custom link","info":"Used if no collection or page is selected."},
+      {"type":"link_list","id":"menu","label":"Optional dropdown menu","info":"Choose a menu if this item should open dropdown links."},
+      {"type":"textarea","id":"submenu","label":"Fallback typed dropdown links","info":"Used only if no dropdown menu is selected. Format: Label|URL, one per line."},
       {"type":"text","id":"icon","label":"Icon","default":"+"},
       {"type":"text","id":"number","label":"Number","default":"08"},
       {"type":"color","id":"tint","label":"Icon color","default":"#c9e7ff"},
-      {"type":"text","id":"active_paths","label":"Active URL matches, separated by commas","default":"/collections/all"},
-      {"type":"textarea","id":"submenu","label":"Optional dropdown links, one per line as Label|URL"}
+      {"type":"text","id":"active_paths","label":"Extra active URL matches, separated by commas"}
     ]}
   ],
   "presets":[{"name":"SUAS OS frame"}]
