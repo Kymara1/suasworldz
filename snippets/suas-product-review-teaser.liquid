@@ -1,0 +1,28 @@
+<style>
+  html body.template--product .suas-product-review-teaser{width:min(1040px,calc(100vw - 34px));margin:clamp(24px,4vw,44px) auto 0;color:#101010;font-family:Futura,'Futura PT',Arial,sans-serif}
+  html body.template--product .suas-product-review-teaser *{box-sizing:border-box}
+  html body.template--product .suas-review-teaser-card{position:relative;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;border:2px solid #101010;border-radius:28px;background:linear-gradient(rgba(16,16,16,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.028) 1px,transparent 1px),radial-gradient(circle at 10% 20%,rgba(255,216,232,.9),transparent 30%),radial-gradient(circle at 92% 80%,rgba(217,255,120,.75),transparent 28%),#fff;background-size:18px 18px,18px 18px,auto,auto,auto;box-shadow:7px 8px 0 #101010;padding:clamp(18px,3vw,30px);overflow:hidden}
+  html body.template--product .suas-review-teaser-card:before{content:'★★★★★';position:absolute;right:22px;top:14px;font-size:42px;letter-spacing:2px;color:#fff1a8;-webkit-text-stroke:1.5px #101010;opacity:.75;transform:rotate(2deg)}
+  html body.template--product .suas-review-teaser-eyebrow{display:inline-flex;width:max-content;margin:0 0 10px;padding:7px 12px;border:2px solid #101010;border-radius:999px;background:#d9ff78;box-shadow:0 4px 0 #101010;font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+  html body.template--product .suas-product-review-teaser h2{position:relative;z-index:1;margin:0 0 8px;font-family:'Casual Human',Futura,Arial,sans-serif!important;font-size:clamp(2.35rem,5.8vw,4.7rem);font-weight:700;line-height:.82;text-transform:uppercase}
+  html body.template--product .suas-product-review-teaser p{position:relative;z-index:1;max-width:650px;margin:0;font-size:13px;line-height:1.45;font-weight:800;color:#101010}
+  html body.template--product .suas-review-teaser-actions{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;min-width:210px}
+  html body.template--product .suas-review-teaser-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:13px 20px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010!important;box-shadow:0 5px 0 #101010;text-decoration:none!important;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+  html body.template--product .suas-review-teaser-button:last-child{background:#101010;color:#fff!important}
+  html body.template--product .suas-review-teaser-button:hover{transform:translateY(2px);box-shadow:0 3px 0 #101010}
+  @media(max-width:749px){html body.template--product .suas-product-review-teaser{width:min(430px,calc(100vw - 16px));margin-top:22px}html body.template--product .suas-review-teaser-card{grid-template-columns:1fr;border-radius:22px;box-shadow:5px 6px 0 #101010;padding:18px}html body.template--product .suas-review-teaser-actions{min-width:0}html body.template--product .suas-review-teaser-button{width:100%}html body.template--product .suas-review-teaser-card:before{right:12px;top:10px;font-size:28px}}
+</style>
+
+<section class="suas-product-review-teaser" aria-label="Review this product">
+  <div class="suas-review-teaser-card">
+    <div>
+      <div class="suas-review-teaser-eyebrow">customer smell reports</div>
+      <h2>review this formula.</h2>
+      <p>Drop a real scent note for {{ product.title }}: how it smelled, how it wore, and who you think would love it.</p>
+    </div>
+    <div class="suas-review-teaser-actions">
+      <a class="suas-review-teaser-button" href="/pages/reviews?product={{ product.handle }}#aftership_reviews_all_reviews_widget_production">write a review</a>
+      <a class="suas-review-teaser-button" href="#aftership_reviews_all_reviews_widget_production">read reviews</a>
+    </div>
+  </div>
+</section>
