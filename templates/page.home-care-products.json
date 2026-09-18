@@ -33,7 +33,7 @@
         "spacing-below": true,
         "featured-collection--image--show": false,
         "featured-collection--description--show": false,
-        "display-type": "grid",
+        "display-type": "slider",
         "products-per-row--desktop": "4",
         "products-per-row--mobile": "2"
       }
@@ -51,7 +51,7 @@
         "spacing-below": false,
         "featured-collection--image--show": false,
         "featured-collection--description--show": false,
-        "display-type": "grid",
+        "display-type": "slider",
         "products-per-row--desktop": "4",
         "products-per-row--mobile": "2"
       }
