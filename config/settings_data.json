@@ -424,7 +424,17 @@
           "body_icon": "o",
           "body_number": "01",
           "body_tint": "#ff9bc4",
-          "body_collections": [],
+          "body_collections": [
+            "cleansing-bar",
+            "body-oil",
+            "body-wash",
+            "butter-creme",
+            "body-scrub",
+            "cologne",
+            "eau-de-parfum",
+            "exfoliating-body-wash",
+            "body-jelly"
+          ],
           "body_menu": "",
           "body_submenu": "Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash",
           "body_active_paths": "/collections/body,/collections/body-care,/collections/butter-creme,/collections/cleansing-bar,/collections/body-scrub,/collections/body-jelly,/collections/body-oil,/collections/body-wash",
