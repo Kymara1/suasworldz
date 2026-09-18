@@ -78,8 +78,14 @@ Refund Policy|/pages/refund-policy{% endcapture %}
           assign body_collections = section.settings.body_collections
           assign body_submenu = section.settings.body_submenu | default: body_submenu_default
           assign body_rows = body_submenu | newline_to_br | split: '<br />'
+          assign has_body_block_collections = false
+          for dropdown_block in section.blocks
+            if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'body' and dropdown_block.settings.collection != blank
+              assign has_body_block_collections = true
+            endif
+          endfor
         %}
-        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.body_tint }}">{{ section.settings.body_icon }}</span><span class="suas-side-label">{{ section.settings.body_label }}</span><span class="suas-side-num">{{ section.settings.body_number }}</span></summary><div class="suas-panel-submenu">{% if body_collections.size > 0 %}{% for collection in body_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% elsif body_menu.links.size > 0 %}{% for link in body_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in body_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.body_tint }}">{{ section.settings.body_icon }}</span><span class="suas-side-label">{{ section.settings.body_label }}</span><span class="suas-side-num">{{ section.settings.body_number }}</span></summary><div class="suas-panel-submenu">{% if body_collections.size > 0 or has_body_block_collections %}{% for collection in body_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'body' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif body_menu.links.size > 0 %}{% for link in body_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in body_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
       {% if section.settings.home_enabled %}
@@ -96,8 +102,14 @@ Refund Policy|/pages/refund-policy{% endcapture %}
           assign home_collections = section.settings.home_collections
           assign home_submenu = section.settings.home_submenu | default: home_submenu_default
           assign home_rows = home_submenu | newline_to_br | split: '<br />'
+          assign has_home_block_collections = false
+          for dropdown_block in section.blocks
+            if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'home' and dropdown_block.settings.collection != blank
+              assign has_home_block_collections = true
+            endif
+          endfor
         %}
-        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% if home_collections.size > 0 %}{% for collection in home_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% elsif home_menu.links.size > 0 %}{% for link in home_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% if home_collections.size > 0 or has_home_block_collections %}{% for collection in home_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'home' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif home_menu.links.size > 0 %}{% for link in home_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
       {% if section.settings.scent_enabled %}
@@ -153,8 +165,14 @@ Refund Policy|/pages/refund-policy{% endcapture %}
           assign about_menu = linklists[section.settings.about_menu]
           assign about_submenu = section.settings.about_submenu | default: about_submenu_default
           assign about_rows = about_submenu | newline_to_br | split: '<br />'
+          assign has_about_block_collections = false
+          for dropdown_block in section.blocks
+            if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank
+              assign has_about_block_collections = true
+            endif
+          endfor
         %}
-        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% if about_menu.links.size > 0 %}{% for link in about_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% if about_menu.links.size > 0 %}{% for link in about_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif has_about_block_collections %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% else %}{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
       {% if section.settings.visit_enabled %}
         {% liquid
@@ -171,42 +189,44 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% endif %}
 
       {% for block in section.blocks %}
-        {% liquid
-          assign extra_title = block.settings.label
-          assign extra_url = block.settings.link
-          if block.settings.collection != blank
-            assign extra_url = block.settings.collection.url
-            if extra_title == blank
-              assign extra_title = block.settings.collection.title
+        {% if block.type == 'panel_item' %}
+          {% liquid
+            assign extra_title = block.settings.label
+            assign extra_url = block.settings.link
+            if block.settings.collection != blank
+              assign extra_url = block.settings.collection.url
+              if extra_title == blank
+                assign extra_title = block.settings.collection.title
+              endif
+            elsif block.settings.page != blank
+              assign extra_url = block.settings.page.url
+              if extra_title == blank
+                assign extra_title = block.settings.page.title
+              endif
             endif
-          elsif block.settings.page != blank
-            assign extra_url = block.settings.page.url
             if extra_title == blank
-              assign extra_title = block.settings.page.title
+              assign extra_title = 'new item'
             endif
-          endif
-          if extra_title == blank
-            assign extra_title = 'new item'
-          endif
-          assign item_active = false
-          if extra_url != blank and request.path contains extra_url
-            assign item_active = true
-          endif
-          assign extra_active_paths = block.settings.active_paths | split: ','
-          for active_path in extra_active_paths
-            assign clean_path = active_path | strip
-            if clean_path != blank and request.path contains clean_path
+            assign item_active = false
+            if extra_url != blank and request.path contains extra_url
               assign item_active = true
             endif
-          endfor
-          assign extra_menu = linklists[block.settings.menu]
-          assign extra_submenu = block.settings.submenu
-          assign extra_rows = extra_submenu | newline_to_br | split: '<br />'
-        %}
-        {% if extra_menu.links.size > 0 or block.settings.submenu != blank %}
-          <details class="suas-side-dropdown" {{ block.shopify_attributes }}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ extra_title }}</span><span class="suas-side-num">{{ block.settings.number }}</span></summary><div class="suas-panel-submenu">{% if extra_menu.links.size > 0 %}{% for link in extra_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in extra_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
-        {% else %}
-          <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ extra_url | default: routes.root_url }}" {{ block.shopify_attributes }}><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ extra_title }}</span><span class="suas-side-num">{{ block.settings.number }}</span></a>
+            assign extra_active_paths = block.settings.active_paths | split: ','
+            for active_path in extra_active_paths
+              assign clean_path = active_path | strip
+              if clean_path != blank and request.path contains clean_path
+                assign item_active = true
+              endif
+            endfor
+            assign extra_menu = linklists[block.settings.menu]
+            assign extra_submenu = block.settings.submenu
+            assign extra_rows = extra_submenu | newline_to_br | split: '<br />'
+          %}
+          {% if extra_menu.links.size > 0 or block.settings.submenu != blank %}
+            <details class="suas-side-dropdown" {{ block.shopify_attributes }}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ extra_title }}</span><span class="suas-side-num">{{ block.settings.number }}</span></summary><div class="suas-panel-submenu">{% if extra_menu.links.size > 0 %}{% for link in extra_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in extra_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+          {% else %}
+            <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ extra_url | default: routes.root_url }}" {{ block.shopify_attributes }}><span class="suas-side-icon" style="--tint:{{ block.settings.tint }}">{{ block.settings.icon }}</span><span class="suas-side-label">{{ extra_title }}</span><span class="suas-side-num">{{ block.settings.number }}</span></a>
+          {% endif %}
         {% endif %}
       {% endfor %}
     </nav>
@@ -248,9 +268,9 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"body_icon","label":"Icon","default":"o"},
     {"type":"text","id":"body_number","label":"Number","default":"01"},
     {"type":"color","id":"body_tint","label":"Icon color","default":"#ff9bc4"},
-    {"type":"collection_list","id":"body_collections","label":"Body dropdown collections","limit":12,"info":"Click Select collections and choose the collections to show in this dropdown."},
+    {"type":"collection_list","id":"body_collections","label":"Body dropdown collections","limit":12,"info":"Click Select collections and choose the collections to show in this dropdown. Use blocks below to add more one-by-one."},
     {"type":"link_list","id":"body_menu","label":"Optional Body dropdown menu","info":"Optional fallback if you prefer managing this through Shopify Navigation."},
-    {"type":"textarea","id":"body_submenu","label":"Emergency fallback typed links","info":"Only used if no collections or menu are selected. Format: Label|URL, one per line.","default":"Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash"},
+    {"type":"textarea","id":"body_submenu","label":"Emergency fallback typed links","info":"Only used if no collections, item blocks, or menu are selected. Format: Label|URL, one per line.","default":"Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash"},
     {"type":"text","id":"body_active_paths","label":"Active URL matches, separated by commas","default":"/collections/body,/collections/body-care,/collections/butter-creme,/collections/cleansing-bar,/collections/body-scrub,/collections/body-jelly,/collections/body-oil,/collections/body-wash"},
 
     {"type":"header","content":"Home dropdown"},
@@ -259,9 +279,9 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"home_icon","label":"Icon","default":"i"},
     {"type":"text","id":"home_number","label":"Number","default":"02"},
     {"type":"color","id":"home_tint","label":"Icon color","default":"#ffe86b"},
-    {"type":"collection_list","id":"home_collections","label":"Home dropdown collections","limit":12,"info":"Click Select collections and choose the collections to show in this dropdown."},
+    {"type":"collection_list","id":"home_collections","label":"Home dropdown collections","limit":12,"info":"Click Select collections and choose the collections to show in this dropdown. Use blocks below to add more one-by-one."},
     {"type":"link_list","id":"home_menu","label":"Optional Home dropdown menu","info":"Optional fallback if you prefer managing this through Shopify Navigation."},
-    {"type":"textarea","id":"home_submenu","label":"Emergency fallback typed links","info":"Only used if no collections or menu are selected. Format: Label|URL, one per line.","default":"Home Products|/collections/home-care\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
+    {"type":"textarea","id":"home_submenu","label":"Emergency fallback typed links","info":"Only used if no collections, item blocks, or menu are selected. Format: Label|URL, one per line.","default":"Home Products|/collections/home-care\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
     {"type":"text","id":"home_active_paths","label":"Active URL matches, separated by commas","default":"/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/carpet-dust,/collections/all-purpose-cleaner"},
 
     {"type":"header","content":"Scent Profile item"},
@@ -298,7 +318,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"about_number","label":"Number","default":"06"},
     {"type":"color","id":"about_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"link_list","id":"about_menu","label":"About dropdown menu","info":"Choose a Shopify Navigation menu. Add page links to that menu instead of typing URLs here."},
-    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu is selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nCharm Bar|/pages/charm-bar\nParties & Events|/pages/parties-events\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
+    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu or item blocks are selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nCharm Bar|/pages/charm-bar\nParties & Events|/pages/parties-events\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
     {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/parties-events,/pages/contact,/pages/refund-policy"},
 
     {"type":"header","content":"Visit Us item"},
@@ -336,6 +356,15 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {"type":"text","id":"number","label":"Number","default":"08"},
       {"type":"color","id":"tint","label":"Icon color","default":"#c9e7ff"},
       {"type":"text","id":"active_paths","label":"Extra active URL matches, separated by commas"}
+    ]},
+    {"type":"dropdown_collection_item","name":"Dropdown collection item","settings":[
+      {"type":"select","id":"dropdown","label":"Add to dropdown","default":"home","options":[
+        {"value":"body","label":"Body dropdown"},
+        {"value":"home","label":"Home dropdown"},
+        {"value":"about","label":"About dropdown"}
+      ]},
+      {"type":"collection","id":"collection","label":"Collection"},
+      {"type":"text","id":"label","label":"Label override","info":"Optional. Leave blank to use the collection title."}
     ]}
   ],
   "presets":[{"name":"SUAS OS frame"}]
