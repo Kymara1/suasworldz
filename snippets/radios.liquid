@@ -59,6 +59,14 @@
     aria-labelledby="{{ radios_name }}"
   >
     {% for value in option.values %}
+      {%- liquid
+        assign display_value = value | escape
+        assign display_value = display_value | replace: ' FL OZ', ' Oz'
+        assign display_value = display_value | replace: ' fl oz', ' Oz'
+        assign display_value = display_value | replace: 'FL OZ', 'Oz'
+        assign display_value = display_value | replace: 'fl oz', 'Oz'
+        assign display_value = display_value | replace: 'OZ', 'Oz'
+      -%}
       <div class="radios--main">
         <input
           class="radios--input"
@@ -87,8 +95,9 @@
             class="radios--value-button"
             data-item="button"
             for="{{ radios_name }}-{{ value | downcase | remove: ' ' }}"
+            aria-label="{{ display_value }}"
           >
-            <div>{{ value | escape }}</div>
+            <div>{{ display_value }}</div>
           </label>
         {% endif %}
 
