@@ -60,12 +60,8 @@
   >
     {% for value in option.values %}
       {%- liquid
-        assign display_value = value | escape
-        assign display_value = display_value | replace: ' FL OZ', ' Oz'
-        assign display_value = display_value | replace: ' fl oz', ' Oz'
-        assign display_value = display_value | replace: 'FL OZ', 'Oz'
-        assign display_value = display_value | replace: 'fl oz', 'Oz'
-        assign display_value = display_value | replace: 'OZ', 'Oz'
+        assign display_value = value | strip | replace: 'fl oz', 'Oz' | replace: 'FL OZ', 'Oz' | replace: 'Fl Oz', 'Oz' | replace: 'fl. oz.', 'Oz' | replace: 'FL. OZ.', 'Oz' | replace: 'Fl. Oz.', 'Oz' | replace: ' oz', ' Oz' | replace: ' OZ', ' Oz' | replace: 'Oz.', 'Oz'
+        assign display_value = display_value | replace: '  ', ' '
       -%}
       <div class="radios--main">
         <input
@@ -95,9 +91,9 @@
             class="radios--value-button"
             data-item="button"
             for="{{ radios_name }}-{{ value | downcase | remove: ' ' }}"
-            aria-label="{{ display_value }}"
+            aria-label="{{ display_value | escape }}"
           >
-            <div>{{ display_value }}</div>
+            <div>{{ display_value | escape }}</div>
           </label>
         {% endif %}
 
