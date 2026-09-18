@@ -75,10 +75,11 @@ Refund Policy|/pages/refund-policy{% endcapture %}
             endif
           endfor
           assign body_menu = linklists[section.settings.body_menu]
+          assign body_collections = section.settings.body_collections
           assign body_submenu = section.settings.body_submenu | default: body_submenu_default
           assign body_rows = body_submenu | newline_to_br | split: '<br />'
         %}
-        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.body_tint }}">{{ section.settings.body_icon }}</span><span class="suas-side-label">{{ section.settings.body_label }}</span><span class="suas-side-num">{{ section.settings.body_number }}</span></summary><div class="suas-panel-submenu">{% if body_menu.links.size > 0 %}{% for link in body_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in body_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.body_tint }}">{{ section.settings.body_icon }}</span><span class="suas-side-label">{{ section.settings.body_label }}</span><span class="suas-side-num">{{ section.settings.body_number }}</span></summary><div class="suas-panel-submenu">{% if body_collections.size > 0 %}{% for collection in body_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% elsif body_menu.links.size > 0 %}{% for link in body_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in body_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
       {% if section.settings.home_enabled %}
@@ -92,10 +93,11 @@ Refund Policy|/pages/refund-policy{% endcapture %}
             endif
           endfor
           assign home_menu = linklists[section.settings.home_menu]
+          assign home_collections = section.settings.home_collections
           assign home_submenu = section.settings.home_submenu | default: home_submenu_default
           assign home_rows = home_submenu | newline_to_br | split: '<br />'
         %}
-        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% if home_menu.links.size > 0 %}{% for link in home_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% if home_collections.size > 0 %}{% for collection in home_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% elsif home_menu.links.size > 0 %}{% for link in home_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
       {% if section.settings.scent_enabled %}
@@ -246,8 +248,9 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"body_icon","label":"Icon","default":"o"},
     {"type":"text","id":"body_number","label":"Number","default":"01"},
     {"type":"color","id":"body_tint","label":"Icon color","default":"#ff9bc4"},
-    {"type":"link_list","id":"body_menu","label":"Body dropdown menu","info":"Choose a Shopify Navigation menu. Add collection links to that menu instead of typing URLs here."},
-    {"type":"textarea","id":"body_submenu","label":"Fallback typed links","info":"Used only if no menu is selected. Format: Label|URL, one per line.","default":"Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash"},
+    {"type":"collection_list","id":"body_collections","label":"Body dropdown collections","limit":12,"info":"Click Select collections and choose the collections to show in this dropdown."},
+    {"type":"link_list","id":"body_menu","label":"Optional Body dropdown menu","info":"Optional fallback if you prefer managing this through Shopify Navigation."},
+    {"type":"textarea","id":"body_submenu","label":"Emergency fallback typed links","info":"Only used if no collections or menu are selected. Format: Label|URL, one per line.","default":"Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash"},
     {"type":"text","id":"body_active_paths","label":"Active URL matches, separated by commas","default":"/collections/body,/collections/body-care,/collections/butter-creme,/collections/cleansing-bar,/collections/body-scrub,/collections/body-jelly,/collections/body-oil,/collections/body-wash"},
 
     {"type":"header","content":"Home dropdown"},
@@ -256,8 +259,9 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"home_icon","label":"Icon","default":"i"},
     {"type":"text","id":"home_number","label":"Number","default":"02"},
     {"type":"color","id":"home_tint","label":"Icon color","default":"#ffe86b"},
-    {"type":"link_list","id":"home_menu","label":"Home dropdown menu","info":"Choose a Shopify Navigation menu. Add collection links to that menu instead of typing URLs here."},
-    {"type":"textarea","id":"home_submenu","label":"Fallback typed links","info":"Used only if no menu is selected. Format: Label|URL, one per line.","default":"Home Products|/collections/home-care\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
+    {"type":"collection_list","id":"home_collections","label":"Home dropdown collections","limit":12,"info":"Click Select collections and choose the collections to show in this dropdown."},
+    {"type":"link_list","id":"home_menu","label":"Optional Home dropdown menu","info":"Optional fallback if you prefer managing this through Shopify Navigation."},
+    {"type":"textarea","id":"home_submenu","label":"Emergency fallback typed links","info":"Only used if no collections or menu are selected. Format: Label|URL, one per line.","default":"Home Products|/collections/home-care\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
     {"type":"text","id":"home_active_paths","label":"Active URL matches, separated by commas","default":"/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/carpet-dust,/collections/all-purpose-cleaner"},
 
     {"type":"header","content":"Scent Profile item"},
