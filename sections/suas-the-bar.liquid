@@ -24,8 +24,9 @@
     .suas-dispense[aria-pressed='true'] .tube{outline:3px solid var(--lime);transform:translateY(3px)}
     .suas-dispense:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
     .suas-bar-mix{display:grid;grid-template-columns:minmax(180px,.7fr) minmax(0,1.3fr);gap:16px;align-items:center;margin-top:22px}
-    .suas-bar-bottle{width:min(180px,40vw);aspect-ratio:3/5;margin:0 auto;border:3px solid var(--ink);border-radius:18px 18px 28px 28px;background:linear-gradient(180deg,#fff,#e8e8e8);box-shadow:4px 5px 0 var(--ink);position:relative;overflow:hidden}
-    .suas-bar-bottle:before{content:'';position:absolute;left:50%;top:0;transform:translate(-50%,-18px);width:42px;height:22px;background:#111;border-radius:4px}
+    .suas-bar-bottle{width:86px;height:210px;margin:18px auto 0;border:3px solid var(--ink);border-radius:22px 22px 34px 34px;background:linear-gradient(180deg,#fff,#e8e8e8);box-shadow:4px 5px 0 var(--ink);position:relative;overflow:visible}
+    .suas-bar-bottle:before{content:'';position:absolute;left:50%;top:-18px;transform:translateX(-50%);width:28px;height:22px;background:#111;border-radius:4px 4px 0 0}
+    .suas-bar-bottle:after{content:'';position:absolute;inset:8px 10px 12px;border-radius:16px 16px 26px 26px;background:inherit;opacity:.35;pointer-events:none}
     .suas-bar-copy h3{margin:0 0 8px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2rem,4vw,3.2rem);line-height:.86;text-transform:lowercase}
     .suas-bar-copy p{margin:0 0 12px;font-size:14px;font-weight:700;line-height:1.35;max-width:46ch}
     .suas-bar-chips{display:flex;flex-wrap:wrap;gap:8px;min-height:34px;margin:0 0 14px}
