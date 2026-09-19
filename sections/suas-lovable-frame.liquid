@@ -41,6 +41,13 @@ Everything Mist|/collections/everything-mist
 Burnt Oils|/collections/burnt-oils
 Carpet Dust|/collections/carpet-dust
 All Purpose Cleaner|/collections/all-purpose-cleaner{% endcapture %}
+{% capture shared_submenu_default %}Cleansing Bar|/collections/cleansing-bar
+Body Oil|/collections/body-oil
+Body Wash|/collections/body-wash
+Butter Creme|/collections/butter-creme
+Cologne|/collections/cologne
+Perfume|/collections/eau-de-parfum
+Skin Jelly|/collections/body-jelly{% endcapture %}
 {% capture about_submenu_default %}Who are we|/pages/who-are-we
 Book the Lab|/pages/bookings
 Charm Bar|/pages/charm-bar
@@ -112,6 +119,30 @@ Refund Policy|/pages/refund-policy{% endcapture %}
         <details class="suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.home_tint }}">{{ section.settings.home_icon }}</span><span class="suas-side-label">{{ section.settings.home_label }}</span><span class="suas-side-num">{{ section.settings.home_number }}</span></summary><div class="suas-panel-submenu">{% if home_collections.size > 0 or has_home_block_collections %}{% for collection in home_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'home' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif home_menu.links.size > 0 %}{% for link in home_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in home_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
+      {% if section.settings.shared_enabled %}
+        {% liquid
+          assign item_active = false
+          assign shared_active_paths = section.settings.shared_active_paths | default: '/collections/shared' | split: ','
+          for active_path in shared_active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+          assign shared_menu = linklists[section.settings.shared_menu]
+          assign shared_collections = section.settings.shared_collections
+          assign shared_submenu = section.settings.shared_submenu | default: shared_submenu_default
+          assign shared_rows = shared_submenu | newline_to_br | split: '<br />'
+          assign has_shared_block_collections = false
+          for dropdown_block in section.blocks
+            if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'shared' and dropdown_block.settings.collection != blank
+              assign has_shared_block_collections = true
+            endif
+          endfor
+        %}
+        <details class="suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.shared_tint }}">{{ section.settings.shared_icon }}</span><span class="suas-side-label">{{ section.settings.shared_label }}</span><span class="suas-side-num">{{ section.settings.shared_number }}</span></summary><div class="suas-panel-submenu">{% if shared_collections.size > 0 or has_shared_block_collections %}{% for collection in shared_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'shared' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif shared_menu.links.size > 0 %}{% for link in shared_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in shared_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+      {% endif %}
+
       {% if section.settings.scent_enabled %}
         {% liquid
           assign item_active = false
@@ -172,7 +203,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
             endif
           endfor
         %}
-        <details class="suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% if about_menu.links.size > 0 %}{% for link in about_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif has_about_block_collections %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% else %}{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+        <details class="suas-side-dropdown"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% if about_menu.links.size > 0 %}{% for link in about_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif has_about_block_collections %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% else %}{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
       {% if section.settings.visit_enabled %}
         {% liquid
@@ -262,9 +293,9 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"footer_label_2","label":"Footer label 2","default":"about"},
     {"type":"text","id":"footer_link_2","label":"Footer link 2","default":"/pages/about"},
 
-    {"type":"header","content":"Body dropdown"},
-    {"type":"checkbox","id":"body_enabled","label":"Show Body dropdown","default":true},
-    {"type":"text","id":"body_label","label":"Label","default":"body"},
+    {"type":"header","content":"Feminine dropdown"},
+    {"type":"checkbox","id":"body_enabled","label":"Show Feminine dropdown","default":true},
+    {"type":"text","id":"body_label","label":"Label","default":"feminine"},
     {"type":"text","id":"body_icon","label":"Icon","default":"o"},
     {"type":"text","id":"body_number","label":"Number","default":"01"},
     {"type":"color","id":"body_tint","label":"Icon color","default":"#ff9bc4"},
@@ -273,16 +304,27 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"textarea","id":"body_submenu","label":"Emergency fallback typed links","info":"Only used if no collections, item blocks, or menu are selected. Format: Label|URL, one per line.","default":"Body|/collections/body-care\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nBody Jelly|/collections/body-jelly\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Wash|/collections/body-wash"},
     {"type":"text","id":"body_active_paths","label":"Active URL matches, separated by commas","default":"/collections/body,/collections/body-care,/collections/butter-creme,/collections/cleansing-bar,/collections/body-scrub,/collections/body-jelly,/collections/body-oil,/collections/body-wash"},
 
-    {"type":"header","content":"Home dropdown"},
-    {"type":"checkbox","id":"home_enabled","label":"Show Home dropdown","default":true},
-    {"type":"text","id":"home_label","label":"Label","default":"home"},
+    {"type":"header","content":"Masculine dropdown"},
+    {"type":"checkbox","id":"home_enabled","label":"Show Masculine dropdown","default":true},
+    {"type":"text","id":"home_label","label":"Label","default":"masculine"},
     {"type":"text","id":"home_icon","label":"Icon","default":"i"},
     {"type":"text","id":"home_number","label":"Number","default":"02"},
     {"type":"color","id":"home_tint","label":"Icon color","default":"#ffe86b"},
     {"type":"collection_list","id":"home_collections","label":"Home dropdown collections","limit":12,"info":"Click Select collections and choose the collections to show in this dropdown. Use blocks below to add more one-by-one."},
     {"type":"link_list","id":"home_menu","label":"Optional Home dropdown menu","info":"Optional fallback if you prefer managing this through Shopify Navigation."},
     {"type":"textarea","id":"home_submenu","label":"Emergency fallback typed links","info":"Only used if no collections, item blocks, or menu are selected. Format: Label|URL, one per line.","default":"Home Products|/collections/home-care\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
-    {"type":"text","id":"home_active_paths","label":"Active URL matches, separated by commas","default":"/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/carpet-dust,/collections/all-purpose-cleaner"},
+    {"type":"text","id":"home_active_paths","label":"Active URL matches, separated by commas","default":"/collections/masculine,/collections/cologne,/collections/exfoliating-body-wash,/collections/beard"},
+
+    {"type":"header","content":"Shared dropdown"},
+    {"type":"checkbox","id":"shared_enabled","label":"Show Shared dropdown","default":true},
+    {"type":"text","id":"shared_label","label":"Label","default":"shared"},
+    {"type":"text","id":"shared_icon","label":"Icon","default":"+"},
+    {"type":"text","id":"shared_number","label":"Number","default":"03"},
+    {"type":"color","id":"shared_tint","label":"Icon color","default":"#c6f76a"},
+    {"type":"collection_list","id":"shared_collections","label":"Shared dropdown collections","limit":12},
+    {"type":"link_list","id":"shared_menu","label":"Optional Shared dropdown menu"},
+    {"type":"textarea","id":"shared_submenu","label":"Emergency fallback typed links","info":"Only used if no collections, item blocks, or menu are selected. Format: Label|URL, one per line.","default":"Cleansing Bar|/collections/cleansing-bar\nBody Oil|/collections/body-oil\nBody Wash|/collections/body-wash\nButter Creme|/collections/butter-creme\nCologne|/collections/cologne\nPerfume|/collections/eau-de-parfum\nSkin Jelly|/collections/body-jelly"},
+    {"type":"text","id":"shared_active_paths","label":"Active URL matches, separated by commas","default":"/collections/shared"},
 
     {"type":"header","content":"Scent Profile item"},
     {"type":"checkbox","id":"scent_enabled","label":"Show Scent Profile","default":true},
@@ -359,8 +401,9 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     ]},
     {"type":"dropdown_collection_item","name":"Dropdown collection item","settings":[
       {"type":"select","id":"dropdown","label":"Add to dropdown","default":"home","options":[
-        {"value":"body","label":"Body dropdown"},
-        {"value":"home","label":"Home dropdown"},
+        {"value":"body","label":"Feminine dropdown"},
+        {"value":"home","label":"Masculine dropdown"},
+        {"value":"shared","label":"Shared dropdown"},
         {"value":"about","label":"About dropdown"}
       ]},
       {"type":"collection","id":"collection","label":"Collection"},
