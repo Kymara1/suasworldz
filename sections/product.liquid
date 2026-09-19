@@ -295,6 +295,8 @@
 
   {% render 'suas-product-experience', product: product, note_blocks: section.blocks %}
 
+  {{ 'suas-pdp-unique.css' | asset_url | stylesheet_tag }}
+
   <div class="product-page--content" hidden>
     {{ content_blocks }}
   </div>

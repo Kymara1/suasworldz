@@ -84,6 +84,10 @@ html body.template--product .suas-station-stage {
   background: transparent !important;
   transform: rotate(-4deg);
 }
+html body.template--product .suas-station-stage:before {
+  content: none !important;
+  display: none !important;
+}
 html body.template--product .suas-station-photo {
   width: 100%;
   height: auto;
@@ -95,20 +99,25 @@ html body.template--product .suas-station-thumbs {
   margin-top: 18px;
   transform: none;
 }
-html body.template--product .suas-pdp-ticket {
+html body.template--product aside.suas-pdp-ticket,
+html body.template--product .suas-pdp-ticket.suas-station-buy,
+html body.template--product .suas-pdp-ticket.product-page--featured-blocks {
   grid-row: 2;
   grid-column: 2;
   align-self: end;
-  margin: 0 clamp(16px, 2vw, 28px) 28px 0;
-  padding: 0;
-  background: var(--ticket);
-  border: 2px solid var(--ink);
-  border-radius: 28px 28px 36px 18px;
-  box-shadow: 10px 12px 0 var(--ink);
+  width: auto !important;
+  max-width: 420px !important;
+  margin: 0 clamp(16px, 2vw, 28px) 28px 0 !important;
+  padding: 0 !important;
+  background: #fffaf4 !important;
+  border: 2px solid #141018 !important;
+  border-radius: 28px 28px 36px 18px !important;
+  box-shadow: 10px 12px 0 #141018 !important;
   overflow: hidden;
 }
 html body.template--product .suas-pdp-ticket:before {
-  content: none;
+  content: none !important;
+  display: none !important;
 }
 html body.template--product .suas-station-buy-body {
   padding: 22px 22px 20px;
@@ -128,17 +137,25 @@ html body.template--product .suas-pdp-ticket [data-product-block='price'] {
   font: 900 1.7rem/1 Futura, Arial, sans-serif;
   margin: 0 0 14px;
 }
-html body.template--product .product-buy-buttons--cta,
-html body.template--product [name='add'],
-html body.template--product form[action*='/cart/add'] button[type='submit'] {
-  min-height: 58px;
-  border-radius: 999px;
-  background: var(--hot);
-  border: 2px solid var(--ink);
-  box-shadow: 0 5px 0 var(--ink);
-  font: 900 12px/1 Futura, Arial, sans-serif;
-  letter-spacing: .12em;
-  text-transform: uppercase;
+html body.template--product .suas-pdp-ticket .product-buy-buttons--cta,
+html body.template--product .suas-pdp-ticket .product-buy-buttons--primary,
+html body.template--product .suas-pdp-ticket [data-item='button'],
+html body.template--product .suas-pdp-ticket [data-item='secondary-button'],
+html body.template--product .suas-pdp-ticket [name='add'],
+html body.template--product .suas-pdp-ticket form[action*='/cart/add'] button[type='submit'] {
+  min-height: 58px !important;
+  width: 100% !important;
+  border-radius: 999px !important;
+  background: var(--hot, #ff9bc4) !important;
+  color: #141018 !important;
+  border: 2px solid #141018 !important;
+  box-shadow: 0 5px 0 #141018 !important;
+  font: 900 12px/1 Futura, Arial, sans-serif !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+}
+html body.template--product .suas-pdp-ticket .product-buy-buttons--cta-text {
+  color: #141018 !important;
 }
 
 html body.template--product .suas-product-experience {
@@ -174,12 +191,14 @@ html body.template--product .suas-note-grid {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
-html body.template--product .suas-note-card {
+html body.template--product .suas-note-card,
+html body.template--product .suas-note-card:nth-child(2n) {
   flex: 0 0 min(78vw, 340px);
   min-height: 420px;
-  border-radius: 28px;
+  border-radius: 28px !important;
+  transform: none !important;
   scroll-snap-align: start;
-  box-shadow: 6px 8px 0 var(--ink);
+  box-shadow: 6px 8px 0 #141018 !important;
 }
 
 @media (max-width: 1023px) {
