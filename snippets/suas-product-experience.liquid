@@ -31,10 +31,13 @@
   elsif desc_text contains 'scent profile:'
     assign scent_line = desc_text | split: 'scent profile:' | last | split: 'For:' | first | strip
   endif
+  if scent_line != blank
+    assign scent_line = scent_line | split: 'Ingredients' | first | split: 'ingredients' | first | strip
+  endif
 
   assign for_line = ''
   if desc_text contains 'For:'
-    assign for_line = desc_text | split: 'For:' | last | split: 'Ingredients' | first | strip
+    assign for_line = desc_text | split: 'For:' | last | split: 'Ingredients' | first | split: 'ingredients' | first | strip
   endif
 %}
 
@@ -43,17 +46,13 @@
   html body.template--product .suas-product-experience *{box-sizing:border-box}
   html body.template--product .shopify-section:has([class*='aftership'])::before,html body.template--product .shopify-section:has([class*='automizely'])::before{content:none!important;display:none!important}
   html body.template--product .product-options--container{margin-top:8px!important}
-  html body.template--product .radios--container{display:flex!important;flex-wrap:wrap!important;gap:10px!important;align-items:center!important}
+  html body.template--product .radios--container{display:flex!important;flex-wrap:wrap!important;gap:8px!important;align-items:center!important}
   html body.template--product .radios--input{position:absolute!important;inline-size:1px!important;block-size:1px!important;opacity:0!important;pointer-events:none!important}
   html body.template--product .radios--main{position:relative!important;background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
-  html body.template--product .radios--value-button{inline-size:42px!important;block-size:42px!important;min-inline-size:42px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:0!important;border:2px solid #101010!important;border-radius:999px!important;background:#fff!important;color:#101010!important;box-shadow:0 3px 0 #101010!important;font-size:0!important;cursor:pointer!important;overflow:hidden!important}
-  html body.template--product .radios--value-button:nth-child(1){background:#ffd8e8!important}
-  html body.template--product .radios--value-button:nth-child(2){background:#cdeeff!important}
-  html body.template--product .radios--value-button:nth-child(3){background:#d9ff78!important}
-  html body.template--product .radios--value-button:nth-child(4){background:#fff1a8!important}
-  html body.template--product .radios--value-button:nth-child(5){background:#e4d5ff!important}
-  html body.template--product .radios--value-button:nth-child(6){background:#ff9bc4!important}
-  html body.template--product .radios--input:checked+.radios--value-button{box-shadow:0 0 0 3px #101010,0 4px 0 #101010!important}
+  html body.template--product .radios--swatch-button{inline-size:42px!important;block-size:42px!important;border:2px solid #101010!important;border-radius:999px!important}
+  html body.template--product .radios--value-button{inline-size:auto!important;min-inline-size:52px!important;block-size:32px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:0 10px!important;border:2px solid #101010!important;border-radius:999px!important;background:#fff!important;color:#101010!important;box-shadow:0 3px 0 #101010!important;font-size:11px!important;font-weight:900!important;line-height:1!important;cursor:pointer!important;overflow:visible!important;white-space:nowrap!important}
+  html body.template--product .radios--value-button div{font-size:11px!important;line-height:1!important;color:inherit!important}
+  html body.template--product .radios--input:checked+.radios--value-button{background:#101010!important;color:#fff!important;box-shadow:0 0 0 3px #101010,0 3px 0 #d9ff78!important}
   html body.template--product .product-page--price{margin:4px 0 8px!important;font-size:1.35rem!important;font-weight:900!important}
   .suas-pdp-fold{border:2px solid #101010;border-radius:22px;box-shadow:5px 6px 0 #101010;margin:0 0 12px;overflow:hidden}
   .suas-pdp-fold+.suas-pdp-fold{margin-top:10px}
@@ -78,7 +77,7 @@
     .suas-pdp-fold-body{padding:0 14px 16px}
     .suas-pdp-fold summary{font-size:clamp(1.5rem,8vw,2rem);padding:14px}
     .suas-pdp-details,.suas-pdp-steps{grid-template-columns:1fr}
-    html body.template--product .radios--value-button{inline-size:38px!important;block-size:38px!important;min-inline-size:38px!important}
+    html body.template--product .radios--value-button{block-size:30px!important;font-size:11px!important}
   }
 </style>
 
