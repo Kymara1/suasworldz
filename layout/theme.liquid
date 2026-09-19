@@ -196,6 +196,46 @@
       render 'feedback-bar'
     -%}
 
+    <script>
+      (function () {
+        if (!document.body || !document.body.classList.contains('template--product')) return;
+
+        function cleanVariantLabel(text) {
+          var source = String(text || '').replace(/\s+/g, ' ').trim();
+          var sizeMatch = source.match(/(\d+(?:\.\d+)?)\s*(?:f\s*l\s*)?o\s*z/i);
+          if (sizeMatch) {
+            return sizeMatch[1].replace(/\.0$/, '') + ' Oz';
+          }
+          return source.replace(/\bFL\s*OZ\b/ig, 'Oz').replace(/\bFl\s*Oz\b/g, 'Oz').replace(/\bfl\s*oz\b/g, 'Oz');
+        }
+
+        function cleanProductOptionCircles() {
+          document.querySelectorAll('.radios--value-button').forEach(function (button) {
+            var label = cleanVariantLabel(button.getAttribute('aria-label') || button.textContent);
+            var target = button.querySelector('div') || button;
+            if (label && target.textContent.trim() !== label) {
+              target.textContent = label;
+            }
+            if (label) {
+              button.setAttribute('aria-label', label);
+              button.setAttribute('title', label);
+            }
+          });
+        }
+
+        cleanProductOptionCircles();
+        document.addEventListener('DOMContentLoaded', cleanProductOptionCircles);
+        window.addEventListener('load', cleanProductOptionCircles);
+        setTimeout(cleanProductOptionCircles, 400);
+        setTimeout(cleanProductOptionCircles, 1200);
+
+        var observer = new MutationObserver(function () {
+          cleanProductOptionCircles();
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+
     {{ '//cdn.shopify.com/s/files/1/0194/1736/6592/t/1/assets/booster-page-speed-optimizer.js?23' | script_tag }}
     {% render 'hextom_fsb_main', product: product, customer: customer %}
     <script src="//code.tidio.co/yi2efwcyp4seqmcpmlw5twampktjzvxl.js" async></script>
