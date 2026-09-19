@@ -205,11 +205,14 @@ html body.template--product .suas-station-stage:before {
 }
 html body.template--product .suas-pdp-jar .suas-station-photo,
 html body.template--product .suas-pdp .suas-station-photo {
-  width: min(58%, 260px) !important;
-  max-width: 260px !important;
-  max-height: 280px !important;
-  height: auto !important;
-  object-fit: contain !important;
+  width: 220px !important;
+  height: 220px !important;
+  max-width: 220px !important;
+  max-height: 220px !important;
+  object-fit: cover !important;
+  object-position: 52% 54% !important;
+  border-radius: 28px;
+  background: #fff;
   filter: drop-shadow(0 14px 16px rgba(16, 16, 16, .18));
   animation: suasPdpBob 5.6s ease-in-out infinite;
 }
@@ -381,9 +384,10 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
   html body.template--product .suas-pdp-jar { order: 1; }
   html body.template--product .suas-pdp-jar .suas-station-photo,
   html body.template--product .suas-pdp .suas-station-photo {
-    width: min(58%, 210px) !important;
-    max-width: 210px !important;
-    max-height: 210px !important;
+    width: 168px !important;
+    height: 168px !important;
+    max-width: 168px !important;
+    max-height: 168px !important;
   }
   html body.template--product .suas-pdp-name { font-size: clamp(2.15rem, 12vw, 2.9rem) !important; }
   html body.template--product .suas-station-buy-body { padding: 14px 14px 16px !important; }
