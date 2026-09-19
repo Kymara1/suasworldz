@@ -16,23 +16,28 @@
     html body.template--product .suas-review-action{display:inline-flex!important;align-items:center;justify-content:center;min-height:36px;padding:0 14px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010;box-shadow:0 3px 0 #101010;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
     html body.template--product .suas-review-app-stage{padding:0 10px 10px!important;min-height:0!important}
     html body.template--product .suas-review-app-stage .shopify-app-block{min-height:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
-    .suas-simple-review{margin:8px 10px 10px;padding:0;border:0;background:transparent;box-shadow:none}
+    .suas-simple-review{margin:6px 10px 10px;padding:0;border:0;background:transparent;box-shadow:none}
     .suas-simple-review .jdgm-widget,.suas-simple-review .jdgm-rev-widg{margin:0!important;padding:0!important;border:0!important;background:transparent!important;color:#101010!important}
-    .suas-simple-review :is(.jdgm-rev-widg__title,.jdgm-form-wrapper h2,.jdgm-form__title){display:none!important}
-    .suas-simple-review .jdgm-rev-widg__summary{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:8px!important;margin:0 0 8px!important;padding:8px!important;border:2px solid #101010!important;border-radius:14px!important;background:#d9ff78!important;box-shadow:2px 3px 0 #101010!important}
-    .suas-simple-review .jdgm-rev,.suas-simple-review .jdgm-form-wrapper{margin:0!important;padding:10px!important;border:2px solid #101010!important;border-radius:14px!important;background:#fff1a8!important;box-shadow:2px 3px 0 #101010!important}
-    .suas-simple-review :is(.jdgm-write-rev-link,.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn){min-height:34px!important;padding:0 12px!important;border:2px solid #101010!important;border-radius:999px!important;background:#ffd8e8!important;color:#101010!important;box-shadow:0 3px 0 #101010!important;font:900 9px/1 Futura,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important}
-    .suas-simple-review textarea{min-height:72px!important;max-height:110px!important}
-    .suas-simple-review :is(input,textarea,select){border:1.5px solid #101010!important;border-radius:12px!important;background:#fff!important;color:#101010!important;font:800 13px/1.3 Futura,Arial,sans-serif!important}
-    .suas-simple-review :is(.jdgm-star,.jdgm-star:before){color:#101010!important;font-size:16px!important}
+    .suas-simple-review :is(.jdgm-rev-widg__title,.jdgm-form-wrapper h2,.jdgm-form__title,.jdgm-rev-widg__summary,.jdgm-write-rev-link,.jdgm-cancel-rev,.jdgm-sort-dropdown){display:none!important}
+    .suas-simple-review :is([class*='picture'],[class*='Picture'],[class*='media-upload'],[class*='Media'],[class*='video'],[class*='Video'],[class*='tooltip'],.jdgm-tooltip){display:none!important}
+    .suas-simple-review input[name*='title' i],
+    .suas-simple-review [class*='review-title'],
+    .suas-simple-review [class*='review_title']{display:none!important}
+    .suas-simple-review .jdgm-rev{margin:0 0 8px!important;padding:8px!important;border:2px solid #101010!important;border-radius:12px!important;background:#fff1a8!important;box-shadow:2px 3px 0 #101010!important}
+    .suas-simple-review .jdgm-form-wrapper,.suas-simple-review form.jdgm-form{margin:0!important;padding:8px!important;border:2px solid #101010!important;border-radius:12px!important;background:#fff1a8!important;box-shadow:2px 3px 0 #101010!important;display:grid!important;gap:6px!important}
+    .suas-simple-review .jdgm-form-wrapper > *{margin:0!important}
+    .suas-simple-review :is(.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn){min-height:34px!important;padding:0 12px!important;border:2px solid #101010!important;border-radius:999px!important;background:#ffd8e8!important;color:#101010!important;box-shadow:0 3px 0 #101010!important;font:900 9px/1 Futura,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important}
+    .suas-simple-review textarea{min-height:52px!important;max-height:64px!important;height:52px!important}
+    .suas-simple-review :is(input,textarea,select){min-height:36px!important;border:1.5px solid #101010!important;border-radius:10px!important;background:#fff!important;color:#101010!important;font:800 13px/1.25 Futura,Arial,sans-serif!important}
+    .suas-simple-review :is(label,legend,.jdgm-form-label,.jdgm-form__label){font:900 8px/1.2 Futura,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important;margin:0 0 3px!important}
+    .suas-simple-review :is(.jdgm-star,.jdgm-star:before){color:#101010!important;font-size:18px!important}
     .suas-simple-review :is(.jdgm-powered,.jdgm-branding,a[href*='://judge.me'],a[href*='judgeme.com']){display:none!important}
     html body.template--product :is(#aftership_reviews_carousel_v2_production,#aftership_reviews_all_reviews_widget_production){display:none!important}
     @media(max-width:749px){
       html body.template--product .suas-product-review-shell{width:min(430px,calc(100vw - 14px))!important;margin:10px auto 16px!important}
-      html body.template--product .suas-review-intro{flex-wrap:wrap!important}
-      html body.template--product .suas-review-action{width:100%!important;min-height:42px!important}
-      .suas-simple-review .jdgm-rev-widg__summary{flex-direction:column;align-items:stretch}
-      .suas-simple-review :is(.jdgm-write-rev-link,.jdgm-btn){width:100%!important}
+      html body.template--product .suas-review-intro{flex-wrap:nowrap!important}
+      html body.template--product .suas-review-action{width:auto!important;min-height:34px!important;flex:0 0 auto}
+      .suas-simple-review :is(.jdgm-btn,input[type='submit'].jdgm-btn){width:100%!important}
     }
   </style>
   <div data-suas-judgeme-mount>
@@ -64,9 +69,28 @@
         }
         return false;
       }
+      function compactForm() {
+        root.querySelectorAll('[class*="picture"],[class*="Picture"],[class*="upload"],[class*="media-uploader"]').forEach(function (el) {
+          el.style.setProperty('display', 'none', 'important');
+        });
+        root.querySelectorAll('span,small,em,p').forEach(function (el) {
+          var t = String(el.textContent || '').toLowerCase();
+          if (/displayed publicly|john smith|picture|video \(optional\)/.test(t) && !el.querySelector('input,textarea')) {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        });
+        var title = root.querySelector('input[name*="title" i], input[id*="title" i], input[placeholder*="title" i]');
+        if (title) {
+          if (!title.value) title.value = 'Review';
+          title.style.setProperty('display', 'none', 'important');
+          var lab = title.closest('label');
+          if (lab) lab.style.setProperty('display', 'none', 'important');
+        }
+      }
       function scrub() {
+        compactForm();
         root.querySelectorAll('a,p,span,small,div').forEach(function (el) {
-          if (el.matches('.jdgm-write-rev-link, .jdgm-btn, button, a.suas-review-action')) return;
+          if (el.matches('.jdgm-write-rev-link, .jdgm-btn, button, a.suas-review-action,[data-suas-write-review]')) return;
           if (el.querySelector('input,textarea,button,select,.jdgm-write-rev-link')) return;
           var text = (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) ? String(el.textContent || '') : '';
           if (/judge\.?\s*me/i.test(text)) {
