@@ -190,22 +190,33 @@ html body.template--search .suas-catalog-card .product--image .image--root,
 html body.template--collection .suas-catalog-card .product--image .image--container,
 html body.template--search .suas-catalog-card .product--image .image--container {
   position: absolute !important;
-  inset: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
   width: 100% !important;
   height: 100% !important;
   padding: 0 !important;
+  padding-top: 0 !important;
   margin: 0 !important;
 }
 html body.template--collection .suas-catalog-card .product--image img,
-html body.template--search .suas-catalog-card .product--image img {
+html body.template--search .suas-catalog-card .product--image img,
+html body.template--collection .suas-catalog-card .product--image img.lazyload,
+html body.template--collection .suas-catalog-card .product--image img.lazyloaded {
   position: absolute !important;
-  inset: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
   width: 100% !important;
   max-width: none !important;
+  min-width: 100% !important;
   max-height: none !important;
+  min-height: 100% !important;
   height: 100% !important;
   margin: 0 !important;
-  object-fit: contain !important;
+  object-fit: cover !important;
   object-position: center center !important;
   opacity: 1 !important;
   visibility: visible !important;
