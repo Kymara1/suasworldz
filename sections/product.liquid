@@ -250,46 +250,35 @@
   data-product-id="{{ product_id }}"
   data-handle="{{ product.handle }}"
 >
+  {%- liquid
+    assign pdp_life = featured_media
+    if product.media.size > 1
+      for media in product.media
+        if media.media_type == 'image' and featured_media and media.id != featured_media.id
+          assign pdp_life = media
+          break
+        endif
+      endfor
+    endif
+    assign pdp_type = product.type | downcase
+    assign pdp_home = false
+    if pdp_type contains 'candle' or pdp_type contains 'mist' or pdp_type contains 'home' or pdp_type contains 'oil' or pdp_handle contains 'candle' or pdp_handle contains 'mist'
+      assign pdp_home = true
+    endif
+  -%}
   <div class="suas-pdp-world suas-station-desk product-page--top-panel">
-    <header class="suas-pdp-mast">
-      <div class="suas-pdp-live">
-        <span class="suas-pdp-live-dot" aria-hidden="true"></span>
-        <span>now mixing</span>
-        <b>{{ pdp_name }}</b>
-        <span>gastonia · live</span>
-        <span class="suas-pdp-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      </div>
-      <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas.os</p>
-      <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
-      {%- if pdp_hook != blank -%}
-        <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
-      {%- endif -%}
-    </header>
-    <section class="suas-station-media product-page--featured-media suas-pdp-jar" data-suas-station-media aria-label="{{ product.title | escape }} photos">
-      <div class="suas-pdp-stickers">
-        <button type="button" class="suas-pdp-sticker is-on" data-suas-mix data-tint="#ffd8e8">{{ mix_1 }}</button>
-        <button type="button" class="suas-pdp-sticker" data-suas-mix data-tint="#d9ff78">{{ mix_2 }}</button>
-        <button type="button" class="suas-pdp-sticker" data-suas-mix data-tint="#cdeeff">{{ mix_3 }}</button>
-      </div>
-      <div class="suas-station-stage">
-        {%- if featured_media -%}
+    <section class="suas-pdp-life" aria-label="{{ product.title | escape }} photos">
+      <div class="suas-pdp-life-frame">
+        {%- if pdp_life -%}
           <img
-            class="suas-station-photo"
-            data-suas-station-photo
-            src="{{ featured_media | image_url: width: 1600 }}"
-            srcset="{{ featured_media | image_url: width: 800 }} 800w, {{ featured_media | image_url: width: 1200 }} 1200w, {{ featured_media | image_url: width: 1600 }} 1600w"
-            sizes="(max-width: 1023px) 92vw, min(52vw, 720px)"
-            alt="{{ featured_media.alt | default: product.title | escape }}"
-            width="{{ featured_media.width | default: 1600 }}"
-            height="{{ featured_media.height | default: 1600 }}"
+            class="suas-pdp-life-photo"
+            src="{{ pdp_life | image_url: width: 1600 }}"
+            srcset="{{ pdp_life | image_url: width: 800 }} 800w, {{ pdp_life | image_url: width: 1200 }} 1200w, {{ pdp_life | image_url: width: 1600 }} 1600w"
+            sizes="(max-width: 1023px) 100vw, 36vw"
+            alt="{{ pdp_life.alt | default: product.title | escape }}"
+            width="{{ pdp_life.width | default: 1200 }}"
+            height="{{ pdp_life.height | default: 1200 }}"
           >
-        {%- else -%}
-          {% render 'placeholder', type: 'product', aspect_ratio: 1, placeholder_index: 1 %}
-        {%- endif -%}
-        {%- if product.media.size > 1 -%}
-          <button type="button" class="suas-product-gallery-arrow" data-suas-gallery-dir="prev" aria-label="Previous product photo">‹</button>
-          <button type="button" class="suas-product-gallery-arrow" data-suas-gallery-dir="next" aria-label="Next product photo">›</button>
-          <div class="suas-product-gallery-count" data-suas-station-count>1 / {{ product.media.size }}</div>
         {%- endif -%}
       </div>
       {%- if product.media.size > 1 -%}
@@ -311,16 +300,64 @@
           {%- endfor -%}
         </div>
       {%- endif -%}
-      <div class="suas-station-gravity-media" aria-hidden="true">
-        {%- if featured_media -%}
-          {% render "product--media", media_view: "featured", inside_carousel: false, product_media: featured_media, video_looping_enabled: video_looping_enabled %}
-        {%- endif -%}
+    </section>
+
+    <section class="suas-pdp-diagram" aria-label="what's inside">
+      <div class="suas-window-bar">
+        <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>
+        <span class="suas-window-title">WHAT'S.INSIDE</span>
+        <span class="suas-window-live"><b></b>mix</span>
+      </div>
+      <div class="suas-pdp-diagram-body">
+        <div class="suas-pdp-callouts">
+          <button type="button" class="suas-pdp-callout is-on" data-suas-mix data-tint="#ffd8e8">
+            <strong>{{ mix_1 }}</strong>
+            <span>top of the mix</span>
+          </button>
+          <button type="button" class="suas-pdp-callout" data-suas-mix data-tint="#d9ff78">
+            <strong>{{ mix_2 }}</strong>
+            <span>the heart</span>
+          </button>
+          <button type="button" class="suas-pdp-callout" data-suas-mix data-tint="#cdeeff">
+            <strong>{{ mix_3 }}</strong>
+            <span>the drydown</span>
+          </button>
+        </div>
+        <div class="suas-station-media product-page--featured-media suas-pdp-jar" data-suas-station-media>
+          <div class="suas-station-stage">
+            {%- if featured_media -%}
+              <img
+                class="suas-station-photo"
+                data-suas-station-photo
+                src="{{ featured_media | image_url: width: 1600 }}"
+                srcset="{{ featured_media | image_url: width: 800 }} 800w, {{ featured_media | image_url: width: 1200 }} 1200w, {{ featured_media | image_url: width: 1600 }} 1600w"
+                sizes="(max-width: 1023px) 70vw, 22vw"
+                alt="{{ featured_media.alt | default: product.title | escape }}"
+                width="{{ featured_media.width | default: 1600 }}"
+                height="{{ featured_media.height | default: 1600 }}"
+              >
+            {%- else -%}
+              {% render 'placeholder', type: 'product', aspect_ratio: 1, placeholder_index: 1 %}
+            {%- endif -%}
+          </div>
+          <div class="suas-station-gravity-media" aria-hidden="true">
+            {%- if featured_media -%}
+              {% render "product--media", media_view: "featured", inside_carousel: false, product_media: featured_media, video_looping_enabled: video_looping_enabled %}
+            {%- endif -%}
+          </div>
+        </div>
       </div>
     </section>
 
     <aside class="suas-station-buy suas-pdp-ticket product-page--featured-blocks">
       <div class="suas-station-buy-body">
-        <p class="suas-pdp-ticket-label">drop in bag</p>
+        <div class="suas-pdp-stars">{% render 'product-rating', product: product %}</div>
+        <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas.os</p>
+        <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
+        {%- if pdp_hook != blank -%}
+          <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
+        {%- endif -%}
+        <a class="suas-pdp-jump" href="#suas-pdp-details">full details</a>
         {{ featured_blocks_html }}
       </div>
     </aside>
@@ -339,16 +376,24 @@
       var root = document.querySelector('[data-product-id="{{ product_id }}"]');
       if (!root) return;
       var photo = root.querySelector('[data-suas-station-photo]');
+      var life = root.querySelector('.suas-pdp-life-photo');
       var thumbs = Array.prototype.slice.call(root.querySelectorAll('[data-suas-thumb]'));
       var count = root.querySelector('[data-suas-station-count]');
       var index = Math.max(0, thumbs.findIndex(function (thumb) { return thumb.classList.contains('is-active'); }));
       function show(next) {
-        if (!photo || !thumbs.length) return;
+        if (!thumbs.length) return;
         index = (next + thumbs.length) % thumbs.length;
         var thumb = thumbs[index];
-        photo.src = thumb.getAttribute('data-src');
-        photo.srcset = thumb.getAttribute('data-srcset') || '';
-        photo.alt = thumb.getAttribute('data-alt') || '';
+        if (photo) {
+          photo.src = thumb.getAttribute('data-src');
+          photo.srcset = thumb.getAttribute('data-srcset') || '';
+          photo.alt = thumb.getAttribute('data-alt') || '';
+        }
+        if (life) {
+          life.src = thumb.getAttribute('data-src');
+          life.srcset = thumb.getAttribute('data-srcset') || '';
+          life.alt = thumb.getAttribute('data-alt') || '';
+        }
         thumbs.forEach(function (item, i) { item.classList.toggle('is-active', i === index); });
         if (count) count.textContent = (index + 1) + ' / ' + thumbs.length;
       }

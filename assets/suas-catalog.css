@@ -1,0 +1,138 @@
+/* SUAS collection grid — DedCool-style catalog, SUAS flare */
+html body.template--collection .layout--main-content,
+html body.template--search .layout--main-content {
+  max-width: none !important;
+  padding: 12px 8px 48px !important;
+  background: #f3f3f3 !important;
+}
+html body.template--collection .image-with-text--root,
+html body.template--collection .collection--header--root,
+html body.template--collection .featured-collection--title {
+  display: none !important;
+}
+html body.template--collection .featured-collection--container,
+html body.template--collection [data-container='panel'] {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+html body.template--collection .product-grid,
+html body.template--collection .featured-collection--grid,
+html body.template--collection .collection--body--grid,
+html body.template--collection [data-grid] {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+}
+html body.template--collection .suas-catalog-card.product--root,
+html body.template--search .suas-catalog-card.product--root {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100%;
+  margin: 0 !important;
+  padding: 16px 16px 22px !important;
+  border: 1px solid #d8d8d8 !important;
+  border-radius: 0 !important;
+  background: #f7f7f7 !important;
+  box-shadow: none !important;
+}
+html body.template--collection .suas-catalog-card > a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+html body.template--collection .suas-catalog-card .product--details-container {
+  order: 0;
+  padding: 0 0 10px !important;
+}
+html body.template--collection .suas-catalog-card .product--details {
+  display: flex !important;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+html body.template--collection .suas-catalog-card .product--title {
+  margin: 0 0 6px !important;
+  font-family: Futura, Arial, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+html body.template--collection .suas-catalog-card .product--price-container {
+  flex: 0 0 auto;
+  text-align: right;
+}
+html body.template--collection .suas-catalog-card .product--price {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+html body.template--collection .suas-catalog-card .product--rating {
+  margin: 0 !important;
+}
+html body.template--collection .suas-catalog-card .product--image-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  background: transparent !important;
+}
+html body.template--collection .suas-catalog-card .product--image,
+html body.template--collection .suas-catalog-card .product--image img {
+  width: 100% !important;
+  max-height: 280px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+html body.template--collection .suas-catalog-card .product--label-container {
+  position: absolute;
+  top: 18%;
+  right: 8%;
+  z-index: 2;
+  pointer-events: none;
+}
+html body.template--collection .suas-catalog-card .product--label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: #cdeeff;
+  color: #101010;
+  box-shadow: none;
+  transform: rotate(-18deg);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+html body.template--collection .suas-catalog-card .product--label:not(:empty)::before {
+  content: '*';
+  margin-right: 2px;
+}
+html body.template--collection .suas-catalog-card .product--quick-add {
+  display: none !important;
+}
+@media (max-width: 1023px) {
+  html body.template--collection .product-grid,
+  html body.template--collection .featured-collection--grid,
+  html body.template--collection .collection--body--grid,
+  html body.template--collection [data-grid] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  html body.template--collection .suas-catalog-card .product--title,
+  html body.template--collection .suas-catalog-card .product--price {
+    font-size: 13px !important;
+  }
+  html body.template--collection .suas-catalog-card .product--image-wrapper {
+    min-height: 160px;
+  }
+}

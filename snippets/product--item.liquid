@@ -222,7 +222,7 @@
 {% endcapture %}
 
 <div
-  class="product--root"
+  class="product--root suas-catalog-card"
   data-product-view="{{ view }}"
   data-label-color="{{ label_color }}"
   data-label-shape="{{ label_shape }}"
@@ -234,10 +234,31 @@
     data-container="block"
   {% endif %}
 >
-  {{ display_labels }}
-
   <a href="{{ url }}" aria-label="{{ product.title }}">
+    <div class="product--details-container">
+      <div class="product--details">
+        <div class="product--details-wrapper">
+          {% if show_vendor %}
+            <div class="product--vendor" data-item="light-accent-text">
+              {{ vendor }}
+            </div>
+          {% endif %}
+
+          <p class="product--title" data-item="paragraph">
+            {{ title }}
+          </p>
+
+            <div class="product--rating">
+              {%- render 'product-rating', product: product -%}
+            </div>
+        </div>
+
+        {{ display_prices }}
+      </div>
+    </div>
+
     <div class="product--image-wrapper">
+      {{ display_labels }}
       <div class="product--image" data-item="image">
         {{ image }}
       </div>
@@ -273,63 +294,6 @@
               {% render 'icons', icon: 'ellipses' %}
             </div>
           {% endif %}
-        </div>
-      {% endif %}
-    </div>
-
-    <div class="product--details-container">
-      <div class="product--details">
-        <div class="product--details-wrapper">
-          {% if show_vendor %}
-            <div class="product--vendor" data-item="light-accent-text">
-              {{ vendor }}
-            </div>
-          {% endif %}
-
-          <p class="product--title" data-item="paragraph">
-            {{ title }}
-          </p>
-
-          {% if rating_enabled %}
-            <div class="product--rating">
-              {%- render 'product-rating', product: product -%}
-            </div>
-          {% endif %}
-
-          {% if swatches_enabled %}
-            <div class="product--swatches--horizontal-view">
-              {%- liquid
-                for option in product.options_with_values
-                  assign option_name = option.name | strip | downcase
-                  assign unique_id = unique_handle | append: '-horizontal-' | append: product.id
-
-                  if option_name == color_t
-                    render 'radios', id: unique_id, option: option, display_swatches_only: true
-                    break
-                  endif
-                endfor
-              -%}
-            </div>
-          {% endif %}
-        </div>
-
-        {{ display_prices }}
-      </div>
-
-      {% comment %} can't use a capture statement for swatches as we need a unique ID {% endcomment %}
-      {% if swatches_enabled %}
-        <div class="product--swatches--column-view">
-          {%- liquid
-            for option in product.options_with_values
-              assign option_name = option.name | strip | downcase
-              assign unique_id = unique_handle | append: '-column-' | append: product.id
-
-              if option_name == color_t
-                render 'radios', id: unique_id, option: option, display_swatches_only: true
-                break
-              endif
-            endfor
-          -%}
         </div>
       {% endif %}
     </div>
