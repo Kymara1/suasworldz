@@ -95,7 +95,7 @@
       <div class="suas-book-hero suas-book-card">
         <div class="suas-book-kicker">about us / bookings</div>
         <h1 class="suas-book-title">book the lab.</h1>
-        <p class="suas-book-copy">Choose a session, pick a time, then check out. You get an email with an Add to calendar link for the exact date and time you booked. We also stamp that slot on the order so it can land on the Lab calendar, and we ping you the day before.</p>
+        <p class="suas-book-copy">Choose a session, pick a time, then check out. Your confirmation email has the date and time you booked, and we ping you the day before.</p>
         <div class="suas-book-tabs" data-book-tabs>
           <button class="suas-book-tab is-on" type="button" data-kind="self">self-guided</button>
           <button class="suas-book-tab" type="button" data-kind="guided">guided class</button>
@@ -232,11 +232,7 @@
             </select>
             <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
-            <input type="hidden" name="properties[Add to calendar]" value="" data-calendar-link>
-            <input type="hidden" name="properties[Staff calendar]" value="" data-staff-calendar>
-            <input type="hidden" name="attributes[Lab when]" value="" data-attr-lab-when>
-            <input type="hidden" name="attributes[Lab guest]" value="" data-attr-lab-guest>
-            <input type="hidden" name="attributes[Staff calendar]" value="" data-attr-staff-calendar>
+            <input type="hidden" name="properties[_Staff calendar]" value="" data-staff-calendar>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" value="1"></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
@@ -271,11 +267,7 @@
             <input type="hidden" name="properties[Guided session type]" value="Perfume experiment" data-guided-type-property>
             <input type="hidden" name="properties[Second experiment]" value="" data-guided-plus-property>
             <input type="hidden" name="properties[Guided package price]" value="$85.00" data-guided-price-property>
-            <input type="hidden" name="properties[Add to calendar]" value="" data-calendar-link>
-            <input type="hidden" name="properties[Staff calendar]" value="" data-staff-calendar>
-            <input type="hidden" name="attributes[Lab when]" value="" data-attr-lab-when>
-            <input type="hidden" name="attributes[Lab guest]" value="" data-attr-lab-guest>
-            <input type="hidden" name="attributes[Staff calendar]" value="" data-attr-staff-calendar>
+            <input type="hidden" name="properties[_Staff calendar]" value="" data-staff-calendar>
             <div class="suas-type-grid" data-guided-types>
               <label class="suas-type-card is-on">
                 <input type="radio" name="_guided_type" value="perfume" data-label="Perfume experiment" data-price="$85.00" data-copy="Create a custom perfume with hands-on guidance from start to finish." checked>
@@ -403,18 +395,10 @@
         if (!form) return;
         var guest = fieldValue(form, 'properties[Guest name]');
         var phone = fieldValue(form, 'properties[Phone number]');
-        var cust = form.querySelector('[data-calendar-link]');
         var staff = form.querySelector('[data-staff-calendar]');
-        var attrCal = form.querySelector('[data-attr-staff-calendar]');
-        var attrWhen = form.querySelector('[data-attr-lab-when]');
-        var attrGuest = form.querySelector('[data-attr-lab-guest]');
         var start = parseClock(timeText);
         if (!date || !start) {
-          if (cust) cust.value = '';
           if (staff) staff.value = '';
-          if (attrCal) attrCal.value = '';
-          if (attrWhen) attrWhen.value = '';
-          if (attrGuest) attrGuest.value = guest;
           return;
         }
         var end = addMinutes(start, minutes || 60);
@@ -422,17 +406,10 @@
           title,
           guest ? ('Guest: ' + guest) : '',
           phone ? ('Phone: ' + phone) : '',
-          'The Lab at SUAS · 188 W Franklin Blvd, Gastonia, NC 28052',
-          'Save this event, then set a 1-day reminder so you get pinged the day before.'
+          'The Lab at SUAS · 188 W Franklin Blvd, Gastonia, NC 28052'
         ].filter(Boolean).join('\n');
         var staffTitle = 'LAB · ' + (guest || 'Guest') + ' · ' + String(title).replace(/^SUAS Lab · /, '');
-        var custUrl = googleCalUrl(title, date, start, end, details);
-        var staffUrl = googleCalUrl(staffTitle, date, start, end, details);
-        if (cust) cust.value = custUrl;
-        if (staff) staff.value = staffUrl;
-        if (attrCal) attrCal.value = staffUrl;
-        if (attrWhen) attrWhen.value = date + ' · ' + timeText;
-        if (attrGuest) attrGuest.value = guest;
+        if (staff) staff.value = googleCalUrl(staffTitle, date, start, end, details);
       }
 
       function showBookKind(kind) {

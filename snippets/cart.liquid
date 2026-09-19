@@ -104,6 +104,8 @@
 
         {% if property_size > 0 %}
           {% for property in item.properties %}
+            {% assign property_first_char = property.first | slice: 0 %}
+            {% if property_first_char == '_' %}{% continue %}{% endif %}
             {% unless property.last == blank %}
               <br>
               {{ property.first }}:
@@ -266,6 +268,8 @@
         {% if property_size > 0 %}
           <div class="cart--item-properties">
           {% for property in item.properties %}
+            {% assign property_first_char = property.first | slice: 0 %}
+            {% if property_first_char == '_' %}{% continue %}{% endif %}
             {% unless property.last == blank %}
               <br>
               {{ property.first }}:
