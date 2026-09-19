@@ -41,9 +41,9 @@
   body .suas-bookings-page .suas-booking-date-error.is-visible{display:block!important}
 
   @media only screen and (max-width:1023px){
-    body .suas-world-home .suas-home-wrap{width:min(100% - 16px,760px)!important}
+    body .suas-world-home .suas-home-wrap{width:min(100% - 16px,920px)!important}
     body .suas-world-home .suas-hero{padding:12px 0 14px!important}
-    body .suas-world-home .suas-hero-grid{display:grid!important;grid-template-columns:1fr!important;gap:12px!important;align-items:start!important}
+    body .suas-world-home .suas-hero-grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(236px,270px)!important;gap:12px!important;align-items:stretch!important}
     body .suas-world-home .suas-now-card,body .suas-world-home .suas-launch-panel,body .suas-world-home .suas-feed-notes{border:2px solid #101010!important;border-radius:22px!important;box-shadow:4px 5px 0 #101010!important;overflow:hidden!important}
     body .suas-world-home .suas-window-bar{min-height:40px!important;padding:8px 12px!important}
     body .suas-world-home .suas-window-title{font-size:9px!important;letter-spacing:.14em!important}
@@ -57,14 +57,14 @@
     body .suas-world-home .suas-product-copy{width:100%!important;min-height:0!important;padding:16px 18px!important;border:2px solid #101010!important;border-radius:20px!important;background:rgba(255,255,255,.95)!important;box-shadow:4px 5px 0 #101010!important;text-align:center!important;justify-items:center!important}
     body .suas-world-home .suas-product-title{font-size:clamp(1.8rem,7vw,2.6rem)!important;line-height:.86!important;display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important}
     body .suas-world-home .suas-product-price{min-height:32px!important;margin:12px auto 0!important;padding:8px 12px!important;font-size:11px!important;letter-spacing:.12em!important}
-    body .suas-world-home .suas-launch-panel{padding:0!important;gap:0!important;min-height:0!important}
-    body .suas-world-home .suas-launch-body{display:flex!important;flex-direction:column!important;gap:11px!important;padding:14px!important}
-    body .suas-world-home .suas-launch-panel>.suas-actions,body .suas-world-home .suas-launch-body>.suas-actions{display:flex!important}
-    body .suas-world-home .suas-launch-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+    body .suas-world-home .suas-launch-panel{display:flex!important;flex-direction:column!important;padding:0!important;gap:0!important;min-height:0!important;height:auto!important}
+    body .suas-world-home .suas-launch-body{display:flex!important;flex:1!important;flex-direction:column!important;gap:10px!important;padding:12px!important}
+    body .suas-world-home .suas-launch-panel>.suas-actions,body .suas-world-home .suas-launch-body>.suas-actions{display:flex!important;flex-wrap:wrap!important;margin-top:auto!important}
+    body .suas-world-home .suas-launch-grid{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
     body .suas-world-home .suas-feed-note-label span{display:none!important}
     body .suas-world-home .suas-feed-note-label{justify-content:flex-start!important}
-    body .suas-world-home .suas-launch{min-height:64px!important;padding:12px!important;border-radius:16px!important;box-shadow:0 3px 0 #101010!important}
-    body .suas-world-home .suas-launch strong{font-size:1.05rem!important;line-height:.9!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:block!important}
+    body .suas-world-home .suas-launch{min-height:52px!important;padding:10px 12px!important;border-radius:16px!important;box-shadow:0 3px 0 #101010!important}
+    body .suas-world-home .suas-launch strong{font-size:1rem!important;line-height:.9!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:block!important}
     body .suas-world-home .suas-launch span{display:block!important}
     body .suas-world-home .suas-feed-btn{min-height:42px!important;font-size:11px!important}
     body .product-page--root{padding-top:12px!important}
@@ -91,7 +91,9 @@
     body .suas-frame .suas-panel-submenu{position:static!important;display:grid!important;grid-template-columns:1fr!important;gap:8px!important;width:100%!important;max-height:46vh!important;overflow-y:auto!important;margin:0!important;padding:10px!important;border-radius:20px!important;background:rgba(255,255,255,.98)!important;-webkit-overflow-scrolling:touch!important}
     body .suas-frame .suas-panel-submenu a{min-height:38px!important;justify-content:center!important;text-align:center!important;white-space:normal!important;font-size:.9rem!important;line-height:1.05!important}
   }
-  @media only screen and (max-width:430px){
+  @media only screen and (max-width:560px){
+    body .suas-world-home .suas-hero-grid{grid-template-columns:1fr!important}
+    body .suas-world-home .suas-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
     body .suas-world-home .suas-product-photo{width:min(200px,78%)!important}
     body .suas-world-home .suas-product-title{font-size:clamp(1.6rem,8vw,2.2rem)!important}
     body .suas-world-home .suas-launch{min-height:58px!important;padding:10px!important}
