@@ -446,7 +446,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
   html body.template--product .product-page--top-panel {
     display: grid !important;
     flex-direction: unset !important;
-    grid-template-columns: minmax(0, 1.2fr) minmax(154px, .92fr) !important;
+    grid-template-columns: minmax(0, 1fr) minmax(168px, 1.12fr) !important;
     grid-template-areas:
       "life buy"
       "mix buy" !important;
@@ -588,6 +588,12 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     min-height: 38px !important;
     height: 38px !important;
     border-radius: 999px !important;
+  }
+  html body.template--product .shopify-payment-button__more-options {
+    display: none !important;
+  }
+  html body.template--product .product-buy-buttons--smart {
+    overflow: hidden;
   }
   html body.template--product .product-buy-buttons--cta,
   html body.template--product .product-form--atc button,
