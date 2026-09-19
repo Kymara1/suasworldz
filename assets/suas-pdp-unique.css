@@ -327,37 +327,60 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
 }
 
 @media (max-width: 1023px) {
-  html body.template--product .layout--main-content { padding: 10px 10px 48px !important; }
-  html body.template--product .suas-pdp-world,
-  html body.template--product .suas-station-desk {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 14px !important;
+  html body.template--product .layout--main-content { padding: 8px 8px 40px !important; }
+  html body.template--product .suas-pdp,
+  html body.template--product .product-page--root.suas-station {
+    width: 100% !important;
+    max-width: none !important;
   }
-  html body.template--product .suas-pdp-life { order: 1; }
-  html body.template--product .suas-pdp-diagram { order: 2; }
-  html body.template--product .suas-pdp-ticket { order: 3; position: relative; top: auto; }
+  html body.template--product .suas-pdp-world,
+  html body.template--product .suas-station-desk,
+  html body.template--product .product-page--top-panel {
+    display: grid !important;
+    flex-direction: unset !important;
+    grid-template-columns: minmax(0, 1.2fr) minmax(154px, .92fr) !important;
+    grid-template-areas:
+      "life buy"
+      "mix buy" !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+  }
+  html body.template--product .suas-pdp-life { grid-area: life; order: unset; }
+  html body.template--product .suas-pdp-diagram { grid-area: mix; order: unset; }
+  html body.template--product .suas-pdp-ticket {
+    grid-area: buy;
+    order: unset;
+    position: sticky;
+    top: 62px;
+    align-self: stretch;
+  }
   html body.template--product .suas-pdp-life .suas-station-thumbs { display: none !important; }
   html body.template--product .suas-pdp-life,
   html body.template--product .suas-pdp-diagram,
   html body.template--product .suas-pdp-ticket {
-    border-radius: 26px !important;
-    box-shadow: 5px 6px 0 var(--ink) !important;
+    border-radius: 18px !important;
+    box-shadow: 3px 4px 0 var(--ink) !important;
   }
-  html body.template--product .suas-pdp .suas-window-bar { min-height: 40px; }
+  html body.template--product .suas-pdp .suas-window-bar {
+    min-height: 30px;
+    padding: 4px 8px;
+    gap: 4px;
+  }
+  html body.template--product .suas-pdp .suas-window-title { font-size: 7px; letter-spacing: .1em; }
   html body.template--product .suas-pdp .suas-window-live {
     display: inline-flex !important;
-    font-size: 8px;
+    font-size: 7px;
   }
+  html body.template--product .suas-pdp .suas-dot { width: 8px; height: 8px; }
   html body.template--product .suas-pdp-life-frame,
   html body.template--product .suas-pdp-life-photo {
-    height: min(52vh, 340px);
-    min-height: 260px;
-    max-height: 340px;
+    height: min(34vh, 240px);
+    min-height: 180px;
+    max-height: 240px;
   }
   html body.template--product .suas-pdp-diagram-body {
-    min-height: 380px;
-    padding: 36px 8px 48px;
+    min-height: 260px;
+    padding: 28px 6px 32px;
     display: grid;
     place-items: center;
   }
@@ -367,40 +390,55 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
   html body.template--product .suas-pdp-callout:nth-child(2),
   html body.template--product .suas-pdp-callout:nth-child(3) {
     position: absolute;
-    max-width: 44%;
-    padding: 10px 11px;
-    border-radius: 22px 28px 18px 30px;
+    max-width: 46%;
+    padding: 7px 8px;
+    border-radius: 18px 22px 14px 24px;
   }
   html body.template--product .suas-pdp-callout:nth-child(1) {
-    left: 2%;
-    top: 12%;
+    left: 1%;
+    top: 8%;
     right: auto;
     bottom: auto;
     transform: rotate(-8deg);
   }
   html body.template--product .suas-pdp-callout:nth-child(2) {
-    right: 2%;
-    top: 14%;
+    right: 1%;
+    top: 10%;
     left: auto;
     bottom: auto;
     transform: rotate(7deg);
   }
   html body.template--product .suas-pdp-callout:nth-child(3) {
-    left: 6%;
-    bottom: 16%;
+    left: 4%;
+    bottom: 10%;
     top: auto;
     right: auto;
     transform: rotate(-4deg);
   }
-  html body.template--product .suas-pdp-callout strong { font-size: 1.35rem !important; }
+  html body.template--product .suas-pdp-callout strong { font-size: 1.05rem !important; }
+  html body.template--product .suas-pdp-callout span { font-size: 7px; }
   html body.template--product .suas-pdp-jar { order: 0; }
   html body.template--product .suas-pdp-jar .suas-station-photo,
   html body.template--product .suas-pdp .suas-station-photo {
-    width: 168px !important;
-    height: 168px !important;
-    max-width: 168px !important;
-    max-height: 168px !important;
+    width: 118px !important;
+    height: 118px !important;
+    max-width: 118px !important;
+    max-height: 118px !important;
   }
-  html body.template--product .suas-pdp-name { font-size: clamp(2.3rem, 12vw, 3.1rem) !important; }
-  html body.template--product .suas-station-buy-body { padding: 12px 12px 14px !important; }
+  html body.template--product .suas-pdp-stamp { font-size: 7px; letter-spacing: .1em; }
+  html body.template--product .suas-pdp-name { font-size: clamp(1.35rem, 6.4vw, 1.85rem) !important; margin-bottom: 4px; }
+  html body.template--product .suas-pdp-hook { font-size: 11px !important; line-height: 1.25 !important; margin-bottom: 6px; }
+  html body.template--product .suas-station-buy-body { padding: 8px 8px 10px !important; }
+  html body.template--product .product-page--price,
+  html body.template--product .suas-pdp-ticket .money { font-size: 1.15rem !important; }
+  html body.template--product .product-buy-buttons--cta,
+  html body.template--product .product-form--atc button,
+  html body.template--product button[name='add'],
+  html body.template--product .product-form--button,
+  html body.template--product [data-add-to-cart] {
+    min-height: 42px !important;
+    font-size: 10px !important;
+    letter-spacing: .06em !important;
+    box-shadow: 0 4px 0 #d9ff78 !important;
+  }
 }
