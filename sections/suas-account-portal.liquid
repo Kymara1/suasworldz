@@ -127,7 +127,8 @@
               <p class="suas-os-kicker">suas.os / orders</p>
               <h1 class="suas-os-title suas-font">your orders.</h1>
               <div class="suas-os-list">
-                {% for order in customer.orders limit: 5 %}
+                {% paginate customer.orders by 50 %}
+                {% for order in customer.orders %}
                   <a class="suas-os-ticket" href="{{ order.customer_url }}">
                     <span class="suas-os-icon" style="--tile:#ffd8e8">{{ forloop.index }}</span>
                     <span>
@@ -139,7 +140,7 @@
                 {% else %}
                   <div class="suas-os-empty">no orders yet. go smell something.</div>
                 {% endfor %}
-                <a class="suas-os-ticket" href="{{ routes.account_url }}"><span class="suas-os-icon" style="--tile:#d9ff78">all</span><span><strong>full order history</strong><small>every drop, every mix</small></span><span class="suas-os-mini suas-mono">go</span></a>
+                {% endpaginate %}
               </div>
             </section>
 

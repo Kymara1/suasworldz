@@ -63,12 +63,12 @@
       <li data-item="accent-text">{{ 'general.breadcrumbs.account' | t }}</li>
    {% elsif request.page_type == "customers/addresses" %}
       <li data-item="block-link">
-         <a href="{{ routes.account_url }}">{{ 'general.breadcrumbs.account' | t }}</a>
+         <a href="/pages/account">{{ 'general.breadcrumbs.account' | t }}</a>
       </li>
       <li data-item="accent-text">{{ 'general.breadcrumbs.addresses' | t }}</li>
    {% elsif request.page_type == "customers/order" %}
       <li data-item="block-link">
-         <a href="{{ routes.account_url }}">{{ 'general.breadcrumbs.account' | t }}</a>
+         <a href="/pages/account">{{ 'general.breadcrumbs.account' | t }}</a>
       </li>
       <li data-item="accent-text">{{ page_title }}</li>
    {% elsif request.page_type == "customers/activate_account" %}

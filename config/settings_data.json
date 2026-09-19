@@ -416,7 +416,7 @@
           "status_text": "open + mixing",
           "version_text": "v.04",
           "footer_label_1": "account",
-          "footer_link_1": "/account",
+          "footer_link_1": "/pages/account",
           "footer_label_2": "about",
           "footer_link_2": "/pages/about",
           "body_enabled": true,

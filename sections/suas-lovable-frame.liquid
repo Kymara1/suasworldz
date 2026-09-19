@@ -310,7 +310,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     const routes = { reviews: '/pages/reviews', account: '/pages/account' };
     const rewriteSuasHomeLinks = () => {
       document.querySelectorAll('.suas-world-home a[href="#suas-reviews"]').forEach((link) => { link.setAttribute('href', routes.reviews); });
-      document.querySelectorAll('.suas-world-home a[href="/account"], .suas-world-home a[href="/pages/suas-account"], .suas-world-home a[href="/pages/suas-accounts"], .suas-world-home a[href="/pages/accounts"], .suas-side-foot a[href="/account"], .suas-side-foot a[href="/pages/suas-account"], .suas-side-foot a[href="/pages/suas-accounts"], .suas-side-foot a[href="/pages/accounts"]').forEach((link) => { link.setAttribute('href', routes.account); });
+      document.querySelectorAll('a[href="/account"], a[href="/pages/suas-account"], a[href="/pages/suas-accounts"], a[href="/pages/accounts"]').forEach((link) => { link.setAttribute('href', routes.account); });
     };
     rewriteSuasHomeLinks();
     new MutationObserver(rewriteSuasHomeLinks).observe(document.documentElement, { childList: true, subtree: true });
