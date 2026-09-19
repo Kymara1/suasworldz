@@ -11,7 +11,8 @@
     .suas-family{display:grid;grid-template-columns:minmax(108px,160px) minmax(0,1fr);align-items:stretch;border:2px solid var(--ink);border-radius:22px;background:#fff;box-shadow:5px 6px 0 var(--ink);overflow:hidden}
     .suas-family-name{display:flex;align-items:center;padding:10px 12px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:.82;font-weight:700;text-transform:lowercase;color:inherit;text-decoration:none}
     .suas-family-shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:8px}
-    .suas-family-shots.is-two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .suas-family-shots.is-one,.suas-family-shots.is-two{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .suas-family-shots.is-one a:only-child,.suas-family-shots.is-two a{min-width:0}
     .suas-family-shots a{display:block;min-height:0;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#f4f1ea}
     .suas-family-shots img{display:block;width:100%;height:108px;object-fit:cover}
     @media(min-width:1024px){.template--page--scent-profile .off-canvas--main-content{margin-left:220px!important;width:calc(100% - 220px)!important}}
@@ -50,11 +51,8 @@
 
       <article class="suas-family">
         <a class="suas-family-name" href="/collections/scent-gourmand">gourmand</a>
-        <div class="suas-family-shots">
-          <a href="/products/poppy"><img src="{{ 'note-poppy-gum.png' | asset_url }}" alt="pink gum - Poppy" width="800" height="800" loading="lazy"></a>
+        <div class="suas-family-shots is-one">
           <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-coconut.png' | asset_url }}" alt="coconut - Good Girl" width="800" height="800" loading="lazy"></a>
-          <a href="/products/poppy"><img src="{{ 'note-poppy-bubbles.png' | asset_url }}" alt="blossom bubbles - Poppy" width="800" height="800" loading="lazy"></a>
-          <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-passionfruit-swirl.png' | asset_url }}" alt="passionfruit pulp - Nectar" width="800" height="800" loading="lazy"></a>
         </div>
       </article>
 
@@ -69,10 +67,10 @@
       <article class="suas-family">
         <a class="suas-family-name" href="/collections/scent-sparkle">sparkle</a>
         <div class="suas-family-shots">
-          <a href="/products/haze-butter-creme"><img src="{{ 'note-sunshine.png' | asset_url }}" alt="soft sunshine - Haze" width="800" height="800" loading="lazy"></a>
+          <a href="/products/poppy"><img src="{{ 'note-poppy-gum.png' | asset_url }}" alt="bubblegum - Poppy" width="800" height="800" loading="lazy"></a>
+          <a href="/products/poppy"><img src="{{ 'note-poppy-bubbles.png' | asset_url }}" alt="blossom bubbles - Poppy" width="800" height="800" loading="lazy"></a>
           <a href="/products/poppy"><img src="{{ 'note-poppy-bouquet.png' | asset_url }}" alt="sparkle bouquet - Poppy" width="800" height="800" loading="lazy"></a>
-          <a href="/products/poppy"><img src="{{ 'note-poppy-cosmos.png' | asset_url }}" alt="cosmos - Poppy" width="800" height="800" loading="lazy"></a>
-          <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-pineapple-slices.png' | asset_url }}" alt="pineapple juice - Nectar" width="800" height="800" loading="lazy"></a>
+          <a href="/products/haze-butter-creme"><img src="{{ 'note-sunshine.png' | asset_url }}" alt="soft sunshine - Haze" width="800" height="800" loading="lazy"></a>
         </div>
       </article>
     </div>
