@@ -67,7 +67,7 @@ html body.template--product .suas-os-winbar {
   min-height: 40px;
   padding: 0 14px;
   border-bottom: 2px solid var(--ink);
-  background: linear-gradient(#f7f8fb, #e8edf3);
+  background: linear-gradient(#fff8ee, #ead9c4);
 }
 html body.template--product .suas-os-winbar i {
   width: 11px;
@@ -253,8 +253,60 @@ html body.template--product .shopify-section:has([id*='aftership']),
 html body.template--product .suas-product-review-shell {
   width: min(1280px, calc(100vw - 248px));
   max-width: 1280px;
-  margin: 22px auto 48px;
+  margin: 22px auto 28px;
+  padding: 0;
+  background: transparent;
 }
+
+/* Unused Gravity leftovers on PDP: empty back button, social, recs, CSS-only stub */
+html body.template--product .shopify-section:has(.suas-os-pdp),
+html body.template--product [id*='__os_pdp'],
+html body.template--product [id*='__blocks_z9tNqE'],
+html body.template--product [id*='__social-sharing'],
+html body.template--product [id*='__recommendations'],
+html body.template--product .section--product-recommendations:empty,
+html body.template--product .product-page--social:empty {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html body.template--product .apps--root,
+html body.template--product .apps--root[data-spacing-above='true'],
+html body.template--product .apps--root[data-spacing-below='true'] {
+  padding: 0 !important;
+  background: transparent !important;
+}
+html body.template--product .suas-review-shell-window,
+html body.template--product .apps--wrapper {
+  background:
+    linear-gradient(rgba(16, 16, 16, .028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, .028) 1px, transparent 1px),
+    #fffdf8;
+  background-size: 18px 18px, 18px 18px, auto;
+}
+html body.template--product .suas-review-window-bar,
+html body.template--product .suas-os-winbar,
+html body.template--product .suas-window-strip {
+  background: linear-gradient(#fff8ee, #ead9c4);
+}
+html body.template--product .suas-note-collection {
+  padding: 0 !important;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(16, 16, 16, .024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, .024) 1px, transparent 1px),
+    #fffdf8;
+  background-size: 20px 20px, 20px 20px, auto;
+}
+html body.template--product .suas-note-head,
+html body.template--product .suas-note-grid {
+  padding-left: clamp(16px, 3vw, 30px);
+  padding-right: clamp(16px, 3vw, 30px);
+}
+html body.template--product .suas-note-head { padding-top: 18px; }
+html body.template--product .suas-note-grid { padding-bottom: clamp(16px, 3vw, 30px); }
 
 @media (max-width: 1023px) {
   html body.template--product .layout--main-content {

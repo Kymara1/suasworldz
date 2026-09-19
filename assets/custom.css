@@ -945,3 +945,41 @@ nav *,
     visibility: visible !important;
   }
 }
+
+/* Hide leftover Gravity/Shopify footer so OS chrome reaches the bottom. */
+html,
+body,
+.off-canvas--viewport,
+.off-canvas--main-content {
+  background-color: #fbfaf7;
+}
+html.suas-halloween,
+html.suas-halloween body,
+html.suas-halloween .off-canvas--viewport,
+html.suas-halloween .off-canvas--main-content {
+  background-color: #efe4d4;
+}
+#shopify-section-footer,
+.shopify-section.section--footer,
+.footer--root,
+footer.footer--root {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.layout--main-content {
+  padding-bottom: 0;
+}
+.template--index .layout--main-content,
+.template--index .off-canvas--main-content,
+.template--index .suas-world-home {
+  min-height: calc(100vh - 36px);
+  background-color: transparent;
+}

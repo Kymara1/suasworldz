@@ -16,6 +16,7 @@
     "blocks_z9tNqE": {
       "type": "_blocks",
       "name": "Back button",
+      "disabled": true,
       "settings": {}
     },
     "main": {
@@ -110,14 +111,16 @@
     },
     "social-sharing": {
       "type": "product-social",
+      "disabled": true,
       "settings": {
         "enable-social": false,
         "spacing-above": false,
-        "spacing-below": true
+        "spacing-below": false
       }
     },
     "recommendations": {
       "type": "product-recommendations",
+      "disabled": true,
       "settings": {
         "show": false,
         "title": "You may also like",
