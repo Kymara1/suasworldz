@@ -81,7 +81,60 @@ function scentNoteProfile(note) {
   return { family: 'SCENT NOTE', mood: 'smell / compare / record', style: 'soft', visual: 'soft', icon: '◌', a: '#f3f4ff', b: '#ffe1ec', ink: '#26242b' };
 }
 
-function scentIngredientArt(profile) {
+const notePhotoFiles = {
+  JASMINE: 'note-jasmine.png',
+  MANDARIN: 'note-station-mandarin.png',
+  PLUM: 'note-blackberry.png',
+  VANILLA: 'note-station-vanilla.png',
+  AMBER: 'note-station-caramel.png',
+  MUSK: 'note-wildflower.png',
+  ROSE: 'note-station-rose.png',
+  LAVENDER: 'note-station-lavender.png',
+  BERGAMOT: 'note-nectar-orange.png',
+  LEMON: 'note-sunshine.png',
+  'ORANGE BLOSSOM': 'note-poppy-cosmos.png',
+  PEAR: 'note-goodgirl-pear.png',
+  APPLE: 'note-goodgirl-pear.png',
+  PEACH: 'note-nectar-mango.png',
+  STRAWBERRY: 'note-station-strawberry.png',
+  COCONUT: 'note-coconut.png',
+  CARAMEL: 'note-station-caramel.png',
+  SANDALWOOD: 'note-station-sandalwood.png',
+  CEDARWOOD: 'note-station-sandalwood.png',
+  PATCHOULI: 'note-tonic-mojito.png',
+  VETIVER: 'note-sage-mint.png',
+  MINT: 'note-sage-mint.png',
+  'PINK PEPPER': 'note-station-pink-pepper.png',
+  'TONKA BEAN': 'note-coconut.png'
+};
+const notePhotoFallback = {
+  floral: 'note-jasmine.png',
+  citrus: 'note-station-mandarin.png',
+  fruit: 'note-passionfruit.png',
+  cream: 'note-coconut.png',
+  resin: 'note-station-caramel.png',
+  wood: 'note-station-sandalwood.png',
+  herbal: 'note-sage-mint.png',
+  spice: 'note-station-pink-pepper.png',
+  bean: 'note-station-vanilla.png',
+  soft: 'note-wildflower.png'
+};
+function noteAsset(file) {
+  if (!file) return '';
+  return (window.SUAS_NOTE_ASSETS && window.SUAS_NOTE_ASSETS[file]) || `assets/notes/${file}`;
+}
+function notePhotoFile(note) {
+  const key = String(note || '').toUpperCase();
+  if (notePhotoFiles[key]) return notePhotoFiles[key];
+  const profile = scentNoteProfile(note);
+  return notePhotoFallback[profile.style] || 'note-jasmine.png';
+}
+function notePhotoUrl(note) {
+  return noteAsset(notePhotoFile(note));
+}
+function scentIngredientArt(profile, note) {
+  const url = notePhotoUrl(note);
+  if (url) return `<img class="note-photo-img" src="${url}" alt="" draggable="false">`;
   const visual = profile.visual || profile.style || 'soft';
   return `<span class="ingredient-art ingredient-${visual}" aria-hidden="true"><i></i><b></b><em></em><strong></strong></span>`;
 }
@@ -89,12 +142,12 @@ function scentIngredientArt(profile) {
 function scentNoteCard(note, selected, index) {
   const profile = scentNoteProfile(note);
   const safeNote = escapeMarkup(note);
-  return `<button class="scent-note-card scent-note-${profile.style} scent-visual-${profile.visual || profile.style}${selected ? ' is-selected' : ''}" data-note="${escapeDataAttr(note)}" type="button" aria-pressed="${selected}" style="--note-a:${profile.a};--note-b:${profile.b};--note-ink:${profile.ink};--note-index:${index}"><span class="scent-note-photo" aria-label="${safeNote} visual">${scentIngredientArt(profile)}</span><span class="scent-note-copy"><strong>${safeNote}</strong><small>${profile.family}</small><small>${profile.mood}</small></span></button>`;
+  return `<button class="scent-note-card has-photo scent-note-${profile.style} scent-visual-${profile.visual || profile.style}${selected ? ' is-selected' : ''}" data-note="${escapeDataAttr(note)}" type="button" aria-pressed="${selected}" style="--note-a:${profile.a};--note-b:${profile.b};--note-ink:${profile.ink};--note-index:${index}"><span class="scent-note-photo" aria-label="${safeNote} visual">${scentIngredientArt(profile, note)}</span><span class="scent-note-copy"><strong>${safeNote}</strong><small>${profile.family}</small><small>${profile.mood}</small></span></button>`;
 }
 
 function scentNoteMini(note, index) {
   const profile = scentNoteProfile(note);
-  return `<span class="scent-polaroid scent-note-${profile.style} scent-visual-${profile.visual || profile.style}" style="--note-a:${profile.a};--note-b:${profile.b};--note-ink:${profile.ink};--note-index:${index}">${scentIngredientArt(profile)}<b>${escapeMarkup(note)}</b><small>${profile.family}</small></span>`;
+  return `<span class="scent-polaroid has-photo scent-note-${profile.style} scent-visual-${profile.visual || profile.style}" style="--note-a:${profile.a};--note-b:${profile.b};--note-ink:${profile.ink};--note-index:${index}">${scentIngredientArt(profile, note)}<b>${escapeMarkup(note)}</b><small>${profile.family}</small></span>`;
 }
 const pieceChoices = ['BRACELET', 'NECKLACE', 'BAG TAG', 'BAG CHAIN', 'KEYCHAIN', 'NAME CHAIN'];
 const SELF_NOTE_MAX = 3;
@@ -395,7 +448,7 @@ function jumpRingDemo() {
 }
 
 function charmWallDemo() {
-  return operationDemo('BROWSE, THEN BUILD A TRAY', 'Choose any five charms from the wall. Place them loose on your tray; nothing is attached yet.', `<div class="wall-demo"><div class="wall-demo__grid">${['★','♥','✿','◆','S','☻','●','✦'].map((x,i)=>`<i style="--i:${i}">${x}</i>`).join('')}</div><b>→</b><div class="wall-demo__tray">${[1,2,3,4,5].map(n=>`<span>${n}</span>`).join('')}</div></div>`, 'wall-operation');
+  return operationDemo('BROWSE, THEN BUILD A TRAY', 'Choose any five charms from the wall. Place them loose on your tray; nothing is attached yet.', `<div class="wall-demo"><div class="wall-demo__grid">${['★','♥','✿','◆','S','☻','●','✦'].map((x,i)=>`<i class="charm-bead charm-bead-${i%5}" style="--i:${i}"><em></em><b>${x}</b></i>`).join('')}</div><b>→</b><div class="wall-demo__tray">${[1,2,3,4,5].map(n=>`<span>${n}</span>`).join('')}</div></div>`, 'wall-operation');
 }
 
 function finalCharmDemo() {
@@ -408,7 +461,7 @@ function labMeasureDemo(guided) {
   const plan = selfPourPlan(product.volume);
   const hasNotes = plan.length > 0;
   const notes = hasNotes ? plan : [{ note: 'CHOOSE NOTES FIRST', ml: '—' }];
-  return operationDemo('DISPENSE YOUR FINISHED NOTES', hasNotes ? 'These notes are already balanced. Measure 20 mL of the first note, then 5 mL of each supporting note.' : 'Go back to BUILD YOUR FORMULA and choose up to three notes before dispensing.', `<div class="premium-dispense-demo${hasNotes ? '' : ' needs-notes'}"><section class="premium-note-rail"><span>${hasNotes ? '20 / 5 / 5 POUR' : 'NOTES NEEDED'}</span>${notes.slice(0,3).map((item,index)=>`<p><b>${hasNotes ? String(index+1).padStart(2,'0') : '!'}</b><strong>${escapeMarkup(item.note)}</strong><small>${item.ml} mL</small></p>`).join('')}</section><section class="premium-dispenser"><span>PRESS DISPENSER</span><div class="premium-dispenser-head"><i></i><b></b></div><div class="premium-drop-path"><i></i><i></i><i></i></div><strong>20 / 5 / 5 mL</strong></section><section class="premium-target-bottle"><span>STOP AT TARGET</span><div><i></i><b></b><em></em></div><strong>${product.volume} mL TOTAL TARGET</strong></section></div>`, 'dispense-operation');
+  return operationDemo('DISPENSE YOUR FINISHED NOTES', hasNotes ? 'These notes are already balanced. Measure 20 mL of the first note, then 5 mL of each supporting note.' : 'Go back to BUILD YOUR FORMULA and choose up to three notes before dispensing.', `<div class="premium-dispense-demo${hasNotes ? '' : ' needs-notes'}"><section class="premium-note-rail"><span>${hasNotes ? '20 / 5 / 5 POUR' : 'NOTES NEEDED'}</span>${notes.slice(0,3).map((item,index)=>`<p><span class="dispense-note-thumb">${scentIngredientArt(scentNoteProfile(item.note), item.note)}</span><b>${hasNotes ? String(index+1).padStart(2,'0') : '!'}</b><strong>${escapeMarkup(item.note)}</strong><small>${item.ml} mL</small></p>`).join('')}</section><section class="premium-dispenser"><span>PRESS DISPENSER</span><div class="premium-dispenser-head"><i></i><b></b></div><div class="premium-drop-path"><i></i><i></i><i></i></div><strong>20 / 5 / 5 mL</strong></section><section class="premium-target-bottle"><span>STOP AT TARGET</span><div><i></i><b></b><em></em></div><strong>${product.volume} mL TOTAL TARGET</strong></section></div>`, 'dispense-operation');
 }
 
 function formulaDemo() {
@@ -725,8 +778,8 @@ let activeBase = 0;
 function renderOilBook() {
   const base = oilBases[activeBase];
   $('baseTabs').innerHTML = oilBases.map((item, index) => `<button class="${index === activeBase ? 'is-active' : ''}" data-base-index="${index}" type="button">${item.name}</button>`).join('');
-  $('oilName').textContent = base.name.toUpperCase();
-  $('oilFeel').textContent = `${base.feel} · ${oilLoadPercent(base.name)}% fragrance load`;
+  const oilShot = { 'Glow Base': 'note-sunshine.png', 'Silky Dry Oil Base': 'note-sage-mint.png', 'Rich Sensitive Skin': 'note-coconut.png' }[base.name] || 'note-coconut.png';
+  $('oilVisual').innerHTML = `<div class="oil-shot"><img src="${noteAsset(oilShot)}" alt=""></div><h3 id="oilName">${base.name.toUpperCase()}</h3><p id="oilFeel">${base.feel} · ${oilLoadPercent(base.name)}% fragrance load</p>`;
   $('ingredientList').innerHTML = base.ingredients.map((item, index) => `<button data-ingredient="${item}" class="${index === 0 ? 'is-active' : ''}" type="button">${item}</button>`).join('');
   showIngredient(base.ingredients[0]);
   $('baseTabs').querySelectorAll('[data-base-index]').forEach((button) => button.addEventListener('click', () => { activeBase = Number(button.dataset.baseIndex); renderOilBook(); }));
@@ -1658,12 +1711,12 @@ function guidedWelcomeControls() {
 }
 function guidedScentControls() {
   const notes = approvedGuidedNotes();
-  return `<div class="family-strip"><span>FRESH<br><small>bright / airy</small></span><span>FLORAL<br><small>soft / blooming</small></span><span>GOURMAND<br><small>sweet / edible</small></span><span>WOODY<br><small>warm / grounded</small></span></div><div class="smell-procedure"><b>SMELLING PROCEDURE</b><p>Dip or spray one blotter. Label it. Fan twice. Smell at a little distance. Reset between notes. Compare no more than four at once.</p></div><p class="selection-title">SELECT NOTES <span>${guidedState.notes.length}/4</span></p><div class="guided-note-grid">${notes.map((note) => `<button type="button" data-guided-note="${note}" class="${guidedState.notes.includes(note) ? 'is-selected' : ''}">${note}</button>`).join('')}</div>`;
+  return `<div class="family-strip"><span>FRUIT<br><small>juicy / ripe</small></span><span>FLORAL<br><small>soft / blooming</small></span><span>GOURMAND<br><small>sweet / edible</small></span><span>GREEN<br><small>fresh / leafy</small></span></div><div class="smell-procedure"><b>SMELLING PROCEDURE</b><p>Dip or spray one blotter. Label it. Fan twice. Smell at a little distance. Reset between notes. Compare no more than four at once.</p></div><p class="selection-title">SELECT NOTES <span>${guidedState.notes.length}/4</span></p><div class="guided-note-grid">${notes.map((note) => `<button type="button" data-guided-note="${note}" class="guided-note-tile${guidedState.notes.includes(note) ? ' is-selected' : ''}">${scentIngredientArt(scentNoteProfile(note), note)}<strong>${note}</strong><small>${scentNoteProfile(note).family}</small></button>`).join('')}</div>`;
 }
 function guidedFormulaControls() {
   if (!guidedState.notes.length) return '<p class="guided-alert">Go back and choose at least one scent note.</p>';
   const totalParts = guidedState.notes.reduce((sum, note) => sum + Math.max(0, Number(guidedState.formulaParts[note] || 1)), 0) || 1;
-  return `<div class="master-formula"><b>MASTER SCENT FORMULA</b><p>Use parts to set the balance. SUAS.OS converts the ratios for each product.</p>${guidedState.notes.map((note) => `<label><span>${note}</span><input type="number" min="0.25" max="10" step="0.25" value="${guidedState.formulaParts[note] || 1}" data-formula-note="${note}"><em>${Math.round((Number(guidedState.formulaParts[note] || 1) / totalParts) * 100)}%</em></label>`).join('')}</div><button class="secondary-command" id="saveMasterFormula" type="button">SAVE MASTER FORMULA</button>`;
+  return `<div class="master-formula"><b>MASTER SCENT FORMULA</b><p>Use parts to set the balance. SUAS.OS converts the ratios for each product.</p>${guidedState.notes.map((note) => `<label><span class="formula-note-chip">${scentIngredientArt(scentNoteProfile(note), note)}${note}</span><input type="number" min="0.25" max="10" step="0.25" value="${guidedState.formulaParts[note] || 1}" data-formula-note="${note}"><em>${Math.round((Number(guidedState.formulaParts[note] || 1) / totalParts) * 100)}%</em></label>`).join('')}</div><button class="secondary-command" id="saveMasterFormula" type="button">SAVE MASTER FORMULA</button>`;
 }
 function moduleNameInput(key, label) {
   const value = guidedState.productData[key] || '';
@@ -1714,10 +1767,10 @@ function guidedVisual(step, moduleKey) {
     <i class="guided-arrow">→</i><div class="guided-map-step lime"><b>04</b><i class="demo-product"></i><strong>BUILD</strong><span>Follow your product file</span></div>
   </div>`;
   if (guidedState.phase === 'shared' && guidedState.sharedStep === 1) return `<div class="guided-demo scent-test-demo">
-    <div class="scent-test-organ">${approvedGuidedNotes().slice(0,6).map((note,index) => `<i style="--note:${index}"><small>${String(index + 1).padStart(2,'0')}</small><b>${note}</b></i>`).join('')}</div>
+    <div class="scent-test-organ">${approvedGuidedNotes().slice(0,6).map((note,index) => `<i style="--note:${index}">${scentIngredientArt(scentNoteProfile(note), note)}<small>${String(index + 1).padStart(2,'0')}</small><b>${note}</b></i>`).join('')}</div>
     <div class="scent-test-actions"><span><i class="dip-blotter"></i><b>1 / DIP</b><small>Touch only the scented tip.</small></span><span><i class="wave-blotter"></i><b>2 / WAVE</b><small>Move it through the air twice.</small></span><span><i class="smell-blotter"></i><b>3 / SMELL</b><small>Hold below your nose. Do not touch.</small></span></div>
   </div>`;
-  if (guidedState.phase === 'shared') return `<div class="guided-demo formula-branch-demo"><div class="master-formula-visual"><i></i><b>MASTER SCENT FORMULA</b><span>${guidedState.notes.join(' + ') || 'YOUR SELECTED NOTES'}</span></div><i class="branch-line"></i><div class="branch-products">${guidedState.products.map((item) => `<span><i></i><b>${moduleLabel(item)}</b><small>IMPORT FORMULA</small></span>`).join('')}</div></div>`;
+  if (guidedState.phase === 'shared') return `<div class="guided-demo formula-branch-demo"><div class="master-formula-visual"><div class="formula-note-row">${(guidedState.notes.length ? guidedState.notes : ['JASMINE','VANILLA','PEAR']).map((note) => scentIngredientArt(scentNoteProfile(note), note)).join('')}</div><b>MASTER SCENT FORMULA</b><span>${guidedState.notes.join(' + ') || 'YOUR SELECTED NOTES'}</span></div><i class="branch-line"></i><div class="branch-products">${guidedState.products.map((item) => `<span><i></i><b>${moduleLabel(item)}</b><small>IMPORT FORMULA</small></span>`).join('')}</div></div>`;
   return productGuideVisual(step.title, moduleKey);
 }
 
@@ -1861,6 +1914,18 @@ $('saveFormulaSettings')?.addEventListener('click', () => {
   renderOilBook();
 });
 
+function bindNoteImages() {
+  document.querySelectorAll('img[data-note-file]').forEach((img) => {
+    img.src = noteAsset(img.dataset.noteFile);
+  });
+}
+function fillHomeCollage() {
+  const host = $('homeNoteCollage');
+  if (!host) return;
+  const files = ['note-jasmine.png', 'note-station-mandarin.png', 'note-station-rose.png', 'note-coconut.png', 'note-station-strawberry.png', 'note-passionfruit.png'];
+  host.innerHTML = files.map((file, index) => `<img src="${noteAsset(file)}" alt="" style="--i:${index}">`).join('');
+}
+
 renderOilBook();
 loadLabelDraft();
 syncLabelPreview();
@@ -1868,6 +1933,8 @@ updateAdminProgress();
 updateAdminSettings();
 populateGuidedSettings();
 syncGuidedCheckin();
+bindNoteImages();
+fillHomeCollage();
 showView(initialView());
 
 

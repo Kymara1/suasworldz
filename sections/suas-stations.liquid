@@ -11,6 +11,28 @@
   window.SUAS_STATION_LOGO = {{ 'suas-stations-logo.png' | asset_url | json }};
   window.SUAS_LAB_MODE_SELF = {{ 'suas-lab-mode-self-guided.png' | asset_url | json }};
   window.SUAS_LAB_MODE_GUIDED = {{ 'suas-lab-mode-guided.png' | asset_url | json }};
+  window.SUAS_NOTE_ASSETS = {
+    'note-jasmine.png': {{ 'note-jasmine.png' | asset_url | json }},
+    'note-station-mandarin.png': {{ 'note-station-mandarin.png' | asset_url | json }},
+    'note-blackberry.png': {{ 'note-blackberry.png' | asset_url | json }},
+    'note-station-vanilla.png': {{ 'note-station-vanilla.png' | asset_url | json }},
+    'note-station-caramel.png': {{ 'note-station-caramel.png' | asset_url | json }},
+    'note-wildflower.png': {{ 'note-wildflower.png' | asset_url | json }},
+    'note-station-rose.png': {{ 'note-station-rose.png' | asset_url | json }},
+    'note-station-lavender.png': {{ 'note-station-lavender.png' | asset_url | json }},
+    'note-nectar-orange.png': {{ 'note-nectar-orange.png' | asset_url | json }},
+    'note-sunshine.png': {{ 'note-sunshine.png' | asset_url | json }},
+    'note-poppy-cosmos.png': {{ 'note-poppy-cosmos.png' | asset_url | json }},
+    'note-goodgirl-pear.png': {{ 'note-goodgirl-pear.png' | asset_url | json }},
+    'note-nectar-mango.png': {{ 'note-nectar-mango.png' | asset_url | json }},
+    'note-station-strawberry.png': {{ 'note-station-strawberry.png' | asset_url | json }},
+    'note-coconut.png': {{ 'note-coconut.png' | asset_url | json }},
+    'note-station-sandalwood.png': {{ 'note-station-sandalwood.png' | asset_url | json }},
+    'note-tonic-mojito.png': {{ 'note-tonic-mojito.png' | asset_url | json }},
+    'note-sage-mint.png': {{ 'note-sage-mint.png' | asset_url | json }},
+    'note-station-pink-pepper.png': {{ 'note-station-pink-pepper.png' | asset_url | json }},
+    'note-passionfruit.png': {{ 'note-passionfruit.png' | asset_url | json }}
+  };
 </script>
 <div id="suas-station-root">
 <div class="ticker" aria-hidden="true"><div>SUAS.OS ONLINE <i>+</i> THE LAB IS MIXING <i>+</i> HANDMADE IN GASTONIA <i>+</i> DOPAMINE ON TAP <i>+</i> FORMULA 001 <i>+</i> SHUT UP &amp; SMELL <i>+</i></div></div>
@@ -45,6 +67,7 @@
         <div class="window-bar"><span><i></i><i></i><i></i></span><b>SUAS.OS V3.0 / IN-STORE STATION</b><em id="stationClock">READY</em></div>
         <div class="home-grid">
           <article class="home-feature">
+            <div class="home-note-collage" id="homeNoteCollage" aria-hidden="true"></div>
             <p class="eyebrow"><span></span> FRAGRANCE ROOM / CHARM BAR</p>
             <h1>MAKE<br>SOMETHING<br>VERY YOU.</h1>
             <p class="lead">Choose your experience for a visual walkthrough. We will keep your place and take you straight to label creation when you finish.</p>
@@ -52,10 +75,10 @@
           </article>
           <aside class="quick-launch">
             <p class="eyebrow">QUICK LAUNCH</p>
-            <button class="launch-tile pink" data-start-guide="lab" type="button"><span>THE LAB</span><small>PERFUME + BODY OIL</small></button>
-            <button class="launch-tile lime" data-start-guide="charm" type="button"><span>CHARM BAR</span><small>BUILD YOUR LITTLE EXTRA</small></button>
-            <button class="launch-tile blue" data-view="studio" type="button"><span>LABEL STUDIO</span><small>DESIGN + PRINT</small></button>
-            <button class="launch-tile purple" data-view="oilbook" type="button"><span>OIL BOOK</span><small>MEET THE BASES</small></button>
+            <button class="launch-tile pink" data-start-guide="lab" type="button"><i class="launch-shot"><img data-note-file="note-jasmine.png" alt=""></i><span>THE LAB</span><small>PERFUME + BODY OIL</small></button>
+            <button class="launch-tile lime" data-start-guide="charm" type="button"><i class="launch-shot"><img src="{{ 'suas-guide-charm-modern-v2.png' | asset_url }}" alt=""></i><span>CHARM BAR</span><small>BUILD YOUR LITTLE EXTRA</small></button>
+            <button class="launch-tile blue" data-view="studio" type="button"><i class="launch-shot"><img data-note-file="note-station-vanilla.png" alt=""></i><span>LABEL STUDIO</span><small>DESIGN + PRINT</small></button>
+            <button class="launch-tile purple" data-view="oilbook" type="button"><i class="launch-shot"><img data-note-file="note-coconut.png" alt=""></i><span>OIL BOOK</span><small>MEET THE BASES</small></button>
           </aside>
         </div>
         <div class="station-strip">
@@ -108,7 +131,7 @@
           <div class="guided-timeline" id="guidedTimeline"></div>
           <div class="guided-layout">
             <article class="guided-stage">
-              <div class="window-bar"><span><i></i><i></i><i></i></span><b id="guidedWindowTitle">SHARED LAB FILE</b><em id="guidedTimeGuide">00-20 MIN</em></div>
+              <div class="window-bar"><span><i></i><i></i><i></i></span><b id="guidedWindowTitle">SHARED LAB FILE</b><em id="guidedTimeGuide">00–20 MIN</em></div>
               <div class="guided-visual" id="guidedVisual"></div>
               <div class="guided-copy"><span id="guidedStepCode">01</span><div><h3 id="guidedStepTitle">WELCOME TO THE LAB.</h3><p id="guidedStepCopy"></p></div></div>
             </article>
@@ -309,9 +332,9 @@
     <span class="help-button-copy"><b>HELP</b><small>ASK STAFF</small></span>
   </button>
   <div class="help-notice" id="helpNotice" role="status" aria-live="polite" hidden>
-    <span class="help-notice-icon" aria-hidden="true">?</span>
+    <span class="help-notice-icon" aria-hidden="true">✓</span>
     <div><b id="helpNoticeTitle">REQUEST SAVED</b><small id="helpNoticeCopy">Please stay at your station.</small></div>
-    <button id="closeHelpNotice" type="button" aria-label="Close help request message">�</button>
+    <button id="closeHelpNotice" type="button" aria-label="Close help request message">×</button>
   </div>
   <div class="timeout-modal" id="timeoutModal" hidden>
     <div><p class="eyebrow">STILL CREATING?</p><h2>YOUR SESSION<br>IS PAUSED.</h2><p>Tap continue to keep your work. This station will clear private guest details in <b id="timeoutCountdown">60</b> seconds.</p><button class="primary-command" id="continueSession" type="button">CONTINUE SESSION</button></div>
