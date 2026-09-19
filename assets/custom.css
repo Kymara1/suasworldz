@@ -719,8 +719,6 @@ footer.footer--root {
   letter-spacing: .1em;
   color: #101010;
 }
-.suas-product-stars:has(.jdgm-star) .suas-product-stars--fallback,
-.suas-product-stars:has(.jdgm-preview-badge:not(:empty)) .suas-product-stars--fallback,
-.suas-product-stars:has(.jdgm-prev-badge:not(:empty)) .suas-product-stars--fallback {
+.suas-product-stars:has(.jdgm-star) .suas-product-stars--fallback {
   display: none !important;
 }
