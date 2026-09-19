@@ -76,8 +76,8 @@ html body.template--product .shopify-section:has([id*='aftership']) .apps--wrapp
   html body .suas-frame .suas-side-nav > :not([data-suas-mobile-keep='true']) {
     display: none !important;
   }
-  html body .suas-frame .suas-side-link,
-  html body .suas-frame .suas-side-dropdown > summary.suas-side-link {
+  html body .suas-frame .suas-side-nav > a.suas-side-link[data-suas-mobile-keep='true'],
+  html body .suas-frame .suas-side-nav > .suas-side-dropdown[data-suas-mobile-keep='true'] > summary.suas-side-link {
     height: 44px !important;
     min-height: 44px !important;
     max-height: 44px !important;

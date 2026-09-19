@@ -294,10 +294,11 @@
           align-self: start !important;
           flex: none !important;
         }
-        html body .suas-frame .suas-side-link,
-        html body .suas-frame .suas-side-dropdown > summary.suas-side-link,
-        html body.template--product .suas-frame .suas-side-link,
-        html body.template--product .suas-frame .suas-side-dropdown > summary.suas-side-link {
+        html body .suas-frame .suas-side-nav > :not([data-suas-mobile-keep='true']) {
+          display: none !important;
+        }
+        html body .suas-frame .suas-side-nav > a.suas-side-link[data-suas-mobile-keep='true'],
+        html body .suas-frame .suas-side-nav > .suas-side-dropdown[data-suas-mobile-keep='true'] > summary.suas-side-link {
           width: 100% !important;
           min-width: 0 !important;
           max-width: 100% !important;
