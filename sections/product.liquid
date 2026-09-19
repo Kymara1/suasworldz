@@ -229,6 +229,7 @@
 >
   <div class="suas-station-desk product-page--top-panel">
     <section class="suas-station-media product-page--featured-media" data-suas-station-media aria-label="{{ product.title | escape }} photos">
+      <p class="suas-pdp-mark" aria-hidden="true">{{ product.title | split: '✿' | first }}</p>
       <div class="suas-station-stage">
         {%- if featured_media -%}
           <img
@@ -278,6 +279,7 @@
 
     <section class="suas-station-buy product-page--featured-blocks">
       <div class="suas-station-buy-body">
+        <p class="suas-pdp-kicker">{% if product.type != blank %}{{ product.type }}{% else %}handmade at suas{% endif %}</p>
         {{ featured_blocks_html }}
       </div>
     </section>

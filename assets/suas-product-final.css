@@ -324,3 +324,108 @@ html body.template--product .suas-note-grid { padding-bottom: clamp(16px, 3vw, 3
     font-size: clamp(2rem, 9vw, 2.8rem);
   }
 }
+
+/* Unique SUAS product page — not a boxed store template */
+html body.template--product .suas-station-desk {
+  position: relative;
+  align-items: center;
+  gap: 36px;
+  min-height: min(72vh, 720px);
+}
+html body.template--product .suas-pdp-mark {
+  position: absolute;
+  left: -4%;
+  top: 6%;
+  z-index: 0;
+  margin: 0;
+  max-width: 92%;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(4.5rem, 11vw, 9.5rem);
+  font-weight: 700;
+  line-height: 0.72;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: rgba(16, 16, 16, 0.08);
+  pointer-events: none;
+  overflow: hidden;
+}
+html body.template--product .suas-station-media {
+  position: relative;
+  isolation: isolate;
+}
+html body.template--product .suas-station-stage {
+  z-index: 1;
+  min-height: min(62vh, 640px);
+}
+html body.template--product .suas-station-stage:before {
+  content: '';
+  position: absolute;
+  inset: 8% 10% 12% 8%;
+  z-index: -1;
+  border-radius: 58% 42% 47% 53% / 44% 52% 48% 56%;
+  background: var(--pdp-blob, #ffd8e8);
+  transform: rotate(-8deg);
+}
+html body.template--product .suas-station[data-handle*='tonic'] { --pdp-blob: #d7c8ff; }
+html body.template--product .suas-station[data-handle*='haze'] { --pdp-blob: #ffe58a; }
+html body.template--product .suas-station[data-handle*='poppy'] { --pdp-blob: #ffc1d8; }
+html body.template--product .suas-station[data-handle*='good'] { --pdp-blob: #d4f07a; }
+html body.template--product .suas-station[data-handle*='butter'] { --pdp-blob: #ffd8e8; }
+html body.template--product .suas-station-photo {
+  filter: drop-shadow(0 22px 28px rgba(16, 16, 16, 0.16));
+  border-radius: 0;
+  max-height: min(68vh, 620px);
+}
+html body.template--product .suas-pdp-kicker {
+  margin: 0 0 10px;
+  font: 900 10px/1 Futura, Arial, sans-serif;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(16, 16, 16, 0.45);
+}
+html body.template--product .suas-station-buy {
+  position: relative;
+  padding-left: 28px;
+}
+html body.template--product .suas-station-buy:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12%;
+  bottom: 12%;
+  width: 2px;
+  background: #101010;
+  opacity: 0.18;
+}
+html body.template--product .suas-note-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+html body.template--product .suas-note-card {
+  border-radius: 42% 58% 50% 50% / 48% 42% 58% 52%;
+  transform: rotate(-2deg);
+}
+html body.template--product .suas-note-card:nth-child(2n) {
+  border-radius: 54% 46% 42% 58% / 40% 60% 40% 60%;
+  transform: rotate(2deg);
+}
+html body.template--product .suas-note-head h2 {
+  text-align: left;
+  max-width: 14ch;
+}
+@media (max-width: 1023px) {
+  html body.template--product .suas-pdp-mark {
+    font-size: clamp(3.2rem, 18vw, 5.2rem);
+    top: 0;
+    left: 0;
+  }
+  html body.template--product .suas-station-buy {
+    padding-left: 0;
+  }
+  html body.template--product .suas-station-buy:before {
+    display: none;
+  }
+  html body.template--product .suas-station-stage {
+    min-height: 320px;
+  }
+}

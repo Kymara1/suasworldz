@@ -1,0 +1,148 @@
+/* Phone control panel = same language as desktop rail */
+@media only screen and (max-width: 1023px) {
+  html body .suas-side-rail,
+  html body.template--product .suas-side-rail {
+    position: sticky !important;
+    top: 34px !important;
+    z-index: 59 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    padding: 8px 10px 12px !important;
+    background: linear-gradient(180deg, #fff 0%, #f6f7fa 70%, #eef0f5 100%) !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(16, 16, 16, 0.1) !important;
+    box-shadow: inset 0 -8px 20px -20px rgba(16, 16, 16, 0.2) !important;
+  }
+
+  html body .suas-side-head,
+  html body.template--product .suas-side-head {
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    padding: 6px 8px 4px !important;
+  }
+
+  html body .suas-side-orb {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  html body .suas-side-brand {
+    font-size: 1.7rem !important;
+    line-height: 0.9 !important;
+  }
+
+  html body .suas-side-kicker {
+    display: block !important;
+    margin: 0 10px 8px !important;
+    padding-top: 10px !important;
+    border-top: 1px solid rgba(16, 16, 16, 0.13) !important;
+    color: rgba(16, 16, 16, 0.42) !important;
+    font-size: 10px !important;
+    letter-spacing: 0.28em !important;
+  }
+
+  html body .suas-frame .suas-side-nav,
+  html body.template--product .suas-frame .suas-side-nav,
+  html body.template--product .suas-side-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    grid-auto-rows: auto !important;
+    gap: 2px !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 4px 4px !important;
+  }
+
+  html body .suas-frame .suas-side-nav > *,
+  html body.template--product .suas-frame .suas-side-nav > * {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+  }
+
+  html body .suas-frame .suas-side-nav > a.suas-side-link,
+  html body .suas-frame .suas-side-nav > .suas-side-dropdown > summary.suas-side-link,
+  html body.template--product .suas-frame .suas-side-nav > a.suas-side-link,
+  html body.template--product .suas-frame .suas-side-nav > .suas-side-dropdown > summary.suas-side-link {
+    display: grid !important;
+    grid-template-columns: 38px minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    justify-content: stretch !important;
+    flex-direction: row !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-height: 50px !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 6px 12px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  html body .suas-side-link.is-active,
+  html body .suas-side-dropdown[open] > .suas-side-link {
+    background: #ffd8e8 !important;
+    color: #101010 !important;
+  }
+
+  html body .suas-side-icon {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 15px !important;
+  }
+
+  html body .suas-frame .suas-side-label,
+  html body.template--product .suas-frame .suas-side-label {
+    display: block !important;
+    font-size: 1.35rem !important;
+    line-height: 0.95 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: none !important;
+    text-transform: uppercase !important;
+  }
+
+  html body .suas-side-num {
+    display: inline !important;
+    font-size: 10px !important;
+    letter-spacing: 0.2em !important;
+    opacity: 0.45 !important;
+  }
+
+  html body .suas-side-dropdown[open] {
+    height: auto !important;
+  }
+
+  html body .suas-side-dropdown[open] .suas-panel-submenu {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+    margin: 4px 8px 10px 46px !important;
+    padding: 8px !important;
+    max-height: none !important;
+    border: 1px solid rgba(16, 16, 16, 0.1) !important;
+    border-radius: 18px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+  }
+
+  html body .suas-panel-submenu a {
+    min-height: 32px !important;
+    justify-content: flex-start !important;
+    padding: 6px 10px !important;
+    font-size: 8px !important;
+  }
+
+  html body .suas-side-nav a.suas-side-link[href*='the-lab'],
+  html body .suas-side-nav a.suas-side-link[href*='shut-up-and-smell'] {
+    display: none !important;
+  }
+}
