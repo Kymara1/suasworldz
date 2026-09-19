@@ -11,8 +11,6 @@
   style="display:block;"
 >
   {% form 'product', product, class: 'product-buy-buttons--form', id: id %}
-    {{- form | payment_terms -}}
-
     {% if request.page_type != "password" %}
       <div class="product-buy-buttons--primary"
         data-enabled="true"
@@ -54,6 +52,8 @@
         </div>
       {% endif %}
     {% endif %}
+
+    {{- form | payment_terms -}}
 
     <select class="product-buy-buttons--select" name="id" data-mq="none">
       {%- for variant in product.variants -%}
