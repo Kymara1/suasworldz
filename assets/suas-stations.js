@@ -44,41 +44,41 @@ function escapeDataAttr(value) {
 }
 
 const scentNoteProfiles = {
-  JASMINE: { family: 'WHITE FLORAL', mood: 'creamy petals / soft bloom', style: 'floral', visual: 'jasmine', icon: '✿', a: '#fff9df', b: '#f7e9b5', ink: '#6a4a20' },
-  MANDARIN: { family: 'CITRUS', mood: 'bright peel / juicy sparkle', style: 'citrus', visual: 'mandarin', icon: '●', a: '#ff8b22', b: '#ffd45b', ink: '#5c2c00' },
-  PLUM: { family: 'DARK FRUIT', mood: 'jammy skin / purple nectar', style: 'fruit', visual: 'plum', icon: '◆', a: '#5b234f', b: '#ff7aa8', ink: '#fff2f7' },
-  VANILLA: { family: 'GOURMAND', mood: 'vanilla bean / whipped cream', style: 'cream', visual: 'vanilla', icon: '◒', a: '#fff2c6', b: '#f5c77b', ink: '#5b3814' },
-  AMBER: { family: 'RESIN', mood: 'golden resin / warm glow', style: 'resin', visual: 'amber', icon: '◇', a: '#9a3f18', b: '#ffb02e', ink: '#fff0cf' },
-  MUSK: { family: 'SKIN', mood: 'clean cotton / soft skin', style: 'soft', visual: 'musk', icon: '◌', a: '#f7f1e9', b: '#d8e2ff', ink: '#34313a' },
-  ROSE: { family: 'FLORAL', mood: 'velvet petal / fresh stem', style: 'floral', visual: 'rose', icon: '✿', a: '#ff6f9a', b: '#ffd0dc', ink: '#4b0d22' },
-  LAVENDER: { family: 'AROMATIC', mood: 'herbal bloom / clean air', style: 'herbal', visual: 'lavender', icon: '✧', a: '#8f7be8', b: '#dcd4ff', ink: '#281b5a' },
-  BERGAMOT: { family: 'CITRUS', mood: 'green rind / tea brightness', style: 'citrus', visual: 'bergamot', icon: '●', a: '#a9dd59', b: '#ffe071', ink: '#26420d' },
-  LEMON: { family: 'CITRUS', mood: 'zest / clean sparkle', style: 'citrus', visual: 'lemon', icon: '●', a: '#ffe84a', b: '#fff7b3', ink: '#554600' },
-  'ORANGE BLOSSOM': { family: 'CITRUS FLORAL', mood: 'orange flower / honeyed air', style: 'floral', visual: 'orange-blossom', icon: '✿', a: '#fff0c2', b: '#ff9b2c', ink: '#5b2a00' },
-  PEAR: { family: 'FRUIT', mood: 'crisp flesh / green sweetness', style: 'fruit', visual: 'pear', icon: '◖', a: '#cbef7a', b: '#fff0ad', ink: '#395100' },
-  APPLE: { family: 'FRUIT', mood: 'fresh bite / orchard skin', style: 'fruit', visual: 'apple', icon: '●', a: '#d8ff6c', b: '#ff6f6f', ink: '#3e3c00' },
-  PEACH: { family: 'FRUIT', mood: 'fuzzy skin / syrupy peach', style: 'fruit', visual: 'peach', icon: '●', a: '#ffad6f', b: '#ffd2b8', ink: '#5c2707' },
-  STRAWBERRY: { family: 'BERRY', mood: 'ripe berry / candy red', style: 'fruit', visual: 'strawberry', icon: '●', a: '#ff426f', b: '#ffd1dd', ink: '#551023' },
-  COCONUT: { family: 'CREAMY', mood: 'coconut milk / beach skin', style: 'cream', visual: 'coconut', icon: '◒', a: '#fff7df', b: '#d0a36a', ink: '#3a2b18' },
-  CARAMEL: { family: 'GOURMAND', mood: 'burnt sugar / sticky gold', style: 'resin', visual: 'caramel', icon: '◇', a: '#b85d19', b: '#ffc45f', ink: '#fff1cf' },
-  SANDALWOOD: { family: 'WOOD', mood: 'creamy wood / warm grain', style: 'wood', visual: 'sandalwood', icon: '▥', a: '#8a5a30', b: '#e8c18d', ink: '#fff0dc' },
-  CEDARWOOD: { family: 'WOOD', mood: 'dry cedar / pencil shavings', style: 'wood', visual: 'cedarwood', icon: '▥', a: '#74401f', b: '#c98445', ink: '#fff1e3' },
-  PATCHOULI: { family: 'EARTH', mood: 'dark leaf / earthy sweet', style: 'herbal', visual: 'patchouli', icon: '✦', a: '#343b21', b: '#9b7a3c', ink: '#f3ffd7' },
-  VETIVER: { family: 'ROOT', mood: 'smoky grass / dry root', style: 'herbal', visual: 'vetiver', icon: '✦', a: '#4c5b36', b: '#c7b56b', ink: '#f7ffd9' },
-  MINT: { family: 'HERBAL', mood: 'cool leaf / icy snap', style: 'herbal', visual: 'mint', icon: '✦', a: '#74dfad', b: '#dfffe6', ink: '#123d28' },
-  'PINK PEPPER': { family: 'SPICE', mood: 'rosy spice / fizzy heat', style: 'spice', visual: 'pink-pepper', icon: '•', a: '#ff7aa2', b: '#ffc0d0', ink: '#54172a' },
-  'TONKA BEAN': { family: 'GOURMAND', mood: 'tonka bean / toasted almond', style: 'bean', visual: 'tonka-bean', icon: '◍', a: '#1f1a1a', b: '#9b7a62', ink: '#fff4e8' }
+  JASMINE: { family: 'WHITE FLORAL', mood: 'creamy petals / soft bloom', style: 'floral', visual: 'jasmine', icon: '?�?', a: '#fff9df', b: '#f7e9b5', ink: '#6a4a20' },
+  MANDARIN: { family: 'CITRUS', mood: 'bright peel / juicy sparkle', style: 'citrus', visual: 'mandarin', icon: '?��', a: '#ff8b22', b: '#ffd45b', ink: '#5c2c00' },
+  PLUM: { family: 'DARK FRUIT', mood: 'jammy skin / purple nectar', style: 'fruit', visual: 'plum', icon: '?��', a: '#5b234f', b: '#ff7aa8', ink: '#fff2f7' },
+  VANILLA: { family: 'GOURMAND', mood: 'vanilla bean / whipped cream', style: 'cream', visual: 'vanilla', icon: '?��', a: '#fff2c6', b: '#f5c77b', ink: '#5b3814' },
+  AMBER: { family: 'RESIN', mood: 'golden resin / warm glow', style: 'resin', visual: 'amber', icon: '?��', a: '#9a3f18', b: '#ffb02e', ink: '#fff0cf' },
+  MUSK: { family: 'SKIN', mood: 'clean cotton / soft skin', style: 'soft', visual: 'musk', icon: '?��', a: '#f7f1e9', b: '#d8e2ff', ink: '#34313a' },
+  ROSE: { family: 'FLORAL', mood: 'velvet petal / fresh stem', style: 'floral', visual: 'rose', icon: '?�?', a: '#ff6f9a', b: '#ffd0dc', ink: '#4b0d22' },
+  LAVENDER: { family: 'AROMATIC', mood: 'herbal bloom / clean air', style: 'herbal', visual: 'lavender', icon: '?��', a: '#8f7be8', b: '#dcd4ff', ink: '#281b5a' },
+  BERGAMOT: { family: 'CITRUS', mood: 'green rind / tea brightness', style: 'citrus', visual: 'bergamot', icon: '?��', a: '#a9dd59', b: '#ffe071', ink: '#26420d' },
+  LEMON: { family: 'CITRUS', mood: 'zest / clean sparkle', style: 'citrus', visual: 'lemon', icon: '?��', a: '#ffe84a', b: '#fff7b3', ink: '#554600' },
+  'ORANGE BLOSSOM': { family: 'CITRUS FLORAL', mood: 'orange flower / honeyed air', style: 'floral', visual: 'orange-blossom', icon: '?�?', a: '#fff0c2', b: '#ff9b2c', ink: '#5b2a00' },
+  PEAR: { family: 'FRUIT', mood: 'crisp flesh / green sweetness', style: 'fruit', visual: 'pear', icon: '?��', a: '#cbef7a', b: '#fff0ad', ink: '#395100' },
+  APPLE: { family: 'FRUIT', mood: 'fresh bite / orchard skin', style: 'fruit', visual: 'apple', icon: '?��', a: '#d8ff6c', b: '#ff6f6f', ink: '#3e3c00' },
+  PEACH: { family: 'FRUIT', mood: 'fuzzy skin / syrupy peach', style: 'fruit', visual: 'peach', icon: '?��', a: '#ffad6f', b: '#ffd2b8', ink: '#5c2707' },
+  STRAWBERRY: { family: 'BERRY', mood: 'ripe berry / candy red', style: 'fruit', visual: 'strawberry', icon: '?��', a: '#ff426f', b: '#ffd1dd', ink: '#551023' },
+  COCONUT: { family: 'CREAMY', mood: 'coconut milk / beach skin', style: 'cream', visual: 'coconut', icon: '?��', a: '#fff7df', b: '#d0a36a', ink: '#3a2b18' },
+  CARAMEL: { family: 'GOURMAND', mood: 'burnt sugar / sticky gold', style: 'resin', visual: 'caramel', icon: '?��', a: '#b85d19', b: '#ffc45f', ink: '#fff1cf' },
+  SANDALWOOD: { family: 'WOOD', mood: 'creamy wood / warm grain', style: 'wood', visual: 'sandalwood', icon: '?��', a: '#8a5a30', b: '#e8c18d', ink: '#fff0dc' },
+  CEDARWOOD: { family: 'WOOD', mood: 'dry cedar / pencil shavings', style: 'wood', visual: 'cedarwood', icon: '?��', a: '#74401f', b: '#c98445', ink: '#fff1e3' },
+  PATCHOULI: { family: 'EARTH', mood: 'dark leaf / earthy sweet', style: 'herbal', visual: 'patchouli', icon: '?��', a: '#343b21', b: '#9b7a3c', ink: '#f3ffd7' },
+  VETIVER: { family: 'ROOT', mood: 'smoky grass / dry root', style: 'herbal', visual: 'vetiver', icon: '?��', a: '#4c5b36', b: '#c7b56b', ink: '#f7ffd9' },
+  MINT: { family: 'HERBAL', mood: 'cool leaf / icy snap', style: 'herbal', visual: 'mint', icon: '?��', a: '#74dfad', b: '#dfffe6', ink: '#123d28' },
+  'PINK PEPPER': { family: 'SPICE', mood: 'rosy spice / fizzy heat', style: 'spice', visual: 'pink-pepper', icon: '?��', a: '#ff7aa2', b: '#ffc0d0', ink: '#54172a' },
+  'TONKA BEAN': { family: 'GOURMAND', mood: 'tonka bean / toasted almond', style: 'bean', visual: 'tonka-bean', icon: '?��', a: '#1f1a1a', b: '#9b7a62', ink: '#fff4e8' }
 };
 
 function scentNoteProfile(note) {
   const key = String(note || '').toUpperCase();
   if (scentNoteProfiles[key]) return scentNoteProfiles[key];
-  if (/ROSE|JASMINE|BLOSSOM|LAVENDER/.test(key)) return { family: 'FLORAL', mood: 'petals / soft bloom', style: 'floral', visual: 'floral', icon: '✿', a: '#ffe0ef', b: '#fff7cc', ink: '#4b1730' };
-  if (/LEMON|ORANGE|MANDARIN|BERGAMOT/.test(key)) return { family: 'CITRUS', mood: 'zest / bright peel', style: 'citrus', visual: 'citrus', icon: '●', a: '#ff982b', b: '#fff06c', ink: '#4b3000' };
-  if (/PEAR|APPLE|PEACH|PLUM|BERRY|STRAW/.test(key)) return { family: 'FRUIT', mood: 'ripe fruit / juicy skin', style: 'fruit', visual: 'fruit', icon: '●', a: '#ff7da8', b: '#ffe16c', ink: '#3d1430' };
-  if (/VANILLA|CARAMEL|COCONUT|TONKA|SUGAR|CREAM/.test(key)) return { family: 'GOURMAND', mood: 'sweet / creamy warmth', style: 'cream', visual: 'cream', icon: '◒', a: '#fff0c2', b: '#d78a35', ink: '#4c2d12' };
-  if (/WOOD|CEDAR|SANDAL|VETIVER|PATCHOULI/.test(key)) return { family: 'WOOD / EARTH', mood: 'warm grain / grounded', style: 'wood', visual: 'wood', icon: '▥', a: '#5a3a24', b: '#c89251', ink: '#fff2dc' };
-  return { family: 'SCENT NOTE', mood: 'smell / compare / record', style: 'soft', visual: 'soft', icon: '◌', a: '#f3f4ff', b: '#ffe1ec', ink: '#26242b' };
+  if (/ROSE|JASMINE|BLOSSOM|LAVENDER/.test(key)) return { family: 'FLORAL', mood: 'petals / soft bloom', style: 'floral', visual: 'floral', icon: '?�?', a: '#ffe0ef', b: '#fff7cc', ink: '#4b1730' };
+  if (/LEMON|ORANGE|MANDARIN|BERGAMOT/.test(key)) return { family: 'CITRUS', mood: 'zest / bright peel', style: 'citrus', visual: 'citrus', icon: '?��', a: '#ff982b', b: '#fff06c', ink: '#4b3000' };
+  if (/PEAR|APPLE|PEACH|PLUM|BERRY|STRAW/.test(key)) return { family: 'FRUIT', mood: 'ripe fruit / juicy skin', style: 'fruit', visual: 'fruit', icon: '?��', a: '#ff7da8', b: '#ffe16c', ink: '#3d1430' };
+  if (/VANILLA|CARAMEL|COCONUT|TONKA|SUGAR|CREAM/.test(key)) return { family: 'GOURMAND', mood: 'sweet / creamy warmth', style: 'cream', visual: 'cream', icon: '?��', a: '#fff0c2', b: '#d78a35', ink: '#4c2d12' };
+  if (/WOOD|CEDAR|SANDAL|VETIVER|PATCHOULI/.test(key)) return { family: 'WOOD / EARTH', mood: 'warm grain / grounded', style: 'wood', visual: 'wood', icon: '?��', a: '#5a3a24', b: '#c89251', ink: '#fff2dc' };
+  return { family: 'SCENT NOTE', mood: 'smell / compare / record', style: 'soft', visual: 'soft', icon: '?��', a: '#f3f4ff', b: '#ffe1ec', ink: '#26242b' };
 }
 
 const notePhotoFiles = {
@@ -429,7 +429,7 @@ function operationDemo(title, instruction, body, className = '') {
 function charmLayoutDemo() {
   return operationDemo('LAY IT OUT BEFORE YOU ATTACH', 'Keep the piece flat. Slide each loose charm beside an attachment point until the spacing looks balanced.', `<div class="layout-demo">
     <div class="layout-demo__base">${[1,2,3,4,5].map((n) => `<i><small>${n}</small></i>`).join('')}</div>
-    <div class="layout-demo__charms">${['★','♥','S','✿','◆'].map((mark, index) => `<b style="--move:${index}">${mark}</b>`).join('')}</div>
+    <div class="layout-demo__charms">${['?��','?��','S','?�?','?��'].map((mark, index) => `<b style="--move:${index}">${mark}</b>`).join('')}</div>
     <span>MOVE FIRST</span><em>ATTACH SECOND</em>
   </div>`, 'layout-operation');
 }
@@ -448,11 +448,11 @@ function jumpRingDemo() {
 }
 
 function charmWallDemo() {
-  return operationDemo('BROWSE, THEN BUILD A TRAY', 'Choose any five charms from the wall. Place them loose on your tray; nothing is attached yet.', `<div class="wall-demo"><div class="wall-demo__grid">${['★','♥','✿','◆','S','☻','●','✦'].map((x,i)=>`<i class="charm-bead charm-bead-${i%5}" style="--i:${i}"><em></em><b>${x}</b></i>`).join('')}</div><b>→</b><div class="wall-demo__tray">${[1,2,3,4,5].map(n=>`<span>${n}</span>`).join('')}</div></div>`, 'wall-operation');
+  return operationDemo('BROWSE, THEN BUILD A TRAY', 'Choose any five charms from the wall. Place them loose on your tray; nothing is attached yet.', `<div class="wall-demo"><div class="wall-demo__grid">${['?��','?��','?�?','?��','S','?�?','?��','?��'].map((x,i)=>`<i class="charm-bead charm-bead-${i%5}" style="--i:${i}"><em></em><b>${x}</b></i>`).join('')}</div><b>?��</b><div class="wall-demo__tray">${[1,2,3,4,5].map(n=>`<span>${n}</span>`).join('')}</div></div>`, 'wall-operation');
 }
 
 function finalCharmDemo() {
-  return operationDemo('CHECK EVERY CONNECTION', 'Look closely: the cut ends touch with no gap. Give each charm one gentle tug before wearing it.', `<div class="final-demo"><div class="final-demo__seam"><i></i><b>NO GAP</b></div><div class="final-demo__tug"><i>★</i><span>↕</span><b>GENTLE TUG</b></div><div class="final-demo__done"><i>✓</i><b>READY</b></div></div>`, 'final-operation');
+  return operationDemo('CHECK EVERY CONNECTION', 'Look closely: the cut ends touch with no gap. Give each charm one gentle tug before wearing it.', `<div class="final-demo"><div class="final-demo__seam"><i></i><b>NO GAP</b></div><div class="final-demo__tug"><i>?��</i><span>?��</span><b>GENTLE TUG</b></div><div class="final-demo__done"><i>?��</i><b>READY</b></div></div>`, 'final-operation');
 }
 
 function labMeasureDemo(guided) {
@@ -460,13 +460,13 @@ function labMeasureDemo(guided) {
   const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
   const plan = selfPourPlan(product.volume);
   const hasNotes = plan.length > 0;
-  const notes = hasNotes ? plan : [{ note: 'CHOOSE NOTES FIRST', ml: '—' }];
+  const notes = hasNotes ? plan : [{ note: 'CHOOSE NOTES FIRST', ml: '?��' }];
   return operationDemo('DISPENSE YOUR FINISHED NOTES', hasNotes ? 'These notes are already balanced. Measure 20 mL of the first note, then 5 mL of each supporting note.' : 'Go back to BUILD YOUR FORMULA and choose up to three notes before dispensing.', `<div class="premium-dispense-demo${hasNotes ? '' : ' needs-notes'}"><section class="premium-note-rail"><span>${hasNotes ? '20 / 5 / 5 POUR' : 'NOTES NEEDED'}</span>${notes.slice(0,3).map((item,index)=>`<p><span class="dispense-note-thumb">${scentIngredientArt(scentNoteProfile(item.note), item.note)}</span><b>${hasNotes ? String(index+1).padStart(2,'0') : '!'}</b><strong>${escapeMarkup(item.note)}</strong><small>${item.ml} mL</small></p>`).join('')}</section><section class="premium-dispenser"><span>PRESS DISPENSER</span><div class="premium-dispenser-head"><i></i><b></b></div><div class="premium-drop-path"><i></i><i></i><i></i></div><strong>20 / 5 / 5 mL</strong></section><section class="premium-target-bottle"><span>STOP AT TARGET</span><div><i></i><b></b><em></em></div><strong>${product.volume} mL TOTAL TARGET</strong></section></div>`, 'dispense-operation');
 }
 
 function formulaDemo() {
-  const notes = guideState.notes.length ? guideState.notes : ['NOTE 01','NOTE 02','NOTE 03'];
-  return operationDemo('SMELL, COMPARE, RECORD', 'Self-guided: pick up to three already-balanced notes. Tap the 20 mL note first, then the two 5 mL notes.', `<div class="formula-demo scent-gallery-demo"><div class="scent-polaroid-grid">${notes.slice(0,3).map((note,index)=>scentNoteMini(note,index)).join('')}</div><b>→</b><div class="record-card scent-record-card"><small>20 / 5 / 5 POUR</small>${notes.slice(0,3).map((note,index)=>`<span>${['20 mL','5 mL','5 mL'][index]} / ${escapeMarkup(note)}</span>`).join('')}<em>${guideState.notes.length ? 'LIVE SELECTION' : 'PICK NOTES TO BUILD THIS CARD'}</em></div></div>`, 'formula-operation');
+  const notes = guideState.notes.length ? guideState.notes : ['JASMINE','VANILLA','ROSE'];
+  return operationDemo('SMELL, COMPARE, RECORD', 'Self-guided: pick up to three already-balanced notes. Tap the 20 mL note first, then the two 5 mL notes.', `<div class="formula-demo scent-gallery-demo"><div class="scent-polaroid-grid">${notes.slice(0,3).map((note,index)=>scentNoteMini(note,index)).join('')}</div><b>?��</b><div class="record-card scent-record-card"><small>20 / 5 / 5 POUR</small>${notes.slice(0,3).map((note,index)=>`<span>${['20 mL','5 mL','5 mL'][index]} / ${escapeMarkup(note)}</span>`).join('')}<em>${guideState.notes.length ? 'LIVE SELECTION' : 'PICK NOTES TO BUILD THIS CARD'}</em></div></div>`, 'formula-operation');
 }
 
 function finishBottleDemo() {
@@ -721,7 +721,7 @@ function renderSummary() {
       ['LAB STATION', `STATION ${String(guidedState.station).padStart(2, '0')}`]
     ];
     $('summaryGrid').innerHTML = rows.map(([label, value]) => `<div><small>${label}</small><b>${value}</b></div>`).join('');
-    $('summaryTicket').innerHTML = `<small>SUAS OS / GUIDED LAB RECORD</small><h3>EXPERIMENT COMPLETE ✓</h3><p>${guidedState.products.map(moduleLabel).join(' / ')}</p><div><span>${new Date().toLocaleDateString()}</span><span>STATION ${String(guidedState.station).padStart(2, '0')}</span></div>`;
+    $('summaryTicket').innerHTML = `<small>SUAS OS / GUIDED LAB RECORD</small><h3>EXPERIMENT COMPLETE ?��</h3><p>${guidedState.products.map(moduleLabel).join(' / ')}</p><div><span>${new Date().toLocaleDateString()}</span><span>STATION ${String(guidedState.station).padStart(2, '0')}</span></div>`;
     $('summaryContinue').textContent = 'CREATE LABEL ->';
     return;
   }
@@ -779,7 +779,7 @@ function renderOilBook() {
   const base = oilBases[activeBase];
   $('baseTabs').innerHTML = oilBases.map((item, index) => `<button class="${index === activeBase ? 'is-active' : ''}" data-base-index="${index}" type="button">${item.name}</button>`).join('');
   const oilShot = { 'Glow Base': 'note-sunshine.png', 'Silky Dry Oil Base': 'note-sage-mint.png', 'Rich Sensitive Skin': 'note-coconut.png' }[base.name] || 'note-coconut.png';
-  $('oilVisual').innerHTML = `<div class="oil-shot"><img src="${noteAsset(oilShot)}" alt=""></div><h3 id="oilName">${base.name.toUpperCase()}</h3><p id="oilFeel">${base.feel} · ${oilLoadPercent(base.name)}% fragrance load</p>`;
+  $('oilVisual').innerHTML = `<div class="oil-shot"><img src="${noteAsset(oilShot)}" alt=""></div><h3 id="oilName">${base.name.toUpperCase()}</h3><p id="oilFeel">${base.feel} ?? ${oilLoadPercent(base.name)}% fragrance load</p>`;
   $('ingredientList').innerHTML = base.ingredients.map((item, index) => `<button data-ingredient="${item}" class="${index === 0 ? 'is-active' : ''}" type="button">${item}</button>`).join('');
   showIngredient(base.ingredients[0]);
   $('baseTabs').querySelectorAll('[data-base-index]').forEach((button) => button.addEventListener('click', () => { activeBase = Number(button.dataset.baseIndex); renderOilBook(); }));
@@ -1032,7 +1032,7 @@ function queueWaitRange(position, seatCount, minutesPerTurn) {
   return `${low}-${high} MIN`;
 }
 function queueEscape(value) { return String(value ?? '').replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char])); }
-function queueTimeLabel(iso) { return iso ? new Date(iso).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '—'; }
+function queueTimeLabel(iso) { return iso ? new Date(iso).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '?��'; }
 function queueElapsed(iso) {
   if (!iso) return '0M';
   const mins = Math.max(0, Math.floor((Date.now() - new Date(iso).getTime()) / 60000));
@@ -1197,7 +1197,7 @@ function renderQueueOverview(state) {
     ${queueMetricCard('LAB', `${13 - queueAvailableLabSeats(state)}/13`, state.labPaused ? 'PAUSED' : state.labFull ? 'FULL' : `${queueAvailableLabSeats(state)} SEATS OPEN`)}
     ${queueMetricCard('CHARM BAR', `${5 - queueAvailableCharmSeats(state)}/5`, `${queueWaitingCharm(state).length} WAITING`)}
     ${queueMetricCard('WAITING', labWaiting.length + charmWaiting.length, `LAB ${labWaiting.length} / CHARM ${charmWaiting.length}`)}
-    ${queueMetricCard('NEXT UP', next ? queueEscape(next.name).toUpperCase() : '—', next ? `${queueEscape(queueCustomerLine(next))} / ${queueVisitAge(next)} WAIT` : 'NO ONE WAITING')}
+    ${queueMetricCard('NEXT UP', next ? queueEscape(next.name).toUpperCase() : '?��', next ? `${queueEscape(queueCustomerLine(next))} / ${queueVisitAge(next)} WAIT` : 'NO ONE WAITING')}
     ${queueMetricCard('ENGRAVING', engravingOpen, `${state.engravingJobs.filter((job)=>job.status==='WAITING').length} WAITING`)}
     ${queueInstructionPanel(state)}
     ${queueMovementStrip(state)}
@@ -1611,9 +1611,9 @@ const defaultGuidedSettings = {
   }
 };
 const guidedSharedSteps = [
-  { code: '01', exe: 'WELCOME.EXE', title: 'WELCOME TO THE LAB.', copy: 'Your Lab Guide leads this shared introduction. Learn the rules, the 90-minute flow, and how to use the Scent Organ safely.', time: '00–08 MIN' },
-  { code: '02', exe: 'SCENT.EXE', title: 'LEARN. SMELL. SELECT.', copy: 'Explore fragrance fundamentals, scent families, and proper blotter testing. Then choose up to four notes for your signature scent.', time: '08–20 MIN' },
-  { code: '03', exe: 'FORMULA.EXE', title: 'BUILD THE MASTER FORMULA.', copy: 'Set the proportions for your selected notes. SUAS.OS saves one master scent formula and converts it for every product in your reservation.', time: '20–32 MIN' }
+  { code: '01', exe: 'WELCOME.EXE', title: 'WELCOME TO THE LAB.', copy: 'Your Lab Guide leads this shared introduction. Learn the rules, the 90-minute flow, and how to use the Scent Organ safely.', time: '00?��08 MIN' },
+  { code: '02', exe: 'SCENT.EXE', title: 'LEARN. SMELL. SELECT.', copy: 'Explore fragrance fundamentals, scent families, and proper blotter testing. Then choose up to four notes for your signature scent.', time: '08?��20 MIN' },
+  { code: '03', exe: 'FORMULA.EXE', title: 'BUILD THE MASTER FORMULA.', copy: 'Set the proportions for your selected notes. SUAS.OS saves one master scent formula and converts it for every product in your reservation.', time: '20?��32 MIN' }
 ];
 const guidedModules = {
   perfume: {
@@ -1676,7 +1676,7 @@ function currentGuidedStep() {
   if (guidedState.phase === 'shared') return guidedSharedSteps[guidedState.sharedStep];
   const module = guidedModules[currentGuidedModule()];
   const raw = module?.steps[guidedState.moduleStep];
-  return raw ? { code: raw[0], exe: module.label, title: raw[1], copy: raw[2], time: '32–70 MIN' } : null;
+  return raw ? { code: raw[0], exe: module.label, title: raw[1], copy: raw[2], time: '32?��70 MIN' } : null;
 }
 function approvedGuidedNotes() {
   return getScentCatalog().perfume;
@@ -1707,7 +1707,7 @@ function bindGuidedChecks() {
   }));
 }
 function guidedWelcomeControls() {
-  return `<div class="guided-info-card"><b>90-MINUTE LAB MAP</b><span>15–20 MIN / SHARED SCENT EDUCATION</span><span>~50 MIN / PERSONAL .EXE MODULES</span><span>FINAL 20 MIN / LABELS + PACKAGING</span></div>${guidedChecklist(['Wear required protective gear and keep the station clear.','Smell from blotters, never directly from an ingredient bottle.','Ask the Lab Guide before changing any displayed measurement.','Keep fragrance oils on the organ. Do not pour extras back into a bottle.'],'welcome')}`;
+  return `<div class="guided-info-card"><b>90-MINUTE LAB MAP</b><span>15?��20 MIN / SHARED SCENT EDUCATION</span><span>~50 MIN / PERSONAL .EXE MODULES</span><span>FINAL 20 MIN / LABELS + PACKAGING</span></div>${guidedChecklist(['Wear required protective gear and keep the station clear.','Smell from blotters, never directly from an ingredient bottle.','Ask the Lab Guide before changing any displayed measurement.','Keep fragrance oils on the organ. Do not pour extras back into a bottle.'],'welcome')}`;
 }
 function guidedScentControls() {
   const notes = approvedGuidedNotes();
@@ -1739,32 +1739,32 @@ function guidedModuleControls(moduleKey, stepIndex) {
     if (step === 'NAME') return moduleNameInput('perfumeName','FRAGRANCE NAME');
     if (step === 'LABEL') return `<div class="label-file"><small>LABEL FILE</small><b>${guidedState.productData.perfumeName || 'UNNAMED FORMULA'}</b><span>EAU DE PARFUM / 30 mL</span><span>${guidedState.notes.join(' / ')}</span><span>MIXED BY ${guidedState.guest.toUpperCase()}</span></div>`;
     if (step === 'SAVE FORMULA') return '<button class="primary-command" data-save-guided-formula type="button">SAVE TO FORMULA BOOK <span>+</span></button><p class="guided-result">The session record is saved even if the guest does not create an account.</p>';
-    return '<div class="complete-file"><b>EXPERIMENT COMPLETE ✓</b><p>Let the perfume rest in a cool, dark place for at least 48 hours. The scent will continue to marry as it macerates. Keep tightly capped and away from heat or direct sunlight.</p></div>';
+    return '<div class="complete-file"><b>EXPERIMENT COMPLETE ?��</b><p>Let the perfume rest in a cool, dark place for at least 48 hours. The scent will continue to marry as it macerates. Keep tightly capped and away from heat or direct sunlight.</p></div>';
   }
   if (moduleKey === 'bodyoil') {
-    if (step === 'IMPORT MASTER FORMULA') return `<div class="import-arrow"><b>MASTER SCENT FORMULA</b><i>↓</i><strong>BODYOIL.EXE</strong></div><div class="formula-output">${formatFormula(bodyOilTotal,'g')}</div>`;
+    if (step === 'IMPORT MASTER FORMULA') return `<div class="import-arrow"><b>MASTER SCENT FORMULA</b><i>?��</i><strong>BODYOIL.EXE</strong></div><div class="formula-output">${formatFormula(bodyOilTotal,'g')}</div>`;
     if (step === 'CHOOSE BASE') return `<div class="option-row">${oilBases.map((base) => `<button type="button" data-product-option="oilBase" data-value="${base.name}" class="${normalizeOilBase(guidedState.productData.oilBase) === base.name ? 'is-selected' : ''}">${base.name.toUpperCase()}<small>${oilLoadPercent(base.name)}% LOAD</small></button>`).join('')}</div>`;
     if (step === 'CONVERT FORMULA') return `<div class="formula-output">${formatFormula(bodyOilTotal,'g')}</div><p class="guided-result">${selectedOilBase.toUpperCase()} / APPROVED TOTAL SCENT LOAD: ${bodyOilTotal} g / ${oilPercent}%</p>`;
     if (step === 'MEASURE + BLEND') return `${guidedMeasurementHelp('each scent note and the selected body oil base','g')}${guidedChecklist([...calculatedFormula(bodyOilTotal).map((item) => `Measure ${item.amount} g ${item.note}`),`Add ${(30 - bodyOilTotal).toFixed(2)} g ${selectedOilBase}.`,'Blend slowly until completely uniform.'],'oilBuild')}`;
     if (step === 'BOTTLE + LABEL') return `${moduleNameInput('oilName','BODY OIL NAME')}${guidedChecklist(['Transfer the complete measured mixture into the clean 1 oz bottle.','Leave room for the closure, then cap, wipe, and inspect.','Send the product file to Label Studio.'],'oilBottle')}`;
-    return '<div class="complete-file"><b>BODYOIL.EXE COMPLETE ✓</b><p>Apply to clean, slightly damp skin. Store closed and away from heat. Formula conversion saved to this session.</p></div>';
+    return '<div class="complete-file"><b>BODYOIL.EXE COMPLETE ?��</b><p>Apply to clean, slightly damp skin. Store closed and away from heat. Formula conversion saved to this session.</p></div>';
   }
   if (moduleKey === 'buttercreme') {
-    if (step === 'IMPORT MASTER FORMULA') return `<div class="import-arrow"><b>MASTER SCENT FORMULA</b><i>↓</i><strong>BUTTERCREME.EXE</strong></div><div class="formula-output">${formatFormula(butterTotal,'g')}</div>`;
+    if (step === 'IMPORT MASTER FORMULA') return `<div class="import-arrow"><b>MASTER SCENT FORMULA</b><i>?��</i><strong>BUTTERCREME.EXE</strong></div><div class="formula-output">${formatFormula(butterTotal,'g')}</div>`;
     if (step === 'OPEN CREATION KIT') return guidedChecklist(['Confirm sealed pre-portioned 4 oz Butter Creme.','Confirm clean mixing vessel, spatula, piping bag, and finishing jar.','Do not add fragrance until measurements are ready.'],'butterKit');
     if (step === 'CONVERT FORMULA') return `<div class="formula-output">${formatFormula(butterTotal,'g')}</div><p class="guided-result">APPROVED TOTAL SCENT LOAD: ${butterTotal} g / ${settings.formula.butterLoadPercent}%</p>`;
     if (step === 'MEASURE + FOLD') return `${guidedMeasurementHelp('each scent note before adding it to the Butter Creme','g')}${guidedChecklist([...calculatedFormula(butterTotal).map((item) => `Measure ${item.amount} g ${item.note}`),'Add scent to the pre-portioned Butter Creme.','Fold from bottom to top until color and texture are even.'],'butterBuild')}`;
     if (step === 'PIPE + JAR') return guidedChecklist(['Fill the piping bag without trapping air.','Pipe or spoon into the finishing jar.','Smooth, cap, wipe, and inspect.'],'butterJar');
-    return `${moduleNameInput('butterName','BUTTER CREME NAME')}<div class="complete-file"><b>BUTTERCREME.EXE COMPLETE ✓</b><p>Label information and converted formula are saved to this session.</p></div>`;
+    return `${moduleNameInput('butterName','BUTTER CREME NAME')}<div class="complete-file"><b>BUTTERCREME.EXE COMPLETE ?��</b><p>Label information and converted formula are saved to this session.</p></div>`;
   }
   return '<p class="guided-alert">This product file is not available.</p>';
 }
 function guidedVisual(step, moduleKey) {
   if (guidedState.phase === 'shared' && guidedState.sharedStep === 0) return `<div class="guided-demo guided-map-demo">
     <div class="guided-map-step pink"><b>01</b><i class="demo-person"></i><strong>WELCOME</strong><span>Meet your Lab Guide</span></div>
-    <i class="guided-arrow">→</i><div class="guided-map-step blue"><b>02</b><i class="demo-blotter"></i><strong>SMELL</strong><span>Test one note at a time</span></div>
-    <i class="guided-arrow">→</i><div class="guided-map-step yellow"><b>03</b><i class="demo-drop-scale"></i><strong>FORMULA</strong><span>Measure + record</span></div>
-    <i class="guided-arrow">→</i><div class="guided-map-step lime"><b>04</b><i class="demo-product"></i><strong>BUILD</strong><span>Follow your product file</span></div>
+    <i class="guided-arrow">?��</i><div class="guided-map-step blue"><b>02</b><i class="demo-blotter"></i><strong>SMELL</strong><span>Test one note at a time</span></div>
+    <i class="guided-arrow">?��</i><div class="guided-map-step yellow"><b>03</b><i class="demo-drop-scale"></i><strong>FORMULA</strong><span>Measure + record</span></div>
+    <i class="guided-arrow">?��</i><div class="guided-map-step lime"><b>04</b><i class="demo-product"></i><strong>BUILD</strong><span>Follow your product file</span></div>
   </div>`;
   if (guidedState.phase === 'shared' && guidedState.sharedStep === 1) return `<div class="guided-demo scent-test-demo">
     <div class="scent-test-organ">${approvedGuidedNotes().slice(0,6).map((note,index) => `<i style="--note:${index}">${scentIngredientArt(scentNoteProfile(note), note)}<small>${String(index + 1).padStart(2,'0')}</small><b>${note}</b></i>`).join('')}</div>
@@ -1786,11 +1786,11 @@ function productGuideVisual(title, moduleKey) {
     complete:['EXPERIMENT COMPLETE','Review care instructions before leaving.'],
     review:['CHECK YOUR MASTER FORMULA','Confirm the selected notes before measuring.']
   }[action];
-  return `<div class="guided-demo practical-step-demo product-step-demo"><div class="practical-visual visual-${action}"><div class="formula-cup"><i></i><b>${moduleLabel(moduleKey)}</b></div><span class="action-path">→</span><div class="finished-product product-${moduleKey}"><i></i><b>SUAS</b></div><strong class="approval-stamp">${title}</strong></div><div class="practical-copy"><b>${copy[0]}</b><span>${copy[1]}</span></div></div>`;
+  return `<div class="guided-demo practical-step-demo product-step-demo"><div class="practical-visual visual-${action}"><div class="formula-cup"><i></i><b>${moduleLabel(moduleKey)}</b></div><span class="action-path">?��</span><div class="finished-product product-${moduleKey}"><i></i><b>SUAS</b></div><strong class="approval-stamp">${title}</strong></div><div class="practical-copy"><b>${copy[0]}</b><span>${copy[1]}</span></div></div>`;
 }
 function renderGuidedTimeline() {
   const items = [{ label:'00 CHECK-IN', done:true }, ...guidedSharedSteps.map((step,index) => ({ label:`${step.code} ${step.exe}`, active:guidedState.phase==='shared'&&guidedState.sharedStep===index, done:guidedState.phase==='module'||guidedState.sharedStep>index })), ...guidedState.products.map((key,index) => ({ label:moduleLabel(key), active:guidedState.phase==='module'&&guidedState.moduleIndex===index, done:guidedState.completedModules.includes(key) }))];
-  $('guidedTimeline').innerHTML = items.map((item) => `<span class="${item.active ? 'is-active' : ''} ${item.done ? 'is-done' : ''}"><i>${item.done ? '✓' : ''}</i>${item.label}</span>`).join('');
+  $('guidedTimeline').innerHTML = items.map((item) => `<span class="${item.active ? 'is-active' : ''} ${item.done ? 'is-done' : ''}"><i>${item.done ? '?��' : ''}</i>${item.label}</span>`).join('');
 }
 function renderGuidedExperience() {
   if (!guidedState) { showView('checkin'); return; }
@@ -1811,7 +1811,7 @@ function renderGuidedExperience() {
   $('guidedVisual').innerHTML = guidedVisual(step, moduleKey);
   $('guidedControls').innerHTML = guidedState.phase === 'shared' ? (guidedState.sharedStep === 0 ? guidedWelcomeControls() : guidedState.sharedStep === 1 ? guidedScentControls() : guidedFormulaControls()) : guidedModuleControls(moduleKey, guidedState.moduleStep);
   $('guidedBack').disabled = guidedState.phase === 'shared' && guidedState.sharedStep === 0;
-  $('guidedNext').innerHTML = guidedState.phase === 'module' && guidedState.moduleStep === guidedModules[moduleKey].steps.length - 1 ? (guidedState.moduleIndex === guidedState.products.length - 1 ? 'FINISH SESSION <span>✓</span>' : 'NEXT PRODUCT <span>-&gt;</span>') : 'NEXT <span>-&gt;</span>';
+  $('guidedNext').innerHTML = guidedState.phase === 'module' && guidedState.moduleStep === guidedModules[moduleKey].steps.length - 1 ? (guidedState.moduleIndex === guidedState.products.length - 1 ? 'FINISH SESSION <span>?��</span>' : 'NEXT PRODUCT <span>-&gt;</span>') : 'NEXT <span>-&gt;</span>';
   renderGuidedTimeline();
   bindGuidedControls();
   saveGuidedState();
