@@ -500,3 +500,88 @@
     });
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!/\/pages\/bookings/.test(location.pathname) || document.querySelector('.suas-lab-book')) return;
+    var main = document.querySelector('#main-content') || document.body;
+    var root = document.createElement('section');
+    root.className = 'suas-lab-book';
+    root.setAttribute('aria-label', 'Book The Lab');
+    root.innerHTML = '<style>.suas-lab-book{--ink:#101010;--pink:#ffd8e8;--lime:#d9ff78;--blue:#cdeeff;--sun:#fff1a8;--lav:#e4d5ff;color:#101010;background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),#fbfaf7;background-size:22px 22px,22px 22px,auto;font-family:Futura,Arial,sans-serif}.suas-lab-book *{box-sizing:border-box}.suas-lab-wrap{width:min(820px,calc(100vw - 24px));margin:0 auto;padding:18px 0 48px}.suas-lab-window{border:2px solid #101010;border-radius:24px;background:#fff;box-shadow:5px 6px 0 #101010;overflow:hidden}.suas-lab-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;min-height:40px;padding:8px 12px;border-bottom:2px solid #101010;background:linear-gradient(180deg,#fff,#e8edf3);font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-align:center}.suas-lab-body{padding:16px}.suas-lab-title{margin:0 0 6px;font-family:Casual Human,Futura,Arial,sans-serif;font-size:clamp(2rem,8vw,3.2rem);line-height:.86;font-weight:400;text-transform:lowercase}.suas-lab-copy{margin:0 0 14px;font-size:13px;font-weight:700;color:rgba(16,16,16,.68)}.suas-lab-meter{margin:0 0 16px;padding:10px 12px;border:2px solid #101010;border-radius:18px;background:#d9ff78;box-shadow:3px 4px 0 #101010}.suas-lab-seat-count{font-family:Casual Human,Futura,Arial,sans-serif;font-size:1.8rem}.suas-lab-grid,.suas-lab-times{display:grid;grid-template-columns:1fr 1fr;gap:8px}.suas-lab-choice,.suas-lab-chip,.suas-lab-next,.suas-lab-back,.suas-lab-submit,.suas-lab-input{border:2px solid #101010;border-radius:16px;background:#fff;min-height:46px;font:800 12px/1.1 Futura,Arial,sans-serif;cursor:pointer}.suas-lab-choice{padding:12px;text-align:left;box-shadow:0 3px 0 #101010}.suas-lab-choice.is-on,.suas-lab-chip.is-on{background:#ffd8e8;transform:translateY(2px);box-shadow:none}.suas-lab-choice strong{display:block;font-family:Casual Human,Futura,Arial,sans-serif;font-size:1.15rem;font-weight:400;text-transform:lowercase}.suas-lab-field{display:grid;gap:5px;margin:0 0 10px}.suas-lab-field label{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;opacity:.6}.suas-lab-input{padding:10px 12px;width:100%;border-radius:14px}.suas-lab-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.suas-lab-next,.suas-lab-submit{background:#ffd8e8;box-shadow:0 3px 0 #101010;text-transform:uppercase;letter-spacing:.12em}.suas-lab-submit{grid-column:1/-1;background:#d9ff78}.suas-lab-pane[hidden]{display:none!important}.suas-lab-error{display:none;margin-top:8px;padding:8px;border:1.5px solid #101010;border-radius:12px;background:#ffd8e8;font-weight:800}.suas-lab-error.is-on{display:block}.suas-lab-hours{margin-top:12px;padding:10px;border:1.5px dashed rgba(16,16,16,.25);border-radius:16px;font-size:12px;font-weight:700}</style><div class="suas-lab-wrap"><div class="suas-lab-window"><div class="suas-lab-bar"><span>LAB.BOOK</span><span>book your experiment</span><span>12 MAX</span></div><div class="suas-lab-body"><h1 class="suas-lab-title">book your experiment.</h1><p class="suas-lab-copy">Three steps. Pick a mix, pick a time, hold seats. The Lab has 12 seats a date.</p><div class="suas-lab-meter"><strong class="suas-lab-seat-count" data-seat-text>12 of 12 seats left</strong></div><div class="suas-lab-grid" data-choices></div><div class="suas-lab-pane" data-pane="2" hidden><div class="suas-lab-field"><label>date</label><input class="suas-lab-input" type="date" data-date></div><div class="suas-lab-times" data-times></div></div><div class="suas-lab-pane" data-pane="3" hidden><div class="suas-lab-field"><label>seats</label><input class="suas-lab-input" type="number" min="1" max="12" value="1" data-guests></div><div class="suas-lab-field"><label>name</label><input class="suas-lab-input" type="text" data-name></div><div class="suas-lab-field"><label>phone</label><input class="suas-lab-input" type="tel" data-phone></div></div><p class="suas-lab-error" data-error></p><div class="suas-lab-nav"><button class="suas-lab-back" type="button" data-back hidden>back</button><button class="suas-lab-next" type="button" data-next>next</button><button class="suas-lab-submit" type="button" data-submit hidden>reserve seats</button></div><div class="suas-lab-hours">Open Thursday–Sunday. Closed Monday–Wednesday. Paste your Calendly link and we will drop it into this window.</div></div></div></div>';
+    main.insertBefore(root, main.firstChild);
+    var handles = ['lab-session-eau-de-parfum','lab-session-body-oil','lab-session-combo-sesh','lab-session-roll-on-perfume','deluxe-lab-session'];
+    var fills = ['#ffd8e8','#cdeeff','#e4d5ff','#fff1a8','#d9ff78'];
+    var choice = null, timeValue = '', step = 1, remaining = 12;
+    var choices = root.querySelector('[data-choices]');
+    var dateInput = root.querySelector('[data-date]');
+    var timesWrap = root.querySelector('[data-times]');
+    var err = root.querySelector('[data-error]');
+    var nextBtn = root.querySelector('[data-next]');
+    var backBtn = root.querySelector('[data-back]');
+    var submitBtn = root.querySelector('[data-submit]');
+    var today = new Date();
+    dateInput.min = today.toISOString().slice(0,10);
+    function showErr(msg){ err.textContent = msg || ''; err.classList.toggle('is-on', !!msg); }
+    function setStep(n){
+      step = n;
+      root.querySelectorAll('[data-pane]').forEach(function(p){ p.hidden = Number(p.getAttribute('data-pane')) !== step; });
+      backBtn.hidden = step === 1;
+      nextBtn.hidden = step === 3;
+      submitBtn.hidden = step !== 3;
+      choices.hidden = step !== 1;
+    }
+    Promise.all(handles.map(function(h){ return fetch('/products/' + h + '.js').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); })).then(function(products){
+      products.forEach(function(product, i){
+        if (!product || !product.variants || !product.variants[0]) return;
+        var v = product.variants[0];
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'suas-lab-choice';
+        btn.style.background = fills[i];
+        btn.innerHTML = '<small>' + (i === 4 ? 'guided' : 'self-guided') + '</small><strong>' + String(product.title).toLowerCase() + '</strong><span>$' + (v.price / 100).toFixed(2) + '</span>';
+        btn.addEventListener('click', function(){
+          choice = { id: v.id, name: product.title, kind: i === 4 ? 'guided' : 'self' };
+          root.querySelectorAll('.suas-lab-choice').forEach(function(node){ node.classList.toggle('is-on', node === btn); });
+          showErr('');
+        });
+        choices.appendChild(btn);
+      });
+    });
+    dateInput.addEventListener('change', function(){
+      timesWrap.innerHTML = '';
+      timeValue = '';
+      var day = new Date(dateInput.value + 'T12:00:00').getDay();
+      var times = (choice && choice.kind === 'guided') ? {4:['Thursday 6:00 PM - 7:30 PM'],5:['Friday 6:00 PM - 7:30 PM'],6:['Saturday 4:00 PM - 5:30 PM','Saturday 6:00 PM - 7:30 PM']}[day] : {0:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'],4:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'],5:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'],6:['12:00 PM','1:00 PM','2:00 PM','3:00 PM']}[day];
+      if (!times) { showErr('That day is closed. Thursday–Sunday only.'); dateInput.value=''; return; }
+      showErr('');
+      times.forEach(function(time){
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'suas-lab-chip';
+        chip.textContent = time;
+        chip.addEventListener('click', function(){ timeValue = time; timesWrap.querySelectorAll('.suas-lab-chip').forEach(function(n){ n.classList.toggle('is-on', n === chip); }); });
+        timesWrap.appendChild(chip);
+      });
+    });
+    nextBtn.addEventListener('click', function(){
+      if (step === 1 && !choice) { showErr('Pick an experiment first.'); return; }
+      if (step === 2 && (!dateInput.value || !timeValue)) { showErr('Pick a date and a time.'); return; }
+      showErr('');
+      setStep(Math.min(3, step + 1));
+    });
+    backBtn.addEventListener('click', function(){ showErr(''); setStep(Math.max(1, step - 1)); });
+    submitBtn.addEventListener('click', function(){
+      var guests = Math.max(1, Number(root.querySelector('[data-guests]').value || 1));
+      var name = (root.querySelector('[data-name]').value || '').trim();
+      var phone = (root.querySelector('[data-phone]').value || '').trim();
+      if (!choice || !dateInput.value || !timeValue) { showErr('Finish the date and time step.'); return; }
+      if (!name || !phone) { showErr('Name and phone keep the reservation.'); return; }
+      if (guests > remaining) { showErr('Only ' + remaining + ' seats left.'); return; }
+      submitBtn.disabled = true;
+      var properties = { 'Booking type': choice.kind === 'guided' ? 'Guided Lab Session' : 'Self-Guided Lab Experiment', 'Selected experience': choice.name, 'Guest name': name, 'Phone number': phone, 'Seats': String(guests), 'Seat cap': '12' };
+      if (choice.kind === 'guided') { properties['Class date'] = dateInput.value; properties['Class time'] = timeValue; }
+      else { properties['Preferred date'] = dateInput.value; properties['Preferred time'] = timeValue; }
+      fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ items: [{ id: choice.id, quantity: guests, properties: properties }] }) }).then(function(r){ if (!r.ok) throw new Error('cart'); location.assign('/cart'); }).catch(function(){ submitBtn.disabled = false; showErr('Could not hold those seats. Try again.'); });
+    });
+  });
+</script>
