@@ -12,7 +12,7 @@
   assign featured_blocks = false
   assign product_id = product.id | append: '-' | append: section.id
   assign video_looping_enabled = section.settings.loop-enabled
-  assign pdp_name = product.title | split: '✿' | first | strip
+  assign pdp_name = product.title | split: '?' | first | strip
   assign pdp_hook = product.description | strip_html | split: '.' | first | strip
   assign pdp_handle = product.handle | downcase
   assign mix_1 = 'handmade'
@@ -274,14 +274,6 @@
 >
   {%- liquid
     assign pdp_life = featured_media
-    if product.media.size > 1
-      for media in product.media
-        if media.media_type == 'image' and featured_media and media.id != featured_media.id
-          assign pdp_life = media
-          break
-        endif
-      endfor
-    endif
     assign pdp_type = product.type | downcase
     assign pdp_home = false
     if pdp_type contains 'candle' or pdp_type contains 'mist' or pdp_type contains 'home' or pdp_type contains 'oil' or pdp_handle contains 'candle' or pdp_handle contains 'mist'
@@ -622,7 +614,7 @@
           "id": "description",
           "label": "Text",
           "default": "<p>Use tabs to highlight unique features, sizing information, or other sales information.</p>",
-          "info": "You can use product metafields to assign content to this tab that is unique to an individual product. Learn more about [metafields](https://help.shopify.com/en/manual/metafields/displaying-metafields-on-your-online-store)."
+          "info": "You can use product metafields to assign content to this tab that is unique to an individual product. Learn more about�[metafields](https://help.shopify.com/en/manual/metafields/displaying-metafields-on-your-online-store)."
         },
         {
           "type": "page",
