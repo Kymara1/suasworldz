@@ -8,18 +8,17 @@
     .suas-families-head{margin:0 0 14px}
     .suas-families-head h1{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.8rem,8vw,5.6rem);line-height:.78;text-transform:lowercase}
     .suas-families-grid{display:grid;gap:10px}
-    .suas-family{display:grid;grid-template-columns:minmax(108px,160px) minmax(0,1fr);align-items:stretch;border:2px solid var(--ink);border-radius:22px;background:#fff;box-shadow:5px 6px 0 var(--ink);overflow:hidden}
-    .suas-family-name{display:flex;align-items:center;padding:10px 12px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:.82;font-weight:700;text-transform:lowercase;color:inherit;text-decoration:none}
-    .suas-family-shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:8px}
+    .suas-family{display:grid;grid-template-columns:1fr;border:2px solid var(--ink);border-radius:22px;background:#fff;box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-family-name{display:block;padding:10px 14px 2px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:.9;font-weight:700;text-transform:lowercase;color:inherit;text-decoration:none}
+    .suas-family-shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px 10px 10px}
     .suas-family-shots.is-one,.suas-family-shots.is-two{grid-template-columns:repeat(4,minmax(0,1fr))}
-    .suas-family-shots.is-one a:only-child,.suas-family-shots.is-two a{min-width:0}
-    .suas-family-shots a{display:block;min-height:0;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#f4f1ea}
-    .suas-family-shots img{display:block;width:100%;height:108px;object-fit:cover}
+    .suas-family-shots a{display:grid;grid-template-rows:auto auto;min-width:0;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff;color:inherit;text-decoration:none}
+    .suas-family-shots img{display:block;width:100%;height:88px;object-fit:cover;background:#f4f1ea}
+    .suas-family-shots b{display:block;padding:7px 8px 8px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(.95rem,1.7vw,1.2rem);line-height:.9;font-weight:700;text-transform:lowercase}
     @media(min-width:1024px){.template--page--scent-profile .off-canvas--main-content{margin-left:220px!important;width:calc(100% - 220px)!important}}
-    @media(max-width:720px){
-      .suas-family{grid-template-columns:1fr}
-      .suas-family-name{padding:10px 12px 0}
-      .suas-family-shots img{height:88px}
+    @media(max-width:640px){
+      .suas-family-shots{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .suas-family-shots.is-one,.suas-family-shots.is-two{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
   </style>
 
@@ -32,45 +31,45 @@
       <article class="suas-family">
         <a class="suas-family-name" href="/collections/scent-fruit">fruit</a>
         <div class="suas-family-shots">
-          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-goodgirl-pear.png' | asset_url }}" alt="pear - Good Girl" width="800" height="800" loading="lazy"></a>
-          <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-pineapple.png' | asset_url }}" alt="pineapple - Nectar" width="800" height="800" loading="lazy"></a>
-          <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-passionfruit.png' | asset_url }}" alt="passionfruit - Nectar" width="800" height="800" loading="lazy"></a>
-          <a href="/products/tonic-butter-creme"><img src="{{ 'note-blackberry.png' | asset_url }}" alt="blackberry - Tonic" width="800" height="800" loading="lazy"></a>
+          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-goodgirl-pear.png' | asset_url }}" alt="pear" width="800" height="800" loading="lazy"><b>pear</b></a>
+          <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-pineapple.png' | asset_url }}" alt="pineapple" width="800" height="800" loading="lazy"><b>pineapple</b></a>
+          <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-passionfruit.png' | asset_url }}" alt="passionfruit" width="800" height="800" loading="lazy"><b>passionfruit</b></a>
+          <a href="/products/tonic-butter-creme"><img src="{{ 'note-blackberry.png' | asset_url }}" alt="blackberry" width="800" height="800" loading="lazy"><b>blackberry</b></a>
         </div>
       </article>
 
       <article class="suas-family">
         <a class="suas-family-name" href="/collections/scent-floral">floral</a>
         <div class="suas-family-shots">
-          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-jasmine.png' | asset_url }}" alt="jasmine - Good Girl" width="800" height="800" loading="lazy"></a>
-          <a href="/products/poppy"><img src="{{ 'note-poppy-cosmos.png' | asset_url }}" alt="cosmos - Poppy" width="800" height="800" loading="lazy"></a>
-          <a href="/products/haze-butter-creme"><img src="{{ 'note-petals.png' | asset_url }}" alt="petals - Haze" width="800" height="800" loading="lazy"></a>
-          <a href="/products/haze-butter-creme"><img src="{{ 'note-wildflower.png' | asset_url }}" alt="wildflower - Haze" width="800" height="800" loading="lazy"></a>
+          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-jasmine.png' | asset_url }}" alt="jasmine" width="800" height="800" loading="lazy"><b>jasmine</b></a>
+          <a href="/products/poppy"><img src="{{ 'note-poppy-cosmos.png' | asset_url }}" alt="cosmos" width="800" height="800" loading="lazy"><b>cosmos</b></a>
+          <a href="/products/haze-butter-creme"><img src="{{ 'note-petals.png' | asset_url }}" alt="petals" width="800" height="800" loading="lazy"><b>petals</b></a>
+          <a href="/products/haze-butter-creme"><img src="{{ 'note-wildflower.png' | asset_url }}" alt="wildflower" width="800" height="800" loading="lazy"><b>wildflower</b></a>
         </div>
       </article>
 
       <article class="suas-family">
         <a class="suas-family-name" href="/collections/scent-gourmand">gourmand</a>
         <div class="suas-family-shots is-one">
-          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-coconut.png' | asset_url }}" alt="coconut - Good Girl" width="800" height="800" loading="lazy"></a>
+          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-coconut.png' | asset_url }}" alt="coconut" width="800" height="800" loading="lazy"><b>coconut</b></a>
         </div>
       </article>
 
       <article class="suas-family">
         <a class="suas-family-name" href="/collections/scent-green">green</a>
         <div class="suas-family-shots is-two">
-          <a href="/products/tonic-butter-creme"><img src="{{ 'note-sage-mint.png' | asset_url }}" alt="crushed mint - Tonic" width="800" height="800" loading="lazy"></a>
-          <a href="/products/tonic-butter-creme"><img src="{{ 'note-tonic-mojito.png' | asset_url }}" alt="mojito - Tonic" width="800" height="800" loading="lazy"></a>
+          <a href="/products/tonic-butter-creme"><img src="{{ 'note-sage-mint.png' | asset_url }}" alt="mint" width="800" height="800" loading="lazy"><b>mint</b></a>
+          <a href="/products/tonic-butter-creme"><img src="{{ 'note-tonic-mojito.png' | asset_url }}" alt="mojito" width="800" height="800" loading="lazy"><b>mojito</b></a>
         </div>
       </article>
 
       <article class="suas-family">
         <a class="suas-family-name" href="/collections/scent-sparkle">sparkle</a>
         <div class="suas-family-shots">
-          <a href="/products/poppy"><img src="{{ 'note-poppy-gum.png' | asset_url }}" alt="bubblegum - Poppy" width="800" height="800" loading="lazy"></a>
-          <a href="/products/poppy"><img src="{{ 'note-poppy-bubbles.png' | asset_url }}" alt="blossom bubbles - Poppy" width="800" height="800" loading="lazy"></a>
-          <a href="/products/poppy"><img src="{{ 'note-poppy-bouquet.png' | asset_url }}" alt="sparkle bouquet - Poppy" width="800" height="800" loading="lazy"></a>
-          <a href="/products/haze-butter-creme"><img src="{{ 'note-sunshine.png' | asset_url }}" alt="soft sunshine - Haze" width="800" height="800" loading="lazy"></a>
+          <a href="/products/poppy"><img src="{{ 'note-poppy-gum.png' | asset_url }}" alt="bubblegum" width="800" height="800" loading="lazy"><b>bubblegum</b></a>
+          <a href="/products/poppy"><img src="{{ 'note-poppy-bubbles.png' | asset_url }}" alt="bubbles" width="800" height="800" loading="lazy"><b>bubbles</b></a>
+          <a href="/products/poppy"><img src="{{ 'note-poppy-bouquet.png' | asset_url }}" alt="bouquet" width="800" height="800" loading="lazy"><b>bouquet</b></a>
+          <a href="/products/haze-butter-creme"><img src="{{ 'note-sunshine.png' | asset_url }}" alt="sunshine" width="800" height="800" loading="lazy"><b>sunshine</b></a>
         </div>
       </article>
     </div>
