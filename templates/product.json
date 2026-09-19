@@ -15,8 +15,8 @@
     },
     "blocks_z9tNqE": {
       "type": "_blocks",
-      "name": "Back button",
       "disabled": true,
+      "name": "Back button",
       "settings": {}
     },
     "main": {
@@ -92,8 +92,6 @@
     },
     "product_reviews": {
       "type": "apps",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "background-color": "none",
         "light-text": false,

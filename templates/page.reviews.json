@@ -18,8 +18,6 @@
     "1789665763071f4c01": {
       "type": "apps",
       "disabled": true,
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "background-color": "none",
         "light-text": false,
