@@ -28,16 +28,6 @@
     .suas-rev-step:nth-child(3){background:var(--blue)}
     .suas-rev-step em{display:block;margin-bottom:8px;font-style:normal;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
     .suas-rev-step strong{display:block;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.35rem,3vw,1.9rem);line-height:.88;font-weight:400;text-transform:lowercase}
-    .suas-rev-body{padding:14px}
-    .suas-rev-launch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .suas-rev-product{display:grid;grid-template-rows:auto 1fr auto;gap:8px;min-width:0;padding:10px;border:2px solid var(--ink);border-radius:20px;background:#fff;box-shadow:3px 4px 0 var(--ink);text-decoration:none;color:var(--ink)}
-    .suas-rev-product:nth-child(3n+1){background:#fff6fb}
-    .suas-rev-product:nth-child(3n+2){background:#f4ffe8}
-    .suas-rev-product:nth-child(3n){background:#f3fbff}
-    .suas-rev-product img,.suas-rev-fallback{width:100%;aspect-ratio:1;object-fit:contain;border:1.5px solid var(--ink);border-radius:14px;background:#fff}
-    .suas-rev-fallback{display:grid;place-items:center;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:2rem}
-    .suas-rev-product b{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:.9;font-weight:400;text-transform:lowercase}
-    .suas-rev-product span{font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
     .suas-rev-feed{padding:14px;min-height:220px}
     .suas-rev-empty{padding:28px 16px;border:2px solid var(--ink);border-radius:22px;background:radial-gradient(circle at 16% 18%,rgba(255,216,232,.9),transparent 46%),#fff7fb;box-shadow:4px 5px 0 var(--ink);text-align:center}
     .suas-rev-empty[hidden]{display:none!important}
@@ -50,24 +40,14 @@
     .suas-rev-feed :is(.jdgm-write-rev-link,.jdgm-btn){min-height:42px!important;border:2px solid var(--ink)!important;border-radius:999px!important;background:var(--pink)!important;color:var(--ink)!important;box-shadow:0 4px 0 var(--ink)!important;font:900 10px/1 Futura,Arial,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase!important;text-decoration:none!important}
     .suas-rev-feed :is(.jdgm-powered,.jdgm-branding,a[href*='://judge.me'],a[href*='judgeme.com']){display:none!important}
     @media(max-width:820px){
-      .suas-rev-hero,.suas-rev-steps,.suas-rev-launch{grid-template-columns:1fr}
+      .suas-rev-hero,.suas-rev-steps{grid-template-columns:1fr}
       .suas-rev-actions,.suas-rev-btn{width:100%}
     }
     @media(max-width:560px){
       .suas-reviews-wrap{width:calc(100vw - 14px)}
       .suas-rev-win{border-radius:18px;box-shadow:4px 5px 0 var(--ink)}
-      .suas-rev-launch{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
   </style>
-  {% liquid
-    assign launch = collections['best-sellers']
-    if launch == blank or launch.products_count == 0
-      assign launch = collections['new-arrivals']
-    endif
-    if launch == blank or launch.products_count == 0
-      assign launch = collections['butter-creme']
-    endif
-  %}
   <div class="suas-reviews-wrap">
     <div class="suas-rev-win">
       <div class="suas-rev-bar">
@@ -79,14 +59,13 @@
       <div class="suas-rev-hero">
         <div>
           <h1>every smell report.</h1>
-          <p>This page is the feed. To leave a review, pick the product you used. The form lives on that product page.</p>
+          <p>This page is the feed. Leave a review on the product you used. The stars under the name take you there.</p>
           <div class="suas-rev-actions">
-            <button class="suas-rev-btn" type="button" data-suas-review-open-picker>review a product</button>
             <a class="suas-rev-btn" data-lime href="#suas-live-feed">all reviews</a>
           </div>
         </div>
         <div class="suas-rev-side">
-          <div class="suas-rev-stat"><b>pick a scent</b><span>then write how it wore</span></div>
+          <div class="suas-rev-stat"><b>real notes</b><span>how it smelled on skin</span></div>
           <div class="suas-rev-stat" style="background:var(--blue)"><b>keep it honest</b><span>pretty, weird, all of it</span></div>
         </div>
       </div>
@@ -100,38 +79,9 @@
         <span class="suas-rev-chip">how it works</span>
       </div>
       <div class="suas-rev-steps">
-        <article class="suas-rev-step"><em>01</em><strong>pick the product you actually used.</strong></article>
+        <article class="suas-rev-step"><em>01</em><strong>open the product you actually used.</strong></article>
         <article class="suas-rev-step"><em>02</em><strong>say how it smelled on you, not the bottle.</strong></article>
         <article class="suas-rev-step"><em>03</em><strong>it posts for the next person shopping.</strong></article>
-      </div>
-    </div>
-
-    <div class="suas-rev-win">
-      <div class="suas-rev-bar">
-        <span class="suas-rev-dot" style="--dot:#ff5f57"></span>
-        <span class="suas-rev-dot" style="--dot:#febc2e"></span>
-        <span class="suas-rev-dot" style="--dot:#28c840"></span>
-        <span class="suas-rev-chip">start here</span>
-      </div>
-      <div class="suas-rev-body">
-        <div class="suas-rev-launch">
-          {% if launch != blank and launch.products_count > 0 %}
-            {% for product in launch.products limit: 6 %}
-              <a class="suas-rev-product" href="{{ product.url }}?showWriteReviews=true#suas-simple-review">
-                {% if product.featured_image %}
-                  {{ product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: product.title }}
-                {% else %}
-                  <div class="suas-rev-fallback">s.</div>
-                {% endif %}
-                <b>{{ product.title | split: '✿' | first | strip }}</b>
-                {% render 'product-rating', product: product %}
-                <span>write this report →</span>
-              </a>
-            {% endfor %}
-          {% else %}
-            <button class="suas-rev-btn" type="button" data-suas-review-open-picker>search every product</button>
-          {% endif %}
-        </div>
       </div>
     </div>
 
@@ -146,7 +96,6 @@
         <div class="suas-rev-empty" data-suas-feed-empty>
           <h3>waiting on real notes.</h3>
           <p>When a customer review goes live, it shows up here.</p>
-          <button class="suas-rev-btn" type="button" data-suas-review-open-picker>be first</button>
         </div>
         {% assign has_legacy_all = false %}
         {% if shop.metafields.judgeme.all_reviews_header.size > 20 %}{% assign has_legacy_all = true %}{% endif %}
@@ -174,7 +123,6 @@
       </div>
     </div>
   </div>
-  {% render 'suas-review-product-picker' %}
   <script>
     (function () {
       var slot = document.querySelector('[data-suas-real-feed]');
