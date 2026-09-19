@@ -36,6 +36,30 @@
     line-height: .94 !important;
   }
 
+  html body .suas-bookings-page .suas-book-option-head {
+    position: relative !important;
+    align-items: start !important;
+  }
+
+  html body .suas-bookings-page #self-guided .suas-book-option-head {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+  }
+
+  html body .suas-bookings-page #guided-class .suas-book-option-head {
+    grid-template-columns: minmax(0, 1fr) auto auto !important;
+  }
+
+  html body .suas-bookings-page .suas-book-price-card {
+    justify-self: end !important;
+    align-self: start !important;
+    margin-left: auto !important;
+    position: relative !important;
+    top: 0 !important;
+    right: 0 !important;
+    z-index: 2 !important;
+    text-align: center !important;
+  }
+
   html body .suas-bookings-page .suas-book-tab {
     min-height: 50px !important;
     transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease;
@@ -135,15 +159,25 @@
     }
 
     html body .suas-bookings-page .suas-book-option-head {
-      display: flex !important;
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) auto !important;
       gap: 10px 12px !important;
-      justify-content: flex-start !important;
+      align-items: start !important;
     }
 
     html body .suas-bookings-page .suas-seat-meter,
     html body .suas-bookings-page .suas-book-price-card {
       width: auto !important;
       max-width: 100% !important;
+    }
+
+    html body .suas-bookings-page .suas-book-price-card {
+      justify-self: end !important;
+      margin-left: auto !important;
+    }
+
+    html body .suas-bookings-page #guided-class .suas-book-price-card {
+      grid-column: 2 !important;
     }
   }
 </style>
