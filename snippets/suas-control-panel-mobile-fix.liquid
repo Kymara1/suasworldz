@@ -41,29 +41,32 @@
   body .suas-bookings-page .suas-booking-date-error.is-visible{display:block!important}
 
   @media only screen and (max-width:1023px){
-    body .suas-world-home .suas-home-wrap{width:calc(100vw - 10px)!important}
-    body .suas-world-home .suas-hero{padding:8px 0 10px!important}
-    body .suas-world-home .suas-hero-grid{display:grid!important;grid-template-columns:minmax(0,1fr) clamp(128px,36vw,150px)!important;gap:7px!important;align-items:start!important}
-    body .suas-world-home .suas-now-card,body .suas-world-home .suas-launch-panel{border-radius:16px!important;box-shadow:3px 4px 0 #101010!important}
-    body .suas-world-home .suas-window-bar{min-height:24px!important;padding:4px 7px!important}
-    body .suas-world-home .suas-window-title{font-size:5.5px!important;letter-spacing:.06em!important}
-    body .suas-world-home .suas-dot{width:7px!important;height:7px!important}
-    body .suas-world-home .suas-product-rotator{height:230px!important;min-height:0!important;padding:10px!important}
-    body .suas-world-home .suas-product-slide{inset:10px!important;display:grid!important;grid-template-columns:1fr!important;grid-template-rows:auto auto!important;align-content:center!important;justify-items:center!important;gap:10px!important}
-    body .suas-world-home .suas-product-photo{width:min(150px,50vw)!important;border-radius:15px!important;box-shadow:4px 5px 0 #101010!important}
+    body .suas-world-home .suas-home-wrap{width:min(100% - 16px,760px)!important}
+    body .suas-world-home .suas-hero{padding:12px 0 14px!important}
+    body .suas-world-home .suas-hero-grid{display:grid!important;grid-template-columns:1fr!important;gap:12px!important;align-items:start!important}
+    body .suas-world-home .suas-now-card,body .suas-world-home .suas-launch-panel,body .suas-world-home .suas-feed-notes{border:2px solid #101010!important;border-radius:22px!important;box-shadow:4px 5px 0 #101010!important;overflow:hidden!important}
+    body .suas-world-home .suas-window-bar{min-height:40px!important;padding:8px 12px!important}
+    body .suas-world-home .suas-window-title{font-size:9px!important;letter-spacing:.14em!important}
+    body .suas-world-home .suas-window-live{font-size:8px!important}
+    body .suas-world-home .suas-dot{width:10px!important;height:10px!important}
+    body .suas-world-home .suas-product-rotator{height:auto!important;min-height:0!important;padding:14px!important}
+    body .suas-world-home .suas-product-slide{position:relative!important;inset:auto!important;display:none!important;grid-template-columns:1fr!important;grid-template-rows:auto!important;align-content:start!important;justify-items:center!important;gap:12px!important;opacity:1!important;transform:none!important;pointer-events:auto!important}
+    body .suas-world-home .suas-product-slide.is-active,body .suas-world-home .suas-product-slide.is-static,body .suas-world-home .suas-product-rotator[data-count='1'] .suas-product-slide{display:grid!important}
+    body .suas-world-home .suas-product-photo{width:min(220px,72%)!important;border-radius:20px!important;box-shadow:5px 6px 0 #101010!important}
     body .suas-world-home .suas-product-photo img{width:92%!important;height:92%!important}
-    body .suas-world-home .suas-product-copy{width:100%!important;min-height:0!important;padding:0 4px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;text-align:center!important}
-    body .suas-world-home .suas-product-title{font-size:clamp(.96rem,4.2vw,1.28rem)!important;line-height:.9!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
-    body .suas-world-home .suas-product-price{min-height:24px!important;margin:7px auto 0!important;padding:6px 9px!important;font-size:7px!important;letter-spacing:.08em!important}
-    body .suas-world-home .suas-launch-panel{padding:7px!important;gap:5px!important;min-height:0!important}
-    body .suas-world-home .suas-launch-panel>.suas-mono{font-size:7px!important;letter-spacing:.12em!important;margin:0!important}
-    body .suas-world-home .suas-launch-panel>.suas-actions{display:none!important}
-    body .suas-world-home .suas-launch-grid{display:grid!important;grid-template-columns:1fr!important;gap:5px!important}
+    body .suas-world-home .suas-product-copy{width:100%!important;min-height:0!important;padding:16px 18px!important;border:2px solid #101010!important;border-radius:20px!important;background:rgba(255,255,255,.95)!important;box-shadow:4px 5px 0 #101010!important;text-align:center!important;justify-items:center!important}
+    body .suas-world-home .suas-product-title{font-size:clamp(1.8rem,7vw,2.6rem)!important;line-height:.86!important;display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important}
+    body .suas-world-home .suas-product-price{min-height:32px!important;margin:12px auto 0!important;padding:8px 12px!important;font-size:11px!important;letter-spacing:.12em!important}
+    body .suas-world-home .suas-launch-panel{padding:0!important;gap:0!important;min-height:0!important}
+    body .suas-world-home .suas-launch-body{display:flex!important;flex-direction:column!important;gap:11px!important;padding:14px!important}
+    body .suas-world-home .suas-launch-panel>.suas-actions,body .suas-world-home .suas-launch-body>.suas-actions{display:flex!important}
+    body .suas-world-home .suas-launch-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
     body .suas-world-home .suas-feed-note-label span{display:none!important}
     body .suas-world-home .suas-feed-note-label{justify-content:flex-start!important}
-    body .suas-world-home .suas-launch{min-height:27px!important;padding:5px 7px!important;border-radius:10px!important;box-shadow:0 2px 0 #101010!important}
-    body .suas-world-home .suas-launch strong{font-size:.66rem!important;line-height:.88!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:block!important}
-    body .suas-world-home .suas-launch span{display:none!important}
+    body .suas-world-home .suas-launch{min-height:64px!important;padding:12px!important;border-radius:16px!important;box-shadow:0 3px 0 #101010!important}
+    body .suas-world-home .suas-launch strong{font-size:1.05rem!important;line-height:.9!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:block!important}
+    body .suas-world-home .suas-launch span{display:block!important}
+    body .suas-world-home .suas-feed-btn{min-height:42px!important;font-size:11px!important}
     body .product-page--root{padding-top:12px!important}
     body .product-page--panel-wrapper{width:min(100% - 14px,620px)!important;grid-template-columns:1fr!important;gap:12px!important}
     body .product-page--featured-media,body .product-page--featured-blocks{border-radius:18px!important;box-shadow:4px 5px 0 #101010!important;padding:14px!important}
@@ -89,13 +92,10 @@
     body .suas-frame .suas-panel-submenu a{min-height:38px!important;justify-content:center!important;text-align:center!important;white-space:normal!important;font-size:.9rem!important;line-height:1.05!important}
   }
   @media only screen and (max-width:430px){
-    body .suas-world-home .suas-hero-grid{grid-template-columns:minmax(0,1fr) 130px!important;gap:6px!important}
-    body .suas-world-home .suas-product-rotator{height:215px!important}
-    body .suas-world-home .suas-product-photo{width:128px!important}
-    body .suas-world-home .suas-product-title{font-size:.96rem!important}
-    body .suas-world-home .suas-launch{min-height:26px!important;padding:5px 7px!important}
-    body .suas-world-home .suas-launch strong{font-size:.61rem!important}
-    body .suas-world-home .suas-launch-panel>.suas-mono{font-size:6px!important}
+    body .suas-world-home .suas-product-photo{width:min(200px,78%)!important}
+    body .suas-world-home .suas-product-title{font-size:clamp(1.6rem,8vw,2.2rem)!important}
+    body .suas-world-home .suas-launch{min-height:58px!important;padding:10px!important}
+    body .suas-world-home .suas-launch strong{font-size:1rem!important}
   }
 </style>
 <script>
