@@ -283,22 +283,28 @@
     </div>
     <script>
       (function () {
-        var on = window.__suasHalloweenOn === true;
-        var root = document.querySelector('[data-suas-halloween-root]');
-        if (!on) {
-          document.documentElement.classList.remove('suas-halloween');
-          if (document.body) document.body.classList.remove('suas-halloween');
-          if (root) root.remove();
-          return;
+        function applySeason() {
+          var on = window.__suasHalloweenOn === true;
+          var root = document.querySelector('[data-suas-halloween-root]');
+          if (!on) {
+            document.documentElement.classList.remove('suas-halloween');
+            if (document.body) document.body.classList.remove('suas-halloween');
+            if (root) root.remove();
+            return;
+          }
+          document.documentElement.classList.add('suas-halloween');
+          if (document.body) document.body.classList.add('suas-halloween');
+          document.querySelectorAll('.suas-side-status span').forEach(function (node) {
+            if (node.dataset.suasFallReady === 'true') return;
+            node.dataset.suasFallReady = 'true';
+            node.textContent = 'open + fall hours';
+          });
         }
-        document.documentElement.classList.add('suas-halloween');
-        if (document.body) document.body.classList.add('suas-halloween');
-
-        document.querySelectorAll('.suas-side-status span').forEach(function (node) {
-          if (node.dataset.suasFallReady === 'true') return;
-          node.dataset.suasFallReady = 'true';
-          node.textContent = 'open + fall hours';
-        });
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', applySeason);
+        } else {
+          applySeason();
+        }
       })();
     </script>
   {%- endif -%}
