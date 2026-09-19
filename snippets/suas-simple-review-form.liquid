@@ -40,7 +40,13 @@
       html body.template--product .suas-product-review-shell{width:min(430px,calc(100vw - 14px))!important;margin:10px auto 16px!important}
       html body.template--product .suas-review-intro{flex-wrap:nowrap!important}
       html body.template--product .suas-review-action{width:auto!important;min-height:34px!important;flex:0 0 auto}
+      .suas-simple-review{margin:4px 8px 8px}
+      .suas-simple-review .jdgm-form-wrapper,.suas-simple-review form.jdgm-form{display:none!important;padding:6px!important}
+      .suas-simple-review.is-writing .jdgm-form-wrapper,.suas-simple-review.is-writing form.jdgm-form{display:grid!important}
+      .suas-simple-review .jdgm-rev{padding:6px 8px!important;margin:0 0 6px!important;font-size:13px!important}
+      .suas-simple-review .jdgm-rev__body,.suas-simple-review .jdgm-rev p{font-size:13px!important;line-height:1.35!important;margin:0!important}
       .suas-simple-review :is(.jdgm-btn,input[type='submit'].jdgm-btn){width:100%!important}
+      .suas-simple-review textarea{min-height:44px!important;max-height:52px!important;height:44px!important}
     }
   </style>
   <div data-suas-judgeme-mount>
@@ -109,7 +115,9 @@
       }
       scrub();
       var n = 0;
-      var t = setInterval(function () { scrub(); if (++n > 24) clearInterval(t); }, 400);
+      var t = setInterval(function () { scrub(); if (++n > 80) clearInterval(t); }, 350);
+      var mo = new MutationObserver(function () { scrub(); });
+      mo.observe(document.body, { childList: true, subtree: true, characterData: true });
       document.addEventListener('click', function (event) {
         var writer = event.target.closest('[data-suas-write-review]');
         if (!writer) return;
