@@ -122,20 +122,20 @@
   }
 
   .suas-world-home .suas-product-rotator {
-    padding: 10px !important;
+    padding: 16px !important;
     min-height: 0 !important;
     height: auto !important;
   }
 
   .suas-world-home .suas-product-slide {
-    grid-template-columns: minmax(0, 240px) minmax(0, 1fr) !important;
-    gap: 10px !important;
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr) !important;
+    gap: 14px !important;
   }
 
   .suas-world-home .suas-product-photo {
     width: 100% !important;
-    max-width: min(240px, 32vh) !important;
-    max-height: min(240px, 32vh) !important;
+    max-width: min(320px, 42vh) !important;
+    max-height: min(320px, 42vh) !important;
     height: auto !important;
     aspect-ratio: 1 !important;
     justify-self: start !important;
@@ -241,23 +241,23 @@
   .suas-world-home .suas-product-rotator {
     min-height: 0 !important;
     height: auto !important;
-    padding: 6px !important;
+    padding: 12px !important;
   }
 
   .suas-world-home .suas-product-slide {
     justify-items: stretch !important;
     align-items: stretch !important;
-    grid-template-columns: minmax(0, 118px) minmax(0, 1fr) !important;
-    gap: 6px !important;
+    grid-template-columns: minmax(0, 186px) minmax(0, 1fr) !important;
+    gap: 10px !important;
     text-align: left !important;
     animation: none !important;
   }
 
   .suas-world-home .suas-product-photo {
     width: 100% !important;
-    max-width: min(118px, 24vh) !important;
-    max-height: min(118px, 24vh) !important;
-    border-radius: 12px !important;
+    max-width: min(186px, 36vh) !important;
+    max-height: min(186px, 36vh) !important;
+    border-radius: 16px !important;
     aspect-ratio: 1 !important;
     height: auto !important;
     justify-self: start !important;
