@@ -124,8 +124,16 @@
       .suas-product-price,.suas-feed-atc,.suas-feed-btn{min-height:30px;padding:6px 8px;font-size:8px;letter-spacing:.05em;box-shadow:0 2px 0 var(--ink)}
       .suas-launch span{display:block;font-size:9px;font-weight:900}
       .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-      .suas-boost-card{padding:6px;border-radius:14px}
+      .suas-boost-card{padding:6px;border-radius:14px;gap:5px;overflow:hidden}
       .suas-boost-card b{font-size:.68rem}
+      .suas-product-copy .suas-product-stars,
+      .suas-boost-card .suas-product-stars{display:flex;flex-wrap:nowrap;align-items:center;gap:2px;max-width:100%;margin:0;overflow:hidden}
+      .suas-product-copy .suas-star-n,
+      .suas-boost-card .suas-star-n,
+      .suas-product-copy .jdgm-prev-badge__text,
+      .suas-boost-card .jdgm-prev-badge__text{display:none!important}
+      .suas-boost-card .suas-product-stars :is(.jdgm-star,.jdgm-star:before,.suas-star-row){font-size:10px!important;letter-spacing:0!important}
+      .suas-product-copy .suas-product-stars :is(.jdgm-star,.jdgm-star:before,.suas-star-row){font-size:12px!important}
     }
     @media(prefers-reduced-motion:reduce){.suas-product-title,.suas-product-photo img,.suas-window-live b{animation:none!important}}
   </style>

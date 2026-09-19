@@ -765,3 +765,31 @@ footer.footer--root {
 .suas-product-stars:has(.jdgm-star.jdgm--half) .suas-product-stars--fallback {
   display: none !important;
 }
+
+@media (max-width: 749px) {
+  .suas-world-home .suas-product-stars,
+  .suas-boost-card .suas-product-stars,
+  .suas-catalog-card .suas-product-stars {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 2px !important;
+    max-width: 100% !important;
+    margin: 0 0 2px !important;
+    overflow: hidden !important;
+  }
+  .suas-world-home .suas-star-n,
+  .suas-boost-card .suas-star-n,
+  .suas-catalog-card .suas-star-n,
+  .suas-world-home .jdgm-prev-badge__text,
+  .suas-boost-card .jdgm-prev-badge__text {
+    display: none !important;
+  }
+  .suas-boost-card .suas-product-stars :is(.jdgm-star, .jdgm-star:before, .suas-star-row) {
+    font-size: 10px !important;
+    letter-spacing: 0 !important;
+  }
+  .suas-product-copy .suas-product-stars :is(.jdgm-star, .jdgm-star:before, .suas-star-row) {
+    font-size: 12px !important;
+  }
+}
