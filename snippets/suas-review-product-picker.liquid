@@ -57,7 +57,7 @@
         const image = p.images && p.images[0] ? escapeHtml(p.images[0].src) : '';
         const title = escapeHtml(p.title);
         const handle = encodeURIComponent(p.handle || '');
-        const href = `/products/${handle}#suas-simple-review`;
+        const href = `/products/${handle}?showWriteReviews=true#suas-simple-review`;
         return `<a class="suas-review-picker__item" href="${href}">${image ? `<img class="suas-review-picker__thumb" src="${image}" alt="">` : `<span class="suas-review-picker__thumb"></span>`}<span><span class="suas-review-picker__name">${title}</span><span class="suas-review-picker__cta">open review form →</span></span></a>`;
       }).join('') : '<div class="suas-review-picker__empty">no products found</div>';
     };

@@ -113,7 +113,7 @@
         <div class="suas-rev-launch">
           {% if launch != blank and launch.products_count > 0 %}
             {% for product in launch.products limit: 6 %}
-              <a class="suas-rev-product" href="{{ product.url }}#suas-simple-review">
+              <a class="suas-rev-product" href="{{ product.url }}?showWriteReviews=true#suas-simple-review">
                 {% if product.featured_image %}
                   {{ product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: product.title }}
                 {% else %}
