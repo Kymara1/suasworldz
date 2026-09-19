@@ -81,9 +81,35 @@
     <link href="{{ 'theme--critical.css' | asset_url }}" rel="stylesheet" media="all">
     <link href="{{ 'theme--async.css' | asset_url }}" rel="stylesheet" media="print" onload="this.media='all';onLoadStylesheet()">
 
-    <style>
-      {% render 'custom-styles' %}
+    {% render 'custom-styles' %}
+    <style id="suas-product-inline-fixes">
       html body.template--product .suas-note-grid > .suas-note-card:nth-of-type(n+4) { display: none !important; }
+      html body.template--product .radios--input,
+      html body.template--product input.radios--input,
+      html body.template--product .radios--main input[type="radio"] {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        opacity: 0 !important;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        border: 0 !important;
+        box-shadow: none !important;
+        outline: 0 !important;
+        clip: rect(0 0 0 0) !important;
+        clip-path: inset(50%) !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+      }
+      html body.template--product .radios--main,
+      html body.template--product .radios--value-button,
+      html body.template--product .radios--value-button div {
+        outline: 0 !important;
+      }
+      html body.template--product .radios--value-button,
+      html body.template--product .radios--value-button div {
+        border-radius: 999px !important;
+      }
     </style>
 
     <script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
