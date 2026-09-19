@@ -1,211 +1,420 @@
-<section class="suas-bookings-page" aria-label="Book The Lab">
+<section class="suas-bookings-page" aria-label="Book The Lab" data-suas-book-root>
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
-    .suas-bookings-page{--ink:#101010;--paper:#fffaf5;--pink:#ffe8ef;--hot:#ff9fc2;--lime:#d9ff78;--blue:#c9e7ff;--sun:#fff2a8;--lav:#e8ddff;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 8%,rgba(255,159,194,.25),transparent 30%),radial-gradient(circle at 90% 14%,rgba(217,255,120,.30),transparent 30%),linear-gradient(180deg,#fff 0%,#fffaf5 100%);font-family:Futura,'Futura PT',Arial,sans-serif}.suas-bookings-page *{box-sizing:border-box}.suas-book-wrap{width:min(1120px,calc(100vw - 28px));margin:0 auto;padding:clamp(18px,3vw,38px) 0 48px}.suas-book-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.46fr);gap:14px;align-items:stretch;margin-bottom:16px}.suas-book-card,.suas-book-panel,.suas-book-option{border:2px solid var(--ink);border-radius:24px;box-shadow:0 6px 0 var(--ink)}.suas-book-card,.suas-book-panel{background:rgba(255,255,255,.88);padding:clamp(16px,2.4vw,24px)}.suas-book-kicker,.suas-book-label,.suas-book-button,.suas-book-badge,.suas-book-mini{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:900}.suas-book-title,.suas-book-option h2,.suas-book-panel h2,.suas-book-price,.suas-book-step strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-weight:400;letter-spacing:0;text-transform:uppercase}.suas-book-title{margin:8px 0 10px;font-size:clamp(2.45rem,5.2vw,4.9rem);line-height:.86}.suas-book-copy{max-width:700px;margin:0;font-size:1rem;line-height:1.5;font-weight:800;color:rgba(16,16,16,.66)}.suas-book-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}.suas-book-step{border:1.5px solid rgba(16,16,16,.16);border-radius:18px;background:#fff;padding:10px;min-height:74px}.suas-book-step span{display:inline-grid;place-items:center;width:28px;height:28px;border:2px solid var(--ink);border-radius:999px;background:var(--sun);font:900 10px/1 Futura,Arial,sans-serif}.suas-book-step strong{display:block;margin-top:9px;font-size:1.05rem;line-height:.9}.suas-book-panel{display:flex;flex-direction:column;gap:10px;background:#fff}.suas-book-panel h2{margin:0;font-size:1.55rem;line-height:.95}.suas-book-list{display:grid;gap:7px;margin:0;padding:0;list-style:none}.suas-book-list li{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;border:1px solid rgba(16,16,16,.14);border-radius:15px;padding:9px 10px;background:var(--chip,#fff);font-size:13px;line-height:1.35;font-weight:800}.suas-book-list li:before{content:'+';display:grid;place-items:center;width:17px;height:17px;border-radius:999px;background:#fff;border:1px solid rgba(16,16,16,.35);font-size:10px}.suas-book-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}.suas-book-option{position:relative;display:grid;gap:12px;background:var(--card);padding:clamp(14px,2vw,18px);overflow:hidden;scroll-margin-top:96px}.suas-book-option:before{content:'';position:absolute;inset:10px;border:1px dashed rgba(16,16,16,.16);border-radius:18px;pointer-events:none}.suas-book-option>*{position:relative}.suas-book-option-head{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start}.suas-book-option h2{margin:7px 0 0;font-size:clamp(1.55rem,2.5vw,2.45rem);line-height:.88}.suas-book-desc{margin:8px 0 0;font-size:14px;line-height:1.45;font-weight:800;color:rgba(16,16,16,.68)}.suas-book-price-card{min-width:118px;border:2px solid var(--ink);border-radius:18px;background:#fff;box-shadow:0 4px 0 var(--ink);padding:10px;text-align:center}.suas-book-price-card span{display:block;margin-bottom:5px;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:rgba(16,16,16,.55)}.suas-book-price{display:block;font-size:clamp(1.5rem,2.2vw,2.05rem);line-height:.9}.suas-book-badge{display:inline-flex;width:fit-content;max-width:100%;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:999px;padding:6px 10px 5px;background:rgba(255,255,255,.76);line-height:1.1;box-shadow:0 3px 0 rgba(16,16,16,.18)}.suas-book-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:2px}.suas-book-field{display:grid;gap:5px}.suas-book-field[data-wide],.suas-book-button,.suas-book-note,.suas-book-addons{grid-column:1/-1}.suas-book-label{color:rgba(16,16,16,.58)}.suas-book-input,.suas-book-select,.suas-bookings-page select.suas-book-select,.suas-bookings-page select.suas-time-select{position:static!important;width:100%!important;height:auto!important;min-height:48px!important;opacity:1!important;pointer-events:auto!important;appearance:auto!important;border:2px solid rgba(16,16,16,.18);border-radius:14px;padding:10px 12px;background:#fff;color:var(--ink);font:800 16px/1.2 Futura,'Futura PT',Arial,sans-serif;outline:none}.suas-book-input:focus,.suas-book-select:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,159,194,.22)}.suas-book-addons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.suas-book-addon{min-height:56px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:1.8px solid rgba(16,16,16,.22);border-radius:15px;padding:9px 10px;background:rgba(255,255,255,.78);cursor:pointer}.suas-book-addon input{width:18px;height:18px;accent-color:var(--hot)}.suas-book-addon strong{font-size:12px;line-height:1.2;text-transform:uppercase}.suas-book-addon span{font-size:12px;font-weight:900;white-space:nowrap}.suas-book-addon:has(input:checked){border-color:var(--ink);background:#fff2a8;box-shadow:0 3px 0 var(--ink)}.suas-book-addon:has(input:disabled){opacity:.48;cursor:not-allowed}.suas-book-button{min-height:52px;border:2px solid var(--ink);border-radius:999px;padding:12px 15px;color:var(--ink);background:linear-gradient(180deg,#ffd4e5 0%,#ff9fc2 100%);box-shadow:0 4px 0 var(--ink);cursor:pointer;text-align:center;font-size:13px}.suas-book-button:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}.suas-book-button[disabled]{cursor:not-allowed;opacity:.58;background:#fff}.suas-book-note{margin:0;border:1px solid rgba(16,16,16,.14);border-radius:13px;background:rgba(255,255,255,.7);padding:8px 10px;font-size:9.5px;line-height:1.35;font-weight:800;color:rgba(16,16,16,.62)}.suas-book-policy{margin-top:2px;padding:11px 12px;border:1.8px solid rgba(16,16,16,.25);border-radius:15px;background:rgba(255,255,255,.66);color:#101010}.suas-book-policy strong{display:block;margin-bottom:4px;font:900 10px/1.2 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}.suas-book-policy p{margin:0;font:700 11.5px/1.38 Futura,Arial,sans-serif;color:rgba(16,16,16,.68)}@media(max-width:980px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-hero{grid-template-columns:1fr}.suas-book-grid{grid-template-columns:1fr}.suas-book-option-head{grid-template-columns:1fr}.suas-book-price-card{text-align:left;width:fit-content}.suas-book-steps{grid-template-columns:1fr 1fr 1fr}}@media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 34px}.suas-book-card,.suas-book-panel,.suas-book-option{border-radius:18px;box-shadow:0 4px 0 var(--ink);padding:16px}.suas-book-title{font-size:clamp(2.35rem,13vw,3.5rem);margin-bottom:7px}.suas-book-copy{font-size:1rem;line-height:1.45}.suas-book-steps{grid-template-columns:1fr;gap:7px}.suas-book-step{min-height:0;display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center}.suas-book-step strong{margin-top:0;font-size:1.1rem}.suas-book-panel h2{font-size:1.35rem}.suas-book-list li{font-size:13px;padding:10px}.suas-book-option h2{font-size:clamp(1.6rem,9vw,2.1rem)}.suas-book-desc{font-size:14px}.suas-book-form{grid-template-columns:1fr;gap:10px}.suas-book-input,.suas-book-select{min-height:48px!important;border-radius:14px!important;font-size:16px!important;padding:10px 12px!important}.suas-book-addons{grid-template-columns:1fr}.suas-book-addon{min-height:52px;padding:10px 12px}.suas-book-button{min-height:52px;font-size:14px;letter-spacing:.08em}.suas-book-badge,.suas-book-label{font-size:11px}.suas-book-policy p{font-size:13px}}@media(max-width:390px){.suas-book-wrap{width:calc(100vw - 12px)}.suas-book-form{grid-template-columns:1fr}.suas-book-field{grid-column:1/-1}.suas-book-price-card{width:100%}}
+    .suas-bookings-page{--ink:#101010;--cream:#fbfaf7;--pink:#ffd8e8;--hot:#ff9bc4;--lime:#d9ff78;--blue:#cdeeff;--sun:#fff1a8;--lav:#e4d5ff;color:var(--ink);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 8% 10%,rgba(255,216,232,.5),transparent 28%),radial-gradient(circle at 92% 80%,rgba(217,255,120,.28),transparent 32%),var(--cream);background-size:22px 22px,22px 22px,auto,auto,auto;font-family:Futura,'Futura PT',Arial,sans-serif}
+    .suas-bookings-page *{box-sizing:border-box}
+    .suas-book-wrap{width:min(780px,calc(100vw - 24px));margin:0 auto;padding:clamp(16px,2.4vw,28px) 0 48px}
+    .suas-book-window{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.96);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-book-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;min-height:40px;padding:8px 12px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#e8edf3)}
+    .suas-book-dots{display:flex;gap:6px}
+    .suas-book-dot{width:10px;height:10px;border-radius:999px;background:var(--dot)}
+    .suas-book-bar-title,.suas-book-kicker,.suas-book-next,.suas-book-back,.suas-book-submit,.suas-book-chip,.suas-seat-label,.suas-book-step-num{font-family:Futura,'Futura PT',Arial,sans-serif;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .suas-book-bar-title{font-size:10px;text-align:center}
+    .suas-book-live{font-size:8px;letter-spacing:.16em;font-weight:900}
+    .suas-book-body{padding:16px 16px 18px}
+    .suas-book-title{margin:0 0 6px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2rem,6vw,3.4rem);line-height:.86;font-weight:400;text-transform:lowercase}
+    .suas-book-copy{margin:0 0 14px;font-size:13px;line-height:1.4;font-weight:700;color:rgba(16,16,16,.68)}
+    .suas-seat-meter{display:grid;gap:6px;margin:0 0 16px;padding:10px 12px;border:2px solid var(--ink);border-radius:18px;background:var(--lime);box-shadow:3px 4px 0 var(--ink)}
+    .suas-seat-meter.is-low{background:var(--sun)}
+    .suas-seat-meter.is-full{background:var(--pink)}
+    .suas-seat-row{display:flex;justify-content:space-between;align-items:end;gap:8px}
+    .suas-seat-count{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.5rem,4vw,2.1rem);line-height:.9}
+    .suas-seat-label{font-size:9px;opacity:.7}
+    .suas-seat-bar{height:10px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}
+    .suas-seat-bar i{display:block;height:100%;width:100%;background:var(--ink);transform-origin:left center}
+    .suas-book-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:14px}
+    .suas-book-step-num{min-height:34px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--ink);border-radius:999px;background:#fff;font-size:8px}
+    .suas-book-step-num.is-on{background:var(--pink);box-shadow:0 2px 0 var(--ink)}
+    .suas-book-pane[hidden]{display:none!important}
+    .suas-book-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .suas-book-choice{display:flex;flex-direction:column;gap:4px;min-height:92px;padding:12px;border:2px solid var(--ink);border-radius:18px;background:var(--fill,#fff);box-shadow:0 3px 0 var(--ink);text-align:left;cursor:pointer}
+    .suas-book-choice.is-on{box-shadow:0 1px 0 var(--ink);transform:translateY(2px)}
+    .suas-book-choice strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;line-height:.9;font-weight:400;text-transform:lowercase}
+    .suas-book-choice span{font-size:11px;font-weight:800}
+    .suas-book-choice small{font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;opacity:.6}
+    .suas-book-field{display:grid;gap:5px;margin-bottom:10px}
+    .suas-book-field label{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:rgba(16,16,16,.55)}
+    .suas-book-input,.suas-book-select{width:100%;min-height:46px;border:2px solid var(--ink);border-radius:14px;padding:10px 12px;background:#fff;color:var(--ink);font:800 16px/1.2 Futura,Arial,sans-serif}
+    .suas-book-times{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .suas-book-chip{min-height:42px;border:2px solid var(--ink);border-radius:999px;background:#fff;font-size:9px;cursor:pointer}
+    .suas-book-chip.is-on{background:var(--lime);box-shadow:0 2px 0 var(--ink)}
+    .suas-book-chip:disabled{opacity:.35;cursor:not-allowed}
+    .suas-book-addons{display:grid;gap:8px;margin:8px 0 12px}
+    .suas-book-addon{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;min-height:48px;padding:8px 10px;border:1.5px solid var(--ink);border-radius:14px;background:#fff;cursor:pointer;font-size:12px;font-weight:800}
+    .suas-book-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+    .suas-book-next,.suas-book-back,.suas-book-submit{min-height:46px;border:2px solid var(--ink);border-radius:999px;background:var(--pink);box-shadow:0 3px 0 var(--ink);cursor:pointer;font-size:11px}
+    .suas-book-back{background:#fff}
+    .suas-book-submit{grid-column:1/-1;background:var(--lime)}
+    .suas-book-submit:disabled,.suas-book-next:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+    .suas-book-note{margin:10px 0 0;font-size:11px;font-weight:700;color:rgba(16,16,16,.6)}
+    .suas-book-hours{display:grid;gap:6px;margin-top:12px;padding:10px;border:1.5px dashed rgba(16,16,16,.25);border-radius:16px;background:rgba(255,255,255,.7);font-size:12px;font-weight:700}
+    .suas-book-embed{margin-top:14px;border:2px solid var(--ink);border-radius:18px;overflow:hidden;min-height:420px;background:#fff}
+    .suas-book-embed iframe{width:100%;min-height:520px;border:0}
+    .suas-book-error{display:none;margin-top:8px;padding:8px 10px;border:1.5px solid var(--ink);border-radius:12px;background:var(--pink);font-size:12px;font-weight:800}
+    .suas-book-error.is-on{display:block}
+    @media(max-width:640px){.suas-book-wrap{width:calc(100vw - 12px)}.suas-book-grid,.suas-book-times,.suas-book-nav{grid-template-columns:1fr 1fr}.suas-book-title{font-size:clamp(1.8rem,10vw,2.6rem)}}
   </style>
-
+  {% liquid
+    assign parfum_product = section.settings.parfum_product
+    assign body_oil_product = section.settings.body_oil_product
+    assign combo_product = section.settings.combo_product
+    assign roll_on_product = section.settings.roll_on_product
+    assign roll_on_addon_product = section.settings.roll_on_addon_product
+    assign travel_addon_product = section.settings.travel_addon_product
+    assign deluxe_product = section.settings.deluxe_product
+    if deluxe_product == blank and section.settings.deluxe_product_handle != blank
+      assign deluxe_handle = section.settings.deluxe_product_handle | handleize
+      assign deluxe_product = all_products[deluxe_handle]
+    endif
+    assign parfum_main_variant = blank
+    assign travel_addon_variant = blank
+    if parfum_product != blank
+      for variant in parfum_product.variants
+        assign variant_name = variant.title | downcase
+        if variant_name contains '15ml' or variant_name contains '15 ml' or variant_name contains 'travel' or variant_name contains 'second perfume'
+          if travel_addon_variant == blank and variant.available
+            assign travel_addon_variant = variant
+          endif
+        elsif parfum_main_variant == blank and variant.available
+          assign parfum_main_variant = variant
+        endif
+      endfor
+      if parfum_main_variant == blank
+        assign parfum_main_variant = parfum_product.selected_or_first_available_variant
+      endif
+    endif
+    assign body_oil_main_variant = body_oil_product.selected_or_first_available_variant
+    assign combo_main_variant = combo_product.selected_or_first_available_variant
+    assign roll_on_main_variant = blank
+    assign roll_on_addon_variant = blank
+    if roll_on_product != blank
+      for variant in roll_on_product.variants
+        assign variant_name = variant.title | downcase
+        if variant_name contains 'add-on' or variant_name contains 'add on' or variant_name contains 'addon'
+          if roll_on_addon_variant == blank and variant.available
+            assign roll_on_addon_variant = variant
+          endif
+        elsif roll_on_main_variant == blank and variant.available
+          assign roll_on_main_variant = variant
+        endif
+      endfor
+      if roll_on_main_variant == blank
+        assign roll_on_main_variant = roll_on_product.selected_or_first_available_variant
+      endif
+    endif
+    if roll_on_addon_product != blank
+      assign roll_on_addon_variant = roll_on_addon_product.selected_or_first_available_variant
+    endif
+    if travel_addon_product != blank
+      assign travel_addon_variant = travel_addon_product.selected_or_first_available_variant
+    endif
+    assign seats_total = section.settings.seats_total | default: 12 | plus: 0
+    if seats_total < 1
+      assign seats_total = 12
+    endif
+    assign seats_blob = section.settings.seats_json
+    if shop.metafields.suas.lab_seats.value != blank
+      assign seats_blob = shop.metafields.suas.lab_seats.value
+    endif
+  %}
   <div class="suas-book-wrap">
-    <div class="suas-book-hero">
-      <div class="suas-book-card">
-        <div class="suas-book-kicker">the lab / bookings</div>
-        <h1 class="suas-book-title">book the lab.</h1>
-        <p class="suas-book-copy">Pick a session, choose your date and time, then reserve your seat. Walk-ins are welcome before 5:00 PM when a station is free. Guided classes need a booking.</p>
-        <div class="suas-book-steps" aria-label="Booking steps">
-          <div class="suas-book-step"><span>01</span><strong>choose experiment</strong></div>
-          <div class="suas-book-step"><span>02</span><strong>pick date + time</strong></div>
-          <div class="suas-book-step"><span>03</span><strong>reserve seats</strong></div>
-        </div>
+    <div class="suas-book-window">
+      <div class="suas-book-bar">
+        <div class="suas-book-dots"><span class="suas-book-dot" style="--dot:#ff5f57"></span><span class="suas-book-dot" style="--dot:#febc2e"></span><span class="suas-book-dot" style="--dot:#28c840"></span></div>
+        <span class="suas-book-bar-title">LAB.BOOK / experiments</span>
+        <span class="suas-book-live">12 MAX</span>
       </div>
-      <aside class="suas-book-panel">
-        <h2>class + walk-in times.</h2>
-        <ul class="suas-book-list">
-          <li style="--chip:#ffe8ef;">Guided Lab: Thursday and Friday, 6:00 PM - 7:30 PM.</li>
-          <li style="--chip:#c9e7ff;">Guided Lab: Saturday, 4:00 PM - 5:30 PM or 6:00 PM - 7:30 PM.</li>
-          <li style="--chip:#fff2a8;">Self-guided walk-ins are welcome before 5:00 PM when stations are open.</li>
-          <li style="--chip:#d9ff78;">Sunday is self-guided only, available before 5:00 PM.</li>
-          <li style="--chip:#f3f3f3;">Monday, Tuesday, and Wednesday: closed for Lab bookings.</li>
-        </ul>
-      </aside>
-    </div>
+      <div class="suas-book-body">
+        <h1 class="suas-book-title">book your experiment.</h1>
+        <p class="suas-book-copy">Three steps. Pick a mix, pick a day, reserve seats. The Lab has 12 seats a date. When they are gone, that date stops selling.</p>
 
-    <div class="suas-book-grid">
-      {% liquid
-        assign parfum_product = section.settings.parfum_product
-        assign body_oil_product = section.settings.body_oil_product
-        assign combo_product = section.settings.combo_product
-        assign roll_on_product = section.settings.roll_on_product
-        assign roll_on_addon_product = section.settings.roll_on_addon_product
-        assign travel_addon_product = section.settings.travel_addon_product
-        assign deluxe_product = section.settings.deluxe_product
-        if deluxe_product == blank and section.settings.deluxe_product_handle != blank
-          assign deluxe_handle = section.settings.deluxe_product_handle | handleize
-          assign deluxe_product = all_products[deluxe_handle]
-        endif
-
-        assign self_form_product = parfum_product
-        if self_form_product == blank
-          assign self_form_product = body_oil_product
-        endif
-        if self_form_product == blank
-          assign self_form_product = combo_product
-        endif
-        if self_form_product == blank
-          assign self_form_product = roll_on_product
-        endif
-
-        assign parfum_main_variant = blank
-        assign travel_addon_variant = blank
-        if parfum_product != blank
-          for variant in parfum_product.variants
-            assign variant_name = variant.title | downcase
-            if variant_name contains '15ml' or variant_name contains '15 ml' or variant_name contains 'travel' or variant_name contains 'second perfume'
-              if travel_addon_variant == blank and variant.available
-                assign travel_addon_variant = variant
-              endif
-            elsif parfum_main_variant == blank and variant.available
-              assign parfum_main_variant = variant
-            endif
-          endfor
-          if parfum_main_variant == blank
-            assign parfum_main_variant = parfum_product.selected_or_first_available_variant
-          endif
-        endif
-
-        assign body_oil_main_variant = body_oil_product.selected_or_first_available_variant
-        assign combo_main_variant = combo_product.selected_or_first_available_variant
-        assign roll_on_main_variant = blank
-        assign roll_on_addon_variant = blank
-        if roll_on_product != blank
-          for variant in roll_on_product.variants
-            assign variant_name = variant.title | downcase
-            if variant_name contains 'add-on' or variant_name contains 'add on' or variant_name contains 'addon'
-              if roll_on_addon_variant == blank and variant.available
-                assign roll_on_addon_variant = variant
-              endif
-            elsif roll_on_main_variant == blank and variant.available
-              assign roll_on_main_variant = variant
-            endif
-          endfor
-          if roll_on_main_variant == blank
-            assign roll_on_main_variant = roll_on_product.selected_or_first_available_variant
-          endif
-        endif
-
-        if roll_on_addon_product != blank
-          assign roll_on_addon_variant = roll_on_addon_product.selected_or_first_available_variant
-        endif
-        if travel_addon_product != blank
-          assign travel_addon_variant = travel_addon_product.selected_or_first_available_variant
-        endif
-      %}
-
-      <article class="suas-book-option" id="self-guided" style="--card:#ffe8ef;">
-        <div class="suas-book-option-head">
-          <div>
-            <span class="suas-book-badge">self-guided</span>
-            <h2>Self-Guided Lab Experiment</h2>
-            <p class="suas-book-desc" data-self-description>Choose one creation, then add an extra roll-on or travel perfume if you want a second product.</p>
+        <div class="suas-seat-meter" data-suas-seat-meter>
+          <div class="suas-seat-row">
+            <strong class="suas-seat-count" data-suas-seat-text>12 of 12 seats left</strong>
+            <span class="suas-seat-label" data-suas-seat-hint>pick a date</span>
           </div>
-          <div class="suas-book-price-card"><span>selected price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
+          <div class="suas-seat-bar" aria-hidden="true"><i data-suas-seat-fill></i></div>
         </div>
 
-        {% if self_form_product != blank %}
-          {% form 'product', self_form_product, class:'suas-book-form', data-booking-form:'self' %}
-            <div class="suas-book-field" data-wide>
-              <label class="suas-book-label" for="SelfExperience">choose your experiment</label>
-              <select class="suas-book-select" id="SelfExperience" name="id" required>
-                <option value="">choose experiment</option>
-                {% if parfum_main_variant != blank %}<option value="{{ parfum_main_variant.id }}" data-experience="Lab Session: Eau De Parfum (30mL)" data-price="{{ parfum_main_variant.price | money }}" data-description="Create a custom 30mL eau de parfum with up to four scent notes."{% unless parfum_main_variant.available %} disabled{% endunless %}>Lab Session: Eau De Parfum (30mL) • {{ parfum_main_variant.price | money }}{% unless parfum_main_variant.available %} • full{% endunless %}</option>{% endif %}
-                {% if body_oil_main_variant != blank %}<option value="{{ body_oil_main_variant.id }}" data-experience="Lab Session: Body Oil (30mL)" data-price="{{ body_oil_main_variant.price | money }}" data-description="Create a custom 30mL body oil with up to four scent notes."{% unless body_oil_main_variant.available %} disabled{% endunless %}>Lab Session: Body Oil (30mL) • {{ body_oil_main_variant.price | money }}{% unless body_oil_main_variant.available %} • full{% endunless %}</option>{% endif %}
-                {% if combo_main_variant != blank %}<option value="{{ combo_main_variant.id }}" data-experience="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}" data-description="Create both a custom 30mL eau de parfum and a custom 30mL body oil."{% unless combo_main_variant.available %} disabled{% endunless %}>Lab Session Combo • {{ combo_main_variant.price | money }}{% unless combo_main_variant.available %} • full{% endunless %}</option>{% endif %}
-                {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" data-description="Create a portable 10mL roll-on perfume oil with up to four scent notes."{% unless roll_on_main_variant.available %} disabled{% endunless %}>Lab Session: Roll-On Perfume (10mL) • {{ roll_on_main_variant.price | money }}{% unless roll_on_main_variant.available %} • full{% endunless %}</option>{% endif %}
-              </select>
+        <div class="suas-book-steps" aria-label="Booking steps">
+          <span class="suas-book-step-num is-on" data-suas-step-pill="1">1 mix</span>
+          <span class="suas-book-step-num" data-suas-step-pill="2">2 when</span>
+          <span class="suas-book-step-num" data-suas-step-pill="3">3 seats</span>
+        </div>
+
+        <form data-suas-book-form>
+          <div class="suas-book-pane" data-suas-pane="1">
+            <p class="suas-seat-label">what are you mixing?</p>
+            <div class="suas-book-grid" data-suas-choices>
+              {% if parfum_main_variant != blank %}
+                <button class="suas-book-choice" type="button" style="--fill:#ffd8e8" data-kind="self" data-id="{{ parfum_main_variant.id }}" data-name="eau de parfum" data-price="{{ parfum_main_variant.price | money }}" {% unless parfum_main_variant.available %}disabled{% endunless %}><small>self-guided</small><strong>eau de parfum</strong><span>30mL • {{ parfum_main_variant.price | money }}</span></button>
+              {% endif %}
+              {% if body_oil_main_variant != blank %}
+                <button class="suas-book-choice" type="button" style="--fill:#cdeeff" data-kind="self" data-id="{{ body_oil_main_variant.id }}" data-name="body oil" data-price="{{ body_oil_main_variant.price | money }}" {% unless body_oil_main_variant.available %}disabled{% endunless %}><small>self-guided</small><strong>body oil</strong><span>30mL • {{ body_oil_main_variant.price | money }}</span></button>
+              {% endif %}
+              {% if combo_main_variant != blank %}
+                <button class="suas-book-choice" type="button" style="--fill:#e4d5ff" data-kind="self" data-id="{{ combo_main_variant.id }}" data-name="combo session" data-price="{{ combo_main_variant.price | money }}" {% unless combo_main_variant.available %}disabled{% endunless %}><small>self-guided</small><strong>combo</strong><span>perfume + oil • {{ combo_main_variant.price | money }}</span></button>
+              {% endif %}
+              {% if roll_on_main_variant != blank %}
+                <button class="suas-book-choice" type="button" style="--fill:#fff1a8" data-kind="self" data-id="{{ roll_on_main_variant.id }}" data-name="roll-on perfume" data-price="{{ roll_on_main_variant.price | money }}" {% unless roll_on_main_variant.available %}disabled{% endunless %}><small>self-guided</small><strong>roll-on</strong><span>10mL • {{ roll_on_main_variant.price | money }}</span></button>
+              {% endif %}
+              {% if deluxe_product != blank %}
+                {% for variant in deluxe_product.variants %}
+                  <button class="suas-book-choice" type="button" style="--fill:#d9ff78" data-kind="guided" data-id="{{ variant.id }}" data-name="{{ variant.title | escape }}" data-price="{{ variant.price | money }}" {% unless variant.available %}disabled{% endunless %}><small>guided class</small><strong>{{ variant.title | downcase }}</strong><span>{{ variant.price | money }}</span></button>
+                {% endfor %}
+              {% endif %}
             </div>
-            <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
-            <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
-            <div class="suas-book-addons">
+          </div>
+
+          <div class="suas-book-pane" data-suas-pane="2" hidden>
+            <div class="suas-book-field"><label for="LabDate">date</label><input class="suas-book-input" id="LabDate" type="date" required></div>
+            <div class="suas-book-field"><span>time</span><div class="suas-book-times" data-suas-times></div></div>
+            {% if section.settings.calendar_embed != blank %}
+              <div class="suas-book-embed">{{ section.settings.calendar_embed }}</div>
+              <p class="suas-book-note">Pick the same date and time in the calendar so it lands on the Lab schedule.</p>
+            {% endif %}
+          </div>
+
+          <div class="suas-book-pane" data-suas-pane="3" hidden>
+            <div class="suas-book-field"><label for="LabGuests">how many seats?</label><input class="suas-book-input" id="LabGuests" type="number" min="1" max="{{ seats_total }}" value="1" required></div>
+            <div class="suas-book-field"><label for="LabName">name</label><input class="suas-book-input" id="LabName" type="text" required></div>
+            <div class="suas-book-field"><label for="LabPhone">phone</label><input class="suas-book-input" id="LabPhone" type="tel" required></div>
+            <div class="suas-book-addons" data-suas-addons hidden>
               {% if roll_on_addon_variant != blank %}
-              <label class="suas-book-addon">
-                <input type="checkbox" data-addon-variant="{{ roll_on_addon_variant.id }}" data-addon-name="10mL Roll-On Perfume"{% unless roll_on_addon_variant.available %} disabled{% endunless %}>
-                <strong>10mL roll-on add-on</strong><span>+ {{ roll_on_addon_variant.price | money }}</span>
-              </label>
+                <label class="suas-book-addon"><input type="checkbox" data-addon-id="{{ roll_on_addon_variant.id }}" data-addon-name="10mL Roll-On"{% unless roll_on_addon_variant.available %} disabled{% endunless %}>10mL roll-on add-on<span>+ {{ roll_on_addon_variant.price | money }}</span></label>
               {% endif %}
               {% if travel_addon_variant != blank %}
-              <label class="suas-book-addon">
-                <input type="checkbox" data-addon-variant="{{ travel_addon_variant.id }}" data-addon-name="15mL Travel / Second Perfume"{% unless travel_addon_variant.available %} disabled{% endunless %}>
-                <strong>15mL travel / second perfume</strong><span>+ {{ travel_addon_variant.price | money }}</span>
-              </label>
+                <label class="suas-book-addon"><input type="checkbox" data-addon-id="{{ travel_addon_variant.id }}" data-addon-name="15mL Travel Perfume"{% unless travel_addon_variant.available %} disabled{% endunless %}>15mL travel / second perfume<span>+ {{ travel_addon_variant.price | money }}</span></label>
               {% endif %}
             </div>
-            {% endif %}
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumTime">arrival time</label><select class="suas-book-select suas-time-select" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" value="1"></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
-            <div class="suas-book-field" data-wide><label class="suas-book-label" for="ParfumName">name</label><input class="suas-book-input" id="ParfumName" type="text" name="properties[Guest name]" required></div>
-            <button class="suas-book-button" type="submit">reserve this session</button>
-          {% endform %}
-        {% else %}
-          <button class="suas-book-button" disabled>connect booking products</button>
-        {% endif %}
-        <div class="suas-book-policy"><strong>Self-guided booking note</strong><p>Online booking reserves your seat for the selected time and is strongly encouraged because only 12 seats are available. Walk-ins are welcome before 5:00 PM on operating days, subject to station availability.</p></div>
-      </article>
-
-      <article class="suas-book-option" id="guided-class" style="--card:#d9ff78;">
-        <div class="suas-book-option-head">
-          <div>
-            <span class="suas-book-badge">guided class</span>
-            <h2>Guided Lab Session</h2>
-            <p class="suas-book-desc" data-guided-description>Hands-on guided class. Choose an experiment option to see everything included.</p>
+            <p class="suas-book-note">Checkout holds the seats. After you pay, it can sync to the Lab calendar if a booking app or Shopify Flow is connected.</p>
           </div>
-          <div class="suas-book-price-card"><span>selected price</span><strong class="suas-book-price" data-guided-price aria-live="polite">{% if deluxe_product != blank %}{{ deluxe_product.selected_or_first_available_variant.price | money }}{% else %}choose{% endif %}</strong></div>
+
+          <p class="suas-book-error" data-suas-error></p>
+          <div class="suas-book-nav">
+            <button class="suas-book-back" type="button" data-suas-back hidden>back</button>
+            <button class="suas-book-next" type="button" data-suas-next>next</button>
+            <button class="suas-book-submit" type="submit" data-suas-submit hidden>reserve seats</button>
+          </div>
+        </form>
+
+        <div class="suas-book-hours">
+          <div>Open for bookings Thursday–Sunday. Closed Monday–Wednesday.</div>
+          <div>Self-guided: before 5:00 PM. Guided classes: Thu/Fri 6:00 PM, Sat 4:00 PM or 6:00 PM.</div>
         </div>
-
-        {% if deluxe_product != blank %}
-          {% form 'product', deluxe_product, class:'suas-book-form', data-booking-form:'guided' %}
-            <input type="hidden" name="properties[Booking type]" value="Guided Lab Session">
-            {% if deluxe_product.has_only_default_variant %}
-              <input type="hidden" name="id" value="{{ deluxe_product.selected_or_first_available_variant.id }}">
-              <p class="suas-book-note">Guided classes are listed by day and time. Pick the seat that fits, then add your name.</p>
-            {% else %}
-              <div class="suas-book-field" data-wide>
-                <label class="suas-book-label" for="GuidedVariant">choose your class</label>
-                <select class="suas-book-select" id="GuidedVariant" name="id">
-                  {% for variant in deluxe_product.variants %}
-                    {% assign guided_variant_name = variant.title | downcase %}
-                    {% if guided_variant_name contains 'combo' or guided_variant_name contains 'all three' or guided_variant_name contains 'signature collection' or guided_variant_name contains 'deluxe' %}
-                      {% assign guided_variant_description = 'Create your signature collection: perfume, body oil, and butter creme in one guided experience.' %}
-                    {% elsif guided_variant_name contains 'body oil' %}
-                      {% assign guided_variant_description = 'Create a guided perfume plus a custom body oil.' %}
-                    {% elsif guided_variant_name contains 'butter' %}
-                      {% assign guided_variant_description = 'Create a guided perfume plus a custom butter creme.' %}
-                    {% else %}
-                      {% assign guided_variant_description = 'Create a custom perfume with hands-on guidance from start to finish.' %}
-                    {% endif %}
-                    <option value="{{ variant.id }}" data-price="{{ variant.price | money }}" data-description="{{ guided_variant_description | escape }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} • {{ variant.price | money }}{% unless variant.available %} • full{% endunless %}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            {% endif %}
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedDate">class date</label><input class="suas-book-input" id="GuidedDate" type="date" name="properties[Class date]" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedTime">class time</label><select class="suas-book-select suas-time-select" id="GuidedTime" name="properties[Class time]" required><option value="">choose time</option><option>Thursday 6:00 PM - 7:30 PM</option><option>Friday 6:00 PM - 7:30 PM</option><option>Saturday 4:00 PM - 5:30 PM</option><option>Saturday 6:00 PM - 7:30 PM</option></select></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="12" value="1"></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedPhone">phone</label><input class="suas-book-input" id="GuidedPhone" type="tel" name="properties[Phone number]" required></div>
-            <div class="suas-book-field" data-wide><label class="suas-book-label" for="GuidedName">name</label><input class="suas-book-input" id="GuidedName" type="text" name="properties[Guest name]" required></div>
-            {% if deluxe_product.available %}<button class="suas-book-button" type="submit">reserve this class</button>{% else %}<button class="suas-book-button" disabled>all guided classes full</button>{% endif %}
-          {% endform %}
-        {% else %}
-          <button class="suas-book-button" disabled>connect guided product</button>
-        {% endif %}
-        <div class="suas-book-policy"><strong>Guided class policy</strong><p>Each guided class is limited to 12 guests. Please reserve the correct number of seats for your party. Guided-session payments are non-refundable when canceled less than 24 hours before the scheduled class.</p></div>
-      </article>
+      </div>
     </div>
+    {% for block in section.blocks %}
+      {% if block.type == '@app' %}
+        <div class="suas-book-embed" style="margin-top:14px">{% render block %}</div>
+      {% endif %}
+    {% endfor %}
   </div>
-
-  <script>(()=>{const root=document.currentScript.closest('.suas-bookings-page');if(!root)return;const today=new Date();const stamp=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const selfTimes={0:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],4:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],5:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],6:['12:00 PM','1:00 PM','2:00 PM','3:00 PM']};const guidedTimes={4:['Thursday 6:00 PM - 7:30 PM'],5:['Friday 6:00 PM - 7:30 PM'],6:['Saturday 4:00 PM - 5:30 PM','Saturday 6:00 PM - 7:30 PM']};function dateDay(value){if(!value)return null;const bits=value.split('-').map(Number);return new Date(bits[0],bits[1]-1,bits[2]).getDay()}function reject(input,message){alert(message);input.value='';input.focus()}function setOptions(select,options){const current=select.value;select.innerHTML='<option value="">choose time</option>'+options.map(time=>`<option>${time}</option>`).join('');if(options.includes(current))select.value=current}root.querySelectorAll('input[type="date"]').forEach(input=>input.min=stamp);
-  const selfForm=root.querySelector('[data-booking-form="self"]');if(selfForm){const date=selfForm.querySelector('input[type="date"]');const time=selfForm.querySelector('select[name="properties[Preferred time]"]');const update=()=>{const day=dateDay(date.value);if(day===null)return;const options=selfTimes[day]||[];if(!options.length){setOptions(time,[]);reject(date,`${dayNames[day]} is closed for self-guided bookings. Please choose Thursday, Friday, Saturday, or Sunday.`);return}setOptions(time,options)};date.addEventListener('change',update);selfForm.addEventListener('submit',event=>{const day=dateDay(date.value);const options=selfTimes[day]||[];if(!options.length||!options.includes(time.value)){event.preventDefault();alert('That self-guided time is outside the Lab walk-in window. Please choose an available day and arrival time.')}})}
-  const selfExperience=root.querySelector('#SelfExperience');const selfExperienceProperty=root.querySelector('[data-self-experience-property]');const selfPrice=root.querySelector('[data-self-price]');const selfDescription=root.querySelector('[data-self-description]');if(selfExperience&&selfExperienceProperty){const defaultDescription='Choose one creation, then add an extra roll-on or travel perfume if you want a second product.';const syncExperience=()=>{const option=selfExperience.options[selfExperience.selectedIndex];selfExperienceProperty.value=option?.dataset.experience||'';if(selfPrice&&option?.dataset.price)selfPrice.textContent=option.dataset.price;if(selfDescription)selfDescription.textContent=option?.dataset.description||defaultDescription};selfExperience.addEventListener('change',syncExperience);syncExperience()}
-  if(selfForm){selfForm.addEventListener('submit',async event=>{if(event.defaultPrevented)return;const addons=[...selfForm.querySelectorAll('[data-addon-variant]:checked')].filter(box=>box.dataset.addonVariant);if(!addons.length)return;event.preventDefault();const button=selfForm.querySelector('[type="submit"]');button.disabled=true;button.textContent='reserving...';const data=new FormData(selfForm);const properties={};for(const [key,value] of data.entries()){const match=key.match(/^properties\[(.+)\]$/);if(match&&value)properties[match[1]]=value}const quantity=Math.max(1,Number(data.get('quantity'))||1);const items=[{id:Number(data.get('id')),quantity,properties}];addons.forEach(box=>items.push({id:Number(box.dataset.addonVariant),quantity,properties:{'Add-on for':properties['Selected experience']||'Self-Guided Lab Experiment','Booking date':properties['Preferred date']||'','Booking time':properties['Preferred time']||'','Guest name':properties['Guest name']||'','Add-on':box.dataset.addonName||'Add-on'}}));try{const response=await fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items})});if(!response.ok)throw new Error('Cart error');window.location.assign('/cart')}catch(error){button.disabled=false;button.textContent='reserve this session';alert('We could not add that booking and its add-ons. Please confirm the selected variants are available and try again.')}},{capture:false})}
-  const guidedForm=root.querySelector('[data-booking-form="guided"]');const guidedVariant=root.querySelector('#GuidedVariant');const guidedPrice=root.querySelector('[data-guided-price]');const guidedDescription=root.querySelector('[data-guided-description]');if(guidedVariant){const syncGuidedExperience=()=>{const option=guidedVariant.options[guidedVariant.selectedIndex];if(guidedPrice)guidedPrice.textContent=option?.dataset.price||'choose';if(guidedDescription)guidedDescription.textContent=option?.dataset.description||'Choose an experiment option to see everything included.'};guidedVariant.addEventListener('change',syncGuidedExperience);syncGuidedExperience()}if(guidedForm){const date=guidedForm.querySelector('input[type="date"]');const time=guidedForm.querySelector('select[name="properties[Class time]"]');const update=()=>{const day=dateDay(date.value);if(day===null)return;const options=guidedTimes[day]||[];if(!options.length){setOptions(time,[]);reject(date,`${dayNames[day]} is not available for guided Lab classes. Please choose Thursday, Friday, or Saturday.`);return}setOptions(time,options)};date.addEventListener('change',update);guidedForm.addEventListener('submit',event=>{const day=dateDay(date.value);const options=guidedTimes[day]||[];if(!options.length||!options.includes(time.value)){event.preventDefault();alert('That guided class time does not match the selected date. Please choose one of the available class times.')}})}})();</script>
+  <script type="application/json" data-suas-seat-board>{% if shop.metafields.suas.lab_seats.value %}{{ shop.metafields.suas.lab_seats.value | json }}{% else %}{{ section.settings.seats_json | default: '{}' }}{% endif %}</script>
+  <script>
+    (() => {
+      const root = document.querySelector('[data-suas-book-root]');
+      if (!root) return;
+      const TOTAL = {{ seats_total }};
+      const selfTimes = {0:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],4:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],5:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],6:['12:00 PM','1:00 PM','2:00 PM','3:00 PM']};
+      const guidedTimes = {4:['Thursday 6:00 PM - 7:30 PM'],5:['Friday 6:00 PM - 7:30 PM'],6:['Saturday 4:00 PM - 5:30 PM','Saturday 6:00 PM - 7:30 PM']};
+      const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const form = root.querySelector('[data-suas-book-form]');
+      const panes = [...root.querySelectorAll('[data-suas-pane]')];
+      const pills = [...root.querySelectorAll('[data-suas-step-pill]')];
+      const nextBtn = root.querySelector('[data-suas-next]');
+      const backBtn = root.querySelector('[data-suas-back]');
+      const submitBtn = root.querySelector('[data-suas-submit]');
+      const dateInput = root.querySelector('#LabDate');
+      const guestsInput = root.querySelector('#LabGuests');
+      const timesWrap = root.querySelector('[data-suas-times]');
+      const addons = root.querySelector('[data-suas-addons]');
+      const errorEl = root.querySelector('[data-suas-error]');
+      const meter = root.querySelector('[data-suas-seat-meter]');
+      const seatText = root.querySelector('[data-suas-seat-text]');
+      const seatHint = root.querySelector('[data-suas-seat-hint]');
+      const seatFill = root.querySelector('[data-suas-seat-fill]');
+      let step = 1;
+      let choice = null;
+      let timeValue = '';
+      let remaining = TOTAL;
+      let board = {};
+      try {
+        const raw = (root.querySelector('[data-suas-seat-board]') || {}).textContent || '{}';
+        board = JSON.parse(raw);
+        if (!board || typeof board !== 'object') board = {};
+      } catch (e) { board = {}; }
+      const today = new Date();
+      dateInput.min = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+      const showError = (msg) => { errorEl.textContent = msg || ''; errorEl.classList.toggle('is-on', Boolean(msg)); };
+      const dateDay = (value) => {
+        if (!value) return null;
+        const bits = value.split('-').map(Number);
+        return new Date(bits[0], bits[1]-1, bits[2]).getDay();
+      };
+      const seatKey = () => {
+        if (!choice || !dateInput.value) return '';
+        if (choice.kind === 'guided') return `guided|${dateInput.value}|${timeValue}`;
+        return `self|${dateInput.value}`;
+      };
+      const takenFromBoard = (key) => Number(board[key] || 0);
+      const paintMeter = () => {
+        const left = Math.max(0, remaining);
+        seatText.textContent = `${left} of ${TOTAL} seats left`;
+        seatFill.style.transform = `scaleX(${left / TOTAL})`;
+        meter.classList.toggle('is-low', left > 0 && left <= 3);
+        meter.classList.toggle('is-full', left <= 0);
+        guestsInput.max = String(Math.max(1, left || 1));
+        if (left <= 0) {
+          seatHint.textContent = 'sold out';
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'sold out for this date';
+        } else {
+          seatHint.textContent = dateInput.value ? 'live for this date' : 'pick a date';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'reserve seats';
+        }
+      };
+      const refreshSeats = async () => {
+        remaining = TOTAL;
+        const key = seatKey();
+        if (key) remaining -= takenFromBoard(key);
+        try {
+          const cart = await fetch('/cart.js', { credentials: 'same-origin' }).then((r) => r.json());
+          (cart.items || []).forEach((item) => {
+            const props = item.properties || {};
+            const date = props['Preferred date'] || props['Class date'] || '';
+            const time = props['Preferred time'] || props['Class time'] || '';
+            const kind = (props['Booking type'] || '').toLowerCase().includes('guided') ? 'guided' : 'self';
+            const itemKey = kind === 'guided' ? `guided|${date}|${time}` : `self|${date}`;
+            if (key && itemKey === key) remaining -= Number(item.quantity || 0);
+          });
+        } catch (e) {}
+        remaining = Math.max(0, remaining);
+        paintMeter();
+        if (Number(guestsInput.value || 1) > remaining && remaining > 0) guestsInput.value = String(remaining);
+        return remaining;
+      };
+      const renderTimes = () => {
+        timesWrap.innerHTML = '';
+        timeValue = '';
+        const day = dateDay(dateInput.value);
+        if (day === null || !choice) return;
+        const options = (choice.kind === 'guided' ? guidedTimes[day] : selfTimes[day]) || [];
+        if (!options.length) {
+          showError(`${dayNames[day]} is closed for that experiment. Thursday–Sunday only.`);
+          dateInput.value = '';
+          refreshSeats();
+          return;
+        }
+        showError('');
+        options.forEach((time) => {
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'suas-book-chip';
+          chip.textContent = time;
+          chip.addEventListener('click', () => {
+            timeValue = time;
+            timesWrap.querySelectorAll('.suas-book-chip').forEach((node) => node.classList.toggle('is-on', node === chip));
+            refreshSeats();
+          });
+          timesWrap.appendChild(chip);
+        });
+        refreshSeats();
+      };
+      const setStep = (next) => {
+        step = next;
+        panes.forEach((pane) => { pane.hidden = Number(pane.dataset.suasPane) !== step; });
+        pills.forEach((pill) => pill.classList.toggle('is-on', Number(pill.dataset.suasStepPill) === step));
+        backBtn.hidden = step === 1;
+        nextBtn.hidden = step === 3;
+        submitBtn.hidden = step !== 3;
+        addons.hidden = !(choice && choice.kind === 'self');
+      };
+      root.querySelectorAll('[data-suas-choices] .suas-book-choice').forEach((button) => {
+        button.addEventListener('click', () => {
+          choice = { kind: button.dataset.kind, id: Number(button.dataset.id), name: button.dataset.name, price: button.dataset.price };
+          root.querySelectorAll('[data-suas-choices] .suas-book-choice').forEach((node) => node.classList.toggle('is-on', node === button));
+          showError('');
+        });
+      });
+      dateInput.addEventListener('change', renderTimes);
+      nextBtn.addEventListener('click', () => {
+        if (step === 1 && !choice) { showError('Pick an experiment first.'); return; }
+        if (step === 2) {
+          if (!dateInput.value || !timeValue) { showError('Pick a date and a time.'); return; }
+          if (remaining <= 0) { showError('That date is booked up. 0 of 12 seats left.'); return; }
+        }
+        showError('');
+        setStep(Math.min(3, step + 1));
+        refreshSeats();
+      });
+      backBtn.addEventListener('click', () => { showError(''); setStep(Math.max(1, step - 1)); });
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        await refreshSeats();
+        const guests = Math.max(1, Number(guestsInput.value || 1));
+        if (!choice || !dateInput.value || !timeValue) { showError('Finish the date and time step.'); return; }
+        if (remaining <= 0 || guests > remaining) { showError(`Only ${remaining} seat${remaining === 1 ? '' : 's'} left for that date.`); return; }
+        const name = root.querySelector('#LabName').value.trim();
+        const phone = root.querySelector('#LabPhone').value.trim();
+        if (!name || !phone) { showError('Name and phone keep the reservation.'); return; }
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'holding seats...';
+        const properties = {
+          'Booking type': choice.kind === 'guided' ? 'Guided Lab Session' : 'Self-Guided Lab Experiment',
+          'Selected experience': choice.name,
+          'Guest name': name,
+          'Phone number': phone,
+          'Seats': String(guests),
+          'Seat cap': String(TOTAL)
+        };
+        if (choice.kind === 'guided') {
+          properties['Class date'] = dateInput.value;
+          properties['Class time'] = timeValue;
+        } else {
+          properties['Preferred date'] = dateInput.value;
+          properties['Preferred time'] = timeValue;
+        }
+        const items = [{ id: choice.id, quantity: guests, properties }];
+        root.querySelectorAll('[data-addon-id]:checked').forEach((box) => {
+          items.push({
+            id: Number(box.dataset.addonId),
+            quantity: guests,
+            properties: { 'Add-on for': choice.name, 'Booking date': dateInput.value, 'Booking time': timeValue, 'Guest name': name, 'Add-on': box.dataset.addonName || 'Add-on' }
+          });
+        });
+        try {
+          const response = await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ items }) });
+          if (!response.ok) throw new Error('cart');
+          window.location.assign('/cart');
+        } catch (err) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'reserve seats';
+          showError('Could not hold those seats. Try again.');
+        }
+      });
+      paintMeter();
+    })();
+  </script>
 </section>
-{% schema %}{"name":"SUAS Bookings Page","settings":[{"type":"product","id":"body_oil_product","label":"Self-Guided Body Oil product"},{"type":"product","id":"parfum_product","label":"Self-Guided Lab Experiment product"},{"type":"product","id":"combo_product","label":"Self-Guided Combo product"},{"type":"product","id":"roll_on_product","label":"Self-Guided Roll-On Perfume product"},{"type":"product","id":"roll_on_addon_product","label":"Roll-On add-on product"},{"type":"product","id":"travel_addon_product","label":"Travel / second perfume add-on product"},{"type":"product","id":"deluxe_product","label":"Guided Lab Session product"},{"type":"text","id":"deluxe_product_handle","label":"Guided fallback product handle","info":"Use this if the product picker will not load the guided product."}],"presets":[{"name":"SUAS Bookings Page"}]}{% endschema %}
+{% schema %}
+{
+  "name": "SUAS Bookings Page",
+  "settings": [
+    {"type":"range","id":"seats_total","label":"Seats per Lab date","min":1,"max":24,"step":1,"default":12},
+    {"type":"textarea","id":"seats_json","label":"Seats already taken (JSON)","info":"Optional. Format: {\"self|2026-09-20\":3,\"guided|2026-09-20|Friday 6:00 PM - 7:30 PM\":12}. Use shop metafield suas.lab_seats for live counts. Pair with a booking app or Shopify Flow so paid orders raise these numbers and hit Google Calendar.","default":"{}"},
+    {"type":"html","id":"calendar_embed","label":"Calendar / booking app embed","info":"Paste a Calendly, Google Appointment, or other booking-app embed if you want the schedule to write to a real calendar. Leave blank to use the SUAS date picker."},
+    {"type":"product","id":"body_oil_product","label":"Self-Guided Body Oil product"},
+    {"type":"product","id":"parfum_product","label":"Self-Guided Lab Experiment product"},
+    {"type":"product","id":"combo_product","label":"Self-Guided Combo product"},
+    {"type":"product","id":"roll_on_product","label":"Self-Guided Roll-On Perfume product"},
+    {"type":"product","id":"roll_on_addon_product","label":"Roll-On add-on product"},
+    {"type":"product","id":"travel_addon_product","label":"Travel / second perfume add-on product"},
+    {"type":"product","id":"deluxe_product","label":"Guided Lab Session product"},
+    {"type":"text","id":"deluxe_product_handle","label":"Guided fallback product handle"}
+  ],
+  "blocks": [{"type":"@app"}],
+  "presets": [{"name":"SUAS Bookings Page"}]
+}
+{% endschema %}

@@ -13,8 +13,8 @@
     .suas-lower-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:12px;align-items:stretch}
     .suas-feed-notes{min-height:0;display:flex;flex-direction:column;gap:0;border:2px solid var(--ink);border-radius:22px;background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(135deg,rgba(255,216,232,.52),rgba(255,255,255,.95) 58%,rgba(217,255,120,.36));background-size:18px 18px,18px 18px,auto;box-shadow:5px 6px 0 var(--ink);padding:0;overflow:hidden}
     .suas-feed-announcement{width:100%;min-height:0;flex:1;display:flex;align-items:center;border:1.5px solid var(--ink);border-radius:15px;background:rgba(255,255,255,.9);padding:10px 12px;color:var(--ink);font-size:1.05rem;line-height:1.15}
-    .suas-product-buy{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
-    .suas-feed-atc{min-height:34px;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:8px 12px;color:var(--ink)!important;background:var(--lime)!important;box-shadow:0 3px 0 var(--ink);font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+    .suas-product-buy{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;margin-top:12px}
+    .suas-feed-atc{min-height:34px;width:100%;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:8px 12px;color:var(--ink)!important;background:var(--lime)!important;box-shadow:0 3px 0 var(--ink);font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
     .suas-feed-atc:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
     .suas-feed-atc:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:0 3px 0 var(--ink)}
     .suas-now-card,.suas-launch-panel,.suas-boost{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
@@ -37,8 +37,8 @@
     .suas-product-title{display:block;color:var(--ink);text-decoration:none;font-size:clamp(1.7rem,2.8vw,2.5rem);line-height:.86;text-transform:lowercase}
     .suas-product-title:hover{color:var(--ink)}
     .suas-product-price{display:inline-flex;width:max-content;min-height:34px;align-items:center;margin-top:0;padding:8px 13px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 3px 0 var(--ink);font-weight:900}
-    .suas-product-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .suas-feed-btn{min-height:34px;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:8px 12px;color:var(--ink);background:var(--feed-btn,#fff);box-shadow:0 3px 0 var(--ink);text-decoration:none;font-weight:900;transition:transform 160ms ease,box-shadow 160ms ease}
+    .suas-product-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+    .suas-feed-btn{min-height:34px;width:100%;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:8px 10px;color:var(--ink);background:var(--feed-btn,#fff);box-shadow:0 3px 0 var(--ink);text-decoration:none;font-weight:900;transition:transform 160ms ease,box-shadow 160ms ease}
     .suas-feed-btn:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
     .suas-launch-panel{display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
     .suas-launch-body{display:flex;flex-direction:column;gap:11px;padding:14px;flex:1}
@@ -92,7 +92,8 @@
       .suas-product-slide{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:8px}
       .suas-product-copy{padding:8px 9px}
       .suas-product-title{font-size:clamp(.9rem,3.6vw,1.15rem)}
-      .suas-product-buy{margin-top:8px;gap:6px}
+      .suas-product-buy{margin-top:8px;gap:6px;grid-template-columns:auto minmax(0,1fr)}
+      .suas-product-actions{grid-template-columns:1fr 1fr;gap:6px}
       .suas-product-price{min-height:30px;padding:6px 9px;font-size:10px}
       .suas-feed-atc{min-height:30px;padding:6px 8px;font-size:7px;letter-spacing:.06em}
       .suas-feed-btn{min-height:28px;padding:6px 8px;font-size:8px}
