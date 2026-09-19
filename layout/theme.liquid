@@ -277,6 +277,70 @@
       })();
     </script>
 
+    <style id="suas-mobile-menu-uniform">
+      @media only screen and (max-width: 1023px) {
+        html body .suas-frame .suas-side-nav,
+        html body.template--product .suas-frame .suas-side-nav,
+        html body.template--product .suas-side-nav {
+          display: grid !important;
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+          grid-auto-rows: 44px !important;
+          align-items: start !important;
+          gap: 6px !important;
+          overflow: visible !important;
+          padding: 0 0 8px !important;
+          position: relative !important;
+        }
+        html body .suas-frame .suas-side-nav > .suas-side-link,
+        html body .suas-frame .suas-side-nav > .suas-side-dropdown,
+        html body.template--product .suas-frame .suas-side-nav > .suas-side-link,
+        html body.template--product .suas-frame .suas-side-nav > .suas-side-dropdown {
+          grid-column: span 1 !important;
+          width: 100% !important;
+          min-width: 0 !important;
+          max-width: none !important;
+          height: 44px !important;
+          margin: 0 !important;
+          align-self: start !important;
+          flex: none !important;
+        }
+        html body .suas-frame .suas-side-link,
+        html body .suas-frame .suas-side-dropdown > summary.suas-side-link,
+        html body.template--product .suas-frame .suas-side-link,
+        html body.template--product .suas-frame .suas-side-dropdown > summary.suas-side-link {
+          width: 100% !important;
+          min-width: 0 !important;
+          max-width: 100% !important;
+          height: 44px !important;
+          min-height: 44px !important;
+          max-height: 44px !important;
+          margin: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+        html body .suas-frame .suas-side-dropdown,
+        html body .suas-frame .suas-side-dropdown[open],
+        html body.template--product .suas-frame .suas-side-dropdown,
+        html body.template--product .suas-frame .suas-side-dropdown[open] {
+          position: static !important;
+          min-width: 0 !important;
+          width: 100% !important;
+          max-width: none !important;
+          height: 44px !important;
+          overflow: visible !important;
+        }
+        html body .suas-frame .suas-side-label,
+        html body.template--product .suas-frame .suas-side-label {
+          display: block !important;
+          font-size: .68rem !important;
+          line-height: .95 !important;
+          white-space: nowrap !important;
+          max-width: 100% !important;
+        }
+      }
+    </style>
     {{ '//cdn.shopify.com/s/files/1/0194/1736/6592/t/1/assets/booster-page-speed-optimizer.js?23' | script_tag }}
     {% render 'hextom_fsb_main', product: product, customer: customer %}
     <script src="//code.tidio.co/yi2efwcyp4seqmcpmlw5twampktjzvxl.js" async></script>

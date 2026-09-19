@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "os_pdp": {
+      "type": "suas-os-pdp",
+      "settings": {}
+    },
     "blocks_z9tNqE": {
       "type": "_blocks",
       "name": "Back button",
@@ -124,6 +128,7 @@
     }
   },
   "order": [
+    "os_pdp",
     "blocks_z9tNqE",
     "main",
     "product_reviews",
