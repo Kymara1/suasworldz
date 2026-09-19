@@ -33,6 +33,18 @@ html body.template--search .navigation--root {
   border: 0 !important;
   background: transparent !important;
 }
+html body.template--collection .navigation--container,
+html body.template--collection .navigation--filter,
+html body.template--collection .navigation--mobile,
+html body.template--search .navigation--container,
+html body.template--search .navigation--filter {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  max-width: none !important;
+}
 html body.template--collection .navigation--root button,
 html body.template--search .navigation--root button {
   min-height: 34px !important;
