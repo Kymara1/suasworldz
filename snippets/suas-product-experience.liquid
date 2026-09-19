@@ -48,12 +48,20 @@
   assign note_3_file = ''
   assign note_4_label = ''
   assign note_4_file = ''
+  assign note_5_label = ''
+  assign note_5_file = ''
   case product.handle
     when 'poppy'
       assign note_1_label = 'bubblegum'
-      assign note_1_file = 'note-bubblegum.png'
-      assign note_2_label = 'sweet florals'
-      assign note_2_file = 'note-sweet-florals.png'
+      assign note_1_file = 'note-poppy-gum-balls.png'
+      assign note_2_label = 'pink gum'
+      assign note_2_file = 'note-poppy-gum.png'
+      assign note_3_label = 'cosmos'
+      assign note_3_file = 'note-poppy-cosmos.png'
+      assign note_4_label = 'sparkle bouquet'
+      assign note_4_file = 'note-poppy-bouquet.png'
+      assign note_5_label = 'blossom bubbles'
+      assign note_5_file = 'note-poppy-bubbles.png'
     when 'tonic-butter-creme'
       assign note_1_label = 'blackberry'
       assign note_1_file = 'note-blackberry.png'
@@ -162,6 +170,12 @@
           <figure class="suas-scent-note">
             <span class="pic"><img src="{{ note_4_file | asset_url }}" alt="{{ note_4_label }}" width="800" height="800" loading="lazy"></span>
             <b>{{ note_4_label }}</b>
+          </figure>
+        {% endif %}
+        {% if note_5_file != blank %}
+          <figure class="suas-scent-note">
+            <span class="pic"><img src="{{ note_5_file | asset_url }}" alt="{{ note_5_label }}" width="800" height="800" loading="lazy"></span>
+            <b>{{ note_5_label }}</b>
           </figure>
         {% endif %}
       </div>
