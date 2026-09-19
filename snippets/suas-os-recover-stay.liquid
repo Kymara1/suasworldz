@@ -1,0 +1,34 @@
+<script>
+(() => {
+  document.querySelectorAll('form[action*="recover"], form#recover_customer_password').forEach((form) => {
+    if (form.dataset.suasRecoverReady === 'true') return;
+    form.dataset.suasRecoverReady = 'true';
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const button = form.querySelector('button[type="submit"]');
+      const done = () => {
+        const note = document.createElement('p');
+        note.className = 'suas-os-copy';
+        note.textContent = 'reset email sent. check your inbox.';
+        form.replaceWith(note);
+        const toast = document.querySelector('[data-suas-toast]');
+        if (toast) {
+          toast.textContent = 'reset email sent.';
+          toast.classList.add('is-live');
+          window.setTimeout(() => toast.classList.remove('is-live'), 2400);
+        }
+      };
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'sending';
+      }
+      fetch(form.getAttribute('action') || '/account/recover', {
+        method: 'POST',
+        body: new FormData(form),
+        credentials: 'same-origin',
+        redirect: 'manual'
+      }).then(done).catch(done);
+    });
+  });
+})();
+</script>

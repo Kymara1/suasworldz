@@ -15,6 +15,24 @@
     endif
   endif
   assign saved_points = saved_points | default: 0 | plus: 0
+  assign spend_points = 0
+  assign reward_goal = 1000
+  assign points_left = reward_goal
+  assign points_progress = 0
+  if customer
+    assign spend_points = customer.total_spent | plus: 0 | divided_by: 100
+    if spend_points > saved_points
+      assign saved_points = spend_points
+    endif
+    assign points_left = reward_goal | minus: saved_points
+    if points_left < 0
+      assign points_left = 0
+    endif
+    assign points_progress = saved_points | times: 100 | divided_by: reward_goal
+    if points_progress > 100
+      assign points_progress = 100
+    endif
+  endif
 -%}
 
 {% render 'suas-os-account-styles' %}
@@ -110,7 +128,7 @@
                 <button class="suas-os-ticket" type="button" data-suas-open="addresses"><span class="suas-os-icon" style="--tile:#cdeeff">pin</span><span><strong>addresses</strong><small>shipping + pickup</small></span><span class="suas-os-mini suas-mono">edit</span></button>
                 <a class="suas-os-ticket" href="{{ routes.account_logout_url }}"><span class="suas-os-icon" style="--tile:#ffd8e8">bye</span><span><strong>sign out</strong><small>lock this window</small></span><span class="suas-os-mini suas-mono">go</span></a>
               </div>
-              {% form 'recover_customer_password' %}
+              {% form 'recover_customer_password', data-suas-recover: true %}
                 <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
                 {% if form.posted_successfully? %}
                   <p class="suas-os-note">reset email sent to {{ customer.email }}.</p>
@@ -180,6 +198,21 @@
               </section>
             {% endfor %}
 
+            <section class="suas-os-view" data-suas-view="points">
+              <p class="suas-os-kicker">suas.os / points</p>
+              <h1 class="suas-os-title suas-font">your points.</h1>
+              <p class="suas-os-number suas-font">{{ saved_points }}</p>
+              <p class="suas-os-copy">1 point for every $1 you spend. at 1,000 points you get $10 off. show this screen at checkout or in the Lab.</p>
+              <div class="suas-os-progress" style="--progress: {{ points_progress }}%;" aria-label="{{ points_progress }} percent to reward"><span></span></div>
+              <div class="suas-os-row"><span>0</span><span>{{ points_left }} pts to $10</span><span>{{ reward_goal }}</span></div>
+              <div class="suas-os-list">
+                <div class="suas-os-ticket"><span class="suas-os-icon" style="--tile:#d9ff78">$</span><span><strong>{{ customer.total_spent | money }} spent</strong><small>lifetime on this login</small></span></div>
+                {% if saved_points >= reward_goal %}
+                  <div class="suas-os-ticket"><span class="suas-os-icon" style="--tile:#fff1a8">ok</span><span><strong>reward ready</strong><small>$10 off. tell us at checkout.</small></span></div>
+                {% endif %}
+              </div>
+            </section>
+
             <section class="suas-os-view" data-suas-view="journal">
               <p class="suas-os-kicker">suas.os / journal</p>
               <h1 class="suas-os-title suas-font">what did you make?</h1>
@@ -211,6 +244,7 @@
           <div class="suas-os-body">
             <div class="suas-os-launch">
               <button class="suas-os-tile is-on" type="button" style="--tile:#fff1a8" data-suas-open="security"><strong class="suas-font">security</strong><span>login + safety</span></button>
+              <button class="suas-os-tile" type="button" style="--tile:#fff1a8" data-suas-open="points"><strong class="suas-font">points</strong><span>{{ saved_points }} pts</span></button>
               <button class="suas-os-tile" type="button" style="--tile:#ffd8e8" data-suas-open="orders"><strong class="suas-font">orders</strong><span>history</span></button>
               <button class="suas-os-tile" type="button" style="--tile:#cdeeff" data-suas-open="addresses"><strong class="suas-font">addresses</strong><span>ship here</span></button>
               <button class="suas-os-tile" type="button" style="--tile:#d9ff78" data-suas-open="journal"><strong class="suas-font">journal</strong><span>what you mixed</span></button>
@@ -269,7 +303,7 @@
     $$('[data-suas-view]').forEach((view) => view.classList.toggle('is-on', view.dataset.suasView === name));
     const tab = name.indexOf('order-') === 0 ? 'orders' : name;
     $$('[data-suas-open]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasOpen === tab));
-    const titles = { security: 'SECURITY.SYS', orders: 'ORDERS.LOG', addresses: 'ADDRESS.BOOK', journal: 'SCENT.JOURNAL' };
+    const titles = { security: 'SECURITY.SYS', orders: 'ORDERS.LOG', addresses: 'ADDRESS.BOOK', journal: 'SCENT.JOURNAL', points: 'POINTS.WALLET' };
     const win = $('[data-suas-win-title]');
     if (win) win.textContent = name.indexOf('order-') === 0 ? 'ORDER.FILE' : (titles[name] || 'SECURITY.SYS');
     try { history.replaceState(null, '', '#' + name); } catch (e) {}
@@ -355,5 +389,6 @@
   else if (authHas('recover')) openAuth('recover');
 })();
 </script>
+{% render 'suas-os-recover-stay' %}
 
 {% schema %}{"name":"SUAS account portal","settings":[],"presets":[{"name":"SUAS account portal"}]}{% endschema %}
