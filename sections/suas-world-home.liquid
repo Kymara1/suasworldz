@@ -2,15 +2,15 @@
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
-    .suas-world-home{--ink:#101010;--cream:#fbfaf7;--pink:#ffd8e8;--hot:#ff9bc4;--blue:#cdeeff;--lime:#d9ff78;--lav:#e4d5ff;--sun:#fff1a8;color:var(--ink);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 8% 14%,rgba(255,216,232,.55),transparent 28%),radial-gradient(circle at 90% 76%,rgba(217,255,120,.28),transparent 30%),var(--cream);background-size:22px 22px,22px 22px,auto,auto,auto;font-family:Futura,'Futura PT',Arial,sans-serif;overflow:hidden}
+    .suas-world-home{--ink:#101010;--cream:#fbfaf7;--pink:#ffd8e8;--hot:#ff9bc4;--blue:#cdeeff;--lime:#d9ff78;--lav:#e4d5ff;--sun:#fff1a8;color:var(--ink);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 8% 14%,rgba(255,216,232,.55),transparent 28%),radial-gradient(circle at 90% 76%,rgba(217,255,120,.28),transparent 30%),var(--cream);background-size:22px 22px,22px 22px,auto,auto,auto;font-family:Futura,'Futura PT',Arial,sans-serif;overflow:visible;padding-top:10px}
     .suas-world-home *{box-sizing:border-box}
     .suas-world-home a{color:inherit}
     .suas-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1340px,calc(100vw - 24px));margin:0 auto}
-    .suas-billboard{display:grid;gap:0;padding:4px 2px 8px;text-align:center;justify-items:center;overflow:visible}
-    .suas-home-logo{display:inline-flex;align-items:center;justify-content:center;max-width:min(100%,120px);color:inherit;text-decoration:none}
-    .suas-home-logo-img{display:block;width:72px;height:72px;max-width:72px;max-height:72px;object-fit:contain;background:#000;border:2px solid var(--ink);border-radius:16px;box-shadow:3px 4px 0 var(--ink)}
+    .suas-billboard{display:grid;gap:0;padding:16px 2px 14px;text-align:center;justify-items:center;overflow:visible}
+    .suas-home-logo{display:inline-flex;align-items:center;justify-content:center;max-width:min(100%,148px);color:inherit;text-decoration:none}
+    .suas-home-logo-img{display:block;width:96px;height:96px;max-width:96px;max-height:96px;object-fit:contain;background:#000;border:2px solid var(--ink);border-radius:16px;box-shadow:3px 4px 0 var(--ink)}
     .suas-home-logo-img--season{display:none}
     .suas-home-logo .suas-side-orb,.suas-home-logo-orb{width:clamp(56px,9vw,92px)!important;height:clamp(56px,9vw,92px)!important;flex:0 0 auto;border-radius:999px;background:radial-gradient(circle at 32% 20%,#fff 0 10%,transparent 32%),conic-gradient(from 210deg,#ffd8e8,#c9e7ff,#d8e26a,#ffd8e8);box-shadow:inset 0 -6px 12px rgba(0,0,0,.16),inset 0 6px 12px rgba(255,255,255,.85),0 8px 16px -8px rgba(16,16,16,.35)}
     .suas-home-logo-type{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(3.6rem,10vw,6.4rem);font-weight:700;line-height:.8;text-transform:uppercase}
@@ -24,7 +24,7 @@
     .suas-aisle-chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
     .suas-aisle-chips a{min-height:34px;min-width:0;width:100%;display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;border:1.75px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 2px 0 var(--ink);text-decoration:none;text-align:center;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;line-height:1.1;white-space:normal}
     .suas-aisle-chips a:hover{transform:translateY(1px);box-shadow:0 1px 0 var(--ink)}
-    .suas-hero-stack{display:grid;gap:12px}
+    .suas-hero-stack{display:grid;gap:18px}
     .suas-mid-row{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,1fr);gap:12px;align-items:stretch}
     .suas-feed-notes{min-height:0;display:flex;flex-direction:column;gap:0;border:2px solid var(--ink);border-radius:22px;background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(135deg,rgba(255,216,232,.52),rgba(255,255,255,.95) 58%,rgba(217,255,120,.36));background-size:18px 18px,18px 18px,auto;box-shadow:5px 6px 0 var(--ink);padding:0;overflow:hidden}
     .suas-feed-announcement{width:100%;min-height:0;flex:1;display:flex;align-items:center;border:1.5px solid var(--ink);border-radius:15px;background:rgba(255,255,255,.9);padding:10px 12px;color:var(--ink);font-size:1.05rem;line-height:1.15}
@@ -45,12 +45,7 @@
     .suas-product-slide{position:relative;inset:auto;display:none;grid-template-columns:minmax(0,320px) minmax(0,1fr);align-items:stretch;gap:14px;color:var(--ink);opacity:1;pointer-events:auto;transform:none;animation:none!important;min-width:0}
     .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid;opacity:1;pointer-events:auto;transform:none;z-index:2}
     .suas-product-photo{width:100%;max-width:min(320px,42vh);max-height:min(320px,42vh);min-width:0;aspect-ratio:1;display:grid;place-items:center;justify-self:start;align-self:center;border:2px solid var(--ink);border-radius:20px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:3px 4px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
-    .suas-product-photo img,.suas-product-photo .suas-product-motion{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(16,16,16,.12))}
-    .suas-product-photo img{animation:suasBob 6.8s ease-in-out infinite}
-    .suas-product-photo .suas-product-motion{width:100%;height:100%;object-fit:cover;filter:none}
-    .suas-cam-roll{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
-    .suas-cam-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px;background:linear-gradient(135deg,#fff,#ffd8e8 55%,#fff1a8)}
-    .suas-cam-grid video{width:100%;aspect-ratio:9/16;object-fit:cover;border:2px solid var(--ink);border-radius:16px;background:#101010;display:block}
+    .suas-product-photo img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(16,16,16,.12));animation:suasBob 6.8s ease-in-out infinite}
     .suas-product-fallback{width:72%;aspect-ratio:1;display:grid;place-items:center;border-radius:999px;background:#fff;color:var(--ink);font-size:4rem}
     .suas-world-home .suas-product-kicker{display:none!important}
     .suas-product-copy{width:100%;min-height:0;min-width:0;height:100%;display:grid;align-content:center;gap:8px;border:2px solid var(--ink);border-radius:18px;background:rgba(255,255,255,.95);box-shadow:none;padding:10px 12px;overflow:hidden}
@@ -111,8 +106,8 @@
       .suas-aisle h3{font-size:clamp(1.35rem,7.5vw,1.85rem)}
       .suas-aisle-chips{gap:5px}
       .suas-aisle-chips a{min-height:26px;padding:4px 5px;font-size:7.5px;letter-spacing:.03em;box-shadow:0 2px 0 var(--ink)}
-      .suas-home-logo{max-width:64px}
-      .suas-home-logo-img{width:56px;height:56px;max-width:56px;max-height:56px;border-radius:12px;box-shadow:2px 3px 0 var(--ink)}
+      .suas-home-logo{max-width:96px}
+      .suas-home-logo-img{width:84px;height:84px;max-width:84px;max-height:84px;border-radius:999px;box-shadow:2px 3px 0 var(--ink)}
       .suas-mid-row{grid-template-columns:1fr;gap:8px}
       .suas-window-live{display:none}
       .suas-product-rotator{padding:12px}

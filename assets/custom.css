@@ -653,3 +653,6 @@ footer.footer--root {
   min-height: calc(100vh - 36px);
   background-color: transparent;
 }
+.template--index .layout--main-content {
+  padding-top: 12px;
+}

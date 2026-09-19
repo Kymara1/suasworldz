@@ -2,7 +2,7 @@
 html body.template--collection .layout--main-content,
 html body.template--search .layout--main-content {
   max-width: none !important;
-  padding: 0 0 56px !important;
+  padding: 18px 18px 64px !important;
   background: #f2f2f2 !important;
 }
 html body.template--collection .image-with-text--root,
@@ -28,7 +28,7 @@ html body.template--collection [data-grid],
 html body.template--search .product-grid {
   display: grid !important;
   grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-  gap: 0 !important;
+  gap: 12px !important;
 }
 html body.template--collection .collection--body--grid > *,
 html body.template--search .product-grid > * {
@@ -42,13 +42,14 @@ html body.template--search .suas-catalog-card.product--root {
   display: flex !important;
   flex-direction: column !important;
   height: 100%;
-  min-height: 420px;
+  min-height: 460px;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 18px 16px 16px !important;
   border: 0 !important;
   border-radius: 0 !important;
   background: #f4f4f4 !important;
-  box-shadow: 1px 0 0 #d4d4d4, 0 1px 0 #d4d4d4 !important;
+  box-shadow: none !important;
+  outline: 1px solid #d4d4d4;
   overflow: hidden !important;
 }
 html body.template--collection .suas-catalog-card > a,
@@ -65,7 +66,7 @@ html body.template--collection .suas-catalog-card .product--details-container,
 html body.template--search .suas-catalog-card .product--details-container {
   order: 2;
   flex: 0 0 auto;
-  padding: 10px 12px 14px !important;
+  padding: 12px 4px 0 !important;
 }
 html body.template--collection .suas-catalog-card .product--details,
 html body.template--search .suas-catalog-card .product--details {
@@ -85,9 +86,9 @@ html body.template--collection .suas-catalog-card .product--title,
 html body.template--search .suas-catalog-card .product--title {
   margin: 0 0 4px !important;
   font-family: Futura, 'Futura PT', Arial, sans-serif !important;
-  font-size: 13px !important;
+  font-size: 15px !important;
   font-weight: 700 !important;
-  line-height: 1.15 !important;
+  line-height: 1.2 !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
   display: -webkit-box;
@@ -103,7 +104,7 @@ html body.template--search .suas-catalog-card .product--price-container {
 }
 html body.template--collection .suas-catalog-card .product--price,
 html body.template--search .suas-catalog-card .product--price {
-  font-size: 13px !important;
+  font-size: 15px !important;
   font-weight: 700 !important;
 }
 html body.template--collection .suas-catalog-card .product--from,
@@ -118,13 +119,13 @@ html body.template--search .suas-catalog-card .product--image-wrapper {
   position: relative;
   order: 1;
   flex: 1 1 auto;
-  min-height: 280px;
+  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden !important;
   background: transparent !important;
-  padding: 12px 10px 4px !important;
+  padding: 8px 8px 0 !important;
 }
 html body.template--collection .suas-catalog-card .product--image,
 html body.template--search .suas-catalog-card .product--image {
@@ -138,9 +139,9 @@ html body.template--collection .suas-catalog-card .product--image img,
 html body.template--search .suas-catalog-card .product--image img,
 html body.template--collection .suas-catalog-card img.lazyloaded,
 html body.template--collection .suas-catalog-card .product--item img {
-  width: 118% !important;
-  max-width: none !important;
-  max-height: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: 340px !important;
   height: auto !important;
   object-fit: contain !important;
   object-position: center center !important;
@@ -190,29 +191,34 @@ html body.template--collection .suas-catalog-card .product--quick-add {
   html body.template--collection [data-grid],
   html body.template--search .product-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+  html body.template--collection .layout--main-content,
+  html body.template--search .layout--main-content {
+    padding: 10px 10px 48px !important;
   }
   html body.template--collection .suas-catalog-card.product--root,
   html body.template--search .suas-catalog-card.product--root {
-    min-height: 248px;
-    padding: 0 !important;
+    min-height: 280px;
+    padding: 10px 8px 10px !important;
   }
   html body.template--collection .suas-catalog-card .product--title,
   html body.template--collection .suas-catalog-card .product--price,
   html body.template--search .suas-catalog-card .product--title,
   html body.template--search .suas-catalog-card .product--price {
-    font-size: 10px !important;
+    font-size: 11px !important;
   }
   html body.template--collection .suas-catalog-card .product--details {
     gap: 4px;
   }
   html body.template--collection .suas-catalog-card .product--image-wrapper,
   html body.template--search .suas-catalog-card .product--image-wrapper {
-    min-height: 168px;
-    padding: 8px 6px 2px !important;
+    min-height: 188px;
+    padding: 4px 2px 0 !important;
   }
   html body.template--collection .suas-catalog-card .product--details-container,
   html body.template--search .suas-catalog-card .product--details-container {
-    padding: 6px 7px 10px !important;
+    padding: 8px 2px 0 !important;
   }
   html body.template--collection .suas-catalog-card .product--label {
     min-height: 16px;
