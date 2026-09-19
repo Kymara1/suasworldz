@@ -1,4 +1,6 @@
 {% assign suas_roll_on_booking_product = all_products['lab-session-roll-on-perfume'] %}
+{% if suas_roll_on_booking_product == blank %}{% assign suas_roll_on_booking_product = all_products['lab-session-add-on-10ml-roll-on-perfume-oil'] %}{% endif %}
+{% if suas_roll_on_booking_product == blank %}{% assign suas_roll_on_booking_product = all_products['lab-session-roll-on'] %}{% endif %}
 <script>
   window.suasRollOnBookingProduct = {% if suas_roll_on_booking_product != blank %}{{ suas_roll_on_booking_product | json }}{% else %}null{% endif %};
 </script>
@@ -183,7 +185,7 @@
       addRollOn(root, window.suasRollOnBookingProduct);
       if (/roll-on|roll on/i.test((root.querySelector('[data-self-types]') || {}).textContent || '')) return;
       if (!window.fetch) return;
-      window.fetch('/products/lab-session-roll-on-perfume.js', { credentials: 'same-origin' })
+      window.fetch('/products/lab-session-add-on-10ml-roll-on-perfume-oil.js', { credentials: 'same-origin' })
         .then(function (response) { return response.ok ? response.json() : null; })
         .then(function (product) { addRollOn(root, product); })
         .catch(function () {});
