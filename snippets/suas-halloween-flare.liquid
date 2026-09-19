@@ -80,7 +80,13 @@
         pointer-events: none;
       }
 
-      html.suas-halloween .suas-halloween-chip b {
+      html.suas-halloween .suas-halloween-chip .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+      }
         display: inline-block;
         width: 7px;
         height: 7px;
@@ -275,7 +281,8 @@
     <div class="suas-halloween-season" data-suas-halloween-root>
       <div class="suas-halloween-chip" role="status">
         <b aria-hidden="true"></b>
-        Fall drop / Halloween hours
+        Fall drop
+        <span class="visually-hidden"> Halloween hours through October 31</span>
       </div>
       <div class="suas-halloween-fog" aria-hidden="true"></div>
       <div class="suas-halloween-specks" aria-hidden="true"></div>
