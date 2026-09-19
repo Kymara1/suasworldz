@@ -8,7 +8,20 @@
     .suas-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1260px,calc(100vw - 32px));margin:0 auto}
-    .suas-hero{padding:clamp(14px,2vw,22px) 0 22px}
+    .suas-billboard{display:grid;gap:10px;padding:4px 2px 6px}
+    .suas-billboard-kicker{margin:0;color:rgba(16,16,16,.5)}
+    .suas-billboard h2{margin:0;font-size:clamp(3.2rem,8vw,6.4rem);line-height:.76;text-transform:lowercase}
+    .suas-billboard p{margin:0;max-width:38ch;font-size:15px;font-weight:700;line-height:1.35}
+    .suas-aisles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .suas-aisle{display:flex;flex-direction:column;gap:10px;min-height:0;padding:16px;border:2px solid var(--ink);border-radius:24px;box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-aisle--body{background:linear-gradient(135deg,#ffd8e8,#fff 62%)}
+    .suas-aisle--home{background:linear-gradient(135deg,#cdeeff,#fff1a8 70%)}
+    .suas-aisle small{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:900}
+    .suas-aisle h3{margin:0;font-size:clamp(2.2rem,4.5vw,3.6rem);line-height:.8;text-transform:lowercase}
+    .suas-aisle p{margin:0;font-size:13px;font-weight:700;line-height:1.3}
+    .suas-aisle-chips{display:flex;flex-wrap:wrap;gap:7px}
+    .suas-aisle-chips a{min-height:34px;display:inline-flex;align-items:center;padding:6px 11px;border:1.75px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 2px 0 var(--ink);text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .suas-aisle-chips a:hover{transform:translateY(1px);box-shadow:0 1px 0 var(--ink)}
     .suas-hero-stack{display:grid;gap:12px}
     .suas-lower-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:12px;align-items:stretch}
     .suas-feed-notes{min-height:0;display:flex;flex-direction:column;gap:0;border:2px solid var(--ink);border-radius:22px;background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(135deg,rgba(255,216,232,.52),rgba(255,255,255,.95) 58%,rgba(217,255,120,.36));background-size:18px 18px,18px 18px,auto;box-shadow:5px 6px 0 var(--ink);padding:0;overflow:hidden}
@@ -70,7 +83,8 @@
     .suas-product-slide:nth-child(6) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--hot))}
     @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
     @media(max-width:990px){
-      .suas-home-wrap{width:min(100% - 16px,920px)}
+      .suas-aisles{grid-template-columns:1fr 1fr;gap:8px}
+      .suas-aisle{padding:12px;border-radius:18px}
       .suas-window-title{font-size:9px}
       .suas-product-rotator{height:auto;padding:8px}
       .suas-product-slide{grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:8px}
@@ -84,7 +98,8 @@
       .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
     @media(max-width:560px){
-      .suas-home-wrap{width:calc(100vw - 12px)}
+      .suas-aisles{grid-template-columns:1fr}
+      .suas-billboard h2{font-size:clamp(2.8rem,16vw,4.2rem)}
       .suas-lower-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:8px}
       .suas-window-live{display:none}
       .suas-product-rotator{padding:6px}
@@ -116,6 +131,10 @@
     if butter_count > 6
       assign butter_count = 6
     endif
+    assign home_collection = collections['home-care']
+    if home_collection == blank or home_collection.products_count == 0
+      assign home_collection = collections['candles']
+    endif
     assign boost_collection = collections['best-sellers']
     if boost_collection == blank or boost_collection.products_count == 0
       assign boost_collection = collections['new-arrivals']
@@ -127,6 +146,40 @@
   <div class="suas-hero">
     <div class="suas-home-wrap">
       <div class="suas-hero-stack">
+        <header class="suas-billboard">
+          <p class="suas-billboard-kicker suas-mono">suas.os · gastonia</p>
+          <h2 class="suas-font">body + home.</h2>
+          <p>Scents you put on skin. Scents you put in the room. Handmade body care and home care, same world.</p>
+        </header>
+        <div class="suas-aisles">
+          <article class="suas-aisle suas-aisle--body">
+            <small class="suas-mono">aisle 01</small>
+            <h3 class="suas-font">body</h3>
+            <p>Jars, wash, oil, bars, perfume — the stuff that lives on you.</p>
+            <div class="suas-aisle-chips">
+              <a href="/collections/butter-creme">Butter Creme</a>
+              <a href="/collections/body-wash">Body Wash</a>
+              <a href="/collections/body-oil">Body Oil</a>
+              <a href="/collections/cleansing-bar">Cleansing Bar</a>
+              <a href="/collections/body-scrub">Body Scrub</a>
+              <a href="/collections/eau-de-parfum">Perfume</a>
+              <a href="/collections/body-jelly">Skin Jelly</a>
+            </div>
+          </article>
+          <article class="suas-aisle suas-aisle--home">
+            <small class="suas-mono">aisle 02</small>
+            <h3 class="suas-font">home</h3>
+            <p>Candles, mist, dust, cleaner — the stuff that lives in the house.</p>
+            <div class="suas-aisle-chips">
+              <a href="/collections/candles">Candles</a>
+              <a href="/collections/everything-mist">Everything Mist</a>
+              <a href="/collections/burnt-oils">Burnt Oils</a>
+              <a href="/collections/carpet-dust">Carpet Dust</a>
+              <a href="/collections/all-purpose-cleaner">All Purpose Cleaner</a>
+              <a href="/collections/home-care">Shop home</a>
+            </div>
+          </article>
+        </div>
         <div class="suas-now-card">
           <div class="suas-window-bar">
             <div class="suas-window-dots">
@@ -134,12 +187,12 @@
               <span class="suas-dot" style="--dot:#febc2e"></span>
               <span class="suas-dot" style="--dot:#28c840"></span>
             </div>
-            <span class="suas-window-title suas-mono">PRODUCT.FEED</span>
+            <span class="suas-window-title suas-mono">ON.SKIN / IN.ROOM</span>
             <span class="suas-window-live suas-mono"><b></b>LIVE</span>
           </div>
           <div class="suas-product-rotator" data-suas-product-rotator data-count="{{ butter_count }}">
             {% if butter_collection != blank and butter_collection.products_count > 0 %}
-              {% for product in butter_collection.products limit: 6 %}
+              {% for product in butter_collection.products limit: 3 %}
                 <div class="suas-product-slide{% if forloop.first %} is-active{% endif %}">
                   <a class="suas-product-photo" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
                     {% if product.featured_image %}
@@ -155,12 +208,36 @@
                       <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
                     </div>
                     <div class="suas-product-actions">
-                      <a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a>
-                      <a class="suas-feed-btn suas-mono" href="/pages/account" style="--feed-btn:#ffd8e8">account</a>
+                      <a class="suas-feed-btn suas-mono" href="/collections/butter-creme" style="--feed-btn:#ffd8e8">shop body</a>
+                      <a class="suas-feed-btn suas-mono" href="/collections/home-care" style="--feed-btn:#cdeeff">shop home</a>
                     </div>
                   </div>
                 </div>
               {% endfor %}
+              {% if home_collection != blank and home_collection.products_count > 0 %}
+                {% for product in home_collection.products limit: 3 %}
+                  <div class="suas-product-slide">
+                    <a class="suas-product-photo" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
+                      {% if product.featured_image %}
+                        {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title }}
+                      {% else %}
+                        <div class="suas-product-fallback suas-font">s.</div>
+                      {% endif %}
+                    </a>
+                    <div class="suas-product-copy">
+                      <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
+                      <div class="suas-product-buy">
+                        <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
+                        <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
+                      </div>
+                      <div class="suas-product-actions">
+                        <a class="suas-feed-btn suas-mono" href="/collections/butter-creme" style="--feed-btn:#ffd8e8">shop body</a>
+                        <a class="suas-feed-btn suas-mono" href="/collections/home-care" style="--feed-btn:#cdeeff">shop home</a>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
             {% else %}
               <div class="suas-product-slide is-static is-active">
                 <a class="suas-product-photo" href="/collections/butter-creme"><div class="suas-product-fallback suas-font">s.</div></a>
@@ -170,8 +247,8 @@
                     <div class="suas-product-price suas-mono">shop</div>
                   </div>
                   <div class="suas-product-actions">
-                    <a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a>
-                    <a class="suas-feed-btn suas-mono" href="/pages/account" style="--feed-btn:#ffd8e8">account</a>
+                    <a class="suas-feed-btn suas-mono" href="/collections/butter-creme" style="--feed-btn:#ffd8e8">shop body</a>
+                    <a class="suas-feed-btn suas-mono" href="/collections/home-care" style="--feed-btn:#cdeeff">shop home</a>
                   </div>
                 </div>
               </div>
@@ -187,17 +264,17 @@
                 <span class="suas-dot" style="--dot:#febc2e"></span>
                 <span class="suas-dot" style="--dot:#28c840"></span>
               </div>
-              <span class="suas-window-title suas-mono">QUICK.LAUNCH</span>
+              <span class="suas-window-title suas-mono">SHOP.BODY / SHOP.HOME</span>
               <span class="suas-window-live suas-mono"><b></b>APPS</span>
             </div>
             <div class="suas-launch-body">
               <div class="suas-launch-grid">
-                <a class="suas-launch" href="/collections/new-arrivals" style="--launch:#ffd8e8"><strong class="suas-font">new arrivals</strong><span class="suas-mono">shop</span></a>
-                <a class="suas-launch" href="/collections/best-sellers" style="--launch:#d9ff78"><strong class="suas-font">best sellers</strong><span class="suas-mono">shop</span></a>
-                <a class="suas-launch" href="/pages/scent-profile" style="--launch:#e4d5ff"><strong class="suas-font">scent profile</strong><span class="suas-mono">find your lane</span></a>
-                <a class="suas-launch" href="/collections/home-care" style="--launch:#cdeeff"><strong class="suas-font">home products</strong><span class="suas-mono">shop</span></a>
-                <a class="suas-launch" href="/collections/oddities" style="--launch:#fff1a8"><strong class="suas-font">oddities</strong><span class="suas-mono">shop</span></a>
-                <a class="suas-launch" href="/pages/the-lab" style="--launch:#ff9bc4"><strong class="suas-font">the lab</strong><span class="suas-mono">mix</span></a>
+                <a class="suas-launch" href="/collections/butter-creme" style="--launch:#ffd8e8"><strong class="suas-font">butter creme</strong><span class="suas-mono">body</span></a>
+                <a class="suas-launch" href="/collections/body-wash" style="--launch:#d9ff78"><strong class="suas-font">body wash</strong><span class="suas-mono">body</span></a>
+                <a class="suas-launch" href="/collections/body-oil" style="--launch:#e4d5ff"><strong class="suas-font">body oil</strong><span class="suas-mono">body</span></a>
+                <a class="suas-launch" href="/collections/candles" style="--launch:#cdeeff"><strong class="suas-font">candles</strong><span class="suas-mono">home</span></a>
+                <a class="suas-launch" href="/collections/everything-mist" style="--launch:#fff1a8"><strong class="suas-font">everything mist</strong><span class="suas-mono">home</span></a>
+                <a class="suas-launch" href="/collections/cleansing-bar" style="--launch:#ff9bc4"><strong class="suas-font">cleansing bar</strong><span class="suas-mono">body</span></a>
               </div>
               <div class="suas-actions"><a class="suas-btn suas-mono" data-dark href="/collections/all">shop all</a></div>
             </div>
@@ -213,7 +290,7 @@
               <span class="suas-window-live suas-mono"><b></b>NOW</span>
             </div>
             <div class="suas-feed-notes-body">
-              <div class="suas-feed-announcement suas-font">{{ section.settings.announcement_text | default: 'Plot twist: a new SUAS store and Fragrance Bar are coming soon. Your next signature scent is getting a new home.' }}</div>
+              <div class="suas-feed-announcement suas-font">{{ section.settings.announcement_text | default: 'SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it.' }}</div>
             </div>
           </div>
         </div>
@@ -231,7 +308,7 @@
           <div class="suas-boost-body">
             <div class="suas-boost-copy">
               <strong class="suas-font">grab it while it lasts.</strong>
-              <p>The jars people actually repurchase. Shop the movers, then leave a smell report below.</p>
+              <p>Body jars and home scent people actually repurchase. Shop the movers, then leave a smell report below.</p>
               <a class="suas-btn suas-mono" data-dark href="/collections/best-sellers">shop best sellers</a>
             </div>
             <div class="suas-boost-rail">
@@ -262,4 +339,4 @@
   </div>
   <script>(()=>{function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{const href=link.getAttribute('href')||'';if(href.charAt(0)!=='#')return;event.preventDefault();const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}})})}wireFeedLinks();function wireFeedCart(){document.querySelectorAll('.suas-world-home [data-suas-atc]').forEach(button=>{if(button.dataset.suasAtcReady==='true')return;button.dataset.suasAtcReady='true';button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(button.disabled)return;const id=Number(button.getAttribute('data-suas-atc'));if(!id)return;const original=button.textContent;button.disabled=true;button.textContent='adding';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},credentials:'same-origin',body:JSON.stringify({id,quantity:1})}).then(response=>{if(!response.ok)throw new Error('cart');return response.json()}).then(()=>fetch('/cart.js',{credentials:'same-origin'})).then(response=>response.json()).then(cart=>{document.querySelectorAll('[data-suas-cart-count]').forEach(node=>{node.textContent=cart.item_count});button.textContent='added';setTimeout(()=>{button.disabled=false;button.textContent=original},1200)}).catch(()=>{button.disabled=false;button.textContent='try again';setTimeout(()=>{button.textContent=original},1400)})})})}wireFeedCart();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=6){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500].forEach(t=>setTimeout(dedupeLaunch,t));document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;let active=0;setInterval(()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')},7600)})})();</script>
 </section>
-{% schema %}{"name":"SUAS World Home","settings":[{"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},{"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"Plot twist: a new SUAS store and Fragrance Bar are coming soon. Your next signature scent is getting a new home."}],"presets":[{"name":"SUAS World Home"}]}{% endschema %}
+{% schema %}{"name":"SUAS World Home","settings":[{"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},{"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."}],"presets":[{"name":"SUAS World Home"}]}{% endschema %}
