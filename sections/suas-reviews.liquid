@@ -43,7 +43,11 @@
     .suas-rev-empty[hidden]{display:none!important}
     .suas-rev-empty h3{margin:0 0 8px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,4.6vw,2.8rem);line-height:.88;font-weight:400;text-transform:lowercase}
     .suas-rev-empty p{margin:0 auto 14px;max-width:36ch;font-size:13px;font-weight:800;line-height:1.4}
-    .suas-rev-feed #aftership_reviews_all_reviews_widget_production{width:100%;min-height:0}
+    .suas-rev-feed .jdgm-widget{width:100%;min-height:0}
+    .suas-rev-feed .jdgm-all-reviews-widget,
+    .suas-rev-feed .jdgm-all-reviews-widget-v2025{border:0!important;background:transparent!important}
+    .suas-rev-feed .jdgm-rev{border:2px solid var(--ink)!important;border-radius:18px!important;background:#fff1a8!important;box-shadow:3px 4px 0 var(--ink)!important;padding:14px!important;color:var(--ink)!important;margin:0 0 12px!important}
+    .suas-rev-feed :is(.jdgm-write-rev-link,.jdgm-btn){min-height:42px!important;border:2px solid var(--ink)!important;border-radius:999px!important;background:var(--pink)!important;color:var(--ink)!important;box-shadow:0 4px 0 var(--ink)!important;font:900 10px/1 Futura,Arial,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase!important;text-decoration:none!important}
     .suas-rev-feed iframe{width:100%;min-height:420px;border:0;border-radius:18px}
     @media(max-width:820px){
       .suas-rev-hero,.suas-rev-steps,.suas-rev-launch{grid-template-columns:1fr}
@@ -140,9 +144,32 @@
       <div class="suas-rev-feed" data-suas-real-feed>
         <div class="suas-rev-empty" data-suas-feed-empty>
           <h3>waiting on real notes.</h3>
-          <p>When a customer review goes live, it shows up here. No borrowed quotes. No dummy carousel.</p>
+          <p>When a customer review goes live in Judge.me, it shows up here. No borrowed quotes. No dummy carousel.</p>
           <button class="suas-rev-btn" type="button" data-suas-review-open-picker>be first</button>
         </div>
+        {% assign has_legacy_all = false %}
+        {% if shop.metafields.judgeme.all_reviews_header.size > 20 %}{% assign has_legacy_all = true %}{% endif %}
+        <div id="judgeme_all_reviews_page" class="jdgm-widget jdgm-all-reviews-widget-v2025" data-widget="all-reviews-v2025" data-auto-install="false" data-entry-point="all_reviews_widget_v2025.js" data-entry-key="all-reviews-widget-v2025/main.js">
+          {% if has_legacy_all %}
+            <div class="jdgm-legacy-widget-content" style="display:none;">
+              <article class="jdgm-widget jdgm-all-reviews-widget">
+                {{ shop.metafields.judgeme.all_reviews_header }}
+                <div class="jdgm-all-reviews__body">
+                  {% assign prefix = 'all_reviews_' %}
+                  {% for count in (0..200) %}
+                    {% assign metafield_key = prefix | append: count %}
+                    {% assign current_metafield = shop.metafields.judgeme[metafield_key] %}
+                    {% unless current_metafield %}{% break %}{% endunless %}
+                    {{ current_metafield }}
+                  {% endfor %}
+                </div>
+              </article>
+            </div>
+          {% endif %}
+        </div>
+        {% if shop.metafields.judgeme.all_reviews_widget_v2025_data %}
+          <script>window.jdgm=window.jdgm||{};jdgm.data=jdgm.data||{};jdgm.data.allReviewsWidgetV2025={{ shop.metafields.judgeme.all_reviews_widget_v2025_data }};</script>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -153,18 +180,16 @@
       var empty = document.querySelector('[data-suas-feed-empty]');
       if (!slot) return;
       function grab() {
-        var node = document.getElementById('aftership_reviews_all_reviews_widget_production') || document.getElementById('aftership_reviews_carousel_v2_production');
+        var node = document.getElementById('judgeme_all_reviews_page') || document.querySelector('.jdgm-all-reviews-widget-v2025, .jdgm-all-reviews-widget');
         if (!node || slot.contains(node)) return node;
-        var section = node.closest('.shopify-section');
         slot.appendChild(node);
-        if (section) section.style.setProperty('display', 'none', 'important');
         return node;
       }
       function hasReviews(node) {
         if (!node) return false;
         var text = (node.innerText || '').replace(/\s+/g, ' ').toLowerCase();
         if (!text || /no reviews yet|be the first to write/.test(text)) return false;
-        return node.querySelectorAll('article, [class*="review-card"], [class*="ReviewItem"], [class*="reviewItem"], iframe').length > 0 || text.length > 90;
+        return node.querySelectorAll('.jdgm-rev, article, [class*="review-card"]').length > 0 || text.length > 90;
       }
       function sync() {
         var node = grab();

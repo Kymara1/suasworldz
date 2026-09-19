@@ -92,15 +92,8 @@
     },
     "product_reviews": {
       "type": "apps",
-      "blocks": {
-        "aftership_product_reviews_all_reviews_widget_product": {
-          "type": "shopify://apps/aftership-product-reviews/blocks/all_reviews_widget/beb80d6c-6526-44ce-8946-4a762954ca6d",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "aftership_product_reviews_all_reviews_widget_product"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "background-color": "none",
         "light-text": false,

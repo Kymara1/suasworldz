@@ -43,7 +43,9 @@
     html body.template--product .suas-review-empty p{margin:0 auto;max-width:36ch;font-size:13px;line-height:1.4;font-weight:800}
     html body.template--product .suas-review-app-stage{padding:0 18px 18px}
     html body.template--product .suas-review-app-stage iframe{width:100%;min-height:280px;border:0;border-radius:18px}
-    html body.template--product #aftership_reviews_carousel_v2_production{display:block!important;min-height:80px!important}
+    html body.template--product #aftership_reviews_carousel_v2_production,
+    html body.template--product #aftership_reviews_all_reviews_widget_production{display:none!important}
+    html body.template--product .jdgm-widget{display:block!important}
     @media(max-width:1023px){html body.template--product .suas-review-intro{grid-template-columns:1fr;padding:14px 14px 10px}html body.template--product .suas-review-action{width:100%}html body.template--product .suas-review-empty,html body.template--product .suas-review-app-stage{margin-left:14px;margin-right:14px}html body.template--product .suas-review-app-stage{padding:0 14px 14px;margin:0}}
   </style>
 {% endif %}
@@ -52,7 +54,7 @@
   <div class="apps--wrapper{% if is_product_review_shell %} suas-review-shell-window{% endif %}">
     {% if is_product_review_shell %}
       <div class="suas-smell-winbar" aria-hidden="true"><i></i><i></i><i></i><b>smell.log</b></div>
-      <div class="suas-review-intro"><div class="suas-review-copy"><h2>smell reports</h2><p>Leave a review here. It goes to Aftership, then shows on this product and the all-reviews page once it is published.</p></div><a class="suas-review-action" href="{{ product.url }}?showWriteReviews=true#suas-simple-review">write a review</a></div>
+      <div class="suas-review-intro"><div class="suas-review-copy"><h2>smell reports</h2><p>Leave a review here. It goes to Judge.me, then shows on this product and the all-reviews page once it is published.</p></div><a class="suas-review-action" href="{{ product.url }}?showWriteReviews=true#suas-simple-review">write a review</a></div>
       {% render 'suas-simple-review-form', product: product %}
       <div class="suas-review-empty" data-suas-review-empty>
         <div class="suas-review-empty-dots" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -70,10 +72,10 @@
           var stage = document.querySelector('[data-suas-review-stage]');
           if (!empty || !stage) return;
           function hasReviews() {
-            var node = document.getElementById('aftership_reviews_carousel_v2_production') || stage;
+            var node = document.querySelector('#judgeme_product_reviews, .jdgm-review-widget, .jdgm-rev-widg') || stage;
             var text = (node.innerText || '').replace(/\s+/g, ' ').toLowerCase();
-            if (!text || /no reviews yet|be the first to write/.test(text)) return false;
-            return node.querySelectorAll('article, [class*="review-card"], [class*="ReviewItem"], [class*="reviewItem"]').length > 0 || text.length > 80;
+            if (!text || /no reviews yet|be the first to write|be the first/.test(text)) return false;
+            return node.querySelectorAll('.jdgm-rev, article, [class*="review-card"]').length > 0 || text.length > 80;
           }
           function sync() {
             empty.hidden = hasReviews();
