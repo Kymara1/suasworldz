@@ -335,8 +335,9 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     gap: 14px !important;
   }
   html body.template--product .suas-pdp-life { order: 1; }
-  html body.template--product .suas-pdp-ticket { order: 2; position: relative; top: auto; }
-  html body.template--product .suas-pdp-diagram { order: 3; }
+  html body.template--product .suas-pdp-diagram { order: 2; }
+  html body.template--product .suas-pdp-ticket { order: 3; position: relative; top: auto; }
+  html body.template--product .suas-pdp-life .suas-station-thumbs { display: none !important; }
   html body.template--product .suas-pdp-life,
   html body.template--product .suas-pdp-diagram,
   html body.template--product .suas-pdp-ticket {
