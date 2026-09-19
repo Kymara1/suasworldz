@@ -1,5 +1,12 @@
 <!doctype html>
-<html class="no-js flexbox-gap" lang="{{ request.locale.iso_code }}" dir="ltr">
+{%- liquid
+  assign suas_today = 'now' | date: '%Y-%m-%d'
+  assign suas_halloween_liquid = false
+  if suas_today >= '2026-09-01' and suas_today <= '2026-11-01'
+    assign suas_halloween_liquid = true
+  endif
+-%}
+<html class="no-js flexbox-gap{% if suas_halloween_liquid %} suas-halloween{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
   <head>
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">
@@ -143,6 +150,7 @@
     {{ 'suas-product-final.css' | asset_url | stylesheet_tag }}
     {{ 'suas-product-live-fix.css' | asset_url | stylesheet_tag }}
     {% render 'suas-booking-polish' %}
+    {% render 'suas-halloween-flare', suas_halloween_slot: 'head' %}
   </head>
 
   <body
@@ -152,6 +160,7 @@
     data-theme-version="7.3.0"
     data-tabbing="false"
   >
+    {% render 'suas-halloween-flare', suas_halloween_slot: 'body' %}
     <a data-item="a11y-button" href="#main-content">
       {{ 'general.a11y.skip_main' | t }}
     </a>

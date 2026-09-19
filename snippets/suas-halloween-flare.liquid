@@ -1,0 +1,305 @@
+{% comment %}
+  SUAS OS seasonal overlay — fall / Halloween 2026 only.
+  Liquid serves markup from 2026-09-01 through 2026-11-01 (shop timezone buffer).
+  JS America/New_York is the hard gate: on after 2026-09-01, off after 2026-10-31.
+  After Nov 1 Liquid emits nothing. Not a rebrand; chrome accents only.
+{% endcomment %}
+{%- liquid
+  assign suas_today = 'now' | date: '%Y-%m-%d'
+  assign suas_halloween_liquid = false
+  if suas_today >= '2026-09-01' and suas_today <= '2026-11-01'
+    assign suas_halloween_liquid = true
+  endif
+-%}
+{%- if suas_halloween_liquid -%}
+  {%- if suas_halloween_slot == 'head' -%}
+    <script>
+      (function () {
+        var start = '2026-09-01';
+        var end = '2026-10-31';
+        function nyDay() {
+          try {
+            return new Intl.DateTimeFormat('en-CA', {
+              timeZone: 'America/New_York',
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit'
+            }).format(new Date());
+          } catch (e) {
+            var d = new Date();
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+          }
+        }
+        var day = nyDay();
+        window.__suasHalloweenOn = day >= start && day <= end;
+        if (window.__suasHalloweenOn) {
+          document.documentElement.classList.add('suas-halloween');
+        } else {
+          document.documentElement.classList.remove('suas-halloween');
+        }
+      })();
+    </script>
+    <style id="suas-halloween-flare">
+      html.suas-halloween {
+        --suas-fall-ember: #c45c26;
+        --suas-fall-gold: #c9a227;
+        --suas-fall-pumpkin: #e07a3d;
+        --suas-fall-wine: #2a1418;
+        --suas-fall-mist: rgba(42, 20, 24, 0.06);
+      }
+
+      html.suas-halloween .suas-frame-marquee {
+        background: linear-gradient(90deg, #1c1014 0%, #2a1812 48%, #1c1014 100%);
+        color: #fff8f0;
+        box-shadow: inset 0 -2px 0 rgba(224, 122, 61, 0.55);
+      }
+
+      html.suas-halloween .suas-frame-marquee-track {
+        padding-left: 168px;
+      }
+
+      html.suas-halloween .suas-halloween-chip {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 81;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 12px 0 14px;
+        background: linear-gradient(180deg, #e07a3d, #c45c26);
+        color: #1c1014;
+        border-right: 2px solid #101010;
+        font-family: Futura, 'Futura PT', Arial, sans-serif;
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
+      html.suas-halloween .suas-halloween-chip b {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #fff1a8;
+        box-shadow: 0 0 0 3px rgba(255, 241, 168, 0.28);
+      }
+
+      html.suas-halloween .suas-side-rail {
+        background:
+          radial-gradient(circle at 16% 12%, rgba(224, 122, 61, 0.16), transparent 26%),
+          radial-gradient(circle at 84% 88%, rgba(201, 162, 39, 0.12), transparent 30%),
+          linear-gradient(180deg, #fff 0%, #f7f2ea 62%, #f1e6d8 100%);
+      }
+
+      html.suas-halloween .suas-side-kicker {
+        color: #8a4a1c;
+      }
+
+      html.suas-halloween .suas-side-orb {
+        background:
+          radial-gradient(circle at 32% 20%, #fff 0 10%, transparent 32%),
+          conic-gradient(from 210deg, #ffd8e8, #f3c27a, #e07a3d, #c9e7ff, #ffd8e8);
+      }
+
+      html.suas-halloween .suas-side-status-dot {
+        background: #e07a3d;
+        box-shadow: 0 0 14px rgba(224, 122, 61, 0.85);
+      }
+
+      html.suas-halloween .suas-world-home {
+        background:
+          linear-gradient(rgba(16, 16, 16, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(16, 16, 16, 0.035) 1px, transparent 1px),
+          radial-gradient(circle at 8% 14%, rgba(255, 216, 232, 0.48), transparent 28%),
+          radial-gradient(circle at 92% 8%, rgba(224, 122, 61, 0.16), transparent 26%),
+          radial-gradient(circle at 90% 76%, rgba(217, 255, 120, 0.22), transparent 30%),
+          #fbfaf7;
+        background-size: 22px 22px, 22px 22px, auto, auto, auto, auto;
+      }
+
+      html.suas-halloween .suas-window-bar {
+        background: linear-gradient(180deg, #fffaf4, #f3e4d4);
+      }
+
+      html.suas-halloween .suas-window-title:after {
+        content: ' / fall.drop';
+        color: #c45c26;
+        letter-spacing: 0.14em;
+      }
+
+      html.suas-halloween .suas-world-home .suas-product-photo {
+        background: linear-gradient(135deg, #fff, #f7d2b0);
+      }
+
+      html.suas-halloween .suas-launch:nth-of-type(5) {
+        background: #f3c27a;
+      }
+
+      html.suas-halloween .product-item--root,
+      html.suas-halloween .product-item,
+      html.suas-halloween [data-product-item] {
+        position: relative;
+      }
+
+      html.suas-halloween .collection--header--root {
+        box-shadow: inset 0 -3px 0 rgba(196, 92, 38, 0.45);
+      }
+
+      html.suas-halloween .collection--body--root .product-item--root,
+      html.suas-halloween .collection--body .product-item--root,
+      html.suas-halloween .template--collection .product-item--root {
+        outline: 1px solid rgba(196, 92, 38, 0.22);
+        outline-offset: -1px;
+      }
+
+      html.suas-halloween .template--cart .cart--header {
+        box-shadow: inset 0 -3px 0 rgba(196, 92, 38, 0.45);
+      }
+
+      html.suas-halloween .suas-book-kicker:after {
+        content: ' · halloween hours thru oct 31';
+        color: #8a4a1c;
+      }
+
+      html.suas-halloween .suas-book-hero {
+        background:
+          radial-gradient(circle at 92% 18%, rgba(224, 122, 61, 0.18), transparent 36%),
+          rgba(255, 255, 255, 0.92);
+      }
+
+      html.suas-halloween .suas-halloween-fog,
+      html.suas-halloween .suas-halloween-specks {
+        position: fixed;
+        inset: 36px 0 0 0;
+        pointer-events: none;
+        z-index: 4;
+      }
+
+      html.suas-halloween .suas-halloween-fog {
+        background:
+          radial-gradient(ellipse at 12% 0%, rgba(42, 20, 24, 0.07), transparent 42%),
+          radial-gradient(ellipse at 88% 8%, rgba(224, 122, 61, 0.06), transparent 38%);
+        opacity: 0.85;
+      }
+
+      html.suas-halloween .suas-halloween-specks {
+        z-index: 5;
+        opacity: 0.35;
+        background-image:
+          radial-gradient(circle, #c45c26 1.1px, transparent 1.2px),
+          radial-gradient(circle, #c9a227 1px, transparent 1.1px);
+        background-size: 92px 92px, 140px 140px;
+        background-position: 12px 18px, 48px 60px;
+        animation: suasFallDrift 48s linear infinite;
+      }
+
+      html.suas-halloween .suas-halloween-bats {
+        position: fixed;
+        top: 40px;
+        right: 18px;
+        z-index: 6;
+        width: 86px;
+        height: 28px;
+        pointer-events: none;
+        opacity: 0.42;
+        background:
+          radial-gradient(ellipse at 22% 60%, #2a1418 0 2px, transparent 3px),
+          radial-gradient(ellipse at 70% 40%, #2a1418 0 1.6px, transparent 2.5px);
+        animation: suasBatFloat 9s ease-in-out infinite;
+      }
+
+      @keyframes suasFallDrift {
+        from { background-position: 12px 18px, 48px 60px; }
+        to { background-position: 12px 110px, 48px 200px; }
+      }
+
+      @keyframes suasBatFloat {
+        0%, 100% { transform: translate(0, 0); opacity: 0.32; }
+        50% { transform: translate(-10px, 6px); opacity: 0.5; }
+      }
+
+      @media (min-width: 1024px) {
+        html.suas-halloween .suas-halloween-chip {
+          left: 0;
+          width: 252px;
+          justify-content: center;
+        }
+        html.suas-halloween .suas-frame-marquee-track {
+          padding-left: 252px;
+        }
+        html.suas-halloween .suas-halloween-fog,
+        html.suas-halloween .suas-halloween-specks {
+          left: 252px;
+        }
+      }
+
+      @media (max-width: 1023px) {
+        html.suas-halloween .suas-halloween-chip {
+          height: 34px;
+          max-width: 46vw;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 8px;
+          letter-spacing: 0.1em;
+          padding: 0 8px;
+        }
+        html.suas-halloween .suas-halloween-bats {
+          display: none;
+        }
+        html.suas-halloween .suas-frame .suas-side-nav,
+        html.suas-halloween .suas-side-nav {
+          grid-auto-rows: 44px !important;
+        }
+      }
+
+      html.suas-halloween.template--product .suas-halloween-fog,
+      html.suas-halloween.template--product .suas-halloween-specks,
+      html.suas-halloween.template--product .suas-halloween-bats {
+        display: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html.suas-halloween .suas-halloween-specks,
+        html.suas-halloween .suas-halloween-bats,
+        html.suas-halloween .suas-frame-marquee-track {
+          animation: none !important;
+        }
+      }
+    </style>
+  {%- elsif suas_halloween_slot == 'body' -%}
+    <div class="suas-halloween-season" data-suas-halloween-root>
+      <div class="suas-halloween-chip" role="status">
+        <b aria-hidden="true"></b>
+        Fall drop / Halloween hours
+      </div>
+      <div class="suas-halloween-fog" aria-hidden="true"></div>
+      <div class="suas-halloween-specks" aria-hidden="true"></div>
+      <div class="suas-halloween-bats" aria-hidden="true"></div>
+    </div>
+    <script>
+      (function () {
+        var on = window.__suasHalloweenOn === true;
+        var root = document.querySelector('[data-suas-halloween-root]');
+        if (!on) {
+          document.documentElement.classList.remove('suas-halloween');
+          if (document.body) document.body.classList.remove('suas-halloween');
+          if (root) root.remove();
+          return;
+        }
+        document.documentElement.classList.add('suas-halloween');
+        if (document.body) document.body.classList.add('suas-halloween');
+
+        document.querySelectorAll('.suas-side-status span').forEach(function (node) {
+          if (node.dataset.suasFallReady === 'true') return;
+          node.dataset.suasFallReady = 'true';
+          node.textContent = 'open + fall hours';
+        });
+      })();
+    </script>
+  {%- endif -%}
+{%- endif -%}
