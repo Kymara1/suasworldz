@@ -12,14 +12,9 @@
     "main": {
       "type": "suas-world-home",
       "settings": {}
-    },
-    "the_bar": {
-      "type": "suas-the-bar",
-      "settings": {}
     }
   },
   "order": [
-    "main",
-    "the_bar"
+    "main"
   ]
 }
