@@ -154,6 +154,20 @@ Refund Policy|/pages/refund-policy{% endcapture %}
         <details class="suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.shared_tint }}">{{ section.settings.shared_icon }}</span><span class="suas-side-label">{{ section.settings.shared_label }}</span><span class="suas-side-num">{{ section.settings.shared_number }}</span></summary><div class="suas-panel-submenu">{% if shared_collections.size > 0 or has_shared_block_collections %}{% for collection in shared_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'shared' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif shared_menu.links.size > 0 %}{% for link in shared_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in shared_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
+      {% if section.settings.dupe_enabled %}
+        {% liquid
+          assign item_active = false
+          assign dupe_active_paths = section.settings.dupe_active_paths | default: '/collections/dupe' | split: ','
+          for active_path in dupe_active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+        %}
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" data-suas-mobile-keep="true" href="{{ section.settings.dupe_link | default: '/collections/dupe' }}"><span class="suas-side-icon" style="--tint:{{ section.settings.dupe_tint }}">{{ section.settings.dupe_icon }}</span><span class="suas-side-label">{{ section.settings.dupe_label }}</span><span class="suas-side-num">{{ section.settings.dupe_number }}</span></a>
+      {% endif %}
+
       {% if section.settings.clearance_enabled %}
         {% liquid
           assign item_active = false
@@ -351,12 +365,21 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"textarea","id":"shared_submenu","label":"Emergency fallback typed links","info":"Only used if no collections, item blocks, or menu are selected. Format: Label|URL, one per line.","default":"Cleansing Bar|/collections/cleansing-bar\nBody Oil|/collections/body-oil\nBody Wash|/collections/body-wash\nButter Creme|/collections/butter-creme\nCologne|/collections/cologne\nPerfume|/collections/eau-de-parfum\nSkin Jelly|/collections/body-jelly"},
     {"type":"text","id":"shared_active_paths","label":"Active URL matches, separated by commas","default":"/collections/shared"},
 
+    {"type":"header","content":"Dupe item"},
+    {"type":"checkbox","id":"dupe_enabled","label":"Show Dupe?","default":true},
+    {"type":"text","id":"dupe_label","label":"Label","default":"Dupe?"},
+    {"type":"text","id":"dupe_link","label":"Link","default":"/collections/dupe"},
+    {"type":"text","id":"dupe_icon","label":"Icon","default":"~"},
+    {"type":"text","id":"dupe_number","label":"Number","default":"03"},
+    {"type":"color","id":"dupe_tint","label":"Icon color","default":"#d9ff78"},
+    {"type":"text","id":"dupe_active_paths","label":"Active URL matches, separated by commas","default":"/collections/dupe"},
+
     {"type":"header","content":"Clearance item"},
     {"type":"checkbox","id":"clearance_enabled","label":"Show Clearance","default":true},
     {"type":"text","id":"clearance_label","label":"Label","default":"clearance"},
     {"type":"text","id":"clearance_link","label":"Link","default":"/collections/clearance"},
     {"type":"text","id":"clearance_icon","label":"Icon","default":"%"},
-    {"type":"text","id":"clearance_number","label":"Number","default":"03"},
+    {"type":"text","id":"clearance_number","label":"Number","default":"04"},
     {"type":"color","id":"clearance_tint","label":"Icon color","default":"#ff9bc4"},
     {"type":"text","id":"clearance_active_paths","label":"Active URL matches, separated by commas","default":"/collections/clearance"},
 
