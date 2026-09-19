@@ -48,14 +48,15 @@
 
 {% for item in cart.items %}
   {%- liquid
-    if item.variant.featured_media.preview_image
-      assign preview_image = item.variant.featured_media.preview_image
-    elsif item.product.featured_media.preview_image
-      assign preview_image = item.product.featured_media.preview_image
+    if item.image
+      assign preview_image = item.image
+    elsif item.variant.featured_image
+      assign preview_image = item.variant.featured_image
+    elsif item.product.featured_image
+      assign preview_image = item.product.featured_image
     else
       assign preview_image = false
     endif
-    assign line_label = forloop.index | prepend: '00' | slice: -2
   -%}
 
   {% capture desktop_items %}
@@ -70,8 +71,6 @@
       data-inventory-quantity="{{ item.variant.inventory_quantity | default: 0 }}"
       data-line-num="{{ forloop.index }}"
     >
-      <span class="suas-cart-sticker" aria-hidden="true">file {{ line_label }}</span>
-
       <div class="cart--item--image">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
           {%- liquid
@@ -228,8 +227,6 @@
       data-inventory-quantity="{{ item.variant.inventory_quantity | default: 0 }}"
       data-line-num="{{ forloop.index }}"
     >
-      <span class="suas-cart-sticker" aria-hidden="true">file {{ line_label }}</span>
-
       <div class="cart--item--image">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
           {%- liquid
@@ -380,9 +377,9 @@
   </div>
 
   <div class="cart--header suas-cart-header">
-    <p class="suas-cart-kicker">shopping bag station</p>
+    <p class="suas-cart-kicker">your bag</p>
     <h1 class="cart--title" data-item="section-heading">{{ your_cart_t | downcase }}</h1>
-    <p class="suas-cart-sub">formulas waiting to go home with you.</p>
+    <p class="suas-cart-sub">ready when you are.</p>
   </div>
 
   <form class="cart--form" action="{{ routes.cart_url }}" method="post" novalidate="">
@@ -502,10 +499,10 @@
     <div class="suas-cart-empty-art" aria-hidden="true">
       <span class="suas-cart-empty-bag"></span>
     </div>
-    <p class="suas-cart-empty-kicker">bag status: idle</p>
-    <p class="suas-cart-empty-title">this bag is empty (on purpose).</p>
-    <p class="suas-cart-empty-copy">go pick a formula. we’ll keep the window open.</p>
-    <a class="suas-cart-empty-cta" href="{{ routes.all_products_collection_url }}">shop the formulas</a>
+    <p class="suas-cart-empty-kicker">nothing in here yet</p>
+    <p class="suas-cart-empty-title">your bag is empty.</p>
+    <p class="suas-cart-empty-copy">grab a scent you love and come back.</p>
+    <a class="suas-cart-empty-cta" href="{{ routes.all_products_collection_url }}">shop now</a>
   </div>
 </div>
 
