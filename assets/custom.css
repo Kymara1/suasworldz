@@ -678,11 +678,13 @@ footer.footer--root {
 }
 .suas-product-stars .jdgm-widget,
 .suas-product-stars .jdgm-preview-badge,
-.suas-product-stars .jdgm-prev-badge {
+.suas-product-stars .jdgm-prev-badge,
+.suas-product-stars .jdgm-prev-badge__stars {
   display: inline-flex !important;
   align-items: center !important;
   gap: 4px !important;
   min-height: 16px !important;
+  width: auto !important;
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
@@ -690,9 +692,12 @@ footer.footer--root {
   box-shadow: none !important;
 }
 .suas-product-stars :is(.jdgm-star, .jdgm-star:before) {
+  display: inline-block !important;
   color: #101010 !important;
   font-size: 14px !important;
   letter-spacing: 1px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 .suas-product-stars .jdgm-prev-badge__text {
   display: none !important;
