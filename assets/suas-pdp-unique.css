@@ -356,8 +356,8 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     max-height: 340px;
   }
   html body.template--product .suas-pdp-diagram-body {
-    min-height: 340px;
-    padding: 28px 10px 32px;
+    min-height: 380px;
+    padding: 36px 8px 48px;
     display: grid;
     place-items: center;
   }
@@ -386,8 +386,8 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     transform: rotate(7deg);
   }
   html body.template--product .suas-pdp-callout:nth-child(3) {
-    left: 8%;
-    bottom: 10%;
+    left: 6%;
+    bottom: 16%;
     top: auto;
     right: auto;
     transform: rotate(-4deg);
