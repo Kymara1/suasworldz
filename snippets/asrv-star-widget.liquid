@@ -71,3 +71,31 @@
     <p style="font-size: {{ fontSize }}px;margin:0;color:{{ starFontColor }}">({{ product.metafields.automizely_reviews.raters }})</p>
   </a>
 {% endif %}
+
+<script>
+  (function () {
+    function cleanSuasOptionLabel(value) {
+      return String(value || '')
+        .replace(/\bfl\.?\s*oz\.?\b/ig, 'Oz')
+        .replace(/\b(\d+)\s*oz\b/ig, '$1 Oz')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function updateSuasOptionLabels() {
+      document.querySelectorAll('.radios--value-button').forEach(function (label) {
+        var inner = label.querySelector('div') || label;
+        var next = cleanSuasOptionLabel(inner.textContent);
+        if (!next) return;
+        inner.textContent = next;
+        label.setAttribute('aria-label', next);
+      });
+    }
+
+    updateSuasOptionLabels();
+    document.addEventListener('DOMContentLoaded', updateSuasOptionLabels);
+    document.addEventListener('shopify:section:load', updateSuasOptionLabels);
+    window.setTimeout(updateSuasOptionLabels, 500);
+    window.setTimeout(updateSuasOptionLabels, 1500);
+  })();
+</script>
