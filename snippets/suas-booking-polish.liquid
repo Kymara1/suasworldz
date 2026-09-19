@@ -5,19 +5,26 @@
   window.suasRollOnBookingProduct = {% if suas_roll_on_booking_product != blank %}{{ suas_roll_on_booking_product | json }}{% else %}null{% endif %};
 </script>
 <style id="suas-booking-polish">
+  html body .suas-bookings-page .suas-book-hours-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  }
+
   html body .suas-bookings-page .suas-book-hours-grid p:first-child::after {
     content: "Walk-ins welcomed when a station is open.";
     display: block;
     margin-top: 8px;
     padding: 7px 9px;
     border: 2px solid #101010;
-    border-radius: 999px;
+    border-radius: 14px;
     background: #fff;
     box-shadow: 0 3px 0 #101010;
     font-size: 10px;
-    line-height: 1.1;
-    letter-spacing: .08em;
+    line-height: 1.2;
+    letter-spacing: .06em;
     text-transform: uppercase;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    max-width: 100%;
   }
 
   html body .suas-bookings-page .suas-book-badge {
@@ -85,7 +92,7 @@
     line-height: 1 !important;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 1023px) {
     html body .suas-bookings-page .suas-book-wrap {
       width: min(440px, calc(100vw - 12px)) !important;
     }
@@ -96,7 +103,7 @@
     html body .suas-bookings-page .suas-type-grid,
     html body .suas-bookings-page .suas-book-form,
     html body .suas-bookings-page .suas-plus-choice {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: minmax(0, 1fr) !important;
     }
 
     html body .suas-bookings-page .suas-book-tabs {
