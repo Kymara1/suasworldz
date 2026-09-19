@@ -39,59 +39,8 @@
   if desc_text contains 'For:'
     assign for_line = desc_text | split: 'For:' | last | split: 'Ingredients' | first | split: 'ingredients' | first | strip
   endif
-
-  assign note_1_label = ''
-  assign note_1_file = ''
-  assign note_2_label = ''
-  assign note_2_file = ''
-  assign note_3_label = ''
-  assign note_3_file = ''
-  assign note_4_label = ''
-  assign note_4_file = ''
-  assign note_5_label = ''
-  assign note_5_file = ''
-  case product.handle
-    when 'poppy'
-      assign note_1_label = 'pink gum'
-      assign note_1_file = 'note-poppy-gum.png'
-      assign note_2_label = 'cosmos'
-      assign note_2_file = 'note-poppy-cosmos.png'
-      assign note_3_label = 'sparkle bouquet'
-      assign note_3_file = 'note-poppy-bouquet.png'
-      assign note_4_label = 'blossom bubbles'
-      assign note_4_file = 'note-poppy-bubbles.png'
-    when 'tonic-butter-creme'
-      assign note_1_label = 'blackberry'
-      assign note_1_file = 'note-blackberry.png'
-      assign note_2_label = 'crushed mint'
-      assign note_2_file = 'note-sage-mint.png'
-      assign note_3_label = 'mojito'
-      assign note_3_file = 'note-tonic-mojito.png'
-    when 'nectar-butter-creme-copy'
-      assign note_1_label = 'pineapple'
-      assign note_1_file = 'note-pineapple.png'
-      assign note_2_label = 'passionfruit'
-      assign note_2_file = 'note-passionfruit.png'
-      assign note_3_label = 'orange'
-      assign note_3_file = 'note-nectar-orange.jpg'
-      assign note_4_label = 'mango'
-      assign note_4_file = 'note-nectar-mango.jpg'
-    when 'good-girl-butter-creme-2'
-      assign note_1_label = 'pear'
-      assign note_1_file = 'note-goodgirl-pear.png'
-      assign note_2_label = 'jasmine'
-      assign note_2_file = 'note-jasmine.png'
-      assign note_3_label = 'coconut'
-      assign note_3_file = 'note-coconut.png'
-    when 'haze-butter-creme'
-      assign note_1_label = 'wildflower bouquet'
-      assign note_1_file = 'note-wildflower.png'
-      assign note_2_label = 'fresh petals'
-      assign note_2_file = 'note-petals.png'
-      assign note_3_label = 'soft sunshine'
-      assign note_3_file = 'note-sunshine.png'
-  endcase
 %}
+{% include 'suas-scent-map' %}
 
 <style>
   html body.template--product .suas-product-experience{width:min(1180px,100%);margin:18px auto 0;color:#101010;font-family:Futura,'Futura PT',Arial,sans-serif}
@@ -156,37 +105,26 @@
       </div>
     </details>
   {% else %}
-  {% if note_1_file != blank %}
+  {% assign scent_records = suas_scent_map | split: '||' %}
+  {% assign pdp_note_count = 0 %}
+  {% for rec in scent_records %}
+    {% assign np = rec | split: '|' %}
+    {% if np[0] == product.handle %}
+      {% assign pdp_note_count = pdp_note_count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+  {% if pdp_note_count > 0 %}
     <div class="suas-scent-notes">
-      <div class="suas-scent-notes-grid{% if note_4_file == blank and note_2_file != blank %} is-three{% endif %}">
-        <figure class="suas-scent-note">
-          <span class="pic"><img src="{{ note_1_file | asset_url }}" alt="{{ note_1_label }}" width="800" height="800" loading="lazy"></span>
-          <b>{{ note_1_label }}</b>
-        </figure>
-        {% if note_2_file != blank %}
-          <figure class="suas-scent-note">
-            <span class="pic"><img src="{{ note_2_file | asset_url }}" alt="{{ note_2_label }}" width="800" height="800" loading="lazy"></span>
-            <b>{{ note_2_label }}</b>
-          </figure>
-        {% endif %}
-        {% if note_3_file != blank %}
-          <figure class="suas-scent-note">
-            <span class="pic"><img src="{{ note_3_file | asset_url }}" alt="{{ note_3_label }}" width="800" height="800" loading="lazy"></span>
-            <b>{{ note_3_label }}</b>
-          </figure>
-        {% endif %}
-        {% if note_4_file != blank %}
-          <figure class="suas-scent-note">
-            <span class="pic"><img src="{{ note_4_file | asset_url }}" alt="{{ note_4_label }}" width="800" height="800" loading="lazy"></span>
-            <b>{{ note_4_label }}</b>
-          </figure>
-        {% endif %}
-        {% if note_5_file != blank %}
-          <figure class="suas-scent-note">
-            <span class="pic"><img src="{{ note_5_file | asset_url }}" alt="{{ note_5_label }}" width="800" height="800" loading="lazy"></span>
-            <b>{{ note_5_label }}</b>
-          </figure>
-        {% endif %}
+      <div class="suas-scent-notes-grid{% if pdp_note_count == 3 %} is-three{% endif %}">
+        {% for rec in scent_records %}
+          {% assign np = rec | split: '|' %}
+          {% if np[0] == product.handle %}
+            <figure class="suas-scent-note">
+              <span class="pic"><img src="{{ np[3] | asset_url }}" alt="{{ np[1] }}" width="800" height="800" loading="lazy"></span>
+              <b>{{ np[1] }}</b>
+            </figure>
+          {% endif %}
+        {% endfor %}
       </div>
     </div>
   {% endif %}

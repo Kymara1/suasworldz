@@ -28,50 +28,30 @@
     </header>
 
     <div class="suas-families-grid">
-      <article class="suas-family">
-        <a class="suas-family-name" href="/collections/scent-fruit">fruit</a>
-        <div class="suas-family-shots">
-          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-goodgirl-pear.png' | asset_url }}" alt="pear" width="800" height="800" loading="lazy"><b>pear</b></a>
-          <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-pineapple.png' | asset_url }}" alt="pineapple" width="800" height="800" loading="lazy"><b>pineapple</b></a>
-          <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-passionfruit.png' | asset_url }}" alt="passionfruit" width="800" height="800" loading="lazy"><b>passionfruit</b></a>
-          <a href="/products/tonic-butter-creme"><img src="{{ 'note-blackberry.png' | asset_url }}" alt="blackberry" width="800" height="800" loading="lazy"><b>blackberry</b></a>
-        </div>
-      </article>
-
-      <article class="suas-family">
-        <a class="suas-family-name" href="/collections/scent-floral">floral</a>
-        <div class="suas-family-shots">
-          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-jasmine.png' | asset_url }}" alt="jasmine" width="800" height="800" loading="lazy"><b>jasmine</b></a>
-          <a href="/products/poppy"><img src="{{ 'note-poppy-cosmos.png' | asset_url }}" alt="cosmos" width="800" height="800" loading="lazy"><b>cosmos</b></a>
-          <a href="/products/haze-butter-creme"><img src="{{ 'note-petals.png' | asset_url }}" alt="petals" width="800" height="800" loading="lazy"><b>petals</b></a>
-          <a href="/products/haze-butter-creme"><img src="{{ 'note-wildflower.png' | asset_url }}" alt="wildflower" width="800" height="800" loading="lazy"><b>wildflower</b></a>
-        </div>
-      </article>
-
-      <article class="suas-family">
-        <a class="suas-family-name" href="/collections/scent-gourmand">gourmand</a>
-        <div class="suas-family-shots is-one">
-          <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-coconut.png' | asset_url }}" alt="coconut" width="800" height="800" loading="lazy"><b>coconut</b></a>
-        </div>
-      </article>
-
-      <article class="suas-family">
-        <a class="suas-family-name" href="/collections/scent-green">green</a>
-        <div class="suas-family-shots is-two">
-          <a href="/products/tonic-butter-creme"><img src="{{ 'note-sage-mint.png' | asset_url }}" alt="mint" width="800" height="800" loading="lazy"><b>mint</b></a>
-          <a href="/products/tonic-butter-creme"><img src="{{ 'note-tonic-mojito.png' | asset_url }}" alt="mojito" width="800" height="800" loading="lazy"><b>mojito</b></a>
-        </div>
-      </article>
-
-      <article class="suas-family">
-        <a class="suas-family-name" href="/collections/scent-sparkle">sparkle</a>
-        <div class="suas-family-shots">
-          <a href="/products/poppy"><img src="{{ 'note-poppy-gum.png' | asset_url }}" alt="bubblegum" width="800" height="800" loading="lazy"><b>bubblegum</b></a>
-          <a href="/products/poppy"><img src="{{ 'note-poppy-bubbles.png' | asset_url }}" alt="bubbles" width="800" height="800" loading="lazy"><b>bubbles</b></a>
-          <a href="/products/poppy"><img src="{{ 'note-poppy-bouquet.png' | asset_url }}" alt="bouquet" width="800" height="800" loading="lazy"><b>bouquet</b></a>
-          <a href="/products/haze-butter-creme"><img src="{{ 'note-sunshine.png' | asset_url }}" alt="sunshine" width="800" height="800" loading="lazy"><b>sunshine</b></a>
-        </div>
-      </article>
+      {% include 'suas-scent-map' %}
+      {% assign scent_records = suas_scent_map | split: '||' %}
+      {% assign family_order = 'fruit,floral,gourmand,green,sparkle' | split: ',' %}
+      {% for family in family_order %}
+        <article class="suas-family">
+          <a class="suas-family-name" href="/collections/scent-{{ family }}">{{ family }}</a>
+          <div class="suas-family-shots">
+            {% assign seen_notes = '|' %}
+            {% for rec in scent_records %}
+              {% assign np = rec | split: '|' %}
+              {% if np[4] == family %}
+                {% assign note_key = np[2] | append: '|' %}
+                {% unless seen_notes contains note_key %}
+                  {% assign seen_notes = seen_notes | append: note_key %}
+                  <a href="/products/{{ np[0] }}">
+                    <img src="{{ np[3] | asset_url }}" alt="{{ np[2] }}" width="800" height="800" loading="lazy">
+                    <b>{{ np[2] }}</b>
+                  </a>
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </article>
+      {% endfor %}
     </div>
   </div>
 </section>
