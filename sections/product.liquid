@@ -28,9 +28,6 @@
   assign mix_1_note = 'the open'
   assign mix_2_note = 'the heart'
   assign mix_3_note = 'the drydown'
-  assign mix_1_img = ''
-  assign mix_2_img = ''
-  assign mix_3_img = ''
   if pdp_handle contains 'tonic'
     assign mix_1 = 'blackberry'
     assign mix_1_note = 'juicy + sweet'
@@ -55,10 +52,8 @@
   elsif pdp_handle contains 'good'
     assign mix_1 = 'pear'
     assign mix_1_note = 'juicy + bright'
-    assign mix_1_img = 'note-goodgirl-pear.png'
     assign mix_2 = 'jasmine'
     assign mix_2_note = 'petal-soft'
-    assign mix_2_img = 'note-jasmine.png'
     assign mix_3 = 'cocoa'
     assign mix_3_note = 'the drydown'
   elsif pdp_handle contains 'nectar'
@@ -342,21 +337,12 @@
       <div class="suas-pdp-diagram-body">
         <article class="suas-pdp-note" data-note="1">
           <strong>{{ mix_1 }}</strong>
-          {%- if mix_1_img != blank -%}
-            <img class="suas-pdp-note-pic" src="{{ mix_1_img | asset_url }}" alt="{{ mix_1 | escape }}" width="640" height="640" loading="lazy">
-          {%- endif -%}
         </article>
         <article class="suas-pdp-note" data-note="2">
           <strong>{{ mix_2 }}</strong>
-          {%- if mix_2_img != blank -%}
-            <img class="suas-pdp-note-pic" src="{{ mix_2_img | asset_url }}" alt="{{ mix_2 | escape }}" width="640" height="640" loading="lazy">
-          {%- endif -%}
         </article>
         <article class="suas-pdp-note" data-note="3">
           <strong>{{ mix_3 }}</strong>
-          {%- if mix_3_img != blank -%}
-            <img class="suas-pdp-note-pic" src="{{ mix_3_img | asset_url }}" alt="{{ mix_3 | escape }}" width="640" height="640" loading="lazy">
-          {%- endif -%}
         </article>
       </div>
       <div class="suas-station-gravity-media" aria-hidden="true">
