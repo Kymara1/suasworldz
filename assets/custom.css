@@ -511,6 +511,12 @@ nav *,
 .suas-world-home .suas-actions a[href*="shut-up-and-smell"] { font-size: 0 !important; }
 .suas-world-home .suas-actions a[href*="shut-up-and-smell"]:before { content: "the lab"; font-size: 10px !important; }
 .suas-world-home .suas-launch-panel { justify-content: flex-start !important; padding: 0 !important; gap: 0 !important; height: auto !important; min-height: 0 !important; align-self: start !important; }
+html body .suas-world-home .suas-aisle small,
+html body .suas-world-home .suas-aisle h3 {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+}
 
 .suas-bookings-page .suas-book-select,
 .suas-bookings-page .suas-time-select,
