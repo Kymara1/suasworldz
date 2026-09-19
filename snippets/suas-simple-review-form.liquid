@@ -6,63 +6,13 @@
     .suas-simple-review{margin:0 18px 18px;padding:18px;border:2px solid #101010;border-radius:22px;background:#fff;box-shadow:4px 5px 0 #101010}
     .suas-simple-review h3{margin:0 0 6px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.7rem,4vw,2.4rem);line-height:.88;font-weight:400;text-transform:lowercase}
     .suas-simple-review > p{margin:0 0 14px;font-size:13px;font-weight:800;line-height:1.35}
-    .suas-simple-review [data-suas-aftership-mount]{min-height:120px}
-    html body.template--product [role='dialog'],
-    html body.template--product [aria-modal='true']{display:block!important;visibility:visible!important;opacity:1!important}
+    .suas-simple-review [data-suas-aftership-mount]{min-height:80px}
+    html body.template--product .suas-review-shell-window{overflow:visible!important}
     @media(max-width:700px){.suas-simple-review{margin:0 14px 14px}}
   </style>
   <h3>leave a review.</h3>
-  <p>This submits to Aftership for {{ scent }}. After it is published, it shows on this product and on the reviews page.</p>
+  <p>Use Aftership’s form for {{ scent }}. Name, email, and at least 10 characters. Submit sends it to Aftership.</p>
   <div data-suas-aftership-mount>
     {% render 'asrv-product-reviews-widget' %}
   </div>
-  <script>
-    (function () {
-      var root = document.getElementById('suas-simple-review');
-      if (!root || root.dataset.ready === 'true') return;
-      root.dataset.ready = 'true';
-      var mount = root.querySelector('[data-suas-aftership-mount]');
-      function stealWidget() {
-        var node = document.getElementById('aftership_reviews_carousel_v2_production');
-        if (node && mount && !mount.contains(node)) mount.appendChild(node);
-      }
-      function isWriteControl(el) {
-        if (!el || el.closest('.suas-review-intro')) return false;
-        var t = (el.innerText || el.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim().toLowerCase();
-        return t === 'write a review' || t === 'write review' || t.indexOf('write a review') !== -1;
-      }
-      function openWrite() {
-        var nodes = document.querySelectorAll('button, a, [role="button"]');
-        for (var i = 0; i < nodes.length; i++) {
-          if (isWriteControl(nodes[i])) {
-            nodes[i].click();
-            return true;
-          }
-        }
-        return false;
-      }
-      stealWidget();
-      var wantWrite = /showWriteReviews=true/i.test(location.search) || location.hash.indexOf('suas-simple-review') !== -1;
-      var ticks = 0;
-      var timer = setInterval(function () {
-        stealWidget();
-        if (wantWrite) openWrite();
-        if (++ticks > 24) clearInterval(timer);
-      }, 400);
-      document.querySelectorAll('a[href="#suas-simple-review"]').forEach(function (link) {
-        link.addEventListener('click', function (event) {
-          event.preventDefault();
-          if (!/showWriteReviews=true/i.test(location.search)) {
-            var url = new URL(location.href);
-            url.searchParams.set('showWriteReviews', 'true');
-            url.hash = 'suas-simple-review';
-            location.assign(url.toString());
-            return;
-          }
-          root.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          openWrite();
-        });
-      });
-    })();
-  </script>
 </div>
