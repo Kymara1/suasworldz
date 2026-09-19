@@ -44,8 +44,10 @@ html body.template--product .suas-pdp-live {
   gap: 8px 12px;
   width: fit-content;
   max-width: 100%;
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   padding: 8px 12px;
+  position: relative;
+  z-index: 3;
   border: 2px solid var(--ink);
   border-radius: 999px;
   background: rgba(255, 255, 255, .88);
