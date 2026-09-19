@@ -275,8 +275,8 @@ nav *,
   }
 
   .suas-launch-panel {
-    padding: 22px !important;
-    gap: 16px !important;
+    padding: 0 !important;
+    gap: 0 !important;
   }
 
   .suas-launch {
@@ -510,7 +510,7 @@ nav *,
 .suas-world-home .suas-launch-title { display: none !important; }
 .suas-world-home .suas-actions a[href*="shut-up-and-smell"] { font-size: 0 !important; }
 .suas-world-home .suas-actions a[href*="shut-up-and-smell"]:before { content: "the lab"; font-size: 10px !important; }
-.suas-world-home .suas-launch-panel { justify-content: flex-start !important; }
+.suas-world-home .suas-launch-panel { justify-content: flex-start !important; padding: 0 !important; gap: 0 !important; }
 
 .suas-bookings-page .suas-book-select,
 .suas-bookings-page .suas-time-select,
