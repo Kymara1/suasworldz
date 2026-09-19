@@ -33,7 +33,11 @@
     .suas-feed-atc{min-height:32px;width:100%;min-width:0;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:6px 8px;color:var(--ink)!important;background:var(--lime)!important;box-shadow:0 2px 0 var(--ink);font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-size:8px}
     .suas-feed-atc:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
     .suas-feed-atc:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:0 3px 0 var(--ink)}
-    .suas-now-card,.suas-launch-panel,.suas-boost{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-now-card,.suas-launch-panel,.suas-boost,.suas-hours-win{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-hours-body{padding:14px}
+    .suas-hours-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+    .suas-hours-list li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid var(--ink);border-radius:16px;background:#fff;font:800 12px/1.3 Futura,Arial,sans-serif}
+    .suas-hours-list span:last-child{text-align:right}
     .suas-window-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:42px;padding:8px 14px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#e8edf3);overflow:hidden}
     .suas-window-dots{display:flex;gap:7px;min-width:0}
     .suas-dot{width:11px;height:11px;flex:0 0 auto;border-radius:999px;background:var(--dot)}
@@ -124,6 +128,7 @@
       .suas-product-price,.suas-feed-atc,.suas-feed-btn{min-height:30px;padding:6px 8px;font-size:8px;letter-spacing:.05em;box-shadow:0 2px 0 var(--ink)}
       .suas-launch span{display:block;font-size:9px;font-weight:900}
       .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+      .suas-hours-list li{flex-wrap:wrap;font-size:11px;padding:9px 10px}
       .suas-boost-card{padding:6px;border-radius:14px;gap:5px;overflow:hidden}
       .suas-boost-card b{font-size:.68rem}
       .suas-product-copy .suas-product-stars,
@@ -339,6 +344,26 @@
                 {% endfor %}
               {% endif %}
             </div>
+          </div>
+        </div>
+
+        <div class="suas-hours-win">
+          <div class="suas-window-bar">
+            <div class="suas-window-dots">
+              <span class="suas-dot" style="--dot:#ff5f57"></span>
+              <span class="suas-dot" style="--dot:#febc2e"></span>
+              <span class="suas-dot" style="--dot:#28c840"></span>
+            </div>
+            <span class="suas-window-title suas-mono">LAB.HOURS</span>
+            <span class="suas-window-live suas-mono"><b></b>OPEN</span>
+          </div>
+          <div class="suas-hours-body">
+            <ul class="suas-hours-list">
+              <li><span>mon–wed</span><span>closed / make days</span></li>
+              <li><span>thu–fri</span><span>self-guided 1–5 · guided 6–7:15</span></li>
+              <li><span>saturday</span><span>self-guided 1–4 · guided 4:30 or 6:00</span></li>
+              <li><span>sunday</span><span>self-guided 1–4 · no guided class</span></li>
+            </ul>
           </div>
         </div>
       </div>
