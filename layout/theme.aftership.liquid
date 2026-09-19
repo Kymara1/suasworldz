@@ -14,7 +14,14 @@
 
 {% endcomment %}
 <!doctype html>
-<html class="no-js flexbox-gap" lang="{{ request.locale.iso_code }}" dir="ltr">
+{%- liquid
+  assign suas_today = 'now' | date: '%Y-%m-%d'
+  assign suas_halloween_liquid = false
+  if suas_today >= '2026-09-01' and suas_today <= '2026-11-01'
+    assign suas_halloween_liquid = true
+  endif
+-%}
+<html class="no-js flexbox-gap{% if suas_halloween_liquid %} suas-halloween{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
   <head>
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">
@@ -161,6 +168,7 @@
     {{ 'suas-catalog.css' | asset_url | stylesheet_tag }}
     {{ 'suas-mobile-panel.css' | asset_url | stylesheet_tag }}
     {% render 'suas-booking-polish' %}
+    {% render 'suas-halloween-flare', suas_halloween_slot: 'head' %}
   </head>
 
   <body
