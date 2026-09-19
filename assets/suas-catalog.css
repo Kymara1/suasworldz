@@ -149,12 +149,12 @@ html body.template--search .suas-catalog-card .product--image-wrapper {
   order: 1;
   flex: 0 0 auto;
   min-height: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
   overflow: hidden !important;
   margin: 10px 10px 0 !important;
-  padding: 10px !important;
+  padding: 0 !important;
   border: 2px solid #101010;
   border-radius: 16px;
   background: linear-gradient(160deg, #fff, #ffd8e8) !important;
@@ -173,26 +173,34 @@ html body.template--search .product-grid > .suas-catalog-card:nth-child(4n) .pro
 }
 html body.template--collection .suas-catalog-card .product--image,
 html body.template--search .suas-catalog-card .product--image {
+  position: relative !important;
   width: 100% !important;
-  height: auto !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
+  height: 100% !important;
+  display: grid !important;
+  place-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
 }
 html body.template--collection .suas-catalog-card .product--image img,
 html body.template--search .suas-catalog-card .product--image img,
 html body.template--collection .suas-catalog-card img.lazyloaded,
-html body.template--collection .suas-catalog-card .product--item img {
+html body.template--collection .suas-catalog-card .product--item img,
+html body.template--search .suas-catalog-card .product--image picture,
+html body.template--collection .suas-catalog-card .product--image picture {
+  position: absolute !important;
+  inset: 0 !important;
   width: 100% !important;
-  max-width: 100% !important;
-  max-height: 280px !important;
-  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  height: 100% !important;
+  margin: auto !important;
   object-fit: contain !important;
   object-position: center center !important;
   background: transparent !important;
   border-radius: 12px !important;
   box-shadow: none !important;
-  transform: none;
+  transform: none !important;
 }
 html body.template--collection .suas-catalog-card .product--details-container,
 html body.template--search .suas-catalog-card .product--details-container {
@@ -331,11 +339,11 @@ html body.template--collection .suas-catalog-card .product--quick-add {
   html body.template--collection .suas-catalog-card .product--image-wrapper,
   html body.template--search .suas-catalog-card .product--image-wrapper {
     margin: 8px 8px 0 !important;
-    padding: 8px !important;
+    padding: 0 !important;
   }
   html body.template--collection .suas-catalog-card .product--image img,
   html body.template--search .suas-catalog-card .product--image img {
-    max-height: 210px !important;
+    max-height: none !important;
   }
   html body.template--collection .suas-catalog-card .product--details-container,
   html body.template--search .suas-catalog-card .product--details-container {
