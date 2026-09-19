@@ -79,9 +79,8 @@
       }
 
       html.suas-halloween .suas-side-orb {
-        background:
-          radial-gradient(circle at 32% 20%, #fff8ee 0 10%, transparent 32%),
-          conic-gradient(from 210deg, #e07a3d, #d4a017, #5f7340, #8a3d4a, #e07a3d);
+        background: #000 url({{ 'suas-logo-halloween.png' | asset_url }}) center / cover no-repeat !important;
+        box-shadow: 0 3px 0 #2a1418 !important;
       }
 
       html.suas-halloween .suas-side-link.is-active {
@@ -340,25 +339,35 @@
       }
 
       html.suas-halloween .suas-home-logo {
-        isolation: isolate;
-        background: linear-gradient(155deg, #3d1814 0%, #6b2430 28%, #e07a3d 68%, #c9a227 100%);
-        box-shadow: 3px 4px 0 #2a1418;
+        background: transparent;
+        box-shadow: none;
       }
 
-      html.suas-halloween .suas-home-logo-img,
-      html.suas-halloween .suas-password-logo {
-        background: transparent !important;
-        border-color: #2a1418 !important;
-        mix-blend-mode: screen;
-        filter: sepia(0.42) saturate(1.25) hue-rotate(-8deg);
+      html.suas-halloween .suas-home-logo-img--core {
+        display: none !important;
       }
 
-      html.suas-halloween .suas-password-wrap .suas-password-logo,
-      html.suas-halloween img.suas-password-logo {
-        isolation: isolate;
-        background: linear-gradient(155deg, #3d1814 0%, #e07a3d 62%, #c9a227 100%) !important;
-        border-radius: 18px;
-        box-shadow: 3px 4px 0 #2a1418;
+      html.suas-halloween .suas-home-logo-img--season {
+        display: block !important;
+        border-radius: 999px !important;
+        background: #000 !important;
+        object-fit: cover !important;
+        mix-blend-mode: normal !important;
+        filter: none !important;
+        box-shadow: 3px 4px 0 #2a1418 !important;
+      }
+
+      html.suas-halloween img.suas-password-logo--core { display: none !important; }
+      html.suas-halloween img.suas-password-logo--season {
+        display: block !important;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 999px !important;
+        background: #000 !important;
+        object-fit: cover !important;
+        mix-blend-mode: normal !important;
+        filter: none !important;
+        box-shadow: 3px 4px 0 #2a1418 !important;
       }
 
       @media (prefers-reduced-motion: reduce) {

@@ -11,6 +11,7 @@
     .suas-billboard{display:grid;gap:0;padding:4px 2px 8px;text-align:center;justify-items:center;overflow:visible}
     .suas-home-logo{display:inline-flex;align-items:center;justify-content:center;max-width:min(100%,120px);color:inherit;text-decoration:none}
     .suas-home-logo-img{display:block;width:72px;height:72px;max-width:72px;max-height:72px;object-fit:contain;background:#000;border:2px solid var(--ink);border-radius:16px;box-shadow:3px 4px 0 var(--ink)}
+    .suas-home-logo-img--season{display:none}
     .suas-home-logo .suas-side-orb,.suas-home-logo-orb{width:clamp(56px,9vw,92px)!important;height:clamp(56px,9vw,92px)!important;flex:0 0 auto;border-radius:999px;background:radial-gradient(circle at 32% 20%,#fff 0 10%,transparent 32%),conic-gradient(from 210deg,#ffd8e8,#c9e7ff,#d8e26a,#ffd8e8);box-shadow:inset 0 -6px 12px rgba(0,0,0,.16),inset 0 6px 12px rgba(255,255,255,.85),0 8px 16px -8px rgba(16,16,16,.35)}
     .suas-home-logo-type{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(3.6rem,10vw,6.4rem);font-weight:700;line-height:.8;text-transform:uppercase}
     .suas-aisles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -44,7 +45,12 @@
     .suas-product-slide{position:relative;inset:auto;display:none;grid-template-columns:minmax(0,320px) minmax(0,1fr);align-items:stretch;gap:14px;color:var(--ink);opacity:1;pointer-events:auto;transform:none;animation:none!important;min-width:0}
     .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid;opacity:1;pointer-events:auto;transform:none;z-index:2}
     .suas-product-photo{width:100%;max-width:min(320px,42vh);max-height:min(320px,42vh);min-width:0;aspect-ratio:1;display:grid;place-items:center;justify-self:start;align-self:center;border:2px solid var(--ink);border-radius:20px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:3px 4px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
-    .suas-product-photo img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(16,16,16,.12));animation:suasBob 6.8s ease-in-out infinite}
+    .suas-product-photo img,.suas-product-photo .suas-product-motion{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(16,16,16,.12))}
+    .suas-product-photo img{animation:suasBob 6.8s ease-in-out infinite}
+    .suas-product-photo .suas-product-motion{width:100%;height:100%;object-fit:cover;filter:none}
+    .suas-cam-roll{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-cam-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px;background:linear-gradient(135deg,#fff,#ffd8e8 55%,#fff1a8)}
+    .suas-cam-grid video{width:100%;aspect-ratio:9/16;object-fit:cover;border:2px solid var(--ink);border-radius:16px;background:#101010;display:block}
     .suas-product-fallback{width:72%;aspect-ratio:1;display:grid;place-items:center;border-radius:999px;background:#fff;color:var(--ink);font-size:4rem}
     .suas-world-home .suas-product-kicker{display:none!important}
     .suas-product-copy{width:100%;min-height:0;min-width:0;height:100%;display:grid;align-content:center;gap:8px;border:2px solid var(--ink);border-radius:18px;background:rgba(255,255,255,.95);box-shadow:none;padding:10px 12px;overflow:hidden}
@@ -155,7 +161,8 @@
       <div class="suas-hero-stack">
         <header class="suas-billboard">
           <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS">
-            <img class="suas-home-logo-img" src="{{ 'suas-logo.png' | asset_url }}" width="72" height="72" alt="SUAS">
+            <img class="suas-home-logo-img suas-home-logo-img--core" src="{{ 'suas-logo.png' | asset_url }}" width="72" height="72" alt="SUAS">
+            <img class="suas-home-logo-img suas-home-logo-img--season" src="{{ 'suas-logo-halloween.png' | asset_url }}" width="72" height="72" alt="">
           </a>
         </header>
         <div class="suas-aisles">
