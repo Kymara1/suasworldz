@@ -17,6 +17,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    {% render 'suas-laptop-boot', suas_boot_slot: 'head' %}
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
@@ -165,6 +166,7 @@
     data-tabbing="false"
   >
     {% render 'suas-halloween-flare', suas_halloween_slot: 'body' %}
+    {% render 'suas-laptop-boot', suas_boot_slot: 'body' %}
     <a data-item="a11y-button" href="#main-content">
       {{ 'general.a11y.skip_main' | t }}
     </a>
