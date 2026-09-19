@@ -78,7 +78,9 @@
     .suas-time-chips button:disabled{opacity:.4;cursor:not-allowed}
     .suas-bookings-page .suas-visually-hidden,
     .suas-bookings-page #GuidedVariant,
-    .suas-bookings-page #GuidedTime{
+    .suas-bookings-page #GuidedTime,
+    .suas-bookings-page #SelfExperience,
+    .suas-bookings-page #ParfumTime{
       position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;opacity:0!important;pointer-events:none!important;border:0!important;padding:0!important;margin:0!important
     }
     @media(max-width:980px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-hours,.suas-book-grid,.suas-book-paths,.suas-type-grid{grid-template-columns:1fr}.suas-book-option-head{grid-template-columns:1fr}.suas-book-price-card{text-align:left;width:fit-content}}
@@ -193,41 +195,57 @@
           <div>
             <span class="suas-book-badge">self-guided</span>
             <h2>Self-Guided Lab Experiment</h2>
-            <p class="suas-book-desc" data-self-description>Choose one creation, then add an extra roll-on or travel perfume if you want a second product.</p>
+            <p class="suas-book-desc" data-self-description>Pick perfume, a roll-on, or the combo sesh. Combo includes perfume and a body oil. Body oil is not offered on its own.</p>
           </div>
           <div class="suas-book-price-card"><span>selected price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
         </div>
 
         {% if self_form_product != blank %}
           {% form 'product', self_form_product, class:'suas-book-form', data-booking-form:'self' %}
-            <div class="suas-book-field" data-wide>
-              <label class="suas-book-label" for="SelfExperience">choose your experiment</label>
-              <select class="suas-book-select" id="SelfExperience" name="id" required>
-                <option value="">choose experiment</option>
-                {% if parfum_main_variant != blank %}<option value="{{ parfum_main_variant.id }}" data-experience="Lab Session: Eau De Parfum (30mL)" data-price="{{ parfum_main_variant.price | money }}" data-description="Create a custom 30mL eau de parfum with up to four scent notes."{% unless parfum_main_variant.available %} disabled{% endunless %}>Lab Session: Eau De Parfum (30mL) • {{ parfum_main_variant.price | money }}{% unless parfum_main_variant.available %} • full{% endunless %}</option>{% endif %}
-                {% if body_oil_main_variant != blank %}<option value="{{ body_oil_main_variant.id }}" data-experience="Lab Session: Body Oil (30mL)" data-price="{{ body_oil_main_variant.price | money }}" data-description="Create a custom 30mL body oil with up to four scent notes."{% unless body_oil_main_variant.available %} disabled{% endunless %}>Lab Session: Body Oil (30mL) • {{ body_oil_main_variant.price | money }}{% unless body_oil_main_variant.available %} • full{% endunless %}</option>{% endif %}
-                {% if combo_main_variant != blank %}<option value="{{ combo_main_variant.id }}" data-experience="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}" data-description="Create both a custom 30mL eau de parfum and a custom 30mL body oil."{% unless combo_main_variant.available %} disabled{% endunless %}>Lab Session Combo • {{ combo_main_variant.price | money }}{% unless combo_main_variant.available %} • full{% endunless %}</option>{% endif %}
-                {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" data-description="Create a portable 10mL roll-on perfume oil with up to four scent notes."{% unless roll_on_main_variant.available %} disabled{% endunless %}>Lab Session: Roll-On Perfume (10mL) • {{ roll_on_main_variant.price | money }}{% unless roll_on_main_variant.available %} • full{% endunless %}</option>{% endif %}
-              </select>
+            <div class="suas-type-grid" data-self-types>
+              {% if parfum_main_variant != blank %}
+              <label class="suas-type-card is-on">
+                <input type="radio" name="_self_type" value="{{ parfum_main_variant.id }}" data-label="Lab Session: Eau De Parfum (30mL)" data-price="{{ parfum_main_variant.price | money }}" data-copy="Create a custom 30mL eau de parfum at your own pace." checked{% unless parfum_main_variant.available %} disabled{% endunless %}>
+                <em>01</em>
+                <strong>perfume</strong>
+                <small>Just the perfume experiment.</small>
+                <b>{{ parfum_main_variant.price | money }}</b>
+              </label>
+              {% endif %}
+              {% if roll_on_main_variant != blank %}
+              <label class="suas-type-card">
+                <input type="radio" name="_self_type" value="{{ roll_on_main_variant.id }}" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" data-copy="Create a portable 10mL roll-on perfume oil."{% unless roll_on_main_variant.available %} disabled{% endunless %}>
+                <em>02</em>
+                <strong>roll-on</strong>
+                <small>The roll-on perfume experiment.</small>
+                <b>{{ roll_on_main_variant.price | money }}</b>
+              </label>
+              {% endif %}
+              {% if combo_main_variant != blank %}
+              <label class="suas-type-card">
+                <input type="radio" name="_self_type" value="{{ combo_main_variant.id }}" data-label="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}" data-copy="Combo sesh: a perfume experiment plus a body oil. Body oil is not its own session."{% unless combo_main_variant.available %} disabled{% endunless %}>
+                <em>03</em>
+                <strong>combo sesh</strong>
+                <small>Perfume and a body oil together.</small>
+                <b>{{ combo_main_variant.price | money }}</b>
+              </label>
+              {% endif %}
             </div>
+            <label class="suas-book-label suas-visually-hidden" for="SelfExperience">choose your experiment</label>
+            <select class="suas-book-select suas-visually-hidden" id="SelfExperience" name="id" required>
+              <option value="">choose experiment</option>
+              {% if parfum_main_variant != blank %}<option value="{{ parfum_main_variant.id }}" data-experience="Lab Session: Eau De Parfum (30mL)" data-price="{{ parfum_main_variant.price | money }}" selected{% unless parfum_main_variant.available %} disabled{% endunless %}>Lab Session: Eau De Parfum (30mL)</option>{% endif %}
+              {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}"{% unless roll_on_main_variant.available %} disabled{% endunless %}>Lab Session: Roll-On Perfume (10mL)</option>{% endif %}
+              {% if combo_main_variant != blank %}<option value="{{ combo_main_variant.id }}" data-experience="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}"{% unless combo_main_variant.available %} disabled{% endunless %}>Lab Session Combo</option>{% endif %}
+            </select>
             <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
-            <div class="suas-book-addons">
-              {% if roll_on_addon_variant != blank %}
-              <label class="suas-book-addon">
-                <input type="checkbox" data-addon-variant="{{ roll_on_addon_variant.id }}" data-addon-name="10mL Roll-On Perfume"{% unless roll_on_addon_variant.available %} disabled{% endunless %}>
-                <strong>10mL roll-on add-on</strong><span>+ {{ roll_on_addon_variant.price | money }}</span>
-              </label>
-              {% endif %}
-              {% if travel_addon_variant != blank %}
-              <label class="suas-book-addon">
-                <input type="checkbox" data-addon-variant="{{ travel_addon_variant.id }}" data-addon-name="15mL Travel / Second Perfume"{% unless travel_addon_variant.available %} disabled{% endunless %}>
-                <strong>15mL travel / second perfume</strong><span>+ {{ travel_addon_variant.price | money }}</span>
-              </label>
-              {% endif %}
-            </div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumTime">arrival time</label><select class="suas-book-select suas-time-select" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div>
+            <div class="suas-book-field" data-wide>
+              <span class="suas-book-label">arrival time</span>
+              <div class="suas-time-chips" data-self-chips></div>
+              <select class="suas-book-select suas-time-select suas-visually-hidden" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select>
+            </div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" value="1"></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
             <div class="suas-book-field" data-wide><label class="suas-book-label" for="ParfumName">name</label><input class="suas-book-input" id="ParfumName" type="text" name="properties[Guest name]" required></div>
@@ -364,21 +382,52 @@
       root.querySelectorAll('input[type="date"]').forEach(function (input) { input.min = stamp; });
 
       var selfForm = root.querySelector('[data-booking-form="self"]');
+      var selfChips = root.querySelector('[data-self-chips]');
+      function renderSelfChips(options, selected) {
+        if (!selfChips) return;
+        selfChips.innerHTML = '';
+        if (!options.length) {
+          var empty = document.createElement('button');
+          empty.type = 'button';
+          empty.disabled = true;
+          empty.textContent = 'pick Thursday–Sunday';
+          selfChips.appendChild(empty);
+          return;
+        }
+        options.forEach(function (time) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = time;
+          button.classList.toggle('is-on', time === selected);
+          button.addEventListener('click', function () {
+            selfTime.value = time;
+            renderSelfChips(options, time);
+          });
+          selfChips.appendChild(button);
+        });
+      }
       if (selfForm) {
         var selfDate = selfForm.querySelector('input[type="date"]');
         var selfTime = selfForm.querySelector('select[name="properties[Preferred time]"]');
         var updateSelf = function () {
           var day = dateDay(selfDate.value);
-          if (day === null) return;
+          if (day === null) {
+            renderSelfChips([], '');
+            return;
+          }
           var options = selfTimes[day] || [];
           if (!options.length) {
             setOptions(selfTime, []);
+            renderSelfChips([], '');
             reject(selfDate, dayNames[day] + ' is closed for self-guided bookings. Please choose Thursday, Friday, Saturday, or Sunday.');
             return;
           }
           setOptions(selfTime, options);
+          if (options.indexOf(selfTime.value) === -1) selfTime.value = options[0];
+          renderSelfChips(options, selfTime.value);
         };
         selfDate.addEventListener('change', updateSelf);
+        renderSelfChips([], '');
         selfForm.addEventListener('submit', function (event) {
           var day = dateDay(selfDate.value);
           var options = selfTimes[day] || [];
@@ -393,16 +442,24 @@
       var selfExperienceProperty = root.querySelector('[data-self-experience-property]');
       var selfPrice = root.querySelector('[data-self-price]');
       var selfDescription = root.querySelector('[data-self-description]');
-      if (selfExperience && selfExperienceProperty) {
-        var defaultDescription = 'Choose one creation, then add an extra roll-on or travel perfume if you want a second product.';
-        var syncExperience = function () {
-          var option = selfExperience.options[selfExperience.selectedIndex];
-          selfExperienceProperty.value = (option && option.dataset.experience) || '';
-          if (selfPrice && option && option.dataset.price) selfPrice.textContent = option.dataset.price;
-          if (selfDescription) selfDescription.textContent = (option && option.dataset.description) || defaultDescription;
-        };
-        selfExperience.addEventListener('change', syncExperience);
-        syncExperience();
+      var selfTypes = root.querySelector('[data-self-types]');
+      function syncSelfType() {
+        if (!selfTypes) return;
+        var input = selfTypes.querySelector('input:checked');
+        selfTypes.querySelectorAll('.suas-type-card').forEach(function (card) {
+          card.classList.toggle('is-on', card.contains(input));
+        });
+        if (!input) return;
+        if (selfExperience) selfExperience.value = input.value;
+        if (selfExperienceProperty) selfExperienceProperty.value = input.dataset.label || '';
+        if (selfPrice) selfPrice.textContent = input.dataset.price || '';
+        if (selfDescription) selfDescription.textContent = input.dataset.copy || '';
+      }
+      if (selfTypes) {
+        selfTypes.addEventListener('change', syncSelfType);
+        syncSelfType();
+      } else if (selfExperience && selfExperienceProperty) {
+        selfExperience.addEventListener('change', syncSelfType);
       }
 
       if (selfForm) {
