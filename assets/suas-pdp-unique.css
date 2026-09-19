@@ -33,7 +33,7 @@ html body.template--product .suas-station-desk {
     "life buy"
     "mix buy" !important;
   gap: 16px !important;
-  align-items: stretch !important;
+  align-items: start !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -65,8 +65,9 @@ html body.template--product .suas-pdp .suas-window-bar {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 8px;
-  min-height: 42px;
+  min-height: 38px;
   padding: 7px 12px;
+  overflow: visible;
   border-bottom: 2px solid var(--ink);
   background: linear-gradient(180deg, #fff, #ece7f3);
 }
@@ -74,10 +75,13 @@ html body.template--product .suas-pdp .suas-window-dots { display: flex; gap: 6p
 html body.template--product .suas-pdp .suas-dot { width: 11px; height: 11px; border-radius: 999px; background: var(--dot); }
 html body.template--product .suas-pdp .suas-window-title {
   text-align: center;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 900;
-  letter-spacing: .14em;
+  letter-spacing: .12em;
   text-transform: uppercase;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 html body.template--product .suas-pdp-ticket .suas-window-title {
   letter-spacing: .12em;
@@ -115,10 +119,14 @@ html body.template--product .suas-pdp-life-photo {
   display: block;
 }
 html body.template--product .suas-pdp-life .suas-station-thumbs {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
   display: flex !important;
   gap: 8px;
   padding: 10px;
   background: #fff;
+  border-top: 2px solid var(--ink);
   overflow-x: auto;
 }
 html body.template--product .suas-station-thumb {
@@ -233,7 +241,7 @@ html body.template--product .suas-station-gravity-media {
 
 html body.template--product .suas-pdp-ticket {
   position: sticky;
-  top: 78px;
+  top: 52px;
   align-self: start;
   min-height: 0;
   background:
@@ -324,6 +332,36 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
 
 @media (prefers-reduced-motion: reduce) {
   html body.template--product .suas-pdp-jar .suas-station-photo { animation: none !important; }
+}
+
+@media (min-width: 1024px) {
+  html body.template--product .off-canvas--main-content {
+    padding-top: 0 !important;
+  }
+  html body.template--product .layout--main-content {
+    padding: 52px 18px 64px !important;
+  }
+  html body.template--product .suas-pdp,
+  html body.template--product .product-page--root.suas-station {
+    position: relative;
+    z-index: 2;
+    width: min(1120px, 100%) !important;
+  }
+  html body.template--product .suas-pdp-world,
+  html body.template--product .suas-station-desk,
+  html body.template--product .product-page--top-panel {
+    grid-template-columns: minmax(0, 1.28fr) minmax(280px, 360px) !important;
+    gap: 14px !important;
+  }
+  html body.template--product .suas-pdp-life-frame,
+  html body.template--product .suas-pdp-life-photo {
+    height: min(42vh, 380px);
+    min-height: 240px;
+    max-height: 380px;
+  }
+  html.suas-halloween body.template--product .suas-halloween-fx {
+    z-index: 0 !important;
+  }
 }
 
 @media (max-width: 1023px) {
