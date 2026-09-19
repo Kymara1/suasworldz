@@ -8,9 +8,9 @@
     .suas-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1260px,calc(100vw - 32px));margin:0 auto}
-    .suas-billboard{display:grid;gap:0;padding:6px 2px 12px;text-align:center;justify-items:center;overflow:visible}
-    .suas-home-logo{display:inline-flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,22px);max-width:min(100%,560px);color:inherit;text-decoration:none}
-    .suas-home-logo-img{display:block;width:auto;max-width:min(92vw,340px);height:auto;max-height:min(28vh,200px);object-fit:contain}
+    .suas-billboard{display:grid;gap:0;padding:4px 2px 8px;text-align:center;justify-items:center;overflow:visible}
+    .suas-home-logo{display:inline-flex;align-items:center;justify-content:center;max-width:min(100%,120px);color:inherit;text-decoration:none}
+    .suas-home-logo-img{display:block;width:72px;height:72px;max-width:72px;max-height:72px;object-fit:contain;background:#000;border:2px solid var(--ink);border-radius:16px;box-shadow:3px 4px 0 var(--ink)}
     .suas-home-logo .suas-side-orb,.suas-home-logo-orb{width:clamp(56px,9vw,92px)!important;height:clamp(56px,9vw,92px)!important;flex:0 0 auto;border-radius:999px;background:radial-gradient(circle at 32% 20%,#fff 0 10%,transparent 32%),conic-gradient(from 210deg,#ffd8e8,#c9e7ff,#d8e26a,#ffd8e8);box-shadow:inset 0 -6px 12px rgba(0,0,0,.16),inset 0 6px 12px rgba(255,255,255,.85),0 8px 16px -8px rgba(16,16,16,.35)}
     .suas-home-logo-type{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(3.6rem,10vw,6.4rem);font-weight:700;line-height:.8;text-transform:uppercase}
     .suas-aisles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -57,7 +57,7 @@
     .suas-launch-panel{display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
     .suas-launch-body{display:flex;flex-direction:column;gap:11px;padding:14px;flex:1}
     .suas-launch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .suas-launch-grid .suas-launch:nth-of-type(n+7){display:none!important}
+    .suas-launch-grid .suas-launch:nth-of-type(n+5){display:none!important}
     .suas-launch{min-height:64px;display:flex;flex-direction:column;justify-content:center;border:1.75px solid var(--ink);border-radius:18px;padding:12px;color:var(--ink);background:var(--launch);box-shadow:0 4px 0 var(--ink);text-decoration:none;transition:transform 160ms ease,box-shadow 160ms ease}
     .suas-launch:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
     .suas-launch strong{font-size:1.13rem;line-height:.9;text-transform:lowercase}
@@ -99,7 +99,14 @@
       .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
     @media(max-width:560px){
-      .suas-aisles{grid-template-columns:1fr}
+      .suas-aisles{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px}
+      .suas-aisle{padding:8px 7px 9px;border-radius:14px;gap:6px;box-shadow:3px 4px 0 var(--ink)}
+      .suas-aisle small{font-size:7px;letter-spacing:.12em}
+      .suas-aisle h3{font-size:clamp(1.35rem,7.5vw,1.85rem)}
+      .suas-aisle-chips{gap:4px}
+      .suas-aisle-chips a{min-height:22px;padding:3px 6px;font-size:7px;letter-spacing:.04em;box-shadow:0 1.5px 0 var(--ink)}
+      .suas-home-logo{max-width:64px}
+      .suas-home-logo-img{width:56px;height:56px;max-width:56px;max-height:56px;border-radius:12px;box-shadow:2px 3px 0 var(--ink)}
       .suas-home-logo-type{font-size:clamp(2.8rem,16vw,4.2rem)}
       .suas-lower-grid{grid-template-columns:1fr;gap:8px}
       .suas-window-live{display:none}
@@ -149,12 +156,7 @@
       <div class="suas-hero-stack">
         <header class="suas-billboard">
           <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS">
-            {%- if shop.brand.logo != blank -%}
-              <img class="suas-home-logo-img" src="{{ shop.brand.logo | image_url: width: 900 }}" alt="SUAS">
-            {%- else -%}
-              <span class="suas-home-logo-orb" aria-hidden="true"></span>
-              <span class="suas-home-logo-type">SUAS</span>
-            {%- endif -%}
+            <img class="suas-home-logo-img" src="{{ 'suas-logo.png' | asset_url }}" width="72" height="72" alt="SUAS">
           </a>
         </header>
         <div class="suas-aisles">
@@ -248,6 +250,38 @@
           </div>
         </div>
 
+        <div class="suas-launch-panel">
+          <div class="suas-window-bar">
+            <div class="suas-window-dots">
+              <span class="suas-dot" style="--dot:#ff5f57"></span>
+              <span class="suas-dot" style="--dot:#febc2e"></span>
+              <span class="suas-dot" style="--dot:#28c840"></span>
+            </div>
+            <span class="suas-window-title suas-mono">QUICK.LAUNCH</span>
+            <span class="suas-window-live suas-mono"><b></b>GO</span>
+          </div>
+          <div class="suas-launch-body">
+            <div class="suas-launch-grid" data-suas-fixed-launch="true">
+              <a class="suas-launch" href="/collections/home-care" style="--launch:#cdeeff">
+                <strong class="suas-font">home</strong>
+                <span class="suas-mono">shop</span>
+              </a>
+              <a class="suas-launch" href="/collections/butter-creme" style="--launch:#ffd8e8">
+                <strong class="suas-font">body</strong>
+                <span class="suas-mono">shop</span>
+              </a>
+              <a class="suas-launch" href="/pages/bookings" style="--launch:#ff9bc4">
+                <strong class="suas-font">book the lab</strong>
+                <span class="suas-mono">reserve</span>
+              </a>
+              <a class="suas-launch" href="/collections/new-arrivals" style="--launch:#d9ff78">
+                <strong class="suas-font">new arrivals</strong>
+                <span class="suas-mono">launch</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div class="suas-lower-grid">
           <div class="suas-feed-notes">
             <div class="suas-window-bar">
@@ -307,6 +341,6 @@
       </div>
     </div>
   </div>
-  <script>(()=>{function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{const href=link.getAttribute('href')||'';if(href.charAt(0)!=='#')return;event.preventDefault();const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}})})}wireFeedLinks();function wireFeedCart(){document.querySelectorAll('.suas-world-home [data-suas-atc]').forEach(button=>{if(button.dataset.suasAtcReady==='true')return;button.dataset.suasAtcReady='true';button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(button.disabled)return;const id=Number(button.getAttribute('data-suas-atc'));if(!id)return;const original=button.textContent;button.disabled=true;button.textContent='adding';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},credentials:'same-origin',body:JSON.stringify({id,quantity:1})}).then(response=>{if(!response.ok)throw new Error('cart');return response.json()}).then(()=>fetch('/cart.js',{credentials:'same-origin'})).then(response=>response.json()).then(cart=>{document.querySelectorAll('[data-suas-cart-count]').forEach(node=>{node.textContent=cart.item_count});button.textContent='added';setTimeout(()=>{button.disabled=false;button.textContent=original},1200)}).catch(()=>{button.disabled=false;button.textContent='try again';setTimeout(()=>{button.textContent=original},1400)})})})}wireFeedCart();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=6){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500].forEach(t=>setTimeout(dedupeLaunch,t));document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;let active=0;setInterval(()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')},7600)})})();</script>
+  <script>(()=>{function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{const href=link.getAttribute('href')||'';if(href.charAt(0)!=='#')return;event.preventDefault();const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}})})}wireFeedLinks();function wireFeedCart(){document.querySelectorAll('.suas-world-home [data-suas-atc]').forEach(button=>{if(button.dataset.suasAtcReady==='true')return;button.dataset.suasAtcReady='true';button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(button.disabled)return;const id=Number(button.getAttribute('data-suas-atc'));if(!id)return;const original=button.textContent;button.disabled=true;button.textContent='adding';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},credentials:'same-origin',body:JSON.stringify({id,quantity:1})}).then(response=>{if(!response.ok)throw new Error('cart');return response.json()}).then(()=>fetch('/cart.js',{credentials:'same-origin'})).then(response=>response.json()).then(cart=>{document.querySelectorAll('[data-suas-cart-count]').forEach(node=>{node.textContent=cart.item_count});button.textContent='added';setTimeout(()=>{button.disabled=false;button.textContent=original},1200)}).catch(()=>{button.disabled=false;button.textContent='try again';setTimeout(()=>{button.textContent=original},1400)})})})}wireFeedCart();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{if(grid.getAttribute('data-suas-fixed-launch')==='true'){;[...grid.querySelectorAll('a.suas-launch')].slice(4).forEach(link=>link.remove());return}const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=4){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500].forEach(t=>setTimeout(dedupeLaunch,t));document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;let active=0;setInterval(()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')},7600)})})();</script>
 </section>
 {% schema %}{"name":"SUAS World Home","settings":[{"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},{"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."}],"presets":[{"name":"SUAS World Home"}]}{% endschema %}

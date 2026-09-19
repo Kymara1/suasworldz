@@ -480,7 +480,7 @@
     addControlSubmenu('.suas-panel-nav > a.suas-panel-link[href="/collections/home-care"]', panelSubmenus.home, 'suas-home-panel-dropdown');
 
     var grid = document.querySelector('.suas-world-home .suas-launch-grid');
-    if (!grid || grid.querySelector('[data-suas-extra-launch="new-arrivals"]')) return;
+    if (!grid || grid.getAttribute('data-suas-fixed-launch') === 'true' || grid.querySelector('[data-suas-extra-launch="new-arrivals"]')) return;
 
     var links = [
       { key: 'new-arrivals', title: 'new arrivals', href: '/collections/new-arrivals', color: '#c6f76a', glow: '198,247,106' },
