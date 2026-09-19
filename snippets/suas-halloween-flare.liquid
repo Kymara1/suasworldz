@@ -79,8 +79,9 @@
       }
 
       html.suas-halloween .suas-side-orb {
-        background: #000 url({{ 'suas-logo-halloween.png' | asset_url }}) center / cover no-repeat !important;
-        box-shadow: 0 3px 0 #2a1418 !important;
+        background:
+          radial-gradient(circle at 32% 20%, #fff8ee 0 10%, transparent 32%),
+          conic-gradient(from 210deg, #e07a3d, #d4a017, #5f7340, #8a3d4a, #e07a3d);
       }
 
       html.suas-halloween .suas-side-link.is-active {
@@ -341,20 +342,38 @@
       html.suas-halloween .suas-home-logo {
         background: transparent;
         box-shadow: none;
+        max-width: 148px;
       }
 
       html.suas-halloween .suas-home-logo-img--core {
         display: none !important;
       }
 
+      html.suas-halloween body .suas-world-home .suas-home-logo-img--season,
       html.suas-halloween .suas-home-logo-img--season {
         display: block !important;
+        width: 96px !important;
+        height: 96px !important;
+        max-width: 96px !important;
+        max-height: 96px !important;
         border-radius: 999px !important;
         background: #000 !important;
         object-fit: cover !important;
         mix-blend-mode: normal !important;
         filter: none !important;
         box-shadow: 3px 4px 0 #2a1418 !important;
+      }
+
+      @media (max-width: 560px) {
+        html.suas-halloween body .suas-world-home .suas-home-logo {
+          max-width: 96px !important;
+        }
+        html.suas-halloween body .suas-world-home .suas-home-logo-img--season {
+          width: 84px !important;
+          height: 84px !important;
+          max-width: 84px !important;
+          max-height: 84px !important;
+        }
       }
 
       html.suas-halloween img.suas-password-logo--core { display: none !important; }
