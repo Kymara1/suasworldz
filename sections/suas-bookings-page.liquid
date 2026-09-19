@@ -298,7 +298,7 @@
               <select class="suas-book-select suas-visually-hidden" id="GuidedVariant" name="id">
                 {% for variant in deluxe_product.variants %}
                   {% assign guided_variant_name = variant.title | downcase %}
-                  {% if variant.inventory_management != blank %}
+                  {% if variant.inventory_management != blank and variant.inventory_quantity > 0 %}
                     {% assign guided_seats = variant.inventory_quantity %}
                   {% else %}
                     {% assign guided_seats = 12 %}
