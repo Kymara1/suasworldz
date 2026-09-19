@@ -90,20 +90,21 @@
       .suas-scent-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
     @media(max-width:560px){
-      .suas-home-wrap{width:calc(100vw - 16px)}
-      .suas-hero-grid{grid-template-columns:1fr!important}
-      .suas-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-      .suas-product-rotator{height:auto!important;min-height:0;padding:14px}
-      .suas-product-slide{position:relative!important;inset:auto!important;display:none!important;grid-template-columns:1fr;gap:12px;opacity:1;transform:none;pointer-events:auto}
+      .suas-home-wrap{width:calc(100vw - 12px)}
+      .suas-hero-grid{grid-template-columns:minmax(0,1fr) minmax(152px,40%)!important;gap:8px!important;align-items:start!important}
+      .suas-launch-grid{grid-template-columns:1fr!important}
+      .suas-window-live{display:none}
+      .suas-product-rotator{height:auto!important;min-height:0;padding:10px}
+      .suas-product-slide{position:relative!important;inset:auto!important;display:none!important;grid-template-columns:1fr;gap:10px;opacity:1;transform:none;pointer-events:auto}
       .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid!important}
-      .suas-product-photo{width:min(220px,100%);justify-self:center}
-      .suas-product-copy{text-align:center;justify-items:center}
-      .suas-product-title{font-size:clamp(1.7rem,8vw,2.4rem);white-space:normal}
-      .suas-product-price{margin:12px auto 0;font-size:12px}
-      .suas-feed-announcement{font-size:1.05rem;min-height:auto}
-      .suas-feed-btn{min-height:44px;font-size:11px}
+      .suas-product-photo{width:min(168px,88%);justify-self:center}
+      .suas-product-copy{text-align:center;justify-items:center;padding:12px 10px}
+      .suas-product-title{font-size:clamp(1.25rem,6.4vw,1.85rem);white-space:normal}
+      .suas-product-price{margin:8px auto 0;font-size:10px}
+      .suas-feed-announcement{font-size:.95rem;min-height:auto}
+      .suas-feed-btn{min-height:38px;font-size:9px}
+      .suas-launch span{display:none}
       .suas-scent p{font-size:9px}
-      .suas-window-live{font-size:8px}
     }
     @media(prefers-reduced-motion:reduce){.suas-product-title,.suas-product-photo img,.suas-led-track,.suas-window-live b{animation:none!important}}
   </style>
