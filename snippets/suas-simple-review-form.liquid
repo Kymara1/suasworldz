@@ -1,5 +1,4 @@
 {%- liquid
-  assign scent = product.title | split: '✿' | first | strip
   assign has_legacy = false
   if product.metafields.judgeme.widget.size > 20
     assign has_legacy = true
@@ -7,30 +6,34 @@
 -%}
 <div class="suas-simple-review" id="suas-simple-review">
   <style>
-    .suas-simple-review{margin:0 18px 18px;padding:18px;border:2px solid #101010;border-radius:22px;background:#fff;box-shadow:4px 5px 0 #101010}
-    .suas-simple-review h3{margin:0 0 6px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.7rem,4vw,2.4rem);line-height:.88;font-weight:400;text-transform:lowercase}
-    .suas-simple-review > p{margin:0 0 14px;font-size:13px;font-weight:800;line-height:1.35}
-    html body.template--product .suas-review-shell-window{overflow:visible!important}
-    .suas-simple-review .jdgm-widget{margin:0!important;padding:0!important;border:0!important;background:transparent!important}
-    .suas-simple-review .jdgm-rev-widg{border:0!important;margin:0!important;padding:0!important;background:transparent!important;color:#101010!important}
-    .suas-simple-review .jdgm-rev-widg__title{display:none!important}
-    .suas-simple-review .jdgm-rev,
-    .suas-simple-review .jdgm-form-wrapper,
-    .suas-simple-review .jdgm-rev-widg__summary{border:2px solid #101010!important;border-radius:18px!important;background:#fff1a8!important;box-shadow:3px 4px 0 #101010!important;color:#101010!important;padding:14px!important}
-    .suas-simple-review .jdgm-rev-widg__summary{background:#d9ff78!important}
-    .suas-simple-review :is(.jdgm-star,.jdgm-star:before){color:#101010!important}
-    .suas-simple-review :is(.jdgm-write-rev-link,.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn){min-height:42px!important;border:2px solid #101010!important;border-radius:999px!important;background:#ffd8e8!important;color:#101010!important;box-shadow:0 4px 0 #101010!important;font:900 10px/1 Futura,Arial,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase!important;text-decoration:none!important}
-    .suas-simple-review :is(input,textarea,select){border:1.5px solid #101010!important;border-radius:14px!important;background:#fff!important;color:#101010!important;font:800 14px/1.3 Futura,Arial,sans-serif!important}
-    .suas-simple-review .jdgm-rev__author,
-    .suas-simple-review .jdgm-rev__title{font-weight:900!important;letter-spacing:.06em!important;text-transform:uppercase!important;color:#101010!important}
-    #aftership_reviews_carousel_v2_production,
-    #aftership_reviews_all_reviews_widget_production{display:none!important}
-    @media(max-width:700px){.suas-simple-review{margin:0 14px 14px}}
+    html body.template--product .suas-product-review-shell{width:min(640px,calc(100vw - 24px))!important;max-width:640px!important;margin:16px auto 20px!important}
+    html body.template--product .suas-review-shell-window{border-radius:16px!important;box-shadow:3px 4px 0 #101010!important;overflow:hidden!important}
+    html body.template--product .suas-smell-winbar{min-height:28px!important;padding:4px 10px!important}
+    html body.template--product .suas-review-intro{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;padding:8px 10px 0!important}
+    html body.template--product .suas-review-intro h2{margin:0!important;font-size:1.35rem!important;line-height:1!important}
+    html body.template--product .suas-review-intro p,
+    html body.template--product .suas-review-empty,
+    html body.template--product .suas-review-action{display:none!important}
+    html body.template--product .suas-review-app-stage{padding:0 10px 10px!important;min-height:0!important}
+    html body.template--product .suas-review-app-stage .shopify-app-block{min-height:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
+    .suas-simple-review{margin:8px 10px 10px;padding:0;border:0;background:transparent;box-shadow:none}
+    .suas-simple-review .jdgm-widget,.suas-simple-review .jdgm-rev-widg{margin:0!important;padding:0!important;border:0!important;background:transparent!important;color:#101010!important}
+    .suas-simple-review :is(.jdgm-rev-widg__title,.jdgm-form-wrapper h2,.jdgm-form__title,.jdgm-rev-widg__header){display:none!important}
+    .suas-simple-review .jdgm-rev-widg__summary{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:8px!important;margin:0 0 8px!important;padding:8px!important;border:2px solid #101010!important;border-radius:14px!important;background:#d9ff78!important;box-shadow:2px 3px 0 #101010!important}
+    .suas-simple-review .jdgm-rev,.suas-simple-review .jdgm-form-wrapper{margin:0!important;padding:10px!important;border:2px solid #101010!important;border-radius:14px!important;background:#fff1a8!important;box-shadow:2px 3px 0 #101010!important}
+    .suas-simple-review :is(.jdgm-write-rev-link,.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn){min-height:34px!important;padding:0 12px!important;border:2px solid #101010!important;border-radius:999px!important;background:#ffd8e8!important;color:#101010!important;box-shadow:0 3px 0 #101010!important;font:900 9px/1 Futura,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important}
+    .suas-simple-review textarea{min-height:72px!important;max-height:110px!important}
+    .suas-simple-review :is(input,textarea,select){border:1.5px solid #101010!important;border-radius:12px!important;background:#fff!important;color:#101010!important;font:800 13px/1.3 Futura,Arial,sans-serif!important}
+    .suas-simple-review :is(.jdgm-star,.jdgm-star:before){color:#101010!important;font-size:16px!important}
+    .suas-simple-review :is(.jdgm-powered,.jdgm-branding,a[href*='judge.me'],a[href*='judgeme']){display:none!important}
+    html body.template--product :is(#aftership_reviews_carousel_v2_production,#aftership_reviews_all_reviews_widget_production){display:none!important}
+    @media(max-width:749px){
+      html body.template--product .suas-product-review-shell{width:min(430px,calc(100vw - 14px))!important;margin:10px auto 16px!important}
+      .suas-simple-review .jdgm-rev-widg__summary{flex-direction:column;align-items:stretch}
+      .suas-simple-review :is(.jdgm-write-rev-link,.jdgm-btn){width:100%!important}
+    }
   </style>
-  <h3>leave a review.</h3>
-  <p>Write how {{ scent }} smelled on you. This goes to Judge.me, then shows on this product and the all-reviews page once it is published.</p>
   <div data-suas-judgeme-mount>
-    <div style="clear:both"></div>
     <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}" data-product-id="{{ product.id }}" data-widget="review" data-auto-install="false" data-shop-reviews-count="{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}" data-entry-point="review_widget.js" data-entry-key="review-widget/main.js">
       {% if has_legacy %}
         <div class="jdgm-legacy-widget-content" style="display:none;">{{ product.metafields.judgeme.widget }}</div>
@@ -45,16 +48,26 @@
       var root = document.currentScript.closest('.suas-simple-review');
       if (!root || root.dataset.suasJudgeReady === 'true') return;
       root.dataset.suasJudgeReady = 'true';
+      function scrub() {
+        root.querySelectorAll('a,p,span,small,div').forEach(function (el) {
+          if (el.querySelector('input,textarea,button,select')) return;
+          var text = (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) ? String(el.textContent || '') : '';
+          if (/judge\.?\s*me/i.test(text)) {
+            el.textContent = text.replace(/\s*by logging into Judge\.me/ig, '').replace(/Judge\.me/ig, '').trim();
+            if (!el.textContent) el.style.display = 'none';
+          }
+        });
+        root.querySelectorAll('a[href*="judge.me"],a[href*="judgeme"]').forEach(function (a) { a.style.display = 'none'; });
+      }
+      scrub();
+      var n = 0;
+      var t = setInterval(function () { scrub(); if (++n > 24) clearInterval(t); }, 400);
       if (location.search.indexOf('showWriteReviews') === -1) return;
       var tries = 0;
-      var timer = setInterval(function () {
+      var open = setInterval(function () {
         var btn = root.querySelector('.jdgm-write-rev-link');
-        if (btn) {
-          btn.click();
-          clearInterval(timer);
-        } else if (++tries > 20) {
-          clearInterval(timer);
-        }
+        if (btn) { btn.click(); clearInterval(open); }
+        else if (++tries > 20) clearInterval(open);
       }, 400);
     })();
   </script>

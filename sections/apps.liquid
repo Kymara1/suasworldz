@@ -19,76 +19,34 @@
 
 {% if is_product_review_shell %}
   <style>
-    html body.template--product .suas-product-review-shell{width:min(1180px,100%);margin:28px auto 36px;padding:0 2px;color:#101010;font-family:Futura,Arial,sans-serif;background:transparent}
+    html body.template--product .suas-product-review-shell{width:min(640px,calc(100vw - 24px));margin:16px auto 20px;padding:0;color:#101010;font-family:Futura,Arial,sans-serif;background:transparent}
     html body.template--product .suas-product-review-shell .apps--wrapper,
-    html body.template--product .suas-review-shell-window{border:2px solid #101010!important;border-radius:26px!important;background:rgba(255,255,255,.94)!important;box-shadow:5px 6px 0 #101010!important;overflow:visible!important}
-    html body.template--product .suas-smell-winbar{display:flex;align-items:center;gap:8px;min-height:38px;padding:8px 14px;border-bottom:2px solid #101010;background:linear-gradient(180deg,#fff,#ece7f3)}
-    html body.template--product .suas-smell-winbar i{width:11px;height:11px;border-radius:999px;display:block;background:#ff5f57}
+    html body.template--product .suas-review-shell-window{border:2px solid #101010!important;border-radius:16px!important;background:#fff!important;box-shadow:3px 4px 0 #101010!important;overflow:hidden!important}
+    html body.template--product .suas-smell-winbar{display:flex;align-items:center;gap:6px;min-height:28px;padding:4px 10px;border-bottom:2px solid #101010;background:linear-gradient(180deg,#fff,#ece7f3)}
+    html body.template--product .suas-smell-winbar i{width:8px;height:8px;border-radius:999px;display:block;background:#ff5f57}
     html body.template--product .suas-smell-winbar i:nth-child(2){background:#febc2e}
     html body.template--product .suas-smell-winbar i:nth-child(3){background:#28c840}
-    html body.template--product .suas-smell-winbar b{margin-left:auto;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
-    html body.template--product .suas-review-intro{display:grid;grid-template-columns:1.15fr auto;gap:18px;align-items:end;padding:18px 18px 14px}
-    html body.template--product .suas-review-intro h2{margin:0 0 8px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.2rem,5vw,4rem);line-height:.86;text-transform:uppercase}
-    html body.template--product .suas-review-intro p{margin:0;font-size:13px;line-height:1.45;font-weight:800}
-    html body.template--product .suas-review-action{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 18px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010;box-shadow:0 4px 0 #101010;text-decoration:none;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
-    html body.template--product .suas-review-action:hover{color:#101010;transform:translateY(2px);box-shadow:0 2px 0 #101010}
-    html body.template--product .suas-review-empty{margin:0 18px 18px;padding:22px 18px;border:2px solid #101010;border-radius:22px;background:radial-gradient(circle at 12% 18%,rgba(255,216,232,.85),transparent 42%),radial-gradient(circle at 88% 82%,rgba(217,255,120,.55),transparent 40%),#fff7fb;box-shadow:4px 5px 0 #101010;text-align:center}
-    html body.template--product .suas-review-empty[hidden]{display:none!important}
-    html body.template--product .suas-review-empty-dots{display:flex;justify-content:center;gap:8px;margin:0 0 12px}
-    html body.template--product .suas-review-empty-dots span{width:42px;height:42px;border:2px solid #101010;border-radius:14px;box-shadow:2px 3px 0 #101010}
-    html body.template--product .suas-review-empty-dots span:nth-child(1){background:#ffd8e8}
-    html body.template--product .suas-review-empty-dots span:nth-child(2){background:#d9ff78}
-    html body.template--product .suas-review-empty-dots span:nth-child(3){background:#cdeeff}
-    html body.template--product .suas-review-empty h3{margin:0 0 8px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,4.5vw,2.8rem);line-height:.88;text-transform:lowercase;font-weight:400}
-    html body.template--product .suas-review-empty p{margin:0 auto;max-width:36ch;font-size:13px;line-height:1.4;font-weight:800}
-    html body.template--product .suas-review-app-stage{padding:0 18px 18px}
-    html body.template--product .suas-review-app-stage iframe{width:100%;min-height:280px;border:0;border-radius:18px}
-    html body.template--product #aftership_reviews_carousel_v2_production,
-    html body.template--product #aftership_reviews_all_reviews_widget_production{display:none!important}
-    html body.template--product .jdgm-widget{display:block!important}
-    @media(max-width:1023px){html body.template--product .suas-review-intro{grid-template-columns:1fr;padding:14px 14px 10px}html body.template--product .suas-review-action{width:100%}html body.template--product .suas-review-empty,html body.template--product .suas-review-app-stage{margin-left:14px;margin-right:14px}html body.template--product .suas-review-app-stage{padding:0 14px 14px;margin:0}}
+    html body.template--product .suas-smell-winbar b{margin-left:auto;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    html body.template--product .suas-review-intro{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px 0}
+    html body.template--product .suas-review-intro h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.35rem;line-height:1;text-transform:lowercase;font-weight:400}
+    html body.template--product .suas-review-intro p,
+    html body.template--product .suas-review-action,
+    html body.template--product .suas-review-empty{display:none!important}
+    html body.template--product .suas-review-app-stage{padding:0 10px 10px;min-height:0}
+    html body.template--product .suas-review-app-stage iframe{display:none}
   </style>
 {% endif %}
 
 <div class="apps--root{% if is_product_review_shell %} suas-product-review-shell{% endif %}" data-section-id="{{ section.id }}" data-background-color="{{ bg_color }}" data-container-width="{{ container_width }}" data-light-text="{{ light_text }}" data-spacing-above="{{ spacing_above }}" data-spacing-below="{{ spacing_below }}">
   <div class="apps--wrapper{% if is_product_review_shell %} suas-review-shell-window{% endif %}">
     {% if is_product_review_shell %}
-      <div class="suas-smell-winbar" aria-hidden="true"><i></i><i></i><i></i><b>smell.log</b></div>
-      <div class="suas-review-intro"><div class="suas-review-copy"><h2>smell reports</h2><p>Leave a review here. It goes to Judge.me, then shows on this product and the all-reviews page once it is published.</p></div><a class="suas-review-action" href="{{ product.url }}?showWriteReviews=true#suas-simple-review">write a review</a></div>
+      <div class="suas-smell-winbar" aria-hidden="true"><i></i><i></i><i></i><b>reviews</b></div>
+      <div class="suas-review-intro"><h2>reviews</h2></div>
       {% render 'suas-simple-review-form', product: product %}
-      <div class="suas-review-empty" data-suas-review-empty>
-        <div class="suas-review-empty-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-        <h3>nobody's spilled yet.</h3>
-        <p>Published reviews will land under the form. You can still write one above.</p>
-      </div>
     {% endif %}
     <div class="suas-review-app-stage" data-suas-review-stage>
       {{ app_blocks }}
     </div>
-    {% if is_product_review_shell %}
-      <script>
-        (function () {
-          var empty = document.querySelector('[data-suas-review-empty]');
-          var stage = document.querySelector('[data-suas-review-stage]');
-          if (!empty || !stage) return;
-          function hasReviews() {
-            var node = document.querySelector('#judgeme_product_reviews, .jdgm-review-widget, .jdgm-rev-widg') || stage;
-            var text = (node.innerText || '').replace(/\s+/g, ' ').toLowerCase();
-            if (!text || /no reviews yet|be the first to write|be the first/.test(text)) return false;
-            return node.querySelectorAll('.jdgm-rev, article, [class*="review-card"]').length > 0 || text.length > 80;
-          }
-          function sync() {
-            empty.hidden = hasReviews();
-          }
-          sync();
-          var ticks = 0;
-          var timer = setInterval(function () {
-            sync();
-            if (++ticks > 20) clearInterval(timer);
-          }, 500);
-        })();
-      </script>
-    {% endif %}
   </div>
 </div>
 

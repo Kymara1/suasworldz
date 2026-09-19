@@ -16,7 +16,7 @@
     body.template--product .suas-product-gallery-track .product-page--media-variant img,body.template--product .suas-product-gallery-track .image--root img{width:100%!important;height:auto!important;max-height:280px!important;object-fit:contain!important;border-radius:18px!important;display:block!important;margin:0 auto!important}
 
     /* Real review shell around the app section. */
-    body.template--product .suas-product-review-shell{width:min(980px,calc(100vw - 36px))!important;margin:clamp(34px,5vw,60px) auto!important;padding:0!important;background:transparent!important;position:relative!important;z-index:2!important;clear:both!important}
+    body.template--product .suas-product-review-shell{width:min(640px,calc(100vw - 24px))!important;margin:16px auto 20px!important;padding:0!important;background:transparent!important;position:relative!important;z-index:2!important;clear:both!important}
     body.template--product .suas-product-review-shell::before,
     html body.template--product .shopify-section:has(.suas-product-review-shell)::before{content:none!important;display:none!important}
     html body.template--product .shopify-section:has(.suas-product-review-shell):has(#aftership_reviews_carousel_v2_production)::before,
@@ -29,9 +29,9 @@
     body.template--product .suas-review-window-bar{height:36px;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid rgba(16,16,16,.18);background:linear-gradient(#f6f7f9,#e9edf2);font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#777}
     body.template--product .suas-review-window-bar span{width:13px;height:13px;border-radius:999px;display:block}.suas-review-window-bar span:nth-child(1){background:#ff6257}.suas-review-window-bar span:nth-child(2){background:#ffbd2e}.suas-review-window-bar span:nth-child(3){background:#28c840}
     body.template--product .suas-review-window-bar strong{margin-left:auto;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.18em;color:#777;text-transform:uppercase}
-    body.template--product .suas-review-app-stage{padding:clamp(18px,2.7vw,30px)!important;background:transparent!important}
-    body.template--product .suas-review-app-stage .shopify-app-block{width:100%!important;max-width:100%!important;min-height:170px!important;margin:0!important;padding:clamp(16px,2vw,24px)!important;border:2px solid var(--suas-ink)!important;border-radius:24px!important;background:rgba(255,255,255,.78)!important;box-shadow:5px 6px 0 var(--suas-ink)!important;overflow:hidden!important}
-    body.template--product .suas-review-app-stage iframe{width:100%!important;min-height:360px!important;border:0!important;border-radius:18px!important;background:#fff!important}
+    body.template--product .suas-review-app-stage{padding:0 10px 10px!important;background:transparent!important}
+    body.template--product .suas-review-app-stage .shopify-app-block{width:100%!important;max-width:100%!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+    body.template--product .suas-review-app-stage iframe{display:none!important}
     body.template--product .suas-review-app-stage .jdgm-widget,
     body.template--product .suas-review-app-stage .spr-container,
     body.template--product .suas-review-app-stage #shopify-product-reviews{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important;min-height:120px!important}
@@ -46,18 +46,17 @@
     body.template--product .suas-review-app-stage button,body.template--product .suas-review-app-stage a[role='button']{border:2px solid var(--suas-ink)!important;border-radius:999px!important;box-shadow:0 4px 0 var(--suas-ink)!important;font:900 10px/1 Futura,Arial,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase!important}
 
     @media(max-width:749px){
-      body.template--product .product-page--content,body.template--product .suas-product-review-shell{width:min(430px,calc(100vw - 16px))!important}
+      body.template--product .product-page--content,body.template--product .suas-product-review-shell{width:min(430px,calc(100vw - 14px))!important}
+      body.template--product .suas-review-app-stage{padding:0 8px 8px!important}
+      body.template--product .suas-review-app-stage iframe{display:none!important}
       body.template--product .suas-product-media-gallery{width:100%!important;margin-top:30px!important;border-radius:22px!important;box-shadow:5px 6px 0 var(--suas-ink)!important;padding:14px!important}
       body.template--product .suas-product-gallery-label{margin-top:-34px;font-size:clamp(1.5rem,9vw,2.05rem)}
       body.template--product .suas-product-gallery-track{grid-template-columns:1fr!important;gap:13px!important}
       body.template--product .suas-product-gallery-track .product-page--media-variant{max-width:100%!important;border-radius:20px!important;box-shadow:4px 5px 0 var(--suas-ink)!important}
       body.template--product .suas-product-gallery-track .product-page--media-variant img,body.template--product .suas-product-gallery-track .image--root img{max-height:260px!important}
       body.template--product .suas-review-shell-label{font-size:clamp(1.7rem,10vw,2.25rem);margin-bottom:-14px}
-      body.template--product .suas-review-shell-window{border-radius:22px!important;box-shadow:5px 6px 0 var(--suas-ink)!important}
+      body.template--product .suas-review-shell-window{border-radius:16px!important;box-shadow:3px 4px 0 var(--suas-ink)!important}
       body.template--product .suas-review-window-bar strong{display:none}
-      body.template--product .suas-review-app-stage{padding:14px!important}
-      body.template--product .suas-review-app-stage .shopify-app-block{border-radius:18px!important;box-shadow:4px 5px 0 var(--suas-ink)!important;padding:12px!important}
-      body.template--product .suas-review-app-stage iframe{min-height:420px!important}
     }
   </style>
   <script>

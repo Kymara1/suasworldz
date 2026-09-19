@@ -239,9 +239,9 @@ html body.template--product .suas-product-description {
 html body.template--product .shopify-section:has(.suas-product-review-shell),
 html body.template--product .shopify-section:has([id*='aftership']),
 html body.template--product .suas-product-review-shell {
-  width: min(1280px, calc(100vw - 248px));
-  max-width: 1280px;
-  margin: 22px auto 28px;
+  width: min(640px, calc(100vw - 24px)) !important;
+  max-width: 640px !important;
+  margin: 16px auto 20px !important;
   padding: 0;
   background: transparent;
 }
@@ -292,12 +292,14 @@ html body.template--product .suas-note-grid { padding-bottom: clamp(16px, 3vw, 3
     padding: 12px 10px 40px;
   }
   html body.template--product .suas-station,
-  html body.template--product .product-page--root.suas-station,
-  html body.template--product .shopify-section:has(.suas-product-review-shell),
-  html body.template--product .shopify-section:has([id*='aftership']),
-  html body.template--product .suas-product-review-shell {
+  html body.template--product .product-page--root.suas-station {
     width: min(100% - 12px, 720px);
     max-width: none;
+  }
+  html body.template--product .shopify-section:has(.suas-product-review-shell),
+  html body.template--product .suas-product-review-shell {
+    width: min(100% - 12px, 640px) !important;
+    max-width: 640px !important;
   }
   html body.template--product .suas-station-desk,
   html body.template--product .product-page--top-panel {
