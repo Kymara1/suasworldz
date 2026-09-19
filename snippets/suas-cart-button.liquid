@@ -232,14 +232,25 @@
     }
 
     @media (max-width: 1023px) {
-      .suas-side-rail { position: sticky; }
+      .suas-side-rail {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+      .suas-side-head { grid-column: 1; grid-row: 1; width: auto; }
       .suas-floating-cart {
-        top: 11px;
-        right: 14px;
+        grid-column: 2;
+        grid-row: 1;
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 0 2px 8px 0;
         width: 34px;
         height: 34px;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 6px 14px -10px rgba(16, 16, 16, 0.5);
       }
+      .suas-side-nav { grid-column: 1 / -1; }
       .suas-floating-cart__icon,
       .suas-floating-cart__icon svg { width: 18px; height: 18px; }
       .suas-floating-cart__count { top: -5px; right: -7px; min-width: 18px; height: 18px; padding: 0 4px; font-size: 9px; }
@@ -257,7 +268,9 @@
       const kicker = rail ? rail.querySelector('.suas-side-kicker') : null;
 
       if (cartButton && rail && !rail.contains(cartButton)) {
-        rail.insertBefore(cartButton, kicker || rail.firstChild);
+        const head = rail.querySelector('.suas-side-head');
+        if (head) rail.insertBefore(cartButton, head.nextSibling);
+        else rail.insertBefore(cartButton, kicker || rail.firstChild);
       }
 
       if (countNode) {

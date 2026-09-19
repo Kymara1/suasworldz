@@ -34,8 +34,14 @@
   .suas-side-label { font-size:1.65rem; font-weight:700; line-height:.96; text-transform:uppercase; }
   .suas-side-num { font-family:Futura,'Futura PT',Arial,sans-serif; font-size:11px; letter-spacing:.2em; opacity:.45; }
   .suas-panel-submenu { display:grid; gap:7px; margin:2px 0 8px 50px; padding:8px; border:1px solid rgba(16,16,16,.1); border-radius:18px; background:rgba(255,255,255,.86); box-shadow:0 12px 24px -20px rgba(16,16,16,.45); }
-  .suas-panel-submenu a { min-height:31px; display:flex; align-items:center; padding:7px 10px; border-radius:999px; color:var(--suas-ink); background:#fff; text-decoration:none; font-family:Futura,'Futura PT',Arial,sans-serif; font-size:9px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
-  .suas-panel-submenu a:hover { background:rgba(255,155,196,.34); }
+  .suas-panel-submenu a { min-height:31px; display:flex; align-items:center; padding:7px 10px; border:1.5px solid #101010; border-radius:999px; color:var(--suas-ink); background:#fff; box-shadow:0 2px 0 #101010; text-decoration:none; font-family:Futura,'Futura PT',Arial,sans-serif; font-size:9px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+  .suas-panel-submenu a:nth-child(6n+1) { background:#ffd8e8; }
+  .suas-panel-submenu a:nth-child(6n+2) { background:#fff1a8; }
+  .suas-panel-submenu a:nth-child(6n+3) { background:#cdeeff; }
+  .suas-panel-submenu a:nth-child(6n+4) { background:#e4d5ff; }
+  .suas-panel-submenu a:nth-child(6n+5) { background:#d9ff78; }
+  .suas-panel-submenu a:nth-child(6n+6) { background:#ff9bc4; }
+  .suas-panel-submenu a:hover { filter:brightness(.97); }
   .suas-side-status { margin:10px 15px 12px; min-height:74px; display:flex; align-items:center; gap:11px; padding:16px 20px; border-radius:999px; background:rgba(255,255,255,.84); box-shadow:0 13px 30px rgba(16,16,16,.08); }
   .suas-side-status-dot { width:9px; height:9px; border-radius:999px; background:var(--suas-lime); box-shadow:0 0 14px rgba(198,247,106,.9); animation:suasPulse 1.6s ease-in-out infinite; }
   .suas-side-status b,.suas-side-status span { display:block; }
@@ -93,6 +99,7 @@
             elsif title_down contains 'lab'
               assign side_icon = '/'
               assign side_color = 'var(--suas-lime)'
+              assign mobile_keep = true
             elsif title_down contains 'visit'
               assign side_icon = '!'
               assign side_color = 'var(--suas-blue)'
