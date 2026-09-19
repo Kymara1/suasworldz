@@ -14,6 +14,27 @@
   assign video_looping_enabled = section.settings.loop-enabled
   assign pdp_name = product.title | split: '✿' | first | strip
   assign pdp_hook = product.description | strip_html | split: '.' | first | strip
+  assign pdp_handle = product.handle | downcase
+  assign mix_1 = 'handmade'
+  assign mix_2 = 'small batch'
+  assign mix_3 = 'skin glow'
+  if pdp_handle contains 'tonic'
+    assign mix_1 = 'blackberry'
+    assign mix_2 = 'mint'
+    assign mix_3 = 'sage'
+  elsif pdp_handle contains 'poppy'
+    assign mix_1 = 'bubblegum'
+    assign mix_2 = 'soft florals'
+    assign mix_3 = 'skin musk'
+  elsif pdp_handle contains 'haze'
+    assign mix_1 = 'coconut'
+    assign mix_2 = 'vanilla'
+    assign mix_3 = 'warm skin'
+  elsif pdp_handle contains 'good'
+    assign mix_1 = 'pear'
+    assign mix_2 = 'jasmine'
+    assign mix_3 = 'cocoa'
+  endif
 
   capture variant_media_ids
     for variant in product.variants
@@ -231,13 +252,25 @@
 >
   <div class="suas-pdp-world suas-station-desk product-page--top-panel">
     <header class="suas-pdp-mast">
-      <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas co</p>
+      <div class="suas-pdp-live">
+        <span class="suas-pdp-live-dot" aria-hidden="true"></span>
+        <span>now mixing</span>
+        <b>{{ pdp_name }}</b>
+        <span>gastonia · live</span>
+        <span class="suas-pdp-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </div>
+      <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas.os</p>
       <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
       {%- if pdp_hook != blank -%}
         <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
       {%- endif -%}
     </header>
     <section class="suas-station-media product-page--featured-media suas-pdp-jar" data-suas-station-media aria-label="{{ product.title | escape }} photos">
+      <div class="suas-pdp-stickers">
+        <button type="button" class="suas-pdp-sticker is-on" data-suas-mix data-tint="#ffd8e8">{{ mix_1 }}</button>
+        <button type="button" class="suas-pdp-sticker" data-suas-mix data-tint="#d9ff78">{{ mix_2 }}</button>
+        <button type="button" class="suas-pdp-sticker" data-suas-mix data-tint="#cdeeff">{{ mix_3 }}</button>
+      </div>
       <div class="suas-station-stage">
         {%- if featured_media -%}
           <img
@@ -287,7 +320,7 @@
 
     <aside class="suas-station-buy suas-pdp-ticket product-page--featured-blocks">
       <div class="suas-station-buy-body">
-        <p class="suas-pdp-ticket-label">take it home</p>
+        <p class="suas-pdp-ticket-label">drop in bag</p>
         {{ featured_blocks_html }}
       </div>
     </aside>
@@ -326,6 +359,12 @@
         button.addEventListener('click', function (event) {
           event.preventDefault();
           show(index + (button.getAttribute('data-suas-gallery-dir') === 'next' ? 1 : -1));
+        });
+      });
+      root.querySelectorAll('[data-suas-mix]').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          root.querySelectorAll('[data-suas-mix]').forEach(function (item) { item.classList.toggle('is-on', item === chip); });
+          root.style.setProperty('--hot', chip.getAttribute('data-tint') || '#ff9bc4');
         });
       });
       root.addEventListener('variantUpdated', function (event) {
