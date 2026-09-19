@@ -1,4 +1,11 @@
 {{ 'suas-stations.css' | asset_url | stylesheet_tag }}
+<style>
+  html.suas-station-page body{margin:0;background:#f8f7f4}
+  html.suas-station-page .layout--main-content,
+  html.suas-station-page .off-canvas--main-content{padding:0;margin:0;max-width:none;width:100%}
+  html.suas-station-page .off-canvas--viewport{min-height:100vh}
+  html.suas-station-page #suas-station-root{min-height:100vh}
+</style>
 <script>
   document.body.classList.add('suas-stations-template');
   window.SUAS_STATION_LOGO = {{ 'suas-stations-logo.png' | asset_url | json }};
