@@ -1,34 +1,140 @@
-{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- comment -%}
+Google Product + Review rich results (JSON-LD).
+Uses Judge.me / Shopify reviews metafields. Skip ratings when a product has no reviews.
+{%- endcomment -%}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign schema_id = canonical_url | append: '#product'
+  assign schema_url = canonical_url
+  if schema_url == blank
+    assign schema_url = request.origin | append: product.url
+    assign schema_id = schema_url | append: '#product'
+  endif
 
-<div class="product-schema--root" style="display:none;">
-  <span itemprop="name" content="{{ product.title }}"></span>
-  <span
-    itemprop="description"
-    content="{{ product.description | strip_html | truncate: 100 }}"
-  ></span>
-  <span
-    itemprop="image"
-    content="{{ product.media | first | img_url }}"
-  ></span>
-  <div
-    class="product-schema--offers"
-    itemprop="offers"
-    itemscope
-    itemtype="https://schema.org/Offer"
-  >
-    <span
-      itemprop="availability"
-      {% if product.available %}
-        content="https://schema.org/InStock"
-      {% else %}
-        content="https://schema.org/SoldOut"
-      {% endif %}
-    ></span>
-    <span itemprop="url" content="{{ product.url }}"></span>
-    <span itemprop="priceCurrency" content="{{ cart.currency.iso_code }}"></span>
-    <span
-      itemprop="price"
-      content="{{ current_variant.price | money_without_currency }}"
-    ></span>
-  </div>
-</div>
+  assign schema_image = ''
+  if product.featured_media
+    assign schema_image = product.featured_media | img_url: '1200x'
+    if schema_image contains '//'
+      unless schema_image contains 'https:'
+        assign schema_image = schema_image | prepend: 'https:'
+      endunless
+    endif
+  endif
+
+  assign schema_price = current_variant.price | divided_by: 100.0
+  assign schema_availability = 'https://schema.org/OutOfStock'
+  if product.available
+    assign schema_availability = 'https://schema.org/InStock'
+  endif
+
+  assign rating_count = product.metafields.reviews.rating_count | plus: 0
+  assign rating_value = 0
+  assign rating_best = 5
+  assign rating_worst = 1
+  if product.metafields.reviews.rating.value != blank
+    assign rating_value = product.metafields.reviews.rating.value.rating | plus: 0
+    assign rating_best = product.metafields.reviews.rating.value.scale_max | default: 5 | plus: 0
+    assign rating_worst = product.metafields.reviews.rating.value.scale_min | default: 1 | plus: 0
+  endif
+  if rating_count == 0 and product.metafields.judgeme.badge != blank
+    assign rating_count = product.metafields.judgeme.badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0
+    assign rating_value = product.metafields.judgeme.badge | split: "data-average-rating='" | last | split: "'" | first | plus: 0
+  endif
+
+  assign brand_name = product.vendor | default: shop.name
+  if brand_name == blank
+    assign brand_name = shop.name
+  endif
+
+  assign reviews_json = ''
+  assign review_chunks = product.metafields.judgeme.widget | split: "class='jdgm-rev "
+  if review_chunks.size < 2
+    assign review_chunks = product.metafields.judgeme.widget | split: 'class="jdgm-rev '
+  endif
+  if rating_count > 0 and review_chunks.size > 1
+    for chunk in review_chunks offset: 1 limit: 8
+      assign rev_score = chunk | split: "data-score='" | last | split: "'" | first | plus: 0
+      if rev_score == 0
+        assign rev_score = chunk | split: 'data-score="' | last | split: '"' | first | plus: 0
+      endif
+      assign rev_author = chunk | split: "jdgm-rev__author'>" | last | split: '<' | first | strip
+      if rev_author == chunk or rev_author == blank
+        assign rev_author = chunk | split: 'jdgm-rev__author">' | last | split: '<' | first | strip
+      endif
+      if rev_author == blank
+        assign rev_author = 'SUAS customer'
+      endif
+      assign rev_date = chunk | split: "datetime='" | last | split: "'" | first | strip
+      if rev_date == chunk or rev_date == blank
+        assign rev_date = chunk | split: 'datetime="' | last | split: '"' | first | strip
+      endif
+      assign rev_body = chunk | split: "jdgm-rev__body'>" | last | split: '</div>' | first | strip_html | strip
+      if rev_body == chunk or rev_body == blank
+        assign rev_body = chunk | split: 'jdgm-rev__body">' | last | split: '</div>' | first | strip_html | strip
+      endif
+      if rev_score == 0 or rev_body == blank
+        continue
+      endif
+      capture review_obj
+        echo '{"@type":"Review","author":{"@type":"Person","name":'
+        echo rev_author | json
+        echo '},"reviewRating":{"@type":"Rating","ratingValue":'
+        echo rev_score
+        echo ',"bestRating":'
+        echo rating_best
+        echo ',"worstRating":'
+        echo rating_worst
+        echo '},"reviewBody":'
+        echo rev_body | json
+        if rev_date != blank and rev_date.size > 8
+          echo ',"datePublished":'
+          echo rev_date | json
+        endif
+        echo '}'
+      endcapture
+      if reviews_json != blank
+        assign reviews_json = reviews_json | append: ','
+      endif
+      assign reviews_json = reviews_json | append: review_obj
+    endfor
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": {{ schema_id | json }},
+  "name": {{ product.title | json }},
+  "url": {{ schema_url | json }},
+  "description": {{ product.description | strip_html | strip | truncate: 5000 | json }},
+  {% if schema_image != blank %}"image": [{{ schema_image | json }}],{% endif %}
+  "sku": {{ current_variant.sku | default: current_variant.id | json }},
+  {% if current_variant.barcode != blank %}"gtin": {{ current_variant.barcode | json }},{% endif %}
+  "mpn": {{ current_variant.sku | default: product.id | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ brand_name | json }}
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": {{ schema_url | json }},
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ schema_price | json }},
+    "availability": {{ schema_availability | json }},
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
+    }
+  }{% if rating_count > 0 and rating_value > 0 %},
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ rating_value | json }},
+    "reviewCount": {{ rating_count | json }},
+    "ratingCount": {{ rating_count | json }},
+    "bestRating": {{ rating_best | json }},
+    "worstRating": {{ rating_worst | json }}
+  }{% if reviews_json != blank %},
+  "review": [{{ reviews_json }}]{% endif %}{% endif %}
+}
+</script>
