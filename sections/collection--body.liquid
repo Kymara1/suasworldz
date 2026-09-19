@@ -122,6 +122,15 @@
   data-max-columns="{{ products_per_row_desktop }}"
   data-body-root
 >
+  <div class="suas-catalog-head">
+    <div class="suas-catalog-head-bar">
+      <span class="suas-catalog-dot" style="--dot:#ff5f57"></span>
+      <span class="suas-catalog-dot" style="--dot:#febc2e"></span>
+      <span class="suas-catalog-dot" style="--dot:#28c840"></span>
+      <b>{{ collection.title | default: 'shop' | downcase }}</b>
+      <em>{{ collection.products_count }} {{ collection.products_count | pluralize: 'scent', 'scents' }}</em>
+    </div>
+  </div>
   <div
     class="collection--body--spinner"
     style="display:none;"

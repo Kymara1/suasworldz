@@ -119,6 +119,13 @@
     endcapture
 
     assign title = product.title
+    assign catalog_name = title | split: '✿' | first | split: '?' | first | strip
+    assign catalog_kind = ''
+    if title contains '✿'
+      assign catalog_kind = title | split: '✿' | last | strip
+    elsif product.type != blank
+      assign catalog_kind = product.type
+    endif
     assign url = product.url | within: collection
     assign vendor = product.vendor
     assign price = product.price | money
@@ -259,8 +266,11 @@
           {% endif %}
 
           <p class="product--title" data-item="paragraph">
-            {{ title }}
+            {{ catalog_name | default: title }}
           </p>
+          {%- if catalog_kind != blank and catalog_kind != catalog_name -%}
+            <p class="product--kicker">{{ catalog_kind }}</p>
+          {%- endif -%}
 
             <div class="product--rating">
               {%- render 'product-rating', product: product -%}
