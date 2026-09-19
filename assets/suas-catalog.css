@@ -148,9 +148,8 @@ html body.template--search .suas-catalog-card .product--image-wrapper {
   position: relative;
   order: 1;
   flex: 0 0 auto;
-  min-height: 0;
-  display: grid;
-  place-items: center;
+  min-height: 180px;
+  display: block;
   aspect-ratio: 1 / 1;
   overflow: hidden !important;
   margin: 10px 10px 0 !important;
@@ -173,30 +172,43 @@ html body.template--search .product-grid > .suas-catalog-card:nth-child(4n) .pro
 }
 html body.template--collection .suas-catalog-card .product--image,
 html body.template--search .suas-catalog-card .product--image {
-  position: relative !important;
+  position: absolute !important;
+  inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  display: grid !important;
-  place-items: center !important;
+  display: block !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
 }
+html body.template--collection .suas-catalog-card .product--hover-image,
+html body.template--search .suas-catalog-card .product--hover-image {
+  display: none !important;
+}
+html body.template--collection .suas-catalog-card .product--image .image--root,
+html body.template--search .suas-catalog-card .product--image .image--root,
+html body.template--collection .suas-catalog-card .product--image .image--container,
+html body.template--search .suas-catalog-card .product--image .image--container {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
 html body.template--collection .suas-catalog-card .product--image img,
-html body.template--search .suas-catalog-card .product--image img,
-html body.template--collection .suas-catalog-card img.lazyloaded,
-html body.template--collection .suas-catalog-card .product--item img,
-html body.template--search .suas-catalog-card .product--image picture,
-html body.template--collection .suas-catalog-card .product--image picture {
+html body.template--search .suas-catalog-card .product--image img {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
   max-width: none !important;
   max-height: none !important;
   height: 100% !important;
-  margin: auto !important;
+  margin: 0 !important;
   object-fit: contain !important;
   object-position: center center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
   background: transparent !important;
   border-radius: 12px !important;
   box-shadow: none !important;
