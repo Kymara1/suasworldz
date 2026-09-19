@@ -2,7 +2,6 @@
   assign checkout_t = 'cart.checkout' | t
   assign all_items_added_t = 'cart.all_items_added' | t
   assign continue_t = 'cart.continue' | t
-  assign empty_html_t = 'cart.empty_html' | t: collections_url: routes.all_products_collection_url
   assign minus_t = 'cart.minus' | t
   assign order_notes_t = 'cart.order_notes' | t
   assign plus_t = 'cart.plus' | t
@@ -20,6 +19,9 @@
   endif
 
   assign show_cart_note = settings.cart--show-note
+  if is_drawer != true
+    assign show_cart_note = true
+  endif
 
   assign has_items = false
   if cart.item_count > 0
@@ -31,7 +33,18 @@
     assign is_drawer = false
     assign cart_id = view
   endunless
+
+  assign bag_chip = cart.item_count | append: ' in bag'
+  if cart.item_count == 0
+    assign bag_chip = 'empty bag'
+  elsif cart.item_count == 1
+    assign bag_chip = '1 in bag'
+  endif
 -%}
+
+{%- if view == 'desktop' or is_drawer -%}
+  {{ 'suas-cart-fit.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 
 {% for item in cart.items %}
   {%- liquid
@@ -42,13 +55,14 @@
     else
       assign preview_image = false
     endif
+    assign line_label = forloop.index | prepend: '00' | slice: -2
   -%}
 
   {% capture desktop_items %}
     {{- desktop_items -}}
 
     <div
-      class="cart--item"
+      class="cart--item suas-cart-line"
       data-variant-id="{{ item.variant_id }}"
       data-quantity="{{ item.quantity }}"
       data-inventory-management="{{ item.variant.inventory_management }}"
@@ -56,6 +70,8 @@
       data-inventory-quantity="{{ item.variant.inventory_quantity | default: 0 }}"
       data-line-num="{{ forloop.index }}"
     >
+      <span class="suas-cart-sticker" aria-hidden="true">file {{ line_label }}</span>
+
       <div class="cart--item--image">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
           {%- liquid
@@ -92,7 +108,6 @@
             {% unless property.last == blank %}
               <br>
               {{ property.first }}:
-              {% comment %} Check if there was an uploaded file associated {% endcomment %}
               {% if property.last contains '/uploads/' %}
                 <a href="{{ property.last }}">
                   {{ property.last | split: '/' | last }}
@@ -182,7 +197,7 @@
             aria-label="{{ remove_t }}"
             title="{{ remove_t }}"
           >
-            {{ remove_t }}
+            toss
           </a>
         </div>
       </div>
@@ -205,7 +220,7 @@
     {{- mobile_items -}}
 
     <div
-      class="cart--item"
+      class="cart--item suas-cart-line"
       data-variant-id="{{ item.variant_id }}"
       data-quantity="{{ item.quantity }}"
       data-inventory-management="{{ item.variant.inventory_management }}"
@@ -213,15 +228,7 @@
       data-inventory-quantity="{{ item.variant.inventory_quantity | default: 0 }}"
       data-line-num="{{ forloop.index }}"
     >
-      <div class="cart--item--title">
-        <div data-item="block-heading">
-          <a href="{{ item.url }}">{{ item.product.title }}</a>
-        </div>
-
-        <div class='cart--error' data-item='small-text' style='display:none;'>
-          {{ all_items_added_t }}
-        </div>
-      </div>
+      <span class="suas-cart-sticker" aria-hidden="true">file {{ line_label }}</span>
 
       <div class="cart--item--image">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
@@ -233,6 +240,16 @@
             endif
           -%}
         </a>
+      </div>
+
+      <div class="cart--item--title">
+        <div data-item="block-heading">
+          <a href="{{ item.url }}">{{ item.product.title }}</a>
+        </div>
+
+        <div class='cart--error' data-item='small-text' style='display:none;'>
+          {{ all_items_added_t }}
+        </div>
       </div>
 
       <div class="cart--item--info">
@@ -255,7 +272,6 @@
             {% unless property.last == blank %}
               <br>
               {{ property.first }}:
-              {% comment %} Check if there was an uploaded file associated {% endcomment %}
               {% if property.last contains '/uploads/' %}
                 <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
               {% else %}
@@ -340,27 +356,33 @@
               aria-label="{{ remove_t }}"
               title="{{ remove_t }}"
             >
-              {{ remove_t }}
+              toss
             </a>
           </div>
-
         </div>
       </div>
-
     </div>
   {% endcapture %}
 {% endfor %}
 
 <div
-  class="cart--root"
+  class="cart--root suas-cart-station"
   data-section-id="{{ section.id }}"
   data-view="{{ view }}"
   data-is-drawer="{{ is_drawer }}"
   data-js-class="Cart"
   data-has-items="{{ has_items }}"
 >
-  <div class="cart--header">
-    <h1 class="cart--title" data-item="section-heading">{{ your_cart_t }}</h1>
+  <div class="suas-cart-winbar">
+    <span class="suas-cart-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="suas-cart-win-title">cart.bag</span>
+    <span class="suas-cart-chip" data-suas-bag-chip>{{ bag_chip }}</span>
+  </div>
+
+  <div class="cart--header suas-cart-header">
+    <p class="suas-cart-kicker">shopping bag station</p>
+    <h1 class="cart--title" data-item="section-heading">{{ your_cart_t | downcase }}</h1>
+    <p class="suas-cart-sub">formulas waiting to go home with you.</p>
   </div>
 
   <form class="cart--form" action="{{ routes.cart_url }}" method="post" novalidate="">
@@ -386,14 +408,15 @@
 
       <div class="cart--footer">
         {% if show_cart_note %}
-          <div class="cart--notes">
+          <div class="cart--notes suas-cart-note">
             <label for="{{ cart_id }}-cart-note" class="cart--notes--heading">
-              {{ order_notes_t }}
+              gift note <span>(optional)</span>
             </label>
             <textarea
               class="cart--notes--textarea"
               id="{{ cart_id }}-cart-note"
               name="note"
+              placeholder="a little message for the bag..."
             >{{ cart.note }}</textarea>
           </div>
         {% endif %}
@@ -446,7 +469,7 @@
                   data-off-canvas--close
                 {% endunless %}
               >
-                {{ continue_t }}
+                keep sniffing
               </a>
             </div>
 
@@ -475,5 +498,34 @@
     {%- endif -%}
   </form>
 
-  <div class="cart--no-items" data-item="paragraph">{{ empty_html_t }}</div>
+  <div class="cart--no-items suas-cart-empty" data-item="paragraph">
+    <div class="suas-cart-empty-art" aria-hidden="true">
+      <span class="suas-cart-empty-bag"></span>
+    </div>
+    <p class="suas-cart-empty-kicker">bag status: idle</p>
+    <p class="suas-cart-empty-title">this bag is empty (on purpose).</p>
+    <p class="suas-cart-empty-copy">go pick a formula. we’ll keep the window open.</p>
+    <a class="suas-cart-empty-cta" href="{{ routes.all_products_collection_url }}">shop the formulas</a>
+  </div>
 </div>
+
+{%- if view == 'desktop' -%}
+  <script>
+    (function () {
+      const chips = () => document.querySelectorAll('[data-suas-bag-chip]');
+      const paint = (count) => {
+        const label = count === 1 ? '1 in bag' : (count === 0 ? 'empty bag' : count + ' in bag');
+        chips().forEach((chip) => { chip.textContent = label; });
+      };
+      const refresh = () => {
+        fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
+          .then((response) => response.ok ? response.json() : null)
+          .then((cart) => {
+            if (cart && typeof cart.item_count === 'number') paint(cart.item_count);
+          })
+          .catch(() => {});
+      };
+      window.addEventListener('theme:cart:updated', refresh);
+    })();
+  </script>
+{%- endif -%}
