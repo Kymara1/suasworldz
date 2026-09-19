@@ -111,11 +111,7 @@ html body.template--collection .suas-catalog-card .product--compare-price {
   display: none !important;
 }
 html body.template--collection .suas-catalog-card .product--rating {
-  margin: 0 !important;
-  transform: scale(.72);
-  transform-origin: left top;
-  height: 14px;
-  overflow: hidden;
+  display: none !important;
 }
 html body.template--collection .suas-catalog-card .product--image-wrapper,
 html body.template--search .suas-catalog-card .product--image-wrapper {
@@ -207,10 +203,6 @@ html body.template--collection .suas-catalog-card .product--quick-add {
   }
   html body.template--collection .suas-catalog-card .product--details {
     gap: 4px;
-  }
-  html body.template--collection .suas-catalog-card .product--rating {
-    transform: scale(.58);
-    height: 10px;
   }
   html body.template--collection .suas-catalog-card .product--image-wrapper,
   html body.template--search .suas-catalog-card .product--image-wrapper {
