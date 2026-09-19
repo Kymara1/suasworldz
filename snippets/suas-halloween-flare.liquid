@@ -246,26 +246,6 @@
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 110'%3E%3Cpath fill='none' stroke='%232a1418' stroke-width='1.15' d='M110 0v110M110 0H0M110 0L18 86M110 0L48 110M110 0L78 110M110 22H82M110 44H62M110 66H76M110 88H90M24 0V22M46 0V40M70 0V28'/%3E%3C/svg%3E");
       }
 
-      html.suas-halloween .suas-halloween-leaf {
-        position: absolute;
-        top: -8%;
-        width: 14px;
-        height: 18px;
-        border-radius: 0 70% 0 70%;
-        opacity: 0.72;
-        transform-origin: 50% 50%;
-        animation: suasLeafFall linear infinite;
-      }
-
-      html.suas-halloween .suas-halloween-leaf:nth-child(1) { left: 6%; background: #c45c26; animation-duration: 14s; animation-delay: -2s; }
-      html.suas-halloween .suas-halloween-leaf:nth-child(2) { left: 14%; background: #8a3d4a; animation-duration: 18s; animation-delay: -8s; width: 11px; }
-      html.suas-halloween .suas-halloween-leaf:nth-child(3) { left: 22%; background: #d4a017; animation-duration: 16s; animation-delay: -4s; }
-      html.suas-halloween .suas-halloween-leaf:nth-child(4) { left: 78%; background: #a43b24; animation-duration: 15s; animation-delay: -11s; }
-      html.suas-halloween .suas-halloween-leaf:nth-child(5) { left: 86%; background: #5f7340; animation-duration: 19s; animation-delay: -6s; width: 12px; }
-      html.suas-halloween .suas-halloween-leaf:nth-child(6) { left: 93%; background: #e07a3d; animation-duration: 13s; animation-delay: -1s; }
-      html.suas-halloween .suas-halloween-leaf:nth-child(7) { left: 4%; background: #c9a227; animation-duration: 21s; animation-delay: -13s; }
-      html.suas-halloween .suas-halloween-leaf:nth-child(8) { left: 96%; background: #6b2430; animation-duration: 17s; animation-delay: -9s; }
-
       html.suas-halloween .suas-halloween-ghost {
         position: fixed;
         left: var(--gx, 82vw);
@@ -291,11 +271,6 @@
         filter: drop-shadow(0 6px 8px rgba(42, 20, 24, 0.18));
       }
 
-      @keyframes suasLeafFall {
-        0% { transform: translate3d(0, -10vh, 0) rotate(0deg); }
-        100% { transform: translate3d(28px, 110vh, 0) rotate(360deg); }
-      }
-
       @media (min-width: 1024px) {
         html.suas-halloween .suas-halloween-fx {
           left: 252px;
@@ -315,14 +290,6 @@
           height: 72px;
           opacity: 0.28;
         }
-        html.suas-halloween .suas-halloween-leaf:nth-child(n+6) {
-          display: none;
-        }
-      }
-
-      html.suas-halloween.template--product .suas-halloween-leaf:nth-child(3),
-      html.suas-halloween.template--product .suas-halloween-leaf:nth-child(7) {
-        display: none;
       }
 
       html.suas-halloween.template--product .suas-now-card:after,
@@ -333,7 +300,6 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        html.suas-halloween .suas-halloween-leaf,
         html.suas-halloween .suas-halloween-ghost,
         html.suas-halloween .suas-frame-marquee-track {
           animation: none !important;
@@ -343,9 +309,6 @@
           opacity: 0.35;
           transform: none;
         }
-        html.suas-halloween .suas-halloween-leaf {
-          top: 18%;
-        }
       }
     </style>
   {%- elsif suas_halloween_slot == 'body' -%}
@@ -353,14 +316,6 @@
       <div class="suas-halloween-fx" aria-hidden="true">
         <span class="suas-halloween-web suas-halloween-web--tl"></span>
         <span class="suas-halloween-web suas-halloween-web--tr"></span>
-        <span class="suas-halloween-leaf"></span>
-        <span class="suas-halloween-leaf"></span>
-        <span class="suas-halloween-leaf"></span>
-        <span class="suas-halloween-leaf"></span>
-        <span class="suas-halloween-leaf"></span>
-        <span class="suas-halloween-leaf"></span>
-        <span class="suas-halloween-leaf"></span>
-        <span class="suas-halloween-leaf"></span>
       </div>
       <div class="suas-halloween-ghost" data-suas-ghost aria-hidden="true">
         <svg viewBox="0 0 48 58" fill="none">
