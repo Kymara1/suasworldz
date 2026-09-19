@@ -30,8 +30,9 @@
     html body.template--product .suas-review-intro{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px 0}
     html body.template--product .suas-review-intro h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.35rem;line-height:1;text-transform:lowercase;font-weight:400}
     html body.template--product .suas-review-intro p,
-    html body.template--product .suas-review-action,
     html body.template--product .suas-review-empty{display:none!important}
+    html body.template--product .suas-review-action{display:inline-flex!important;align-items:center;justify-content:center;min-height:36px;padding:0 14px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010;box-shadow:0 3px 0 #101010;text-decoration:none;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+    html body.template--product .suas-review-action:hover{color:#101010;transform:translateY(1px);box-shadow:0 2px 0 #101010}
     html body.template--product .suas-review-app-stage{padding:0 10px 10px;min-height:0}
     html body.template--product .suas-review-app-stage iframe{display:none}
   </style>
@@ -41,7 +42,10 @@
   <div class="apps--wrapper{% if is_product_review_shell %} suas-review-shell-window{% endif %}">
     {% if is_product_review_shell %}
       <div class="suas-smell-winbar" aria-hidden="true"><i></i><i></i><i></i><b>reviews</b></div>
-      <div class="suas-review-intro"><h2>reviews</h2></div>
+      <div class="suas-review-intro">
+        <h2>reviews</h2>
+        <button class="suas-review-action" type="button" data-suas-write-review>write a review</button>
+      </div>
       {% render 'suas-simple-review-form', product: product %}
     {% endif %}
     <div class="suas-review-app-stage" data-suas-review-stage>
