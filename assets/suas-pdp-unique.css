@@ -328,12 +328,12 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
 }
 
 @media (max-width: 1023px) {
-  html body.template--product .layout--main-content { padding: 8px 10px 42px !important; }
+  html body.template--product .layout--main-content { padding: 10px 10px 48px !important; }
   html body.template--product .suas-pdp-world,
   html body.template--product .suas-station-desk {
     display: flex !important;
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 14px !important;
   }
   html body.template--product .suas-pdp-life { order: 1; }
   html body.template--product .suas-pdp-ticket { order: 2; position: relative; top: auto; }
@@ -341,47 +341,59 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
   html body.template--product .suas-pdp-life,
   html body.template--product .suas-pdp-diagram,
   html body.template--product .suas-pdp-ticket {
-    border-radius: 20px !important;
-    box-shadow: 4px 5px 0 var(--ink) !important;
+    border-radius: 26px !important;
+    box-shadow: 5px 6px 0 var(--ink) !important;
+  }
+  html body.template--product .suas-pdp .suas-window-bar { min-height: 40px; }
+  html body.template--product .suas-pdp .suas-window-live {
+    display: inline-flex !important;
+    font-size: 8px;
   }
   html body.template--product .suas-pdp-life-frame,
   html body.template--product .suas-pdp-life-photo {
-    height: min(42vh, 280px);
-    min-height: 220px;
-    max-height: 280px;
+    height: min(52vh, 340px);
+    min-height: 260px;
+    max-height: 340px;
   }
   html body.template--product .suas-pdp-diagram-body {
-    min-height: 0;
-    padding: 16px 12px 18px;
+    min-height: 340px;
+    padding: 28px 10px 32px;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    place-items: stretch;
+    place-items: center;
   }
-  html body.template--product .suas-pdp-callouts {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    order: 2;
-  }
+  html body.template--product .suas-pdp-callouts { display: contents; }
   html body.template--product .suas-pdp-callout,
   html body.template--product .suas-pdp-callout:nth-child(1),
   html body.template--product .suas-pdp-callout:nth-child(2),
   html body.template--product .suas-pdp-callout:nth-child(3) {
-    position: relative;
-    left: auto;
-    right: auto;
-    top: auto;
-    bottom: auto;
-    max-width: none;
-    padding: 10px 8px;
-    border-radius: 16px 20px 14px 18px;
+    position: absolute;
+    max-width: 44%;
+    padding: 10px 11px;
+    border-radius: 22px 28px 18px 30px;
   }
-  html body.template--product .suas-pdp-callout:nth-child(1) { transform: rotate(-4deg); }
-  html body.template--product .suas-pdp-callout:nth-child(2) { transform: rotate(3deg); }
-  html body.template--product .suas-pdp-callout:nth-child(3) { transform: rotate(-2deg); }
-  html body.template--product .suas-pdp-callout strong { font-size: 1.12rem; }
-  html body.template--product .suas-pdp-jar { order: 1; }
+  html body.template--product .suas-pdp-callout:nth-child(1) {
+    left: 2%;
+    top: 12%;
+    right: auto;
+    bottom: auto;
+    transform: rotate(-8deg);
+  }
+  html body.template--product .suas-pdp-callout:nth-child(2) {
+    right: 2%;
+    top: 14%;
+    left: auto;
+    bottom: auto;
+    transform: rotate(7deg);
+  }
+  html body.template--product .suas-pdp-callout:nth-child(3) {
+    left: 8%;
+    bottom: 10%;
+    top: auto;
+    right: auto;
+    transform: rotate(-4deg);
+  }
+  html body.template--product .suas-pdp-callout strong { font-size: 1.35rem !important; }
+  html body.template--product .suas-pdp-jar { order: 0; }
   html body.template--product .suas-pdp-jar .suas-station-photo,
   html body.template--product .suas-pdp .suas-station-photo {
     width: 168px !important;
@@ -389,7 +401,6 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     max-width: 168px !important;
     max-height: 168px !important;
   }
-  html body.template--product .suas-pdp-name { font-size: clamp(2.15rem, 12vw, 2.9rem) !important; }
-  html body.template--product .suas-station-buy-body { padding: 14px 14px 16px !important; }
-  html body.template--product .suas-pdp .suas-window-live { display: none; }
+  html body.template--product .suas-pdp-name { font-size: clamp(2.3rem, 12vw, 3.1rem) !important; }
+  html body.template--product .suas-station-buy-body { padding: 16px 14px 18px !important; }
 }
