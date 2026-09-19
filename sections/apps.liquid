@@ -21,7 +21,7 @@
   <style>
     html body.template--product .suas-product-review-shell{width:min(640px,calc(100vw - 24px));margin:16px auto 20px;padding:0;color:#101010;font-family:Futura,Arial,sans-serif;background:transparent}
     html body.template--product .suas-product-review-shell .apps--wrapper,
-    html body.template--product .suas-review-shell-window{border:2px solid #101010!important;border-radius:16px!important;background:#fff!important;box-shadow:3px 4px 0 #101010!important;overflow:hidden!important}
+    html body.template--product .suas-review-shell-window{border:2px solid #101010!important;border-radius:16px!important;background:#fff!important;box-shadow:3px 4px 0 #101010!important;overflow:visible!important}
     html body.template--product .suas-smell-winbar{display:flex;align-items:center;gap:6px;min-height:28px;padding:4px 10px;border-bottom:2px solid #101010;background:linear-gradient(180deg,#fff,#ece7f3)}
     html body.template--product .suas-smell-winbar i{width:8px;height:8px;border-radius:999px;display:block;background:#ff5f57}
     html body.template--product .suas-smell-winbar i:nth-child(2){background:#febc2e}
@@ -34,7 +34,11 @@
     html body.template--product .suas-review-action{display:inline-flex!important;align-items:center;justify-content:center;min-height:36px;padding:0 14px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010;box-shadow:0 3px 0 #101010;text-decoration:none;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
     html body.template--product .suas-review-action:hover{color:#101010;transform:translateY(1px);box-shadow:0 2px 0 #101010}
     html body.template--product .suas-review-app-stage{padding:0 10px 10px;min-height:0}
-    html body.template--product .suas-review-app-stage iframe{display:none}
+    html body.template--product .suas-review-app-stage iframe[src*='aftership'],
+    html body.template--product .suas-review-app-stage iframe[id*='aftership']{display:none!important}
+    html body.template--product .suas-review-app-stage iframe[src*='judge.me'],
+    html body.template--product .suas-review-app-stage iframe[id*='jdgm']{display:block!important;width:100%!important;max-height:52vh!important;border:0!important}
+    html body.template--product .suas-review-app-stage :is(.jdgm-form__terms,.jdgm-notification,.jdgm-powered,.jdgm-branding,.jdgm-histogram){display:none!important}
   </style>
 {% endif %}
 

@@ -7,7 +7,7 @@
 <div class="suas-simple-review" id="suas-simple-review">
   <style>
     html body.template--product .suas-product-review-shell{width:min(640px,calc(100vw - 24px))!important;max-width:640px!important;margin:16px auto 20px!important}
-    html body.template--product .suas-review-shell-window{border-radius:16px!important;box-shadow:3px 4px 0 #101010!important;overflow:hidden!important}
+    html body.template--product .suas-review-shell-window{border-radius:16px!important;box-shadow:3px 4px 0 #101010!important;overflow:visible!important}
     html body.template--product .suas-smell-winbar{min-height:28px!important;padding:4px 10px!important}
     html body.template--product .suas-review-intro{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;padding:8px 10px 0!important}
     html body.template--product .suas-review-intro h2{margin:0!important;font-size:1.35rem!important;line-height:1!important}
@@ -18,8 +18,11 @@
     html body.template--product .suas-review-app-stage .shopify-app-block{min-height:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
     .suas-simple-review{margin:6px 10px 10px;padding:0;border:0;background:transparent;box-shadow:none}
     .suas-simple-review .jdgm-widget,.suas-simple-review .jdgm-rev-widg{margin:0!important;padding:0!important;border:0!important;background:transparent!important;color:#101010!important}
-    .suas-simple-review :is(.jdgm-rev-widg__title,.jdgm-form-wrapper h2,.jdgm-form__title,.jdgm-rev-widg__summary,.jdgm-write-rev-link,.jdgm-cancel-rev,.jdgm-sort-dropdown){display:none!important}
-    .suas-simple-review :is([class*='picture'],[class*='Picture'],[class*='media-upload'],[class*='Media'],[class*='video'],[class*='Video'],[class*='tooltip'],.jdgm-tooltip){display:none!important}
+    .suas-simple-review :is(.jdgm-rev-widg__title,.jdgm-form-wrapper h2,.jdgm-form__title,.jdgm-histogram,.jdgm-histogram-wrapper,.jdgm-rev-widg__summary,.jdgm-write-rev-link,.jdgm-cancel-rev,.jdgm-sort-dropdown,.jdgm-form__terms,.jdgm-notification,.jdgm-rev-widg__header,.jdgm-powered,.jdgm-branding){display:none!important}
+    .suas-simple-review :is([class*='picture'],[class*='Picture'],[class*='media-upload'],[class*='media-uploader'],[class*='video-upload'],.jdgm-tooltip){display:none!important}
+    .suas-simple-review :is(.jdgm-rev-widg__reviews,.jdgm-rev,.jdgm-rev-widg__body){display:block!important;visibility:visible!important;max-height:none!important;overflow:visible!important}
+    .suas-simple-review .jdgm-legacy-widget-content{display:block!important}
+    .suas-simple-review iframe[src*='judge.me'],.suas-simple-review iframe[id*='jdgm'],.suas-simple-review iframe[class*='jdgm']{display:block!important;width:100%!important;max-height:52vh!important}
     .suas-simple-review input[name*='title' i],
     .suas-simple-review [class*='review-title'],
     .suas-simple-review [class*='review_title']{display:none!important}
@@ -73,9 +76,12 @@
         root.querySelectorAll('[class*="picture"],[class*="Picture"],[class*="upload"],[class*="media-uploader"]').forEach(function (el) {
           el.style.setProperty('display', 'none', 'important');
         });
-        root.querySelectorAll('span,small,em,p').forEach(function (el) {
-          var t = String(el.textContent || '').toLowerCase();
-          if (/displayed publicly|john smith|picture|video \(optional\)/.test(t) && !el.querySelector('input,textarea')) {
+        root.querySelectorAll('span,small,em,p,label,div,li').forEach(function (el) {
+          if (el.closest('.jdgm-rev')) return;
+          if (el.querySelector('input,textarea,button,select,.jdgm-rev')) return;
+          var t = String(el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+          if (!t || t.length > 900) return;
+          if (/displayed publicly|john smith|picture|video \(optional\)|uses (your )?data|how we use|collect(s)? (and process|your)|personal data|privacy policy|gdpr|legitimate interest|judge\.me uses/.test(t)) {
             el.style.setProperty('display', 'none', 'important');
           }
         });
@@ -89,13 +95,12 @@
       }
       function scrub() {
         compactForm();
-        root.querySelectorAll('a,p,span,small,div').forEach(function (el) {
-          if (el.matches('.jdgm-write-rev-link, .jdgm-btn, button, a.suas-review-action,[data-suas-write-review]')) return;
-          if (el.querySelector('input,textarea,button,select,.jdgm-write-rev-link')) return;
-          var text = (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) ? String(el.textContent || '') : '';
-          if (/judge\.?\s*me/i.test(text)) {
-            el.textContent = text.replace(/\s*by logging into Judge\.me/ig, '').replace(/Judge\.me/ig, '').trim();
-            if (!el.textContent) el.style.display = 'none';
+        document.querySelectorAll('.suas-product-review-shell p, .suas-review-app-stage p, .suas-simple-review p, .suas-simple-review div, .jdgm-widget p').forEach(function (el) {
+          if (el.closest('.jdgm-rev')) return;
+          if (el.querySelector('input,textarea,button,.jdgm-rev')) return;
+          var t = String(el.textContent || '').replace(/\s+/g, ' ').trim();
+          if (/judge\.?\s*me/i.test(t) && /data|privacy|collect|gdpr|logging into/i.test(t)) {
+            el.style.setProperty('display', 'none', 'important');
           }
         });
         root.querySelectorAll('a[href*="://judge.me"],a[href*="judgeme.com"]').forEach(function (a) {
@@ -109,6 +114,7 @@
         var writer = event.target.closest('[data-suas-write-review]');
         if (!writer) return;
         event.preventDefault();
+        root.classList.add('is-writing');
         root.scrollIntoView({ behavior: 'smooth', block: 'center' });
         var tries = 0;
         if (openForm()) return;

@@ -40,7 +40,6 @@
     assign for_line = desc_text | split: 'For:' | last | split: 'Ingredients' | first | split: 'ingredients' | first | strip
   endif
 %}
-{% include 'suas-scent-map' %}
 
 <style>
   html body.template--product .suas-product-experience{width:min(1180px,100%);margin:18px auto 0;color:#101010;font-family:Futura,'Futura PT',Arial,sans-serif}
@@ -105,29 +104,7 @@
       </div>
     </details>
   {% else %}
-  {% assign scent_records = suas_scent_map | split: '||' %}
-  {% assign pdp_note_count = 0 %}
-  {% for rec in scent_records %}
-    {% assign np = rec | split: '|' %}
-    {% if np[0] == product.handle %}
-      {% assign pdp_note_count = pdp_note_count | plus: 1 %}
-    {% endif %}
-  {% endfor %}
-  {% if pdp_note_count > 0 %}
-    <div class="suas-scent-notes">
-      <div class="suas-scent-notes-grid{% if pdp_note_count == 3 %} is-three{% endif %}">
-        {% for rec in scent_records %}
-          {% assign np = rec | split: '|' %}
-          {% if np[0] == product.handle %}
-            <figure class="suas-scent-note">
-              <span class="pic"><img src="{{ np[3] | asset_url }}" alt="{{ np[1] }}" width="800" height="800" loading="lazy"></span>
-              <b>{{ np[1] }}</b>
-            </figure>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  {% endif %}
+  {% render 'suas-scent-map', suas_scent_mode: 'pdp', product: product %}
 
   <details class="suas-pdp-fold">
     <summary>details</summary>

@@ -28,30 +28,7 @@
     </header>
 
     <div class="suas-families-grid">
-      {% include 'suas-scent-map' %}
-      {% assign scent_records = suas_scent_map | split: '||' %}
-      {% assign family_order = 'fruit,floral,gourmand,green,sparkle' | split: ',' %}
-      {% for family in family_order %}
-        <article class="suas-family">
-          <a class="suas-family-name" href="/collections/scent-{{ family }}">{{ family }}</a>
-          <div class="suas-family-shots">
-            {% assign seen_notes = '|' %}
-            {% for rec in scent_records %}
-              {% assign np = rec | split: '|' %}
-              {% if np[4] == family %}
-                {% assign note_key = np[2] | append: '|' %}
-                {% unless seen_notes contains note_key %}
-                  {% assign seen_notes = seen_notes | append: note_key %}
-                  <a href="/products/{{ np[0] }}">
-                    <img src="{{ np[3] | asset_url }}" alt="{{ np[2] }}" width="800" height="800" loading="lazy">
-                    <b>{{ np[2] }}</b>
-                  </a>
-                {% endunless %}
-              {% endif %}
-            {% endfor %}
-          </div>
-        </article>
-      {% endfor %}
+      {% render 'suas-scent-map', suas_scent_mode: 'families' %}
     </div>
   </div>
 </section>

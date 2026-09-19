@@ -4,3 +4,52 @@ Fields: handle|pdpLabel|familyLabel|file|family
 Uncategorized notes default to sparkle.
 {%- endcomment -%}
 {%- assign suas_scent_map = 'poppy|pink gum|bubblegum|note-poppy-gum.png|sparkle||poppy|cosmos|cosmos|note-poppy-cosmos.png|floral||poppy|sparkle bouquet|bouquet|note-poppy-bouquet.png|sparkle||poppy|blossom bubbles|bubbles|note-poppy-bubbles.png|sparkle||tonic-butter-creme|blackberry|blackberry|note-blackberry.png|fruit||tonic-butter-creme|crushed mint|mint|note-sage-mint.png|green||tonic-butter-creme|mojito|mojito|note-tonic-mojito.png|green||nectar-butter-creme-copy|pineapple|pineapple|note-pineapple.png|fruit||nectar-butter-creme-copy|passionfruit|passionfruit|note-passionfruit.png|fruit||nectar-butter-creme-copy|orange|orange|note-nectar-orange.jpg|fruit||nectar-butter-creme-copy|mango|mango|note-nectar-mango.jpg|fruit||good-girl-butter-creme-2|pear|pear|note-goodgirl-pear.png|fruit||good-girl-butter-creme-2|jasmine|jasmine|note-jasmine.png|floral||good-girl-butter-creme-2|coconut|coconut|note-coconut.png|gourmand||haze-butter-creme|wildflower bouquet|wildflower|note-wildflower.png|floral||haze-butter-creme|fresh petals|petals|note-petals.png|floral||haze-butter-creme|soft sunshine|sunshine|note-sunshine.png|sparkle' -%}
+{%- if suas_scent_mode == 'pdp' -%}
+  {%- assign scent_records = suas_scent_map | split: '||' -%}
+  {%- assign pdp_note_count = 0 -%}
+  {%- for rec in scent_records -%}
+    {%- assign np = rec | split: '|' -%}
+    {%- if np[0] == product.handle -%}
+      {%- assign pdp_note_count = pdp_note_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if pdp_note_count > 0 -%}
+    <div class="suas-scent-notes">
+      <div class="suas-scent-notes-grid{% if pdp_note_count == 3 %} is-three{% endif %}">
+        {%- for rec in scent_records -%}
+          {%- assign np = rec | split: '|' -%}
+          {%- if np[0] == product.handle -%}
+            <figure class="suas-scent-note">
+              <span class="pic"><img src="{{ np[3] | asset_url }}" alt="{{ np[1] }}" width="800" height="800" loading="lazy"></span>
+              <b>{{ np[1] }}</b>
+            </figure>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- elsif suas_scent_mode == 'families' -%}
+  {%- assign scent_records = suas_scent_map | split: '||' -%}
+  {%- assign family_order = 'fruit,floral,gourmand,green,sparkle' | split: ',' -%}
+  {%- for family in family_order -%}
+    <article class="suas-family">
+      <a class="suas-family-name" href="/collections/scent-{{ family }}">{{ family }}</a>
+      <div class="suas-family-shots">
+        {%- assign seen_notes = '|' -%}
+        {%- for rec in scent_records -%}
+          {%- assign np = rec | split: '|' -%}
+          {%- if np[4] == family -%}
+            {%- assign note_key = np[2] | append: '|' -%}
+            {%- unless seen_notes contains note_key -%}
+              {%- assign seen_notes = seen_notes | append: note_key -%}
+              <a href="/products/{{ np[0] }}">
+                <img src="{{ np[3] | asset_url }}" alt="{{ np[2] }}" width="800" height="800" loading="lazy">
+                <b>{{ np[2] }}</b>
+              </a>
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </article>
+  {%- endfor -%}
+{%- endif -%}
