@@ -57,15 +57,15 @@
     .suas-side-rail{position:sticky;inset:auto;top:36px;z-index:59;width:100%;display:block;padding:8px 10px 10px;background:rgba(255,255,255,.96);border-right:0;border-bottom:1px solid rgba(16,16,16,.1);box-shadow:0 10px 24px -20px rgba(16,16,16,.45);}
     .suas-frame-marquee{height:34px;}.suas-frame-marquee-track span{padding:0 18px;font-size:15px;}
     .suas-side-head{justify-content:center;gap:10px;padding:4px 0 8px;}.suas-side-orb{width:28px;height:28px;}.suas-side-brand{font-size:1.35rem;line-height:1;}
-    .suas-side-kicker{display:block;}
-    .suas-side-nav{flex:none;display:flex;flex-direction:column;gap:2px;overflow:visible;padding:2px 4px 4px;}
-    .suas-side-link{min-height:50px;width:100%;grid-template-columns:36px 1fr auto;gap:10px;padding:6px 12px;border:0;background:transparent;box-shadow:none;border-radius:999px;}
-    .suas-side-link.is-active{min-height:50px;margin:0;background:#ffd8e8;}
-    .suas-side-icon{width:34px;height:34px;font-size:15px;}
-    .suas-side-label{font-size:1.35rem;line-height:.95;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .suas-side-num{display:inline;}
-    .suas-side-dropdown[open] .suas-panel-submenu{margin:4px 8px 10px 46px;padding:8px;max-height:none;overflow:visible;border-radius:18px;background:rgba(255,255,255,.92);}
-    .suas-panel-submenu a{justify-content:flex-start;min-height:32px;text-align:left;font-size:8px;line-height:1.05;}
+    .suas-side-kicker,.suas-side-status,.suas-side-foot{display:none;}
+    .suas-side-nav{flex:none;display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;padding:0 0 2px;height:44px;}
+    .suas-side-link{min-height:44px;height:44px;width:auto;grid-template-columns:none;gap:6px;padding:0 12px 0 8px;border:1.5px solid #101010;background:#fff;box-shadow:0 3px 0 #101010;border-radius:999px;}
+    .suas-side-link.is-active{min-height:44px;margin:0;background:#101010;color:#fff;}
+    .suas-side-icon{width:22px;height:22px;font-size:11px;}
+    .suas-side-label{font-size:.92rem;line-height:1;white-space:nowrap;overflow:visible;}
+    .suas-side-num{display:none;}
+    .suas-side-dropdown[open] .suas-panel-submenu{position:absolute;left:10px;right:10px;margin:0;padding:10px;max-height:52vh;overflow-y:auto;border-radius:20px;background:#fff;}
+    .suas-panel-submenu a{justify-content:center;min-height:40px;text-align:center;font-size:10px;line-height:1.05;}
   }
 </style>
 

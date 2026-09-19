@@ -1,68 +1,83 @@
-/* Phone control panel = same language as desktop rail */
+/* Compact phone control bar — chips, not a stacked desktop rail */
 @media only screen and (max-width: 1023px) {
   html body .suas-side-rail,
   html body.template--product .suas-side-rail {
     position: sticky !important;
     top: 34px !important;
-    z-index: 59 !important;
-    display: flex !important;
-    flex-direction: column !important;
+    z-index: 70 !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    align-items: center !important;
     width: 100% !important;
-    padding: 8px 10px 12px !important;
-    background: linear-gradient(180deg, #fff 0%, #f6f7fa 70%, #eef0f5 100%) !important;
-    border-right: 0 !important;
+    padding: 6px 10px 8px !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    border: 0 !important;
     border-bottom: 1px solid rgba(16, 16, 16, 0.1) !important;
-    box-shadow: inset 0 -8px 20px -20px rgba(16, 16, 16, 0.2) !important;
+    box-shadow: 0 10px 24px -18px rgba(16, 16, 16, 0.35) !important;
+    overflow: visible !important;
   }
 
   html body .suas-side-head,
   html body.template--product .suas-side-head {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
     justify-content: flex-start !important;
-    gap: 10px !important;
-    padding: 6px 8px 4px !important;
+    gap: 8px !important;
+    padding: 2px 0 6px !important;
   }
 
   html body .suas-side-orb {
-    width: 36px !important;
-    height: 36px !important;
+    width: 28px !important;
+    height: 28px !important;
   }
 
   html body .suas-side-brand {
-    font-size: 1.7rem !important;
-    line-height: 0.9 !important;
+    font-size: 1.35rem !important;
+    line-height: 1 !important;
   }
 
-  html body .suas-side-kicker {
-    display: block !important;
-    margin: 0 10px 8px !important;
-    padding-top: 10px !important;
-    border-top: 1px solid rgba(16, 16, 16, 0.13) !important;
-    color: rgba(16, 16, 16, 0.42) !important;
-    font-size: 10px !important;
-    letter-spacing: 0.28em !important;
+  html body .suas-side-kicker,
+  html body .suas-side-status,
+  html body .suas-side-foot {
+    display: none !important;
   }
 
   html body .suas-frame .suas-side-nav,
   html body.template--product .suas-frame .suas-side-nav,
   html body.template--product .suas-side-nav {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
     display: flex !important;
-    flex-direction: column !important;
-    grid-template-columns: none !important;
-    grid-auto-rows: auto !important;
-    gap: 2px !important;
-    height: auto !important;
-    max-height: none !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    width: 100% !important;
+    height: 44px !important;
+    max-height: 44px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 0 0 2px !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  html body .suas-side-rail:has(.suas-side-dropdown[open]) .suas-side-nav {
     overflow: visible !important;
-    padding: 0 4px 4px !important;
+  }
+
+  html body .suas-frame .suas-side-nav::-webkit-scrollbar {
+    display: none !important;
   }
 
   html body .suas-frame .suas-side-nav > *,
   html body.template--product .suas-frame .suas-side-nav > * {
     display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
     margin: 0 !important;
   }
 
@@ -70,75 +85,118 @@
   html body .suas-frame .suas-side-nav > .suas-side-dropdown > summary.suas-side-link,
   html body.template--product .suas-frame .suas-side-nav > a.suas-side-link,
   html body.template--product .suas-frame .suas-side-nav > .suas-side-dropdown > summary.suas-side-link {
-    display: grid !important;
-    grid-template-columns: 38px minmax(0, 1fr) auto !important;
-    align-items: center !important;
-    justify-content: stretch !important;
+    display: flex !important;
     flex-direction: row !important;
-    gap: 10px !important;
-    width: 100% !important;
-    min-height: 50px !important;
-    height: auto !important;
-    max-height: none !important;
-    padding: 6px 12px !important;
-    border: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    padding: 0 12px 0 8px !important;
+    border: 1.5px solid #101010 !important;
     border-radius: 999px !important;
-    background: transparent !important;
-    box-shadow: none !important;
+    background: #fff !important;
+    box-shadow: 0 3px 0 #101010 !important;
+    grid-template-columns: none !important;
+  }
+
+  html body .suas-frame .suas-side-nav > a.suas-side-link:nth-of-type(6n + 1),
+  html body .suas-frame .suas-side-nav > .suas-side-dropdown:nth-child(6n + 1) > summary.suas-side-link {
+    background: #ffd8e8 !important;
+  }
+  html body .suas-frame .suas-side-nav > a.suas-side-link:nth-of-type(6n + 2),
+  html body .suas-frame .suas-side-nav > .suas-side-dropdown:nth-child(6n + 2) > summary.suas-side-link {
+    background: #cdeeff !important;
+  }
+  html body .suas-frame .suas-side-nav > a.suas-side-link:nth-of-type(6n + 3),
+  html body .suas-frame .suas-side-nav > .suas-side-dropdown:nth-child(6n + 3) > summary.suas-side-link {
+    background: #d9ff78 !important;
+  }
+  html body .suas-frame .suas-side-nav > a.suas-side-link:nth-of-type(6n + 4),
+  html body .suas-frame .suas-side-nav > .suas-side-dropdown:nth-child(6n + 4) > summary.suas-side-link {
+    background: #e4d5ff !important;
+  }
+  html body .suas-frame .suas-side-nav > a.suas-side-link:nth-of-type(6n + 5),
+  html body .suas-frame .suas-side-nav > .suas-side-dropdown:nth-child(6n + 5) > summary.suas-side-link {
+    background: #fff1a8 !important;
   }
 
   html body .suas-side-link.is-active,
-  html body .suas-side-dropdown[open] > .suas-side-link {
-    background: #ffd8e8 !important;
-    color: #101010 !important;
+  html body .suas-side-dropdown[open] > summary.suas-side-link {
+    background: #101010 !important;
+    color: #fff !important;
+    box-shadow: 0 3px 0 #ff9bc4 !important;
   }
 
   html body .suas-side-icon {
-    width: 34px !important;
-    height: 34px !important;
-    font-size: 15px !important;
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 11px !important;
+    flex: 0 0 22px !important;
+  }
+
+  html body .suas-side-link.is-active .suas-side-icon,
+  html body .suas-side-dropdown[open] > summary .suas-side-icon {
+    background: #fff !important;
+    color: #101010 !important;
   }
 
   html body .suas-frame .suas-side-label,
   html body.template--product .suas-frame .suas-side-label {
     display: block !important;
-    font-size: 1.35rem !important;
-    line-height: 0.95 !important;
+    font-size: 0.92rem !important;
+    line-height: 1 !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    overflow: visible !important;
     max-width: none !important;
     text-transform: uppercase !important;
   }
 
   html body .suas-side-num {
-    display: inline !important;
-    font-size: 10px !important;
-    letter-spacing: 0.2em !important;
-    opacity: 0.45 !important;
+    display: none !important;
+  }
+
+  html body .suas-side-dropdown {
+    position: static !important;
   }
 
   html body .suas-side-dropdown[open] {
-    height: auto !important;
+    height: 44px !important;
   }
 
-  html body .suas-side-dropdown[open] .suas-panel-submenu {
-    display: grid !important;
+  html body .suas-frame .suas-panel-submenu,
+  html body .suas-side-dropdown .suas-panel-submenu {
+    position: absolute !important;
+    left: 10px !important;
+    right: 10px !important;
+    top: calc(100% + 6px) !important;
+    z-index: 90 !important;
+    display: none !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 6px !important;
-    margin: 4px 8px 10px 46px !important;
-    padding: 8px !important;
-    max-height: none !important;
-    border: 1px solid rgba(16, 16, 16, 0.1) !important;
-    border-radius: 18px !important;
-    background: rgba(255, 255, 255, 0.92) !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    border: 1.5px solid #101010 !important;
+    border-radius: 20px !important;
+    background: #fff !important;
+    box-shadow: 4px 5px 0 #101010 !important;
+    max-height: 52vh !important;
+    overflow-y: auto !important;
+  }
+
+  html body .suas-side-dropdown[open] > .suas-panel-submenu {
+    display: grid !important;
   }
 
   html body .suas-panel-submenu a {
-    min-height: 32px !important;
-    justify-content: flex-start !important;
-    padding: 6px 10px !important;
-    font-size: 8px !important;
+    min-height: 40px !important;
+    justify-content: center !important;
+    padding: 8px 10px !important;
+    font-size: 10px !important;
+    text-align: center !important;
   }
 
   html body .suas-side-nav a.suas-side-link[href*='the-lab'],
