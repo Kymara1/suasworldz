@@ -336,43 +336,20 @@
         <span class="suas-window-live"><b></b>mix</span>
       </div>
       <div class="suas-pdp-diagram-body">
-        <div class="suas-pdp-callouts">
-          <button type="button" class="suas-pdp-callout is-on" data-suas-mix data-tint="#ffd8e8">
-            <strong>{{ mix_1 }}</strong>
-            <span>{{ mix_1_note }}</span>
-          </button>
-          <button type="button" class="suas-pdp-callout" data-suas-mix data-tint="#d9ff78">
-            <strong>{{ mix_2 }}</strong>
-            <span>{{ mix_2_note }}</span>
-          </button>
-          <button type="button" class="suas-pdp-callout" data-suas-mix data-tint="#cdeeff">
-            <strong>{{ mix_3 }}</strong>
-            <span>{{ mix_3_note }}</span>
-          </button>
-        </div>
-        <div class="suas-station-media product-page--featured-media suas-pdp-jar" data-suas-station-media>
-          <div class="suas-station-stage">
-            {%- if featured_media -%}
-              <img
-                class="suas-station-photo"
-                data-suas-station-photo
-                src="{{ featured_media | image_url: width: 1600 }}"
-                srcset="{{ featured_media | image_url: width: 800 }} 800w, {{ featured_media | image_url: width: 1200 }} 1200w, {{ featured_media | image_url: width: 1600 }} 1600w"
-                sizes="(max-width: 1023px) 70vw, 22vw"
-                alt="{{ featured_media.alt | default: product.title | escape }}"
-                width="{{ featured_media.width | default: 1600 }}"
-                height="{{ featured_media.height | default: 1600 }}"
-              >
-            {%- else -%}
-              {% render 'placeholder', type: 'product', aspect_ratio: 1, placeholder_index: 1 %}
-            {%- endif -%}
-          </div>
-          <div class="suas-station-gravity-media" aria-hidden="true">
-            {%- if featured_media -%}
-              {% render "product--media", media_view: "featured", inside_carousel: false, product_media: featured_media, video_looping_enabled: video_looping_enabled %}
-            {%- endif -%}
-          </div>
-        </div>
+        <article class="suas-pdp-note" data-note="1">
+          <strong>{{ mix_1 }}</strong>
+        </article>
+        <article class="suas-pdp-note" data-note="2">
+          <strong>{{ mix_2 }}</strong>
+        </article>
+        <article class="suas-pdp-note" data-note="3">
+          <strong>{{ mix_3 }}</strong>
+        </article>
+      </div>
+      <div class="suas-station-gravity-media" aria-hidden="true">
+        {%- if featured_media -%}
+          {% render "product--media", media_view: "featured", inside_carousel: false, product_media: featured_media, video_looping_enabled: video_looping_enabled %}
+        {%- endif -%}
       </div>
     </section>
 
@@ -405,8 +382,7 @@
     (function () {
       var root = document.querySelector('[data-product-id="{{ product_id }}"]');
       if (!root) return;
-      var photo = root.querySelector('[data-suas-station-photo]');
-      var life = root.querySelector('.suas-pdp-life-photo');
+      var photo = root.querySelector('.suas-pdp-life-photo');
       var thumbs = Array.prototype.slice.call(root.querySelectorAll('[data-suas-thumb]'));
       var count = root.querySelector('[data-suas-station-count]');
       var index = Math.max(0, thumbs.findIndex(function (thumb) { return thumb.classList.contains('is-active'); }));
@@ -418,11 +394,6 @@
           photo.src = thumb.getAttribute('data-src');
           photo.srcset = thumb.getAttribute('data-srcset') || '';
           photo.alt = thumb.getAttribute('data-alt') || '';
-        }
-        if (life) {
-          life.src = thumb.getAttribute('data-src');
-          life.srcset = thumb.getAttribute('data-srcset') || '';
-          life.alt = thumb.getAttribute('data-alt') || '';
         }
         thumbs.forEach(function (item, i) { item.classList.toggle('is-active', i === index); });
         if (count) count.textContent = (index + 1) + ' / ' + thumbs.length;
