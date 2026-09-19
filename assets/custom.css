@@ -771,18 +771,32 @@ nav *,
   appearance: auto !important;
 }
 .suas-bookings-page .suas-click-list { display: none !important; }
-.suas-bookings-page .suas-book-grid { align-items: start !important; }
+.suas-bookings-page .suas-book-grid { align-items: start !important; grid-template-columns: 1fr !important; }
 .suas-bookings-page .suas-book-option { min-height: auto !important; }
 .suas-bookings-page .suas-book-form { margin-top: 6px !important; }
 .suas-bookings-page .suas-book-list li { position: relative !important; padding-left: 12px !important; }
 .suas-bookings-page .suas-book-list li:before { display: none !important; }
+.suas-bookings-page .suas-visually-hidden,
+.suas-bookings-page #GuidedVariant,
+.suas-bookings-page #GuidedTime,
+.suas-bookings-page #SelfExperience,
+.suas-bookings-page #ParfumTime {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  min-height: 0 !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  pointer-events: none !important;
+}
 
 @media (min-width: 1024px) {
-  .suas-bookings-page .suas-book-wrap { width: min(920px, calc(100vw - 300px)) !important; padding-top: 28px !important; }
-  .suas-bookings-page .suas-book-title { font-size: clamp(2.7rem, 4.5vw, 4.3rem) !important; }
-  .suas-bookings-page .suas-book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 14px !important; }
-  .suas-bookings-page .suas-book-card, .suas-bookings-page .suas-book-panel, .suas-bookings-page .suas-book-option { padding: 16px !important; }
-  .suas-bookings-page .suas-book-option h2 { font-size: clamp(1.65rem, 2.2vw, 2.25rem) !important; }
+  .suas-bookings-page .suas-book-wrap { width: min(1180px, calc(100vw - 248px)) !important; padding-top: 22px !important; }
+  .suas-bookings-page .suas-book-title { font-size: clamp(2.4rem, 4vw, 3.8rem) !important; }
+  .suas-bookings-page .suas-book-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+  .suas-bookings-page .suas-book-card, .suas-bookings-page .suas-book-panel, .suas-bookings-page .suas-book-option { padding: 14px 16px !important; }
+  .suas-bookings-page .suas-book-option h2 { font-size: clamp(1.35rem, 2.2vw, 2rem) !important; }
 }
 
 @media (max-width: 749px) {

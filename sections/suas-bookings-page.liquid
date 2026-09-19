@@ -1,44 +1,44 @@
-<section class="suas-bookings-page" data-suas-book-v="types" aria-label="Book The Lab">
+<section class="suas-bookings-page" data-suas-book-v="compact" aria-label="Book The Lab">
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
     .suas-bookings-page{--ink:#101010;--pink:#ffe8ef;--hot:#ff9fc2;--lime:#d9ff78;--blue:#c9e7ff;--sun:#fff2a8;--lav:#e8ddff;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 8%,rgba(255,159,194,.25),transparent 30%),radial-gradient(circle at 90% 14%,rgba(217,255,120,.3),transparent 30%),linear-gradient(180deg,#fff 0%,#fffaf5 100%);font-family:Futura,'Futura PT',Arial,sans-serif}
     .suas-bookings-page *{box-sizing:border-box}
-    .suas-book-wrap{width:min(1120px,calc(100vw - 28px));margin:0 auto;padding:clamp(18px,3vw,38px) 0 48px}
-    .suas-book-card,.suas-book-panel,.suas-book-option,.suas-book-path{border:2px solid var(--ink);border-radius:24px;box-shadow:0 6px 0 var(--ink)}
-    .suas-book-hero{background:rgba(255,255,255,.9);padding:clamp(16px,2.4vw,24px);margin-bottom:14px}
-    .suas-book-kicker,.suas-book-label,.suas-book-button,.suas-book-badge,.suas-book-path span{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:900}
-    .suas-book-title,.suas-book-option h2,.suas-book-panel h2,.suas-book-price,.suas-book-path strong,.suas-seat-meter strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-weight:400;letter-spacing:0;text-transform:uppercase}
+    .suas-book-wrap{width:min(1180px,calc(100vw - 28px));margin:0 auto;padding:18px 0 36px}
+    .suas-book-card,.suas-book-panel,.suas-book-option{border:2px solid var(--ink);border-radius:22px;box-shadow:0 5px 0 var(--ink)}
+    .suas-book-top{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:12px;margin-bottom:12px;align-items:stretch}
+    .suas-book-hero{background:rgba(255,255,255,.92);padding:16px 18px;display:grid;align-content:center;gap:8px}
+    .suas-book-kicker,.suas-book-label,.suas-book-button,.suas-book-badge,.suas-book-tab{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:900}
+    .suas-book-title,.suas-book-option h2,.suas-book-panel h2,.suas-book-price,.suas-seat-meter strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-weight:400;letter-spacing:0;text-transform:uppercase}
     .suas-book-kicker{opacity:.7}
-    .suas-book-title{margin:8px 0 10px;font-size:clamp(2.1rem,4.4vw,3.6rem);line-height:.86}
-    .suas-book-copy{max-width:720px;margin:0;font-size:1rem;line-height:1.5;font-weight:800;color:rgba(16,16,16,.66)}
-    .suas-book-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
-    .suas-book-path{display:grid;gap:6px;padding:14px 16px;text-decoration:none;color:var(--ink);background:#fff;min-height:92px;align-content:center}
-    .suas-book-path[data-kind="self"]{background:var(--pink)}
-    .suas-book-path[data-kind="guided"]{background:var(--lime)}
-    .suas-book-path strong{font-size:clamp(1.35rem,2.4vw,1.85rem);line-height:.9}
-    .suas-book-path:hover{transform:translateY(2px);box-shadow:0 4px 0 var(--ink);color:var(--ink)}
-    .suas-book-hours{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:16px}
-    .suas-book-panel{background:#fff;padding:clamp(14px,2vw,18px);display:grid;gap:10px}
-    .suas-book-panel h2{margin:0;font-size:1.45rem;line-height:.95}
-    .suas-book-list{display:grid;gap:7px;margin:0;padding:0;list-style:none}
-    .suas-book-list li{border:1px solid rgba(16,16,16,.14);border-radius:15px;padding:10px 12px;background:var(--chip,#fff);font-size:13px;line-height:1.35;font-weight:800}
-    .suas-book-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
-    .suas-book-option{display:grid;gap:12px;background:var(--card);padding:clamp(14px,2vw,18px);scroll-margin-top:96px}
-    .suas-book-option-head{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start}
-    .suas-book-option h2{margin:7px 0 0;font-size:clamp(1.55rem,2.5vw,2.45rem);line-height:.88}
-    .suas-book-desc{margin:8px 0 0;font-size:14px;line-height:1.45;font-weight:800;color:rgba(16,16,16,.68)}
-    .suas-book-price-card{min-width:118px;border:2px solid var(--ink);border-radius:18px;background:#fff;box-shadow:0 4px 0 var(--ink);padding:10px;text-align:center}
-    .suas-book-price-card span{display:block;margin-bottom:5px;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:rgba(16,16,16,.55)}
-    .suas-book-price{display:block;font-size:clamp(1.5rem,2.2vw,2.05rem);line-height:.9}
+    .suas-book-title{margin:0;font-size:clamp(2rem,4vw,3.1rem);line-height:.86}
+    .suas-book-copy{margin:0;font-size:.92rem;line-height:1.35;font-weight:800;color:rgba(16,16,16,.66)}
+    .suas-book-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+    .suas-book-tab{min-height:44px;border:2px solid var(--ink);border-radius:999px;background:#fff;color:var(--ink);cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+    .suas-book-tab[data-kind="self"].is-on{background:var(--pink)}
+    .suas-book-tab[data-kind="guided"].is-on{background:var(--lime)}
+    .suas-book-panel{background:#fff;padding:14px 16px;display:grid;gap:8px}
+    .suas-book-panel h2{margin:0;font-size:1.25rem;line-height:.95}
+    .suas-book-hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .suas-book-hours-grid p{margin:0;padding:8px 10px;border-radius:14px;background:var(--chip,#fff);border:1px solid rgba(16,16,16,.12);font-size:12px;line-height:1.35;font-weight:800}
+    .suas-book-hours-note{grid-column:1/-1;margin:0;font:700 11px/1.35 Futura,Arial,sans-serif;color:rgba(16,16,16,.62)}
+    .suas-book-grid{display:grid;gap:12px;grid-template-columns:1fr!important}
+    .suas-book-option{display:none!important;gap:10px;background:var(--card);padding:14px 16px;scroll-margin-top:88px}
+    .suas-book-option.is-open{display:grid!important}
+    .suas-book-option-head{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}
+    .suas-book-option h2{margin:4px 0 0;font-size:clamp(1.35rem,2.2vw,2rem);line-height:.88}
+    .suas-book-desc{margin:4px 0 0;font-size:13px;line-height:1.3;font-weight:800;color:rgba(16,16,16,.68)}
+    .suas-book-price-card{min-width:96px;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:0 3px 0 var(--ink);padding:8px;text-align:center}
+    .suas-book-price-card span{display:block;margin-bottom:4px;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:rgba(16,16,16,.55)}
+    .suas-book-price{display:block;font-size:clamp(1.3rem,2vw,1.8rem);line-height:.9}
     .suas-book-badge{display:inline-flex;width:fit-content;border:2px solid var(--ink);border-radius:999px;padding:6px 10px 5px;background:rgba(255,255,255,.76);box-shadow:0 3px 0 rgba(16,16,16,.18)}
-    .suas-seat-meter{display:flex;justify-content:space-between;align-items:end;gap:8px;padding:10px 12px;border:2px solid var(--ink);border-radius:18px;background:var(--lime);box-shadow:3px 4px 0 var(--ink)}
-    .suas-seat-meter strong{font-size:clamp(1.3rem,2.6vw,1.75rem);line-height:.9}
+    .suas-seat-meter{display:flex;flex-direction:column;justify-content:center;min-width:132px;padding:8px 10px;border:2px solid var(--ink);border-radius:16px;background:var(--lime);box-shadow:3px 3px 0 var(--ink)}
+    .suas-seat-meter strong{font-size:1.15rem;line-height:.9}
     .suas-seat-meter span{font:900 9px/1.2 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.65;text-align:right}
     .suas-seat-meter.is-full{background:var(--pink)}
     .suas-seat-meter.is-low{background:var(--sun)}
-    .suas-book-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:2px}
-    .suas-book-field{display:grid;gap:5px}
-    .suas-book-field[data-wide],.suas-book-button,.suas-book-note,.suas-book-addons,.suas-book-contact,.suas-seat-meter{grid-column:1/-1}
+    .suas-book-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:2px}
+    .suas-book-field{display:grid;gap:4px}
+    .suas-book-field[data-wide],.suas-book-button,.suas-book-note,.suas-book-addons,.suas-book-contact,.suas-type-grid,.suas-plus-choice,.suas-time-chips{grid-column:1/-1}
     .suas-book-label{color:rgba(16,16,16,.58)}
     .suas-book-input,.suas-book-select,.suas-bookings-page select.suas-book-select,.suas-bookings-page select.suas-time-select{position:static!important;width:100%!important;height:auto!important;min-height:48px!important;opacity:1!important;pointer-events:auto!important;appearance:auto!important;border:2px solid rgba(16,16,16,.18);border-radius:14px;padding:10px 12px;background:#fff;color:var(--ink);font:800 16px/1.2 Futura,'Futura PT',Arial,sans-serif;outline:none}
     .suas-book-input:focus,.suas-book-select:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,159,194,.22)}
@@ -60,13 +60,13 @@
     .suas-book-contact.is-on{display:grid;gap:10px}
     .suas-book-contact p{margin:0;font:800 14px/1.4 Futura,Arial,sans-serif}
     .suas-book-contact a{display:grid;place-items:center;min-height:48px;border:2px solid var(--ink);border-radius:999px;background:var(--sun);color:var(--ink);text-decoration:none;font:900 12px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-    .suas-type-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-    .suas-type-card{position:relative;display:grid;gap:6px;min-height:132px;align-content:start;padding:12px;border:2px solid rgba(16,16,16,.2);border-radius:18px;background:#fff;cursor:pointer;box-shadow:0 3px 0 rgba(16,16,16,.18)}
+    .suas-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    .suas-type-card{position:relative;display:grid;grid-template-columns:1fr auto;gap:2px 8px;min-height:0;align-content:center;padding:10px 12px;border:2px solid rgba(16,16,16,.2);border-radius:16px;background:#fff;cursor:pointer;box-shadow:0 3px 0 rgba(16,16,16,.18)}
     .suas-type-card input{position:absolute;opacity:0;pointer-events:none}
-    .suas-type-card em{font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
-    .suas-type-card strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.28rem;line-height:.88;font-weight:400;text-transform:uppercase}
-    .suas-type-card small{font:800 11px/1.3 Futura,Arial,sans-serif;color:rgba(16,16,16,.62)}
-    .suas-type-card b{font:900 12px/1 Futura,Arial,sans-serif}
+    .suas-type-card em{grid-column:1;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
+    .suas-type-card strong{grid-column:1;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;line-height:.88;font-weight:400;text-transform:uppercase}
+    .suas-type-card small{display:none}
+    .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:center;font:900 13px/1 Futura,Arial,sans-serif}
     .suas-type-card.is-on{border-color:var(--ink);background:var(--sun);box-shadow:0 4px 0 var(--ink)}
     .suas-plus-choice{grid-column:1/-1;display:none;grid-template-columns:1fr 1fr;gap:8px}
     .suas-plus-choice.is-on{display:grid}
@@ -83,39 +83,28 @@
     .suas-bookings-page #ParfumTime{
       position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;opacity:0!important;pointer-events:none!important;border:0!important;padding:0!important;margin:0!important
     }
-    @media(max-width:980px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-hours,.suas-book-grid,.suas-book-paths,.suas-type-grid{grid-template-columns:1fr}.suas-book-option-head{grid-template-columns:1fr}.suas-book-price-card{text-align:left;width:fit-content}}
-    @media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 34px}.suas-book-card,.suas-book-panel,.suas-book-option,.suas-book-path{border-radius:18px;box-shadow:0 4px 0 var(--ink)}.suas-book-title{font-size:clamp(2.35rem,13vw,3.5rem)}.suas-book-form,.suas-book-addons,.suas-plus-choice{grid-template-columns:1fr}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}}
+    @media(max-width:980px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-top,.suas-book-hours-grid,.suas-type-grid{grid-template-columns:1fr}.suas-book-option-head{grid-template-columns:1fr auto}.suas-book-form{grid-template-columns:1fr 1fr}}
+    @media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 28px}.suas-book-card,.suas-book-panel,.suas-book-option{border-radius:18px;box-shadow:0 4px 0 var(--ink)}.suas-book-title{font-size:clamp(2.1rem,12vw,3rem)}.suas-book-form,.suas-plus-choice{grid-template-columns:1fr}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}}
   </style>
 
   <div class="suas-book-wrap">
-    <div class="suas-book-hero suas-book-card">
-      <div class="suas-book-kicker">about us / bookings</div>
-      <h1 class="suas-book-title">book the lab.</h1>
-      <p class="suas-book-copy">Pick your experiment, date, time, and contact info, then check out. The price shown here follows the selected Shopify product or variant, so product price changes stay connected. Guided classes are appointment-only, 75 minutes, with 12 seats per class.</p>
-      <div class="suas-book-paths">
-        <a class="suas-book-path" data-kind="self" href="#self-guided"><span>01 / experiment</span><strong>self-guided session</strong><span>Thu–Fri 1–5 · Sat–Sun 1–4</span></a>
-        <a class="suas-book-path" data-kind="guided" href="#guided-class"><span>02 / class</span><strong>guided session</strong><span>75 min · 12 seats · appointment only</span></a>
+    <div class="suas-book-top">
+      <div class="suas-book-hero suas-book-card">
+        <div class="suas-book-kicker">about us / bookings</div>
+        <h1 class="suas-book-title">book the lab.</h1>
+        <p class="suas-book-copy">Choose a session, pick a time, then check out. Prices follow the selected Shopify product.</p>
+        <div class="suas-book-tabs" data-book-tabs>
+          <button class="suas-book-tab is-on" type="button" data-kind="self">self-guided</button>
+          <button class="suas-book-tab" type="button" data-kind="guided">guided class</button>
+        </div>
       </div>
-    </div>
-
-    <div class="suas-book-hours">
       <aside class="suas-book-panel">
-        <h2>self-guided hours.</h2>
-        <ul class="suas-book-list">
-          <li style="--chip:#ffe8ef;">Thursday + Friday: 1:00 PM – 5:00 PM.</li>
-          <li style="--chip:#c9e7ff;">Saturday: 1:00 PM – 4:00 PM.</li>
-          <li style="--chip:#d9ff78;">Sunday: 1:00 PM – 4:00 PM, self-guided only.</li>
-          <li style="--chip:#f3f3f3;">Monday, Tuesday, and Wednesday: closed.</li>
-        </ul>
-      </aside>
-      <aside class="suas-book-panel">
-        <h2>guided class hours.</h2>
-        <ul class="suas-book-list">
-          <li style="--chip:#ffe8ef;">Thursday + Friday: 6:00 PM – 7:15 PM.</li>
-          <li style="--chip:#c9e7ff;">Saturday: 4:30 PM – 5:45 PM or 6:00 PM – 7:15 PM.</li>
-          <li style="--chip:#fff2a8;">Each guided class is 75 minutes and appointment only.</li>
-          <li style="--chip:#f3f3f3;">No guided sessions on Sunday. 12 seats per class.</li>
-        </ul>
+        <h2>lab hours</h2>
+        <div class="suas-book-hours-grid">
+          <p style="--chip:#ffe8ef;"><b>Self-guided</b><br>Thu–Fri 1:00–5:00 PM<br>Sat–Sun 1:00–4:00 PM</p>
+          <p style="--chip:#d9ff78;"><b>Guided · 75 min · 12 seats</b><br>Thu–Fri 6:00–7:15 PM<br>Sat 4:30–5:45 or 6:00–7:15 PM</p>
+        </div>
+        <p class="suas-book-hours-note">Closed Monday–Wednesday. No guided classes on Sunday. Walk-ins welcome in self-guided hours if a station is free. Guided cancel under 24 hours is non-refundable.</p>
       </aside>
     </div>
 
@@ -190,14 +179,14 @@
         endif
       %}
 
-      <article class="suas-book-option" id="self-guided" style="--card:#ffe8ef;">
+      <article class="suas-book-option is-open" id="self-guided" style="--card:#ffe8ef;">
         <div class="suas-book-option-head">
           <div>
             <span class="suas-book-badge">self-guided</span>
             <h2>Self-Guided Lab Experiment</h2>
-            <p class="suas-book-desc" data-self-description>Pick perfume, a roll-on, or the combo sesh. Combo includes perfume and a body oil. Body oil is not offered on its own.</p>
+            <p class="suas-book-desc" data-self-description>Perfume, roll-on, or combo sesh (perfume + body oil).</p>
           </div>
-          <div class="suas-book-price-card"><span>selected price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
+          <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
         </div>
 
         {% if self_form_product != blank %}
@@ -241,20 +230,19 @@
             <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" required></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" value="1"></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="ParfumName">name</label><input class="suas-book-input" id="ParfumName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field" data-wide>
               <span class="suas-book-label">arrival time</span>
               <div class="suas-time-chips" data-self-chips></div>
               <select class="suas-book-select suas-time-select suas-visually-hidden" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select>
             </div>
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" value="1"></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
-            <div class="suas-book-field" data-wide><label class="suas-book-label" for="ParfumName">name</label><input class="suas-book-input" id="ParfumName" type="text" name="properties[Guest name]" required></div>
             <button class="suas-book-button" type="submit">add booking to cart</button>
           {% endform %}
         {% else %}
           <button class="suas-book-button" disabled>connect booking products</button>
         {% endif %}
-        <div class="suas-book-policy"><strong>Self-guided booking note</strong><p>Online booking holds your experiment for the selected arrival window. Self-guided is Thursday and Friday 1:00 PM – 5:00 PM, and Saturday and Sunday 1:00 PM – 4:00 PM. Walk-ins are welcome in those windows when a station is free.</p></div>
       </article>
 
       <article class="suas-book-option" id="guided-class" style="--card:#d9ff78;">
@@ -262,11 +250,11 @@
           <div>
             <span class="suas-book-badge">guided class · 75 min</span>
             <h2>Guided Lab Session</h2>
-            <p class="suas-book-desc" data-guided-description>Pick a session type, then a Thursday, Friday, or Saturday class. Each class is 75 minutes with 12 seats.</p>
+            <p class="suas-book-desc" data-guided-description>Perfume, perfume + one, or signature collection.</p>
           </div>
-          <div class="suas-book-price-card"><span>selected price</span><strong class="suas-book-price" data-guided-price aria-live="polite">$85.00</strong></div>
+          <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>12 of 12 seats left</strong><span data-suas-seat-hint>pick date + time</span></div>
+          <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-guided-price aria-live="polite">$85.00</strong></div>
         </div>
-        <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>12 of 12 seats left</strong><span data-suas-seat-hint>pick a class date + time</span></div>
 
         {% if deluxe_product != blank %}
           {% form 'product', deluxe_product, class:'suas-book-form', data-booking-form:'guided' %}
@@ -319,14 +307,14 @@
               </select>
             {% endif %}
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedDate">class date</label><input class="suas-book-input" id="GuidedDate" type="date" name="properties[Class date]" required></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="12" value="1"></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="GuidedPhone">phone</label><input class="suas-book-input" id="GuidedPhone" type="tel" name="properties[Phone number]" required></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="GuidedName">name</label><input class="suas-book-input" id="GuidedName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field" data-wide>
               <span class="suas-book-label">class time</span>
               <div class="suas-time-chips" data-guided-chips></div>
               <select class="suas-book-select suas-time-select suas-visually-hidden" id="GuidedTime" name="properties[Class time]" required><option value="">choose time</option><option>Thursday 6:00 PM - 7:15 PM</option><option>Friday 6:00 PM - 7:15 PM</option><option>Saturday 4:30 PM - 5:45 PM</option><option>Saturday 6:00 PM - 7:15 PM</option></select>
             </div>
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="12" value="1"></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedPhone">phone</label><input class="suas-book-input" id="GuidedPhone" type="tel" name="properties[Phone number]" required></div>
-            <div class="suas-book-field" data-wide><label class="suas-book-label" for="GuidedName">name</label><input class="suas-book-input" id="GuidedName" type="text" name="properties[Guest name]" required></div>
             {% if deluxe_product.available %}<button class="suas-book-button" type="submit" data-guided-submit>add booking to cart</button>{% else %}<button class="suas-book-button" disabled data-guided-submit>this class is full</button>{% endif %}
             <div class="suas-book-contact" data-guided-full>
               <p>This class is full. Send us a note and we will see if we can still fit your party in.</p>
@@ -336,7 +324,6 @@
         {% else %}
           <button class="suas-book-button" disabled>connect guided product</button>
         {% endif %}
-        <div class="suas-book-policy"><strong>Guided class policy</strong><p>Each guided class is 75 minutes and limited to 12 guests. Please reserve the correct number of seats for your party. Guided-session payments are non-refundable when canceled less than 24 hours before the scheduled class. Sundays are self-guided only.</p></div>
       </article>
     </div>
   </div>
@@ -361,6 +348,28 @@
       };
       var TOTAL = 12;
       var remaining = TOTAL;
+
+      function showBookKind(kind) {
+        var selfCard = root.querySelector('#self-guided');
+        var guidedCard = root.querySelector('#guided-class');
+        if (selfCard) selfCard.classList.toggle('is-open', kind === 'self');
+        if (guidedCard) guidedCard.classList.toggle('is-open', kind === 'guided');
+        root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
+          tab.classList.toggle('is-on', tab.getAttribute('data-kind') === kind);
+        });
+        root.querySelectorAll('#self-guided [required], #self-guided select[name="id"]').forEach(function (field) {
+          if (kind === 'self') field.setAttribute('required', 'required');
+          else field.removeAttribute('required');
+        });
+        root.querySelectorAll('#guided-class [required], #guided-class select[name="id"]').forEach(function (field) {
+          if (kind === 'guided') field.setAttribute('required', 'required');
+          else field.removeAttribute('required');
+        });
+      }
+      root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () { showBookKind(tab.getAttribute('data-kind')); });
+      });
+      showBookKind((location.hash || '').indexOf('guided') !== -1 ? 'guided' : 'self');
 
       function dateDay(value) {
         if (!value) return null;
