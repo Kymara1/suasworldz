@@ -84,7 +84,7 @@
   const hash = window.location.hash;
   const recover = root.querySelector('[data-suas-auth-view="recover"]');
   const register = root.querySelector('[data-suas-auth-view="register"]');
-  if (hash === '#recover' || hash === '#recover-successful' || (recover && /reset email sent/i.test(recover.textContent))) openAuth('recover');
-  else if (register && register.querySelector('.errors, li')) openAuth('register');
+  if (hash === '#register' || (register && register.querySelector('.errors, li'))) openAuth('register');
+  else if (hash === '#recover' || hash === '#recover-successful' || (recover && /reset email sent/i.test(recover.textContent))) openAuth('recover');
 })();
 </script>

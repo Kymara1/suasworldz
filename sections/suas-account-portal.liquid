@@ -351,7 +351,7 @@
     if (!box) return false;
     return Boolean(box.querySelector('.errors, li')) || /reset email sent/i.test(box.textContent);
   };
-  if (authHas('register')) openAuth('register');
+  if (authHas('register') || location.hash === '#register') openAuth('register');
   else if (authHas('recover')) openAuth('recover');
 })();
 </script>

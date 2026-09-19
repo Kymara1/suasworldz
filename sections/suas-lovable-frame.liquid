@@ -312,8 +312,30 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       document.querySelectorAll('.suas-world-home a[href="#suas-reviews"]').forEach((link) => { link.setAttribute('href', routes.reviews); });
       document.querySelectorAll('a[href="/account"], a[href="/pages/suas-account"], a[href="/pages/suas-accounts"], a[href="/pages/accounts"]').forEach((link) => { link.setAttribute('href', routes.account); });
       document.querySelectorAll('a[href="/account/addresses"]').forEach((link) => { link.setAttribute('href', '/pages/account#addresses'); });
+      document.querySelectorAll('a[href="/account/login"], a[href="/account/login/"], a[href*="/account/login"]').forEach((link) => {
+        const href = link.getAttribute('href') || '';
+        if (href.indexOf('/account/login') !== -1) link.setAttribute('href', '/pages/account');
+      });
+      document.querySelectorAll('a[href="/account/register"], a[href="/account/register/"], a[href*="/account/register"]').forEach((link) => {
+        link.setAttribute('href', '/pages/account#register');
+      });
     };
     rewriteSuasHomeLinks();
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a');
+      if (!link || !link.href) return;
+      let next = '';
+      try {
+        const url = new URL(link.href, location.origin);
+        const path = url.pathname.replace(/\/+$/, '') || '/';
+        if (path === '/account/register') next = '/pages/account#register';
+        else if (path === '/account/login') next = '/pages/account';
+        else if (url.hostname.indexOf('shopify.com') !== -1 && /authentication|account/.test(url.pathname)) next = path.indexOf('register') !== -1 || url.search.indexOf('signup') !== -1 ? '/pages/account#register' : '/pages/account';
+      } catch (e) {}
+      if (!next) return;
+      event.preventDefault();
+      window.location.href = next;
+    }, true);
     new MutationObserver(rewriteSuasHomeLinks).observe(document.documentElement, { childList: true, subtree: true });
   })();
 </script>
