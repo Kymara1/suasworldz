@@ -13,6 +13,13 @@
   assign product_id = product.id | append: '-' | append: section.id
   assign video_looping_enabled = section.settings.loop-enabled
   assign pdp_name = product.title | split: '?' | first | strip
+  assign pdp_name = pdp_name | split: '✿' | first | split: '*' | first | strip
+  if product.type != blank
+    assign pdp_name = pdp_name | replace: product.type, '' | strip
+  endif
+  if pdp_name == blank
+    assign pdp_name = product.title | split: '✿' | first | split: '?' | first | strip
+  endif
   assign pdp_hook = product.description | strip_html | split: '.' | first | strip
   assign pdp_handle = product.handle | downcase
   assign mix_1 = 'handmade'
