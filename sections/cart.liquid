@@ -34,6 +34,66 @@
     transform: none !important;
   }
 
+  body.template--cart .cart--root[data-is-drawer="false"][data-view="desktop"] .cart--item {
+    display: grid !important;
+    grid-template-columns: 100px minmax(0, 1fr) 116px 132px 132px !important;
+    gap: 18px !important;
+    align-items: start !important;
+    position: relative !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"][data-view="desktop"] .cart--item--title {
+    min-width: 0 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"][data-view="desktop"] .cart--item--price {
+    grid-column: 3 !important;
+    justify-self: end !important;
+    text-align: right !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"][data-view="desktop"] .cart--item--quantity {
+    grid-column: 4 !important;
+    justify-self: end !important;
+    text-align: center !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"][data-view="desktop"] .cart--item--total {
+    grid-column: 5 !important;
+    grid-row: 1 !important;
+    align-self: start !important;
+    justify-self: end !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"][data-view="desktop"] .cart--item--total .money {
+    display: inline-block !important;
+    min-width: max-content !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"][data-view="mobile"] .cart--item--price {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  body.template--cart .cart--root[data-is-drawer="false"][data-view="mobile"] .cart--item--total {
+    margin-left: auto !important;
+    text-align: right !important;
+    white-space: nowrap !important;
+  }
+
+  @media (max-width: 980px) {
+    body.template--cart .cart--root[data-is-drawer="false"][data-view="desktop"] {
+      display: none !important;
+    }
+  }
+
   @media (max-width: 749px) {
     body.template--cart .layout--main-content {
       padding-top: 16px !important;
