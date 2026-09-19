@@ -54,24 +54,24 @@
   @media (min-width:1024px) { .suas-frame-marquee{left:0;right:0;width:100%;} .suas-side-rail{inset:36px auto 0 0;padding-top:4px;} .off-canvas--main-content{margin-left:252px;width:calc(100% - 252px);} .header--root,.announcement--root,#shopify-section-footer,.section--footer,.footer--root{display:none!important;} }
   @media (max-width:1023px) {
     .header--root,.announcement--root,#shopify-section-footer,.section--footer,.footer--root{display:none!important;}
-    .suas-side-rail{position:sticky;inset:auto;top:36px;z-index:59;width:100%;display:block;padding:8px 10px 10px;background:rgba(255,255,255,.96);border-right:0;border-bottom:1px solid rgba(16,16,16,.1);box-shadow:0 10px 24px -20px rgba(16,16,16,.45);}
+    .suas-mobile-bar{display:flex;}
     .suas-frame-marquee{height:34px;}.suas-frame-marquee-track span{padding:0 18px;font-size:15px;}
-    .suas-side-head{justify-content:center;gap:10px;padding:4px 0 8px;}.suas-side-orb{width:28px;height:28px;}.suas-side-brand{font-size:1.35rem;line-height:1;}
-    .suas-side-kicker,.suas-side-status,.suas-side-foot{display:none;}
-    .suas-side-nav{flex:none;display:flex;flex-direction:row;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;padding:0 0 2px;height:44px;}
-    .suas-side-link{min-height:44px;height:44px;width:auto;grid-template-columns:none;gap:6px;padding:0 12px 0 8px;border:1.5px solid #101010;background:#fff;box-shadow:0 3px 0 #101010;border-radius:999px;}
-    .suas-side-link.is-active{min-height:44px;margin:0;background:#101010;color:#fff;}
-    .suas-side-icon{width:22px;height:22px;font-size:11px;}
-    .suas-side-label{font-size:.92rem;line-height:1;white-space:nowrap;overflow:visible;}
-    .suas-side-num{display:none;}
-    .suas-side-dropdown[open] .suas-panel-submenu{position:absolute;left:10px;right:10px;margin:0;padding:10px;max-height:52vh;overflow-y:auto;border-radius:20px;background:#fff;}
-    .suas-panel-submenu a{justify-content:center;min-height:40px;text-align:center;font-size:10px;line-height:1.05;}
   }
 </style>
 
 <div class="suas-frame" aria-label="SUAS site frame">
   <div class="suas-frame-marquee" aria-hidden="true"><div class="suas-frame-marquee-track">{% for i in (1..2) %}<span>shut up & smell</span><span>suas.os online</span><span>the lab is mixing</span><span>handmade in gastonia</span><span>dopamine on tap</span><span>formula 001</span>{% endfor %}</div></div>
-  <aside class="suas-side-rail" aria-label="SUAS control panel">
+  <div class="suas-mobile-bar">
+    <a class="suas-side-head suas-mobile-home" href="/" aria-label="Go to SUAS homepage"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">SUAS</span></a>
+    <div class="suas-mobile-bar-actions">
+      <button type="button" class="suas-panel-toggle" aria-expanded="false" aria-controls="suas-control-panel">
+        <span class="suas-panel-toggle-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="suas-panel-toggle-text">menu</span>
+      </button>
+    </div>
+  </div>
+  <div class="suas-panel-scrim" hidden></div>
+  <aside class="suas-side-rail" id="suas-control-panel" aria-label="SUAS control panel">
     <a class="suas-side-head" href="/"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">SUAS</span></a>
     <p class="suas-side-kicker">control panel</p>
     <nav class="suas-side-nav">

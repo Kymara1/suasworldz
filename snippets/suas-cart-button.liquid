@@ -232,26 +232,15 @@
     }
 
     @media (max-width: 1023px) {
-      .suas-side-rail {
-        position: relative;
-        display: grid;
-        grid-template-columns: 40px 1fr 40px;
-        align-items: center;
-      }
-      .suas-side-head { grid-column: 1 / -1; grid-row: 1; width: auto; justify-content: center; }
       .suas-floating-cart {
-        grid-column: 3;
-        grid-row: 1;
         position: relative;
         top: auto;
         right: auto;
         z-index: 3;
-        margin: 0 0 8px 0;
-        width: 34px;
-        height: 34px;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), 0 6px 14px -10px rgba(16, 16, 16, 0.5);
+        margin: 0;
+        width: 40px;
+        height: 40px;
       }
-      .suas-side-nav { grid-column: 1 / -1; }
       .suas-floating-cart__icon,
       .suas-floating-cart__icon svg { width: 18px; height: 18px; }
       .suas-floating-cart__count { top: -5px; right: -7px; min-width: 18px; height: 18px; padding: 0 4px; font-size: 9px; }
@@ -267,12 +256,24 @@
       const countNode = document.querySelector('[data-suas-cart-count]');
       const rail = document.querySelector('.suas-side-rail');
       const kicker = rail ? rail.querySelector('.suas-side-kicker') : null;
+      const mobileActions = document.querySelector('.suas-mobile-bar-actions');
+      const panelToggle = document.querySelector('.suas-panel-toggle');
 
-      if (cartButton && rail && !rail.contains(cartButton)) {
-        const head = rail.querySelector('.suas-side-head');
-        if (head) rail.insertBefore(cartButton, head.nextSibling);
-        else rail.insertBefore(cartButton, kicker || rail.firstChild);
+      function placeCart() {
+        if (!cartButton) return;
+        if (window.matchMedia('(max-width: 1023px)').matches && mobileActions) {
+          if (panelToggle) mobileActions.insertBefore(cartButton, panelToggle);
+          else mobileActions.appendChild(cartButton);
+          return;
+        }
+        if (rail && !rail.contains(cartButton)) {
+          const head = rail.querySelector('.suas-side-head');
+          if (head) rail.insertBefore(cartButton, head.nextSibling);
+          else rail.insertBefore(cartButton, kicker || rail.firstChild);
+        }
       }
+      placeCart();
+      window.addEventListener('resize', placeCart);
 
       if (countNode) {
         fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
