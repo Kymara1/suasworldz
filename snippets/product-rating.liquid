@@ -12,19 +12,17 @@
   assign product_rating_t = 'products.star_reviews_info' | t: rating_value: rating_value, rating_max: rating_max
   assign star_href = product.url | append: '?showWriteReviews=true#suas-simple-review'
 -%}
-{%- if link -%}
+{%- if star_link -%}
 <a class="suas-product-stars" href="{{ star_href }}" aria-label="{{ product_rating_t }}. Write a review">
 {%- else -%}
 <div class="suas-product-stars" aria-label="{{ product_rating_t }}">
 {%- endif -%}
-  <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}" data-auto-install="false">
-    {{ product.metafields.judgeme.badge }}
-  </div>
+  <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}" data-auto-install="false">{{ product.metafields.judgeme.badge }}</div>
   <span class="suas-product-stars--fallback" aria-hidden="true">
     <span class="suas-star-row">☆☆☆☆☆</span>
     <span class="suas-star-count">write a review</span>
   </span>
-{%- if link -%}
+{%- if star_link -%}
 </a>
 {%- else -%}
 </div>

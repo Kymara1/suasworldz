@@ -116,6 +116,10 @@ html body.template--search .suas-catalog-card .product--rating {
   display: block !important;
   margin: 2px 0 0;
 }
+html body.template--collection .suas-catalog-card .product--rating .suas-star-count,
+html body.template--search .suas-catalog-card .product--rating .suas-star-count {
+  display: none;
+}
 html body.template--collection .suas-catalog-card .product--image-wrapper,
 html body.template--search .suas-catalog-card .product--image-wrapper {
   position: relative;

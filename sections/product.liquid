@@ -383,7 +383,7 @@
       </div>
       <div class="suas-station-buy-body">
         <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
-        {%- render 'product-rating', product: product, link: true -%}
+        {%- render 'product-rating', product: product, star_link: true -%}
         {%- if product.type != blank -%}
           <p class="suas-pdp-stamp">{{ product.type }}</p>
         {%- endif -%}

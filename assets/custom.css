@@ -695,11 +695,7 @@ footer.footer--root {
   letter-spacing: 1px !important;
 }
 .suas-product-stars .jdgm-prev-badge__text {
-  color: #101010 !important;
-  font-size: 9px !important;
-  font-weight: 900 !important;
-  letter-spacing: .08em !important;
-  text-transform: uppercase !important;
+  display: none !important;
 }
 .suas-product-stars :is(.jdgm-powered, .jdgm-branding, a[href*='://judge.me'], a[href*='judgeme.com']) {
   display: none !important;

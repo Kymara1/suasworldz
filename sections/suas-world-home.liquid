@@ -218,7 +218,7 @@
                   </a>
                   <div class="suas-product-copy">
                     <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
-                    {% render 'product-rating', product: product, link: true %}
+                    {% render 'product-rating', product: product, star_link: true %}
                     <div class="suas-product-buy">
                       <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
                       <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
@@ -238,7 +238,7 @@
                     </a>
                     <div class="suas-product-copy">
                       <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
-                      {% render 'product-rating', product: product, link: true %}
+                      {% render 'product-rating', product: product, star_link: true %}
                       <div class="suas-product-buy">
                         <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
                         <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
