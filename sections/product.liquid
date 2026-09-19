@@ -241,6 +241,7 @@
     {%- endif -%}
 
     <div class="product-page--featured-media">
+      <div class="suas-os-winbar" aria-hidden="true"><i></i><i></i><i></i><b>product.view</b></div>
       {% if modal_enabled and featured_media.media_type == 'image' %}
         <a class="modal--link" href="#" aria-label="{{ image_modal_t }}">
       {% endif %}
@@ -260,6 +261,7 @@
 
     {%- if featured_blocks -%}
         <div class="product-page--featured-blocks">
+          <div class="suas-os-winbar" aria-hidden="true"><i></i><i></i><i></i><b>product.info</b></div>
           {{ featured_blocks_html }}
         </div>
       </div>
