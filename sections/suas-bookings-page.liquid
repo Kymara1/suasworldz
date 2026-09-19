@@ -404,7 +404,7 @@
   "settings": [
     {"type":"range","id":"seats_total","label":"Seats per Lab date","min":1,"max":24,"step":1,"default":12},
     {"type":"textarea","id":"seats_json","label":"Seats already taken (JSON)","info":"Optional. Format: {\"self|2026-09-20\":3,\"guided|2026-09-20|Friday 6:00 PM - 7:30 PM\":12}. Use shop metafield suas.lab_seats for live counts. Pair with a booking app or Shopify Flow so paid orders raise these numbers and hit Google Calendar.","default":"{}"},
-    {"type":"html","id":"calendar_embed","label":"Calendar / booking app embed","info":"Paste a Calendly, Google Appointment, or other booking-app embed if you want the schedule to write to a real calendar. Leave blank to use the SUAS date picker."},
+    {"type":"textarea","id":"calendar_embed","label":"Calendar / booking app embed","info":"Paste a Calendly, Google Appointment, or other booking-app embed if you want the schedule to write to a real calendar. Leave blank to use the SUAS date picker."},
     {"type":"product","id":"body_oil_product","label":"Self-Guided Body Oil product"},
     {"type":"product","id":"parfum_product","label":"Self-Guided Lab Experiment product"},
     {"type":"product","id":"combo_product","label":"Self-Guided Combo product"},
@@ -414,7 +414,6 @@
     {"type":"product","id":"deluxe_product","label":"Guided Lab Session product"},
     {"type":"text","id":"deluxe_product_handle","label":"Guided fallback product handle"}
   ],
-  "blocks": [{"type":"@app"}],
   "presets": [{"name":"SUAS Bookings Page"}]
 }
 {% endschema %}

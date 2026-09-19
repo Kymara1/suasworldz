@@ -220,9 +220,10 @@
 
   .suas-world-home .suas-product-slide {
     justify-items: stretch !important;
-    align-items: start !important;
+    align-items: stretch !important;
     gap: 8px !important;
     text-align: left !important;
+    animation: none !important;
   }
 
   .suas-world-home .suas-product-photo {

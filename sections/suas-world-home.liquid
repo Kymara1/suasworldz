@@ -13,8 +13,8 @@
     .suas-lower-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:12px;align-items:stretch}
     .suas-feed-notes{min-height:0;display:flex;flex-direction:column;gap:0;border:2px solid var(--ink);border-radius:22px;background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(135deg,rgba(255,216,232,.52),rgba(255,255,255,.95) 58%,rgba(217,255,120,.36));background-size:18px 18px,18px 18px,auto;box-shadow:5px 6px 0 var(--ink);padding:0;overflow:hidden}
     .suas-feed-announcement{width:100%;min-height:0;flex:1;display:flex;align-items:center;border:1.5px solid var(--ink);border-radius:15px;background:rgba(255,255,255,.9);padding:10px 12px;color:var(--ink);font-size:1.05rem;line-height:1.15}
-    .suas-product-buy{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;margin-top:12px}
-    .suas-feed-atc{min-height:34px;width:100%;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:8px 12px;color:var(--ink)!important;background:var(--lime)!important;box-shadow:0 3px 0 var(--ink);font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+    .suas-product-buy{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:stretch;gap:6px;margin-top:0;min-width:0}
+    .suas-feed-atc{min-height:32px;width:100%;min-width:0;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:6px 8px;color:var(--ink)!important;background:var(--lime)!important;box-shadow:0 2px 0 var(--ink);font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-size:8px}
     .suas-feed-atc:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
     .suas-feed-atc:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:0 3px 0 var(--ink)}
     .suas-now-card,.suas-launch-panel,.suas-boost{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
@@ -26,19 +26,19 @@
     .suas-window-live b{width:8px;height:8px;border-radius:999px;background:#28c840;box-shadow:0 0 0 4px rgba(40,200,64,.18);animation:suasHomeBlink 1.4s steps(2,end) infinite}
     @keyframes suasHomeBlink{50%{opacity:.35}}
     .suas-feed-notes-body{display:flex;flex:1;flex-direction:column;gap:6px;padding:10px 12px 12px}
-    .suas-product-rotator{position:relative;height:300px;min-height:0;padding:14px 16px 16px;overflow:hidden;isolation:isolate}
-    .suas-product-slide{position:absolute;inset:14px 16px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:center;gap:16px;color:var(--ink);opacity:0;pointer-events:none;transform:translateY(8px) scale(.985);transition:opacity 950ms ease,transform 950ms ease}
-    .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{opacity:1;pointer-events:auto;transform:none;z-index:2}
-    .suas-product-photo{width:100%;max-width:280px;aspect-ratio:1;display:grid;place-items:center;justify-self:center;border:2px solid var(--ink);border-radius:22px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:3px 4px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
+    .suas-product-rotator{position:relative;height:auto;min-height:0;padding:12px;overflow:hidden;isolation:isolate}
+    .suas-product-slide{position:relative;inset:auto;display:none;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);align-items:stretch;gap:10px;color:var(--ink);opacity:1;pointer-events:auto;transform:none;animation:none!important;min-width:0}
+    .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid;opacity:1;pointer-events:auto;transform:none;z-index:2}
+    .suas-product-photo{width:100%;max-width:none;min-width:0;aspect-ratio:1;display:grid;place-items:center;justify-self:stretch;align-self:stretch;border:2px solid var(--ink);border-radius:18px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:2px 3px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
     .suas-product-photo img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(16,16,16,.12));animation:suasBob 6.8s ease-in-out infinite}
     .suas-product-fallback{width:72%;aspect-ratio:1;display:grid;place-items:center;border-radius:999px;background:#fff;color:var(--ink);font-size:4rem}
     .suas-world-home .suas-product-kicker{display:none!important}
-    .suas-product-copy{width:100%;min-height:0;min-width:0;display:grid;align-content:center;border:2px solid var(--ink);border-radius:22px;background:rgba(255,255,255,.95);box-shadow:3px 4px 0 var(--ink);padding:16px 18px}
-    .suas-product-title{display:block;color:var(--ink);text-decoration:none;font-size:clamp(1.7rem,2.8vw,2.5rem);line-height:.86;text-transform:lowercase}
+    .suas-product-copy{width:100%;min-height:0;min-width:0;height:100%;display:grid;align-content:center;gap:8px;border:2px solid var(--ink);border-radius:18px;background:rgba(255,255,255,.95);box-shadow:none;padding:10px 12px;overflow:hidden}
+    .suas-product-title{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-width:0;color:var(--ink);text-decoration:none;font-size:clamp(1.05rem,2.2vw,1.7rem);line-height:.9;text-transform:lowercase}
     .suas-product-title:hover{color:var(--ink)}
-    .suas-product-price{display:inline-flex;width:max-content;min-height:34px;align-items:center;margin-top:0;padding:8px 13px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 3px 0 var(--ink);font-weight:900}
-    .suas-product-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-    .suas-feed-btn{min-height:34px;width:100%;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:8px 10px;color:var(--ink);background:var(--feed-btn,#fff);box-shadow:0 3px 0 var(--ink);text-decoration:none;font-weight:900;transition:transform 160ms ease,box-shadow 160ms ease}
+    .suas-product-price{display:inline-flex;width:100%;min-width:0;min-height:32px;align-items:center;justify-content:center;margin-top:0;padding:6px 8px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 2px 0 var(--ink);font-weight:900;font-size:9px;letter-spacing:.08em}
+    .suas-product-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:0;min-width:0}
+    .suas-feed-btn{min-height:30px;width:100%;min-width:0;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:6px 8px;color:var(--ink);background:var(--feed-btn,#fff);box-shadow:0 2px 0 var(--ink);text-decoration:none;font-weight:900;font-size:8px;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:transform 160ms ease,box-shadow 160ms ease}
     .suas-feed-btn:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
     .suas-launch-panel{display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
     .suas-launch-body{display:flex;flex-direction:column;gap:11px;padding:14px;flex:1}
@@ -72,12 +72,11 @@
     @media(max-width:990px){
       .suas-home-wrap{width:min(100% - 16px,920px)}
       .suas-window-title{font-size:9px}
-      .suas-product-rotator{height:auto;padding:12px}
-      .suas-product-slide{position:relative;inset:auto;display:none;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:10px;opacity:1;transform:none;pointer-events:auto}
-      .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid}
+      .suas-product-rotator{height:auto;padding:10px}
+      .suas-product-slide{grid-template-columns:minmax(0,1.3fr) minmax(0,.85fr);gap:8px}
       .suas-product-photo{max-width:none}
-      .suas-product-copy{padding:12px}
-      .suas-product-title{font-size:clamp(1.15rem,3.6vw,1.6rem)}
+      .suas-product-copy{padding:8px 9px;gap:6px}
+      .suas-product-title{font-size:clamp(1rem,3.2vw,1.35rem)}
       .suas-launch{min-height:58px;padding:10px}
       .suas-launch strong{font-size:1rem}
       .suas-launch span{display:none}
@@ -89,14 +88,11 @@
       .suas-lower-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:8px}
       .suas-window-live{display:none}
       .suas-product-rotator{padding:8px}
-      .suas-product-slide{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:8px}
-      .suas-product-copy{padding:8px 9px}
-      .suas-product-title{font-size:clamp(.9rem,3.6vw,1.15rem)}
-      .suas-product-buy{margin-top:8px;gap:6px;grid-template-columns:auto minmax(0,1fr)}
-      .suas-product-actions{grid-template-columns:1fr 1fr;gap:6px}
-      .suas-product-price{min-height:30px;padding:6px 9px;font-size:10px}
-      .suas-feed-atc{min-height:30px;padding:6px 8px;font-size:7px;letter-spacing:.06em}
-      .suas-feed-btn{min-height:28px;padding:6px 8px;font-size:8px}
+      .suas-product-slide{grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:6px}
+      .suas-product-copy{padding:7px 8px;gap:6px;border-radius:14px}
+      .suas-product-title{font-size:clamp(.92rem,3.4vw,1.12rem)}
+      .suas-product-buy,.suas-product-actions{margin-top:0;gap:5px}
+      .suas-product-price,.suas-feed-atc,.suas-feed-btn{min-height:26px;padding:4px 6px;font-size:7px;letter-spacing:.04em;box-shadow:0 2px 0 var(--ink)}
       .suas-launch span{display:none}
       .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
       .suas-boost-card{padding:6px;border-radius:14px}
@@ -155,7 +151,7 @@
                     <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
                     <div class="suas-product-buy">
                       <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
-                      <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add to cart</button>
+                      <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
                     </div>
                     <div class="suas-product-actions">
                       <a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a>

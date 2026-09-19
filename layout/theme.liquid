@@ -172,7 +172,15 @@
         {% section 'header' %}
 
         <main class="layout--main-content" id="main-content">
+          {%- if page.handle == 'bookings' or template.suffix == 'bookings' or template.suffix == 'bookings-2' -%}
+            <style>.suas-old-book-hide{display:none!important;height:0!important;overflow:hidden!important}</style>
+            {% section 'suas-lab-book' %}
+            <div class="suas-old-book-hide">
+          {%- endif -%}
           {{ content_for_layout }}
+          {%- if page.handle == 'bookings' or template.suffix == 'bookings' or template.suffix == 'bookings-2' -%}
+            </div>
+          {%- endif -%}
         </main>
 
         {% section 'footer' %}

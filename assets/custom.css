@@ -315,29 +315,27 @@ nav *,
   }
 }
 
-/* Home hero product rotator tuning */
+/* Home hero product rotator: keep slides even inside the window */
 .suas-product-slide {
   color: var(--ink) !important;
-  animation-name: suasProductSpinSlow !important;
+  animation: none !important;
 }
 
-.suas-product-copy {
+.suas-world-home .suas-product-copy {
   color: var(--ink) !important;
-  border: 2px solid rgba(16, 16, 16, 0.18) !important;
-  border-radius: 26px !important;
-  padding: clamp(18px, 3vw, 28px) !important;
-  background: rgba(255, 255, 255, 0.86) !important;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(10px);
+  border: 2px solid #101010 !important;
+  border-radius: 16px !important;
+  padding: 8px 10px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  gap: 6px !important;
+  overflow: hidden !important;
+  min-width: 0 !important;
 }
 
 .suas-product-kicker {
-  display: inline-flex !important;
-  width: fit-content !important;
-  color: var(--ink) !important;
-  background: rgba(255, 232, 107, 0.78) !important;
-  border-radius: 999px !important;
-  padding: 7px 10px !important;
+  display: none !important;
 }
 
 .suas-product-title,
@@ -376,31 +374,30 @@ nav *,
 }
 
 @media (min-width: 1024px) {
-  .suas-product-title {
-    font-size: clamp(2.15rem, 4vw, 4.4rem) !important;
+  .suas-world-home .suas-product-title {
+    font-size: clamp(1.15rem, 2vw, 1.7rem) !important;
   }
 }
 
 @media (max-width: 620px) {
-  .suas-product-copy {
-    padding: 18px !important;
+  .suas-world-home .suas-product-copy {
+    padding: 7px 8px !important;
   }
 
-  .suas-product-title {
-    font-size: clamp(2.3rem, 14vw, 4.2rem) !important;
+  .suas-world-home .suas-product-title {
+    font-size: clamp(.92rem, 3.4vw, 1.12rem) !important;
   }
 }
 
-/* Clean up extra copy in home product rotator */
 .suas-product-kicker,
 .suas-product-review {
   display: none !important;
 }
 
-.suas-product-copy {
+.suas-world-home .suas-product-copy {
   display: grid !important;
   align-content: center !important;
-  gap: 14px !important;
+  gap: 6px !important;
 }
 
 .suas-product-price {
