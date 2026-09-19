@@ -130,6 +130,11 @@
       return (node && node.textContent || '').replace(/\s+/g, ' ').trim();
     }
 
+    function formatMoney(cents) {
+      var value = Number(cents || 0) / 100;
+      return '$' + value.toFixed(2);
+    }
+
     function cuteMenuIcons() {
       var icons = {
         'BODY': '✿',
@@ -148,9 +153,40 @@
       });
     }
 
+    function ensureRollOn(root) {
+      var selfTypes = root.querySelector('[data-self-types]');
+      var selfSelect = root.querySelector('#SelfExperience');
+      if (!selfTypes || !selfSelect || /roll-on|roll on/i.test(selfTypes.textContent)) return;
+      if (!window.fetch) return;
+
+      window.fetch('/products/lab-session-roll-on-perfume.js', { credentials: 'same-origin' })
+        .then(function (response) { return response.ok ? response.json() : null; })
+        .then(function (product) {
+          if (!product || !product.variants || !product.variants.length || /roll-on|roll on/i.test(selfTypes.textContent)) return;
+          var variant = product.variants.find(function (item) { return item.available; }) || product.variants[0];
+          if (!variant || !variant.id) return;
+          var price = formatMoney(variant.price);
+          var option = document.createElement('option');
+          option.value = String(variant.id);
+          option.dataset.experience = 'Lab Session: Roll-On Perfume (10mL)';
+          option.dataset.price = price;
+          option.textContent = 'Lab Session: Roll-On Perfume (10mL)';
+          selfSelect.appendChild(option);
+
+          var label = document.createElement('label');
+          label.className = 'suas-type-card';
+          label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil."><em>02</em><strong>roll-on</strong><small>The roll-on perfume experiment.</small><b>' + price + '</b>';
+          var combo = Array.prototype.slice.call(selfTypes.querySelectorAll('.suas-type-card')).find(function (card) { return /combo/i.test(card.textContent); });
+          if (combo) selfTypes.insertBefore(label, combo);
+          else selfTypes.appendChild(label);
+        })
+        .catch(function () {});
+    }
+
     function polishBookings() {
       var root = document.querySelector('.suas-bookings-page');
       if (!root) return;
+      ensureRollOn(root);
 
       root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
         tab.setAttribute('aria-pressed', tab.classList.contains('is-on') ? 'true' : 'false');
