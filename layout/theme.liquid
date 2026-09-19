@@ -224,14 +224,27 @@
           });
         }
 
-        cleanProductOptionCircles();
-        document.addEventListener('DOMContentLoaded', cleanProductOptionCircles);
-        window.addEventListener('load', cleanProductOptionCircles);
-        setTimeout(cleanProductOptionCircles, 400);
-        setTimeout(cleanProductOptionCircles, 1200);
+        function keepScentNotesInOneRow() {
+          document.querySelectorAll('.suas-note-grid').forEach(function (grid) {
+            Array.from(grid.querySelectorAll('.suas-note-card')).forEach(function (card, index) {
+              card.style.display = index < 3 ? '' : 'none';
+            });
+          });
+        }
+
+        function polishProductPage() {
+          cleanProductOptionCircles();
+          keepScentNotesInOneRow();
+        }
+
+        polishProductPage();
+        document.addEventListener('DOMContentLoaded', polishProductPage);
+        window.addEventListener('load', polishProductPage);
+        setTimeout(polishProductPage, 400);
+        setTimeout(polishProductPage, 1200);
 
         var observer = new MutationObserver(function () {
-          cleanProductOptionCircles();
+          polishProductPage();
         });
         observer.observe(document.documentElement, { childList: true, subtree: true });
       })();
