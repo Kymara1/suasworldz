@@ -8,10 +8,10 @@
       max-width:1120px!important;
       margin:0 auto 28px!important
     }
-    html body.template--product .product-page--top-panel,
+    html body.template--product .product-page--top-panel{display:block!important;width:100%!important;max-width:none!important}
     html body.template--product .product-page--panel-wrapper{
       display:grid!important;
-      grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr)!important;
+      grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr)!important;
       gap:16px!important;
       align-items:stretch!important;
       width:100%!important;
@@ -46,11 +46,11 @@
     }
     html body.template--product .product-page--featured-media .modal--link,
     html body.template--product .product-page--featured-media .image--root{
-      flex:1 1 auto!important;display:grid!important;place-items:center!important;min-height:420px!important;padding:18px!important
+      flex:1 1 auto!important;display:grid!important;place-items:center!important;width:100%!important;min-height:460px!important;padding:20px!important
     }
     html body.template--product .product-page--featured-media img,
     html body.template--product .product-page--featured-media .image--root img{
-      width:min(100%,520px)!important;height:auto!important;max-height:min(62vh,560px)!important;max-width:100%!important;object-fit:contain!important;border-radius:18px!important;margin:0 auto!important
+      width:100%!important;height:auto!important;max-width:100%!important;max-height:560px!important;object-fit:contain!important;border-radius:18px!important;margin:0 auto!important;opacity:1!important;visibility:visible!important
     }
     html body.template--product .product-page--featured-blocks{
       display:flex!important;flex-direction:column!important;padding:0 22px 22px!important;background:linear-gradient(rgba(16,16,16,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.028) 1px,transparent 1px),#fff!important;background-size:20px 20px,20px 20px,auto!important
@@ -96,7 +96,7 @@
       html body.template--product .shopify-section:has([id*='aftership']),
       html body.template--product .shopify-section:has([class*='aftership']){width:min(100% - 16px,720px)!important}
       html body.template--product .product-page--top-panel,
-      html body.template--product .product-page--panel-wrapper{grid-template-columns:1fr!important;gap:12px!important}
+      html body.template--product .product-page--panel-wrapper{display:grid!important;grid-template-columns:1fr!important;gap:12px!important}
       html body.template--product .product-page--featured-media .modal--link,
       html body.template--product .product-page--featured-media .image--root{min-height:280px!important;padding:12px!important}
       html body.template--product .product-page--featured-media img{max-height:320px!important}
