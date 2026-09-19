@@ -12,11 +12,28 @@
     "suas_lab": {
       "type": "suas-lab-page",
       "settings": {
+        "self_price": "$45",
+        "guided_price": "starts at $85 per person",
+        "deluxe_price": "$150",
         "kicker": "the lab",
         "heading": "Create your Signature Scent",
         "copy": "Pick a session, add your notes, name it, save the idea, then bottle the good one in-store.",
         "cta_label": "build a fragrance",
-        "cta_link": "#build-a-fragrance"
+        "cta_link": "#build-a-fragrance",
+        "sessions_heading": "choose your session.",
+        "self_title": "Self-Guided Perfume Experiment",
+        "self_copy": "Create a 30 mL eau de parfum at your own pace. Choose your notes, mix, bottle, label, and decorate.",
+        "self_badge": "15 mL add-on: +$15",
+        "self_button": "book this session",
+        "guided_title": "Guided Lab Session",
+        "guided_copy": "Hands-on guided 30 mL perfume class. Add 1 oz body oil or 4 oz butter creme as class upgrades.",
+        "guided_badge": "appointment only",
+        "guided_button": "book this session",
+        "deluxe_title": "Deluxe Lab Session",
+        "deluxe_copy": "Create your signature collection: 30 mL perfume, 1 oz body oil, and 4 oz butter creme in one guided experience.",
+        "deluxe_badge_1": "appointment only",
+        "deluxe_badge_2": "all three included",
+        "deluxe_button": "book this session"
       }
     },
     "formula_builder": {
