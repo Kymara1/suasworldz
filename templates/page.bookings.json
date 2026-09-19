@@ -1,12 +1,21 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "bookings": {
       "type": "suas-bookings-page",
       "settings": {
-        "body_oil_product": "lab-session-body-oil",
+        "body_oil_product": "",
         "parfum_product": "lab-session-eau-de-parfum",
         "combo_product": "lab-session-combo-sesh",
-        "roll_on_product": "lab-session-roll-on-perfume",
+        "roll_on_product": "lab-session-roll-on",
         "roll_on_addon_product": "lab-session-add-on-10ml-roll-on-perfume-oil",
         "travel_addon_product": "",
         "deluxe_product": "deluxe-lab-session",
