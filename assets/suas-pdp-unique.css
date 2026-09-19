@@ -162,18 +162,20 @@ html body.template--product .suas-pdp-callout {
   box-shadow: 4px 5px 0 var(--ink);
   cursor: pointer;
   color: var(--ink);
+  font-size: 16px;
+  text-transform: none !important;
 }
 html body.template--product .suas-pdp-callout:nth-child(1) { left: 3%; top: 10%; transform: rotate(-8deg); background: #ffd8e8; }
 html body.template--product .suas-pdp-callout:nth-child(2) { right: 2%; top: 12%; left: auto; transform: rotate(7deg); background: #d9ff78; }
 html body.template--product .suas-pdp-callout:nth-child(3) { left: 10%; bottom: 10%; top: auto; transform: rotate(-4deg); background: #cdeeff; }
 html body.template--product .suas-pdp-callout.is-on { box-shadow: 0 0 0 3px var(--ink), 4px 5px 0 var(--ink); }
 html body.template--product .suas-pdp-callout strong {
-  display: block;
-  font-family: 'Casual Human', Futura, Arial, sans-serif;
-  font-size: 1.35rem;
-  font-weight: 400;
+  display: block !important;
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-size: 1.7rem !important;
+  font-weight: 400 !important;
   line-height: .88;
-  text-transform: lowercase;
+  text-transform: lowercase !important;
 }
 html body.template--product .suas-pdp-callout span {
   display: block;
@@ -191,10 +193,15 @@ html body.template--product .suas-station-media {
   box-shadow: none !important;
   overflow: visible !important;
 }
+html body.template--product .suas-pdp-jar .suas-station-stage,
 html body.template--product .suas-station-stage {
-  min-height: 220px;
+  min-height: 220px !important;
   display: grid;
   place-items: center;
+}
+html body.template--product .suas-pdp-jar .suas-station-stage:before,
+html body.template--product .suas-station-stage:before {
+  display: none !important;
 }
 html body.template--product .suas-pdp-jar .suas-station-photo,
 html body.template--product .suas-pdp .suas-station-photo {
@@ -278,7 +285,6 @@ html body.template--product .suas-pdp-ticket .money {
   font-size: 1.55rem !important;
   font-weight: 900 !important;
 }
-html body.template--product .product-page--block[data-block-type='liquid'],
 html body.template--product .product-page--block[data-block-type='heading'] {
   height: 0 !important;
   min-height: 0 !important;
@@ -286,6 +292,12 @@ html body.template--product .product-page--block[data-block-type='heading'] {
   padding: 0 !important;
   overflow: hidden !important;
   border: 0 !important;
+}
+html body.template--product .product-page--block[data-block-type='liquid'] {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
 }
 html body.template--product .product-buy-buttons--cta,
 html body.template--product .product-form--atc button,
