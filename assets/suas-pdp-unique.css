@@ -1,0 +1,206 @@
+/* SUAS lookbook PDP — full-bleed scent world, not a catalog tile */
+html body.template--product .layout--main-content {
+  max-width: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+html body.template--product .suas-pdp {
+  --ink: #141018;
+  --hot: #ff9bc4;
+  --wash: #f4e7ff;
+  --ticket: #fffaf4;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+html body.template--product .suas-pdp[data-handle*='haze'] { --wash: #fff1a8; --hot: #ffd24a; }
+html body.template--product .suas-pdp[data-handle*='poppy'] { --wash: #ffd4ea; --hot: #ff8cbc; }
+html body.template--product .suas-pdp[data-handle*='good-girl'] { --wash: #e8ff8a; --hot: #c6f76a; }
+html body.template--product .suas-pdp[data-handle*='tonic'] { --wash: #ead9ff; --hot: #c9a6ff; }
+html body.template--product .suas-pdp[data-handle*='cologne'] { --wash: #d7f0ff; --hot: #7ad0ff; }
+
+html body.template--product .suas-pdp-world {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 420px);
+  grid-template-rows: auto 1fr;
+  gap: 0;
+  min-height: calc(100svh - 72px);
+  margin: 0;
+  padding: 0;
+  background:
+    radial-gradient(120% 80% at 18% 88%, var(--hot) 0%, transparent 46%),
+    radial-gradient(90% 70% at 88% 8%, #fff 0%, transparent 42%),
+    var(--wash);
+  align-items: stretch;
+}
+html body.template--product .suas-pdp-mast {
+  grid-column: 1 / -1;
+  padding: 18px clamp(18px, 4vw, 56px) 0;
+  z-index: 2;
+}
+html body.template--product .suas-pdp-stamp {
+  margin: 0 0 6px;
+  font: 900 11px/1 Futura, Arial, sans-serif;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+html body.template--product .suas-pdp-name {
+  margin: 0;
+  max-width: 16ch;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(3.6rem, 11vw, 9.5rem);
+  font-weight: 700;
+  line-height: .72;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+}
+html body.template--product .suas-pdp-hook {
+  margin: 14px 0 0;
+  max-width: 34ch;
+  font: 500 1.05rem/1.35 Futura, Arial, sans-serif;
+  color: rgba(20, 16, 24, .78);
+}
+html body.template--product .suas-pdp-jar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px 40px;
+  min-height: 420px;
+}
+html body.template--product .suas-pdp-mark,
+html body.template--product .suas-pdp-kicker {
+  display: none !important;
+}
+html body.template--product .suas-station-stage {
+  width: min(78%, 560px);
+  aspect-ratio: auto;
+  min-height: 0;
+  background: transparent !important;
+  transform: rotate(-4deg);
+}
+html body.template--product .suas-station-photo {
+  width: 100%;
+  height: auto;
+  max-height: 68vh;
+  object-fit: contain;
+  filter: drop-shadow(18px 28px 0 rgba(20, 16, 24, .14)) drop-shadow(0 30px 40px rgba(49, 24, 88, .18));
+}
+html body.template--product .suas-station-thumbs {
+  margin-top: 18px;
+  transform: none;
+}
+html body.template--product .suas-pdp-ticket {
+  grid-row: 2;
+  grid-column: 2;
+  align-self: end;
+  margin: 0 clamp(16px, 2vw, 28px) 28px 0;
+  padding: 0;
+  background: var(--ticket);
+  border: 2px solid var(--ink);
+  border-radius: 28px 28px 36px 18px;
+  box-shadow: 10px 12px 0 var(--ink);
+  overflow: hidden;
+}
+html body.template--product .suas-pdp-ticket:before {
+  content: none;
+}
+html body.template--product .suas-station-buy-body {
+  padding: 22px 22px 20px;
+}
+html body.template--product .suas-pdp-ticket-label {
+  margin: 0 0 10px;
+  font: 900 10px/1 Futura, Arial, sans-serif;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+html body.template--product .suas-pdp-ticket .product-page--heading,
+html body.template--product .suas-pdp-ticket h2 {
+  display: none !important;
+}
+html body.template--product .suas-pdp-ticket .product-price--root,
+html body.template--product .suas-pdp-ticket [data-product-block='price'] {
+  font: 900 1.7rem/1 Futura, Arial, sans-serif;
+  margin: 0 0 14px;
+}
+html body.template--product .product-buy-buttons--cta,
+html body.template--product [name='add'],
+html body.template--product form[action*='/cart/add'] button[type='submit'] {
+  min-height: 58px;
+  border-radius: 999px;
+  background: var(--hot);
+  border: 2px solid var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+  font: 900 12px/1 Futura, Arial, sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+html body.template--product .suas-product-experience {
+  width: 100%;
+  margin: 0;
+  padding: 28px clamp(16px, 4vw, 56px) 64px;
+  background: #fffaf4;
+}
+html body.template--product .suas-product-vibe-card {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+html body.template--product .suas-kicker {
+  font-size: 10px;
+  letter-spacing: .2em;
+}
+html body.template--product .suas-product-description,
+html body.template--product .suas-product-description * {
+  font-size: 17px !important;
+  line-height: 1.55 !important;
+  max-width: 62ch;
+}
+html body.template--product .suas-note-head h2 {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  line-height: .78;
+}
+html body.template--product .suas-note-grid {
+  display: flex !important;
+  gap: 14px !important;
+  overflow-x: auto;
+  padding: 8px 0 28px !important;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+html body.template--product .suas-note-card {
+  flex: 0 0 min(78vw, 340px);
+  min-height: 420px;
+  border-radius: 28px;
+  scroll-snap-align: start;
+  box-shadow: 6px 8px 0 var(--ink);
+}
+
+@media (max-width: 1023px) {
+  html body.template--product .suas-pdp-world {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  html body.template--product .suas-pdp-name {
+    font-size: clamp(3.2rem, 16vw, 5.4rem);
+  }
+  html body.template--product .suas-station-stage {
+    width: min(88%, 420px);
+    transform: rotate(-2deg);
+  }
+  html body.template--product .suas-pdp-ticket {
+    margin: 0 16px 20px;
+    box-shadow: 6px 8px 0 var(--ink);
+  }
+  html body.template--product .suas-note-card {
+    min-height: 300px;
+    flex-basis: 78vw;
+  }
+}

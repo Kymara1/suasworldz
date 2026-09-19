@@ -12,6 +12,8 @@
   assign featured_blocks = false
   assign product_id = product.id | append: '-' | append: section.id
   assign video_looping_enabled = section.settings.loop-enabled
+  assign pdp_name = product.title | split: '✿' | first | strip
+  assign pdp_hook = product.description | strip_html | split: '.' | first | strip
 
   capture variant_media_ids
     for variant in product.variants
@@ -218,7 +220,7 @@
 {%- endfor -%}
 
 <div
-  class="product-page--root suas-station"
+  class="product-page--root suas-station suas-pdp"
   data-featured-blocks="{{ featured_blocks }}"
   data-section-id="{{ section.id }}"
   data-section-type="product_page"
@@ -227,9 +229,15 @@
   data-product-id="{{ product_id }}"
   data-handle="{{ product.handle }}"
 >
-  <div class="suas-station-desk product-page--top-panel">
-    <section class="suas-station-media product-page--featured-media" data-suas-station-media aria-label="{{ product.title | escape }} photos">
-      <p class="suas-pdp-mark" aria-hidden="true">{{ product.title | split: '✿' | first }}</p>
+  <div class="suas-pdp-world suas-station-desk product-page--top-panel">
+    <header class="suas-pdp-mast">
+      <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas co</p>
+      <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
+      {%- if pdp_hook != blank -%}
+        <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
+      {%- endif -%}
+    </header>
+    <section class="suas-station-media product-page--featured-media suas-pdp-jar" data-suas-station-media aria-label="{{ product.title | escape }} photos">
       <div class="suas-station-stage">
         {%- if featured_media -%}
           <img
@@ -277,12 +285,12 @@
       </div>
     </section>
 
-    <section class="suas-station-buy product-page--featured-blocks">
+    <aside class="suas-station-buy suas-pdp-ticket product-page--featured-blocks">
       <div class="suas-station-buy-body">
-        <p class="suas-pdp-kicker">{% if product.type != blank %}{{ product.type }}{% else %}handmade at suas{% endif %}</p>
+        <p class="suas-pdp-ticket-label">take it home</p>
         {{ featured_blocks_html }}
       </div>
-    </section>
+    </aside>
   </div>
 
   {% render 'suas-product-experience', product: product, note_blocks: section.blocks %}
