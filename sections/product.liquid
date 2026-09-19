@@ -18,22 +18,44 @@
   assign mix_1 = 'handmade'
   assign mix_2 = 'small batch'
   assign mix_3 = 'skin glow'
+  assign mix_1_note = 'the open'
+  assign mix_2_note = 'the heart'
+  assign mix_3_note = 'the drydown'
   if pdp_handle contains 'tonic'
     assign mix_1 = 'blackberry'
+    assign mix_1_note = 'juicy + sweet'
     assign mix_2 = 'mint'
+    assign mix_2_note = 'fresh + cooling'
     assign mix_3 = 'sage'
+    assign mix_3_note = 'earthy + herbal'
   elsif pdp_handle contains 'poppy'
     assign mix_1 = 'bubblegum'
+    assign mix_1_note = 'sweet + playful'
     assign mix_2 = 'soft florals'
+    assign mix_2_note = 'pink lip gloss'
     assign mix_3 = 'skin musk'
+    assign mix_3_note = 'the drydown'
   elsif pdp_handle contains 'haze'
     assign mix_1 = 'coconut'
+    assign mix_1_note = 'creamy + sunny'
     assign mix_2 = 'vanilla'
+    assign mix_2_note = 'warm + plush'
     assign mix_3 = 'warm skin'
+    assign mix_3_note = 'the trail'
   elsif pdp_handle contains 'good'
     assign mix_1 = 'pear'
+    assign mix_1_note = 'juicy + bright'
     assign mix_2 = 'jasmine'
+    assign mix_2_note = 'petal-soft'
     assign mix_3 = 'cocoa'
+    assign mix_3_note = 'the drydown'
+  elsif pdp_handle contains 'nectar'
+    assign mix_1 = 'nectar'
+    assign mix_1_note = 'honeyed fruit'
+    assign mix_2 = 'soft florals'
+    assign mix_2_note = 'the heart'
+    assign mix_3 = 'skin musk'
+    assign mix_3_note = 'the drydown'
   endif
 
   capture variant_media_ids
@@ -310,17 +332,15 @@
     <aside class="suas-station-buy suas-pdp-ticket product-page--featured-blocks">
       <div class="suas-window-bar">
         <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>
-        <span class="suas-window-title">DROP.IN.BAG</span>
+        <span class="suas-window-title">ADD TO CART</span>
         <span class="suas-window-live"><b></b>now</span>
       </div>
       <div class="suas-station-buy-body">
-        <div class="suas-pdp-stars">{% render 'product-rating', product: product %}</div>
         <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas.os</p>
         <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
         {%- if pdp_hook != blank -%}
           <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
         {%- endif -%}
-        <a class="suas-pdp-jump" href="#suas-pdp-details">full details</a>
         {{ featured_blocks_html }}
       </div>
     </aside>
@@ -335,15 +355,15 @@
         <div class="suas-pdp-callouts">
           <button type="button" class="suas-pdp-callout is-on" data-suas-mix data-tint="#ffd8e8">
             <strong>{{ mix_1 }}</strong>
-            <span>top of the mix</span>
+            <span>{{ mix_1_note }}</span>
           </button>
           <button type="button" class="suas-pdp-callout" data-suas-mix data-tint="#d9ff78">
             <strong>{{ mix_2 }}</strong>
-            <span>the heart</span>
+            <span>{{ mix_2_note }}</span>
           </button>
           <button type="button" class="suas-pdp-callout" data-suas-mix data-tint="#cdeeff">
             <strong>{{ mix_3 }}</strong>
-            <span>the drydown</span>
+            <span>{{ mix_3_note }}</span>
           </button>
         </div>
         <div class="suas-station-media product-page--featured-media suas-pdp-jar" data-suas-station-media>

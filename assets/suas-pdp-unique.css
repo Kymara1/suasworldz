@@ -76,8 +76,11 @@ html body.template--product .suas-pdp .suas-window-title {
   text-align: center;
   font-size: 10px;
   font-weight: 900;
-  letter-spacing: .18em;
+  letter-spacing: .14em;
   text-transform: uppercase;
+}
+html body.template--product .suas-pdp-ticket .suas-window-title {
+  letter-spacing: .12em;
 }
 html body.template--product .suas-pdp .suas-window-live {
   display: inline-flex;
@@ -153,7 +156,7 @@ html body.template--product .suas-pdp-callouts { display: contents; }
 html body.template--product .suas-pdp-callout {
   position: absolute;
   z-index: 3;
-  max-width: 46%;
+  max-width: 48%;
   text-align: left;
   padding: 12px 14px;
   border: 2px solid var(--ink);
@@ -243,45 +246,41 @@ html body.template--product .suas-station-buy-body {
   box-shadow: none !important;
 }
 html body.template--product .suas-station-buy-body {
-  padding: 16px 16px 18px !important;
+  padding: 12px 14px 14px !important;
   background: transparent !important;
 }
-html body.template--product .suas-pdp-stars { margin-bottom: 10px; }
+html body.template--product .suas-pdp-stars,
+html body.template--product .suas-pdp-jump { display: none !important; }
 html body.template--product .suas-pdp-stamp {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   font-size: 10px;
   font-weight: 900;
   letter-spacing: .16em;
   text-transform: uppercase;
 }
 html body.template--product .suas-pdp-name {
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-  font-size: clamp(2.4rem, 5vw, 3.8rem) !important;
+  font-size: clamp(2.2rem, 4.6vw, 3.3rem) !important;
   font-weight: 400 !important;
   line-height: .8;
   text-transform: lowercase;
 }
 html body.template--product .suas-pdp-hook {
-  margin: 0 0 12px;
-  font-size: 15px;
+  margin: 0 0 8px;
+  font-size: 14px;
   font-weight: 700;
-  line-height: 1.28;
-}
-html body.template--product .suas-pdp-jump {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  margin: 0 0 16px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .06em;
-  text-transform: lowercase;
-  text-decoration: none;
-  border-bottom: 2px solid var(--ink);
+  line-height: 1.25;
 }
 html body.template--product .product-page--heading { display: none !important; }
+html body.template--product .product-page--block {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html body.template--product .shopify-payment-button,
+html body.template--product .additional-checkout-buttons {
+  margin-top: 8px !important;
+}
 html body.template--product .suas-pdp-ticket-label { display: none !important; }
 html body.template--product .product-page--price,
 html body.template--product .suas-pdp-ticket .money {
@@ -402,5 +401,5 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     max-height: 168px !important;
   }
   html body.template--product .suas-pdp-name { font-size: clamp(2.3rem, 12vw, 3.1rem) !important; }
-  html body.template--product .suas-station-buy-body { padding: 16px 14px 18px !important; }
+  html body.template--product .suas-station-buy-body { padding: 12px 12px 14px !important; }
 }
