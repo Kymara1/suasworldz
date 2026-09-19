@@ -120,6 +120,31 @@
     font-size: 13px !important;
     line-height: 1.45 !important;
   }
+
+  .suas-world-home .suas-product-rotator {
+    padding: 10px !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  .suas-world-home .suas-product-slide {
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .suas-world-home .suas-product-photo {
+    width: 100% !important;
+    max-width: min(240px, 32vh) !important;
+    max-height: min(240px, 32vh) !important;
+    height: auto !important;
+    aspect-ratio: 1 !important;
+    justify-self: start !important;
+    align-self: center !important;
+  }
+
+  .suas-world-home .suas-product-title {
+    font-size: clamp(1rem, 1.5vw, 1.32rem) !important;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -216,23 +241,27 @@
   .suas-world-home .suas-product-rotator {
     min-height: 0 !important;
     height: auto !important;
+    padding: 6px !important;
   }
 
   .suas-world-home .suas-product-slide {
     justify-items: stretch !important;
     align-items: stretch !important;
-    gap: 8px !important;
+    grid-template-columns: minmax(0, 118px) minmax(0, 1fr) !important;
+    gap: 6px !important;
     text-align: left !important;
     animation: none !important;
   }
 
   .suas-world-home .suas-product-photo {
     width: 100% !important;
-    max-width: none !important;
-    border-radius: 16px !important;
+    max-width: min(118px, 24vh) !important;
+    max-height: min(118px, 24vh) !important;
+    border-radius: 12px !important;
     aspect-ratio: 1 !important;
     height: auto !important;
-    align-self: start !important;
+    justify-self: start !important;
+    align-self: center !important;
   }
 
   .suas-world-home .suas-product-photo img {
