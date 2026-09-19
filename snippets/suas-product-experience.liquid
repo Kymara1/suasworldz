@@ -121,9 +121,8 @@
   .suas-pdp-step em{display:block;margin:0 0 6px;font-style:normal;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
   .suas-pdp-step p{margin:0;font-size:14px;line-height:1.35}
   .suas-pdp-ing{margin:0;font-size:14px;font-weight:700;line-height:1.55}
-  .suas-scent-notes{margin:0 0 18px}
+  .suas-scent-notes{margin:8px 0 22px;clear:both;position:relative;z-index:1}
   .suas-scent-notes-head{margin:0 0 12px}
-  .suas-scent-notes-head small{display:block;font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;margin:0 0 4px}
   .suas-scent-notes-head h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2rem,5vw,3.1rem);line-height:.88;text-transform:lowercase;font-weight:700}
   .suas-scent-notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
   .suas-scent-notes-grid.is-three{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -142,9 +141,8 @@
 
 <section class="suas-product-experience" id="suas-pdp-details" aria-label="SUAS product details">
   {% if note_1_file != blank %}
-    <div class="suas-scent-notes" aria-label="Scent notes">
+    <div class="suas-scent-notes" aria-label="what it smells like">
       <div class="suas-scent-notes-head">
-        <small>scent notes</small>
         <h2>what it smells like.</h2>
       </div>
       <div class="suas-scent-notes-grid{% if note_4_file == blank and note_3_file != blank %} is-three{% endif %}">
