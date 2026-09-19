@@ -680,7 +680,6 @@ footer.footer--root {
 .suas-product-stars .jdgm-preview-badge,
 .suas-product-stars .jdgm-prev-badge,
 .suas-product-stars .jdgm-prev-badge__stars {
-  display: inline-flex !important;
   align-items: center !important;
   gap: 4px !important;
   min-height: 16px !important;
@@ -690,6 +689,16 @@ footer.footer--root {
   border: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
+}
+.suas-product-stars:has(.jdgm-star.jdgm--on) .jdgm-widget,
+.suas-product-stars:has(.jdgm-star.jdgm--on) .jdgm-preview-badge,
+.suas-product-stars:has(.jdgm-star.jdgm--on) .jdgm-prev-badge,
+.suas-product-stars:has(.jdgm-star.jdgm--on) .jdgm-prev-badge__stars {
+  display: inline-flex !important;
+}
+.suas-product-stars:not(:has(.jdgm-star.jdgm--on)) .jdgm-widget,
+.suas-product-stars:not(:has(.jdgm-star.jdgm--on)) .jdgm-preview-badge {
+  display: none !important;
 }
 .suas-product-stars :is(.jdgm-star, .jdgm-star:before) {
   display: inline-block !important;
@@ -706,7 +715,7 @@ footer.footer--root {
   display: none !important;
 }
 .suas-product-stars--fallback {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   gap: 5px;
   line-height: 1;
@@ -720,6 +729,7 @@ footer.footer--root {
   letter-spacing: .1em;
   color: #101010;
 }
-.suas-product-stars:has(.jdgm-star) .suas-product-stars--fallback {
+.suas-product-stars:has(.jdgm-star.jdgm--on) .suas-product-stars--fallback,
+.suas-product-stars:has(.jdgm-star.jdgm--half) .suas-product-stars--fallback {
   display: none !important;
 }
