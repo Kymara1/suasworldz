@@ -1,5 +1,7 @@
 /* SUAS OS cart station — loaded from snippets/cart.liquid */
-.template--cart {
+.template--cart,
+.suas-cart-station,
+.off-canvas--container[data-view="cart"] {
   --cart-ink: #101010;
   --cart-pink: #ffd8e8;
   --cart-blue: #c9e7ff;
@@ -43,8 +45,30 @@
 
 .cart--root[data-is-drawer="true"].suas-cart-station {
   width: 100% !important;
+  min-height: 100% !important;
+  border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
+  background:
+    linear-gradient(rgba(16, 16, 16, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 12% 8%, rgba(255, 216, 232, 0.55), transparent 30%),
+    radial-gradient(circle at 92% 18%, rgba(217, 255, 120, 0.28), transparent 26%),
+    var(--cart-paper) !important;
+  background-size: 22px 22px, 22px 22px, auto, auto, auto !important;
+}
+
+.off-canvas--right-sidebar .off-canvas--container[data-view="cart"] {
+  background: var(--cart-paper, #fbfaf7) !important;
+  border-left: 2px solid #101010 !important;
+}
+
+.cart--additional-buttons,
+.additional-checkout-buttons,
+.suas-cart-station shopify-accelerated-checkout,
+.suas-cart-station .shopify-accelerated-checkout-cart,
+.off-canvas--container[data-view="cart"] shopify-accelerated-checkout {
+  display: none !important;
 }
 
 .cart--root[data-has-items="true"] .cart--no-items {
