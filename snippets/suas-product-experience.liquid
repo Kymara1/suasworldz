@@ -39,56 +39,6 @@
   if desc_text contains 'For:'
     assign for_line = desc_text | split: 'For:' | last | split: 'Ingredients' | first | split: 'ingredients' | first | strip
   endif
-
-  assign note_1_label = ''
-  assign note_1_file = ''
-  assign note_2_label = ''
-  assign note_2_file = ''
-  assign note_3_label = ''
-  assign note_3_file = ''
-  assign note_4_label = ''
-  assign note_4_file = ''
-  assign note_5_label = ''
-  assign note_5_file = ''
-  case product.handle
-    when 'poppy'
-      assign note_1_label = 'bubblegum'
-      assign note_1_file = 'note-poppy-gum-balls.png'
-      assign note_2_label = 'pink gum'
-      assign note_2_file = 'note-poppy-gum.png'
-      assign note_3_label = 'cosmos'
-      assign note_3_file = 'note-poppy-cosmos.png'
-      assign note_4_label = 'sparkle bouquet'
-      assign note_4_file = 'note-poppy-bouquet.png'
-      assign note_5_label = 'blossom bubbles'
-      assign note_5_file = 'note-poppy-bubbles.png'
-    when 'tonic-butter-creme'
-      assign note_1_label = 'blackberry'
-      assign note_1_file = 'note-blackberry.png'
-      assign note_2_label = 'sage x mint'
-      assign note_2_file = 'note-sage-mint.png'
-    when 'nectar-butter-creme-copy'
-      assign note_1_label = 'pineapple'
-      assign note_1_file = 'note-pineapple.png'
-      assign note_2_label = 'passionfruit'
-      assign note_2_file = 'note-passionfruit.png'
-      assign note_3_label = 'pineapple juice'
-      assign note_3_file = 'note-pineapple-slices.png'
-      assign note_4_label = 'passionfruit pulp'
-      assign note_4_file = 'note-passionfruit-swirl.png'
-    when 'good-girl-butter-creme-2'
-      assign note_1_label = 'creamy coconut'
-      assign note_1_file = 'note-coconut.png'
-      assign note_2_label = 'jasmine blossom'
-      assign note_2_file = 'note-jasmine.png'
-    when 'haze-butter-creme'
-      assign note_1_label = 'wildflower bouquet'
-      assign note_1_file = 'note-wildflower.png'
-      assign note_2_label = 'fresh petals'
-      assign note_2_file = 'note-petals.png'
-      assign note_3_label = 'soft sunshine'
-      assign note_3_file = 'note-sunshine.png'
-  endcase
 %}
 
 <style>
@@ -123,65 +73,15 @@
   .suas-pdp-step em{display:block;margin:0 0 6px;font-style:normal;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
   .suas-pdp-step p{margin:0;font-size:14px;line-height:1.35}
   .suas-pdp-ing{margin:0;font-size:14px;font-weight:700;line-height:1.55}
-  .suas-scent-notes{margin:0 0 18px}
-  .suas-scent-notes-head{margin:0 0 12px}
-  .suas-scent-notes-head small{display:block;font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;margin:0 0 4px}
-  .suas-scent-notes-head h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2rem,5vw,3.1rem);line-height:.88;text-transform:lowercase;font-weight:700}
-  .suas-scent-notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
-  .suas-scent-notes-grid.is-three{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .suas-scent-note{margin:0;border:2px solid #101010;border-radius:22px;overflow:hidden;background:#fff;box-shadow:4px 5px 0 #101010;display:flex;flex-direction:column}
-  .suas-scent-note .pic{display:block;width:100%;aspect-ratio:1/1;overflow:hidden;background:#f4f1ea}
-  .suas-scent-note img{display:block;width:100%!important;height:100%!important;max-height:none!important;object-fit:cover!important;object-position:center}
-  .suas-scent-note b{display:block;padding:10px 12px 12px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.15rem,3vw,1.55rem);line-height:.9;text-transform:lowercase;font-weight:700}
   @media(max-width:820px){
     .suas-pdp-fold-body{padding:0 14px 16px}
     .suas-pdp-fold summary{font-size:clamp(1.5rem,8vw,2rem);padding:14px}
     .suas-pdp-details,.suas-pdp-steps{grid-template-columns:1fr}
     html body.template--product .radios--value-button{block-size:30px!important;font-size:11px!important}
-    .suas-scent-notes-grid,.suas-scent-notes-grid.is-three{grid-template-columns:repeat(2,minmax(0,1fr))}
   }
 </style>
 
 <section class="suas-product-experience" id="suas-pdp-details" aria-label="SUAS product details">
-  {% if note_1_file != blank %}
-    <div class="suas-scent-notes" aria-label="Scent notes">
-      <div class="suas-scent-notes-head">
-        <small>scent notes</small>
-        <h2>what it smells like.</h2>
-      </div>
-      <div class="suas-scent-notes-grid{% if note_4_file != blank %} is-four{% elsif note_3_file != blank %} is-three{% endif %}">
-        <figure class="suas-scent-note">
-          <span class="pic"><img src="{{ note_1_file | asset_url }}" alt="{{ note_1_label }}" width="800" height="800" loading="lazy"></span>
-          <b>{{ note_1_label }}</b>
-        </figure>
-        {% if note_2_file != blank %}
-          <figure class="suas-scent-note">
-            <span class="pic"><img src="{{ note_2_file | asset_url }}" alt="{{ note_2_label }}" width="800" height="800" loading="lazy"></span>
-            <b>{{ note_2_label }}</b>
-          </figure>
-        {% endif %}
-        {% if note_3_file != blank %}
-          <figure class="suas-scent-note">
-            <span class="pic"><img src="{{ note_3_file | asset_url }}" alt="{{ note_3_label }}" width="800" height="800" loading="lazy"></span>
-            <b>{{ note_3_label }}</b>
-          </figure>
-        {% endif %}
-        {% if note_4_file != blank %}
-          <figure class="suas-scent-note">
-            <span class="pic"><img src="{{ note_4_file | asset_url }}" alt="{{ note_4_label }}" width="800" height="800" loading="lazy"></span>
-            <b>{{ note_4_label }}</b>
-          </figure>
-        {% endif %}
-        {% if note_5_file != blank %}
-          <figure class="suas-scent-note">
-            <span class="pic"><img src="{{ note_5_file | asset_url }}" alt="{{ note_5_label }}" width="800" height="800" loading="lazy"></span>
-            <b>{{ note_5_label }}</b>
-          </figure>
-        {% endif %}
-      </div>
-    </div>
-  {% endif %}
-
   <details class="suas-pdp-fold">
     <summary>details</summary>
     <div class="suas-pdp-fold-body">
