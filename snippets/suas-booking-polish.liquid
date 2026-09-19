@@ -38,12 +38,7 @@
     background: #101010 !important;
     color: #fff !important;
     box-shadow: 0 5px 0 #ff9fc2 !important;
-    transform: translateY(2px);
-  }
-
-  html body .suas-bookings-page .suas-book-tab.is-on::after {
-    content: "  selected";
-    color: #d9ff78;
+    transform: none;
   }
 
   html body .suas-bookings-page .suas-type-card {
@@ -51,7 +46,7 @@
   }
 
   html body .suas-bookings-page .suas-type-card b {
-    display: none !important;
+    display: unset !important;
   }
 
   html body .suas-bookings-page .suas-type-card.is-on {
@@ -59,7 +54,11 @@
     background: #101010 !important;
     color: #fff !important;
     box-shadow: 0 5px 0 #ff9fc2 !important;
-    transform: translateY(2px);
+    transform: none;
+  }
+
+  html body .suas-bookings-page .suas-type-card.is-on b {
+    color: #d9ff78 !important;
   }
 
   html body .suas-bookings-page .suas-type-card.is-on em,
@@ -101,14 +100,24 @@
     }
 
     html body .suas-bookings-page .suas-book-tabs {
-      position: sticky;
-      top: 8px;
-      z-index: 5;
+      position: relative;
+      top: auto;
+      z-index: 1;
       padding: 6px;
       border: 2px solid #101010;
-      border-radius: 999px;
+      border-radius: 22px;
       background: rgba(255,255,255,.92);
-      box-shadow: 0 5px 0 #101010;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    html body .suas-bookings-page .suas-book-tab {
+      min-height: 44px !important;
+      font-size: 10px !important;
+      letter-spacing: .1em !important;
+      padding: 0 8px !important;
+      white-space: nowrap;
+      overflow: hidden;
     }
 
     html body .suas-bookings-page .suas-book-tab,
@@ -231,8 +240,9 @@
           return option.value && !option.disabled;
         });
         var match = options.find(function (option) {
-          return variantKind(option.dataset.title || option.textContent) === wanted;
-        }) || options[0];
+          var kind = option.dataset.kind || variantKind(option.dataset.title || option.textContent);
+          return kind === wanted;
+        });
         if (!match) return;
         guidedVariant.value = match.value;
         if (match.dataset.price) {
