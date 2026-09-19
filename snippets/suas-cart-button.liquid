@@ -391,6 +391,7 @@
 
       const addReviewsForm = () => {
         document.querySelectorAll('.suas-reviews').forEach((section) => {
+          if (section.dataset.suasSkipLocalForm === 'true' || section.hasAttribute('data-suas-skip-local-form')) return;
           if (section.dataset.suasReviewFormReady === 'true') return;
           section.dataset.suasReviewFormReady = 'true';
           const wrap = section.querySelector('.suas-reviews-wrap') || section;
