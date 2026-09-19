@@ -1,3 +1,16 @@
+/* Hide the control-panel native scrollbar */
+.suas-side-nav,
+.suas-panel-nav {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.suas-side-nav::-webkit-scrollbar,
+.suas-panel-nav::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
 /* 4 bubbles per row on mobile - minimal + safe */
 @media (max-width:749px){
   .featured-grid--body--container{
@@ -189,17 +202,25 @@ nav *,
   }
 
   .suas-side-nav {
-    padding: 4px 10px 12px !important;
+    padding: 4px 10px 8px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .suas-side-nav::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
   }
 
   .suas-side-link {
-    min-height: 50px !important;
-    gap: 9px !important;
-    padding: 7px 10px !important;
+    min-height: 44px !important;
+    gap: 8px !important;
+    padding: 6px 10px !important;
   }
 
   .suas-side-link.is-active {
-    min-height: 58px !important;
+    min-height: 44px !important;
   }
 
   .suas-side-icon {
@@ -209,7 +230,9 @@ nav *,
   }
 
   .suas-side-label {
-    font-size: 1.34rem !important;
+    font-size: 1.28rem !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
   }
 
   .suas-side-num {

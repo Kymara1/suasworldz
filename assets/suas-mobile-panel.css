@@ -178,6 +178,16 @@
     overflow-x: hidden !important;
     overflow-y: auto !important;
     padding: 4px 8px 10px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  html body .suas-frame .suas-side-nav::-webkit-scrollbar,
+  html body.template--product .suas-frame .suas-side-nav::-webkit-scrollbar,
+  html body.template--product .suas-side-nav::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
   }
 
   html body .suas-frame .suas-side-nav > *,
@@ -199,7 +209,7 @@
     align-items: center !important;
     justify-content: start !important;
     width: 100% !important;
-    min-height: 48px !important;
+    min-height: 42px !important;
     height: auto !important;
     max-height: none !important;
     padding: 8px 12px !important;
@@ -226,9 +236,9 @@
   html body .suas-frame .suas-side-label,
   html body.template--product .suas-frame .suas-side-label {
     font-size: 1.2rem !important;
-    line-height: 0.96 !important;
+    line-height: 1 !important;
     text-align: left !important;
-    white-space: normal !important;
+    white-space: nowrap !important;
   }
 
   html body .suas-side-num {
