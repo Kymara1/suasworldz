@@ -803,7 +803,7 @@ nav *,
   .suas-bookings-page .suas-book-wrap { width: min(100% - 20px, 520px) !important; }
   .suas-bookings-page .suas-book-hero { gap: 10px !important; }
   .suas-bookings-page .suas-book-grid { gap: 12px !important; }
-  .suas-bookings-page .suas-book-option h2 { font-size: clamp(1.85rem, 9vw, 3rem) !important; }
+          .suas-bookings-page .suas-book-option h2 { font-size: clamp(1.15rem, 5.5vw, 1.6rem) !important; }
 }
 
 .template--product,

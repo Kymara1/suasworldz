@@ -1,4 +1,4 @@
-<section class="suas-bookings-page" data-suas-book-v="compact" aria-label="Book The Lab">
+<section class="suas-bookings-page" data-suas-book-v="prices" aria-label="Book The Lab">
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
     .suas-bookings-page{--ink:#101010;--pink:#ffe8ef;--hot:#ff9fc2;--lime:#d9ff78;--blue:#c9e7ff;--sun:#fff2a8;--lav:#e8ddff;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 8%,rgba(255,159,194,.25),transparent 30%),radial-gradient(circle at 90% 14%,rgba(217,255,120,.3),transparent 30%),linear-gradient(180deg,#fff 0%,#fffaf5 100%);font-family:Futura,'Futura PT',Arial,sans-serif}
@@ -12,26 +12,27 @@
     .suas-book-kicker{opacity:.7}
     .suas-book-title{margin:0;font-size:clamp(2rem,4vw,3.1rem);line-height:.86}
     .suas-book-copy{margin:0;font-size:.92rem;line-height:1.35;font-weight:800;color:rgba(16,16,16,.66)}
-    .suas-book-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+    .suas-book-hero,.suas-book-panel,.suas-book-option{min-width:0;overflow:hidden}
+    .suas-book-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;padding:2px 2px 8px}
     .suas-book-tab{min-height:44px;border:2px solid var(--ink);border-radius:999px;background:#fff;color:var(--ink);cursor:pointer;box-shadow:0 3px 0 var(--ink)}
     .suas-book-tab[data-kind="self"].is-on{background:var(--pink)}
     .suas-book-tab[data-kind="guided"].is-on{background:var(--lime)}
     .suas-book-panel{background:#fff;padding:14px 16px;display:grid;gap:8px}
     .suas-book-panel h2{margin:0;font-size:1.25rem;line-height:.95}
-    .suas-book-hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .suas-book-hours-grid p{margin:0;padding:8px 10px;border-radius:14px;background:var(--chip,#fff);border:1px solid rgba(16,16,16,.12);font-size:12px;line-height:1.35;font-weight:800}
+    .suas-book-hours-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+    .suas-book-hours-grid p{margin:0;padding:8px 10px;border-radius:14px;background:var(--chip,#fff);border:1px solid rgba(16,16,16,.12);font-size:12px;line-height:1.35;font-weight:800;min-width:0;width:100%;overflow-wrap:anywhere}
     .suas-book-hours-note{grid-column:1/-1;margin:0;font:700 11px/1.35 Futura,Arial,sans-serif;color:rgba(16,16,16,.62)}
     .suas-book-grid{display:grid;gap:12px;grid-template-columns:1fr!important}
     .suas-book-option{display:none!important;gap:10px;background:var(--card);padding:14px 16px;scroll-margin-top:88px}
     .suas-book-option.is-open{display:grid!important}
-    .suas-book-option-head{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}
+    .suas-book-option-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:stretch}
     .suas-book-option h2{margin:4px 0 0;font-size:clamp(1.35rem,2.2vw,2rem);line-height:.88}
     .suas-book-desc{margin:4px 0 0;font-size:13px;line-height:1.3;font-weight:800;color:rgba(16,16,16,.68)}
-    .suas-book-price-card{min-width:96px;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:0 3px 0 var(--ink);padding:8px;text-align:center}
+    .suas-book-price-card{min-width:0;width:auto;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:0 3px 0 var(--ink);padding:8px;text-align:center}
     .suas-book-price-card span{display:block;margin-bottom:4px;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:rgba(16,16,16,.55)}
     .suas-book-price{display:block;font-size:clamp(1.3rem,2vw,1.8rem);line-height:.9}
     .suas-book-badge{display:inline-flex;width:fit-content;border:2px solid var(--ink);border-radius:999px;padding:6px 10px 5px;background:rgba(255,255,255,.76);box-shadow:0 3px 0 rgba(16,16,16,.18)}
-    .suas-seat-meter{display:flex;flex-direction:column;justify-content:center;min-width:132px;padding:8px 10px;border:2px solid var(--ink);border-radius:16px;background:var(--lime);box-shadow:3px 3px 0 var(--ink)}
+    .suas-seat-meter{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:8px 10px;border:2px solid var(--ink);border-radius:16px;background:var(--lime);box-shadow:3px 3px 0 var(--ink)}
     .suas-seat-meter strong{font-size:1.15rem;line-height:.9}
     .suas-seat-meter span{font:900 9px/1.2 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.65;text-align:right}
     .suas-seat-meter.is-full{background:var(--pink)}
@@ -83,8 +84,8 @@
     .suas-bookings-page #ParfumTime{
       position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;opacity:0!important;pointer-events:none!important;border:0!important;padding:0!important;margin:0!important
     }
-    @media(max-width:980px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-top,.suas-book-hours-grid,.suas-type-grid{grid-template-columns:1fr}.suas-book-option-head{grid-template-columns:1fr auto}.suas-book-form{grid-template-columns:1fr 1fr}}
-    @media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 28px}.suas-book-card,.suas-book-panel,.suas-book-option{border-radius:18px;box-shadow:0 4px 0 var(--ink)}.suas-book-title{font-size:clamp(2.1rem,12vw,3rem)}.suas-book-form,.suas-plus-choice{grid-template-columns:1fr}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}}
+    @media(max-width:980px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-top,.suas-book-hours-grid,.suas-type-grid{grid-template-columns:1fr}.suas-book-option-head{grid-template-columns:minmax(0,1fr)!important}.suas-book-price-card,.suas-seat-meter{width:100%}.suas-book-form{grid-template-columns:1fr 1fr}}
+    @media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 28px}.suas-book-card,.suas-book-panel,.suas-book-option{border-radius:18px;box-shadow:0 4px 0 var(--ink)}.suas-book-title{font-size:clamp(2.1rem,12vw,3rem)}.suas-book-form,.suas-plus-choice,.suas-type-grid{grid-template-columns:1fr}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}}
   </style>
 
   <div class="suas-book-wrap">
@@ -302,7 +303,14 @@
                   {% else %}
                     {% assign guided_seats = 12 %}
                   {% endif %}
-                  <option value="{{ variant.id }}" data-price="{{ variant.price | money }}" data-title="{{ variant.title | escape }}" data-seats="{{ guided_seats }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
+                  {% assign guided_kind = 'perfume' %}
+                  {% assign guided_title_l = variant.title | downcase %}
+                  {% if guided_title_l contains 'signature' %}
+                    {% assign guided_kind = 'signature' %}
+                  {% elsif guided_title_l contains '+' %}
+                    {% assign guided_kind = 'plus' %}
+                  {% endif %}
+                  <option value="{{ variant.id }}" data-kind="{{ guided_kind }}" data-price="{{ variant.price | money }}" data-title="{{ variant.title | escape }}" data-seats="{{ guided_seats }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
                 {% endfor %}
               </select>
             {% endif %}
@@ -553,13 +561,15 @@
         var dayName = day === null ? '' : dayNames[day].slice(0, 3).toLowerCase();
         var timeBit = (time.split(' ').slice(1).join(' ') || time).replace(/\s+/g, '').toLowerCase();
         var options = Array.prototype.slice.call(guidedVariant.options);
-        var scored = options.filter(function (opt) { return opt.value && !opt.disabled; }).sort(function (a, b) {
+        var scored = options.filter(function (opt) { return opt.value; }).sort(function (a, b) {
           function score(opt) {
             var title = (opt.dataset.title || opt.textContent || '').toLowerCase().replace(/\s+/g, '');
             var s = 0;
-            if (variantKind(opt.dataset.title || opt.textContent) === kind) s += 8;
+            var optKind = opt.dataset.kind || variantKind(opt.dataset.title || opt.textContent);
+            if (optKind === kind) s += 8;
             if (dayName && title.indexOf(dayName) !== -1) s += 4;
             if (timeBit && title.indexOf(timeBit.replace(/-/g, '')) !== -1) s += 4;
+            if (!opt.disabled) s += 2;
             return s;
           }
           return score(b) - score(a);
@@ -583,6 +593,14 @@
       }
       if (typeWrap) {
         typeWrap.addEventListener('change', syncGuidedType);
+        typeWrap.addEventListener('click', function (event) {
+          var card = event.target.closest('.suas-type-card');
+          if (!card) return;
+          var input = card.querySelector('input[type="radio"]');
+          if (!input || input.disabled) return;
+          input.checked = true;
+          syncGuidedType();
+        });
         syncGuidedType();
       }
       if (plusWrap) {
@@ -644,6 +662,7 @@
         guidedDate.addEventListener('change', updateGuided);
         renderTimeChips([], '');
         guidedForm.addEventListener('submit', function (event) {
+          matchGuidedVariant();
           if (typeKey() === 'plus' && plusProperty && !plusProperty.value) {
             event.preventDefault();
             alert('Pick body oil or butter creme for that guided session.');
