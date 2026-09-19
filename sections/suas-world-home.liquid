@@ -56,12 +56,15 @@
     .suas-feed-btn{min-height:30px;width:100%;min-width:0;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:6px 8px;color:var(--ink);background:var(--feed-btn,#fff);box-shadow:0 2px 0 var(--ink);text-decoration:none;font-weight:900;font-size:8px;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:transform 160ms ease,box-shadow 160ms ease}
     .suas-feed-btn:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
     .suas-launch-panel{display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
-    .suas-launch-body{display:flex;flex-direction:column;gap:11px;padding:14px;flex:1}
+    .suas-launch-panel .suas-window-bar{overflow:visible;min-height:38px;padding:7px 12px}
+    .suas-launch-panel .suas-window-title{font-size:11px;letter-spacing:.14em;overflow:visible;text-overflow:clip}
+    .suas-launch-body{display:flex;flex-direction:column;gap:11px;padding:12px;flex:0 0 auto}
     .suas-launch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .suas-launch-grid .suas-launch:nth-of-type(n+5){display:none!important}
     .suas-launch{min-height:64px;display:flex;flex-direction:column;justify-content:center;border:1.75px solid var(--ink);border-radius:18px;padding:12px;color:var(--ink);background:var(--launch);box-shadow:0 4px 0 var(--ink);text-decoration:none;transition:transform 160ms ease,box-shadow 160ms ease}
     .suas-launch:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
-    .suas-launch strong{font-size:1.13rem;line-height:.9;text-transform:lowercase}
+    .suas-launch strong{font-size:1.13rem;font-weight:700!important;line-height:.9;text-transform:lowercase}
+    .suas-launch span{margin-top:4px;font-size:9px;font-weight:900;letter-spacing:.12em}
     .suas-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:auto}
     .suas-btn{min-height:38px;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:999px;padding:9px 14px;color:var(--ink);background:#fff;box-shadow:0 4px 0 var(--ink);text-decoration:none;font-weight:900}
     .suas-btn[data-dark]{color:#fff;background:var(--ink)}
@@ -93,9 +96,9 @@
       .suas-product-photo{max-width:min(228px,38vh);max-height:min(228px,38vh);justify-self:start;align-self:center}
       .suas-product-copy{padding:10px 11px;gap:8px}
       .suas-product-title{font-size:clamp(1.05rem,3vw,1.3rem)}
-      .suas-launch{min-height:58px;padding:10px}
-      .suas-launch strong{font-size:1rem}
-      .suas-launch span{display:none}
+      .suas-launch{min-height:62px;padding:10px}
+      .suas-launch strong{font-size:1.2rem;font-weight:700!important}
+      .suas-launch span{display:block;font-size:9px;font-weight:900}
       .suas-boost-body{grid-template-columns:1fr}
       .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
@@ -117,7 +120,7 @@
       .suas-product-title{font-size:clamp(1rem,4.2vw,1.22rem)}
       .suas-product-buy,.suas-product-actions{margin-top:0;gap:6px}
       .suas-product-price,.suas-feed-atc,.suas-feed-btn{min-height:30px;padding:6px 8px;font-size:8px;letter-spacing:.05em;box-shadow:0 2px 0 var(--ink)}
-      .suas-launch span{display:none}
+      .suas-launch span{display:block;font-size:9px;font-weight:900}
       .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
       .suas-boost-card{padding:6px;border-radius:14px}
       .suas-boost-card b{font-size:.68rem}
@@ -299,7 +302,6 @@
           <div class="suas-boost-body">
             <div class="suas-boost-copy">
               <strong class="suas-font">grab it while it lasts.</strong>
-              <p>Body jars and home scent people actually repurchase. Shop the movers, then leave a smell report below.</p>
               <a class="suas-btn suas-mono" data-dark href="/collections/best-sellers">shop best sellers</a>
             </div>
             <div class="suas-boost-rail">
