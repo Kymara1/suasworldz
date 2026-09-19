@@ -268,6 +268,11 @@
   -%}
   <div class="suas-pdp-world suas-station-desk product-page--top-panel">
     <section class="suas-pdp-life" aria-label="{{ product.title | escape }} photos">
+      <div class="suas-window-bar">
+        <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>
+        <span class="suas-window-title">LIVE.LOOK</span>
+        <span class="suas-window-live"><b></b>cam</span>
+      </div>
       <div class="suas-pdp-life-frame">
         {%- if pdp_life -%}
           <img
@@ -301,6 +306,24 @@
         </div>
       {%- endif -%}
     </section>
+
+    <aside class="suas-station-buy suas-pdp-ticket product-page--featured-blocks">
+      <div class="suas-window-bar">
+        <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>
+        <span class="suas-window-title">DROP.IN.BAG</span>
+        <span class="suas-window-live"><b></b>now</span>
+      </div>
+      <div class="suas-station-buy-body">
+        <div class="suas-pdp-stars">{% render 'product-rating', product: product %}</div>
+        <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas.os</p>
+        <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
+        {%- if pdp_hook != blank -%}
+          <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
+        {%- endif -%}
+        <a class="suas-pdp-jump" href="#suas-pdp-details">full details</a>
+        {{ featured_blocks_html }}
+      </div>
+    </aside>
 
     <section class="suas-pdp-diagram" aria-label="what's inside">
       <div class="suas-window-bar">
@@ -348,19 +371,6 @@
         </div>
       </div>
     </section>
-
-    <aside class="suas-station-buy suas-pdp-ticket product-page--featured-blocks">
-      <div class="suas-station-buy-body">
-        <div class="suas-pdp-stars">{% render 'product-rating', product: product %}</div>
-        <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas.os</p>
-        <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
-        {%- if pdp_hook != blank -%}
-          <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
-        {%- endif -%}
-        <a class="suas-pdp-jump" href="#suas-pdp-details">full details</a>
-        {{ featured_blocks_html }}
-      </div>
-    </aside>
   </div>
 
   {% render 'suas-product-experience', product: product, note_blocks: section.blocks %}
