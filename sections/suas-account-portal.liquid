@@ -107,7 +107,7 @@
               <p class="suas-os-copy">you're in. email, password, and where we ship — that's the important part.</p>
               <div class="suas-os-list">
                 <div class="suas-os-ticket"><span class="suas-os-icon" style="--tile:#fff1a8">@</span><span><strong>{{ customer.email }}</strong><small>signed-in email</small></span></div>
-                <a class="suas-os-ticket" href="{{ routes.account_addresses_url }}"><span class="suas-os-icon" style="--tile:#cdeeff">pin</span><span><strong>addresses</strong><small>shipping + pickup</small></span><span class="suas-os-mini suas-mono">edit</span></a>
+                <button class="suas-os-ticket" type="button" data-suas-open="addresses"><span class="suas-os-icon" style="--tile:#cdeeff">pin</span><span><strong>addresses</strong><small>shipping + pickup</small></span><span class="suas-os-mini suas-mono">edit</span></button>
                 <a class="suas-os-ticket" href="{{ routes.account_logout_url }}"><span class="suas-os-icon" style="--tile:#ffd8e8">bye</span><span><strong>sign out</strong><small>lock this window</small></span><span class="suas-os-mini suas-mono">go</span></a>
               </div>
               {% form 'recover_customer_password' %}
@@ -129,20 +129,56 @@
               <div class="suas-os-list">
                 {% paginate customer.orders by 50 %}
                 {% for order in customer.orders %}
-                  <a class="suas-os-ticket" href="{{ order.customer_url }}">
+                  <button class="suas-os-ticket" type="button" data-suas-open="order-{{ order.id }}">
                     <span class="suas-os-icon" style="--tile:#ffd8e8">{{ forloop.index }}</span>
                     <span>
                       <strong>{{ order.name }}</strong>
                       <small>{{ order.created_at | date: '%b %d, %Y' }} · {{ order.financial_status | replace: '_', ' ' }}</small>
                     </span>
                     <span class="suas-os-mini suas-mono">{{ order.total_price | money }}</span>
-                  </a>
+                  </button>
                 {% else %}
                   <div class="suas-os-empty">no orders yet. go smell something.</div>
                 {% endfor %}
                 {% endpaginate %}
               </div>
             </section>
+
+            <section class="suas-os-view" data-suas-view="addresses">
+              <p class="suas-os-kicker">suas.os / addresses</p>
+              <h1 class="suas-os-title suas-font">where we ship.</h1>
+              <p class="suas-os-copy">saved on your SUAS login. add or edit without leaving this window.</p>
+              <div class="suas-os-list">
+                {% for address in customer.addresses %}
+                  <div class="suas-os-ticket">
+                    <span class="suas-os-icon" style="--tile:#cdeeff">pin</span>
+                    <span>
+                      <strong>{{ address.name }}{% if address == customer.default_address %} · default{% endif %}</strong>
+                      <small>{{ address.street }}, {{ address.city }} {{ address.zip }}</small>
+                    </span>
+                    <span class="suas-os-actions" style="margin:0">
+                      <button class="suas-os-btn" type="button" data-suas-addr-edit="{{ address.id }}">edit</button>
+                      {{ 'delete' | delete_customer_address_link: address.id }}
+                    </span>
+                  </div>
+                  <div class="suas-os-addr-form" data-suas-addr-form="{{ address.id }}">
+                    {% render 'suas-os-address-form', address: address, address_id: address.id %}
+                  </div>
+                {% else %}
+                  <div class="suas-os-empty">no addresses yet.</div>
+                {% endfor %}
+              </div>
+              <button class="suas-os-btn is-dark" type="button" data-suas-addr-edit="new">add address</button>
+              <div class="suas-os-addr-form" data-suas-addr-form="new">
+                {% render 'suas-os-address-form', address: customer.new_address, address_id: 'new' %}
+              </div>
+            </section>
+
+            {% for order in customer.orders limit: 50 %}
+              <section class="suas-os-view" data-suas-view="order-{{ order.id }}">
+                {% render 'suas-os-order-card', order: order %}
+              </section>
+            {% endfor %}
 
             <section class="suas-os-view" data-suas-view="journal">
               <p class="suas-os-kicker">suas.os / journal</p>
@@ -176,8 +212,8 @@
             <div class="suas-os-launch">
               <button class="suas-os-tile is-on" type="button" style="--tile:#fff1a8" data-suas-open="security"><strong class="suas-font">security</strong><span>login + safety</span></button>
               <button class="suas-os-tile" type="button" style="--tile:#ffd8e8" data-suas-open="orders"><strong class="suas-font">orders</strong><span>history</span></button>
+              <button class="suas-os-tile" type="button" style="--tile:#cdeeff" data-suas-open="addresses"><strong class="suas-font">addresses</strong><span>ship here</span></button>
               <button class="suas-os-tile" type="button" style="--tile:#d9ff78" data-suas-open="journal"><strong class="suas-font">journal</strong><span>what you mixed</span></button>
-              <a class="suas-os-tile" style="--tile:#cdeeff" href="{{ routes.account_logout_url }}"><strong class="suas-font">sign out</strong><span>lock it</span></a>
             </div>
           </div>
         </aside>
@@ -231,10 +267,12 @@
 
   const openView = (name) => {
     $$('[data-suas-view]').forEach((view) => view.classList.toggle('is-on', view.dataset.suasView === name));
-    $$('[data-suas-open]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasOpen === name));
-    const titles = { security: 'SECURITY.SYS', orders: 'ORDERS.LOG', journal: 'SCENT.JOURNAL' };
+    const tab = name.indexOf('order-') === 0 ? 'orders' : name;
+    $$('[data-suas-open]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasOpen === tab));
+    const titles = { security: 'SECURITY.SYS', orders: 'ORDERS.LOG', addresses: 'ADDRESS.BOOK', journal: 'SCENT.JOURNAL' };
     const win = $('[data-suas-win-title]');
-    if (win) win.textContent = titles[name] || 'SECURITY.SYS';
+    if (win) win.textContent = name.indexOf('order-') === 0 ? 'ORDER.FILE' : (titles[name] || 'SECURITY.SYS');
+    try { history.replaceState(null, '', '#' + name); } catch (e) {}
   };
 
   const renderJournal = () => {
@@ -258,6 +296,16 @@
     if (auth) openAuth(auth.dataset.suasAuth);
     const open = event.target.closest('[data-suas-open]');
     if (open) openView(open.dataset.suasOpen);
+    const editAddr = event.target.closest('[data-suas-addr-edit]');
+    if (editAddr) {
+      openView('addresses');
+      $$('[data-suas-addr-form]').forEach((form) => form.classList.toggle('is-on', form.dataset.suasAddrForm === editAddr.dataset.suasAddrEdit));
+    }
+    const cancelAddr = event.target.closest('[data-suas-addr-cancel]');
+    if (cancelAddr) {
+      const form = root.querySelector('[data-suas-addr-form="' + cancelAddr.dataset.suasAddrCancel + '"]');
+      if (form) form.classList.remove('is-on');
+    }
     const del = event.target.closest('[data-delete-journal]');
     if (del) {
       state.journal = state.journal.filter((entry) => entry.id !== del.dataset.deleteJournal);
@@ -281,6 +329,23 @@
   }
 
   render();
+  const hash = (location.hash || '').replace('#', '');
+  if (hash && $('[data-suas-view="' + hash + '"]')) openView(hash);
+  const bootProvinces = () => {
+    if (!window.Shopify || !Shopify.CountryProvinceSelector) return;
+    if (document.getElementById('address_country_new')) {
+      new Shopify.CountryProvinceSelector('address_country_new', 'address_province_new', { hideElement: 'address_province_container_new' });
+    }
+    {% if customer %}
+    {% for address in customer.addresses %}
+    if (document.getElementById('address_country_{{ address.id }}')) {
+      new Shopify.CountryProvinceSelector('address_country_{{ address.id }}', 'address_province_{{ address.id }}', { hideElement: 'address_province_container_{{ address.id }}' });
+    }
+    {% endfor %}
+    {% endif %}
+  };
+  bootProvinces();
+  window.addEventListener('load', bootProvinces);
   const authHas = (name) => {
     const box = $(`[data-suas-auth-view="${name}"]`);
     if (!box) return false;

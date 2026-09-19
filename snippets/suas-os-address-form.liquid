@@ -1,0 +1,32 @@
+{% form 'customer_address', address %}
+  <input type="hidden" name="return_to" value="/pages/account#addresses">
+  <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
+  <div class="suas-os-form">
+    <div class="suas-os-two">
+      <div class="suas-os-field"><label for="address_first_name_{{ address_id }}">first name</label><input id="address_first_name_{{ address_id }}" type="text" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name"></div>
+      <div class="suas-os-field"><label for="address_last_name_{{ address_id }}">last name</label><input id="address_last_name_{{ address_id }}" type="text" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name"></div>
+    </div>
+    <div class="suas-os-field"><label for="address_address1_{{ address_id }}">street</label><input id="address_address1_{{ address_id }}" type="text" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1"></div>
+    <div class="suas-os-field"><label for="address_address2_{{ address_id }}">apt / suite</label><input id="address_address2_{{ address_id }}" type="text" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2"></div>
+    <div class="suas-os-two">
+      <div class="suas-os-field"><label for="address_city_{{ address_id }}">city</label><input id="address_city_{{ address_id }}" type="text" name="address[city]" value="{{ form.city }}" autocomplete="address-level2"></div>
+      <div class="suas-os-field"><label for="address_zip_{{ address_id }}">zip</label><input id="address_zip_{{ address_id }}" type="text" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code"></div>
+    </div>
+    <div class="suas-os-two">
+      <div class="suas-os-field">
+        <label for="address_country_{{ address_id }}">country</label>
+        <select id="address_country_{{ address_id }}" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+      </div>
+      <div class="suas-os-field" id="address_province_container_{{ address_id }}">
+        <label for="address_province_{{ address_id }}">state</label>
+        <select id="address_province_{{ address_id }}" name="address[province]" data-default="{{ form.province }}"></select>
+      </div>
+    </div>
+    <div class="suas-os-field"><label for="address_phone_{{ address_id }}">phone</label><input id="address_phone_{{ address_id }}" type="tel" name="address[phone]" value="{{ form.phone }}" autocomplete="tel"></div>
+    <label class="suas-os-check">{{ form.set_as_default_checkbox }} <span>default address</span></label>
+    <div class="suas-os-actions">
+      <button class="suas-os-btn is-dark" type="submit">{% if address_id == 'new' %}save address{% else %}update address{% endif %}</button>
+      <button class="suas-os-btn" type="button" data-suas-addr-cancel="{{ address_id }}">cancel</button>
+    </div>
+  </div>
+{% endform %}

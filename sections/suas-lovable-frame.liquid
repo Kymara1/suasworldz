@@ -311,6 +311,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     const rewriteSuasHomeLinks = () => {
       document.querySelectorAll('.suas-world-home a[href="#suas-reviews"]').forEach((link) => { link.setAttribute('href', routes.reviews); });
       document.querySelectorAll('a[href="/account"], a[href="/pages/suas-account"], a[href="/pages/suas-accounts"], a[href="/pages/accounts"]').forEach((link) => { link.setAttribute('href', routes.account); });
+      document.querySelectorAll('a[href="/account/addresses"]').forEach((link) => { link.setAttribute('href', '/pages/account#addresses'); });
     };
     rewriteSuasHomeLinks();
     new MutationObserver(rewriteSuasHomeLinks).observe(document.documentElement, { childList: true, subtree: true });

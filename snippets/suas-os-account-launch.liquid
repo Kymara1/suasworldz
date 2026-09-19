@@ -1,0 +1,19 @@
+<aside class="suas-os-win">
+  <div class="suas-os-winbar">
+    <div class="suas-os-dots">
+      <span class="suas-os-dot" style="--dot:#ff5f57"></span>
+      <span class="suas-os-dot" style="--dot:#febc2e"></span>
+      <span class="suas-os-dot" style="--dot:#28c840"></span>
+    </div>
+    <span class="suas-os-wintitle suas-mono">QUICK.LAUNCH</span>
+    <span class="suas-os-live suas-mono"><b></b>GO</span>
+  </div>
+  <div class="suas-os-body">
+    <div class="suas-os-launch">
+      <a class="suas-os-tile{% if current == 'security' %} is-on{% endif %}" style="--tile:#fff1a8" href="/pages/account#security"><strong class="suas-font">security</strong><span>login + safety</span></a>
+      <a class="suas-os-tile{% if current == 'orders' %} is-on{% endif %}" style="--tile:#ffd8e8" href="/pages/account#orders"><strong class="suas-font">orders</strong><span>history</span></a>
+      <a class="suas-os-tile{% if current == 'addresses' %} is-on{% endif %}" style="--tile:#cdeeff" href="/pages/account#addresses"><strong class="suas-font">addresses</strong><span>ship here</span></a>
+      <a class="suas-os-tile" style="--tile:#d9ff78" href="{{ routes.account_logout_url }}"><strong class="suas-font">sign out</strong><span>lock it</span></a>
+    </div>
+  </div>
+</aside>

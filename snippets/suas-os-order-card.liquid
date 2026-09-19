@@ -1,0 +1,33 @@
+<p class="suas-os-kicker">suas.os / order {{ order.name }}</p>
+<h1 class="suas-os-title suas-font">{{ order.name | downcase }}.</h1>
+<p class="suas-os-copy">{{ order.created_at | date: '%b %d, %Y' }} · {{ order.financial_status | replace: '_', ' ' }} · {{ order.fulfillment_status | default: 'processing' | replace: '_', ' ' }}</p>
+<div class="suas-os-list">
+  {% for line_item in order.line_items %}
+    <div class="suas-os-ticket">
+      <span class="suas-os-icon" style="--tile:#ffd8e8">{{ line_item.quantity }}</span>
+      <span>
+        <strong>{{ line_item.title }}</strong>
+        <small>
+          {{ line_item.final_price | money }}
+          {% if line_item.fulfillment.tracking_number %} · {{ line_item.fulfillment.tracking_company }} {{ line_item.fulfillment.tracking_number }}{% endif %}
+        </small>
+      </span>
+      <span class="suas-os-mini suas-mono">{{ line_item.final_line_price | money }}</span>
+    </div>
+  {% endfor %}
+  <div class="suas-os-ticket">
+    <span class="suas-os-icon" style="--tile:#d9ff78">$</span>
+    <span><strong>total</strong><small>{{ order.currency }}</small></span>
+    <span class="suas-os-mini suas-mono">{{ order.total_price | money }}</span>
+  </div>
+  {% if order.shipping_address %}
+    <div class="suas-os-ticket">
+      <span class="suas-os-icon" style="--tile:#cdeeff">pin</span>
+      <span>
+        <strong>ship to {{ order.shipping_address.name }}</strong>
+        <small>{{ order.shipping_address.street }}, {{ order.shipping_address.city }} {{ order.shipping_address.zip }}</small>
+      </span>
+    </div>
+  {% endif %}
+</div>
+<button class="suas-os-btn" type="button" data-suas-open="orders">back to orders</button>
