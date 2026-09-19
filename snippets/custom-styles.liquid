@@ -424,6 +424,31 @@
       margin-bottom: 10px;
     }
   }
+
+  .product-page--root[data-lab-experiment] .product-options--root,
+  .product-page--root[data-lab-experiment] product-options-root,
+  .product-page--root[data-lab-experiment] .shopify-payment-button,
+  .product--root[data-lab-experiment] .product-options--root,
+  .product--root[data-lab-experiment] product-options-root,
+  .product--root[data-lab-experiment] .product--form-for-off-canvas {
+    display: none !important;
+  }
+  a.suas-lab-book-cta {
+    display: grid !important;
+    place-items: center;
+    min-height: 54px;
+    margin-top: 10px;
+    padding: 0 18px;
+    border: 2px solid #101010;
+    border-radius: 999px;
+    background: #101010;
+    color: #fff !important;
+    box-shadow: 0 6px 0 #d9ff78;
+    font: 900 12px/1 Futura, Arial, sans-serif;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none !important;
+  }
 </style>
 
 <script>

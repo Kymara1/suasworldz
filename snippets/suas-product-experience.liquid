@@ -143,6 +143,19 @@
 </style>
 
 <section class="suas-product-experience" id="suas-pdp-details" aria-label="SUAS product details">
+  {% if is_lab_experiment %}
+    <details class="suas-pdp-fold" open>
+      <summary>the experiment</summary>
+      <div class="suas-pdp-fold-body">
+        {% if product.description != blank %}
+          <div class="rte">{{ product.description }}</div>
+        {% else %}
+          <p>This is a Lab experiment you mix in Gastonia, not a finished scent for sale. Pick your notes at the station, bottle what you make, and take it home.</p>
+        {% endif %}
+        <p><a class="suas-lab-book-cta" href="/pages/bookings">Book your date and time</a></p>
+      </div>
+    </details>
+  {% else %}
   {% if note_1_file != blank %}
     <div class="suas-scent-notes">
       <div class="suas-scent-notes-grid{% if note_4_file == blank and note_2_file != blank %} is-three{% endif %}">
@@ -238,4 +251,5 @@
       {% endif %}
     </div>
   </details>
+  {% endif %}
 </section>

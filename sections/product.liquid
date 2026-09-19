@@ -22,6 +22,15 @@
   endif
   assign pdp_hook = product.description | strip_html | split: '.' | first | strip
   assign pdp_handle = product.handle | downcase
+  assign is_lab_experiment = false
+  if pdp_handle contains 'lab-session' or pdp_handle contains 'deluxe-lab'
+    assign is_lab_experiment = true
+  endif
+  for lab_col in product.collections
+    if lab_col.handle == 'the-lab' or lab_col.handle == 'lab'
+      assign is_lab_experiment = true
+    endif
+  endfor
   assign mix_1 = 'handmade'
   assign mix_2 = 'small batch'
   assign mix_3 = 'skin glow'
@@ -202,29 +211,41 @@
           %}
 
         {%- when 'options' -%}
-          {%-
-            render "product-options",
-            id: product_id,
-            product: product,
-            block_settings: block.settings
-          -%}
+          {%- unless is_lab_experiment -%}
+            {%-
+              render "product-options",
+              id: product_id,
+              product: product,
+              block_settings: block.settings
+            -%}
+          {%- endunless -%}
 
         {%- when 'quantity-input' -%}
-          {%- render 'product-quantity', id: product_id -%}
+          {%- unless is_lab_experiment -%}
+            {%- render 'product-quantity', id: product_id -%}
+          {%- endunless -%}
 
         {%- when 'buy-buttons' -%}
-          {%-
-            render 'product-buy-buttons',
-            id: product_id,
-            product: product,
-            smart_payment_enabled: block.settings.smart-payment-enabled
-          -%}
+          {%- if is_lab_experiment -%}
+            <a class="product-buy-buttons--cta suas-lab-book-cta" href="/pages/bookings">book this experiment</a>
+          {%- else -%}
+            {%-
+              render 'product-buy-buttons',
+              id: product_id,
+              product: product,
+              smart_payment_enabled: block.settings.smart-payment-enabled
+            -%}
+          {%- endif -%}
 
         {%- when 'unavailable-form' -%}
-          {%- render 'product-unavailable-form', product: product, id: product_id -%}
+          {%- unless is_lab_experiment -%}
+            {%- render 'product-unavailable-form', product: product, id: product_id -%}
+          {%- endunless -%}
 
         {%- when 'pickup' -%}
-          {%- render 'product-pickup', product: product, id: product_id -%}
+          {%- unless is_lab_experiment -%}
+            {%- render 'product-pickup', product: product, id: product_id -%}
+          {%- endunless -%}
 
         {%- when 'description' -%}
           {%- unless product.description == blank -%}
@@ -278,6 +299,7 @@
   data-spacing="none"
   data-product-id="{{ product_id }}"
   data-handle="{{ product.handle }}"
+  {% if is_lab_experiment %}data-lab-experiment="true"{% endif %}
 >
   {%- liquid
     assign pdp_life = featured_media
@@ -328,6 +350,7 @@
       {%- endif -%}
     </section>
 
+    {%- unless is_lab_experiment -%}
     <section class="suas-pdp-diagram" aria-label="what's inside">
       <div class="suas-window-bar">
         <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>
@@ -351,11 +374,12 @@
         {%- endif -%}
       </div>
     </section>
+    {%- endunless -%}
 
     <aside class="suas-station-buy suas-pdp-ticket product-page--featured-blocks">
       <div class="suas-window-bar">
         <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>
-        <span class="suas-window-title">ADD TO CART</span>
+        <span class="suas-window-title">{% if is_lab_experiment %}BOOK.THIS{% else %}ADD TO CART{% endif %}</span>
         <span class="suas-window-live"><b></b>now</span>
       </div>
       <div class="suas-station-buy-body">
@@ -363,7 +387,9 @@
         {%- if product.type != blank -%}
           <p class="suas-pdp-stamp">{{ product.type }}</p>
         {%- endif -%}
-        {%- if pdp_hook != blank -%}
+        {%- if is_lab_experiment -%}
+          <p class="suas-pdp-hook">You mix this in The Lab. It is not a finished bottle sitting on a shelf.</p>
+        {%- elsif pdp_hook != blank -%}
           <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
         {%- endif -%}
         {{ featured_blocks_html }}
@@ -371,7 +397,7 @@
     </aside>
   </div>
 
-  {% render 'suas-product-experience', product: product, note_blocks: section.blocks %}
+  {% render 'suas-product-experience', product: product, note_blocks: section.blocks, is_lab_experiment: is_lab_experiment %}
 
   {{ 'suas-pdp-unique.css' | asset_url | stylesheet_tag }}
 

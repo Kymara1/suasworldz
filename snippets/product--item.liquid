@@ -38,6 +38,19 @@
     assign quick_add_enable = false
   endif
 
+  assign is_lab_experiment = false
+  if product.handle contains 'lab-session' or product.handle contains 'deluxe-lab'
+    assign is_lab_experiment = true
+  endif
+  for lab_col in product.collections
+    if lab_col.handle == 'the-lab' or lab_col.handle == 'lab'
+      assign is_lab_experiment = true
+    endif
+  endfor
+  if is_lab_experiment
+    assign quick_add_enable = false
+  endif
+
   unless show_vendor
     assign show_vendor = settings.product--show-vendor
   endunless
@@ -222,11 +235,12 @@
 {% endcapture %}
 
 <div
-  class="product--root suas-catalog-card"
+  class="product--root suas-catalog-card{% if is_lab_experiment %} is-lab-experiment{% endif %}"
   data-product-view="{{ view }}"
   data-label-color="{{ label_color }}"
   data-label-shape="{{ label_shape }}"
   data-text-alignment="{{ text_alignment }}"
+  {% if is_lab_experiment %}data-lab-experiment="true"{% endif %}
   {% if hover_image_enabled and hover_image %}
     data-hover-image="true"
   {% endif %}

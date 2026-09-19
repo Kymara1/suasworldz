@@ -43,6 +43,18 @@ html body.template--product .suas-station-desk {
 html body.template--product .suas-pdp-life { grid-area: life; }
 html body.template--product .suas-pdp-diagram { grid-area: mix; position: relative; z-index: 2; }
 html body.template--product .suas-pdp-ticket { grid-area: buy; }
+html body.template--product .suas-pdp[data-lab-experiment] .suas-pdp-world,
+html body.template--product .suas-pdp[data-lab-experiment] .suas-station-desk {
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 420px) !important;
+  grid-template-areas: "life buy" !important;
+}
+html body.template--product .suas-pdp[data-lab-experiment] .suas-pdp-hook {
+  display: block !important;
+}
+html body.template--product .suas-pdp[data-lab-experiment] .suas-scent-notes,
+html body.template--product .suas-pdp[data-lab-experiment] .suas-pdp-diagram {
+  display: none !important;
+}
 
 html body.template--product .suas-pdp-life,
 html body.template--product .suas-pdp-diagram,
@@ -575,6 +587,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
   html body.template--product .suas-pdp-name { font-size: clamp(1.7rem, 7.5vw, 2.3rem) !important; font-weight: 700 !important; margin-bottom: 4px; }
   html body.template--product .suas-pdp-stamp { font-size: 8px; letter-spacing: .12em; margin: 0 0 6px; }
   html body.template--product .suas-pdp-hook { display: none !important; }
+  html body.template--product .suas-pdp[data-lab-experiment] .suas-pdp-hook { display: block !important; font-size: 13px; line-height: 1.3; margin: 0 0 10px; }
   html body.template--product .suas-station-buy-body { padding: 10px 10px 12px !important; }
   html body.template--product .product-page--price,
   html body.template--product .suas-pdp-ticket .money { font-size: 1.05rem !important; }
