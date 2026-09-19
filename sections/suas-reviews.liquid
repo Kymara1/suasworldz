@@ -19,7 +19,7 @@
     .suas-rev-feed .jdgm-all-reviews-widget,
     .suas-rev-feed .jdgm-all-reviews-widget-v2025{border:0!important;background:transparent!important}
     .suas-rev-feed .jdgm-rev{border:2px solid var(--ink)!important;border-radius:18px!important;background:#fff1a8!important;box-shadow:3px 4px 0 var(--ink)!important;padding:14px!important;color:var(--ink)!important;margin:0 0 12px!important}
-    .suas-rev-feed :is(.jdgm-write-rev-link,.jdgm-btn){min-height:42px!important;border:2px solid var(--ink)!important;border-radius:999px!important;background:var(--pink)!important;color:var(--ink)!important;box-shadow:0 4px 0 var(--ink)!important;font:900 10px/1 Futura,Arial,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase!important;text-decoration:none!important}
+    .suas-rev-feed :is(.jdgm-write-rev-link,.jdgm-btn--write,.jdgm-histogram,.jdgm-all-reviews__header .jdgm-btn){display:none!important}
     .suas-rev-feed :is(.jdgm-powered,.jdgm-branding,a[href*='://judge.me'],a[href*='judgeme.com']){display:none!important}
     @media(max-width:560px){
       .suas-reviews-wrap{width:calc(100vw - 14px)}
@@ -41,7 +41,7 @@
         </div>
         {% assign has_legacy_all = false %}
         {% if shop.metafields.judgeme.all_reviews_header.size > 20 %}{% assign has_legacy_all = true %}{% endif %}
-        <div id="judgeme_all_reviews_page" class="jdgm-widget jdgm-all-reviews-widget-v2025" data-widget="all-reviews-v2025" data-auto-install="false" data-entry-point="all_reviews_widget_v2025.js" data-entry-key="all-reviews-widget-v2025/main.js">
+        <div id="judgeme_all_reviews_page" class="jdgm-widget jdgm-all-reviews-widget-v2025" data-widget="all-reviews-v2025" data-review-source="product" data-show-first="product" data-auto-install="false" data-entry-point="all_reviews_widget_v2025.js" data-entry-key="all-reviews-widget-v2025/main.js">
           {% if has_legacy_all %}
             <div class="jdgm-legacy-widget-content" style="display:none;">
               <article class="jdgm-widget jdgm-all-reviews-widget">
@@ -76,6 +76,18 @@
         slot.appendChild(node);
         return node;
       }
+      function stripStoreChrome(node) {
+        if (!node) return;
+        node.querySelectorAll('a,button,span,h2,h3').forEach(function (el) {
+          var text = String(el.textContent || '').replace(/\s+/g, ' ').trim();
+          if (/store review/i.test(text) && !el.querySelector('.jdgm-rev')) {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        });
+        node.querySelectorAll('[data-tab="store"],[data-review-source="store"],.jdgm-histogram').forEach(function (el) {
+          el.style.setProperty('display', 'none', 'important');
+        });
+      }
       function hasReviews(node) {
         if (!node) return false;
         var text = (node.innerText || '').replace(/\s+/g, ' ').toLowerCase();
@@ -84,6 +96,7 @@
       }
       function sync() {
         var node = grab();
+        stripStoreChrome(node);
         if (empty) empty.hidden = hasReviews(node);
       }
       sync();
