@@ -20,13 +20,9 @@
 {% if is_product_review_shell %}
   <style>
     html body.template--product .suas-product-review-shell{width:100%;margin:22px 0 28px;padding:0;color:#101010;font-family:Futura,Arial,sans-serif;background:transparent}
-    html body.template--product .suas-product-review-shell .apps--wrapper{border:2px solid #101010;border-radius:24px;background:linear-gradient(rgba(16,16,16,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.028) 1px,transparent 1px),#fffdf8;background-size:18px 18px,18px 18px,auto;box-shadow:8px 9px 0 #101010;overflow:hidden}
-    html body.template--product .suas-review-window-bar{height:38px;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:2px solid #101010;background:linear-gradient(#fff8ee,#ead9c4)}
-    html body.template--product .suas-review-window-bar span{width:12px;height:12px;border-radius:50%;background:#ff6257}
-    html body.template--product .suas-review-window-bar span:nth-child(2){background:#ffbd2e}
-    html body.template--product .suas-review-window-bar span:nth-child(3){background:#28c840}
-    html body.template--product .suas-review-window-bar strong{margin-left:auto;font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
-    html body.template--product .suas-review-intro{display:grid;grid-template-columns:1.15fr auto;gap:18px;align-items:center;padding:clamp(16px,2vw,24px);border-bottom:2px solid #101010}
+    html body.template--product .suas-product-review-shell .apps--wrapper{border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+    html body.template--product .suas-review-window-bar{display:none}
+    html body.template--product .suas-review-intro{display:grid;grid-template-columns:1.15fr auto;gap:18px;align-items:end;padding:0 0 18px;border-bottom:1px solid rgba(16,16,16,.12)}
     html body.template--product .suas-review-intro h2{margin:0 0 8px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.2rem,5vw,4rem);line-height:.86;text-transform:uppercase}
     html body.template--product .suas-review-intro p{margin:0;font-size:13px;line-height:1.45;font-weight:800}
     html body.template--product .suas-review-action{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 18px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010;box-shadow:0 4px 0 #101010;text-decoration:none;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
@@ -39,8 +35,7 @@
 <div class="apps--root{% if is_product_review_shell %} suas-product-review-shell{% endif %}" data-section-id="{{ section.id }}" data-background-color="{{ bg_color }}" data-container-width="{{ container_width }}" data-light-text="{{ light_text }}" data-spacing-above="{{ spacing_above }}" data-spacing-below="{{ spacing_below }}">
   <div class="apps--wrapper{% if is_product_review_shell %} suas-review-shell-window{% endif %}">
     {% if is_product_review_shell %}
-      <div class="suas-review-window-bar" aria-hidden="true"><span></span><span></span><span></span><strong>reviews.log</strong></div>
-      <div class="suas-review-intro"><div class="suas-review-copy"><h2>smell reports.</h2><p>Verified notes for this formula. Tell the next person how it smelled and whether it belongs in their cart.</p></div><a class="suas-review-action" href="/pages/reviews?product={{ product.handle }}">write a review</a></div>
+      <div class="suas-review-intro"><div class="suas-review-copy"><h2>smell reports</h2><p>How it actually wore. Leave a note for the next person.</p></div><a class="suas-review-action" href="/pages/reviews?product={{ product.handle }}">write a review</a></div>
     {% endif %}
     <div class="suas-review-app-stage">{{ app_blocks }}</div>
   </div>

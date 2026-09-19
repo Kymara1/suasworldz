@@ -58,15 +58,11 @@ html body.template--product .suas-product-gallery-count {
 
 html body.template--product .suas-product-review-shell .apps--wrapper,
 html body.template--product .shopify-section:has([id*='aftership']) .apps--wrapper {
-  border: 2px solid #101010;
-  border-radius: 24px;
-  background:
-    linear-gradient(rgba(16, 16, 16, .028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .028) 1px, transparent 1px),
-    #fffdf8;
-  background-size: 18px 18px, 18px 18px, auto;
-  box-shadow: 8px 9px 0 #101010;
-  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
 }
 html body.template--product .shopify-app-block,
 html body.template--product .suas-review-app-stage {

@@ -460,7 +460,7 @@
           "oddities_number": "05",
           "oddities_tint": "#c7b5ff",
           "oddities_active_paths": "/collections/oddities",
-          "lab_enabled": true,
+          "lab_enabled": false,
           "lab_label": "the lab",
           "lab_link": "/pages/the-lab",
           "lab_icon": "/",

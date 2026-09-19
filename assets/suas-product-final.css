@@ -11,11 +11,9 @@ html body.template--product {
 html body.template--product,
 html body.template--product .off-canvas--main-content,
 html body.template--product .layout--main-content {
-  background:
-    linear-gradient(rgba(16, 16, 16, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .035) 1px, transparent 1px),
+  background: radial-gradient(circle at 12% 8%, rgba(255, 216, 232, .35), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(255, 232, 107, .18), transparent 24%),
     var(--paper);
-  background-size: 22px 22px, 22px 22px, auto;
 }
 html body.template--product .layout--main-content {
   padding: 18px 16px 56px;
@@ -50,24 +48,20 @@ html body.template--product .suas-station-media,
 html body.template--product .suas-station-buy {
   display: flex;
   flex-direction: column;
-  min-height: 620px;
+  min-height: 0;
   width: 100%;
   max-width: none;
-  border: 2px solid var(--ink);
-  border-radius: 24px;
-  background: #fff;
-  box-shadow: 8px 9px 0 var(--ink);
-  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
   aspect-ratio: auto;
 }
-html body.template--product .suas-os-winbar {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 40px;
-  padding: 0 14px;
-  border-bottom: 2px solid var(--ink);
-  background: linear-gradient(#fff8ee, #ead9c4);
+html body.template--product .suas-os-winbar,
+html body.template--product .suas-window-strip,
+html body.template--product .suas-review-window-bar {
+  display: none !important;
 }
 html body.template--product .suas-os-winbar i {
   width: 11px;
@@ -90,12 +84,9 @@ html body.template--product .suas-station-stage {
   flex: 1 1 auto;
   display: grid;
   place-items: center;
-  min-height: 540px;
-  padding: 22px;
-  background:
-    radial-gradient(circle at 16% 14%, rgba(255, 216, 232, .55), transparent 36%),
-    radial-gradient(circle at 88% 86%, rgba(205, 238, 255, .45), transparent 32%),
-    #fff;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
 }
 html body.template--product .suas-station-photo {
   display: block;
@@ -150,12 +141,8 @@ html body.template--product .product-page--hidden-variant {
 
 html body.template--product .suas-station-buy-body {
   flex: 1 1 auto;
-  padding: 10px 28px 28px;
-  background:
-    linear-gradient(rgba(16, 16, 16, .028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .028) 1px, transparent 1px),
-    #fff;
-  background-size: 20px 20px, 20px 20px, auto;
+  padding: 12px 8px 8px;
+  background: transparent;
 }
 html body.template--product .suas-station-kicker {
   margin: 8px 0 6px;
@@ -183,12 +170,13 @@ html body.template--product [data-product-block='price'] {
   margin: 8px 0 16px;
 }
 html body.template--product .product-price--root .money {
-  display: inline-flex;
-  border: 2px solid var(--ink);
-  border-radius: 999px;
-  background: var(--lime);
-  box-shadow: 0 4px 0 var(--ink);
-  padding: 10px 16px;
+  display: inline;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  font-size: 1.15rem;
 }
 html body.template--product .product-buy-buttons--cta,
 html body.template--product [name='add'],
@@ -280,25 +268,16 @@ html body.template--product .apps--root[data-spacing-below='true'] {
 }
 html body.template--product .suas-review-shell-window,
 html body.template--product .apps--wrapper {
-  background:
-    linear-gradient(rgba(16, 16, 16, .028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .028) 1px, transparent 1px),
-    #fffdf8;
-  background-size: 18px 18px, 18px 18px, auto;
-}
-html body.template--product .suas-review-window-bar,
-html body.template--product .suas-os-winbar,
-html body.template--product .suas-window-strip {
-  background: linear-gradient(#fff8ee, #ead9c4);
+  background: transparent;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 html body.template--product .suas-note-collection {
   padding: 0 !important;
-  overflow: hidden;
-  background:
-    linear-gradient(rgba(16, 16, 16, .024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .024) 1px, transparent 1px),
-    #fffdf8;
-  background-size: 20px 20px, 20px 20px, auto;
+  overflow: visible;
+  background: transparent;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 html body.template--product .suas-note-head,
 html body.template--product .suas-note-grid {
