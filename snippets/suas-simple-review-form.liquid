@@ -18,7 +18,9 @@
     html body.template--product .suas-review-app-stage .shopify-app-block{min-height:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
     .suas-simple-review{margin:6px 10px 10px;padding:0;border:0;background:transparent;box-shadow:none}
     .suas-simple-review .jdgm-widget,.suas-simple-review .jdgm-rev-widg{margin:0!important;padding:0!important;border:0!important;background:transparent!important;color:#101010!important}
-    .suas-simple-review :is(.jdgm-rev-widg__title,.jdgm-form-wrapper h2,.jdgm-form__title,.jdgm-histogram,.jdgm-histogram-wrapper,.jdgm-rev-widg__summary,.jdgm-write-rev-link,.jdgm-cancel-rev,.jdgm-sort-dropdown,.jdgm-form__terms,.jdgm-notification,.jdgm-rev-widg__header,.jdgm-powered,.jdgm-branding){display:none!important}
+    .suas-simple-review :is(.jdgm-rev-widg__title,.jdgm-form-wrapper h2,.jdgm-form__title,.jdgm-histogram,.jdgm-histogram-wrapper,.jdgm-rev-widg__summary,.jdgm-write-rev-link,.jdgm-cancel-rev,.jdgm-sort-dropdown,.jdgm-form__terms,.jdgm-notification,.jdgm-powered,.jdgm-branding){display:none!important}
+    .suas-simple-review .jdgm-rev-widg__header{display:block!important}
+    .suas-simple-review .jdgm-rev-widg__header > :not(.jdgm-form-wrapper):not(form):not(.jdgm-form){display:none!important}
     .suas-simple-review :is([class*='picture'],[class*='Picture'],[class*='media-upload'],[class*='media-uploader'],[class*='video-upload'],.jdgm-tooltip){display:none!important}
     .suas-simple-review :is(.jdgm-rev-widg__reviews,.jdgm-rev,.jdgm-rev-widg__body){display:block!important;visibility:visible!important;max-height:none!important;overflow:visible!important}
     .suas-simple-review .jdgm-legacy-widget-content{display:block!important}
@@ -86,15 +88,21 @@
 
       function openForm() {
         root.classList.add('is-writing');
-        var shown = revealForms();
-        var btn = document.querySelector('.jdgm-write-rev-link, a.jdgm-write-rev-link, button.jdgm-write-rev-link, [data-action="write-review"], .jdgm-btn--write');
+        var jq = window.jdgm && (window.jdgm.jQuery || window.jdgm.$);
+        var widget = document.querySelector('.jdgm-review-widget .jdgm-rev-widg, .jdgm-rev-widg');
+        try {
+          if (jq && typeof window.jdgm.openForm === 'function') {
+            window.jdgm.openForm(jq(widget || '.jdgm-rev-widg'));
+          }
+        } catch (err) {}
+        var btn = document.querySelector('.jdgm-write-rev-link');
         if (btn) {
-          var prev = btn.style.display;
-          btn.style.setProperty('display', 'block', 'important');
-          try { btn.click(); } catch (err) {}
-          btn.style.display = prev;
+          try {
+            if (jq) jq(btn).trigger('click');
+            else btn.click();
+          } catch (err) {}
         }
-        shown = revealForms() || shown;
+        var shown = revealForms();
         if (shown) {
           var form = formNodes()[0];
           if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
