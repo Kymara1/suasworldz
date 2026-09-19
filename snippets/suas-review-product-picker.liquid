@@ -31,7 +31,7 @@
     </div>
     <div class="suas-review-picker__body">
       <h3>pick what you smelled.</h3>
-      <p>Choose a product and the product page will open its review form.</p>
+      <p>Choose a product. The simple review form is on that product page.</p>
       <input class="suas-review-picker__search" type="search" placeholder="Search products" data-suas-review-search>
       <div class="suas-review-picker__grid" data-suas-review-grid>
         <div class="suas-review-picker__empty">loading products...</div>
@@ -57,7 +57,7 @@
         const image = p.images && p.images[0] ? escapeHtml(p.images[0].src) : '';
         const title = escapeHtml(p.title);
         const handle = encodeURIComponent(p.handle || '');
-        const href = `/products/${handle}#suas-product-review-station`;
+        const href = `/products/${handle}#suas-simple-review`;
         return `<a class="suas-review-picker__item" href="${href}">${image ? `<img class="suas-review-picker__thumb" src="${image}" alt="">` : `<span class="suas-review-picker__thumb"></span>`}<span><span class="suas-review-picker__name">${title}</span><span class="suas-review-picker__cta">open review form →</span></span></a>`;
       }).join('') : '<div class="suas-review-picker__empty">no products found</div>';
     };

@@ -74,11 +74,11 @@
       </div>
       <div class="suas-rev-hero">
         <div>
-          <h1>reviews from real ones.</h1>
-          <p>Not a fake carousel. This is where people say how a SUAS scent actually wore on skin, in the room, or in the Lab.</p>
+          <h1>every smell report.</h1>
+          <p>This page is the feed. To leave a review, pick the product you used. The form lives on that product page.</p>
           <div class="suas-rev-actions">
-            <button class="suas-rev-btn" type="button" data-suas-review-open-picker>leave a smell report</button>
-            <a class="suas-rev-btn" data-lime href="#suas-live-feed">read the live feed</a>
+            <button class="suas-rev-btn" type="button" data-suas-review-open-picker>review a product</button>
+            <a class="suas-rev-btn" data-lime href="#suas-live-feed">all reviews</a>
           </div>
         </div>
         <div class="suas-rev-side">
@@ -113,7 +113,7 @@
         <div class="suas-rev-launch">
           {% if launch != blank and launch.products_count > 0 %}
             {% for product in launch.products limit: 6 %}
-              <a class="suas-rev-product" href="{{ product.url }}#aftership_reviews_all_reviews_widget_production">
+              <a class="suas-rev-product" href="{{ product.url }}#suas-simple-review">
                 {% if product.featured_image %}
                   {{ product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: product.title }}
                 {% else %}

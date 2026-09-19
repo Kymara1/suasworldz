@@ -1,0 +1,72 @@
+{%- liquid
+  assign form_id = 'suas_simple_review_' | append: product.id
+  assign scent = product.title | split: '✿' | first | strip
+-%}
+<div class="suas-simple-review" id="suas-simple-review">
+  <style>
+    .suas-simple-review{margin:0 18px 18px;padding:18px;border:2px solid #101010;border-radius:22px;background:#fff;box-shadow:4px 5px 0 #101010}
+    .suas-simple-review h3{margin:0 0 6px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.7rem,4vw,2.4rem);line-height:.88;font-weight:400;text-transform:lowercase}
+    .suas-simple-review p{margin:0 0 14px;font-size:13px;font-weight:800;line-height:1.35}
+    .suas-simple-review form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .suas-simple-review label{display:grid;gap:6px;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+    .suas-simple-review input,
+    .suas-simple-review select,
+    .suas-simple-review textarea{width:100%;min-height:44px;padding:10px 12px;border:2px solid #101010;border-radius:14px;background:#fff;font:800 14px/1.3 Futura,Arial,sans-serif;color:#101010}
+    .suas-simple-review textarea{grid-column:1/-1;min-height:110px;resize:vertical}
+    .suas-simple-review button{grid-column:1/-1;min-height:48px;border:2px solid #101010;border-radius:999px;background:#d9ff78;box-shadow:0 4px 0 #101010;font:900 11px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+    .suas-simple-review .suas-simple-ok{padding:16px;border:2px solid #101010;border-radius:18px;background:#d9ff78;font-weight:800}
+    .suas-simple-review .suas-simple-err{padding:12px;border:2px solid #101010;border-radius:14px;background:#ffd8e8;font-weight:800}
+    @media(max-width:700px){
+      .suas-simple-review{margin:0 14px 14px}
+      .suas-simple-review form{grid-template-columns:1fr}
+    }
+  </style>
+  {% form 'contact', id: form_id %}
+    {% if form.posted_successfully? %}
+      <div class="suas-simple-ok">Got it. Your review for {{ scent }} is in. It shows on this product and the reviews page after it is published.</div>
+    {% else %}
+      <h3>leave a review.</h3>
+      <p>Name, stars, and how {{ scent }} actually wore. That is the whole form.</p>
+      {% if form.errors %}
+        <div class="suas-simple-err">{{ form.errors | default_errors }}</div>
+      {% endif %}
+      <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
+      <input type="hidden" name="contact[handle]" value="{{ product.handle | escape }}">
+      <input type="hidden" name="contact[subject]" value="Product review: {{ product.title | escape }}">
+      <label>your name
+        <input type="text" name="contact[name]" value="{{ form.name }}" required autocomplete="name">
+      </label>
+      <label>email
+        <input type="email" name="contact[email]" value="{{ form.email }}" required autocomplete="email">
+      </label>
+      <label>stars
+        <select name="contact[rating]" required>
+          <option value="5">5 — loved it</option>
+          <option value="4">4 — really good</option>
+          <option value="3">3 — it was fine</option>
+          <option value="2">2 — not for me</option>
+          <option value="1">1 — miss</option>
+        </select>
+      </label>
+      <label>this product
+        <input type="text" value="{{ product.title | escape }}" readonly>
+      </label>
+      <textarea name="contact[body]" required minlength="10" placeholder="How did it smell on you? How did it wear?">{{ form.body }}</textarea>
+      <button type="submit">submit review</button>
+    {% endif %}
+  {% endform %}
+  <script>
+    (function () {
+      var form = document.getElementById({{ form_id | json }});
+      if (!form || form.dataset.ready === 'true') return;
+      form.dataset.ready = 'true';
+      form.addEventListener('submit', function () {
+        var rating = form.querySelector('[name="contact[rating]"]');
+        var body = form.querySelector('[name="contact[body]"]');
+        if (!body || body.dataset.packed === 'true') return;
+        body.dataset.packed = 'true';
+        body.value = 'PRODUCT REVIEW\nProduct: {{ product.title | escape }}\nHandle: {{ product.handle | escape }}\nStars: ' + (rating ? rating.value : '') + '/5\n\n' + body.value;
+      });
+    })();
+  </script>
+</div>

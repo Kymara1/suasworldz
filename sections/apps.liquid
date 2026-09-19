@@ -41,11 +41,10 @@
     html body.template--product .suas-review-empty-dots span:nth-child(3){background:#cdeeff}
     html body.template--product .suas-review-empty h3{margin:0 0 8px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,4.5vw,2.8rem);line-height:.88;text-transform:lowercase;font-weight:400}
     html body.template--product .suas-review-empty p{margin:0 auto;max-width:36ch;font-size:13px;line-height:1.4;font-weight:800}
-    html body.template--product .suas-review-app-stage.is-empty{padding:0!important;min-height:0!important}
-    html body.template--product .suas-review-app-stage.is-empty #aftership_reviews_all_reviews_widget_production,
-    html body.template--product .suas-review-app-stage.is-empty #aftership_reviews_carousel_v2_production,
-    html body.template--product .suas-review-app-stage.is-empty .shopify-app-block{display:none!important;min-height:0!important;padding:0!important;border:0!important;box-shadow:none!important}
-    html body.template--product .suas-review-app-stage iframe{width:100%;min-height:360px;border:0;border-radius:18px}
+    html body.template--product .suas-review-app-stage{padding:0 18px 18px}
+    html body.template--product .suas-review-app-stage iframe{width:100%;min-height:280px;border:0;border-radius:18px}
+    html body.template--product .suas-review-app-stage #aftership_reviews_all_reviews_widget_production,
+    html body.template--product .suas-review-app-stage [id*='aftership_product_reviews_all_reviews']{display:none!important;height:0!important;min-height:0!important;overflow:hidden!important;padding:0!important;border:0!important}
     @media(max-width:1023px){html body.template--product .suas-review-intro{grid-template-columns:1fr;padding:14px 14px 10px}html body.template--product .suas-review-action{width:100%}html body.template--product .suas-review-empty,html body.template--product .suas-review-app-stage{margin-left:14px;margin-right:14px}html body.template--product .suas-review-app-stage{padding:0 14px 14px;margin:0}}
   </style>
 {% endif %}
@@ -54,14 +53,20 @@
   <div class="apps--wrapper{% if is_product_review_shell %} suas-review-shell-window{% endif %}">
     {% if is_product_review_shell %}
       <div class="suas-smell-winbar" aria-hidden="true"><i></i><i></i><i></i><b>smell.log</b></div>
-      <div class="suas-review-intro"><div class="suas-review-copy"><h2>smell reports</h2><p>How it actually wore. Leave a note for the next person.</p></div><a class="suas-review-action" href="/pages/reviews?product={{ product.handle }}">write a review</a></div>
+      <div class="suas-review-intro"><div class="suas-review-copy"><h2>smell reports</h2><p>Leave a regular review for this product. The reviews page is only the feed of every scent together.</p></div><a class="suas-review-action" href="#suas-simple-review">write a review</a></div>
+      {% render 'suas-simple-review-form', product: product %}
       <div class="suas-review-empty" data-suas-review-empty>
         <div class="suas-review-empty-dots" aria-hidden="true"><span></span><span></span><span></span></div>
         <h3>nobody's spilled yet.</h3>
-        <p>Be the first to say how this one actually wore on skin.</p>
+        <p>Published reviews will land under the form. You can still write one above.</p>
       </div>
     {% endif %}
-    <div class="suas-review-app-stage{% if is_product_review_shell %} is-empty{% endif %}" data-suas-review-stage>{{ app_blocks }}</div>
+    <div class="suas-review-app-stage" data-suas-review-stage>
+      {% if is_product_review_shell %}
+        {% render 'asrv-product-reviews-widget' %}
+      {% endif %}
+      {{ app_blocks }}
+    </div>
     {% if is_product_review_shell %}
       <script>
         (function () {
@@ -69,14 +74,13 @@
           var stage = document.querySelector('[data-suas-review-stage]');
           if (!empty || !stage) return;
           function hasReviews() {
-            var text = (stage.innerText || '').replace(/\s+/g, ' ').toLowerCase();
+            var node = document.getElementById('aftership_reviews_carousel_v2_production') || stage;
+            var text = (node.innerText || '').replace(/\s+/g, ' ').toLowerCase();
             if (!text || /no reviews yet|be the first to write/.test(text)) return false;
-            return stage.querySelectorAll('article, [class*="review-card"], [class*="ReviewItem"], [class*="reviewItem"]').length > 0 || text.length > 80;
+            return node.querySelectorAll('article, [class*="review-card"], [class*="ReviewItem"], [class*="reviewItem"]').length > 0 || text.length > 80;
           }
           function sync() {
-            var live = hasReviews();
-            empty.hidden = live;
-            stage.classList.toggle('is-empty', !live);
+            empty.hidden = hasReviews();
           }
           sync();
           var ticks = 0;
