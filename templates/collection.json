@@ -73,12 +73,11 @@
     "main": {
       "type": "collection--body",
       "custom_css": [
-        ".featured-collection--title {display: none !important;}",
-        "img.lazyloaded {border-radius: 20px; /* Adjust the value for more or less curve */ overflow: hidden;}"
+        ".featured-collection--title {display: none !important;}"
       ],
       "settings": {
         "products-per-row--desktop": 4,
-        "products-per-row--mobile": "2",
+        "products-per-row--mobile": "3",
         "number-of-rows": 7
       }
     }
