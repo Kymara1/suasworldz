@@ -8,8 +8,11 @@
     .suas-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1260px,calc(100vw - 32px));margin:0 auto}
-    .suas-billboard{display:grid;gap:0;padding:8px 2px 10px;text-align:center;justify-items:center}
-    .suas-billboard h2{margin:0;font-size:clamp(3.4rem,9vw,7rem);line-height:.78;text-transform:lowercase}
+    .suas-billboard{display:grid;gap:0;padding:10px 2px 14px;text-align:center;justify-items:center}
+    .suas-home-logo{display:inline-flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,22px);max-width:min(100%,560px);color:inherit;text-decoration:none}
+    .suas-home-logo-img{display:block;width:min(100%,420px);height:auto;max-height:110px;object-fit:contain}
+    .suas-home-logo .suas-side-orb,.suas-home-logo-orb{width:clamp(56px,9vw,92px)!important;height:clamp(56px,9vw,92px)!important;flex:0 0 auto;border-radius:999px;background:radial-gradient(circle at 32% 20%,#fff 0 10%,transparent 32%),conic-gradient(from 210deg,#ffd8e8,#c9e7ff,#d8e26a,#ffd8e8);box-shadow:inset 0 -6px 12px rgba(0,0,0,.16),inset 0 6px 12px rgba(255,255,255,.85),0 8px 16px -8px rgba(16,16,16,.35)}
+    .suas-home-logo-type{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(3.6rem,10vw,6.4rem);font-weight:700;line-height:.8;text-transform:uppercase}
     .suas-aisles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .suas-aisle{display:flex;flex-direction:column;gap:10px;min-height:0;padding:16px;border:2px solid var(--ink);border-radius:24px;box-shadow:5px 6px 0 var(--ink);overflow:hidden}
     .suas-aisle--body{background:linear-gradient(135deg,#ffd8e8,#fff 62%)}
@@ -21,7 +24,7 @@
     .suas-aisle-chips a{min-height:34px;display:inline-flex;align-items:center;padding:6px 11px;border:1.75px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 2px 0 var(--ink);text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
     .suas-aisle-chips a:hover{transform:translateY(1px);box-shadow:0 1px 0 var(--ink)}
     .suas-hero-stack{display:grid;gap:12px}
-    .suas-lower-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:12px;align-items:stretch}
+    .suas-lower-grid{display:grid;grid-template-columns:1fr;gap:12px;align-items:stretch}
     .suas-feed-notes{min-height:0;display:flex;flex-direction:column;gap:0;border:2px solid var(--ink);border-radius:22px;background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(135deg,rgba(255,216,232,.52),rgba(255,255,255,.95) 58%,rgba(217,255,120,.36));background-size:18px 18px,18px 18px,auto;box-shadow:5px 6px 0 var(--ink);padding:0;overflow:hidden}
     .suas-feed-announcement{width:100%;min-height:0;flex:1;display:flex;align-items:center;border:1.5px solid var(--ink);border-radius:15px;background:rgba(255,255,255,.9);padding:10px 12px;color:var(--ink);font-size:1.05rem;line-height:1.15}
     .suas-product-buy{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:stretch;gap:6px;margin-top:0;min-width:0}
@@ -97,8 +100,8 @@
     }
     @media(max-width:560px){
       .suas-aisles{grid-template-columns:1fr}
-      .suas-billboard h2{font-size:clamp(2.8rem,16vw,4.2rem)}
-      .suas-lower-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:8px}
+      .suas-home-logo-type{font-size:clamp(2.8rem,16vw,4.2rem)}
+      .suas-lower-grid{grid-template-columns:1fr;gap:8px}
       .suas-window-live{display:none}
       .suas-product-rotator{padding:6px}
       .suas-product-slide{grid-template-columns:minmax(0,118px) minmax(0,1fr);gap:6px}
@@ -145,7 +148,14 @@
     <div class="suas-home-wrap">
       <div class="suas-hero-stack">
         <header class="suas-billboard">
-          <h2 class="suas-font">shut up &amp; smell.</h2>
+          <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS">
+            {%- if shop.brand.logo != blank -%}
+              <img class="suas-home-logo-img" src="{{ shop.brand.logo | image_url: width: 900 }}" alt="SUAS">
+            {%- else -%}
+              <span class="suas-home-logo-orb" aria-hidden="true"></span>
+              <span class="suas-home-logo-type">SUAS</span>
+            {%- endif -%}
+          </a>
         </header>
         <div class="suas-aisles">
           <article class="suas-aisle suas-aisle--body">
@@ -201,10 +211,6 @@
                       <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
                       <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
                     </div>
-                    <div class="suas-product-actions">
-                      <a class="suas-feed-btn suas-mono" href="/collections/butter-creme" style="--feed-btn:#ffd8e8">shop body</a>
-                      <a class="suas-feed-btn suas-mono" href="/collections/home-care" style="--feed-btn:#cdeeff">shop home</a>
-                    </div>
                   </div>
                 </div>
               {% endfor %}
@@ -224,10 +230,6 @@
                         <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
                         <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
                       </div>
-                      <div class="suas-product-actions">
-                        <a class="suas-feed-btn suas-mono" href="/collections/butter-creme" style="--feed-btn:#ffd8e8">shop body</a>
-                        <a class="suas-feed-btn suas-mono" href="/collections/home-care" style="--feed-btn:#cdeeff">shop home</a>
-                      </div>
                     </div>
                   </div>
                 {% endfor %}
@@ -240,10 +242,6 @@
                   <div class="suas-product-buy">
                     <div class="suas-product-price suas-mono">shop</div>
                   </div>
-                  <div class="suas-product-actions">
-                    <a class="suas-feed-btn suas-mono" href="/collections/butter-creme" style="--feed-btn:#ffd8e8">shop body</a>
-                    <a class="suas-feed-btn suas-mono" href="/collections/home-care" style="--feed-btn:#cdeeff">shop home</a>
-                  </div>
                 </div>
               </div>
             {% endif %}
@@ -251,28 +249,6 @@
         </div>
 
         <div class="suas-lower-grid">
-          <aside class="suas-launch-panel">
-            <div class="suas-window-bar">
-              <div class="suas-window-dots">
-                <span class="suas-dot" style="--dot:#ff5f57"></span>
-                <span class="suas-dot" style="--dot:#febc2e"></span>
-                <span class="suas-dot" style="--dot:#28c840"></span>
-              </div>
-              <span class="suas-window-title suas-mono">SHOP.BODY / SHOP.HOME</span>
-              <span class="suas-window-live suas-mono"><b></b>APPS</span>
-            </div>
-            <div class="suas-launch-body">
-              <div class="suas-launch-grid">
-                <a class="suas-launch" href="/collections/butter-creme" style="--launch:#ffd8e8"><strong class="suas-font">butter creme</strong><span class="suas-mono">body</span></a>
-                <a class="suas-launch" href="/collections/body-wash" style="--launch:#d9ff78"><strong class="suas-font">body wash</strong><span class="suas-mono">body</span></a>
-                <a class="suas-launch" href="/collections/body-oil" style="--launch:#e4d5ff"><strong class="suas-font">body oil</strong><span class="suas-mono">body</span></a>
-                <a class="suas-launch" href="/collections/candles" style="--launch:#cdeeff"><strong class="suas-font">candles</strong><span class="suas-mono">home</span></a>
-                <a class="suas-launch" href="/collections/everything-mist" style="--launch:#fff1a8"><strong class="suas-font">everything mist</strong><span class="suas-mono">home</span></a>
-                <a class="suas-launch" href="/collections/cleansing-bar" style="--launch:#ff9bc4"><strong class="suas-font">cleansing bar</strong><span class="suas-mono">body</span></a>
-              </div>
-              <div class="suas-actions"><a class="suas-btn suas-mono" data-dark href="/collections/all">shop all</a></div>
-            </div>
-          </aside>
           <div class="suas-feed-notes">
             <div class="suas-window-bar">
               <div class="suas-window-dots">
