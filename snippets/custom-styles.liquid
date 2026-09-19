@@ -505,62 +505,109 @@
     document.querySelectorAll('.suas-lab-book').forEach(function (node) { node.remove(); });
     if (!/\/pages\/bookings/.test(location.pathname)) return;
     var root = document.querySelector('.suas-bookings-page');
-    if (!root) return;
-    if (!root.querySelector('[data-suas-seat-meter]')) {
-      var copy = root.querySelector('.suas-book-copy') || root.querySelector('p');
-      var meter = document.createElement('div');
+    if (!root || root.getAttribute('data-suas-book-v') === '75') return;
+
+    var selfTimes = {0:['1:00 PM','2:00 PM','3:00 PM','4:00 PM'],4:['1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],5:['1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],6:['1:00 PM','2:00 PM','3:00 PM','4:00 PM']};
+    var guidedTimes = {4:['Thursday 6:00 PM - 7:15 PM'],5:['Friday 6:00 PM - 7:15 PM'],6:['Saturday 4:30 PM - 5:45 PM','Saturday 6:00 PM - 7:15 PM']};
+    var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+    var lists = root.querySelectorAll('.suas-book-list');
+    if (lists[0] && !lists[1]) {
+      lists[0].innerHTML = '<li style="--chip:#ffe8ef">Self-guided Thursday + Friday: 1:00 PM – 5:00 PM.</li><li style="--chip:#c9e7ff">Self-guided Saturday + Sunday: 1:00 PM – 4:00 PM.</li><li style="--chip:#d9ff78">Guided Thursday + Friday: 6:00 PM – 7:15 PM.</li><li style="--chip:#fff2a8">Guided Saturday: 4:30 PM – 5:45 PM or 6:00 PM – 7:15 PM. 75 min. 12 seats.</li><li>Monday–Wednesday closed. No guided sessions Sunday.</li>';
+    }
+
+    root.querySelectorAll('#GuidedVariant option').forEach(function (opt) {
+      opt.textContent = opt.textContent.replace(/7:30\s*PM/gi, '7:15 PM').replace(/4:00\s*PM\s*-\s*5:30\s*PM/gi, '4:30 PM - 5:45 PM');
+    });
+
+    var guidedCard = root.querySelector('#guided-class') || root.querySelectorAll('.suas-book-option')[1];
+    var meter = root.querySelector('[data-suas-seat-meter], .suas-seat-meter');
+    if (meter && guidedCard && !guidedCard.contains(meter)) guidedCard.insertBefore(meter, guidedCard.querySelector('form') || guidedCard.firstChild);
+    if (!meter && guidedCard) {
+      meter = document.createElement('div');
       meter.className = 'suas-seat-meter';
       meter.setAttribute('data-suas-seat-meter', '');
-      meter.innerHTML = '<strong data-suas-seat-text>12 of 12 seats left</strong><span data-suas-seat-hint>pick a date on a form</span>';
-      if (copy && copy.parentNode) copy.insertAdjacentElement('afterend', meter);
-      else root.insertAdjacentElement('afterbegin', meter);
+      meter.innerHTML = '<strong data-suas-seat-text>12 of 12 seats left</strong><span data-suas-seat-hint>pick a class date + time</span>';
+      guidedCard.insertBefore(meter, guidedCard.querySelector('form') || guidedCard.firstChild);
     }
+
+    var contact = root.querySelector('[data-guided-full]');
+    if (!contact && guidedCard) {
+      contact = document.createElement('div');
+      contact.className = 'suas-book-contact';
+      contact.setAttribute('data-guided-full', '');
+      contact.innerHTML = '<p>This class is full. Send us a note and we will see if we can still fit your party in.</p><a href="/pages/contact-us">contact us</a>';
+      guidedCard.appendChild(contact);
+    }
+
     if (!root.querySelector('#suas-seat-style')) {
       var style = document.createElement('style');
       style.id = 'suas-seat-style';
-      style.textContent = '.suas-seat-meter{display:flex;justify-content:space-between;align-items:end;gap:8px;margin:14px 0 0;padding:10px 12px;border:2px solid #101010;border-radius:18px;background:#d9ff78;box-shadow:3px 4px 0 #101010}.suas-seat-meter strong{font-family:Casual Human,Futura,Arial,sans-serif;font-size:clamp(1.4rem,3vw,1.9rem);line-height:.9}.suas-seat-meter span{font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.65}.suas-seat-meter.is-full{background:#ffe8ef}.suas-seat-meter.is-low{background:#fff2a8}.suas-book-button[disabled]{opacity:.58;cursor:not-allowed;background:#fff}';
+      style.textContent = '.suas-seat-meter{display:flex;justify-content:space-between;align-items:end;gap:8px;margin:8px 0;padding:10px 12px;border:2px solid #101010;border-radius:18px;background:#d9ff78;box-shadow:3px 4px 0 #101010}.suas-seat-meter strong{font-family:Casual Human,Futura,Arial,sans-serif;font-size:clamp(1.3rem,3vw,1.75rem)}.suas-seat-meter span{font:900 9px/1.2 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.65}.suas-seat-meter.is-full{background:#ffe8ef}.suas-book-contact{display:none;margin-top:10px;padding:14px;border:2px solid #101010;border-radius:18px;background:#fff;box-shadow:3px 4px 0 #101010}.suas-book-contact.is-on{display:grid;gap:10px}.suas-book-contact a{display:grid;place-items:center;min-height:48px;border:2px solid #101010;border-radius:999px;background:#fff2a8;color:#101010;text-decoration:none;font:900 12px Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}';
       root.appendChild(style);
     }
+
+    function dayOf(value){ if(!value) return null; var b = value.split('-').map(Number); return new Date(b[0], b[1]-1, b[2]).getDay(); }
+    function fillTimes(select, options){ if(!select) return; var cur = select.value; select.innerHTML = '<option value="">choose time</option>' + options.map(function(t){ return '<option>'+t+'</option>'; }).join(''); if (options.indexOf(cur) !== -1) select.value = cur; }
+
+    var forms = root.querySelectorAll('form');
+    var selfForm = root.querySelector('[data-booking-form="self"]') || forms[0];
+    var guidedForm = root.querySelector('[data-booking-form="guided"]') || forms[1];
+    var selfDate = selfForm && selfForm.querySelector('input[type="date"]');
+    var selfTime = selfForm && selfForm.querySelector('select[name="properties[Preferred time]"], #ParfumTime');
+    var guidedDate = guidedForm && guidedForm.querySelector('input[type="date"]');
+    var guidedTime = guidedForm && guidedForm.querySelector('select[name="properties[Class time]"], #GuidedTime');
+    var guidedSubmit = guidedForm && guidedForm.querySelector('[type="submit"]');
     var remaining = 12;
+
+    if (selfDate && selfTime) {
+      selfDate.addEventListener('change', function () {
+        var d = dayOf(selfDate.value); var opts = selfTimes[d] || [];
+        if (!opts.length) { alert(dayNames[d] + ' is closed for self-guided bookings.'); selfDate.value = ''; fillTimes(selfTime, []); return; }
+        fillTimes(selfTime, opts);
+      });
+    }
+    if (guidedDate && guidedTime) {
+      guidedDate.addEventListener('change', function () {
+        var d = dayOf(guidedDate.value); var opts = guidedTimes[d] || [];
+        if (!opts.length) { alert(dayNames[d] + ' is not available for guided classes. Choose Thursday, Friday, or Saturday.'); guidedDate.value = ''; fillTimes(guidedTime, []); paintSeats(); return; }
+        fillTimes(guidedTime, opts); paintSeats();
+      });
+      guidedTime.addEventListener('change', paintSeats);
+    }
+
     function paintSeats(){
       remaining = 12;
-      var dateInputs = Array.prototype.slice.call(root.querySelectorAll('input[type="date"]')).map(function(i){ return i.value; }).filter(Boolean);
-      var date = dateInputs[0] || '';
+      var date = guidedDate ? guidedDate.value : '';
+      var time = guidedTime ? guidedTime.value : '';
       var text = root.querySelector('[data-suas-seat-text],[data-seat-text]');
       var hint = root.querySelector('[data-suas-seat-hint],[data-seat-hint]');
-      var meter = root.querySelector('[data-suas-seat-meter],.suas-seat-meter');
-      if (!date) {
-        if (text) text.textContent = '12 of 12 seats left';
-        if (hint) hint.textContent = 'pick a date on a form';
-        return;
-      }
+      if (!date) { if (text) text.textContent = '12 of 12 seats left'; if (hint) hint.textContent = 'pick a class date + time'; if (contact) contact.classList.remove('is-on'); return; }
       fetch('/cart.js', { credentials: 'same-origin' }).then(function(r){ return r.json(); }).then(function(cart){
         remaining = 12;
         (cart.items || []).forEach(function(item){
           var p = item.properties || {};
-          var d = p['Preferred date'] || p['Class date'] || '';
-          if (d === date) remaining -= Number(item.quantity || 0);
+          if (p['Class date'] === date && (!time || p['Class time'] === time)) remaining -= Number(item.quantity || 0);
         });
         remaining = Math.max(0, remaining);
         if (text) text.textContent = remaining + ' of 12 seats left';
-        if (hint) hint.textContent = remaining ? 'live for this date' : 'sold out';
-        if (meter) { meter.classList.toggle('is-low', remaining > 0 && remaining <= 3); meter.classList.toggle('is-full', remaining <= 0); }
-        root.querySelectorAll('button[type="submit"]').forEach(function(btn){
-          btn.disabled = remaining <= 0;
-          if (remaining <= 0) btn.textContent = 'sold out for this date';
-        });
+        if (hint) hint.textContent = remaining ? 'this guided class' : 'class is full';
+        if (meter) { meter.classList.toggle('is-full', remaining <= 0); meter.classList.toggle('is-low', remaining > 0 && remaining <= 3); }
+        if (guidedSubmit) { guidedSubmit.style.display = remaining <= 0 ? 'none' : ''; guidedSubmit.disabled = remaining <= 0; }
+        if (contact) contact.classList.toggle('is-on', remaining <= 0);
       }).catch(function(){});
     }
-    root.querySelectorAll('input[type="date"]').forEach(function(input){ input.addEventListener('change', paintSeats); });
-    root.querySelectorAll('form').forEach(function(form){
-      form.addEventListener('submit', function(event){
-        var guests = Number((form.querySelector('[name="quantity"]') || {}).value || 1);
+
+    if (guidedForm) {
+      guidedForm.addEventListener('submit', function (event) {
+        var guests = Number((guidedForm.querySelector('[name="quantity"]') || {}).value || 1);
         if (remaining <= 0 || guests > remaining) {
           event.preventDefault();
-          alert('Only ' + remaining + ' seats left for that date.');
+          if (contact) contact.classList.add('is-on');
+          alert('This class is full. Contact us and we will see if we can still fit you in.');
         }
       });
-    });
+    }
     paintSeats();
   });
 </script>
