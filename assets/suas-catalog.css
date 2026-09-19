@@ -111,8 +111,10 @@ html body.template--collection .suas-catalog-card .product--from,
 html body.template--collection .suas-catalog-card .product--compare-price {
   display: none !important;
 }
-html body.template--collection .suas-catalog-card .product--rating {
-  display: none !important;
+html body.template--collection .suas-catalog-card .product--rating,
+html body.template--search .suas-catalog-card .product--rating {
+  display: block !important;
+  margin: 2px 0 0;
 }
 html body.template--collection .suas-catalog-card .product--image-wrapper,
 html body.template--search .suas-catalog-card .product--image-wrapper {

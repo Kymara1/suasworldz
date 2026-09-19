@@ -218,6 +218,7 @@
                   </a>
                   <div class="suas-product-copy">
                     <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
+                    {% render 'product-rating', product: product, link: true %}
                     <div class="suas-product-buy">
                       <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
                       <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
@@ -237,6 +238,7 @@
                     </a>
                     <div class="suas-product-copy">
                       <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
+                      {% render 'product-rating', product: product, link: true %}
                       <div class="suas-product-buy">
                         <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
                         <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
@@ -317,6 +319,7 @@
                       <div class="suas-boost-fallback"></div>
                     {% endif %}
                     <b class="suas-font">{{ product.title }}</b>
+                    {% render 'product-rating', product: product %}
                     <div class="suas-boost-meta">
                       {% if product.compare_at_price > product.price %}
                         <span class="suas-sale">sale</span>

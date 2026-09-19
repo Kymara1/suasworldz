@@ -124,6 +124,7 @@
                   <div class="suas-rev-fallback">s.</div>
                 {% endif %}
                 <b>{{ product.title | split: '✿' | first | strip }}</b>
+                {% render 'product-rating', product: product %}
                 <span>write this report →</span>
               </a>
             {% endfor %}

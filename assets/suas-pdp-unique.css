@@ -246,8 +246,11 @@ html body.template--product .suas-station-buy-body {
   padding: 12px 12px 14px !important;
   background: transparent !important;
 }
-html body.template--product .suas-pdp-stars,
 html body.template--product .suas-pdp-jump { display: none !important; }
+html body.template--product .suas-station-buy .suas-product-stars {
+  display: flex !important;
+  margin: 0 0 8px;
+}
 html body.template--product .suas-pdp-stamp {
   margin: 0 0 8px;
   font-size: 10px;

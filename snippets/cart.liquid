@@ -87,6 +87,7 @@
         <div data-item="block-heading">
           <a href="{{ item.url }}">{{ item.product.title }}</a>
         </div>
+        {% render 'product-rating', product: item.product, link: true %}
 
         {% unless item.variant.title contains 'Default' %}
           <div class="cart--item--variant-name" data-item="accent-text">
@@ -245,6 +246,7 @@
         <div data-item="block-heading">
           <a href="{{ item.url }}">{{ item.product.title }}</a>
         </div>
+        {% render 'product-rating', product: item.product, link: true %}
 
         <div class='cart--error' data-item='small-text' style='display:none;'>
           {{ all_items_added_t }}

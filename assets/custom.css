@@ -662,3 +662,65 @@ footer.footer--root {
 .template--index .layout--main-content {
   padding-top: 12px;
 }
+
+.suas-product-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0 4px;
+  color: #101010;
+  text-decoration: none;
+  font-family: Futura, 'Futura PT', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.suas-product-stars .jdgm-widget,
+.suas-product-stars .jdgm-preview-badge,
+.suas-product-stars .jdgm-prev-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  min-height: 16px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.suas-product-stars :is(.jdgm-star, .jdgm-star:before) {
+  color: #101010 !important;
+  font-size: 14px !important;
+  letter-spacing: 1px !important;
+}
+.suas-product-stars .jdgm-prev-badge__text {
+  color: #101010 !important;
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+.suas-product-stars :is(.jdgm-powered, .jdgm-branding, a[href*='://judge.me'], a[href*='judgeme.com']) {
+  display: none !important;
+}
+.suas-product-stars--fallback {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1;
+}
+.suas-product-stars--fallback .suas-star-row {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.suas-product-stars--fallback .suas-star-count {
+  font-size: 8px;
+  letter-spacing: .1em;
+  color: #101010;
+}
+.suas-product-stars:has(.jdgm-star) .suas-product-stars--fallback,
+.suas-product-stars:has(.jdgm-preview-badge:not(:empty)) .suas-product-stars--fallback,
+.suas-product-stars:has(.jdgm-prev-badge:not(:empty)) .suas-product-stars--fallback {
+  display: none !important;
+}

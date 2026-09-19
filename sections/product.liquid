@@ -184,7 +184,6 @@
         {%- when 'heading' -%}
           <h2 class="product-page--heading" data-item="section-heading">
             {{ product.title }}
-            <!--BEGIN_AM_REVIEWS:production:PRODUCT_COLLECTION_STAR_WIDGET-->{% render 'asrv-star-widget' , product: product, size: 14 , anchor: false %}<!--END_AM_REVIEWS:production:PRODUCT_COLLECTION_STAR_WIDGET-->
           </h2>
 
         {%- when 'vendor' -%}
@@ -384,6 +383,7 @@
       </div>
       <div class="suas-station-buy-body">
         <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
+        {%- render 'product-rating', product: product, link: true -%}
         {%- if product.type != blank -%}
           <p class="suas-pdp-stamp">{{ product.type }}</p>
         {%- endif -%}
