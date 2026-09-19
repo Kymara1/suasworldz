@@ -101,6 +101,10 @@
       assign move_to_next_container = true
       continue
     endif
+
+    if block.type == 'scent-note-image'
+      continue
+    endif
   -%}
 
   {%- capture block_html -%}
@@ -262,7 +266,7 @@
     {%- endif -%}
   </div>
 
-  {% render 'suas-product-experience', product: product %}
+  {% render 'suas-product-experience', product: product, note_blocks: section.blocks %}
 
   <div class="product-page--content">
     <div class="product-page--column-container" data-mq="medium-large">
@@ -516,6 +520,34 @@
           "id": "custom-liquid",
           "label": "Custom Liquid",
           "info": "Add app snippets or other Liquid code to create advanced customizations."
+        }
+      ]
+    },
+    {
+      "type": "scent-note-image",
+      "name": "Scent note image",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product this image belongs to"
+        },
+        {
+          "type": "text",
+          "id": "product_handle",
+          "label": "Fallback product handle",
+          "info": "Use only if the product picker is blank. Example: haze-butter-creme"
+        },
+        {
+          "type": "text",
+          "id": "note_label",
+          "label": "Scent note label",
+          "default": "wildflower bouquet"
+        },
+        {
+          "type": "image_picker",
+          "id": "note_image",
+          "label": "Scent note image"
         }
       ]
     },
