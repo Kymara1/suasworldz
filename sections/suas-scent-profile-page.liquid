@@ -9,7 +9,7 @@
     .suas-families-head h1{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.8rem,8vw,5.6rem);line-height:.78;text-transform:lowercase}
     .suas-families-grid{display:grid;gap:10px}
     .suas-family{display:grid;grid-template-columns:minmax(108px,160px) minmax(0,1fr);align-items:stretch;border:2px solid var(--ink);border-radius:22px;background:#fff;box-shadow:5px 6px 0 var(--ink);overflow:hidden}
-    .suas-family b{display:flex;align-items:center;padding:10px 12px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:.82;font-weight:700;text-transform:lowercase}
+    .suas-family-name{display:flex;align-items:center;padding:10px 12px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:.82;font-weight:700;text-transform:lowercase;color:inherit;text-decoration:none}
     .suas-family-shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:8px}
     .suas-family-shots.is-two{grid-template-columns:repeat(2,minmax(0,1fr))}
     .suas-family-shots a{display:block;min-height:0;border:2px solid var(--ink);border-radius:14px;overflow:hidden;background:#f4f1ea}
@@ -17,7 +17,7 @@
     @media(min-width:1024px){.template--page--scent-profile .off-canvas--main-content{margin-left:220px!important;width:calc(100% - 220px)!important}}
     @media(max-width:720px){
       .suas-family{grid-template-columns:1fr}
-      .suas-family b{padding:10px 12px 0}
+      .suas-family-name{padding:10px 12px 0}
       .suas-family-shots img{height:88px}
     }
   </style>
@@ -29,7 +29,7 @@
 
     <div class="suas-families-grid">
       <article class="suas-family">
-        <b>fruit</b>
+        <a class="suas-family-name" href="/collections/scent-fruit">fruit</a>
         <div class="suas-family-shots">
           <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-goodgirl-pear.png' | asset_url }}" alt="pear - Good Girl" width="800" height="800" loading="lazy"></a>
           <a href="/products/nectar-butter-creme-copy"><img src="{{ 'note-pineapple.png' | asset_url }}" alt="pineapple - Nectar" width="800" height="800" loading="lazy"></a>
@@ -39,7 +39,7 @@
       </article>
 
       <article class="suas-family">
-        <b>floral</b>
+        <a class="suas-family-name" href="/collections/scent-floral">floral</a>
         <div class="suas-family-shots">
           <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-jasmine.png' | asset_url }}" alt="jasmine - Good Girl" width="800" height="800" loading="lazy"></a>
           <a href="/products/poppy"><img src="{{ 'note-poppy-cosmos.png' | asset_url }}" alt="cosmos - Poppy" width="800" height="800" loading="lazy"></a>
@@ -49,7 +49,7 @@
       </article>
 
       <article class="suas-family">
-        <b>gourmand</b>
+        <a class="suas-family-name" href="/collections/scent-gourmand">gourmand</a>
         <div class="suas-family-shots">
           <a href="/products/poppy"><img src="{{ 'note-poppy-gum.png' | asset_url }}" alt="pink gum - Poppy" width="800" height="800" loading="lazy"></a>
           <a href="/products/good-girl-butter-creme-2"><img src="{{ 'note-coconut.png' | asset_url }}" alt="coconut - Good Girl" width="800" height="800" loading="lazy"></a>
@@ -59,7 +59,7 @@
       </article>
 
       <article class="suas-family">
-        <b>green</b>
+        <a class="suas-family-name" href="/collections/scent-green">green</a>
         <div class="suas-family-shots is-two">
           <a href="/products/tonic-butter-creme"><img src="{{ 'note-sage-mint.png' | asset_url }}" alt="crushed mint - Tonic" width="800" height="800" loading="lazy"></a>
           <a href="/products/tonic-butter-creme"><img src="{{ 'note-tonic-mojito.png' | asset_url }}" alt="mojito - Tonic" width="800" height="800" loading="lazy"></a>
@@ -67,7 +67,7 @@
       </article>
 
       <article class="suas-family">
-        <b>sparkle</b>
+        <a class="suas-family-name" href="/collections/scent-sparkle">sparkle</a>
         <div class="suas-family-shots">
           <a href="/products/haze-butter-creme"><img src="{{ 'note-sunshine.png' | asset_url }}" alt="soft sunshine - Haze" width="800" height="800" loading="lazy"></a>
           <a href="/products/poppy"><img src="{{ 'note-poppy-bouquet.png' | asset_url }}" alt="sparkle bouquet - Poppy" width="800" height="800" loading="lazy"></a>
