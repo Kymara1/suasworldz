@@ -7,9 +7,9 @@
   <div class="suas-book-wrap">
     <div class="suas-book-hero">
       <div class="suas-book-card">
-        <div class="suas-book-kicker">the lab / bookings</div>
+        <div class="suas-book-kicker">about us / bookings</div>
         <h1 class="suas-book-title">book the lab.</h1>
-        <p class="suas-book-copy">Pick a session, choose your date and time, then reserve your seat. Walk-ins are welcome before 5:00 PM when a station is free. Guided classes need a booking. The Lab has 12 seats a date — when they are gone, that date stops selling.</p>
+        <p class="suas-book-copy">Pick your experiment, date, time, and contact info, then check out. The price shown here follows the selected Shopify product or variant, so product price changes stay connected. The Lab has 12 seats a date — when they are gone, that date stops selling.</p>
         <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>12 of 12 seats left</strong><span data-suas-seat-hint>pick a date on a form</span></div>
         <div class="suas-book-steps" aria-label="Booking steps">
           <div class="suas-book-step"><span>01</span><strong>choose experiment</strong></div>
@@ -144,7 +144,7 @@
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" value="1"></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
             <div class="suas-book-field" data-wide><label class="suas-book-label" for="ParfumName">name</label><input class="suas-book-input" id="ParfumName" type="text" name="properties[Guest name]" required></div>
-            <button class="suas-book-button" type="submit">reserve this session</button>
+            <button class="suas-book-button" type="submit">add booking to cart</button>
           {% endform %}
         {% else %}
           <button class="suas-book-button" disabled>connect booking products</button>
@@ -157,7 +157,7 @@
           <div>
             <span class="suas-book-badge">guided class</span>
             <h2>Guided Lab Session</h2>
-            <p class="suas-book-desc" data-guided-description>Hands-on guided class. Choose an experiment option to see everything included.</p>
+            <p class="suas-book-desc" data-guided-description>Create a custom perfume with hands-on guidance from start to finish.</p>
           </div>
           <div class="suas-book-price-card"><span>selected price</span><strong class="suas-book-price" data-guided-price aria-live="polite">{% if deluxe_product != blank %}{{ deluxe_product.selected_or_first_available_variant.price | money }}{% else %}choose{% endif %}</strong></div>
         </div>
@@ -193,7 +193,7 @@
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="12" value="1"></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedPhone">phone</label><input class="suas-book-input" id="GuidedPhone" type="tel" name="properties[Phone number]" required></div>
             <div class="suas-book-field" data-wide><label class="suas-book-label" for="GuidedName">name</label><input class="suas-book-input" id="GuidedName" type="text" name="properties[Guest name]" required></div>
-            {% if deluxe_product.available %}<button class="suas-book-button" type="submit">reserve this class</button>{% else %}<button class="suas-book-button" disabled>all guided classes full</button>{% endif %}
+            {% if deluxe_product.available %}<button class="suas-book-button" type="submit">add booking to cart</button>{% else %}<button class="suas-book-button" disabled>all guided classes full</button>{% endif %}
           {% endform %}
         {% else %}
           <button class="suas-book-button" disabled>connect guided product</button>

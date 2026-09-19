@@ -503,83 +503,64 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.suas-lab-book').forEach(function (node) { node.remove(); });
-    if (!/\/pages\/bookings/.test(location.pathname) || document.querySelector('.suas-bookings-page')) return;
-    var main = document.querySelector('#main-content') || document.body;
-    var root = document.createElement('section');
-    root.className = 'suas-bookings-page';
-    root.setAttribute('aria-label', 'Book The Lab');
-    root.innerHTML = '<style>.suas-bookings-page{--ink:#101010;--pink:#ffe8ef;--lime:#d9ff78;--blue:#c9e7ff;--sun:#fff2a8;color:#101010;background:radial-gradient(circle at 10% 8%,rgba(255,159,194,.25),transparent 30%),radial-gradient(circle at 90% 14%,rgba(217,255,120,.3),transparent 30%),#fffaf5;font-family:Futura,Arial,sans-serif}.suas-bookings-page *{box-sizing:border-box}.suas-book-wrap{width:min(1120px,calc(100vw - 28px));margin:0 auto;padding:18px 0 48px}.suas-book-hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(240px,.8fr);gap:14px;margin-bottom:16px}.suas-book-card,.suas-book-panel,.suas-book-option{border:2px solid #101010;border-radius:24px;background:#fff;box-shadow:0 6px 0 #101010;padding:18px}.suas-book-kicker{font:900 11px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}.suas-book-title{margin:8px 0 10px;font-family:Casual Human,Futura,Arial,sans-serif;font-size:clamp(2.1rem,5vw,3.6rem);line-height:.86;font-weight:400;text-transform:uppercase}.suas-book-copy{margin:0;font-size:15px;line-height:1.45;font-weight:800;color:rgba(16,16,16,.66)}.suas-seat-meter{display:flex;justify-content:space-between;align-items:end;margin:14px 0 0;padding:10px 12px;border:2px solid #101010;border-radius:18px;background:#d9ff78;box-shadow:3px 4px 0 #101010}.suas-seat-meter strong{font-family:Casual Human,Futura,Arial,sans-serif;font-size:1.6rem}.suas-book-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}.suas-book-step{border:1.5px solid rgba(16,16,16,.16);border-radius:18px;padding:10px;background:#fff}.suas-book-step span{display:inline-grid;place-items:center;width:28px;height:28px;border:2px solid #101010;border-radius:999px;background:#fff2a8;font:900 10px Futura,Arial,sans-serif}.suas-book-step strong{display:block;margin-top:8px;font-family:Casual Human,Futura,Arial,sans-serif;font-size:1.05rem;font-weight:400}.suas-book-list{display:grid;gap:7px;margin:0;padding:0;list-style:none}.suas-book-list li{border:1px solid rgba(16,16,16,.14);border-radius:15px;padding:9px 10px;background:var(--chip,#fff);font-size:13px;font-weight:800}.suas-book-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.suas-book-option h2{margin:6px 0 0;font-family:Casual Human,Futura,Arial,sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:400;text-transform:uppercase;line-height:.9}.suas-book-desc{margin:8px 0 0;font-size:14px;font-weight:800;color:rgba(16,16,16,.68)}.suas-book-form{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.suas-book-field{display:grid;gap:5px}.suas-book-field[data-wide],.suas-book-button,.suas-book-note,.suas-book-policy{grid-column:1/-1}.suas-book-label{font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.6}.suas-book-input,.suas-book-select{width:100%;min-height:46px;border:2px solid rgba(16,16,16,.18);border-radius:14px;padding:10px 12px;font:800 16px Futura,Arial,sans-serif}.suas-book-button{min-height:52px;border:2px solid #101010;border-radius:999px;background:linear-gradient(180deg,#ffd4e5,#ff9fc2);box-shadow:0 4px 0 #101010;font:900 13px Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}.suas-book-policy{padding:11px 12px;border:1.8px solid rgba(16,16,16,.25);border-radius:15px;font-size:12px;font-weight:700}.suas-book-error{display:none;margin-top:8px;padding:8px;border:1.5px solid #101010;border-radius:12px;background:#ffe8ef;font-weight:800}.suas-book-error.is-on{display:block}@media(max-width:800px){.suas-book-hero,.suas-book-grid,.suas-book-form,.suas-book-steps{grid-template-columns:1fr}}</style>' +
-      '<div class="suas-book-wrap"><div class="suas-book-hero"><div class="suas-book-card"><div class="suas-book-kicker">the lab / bookings</div><h1 class="suas-book-title">book the lab.</h1><p class="suas-book-copy">Pick a session, choose your date and time, then reserve your seat. Walk-ins are welcome before 5:00 PM when a station is free. Guided classes need a booking. The Lab has 12 seats a date — when they are gone, that date stops selling.</p><div class="suas-seat-meter"><strong data-seat-text>12 of 12 seats left</strong><span data-seat-hint>pick a date</span></div><div class="suas-book-steps"><div class="suas-book-step"><span>01</span><strong>choose experiment</strong></div><div class="suas-book-step"><span>02</span><strong>pick date + time</strong></div><div class="suas-book-step"><span>03</span><strong>reserve seats</strong></div></div></div><aside class="suas-book-panel"><h2 class="suas-book-title" style="font-size:1.55rem;margin:0 0 10px">class + walk-in times.</h2><ul class="suas-book-list"><li style="--chip:#ffe8ef">Guided Lab: Thursday and Friday, 6:00 PM - 7:30 PM.</li><li style="--chip:#c9e7ff">Guided Lab: Saturday, 4:00 PM - 5:30 PM or 6:00 PM - 7:30 PM.</li><li style="--chip:#fff2a8">Self-guided walk-ins are welcome before 5:00 PM when stations are open.</li><li style="--chip:#d9ff78">Sunday is self-guided only, available before 5:00 PM.</li><li>Monday, Tuesday, and Wednesday: closed for Lab bookings.</li></ul></aside></div><div class="suas-book-grid"><article class="suas-book-option" style="background:#ffe8ef"><div class="suas-book-kicker">self-guided</div><h2>Self-Guided Lab Experiment</h2><p class="suas-book-desc" data-self-desc>Choose one creation, then add an extra roll-on or travel perfume if you want a second product.</p><form class="suas-book-form" data-form="self"><div class="suas-book-field" data-wide><label class="suas-book-label">choose your experiment</label><select class="suas-book-select" data-self-exp required><option value="">choose experiment</option></select></div><div class="suas-book-field"><label class="suas-book-label">date</label><input class="suas-book-input" type="date" required data-self-date></div><div class="suas-book-field"><label class="suas-book-label">arrival time</label><select class="suas-book-select" required data-self-time><option value="">choose time</option></select></div><div class="suas-book-field"><label class="suas-book-label">guests</label><input class="suas-book-input" type="number" min="1" max="12" value="1" data-self-guests></div><div class="suas-book-field"><label class="suas-book-label">phone</label><input class="suas-book-input" type="tel" required data-self-phone></div><div class="suas-book-field" data-wide><label class="suas-book-label">name</label><input class="suas-book-input" type="text" required data-self-name></div><p class="suas-book-error" data-self-error></p><button class="suas-book-button" type="submit" data-self-submit>reserve this session</button></form><div class="suas-book-policy"><strong>Online booking</strong><p>Online booking reserves your seat for the selected time and is strongly encouraged because only 12 seats are available. Walk-ins are welcome before 5:00 PM on operating days, subject to station availability.</p></div></article><article class="suas-book-option" style="background:#c9e7ff"><div class="suas-book-kicker">guided class</div><h2>Guided Lab Session</h2><p class="suas-book-desc" data-guided-desc>Create a custom perfume with hands-on guidance from start to finish.</p><form class="suas-book-form" data-form="guided"><div class="suas-book-field" data-wide><label class="suas-book-label">choose your experiment</label><select class="suas-book-select" data-guided-exp required><option value="">choose experiment</option></select></div><div class="suas-book-field"><label class="suas-book-label">class date</label><input class="suas-book-input" type="date" required data-guided-date></div><div class="suas-book-field"><label class="suas-book-label">class time</label><select class="suas-book-select" required data-guided-time><option value="">choose time</option></select></div><div class="suas-book-field"><label class="suas-book-label">guests</label><input class="suas-book-input" type="number" min="1" max="12" value="1" data-guided-guests></div><div class="suas-book-field"><label class="suas-book-label">phone</label><input class="suas-book-input" type="tel" required data-guided-phone></div><div class="suas-book-field" data-wide><label class="suas-book-label">name</label><input class="suas-book-input" type="text" required data-guided-name></div><p class="suas-book-error" data-guided-error></p><button class="suas-book-button" type="submit" data-guided-submit>reserve this class</button></form><div class="suas-book-policy"><strong>Guided class policy</strong><p>Each guided class is limited to 12 guests. Please reserve the correct number of seats for your party. Guided-session payments are non-refundable when canceled less than 24 hours before the scheduled class.</p></div></article></div></div>';
-    main.insertBefore(root, main.firstChild);
-    var selfTimes = {0:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],4:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],5:['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],6:['12:00 PM','1:00 PM','2:00 PM','3:00 PM']};
-    var guidedTimes = {4:['Thursday 6:00 PM - 7:30 PM'],5:['Friday 6:00 PM - 7:30 PM'],6:['Saturday 4:00 PM - 5:30 PM','Saturday 6:00 PM - 7:30 PM']};
-    var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    function dayOf(value){ if(!value) return null; var b = value.split('-').map(Number); return new Date(b[0], b[1]-1, b[2]).getDay(); }
-    function fillTimes(select, options){ var cur = select.value; select.innerHTML = '<option value="">choose time</option>' + options.map(function(t){ return '<option>'+t+'</option>'; }).join(''); if (options.indexOf(cur) !== -1) select.value = cur; }
-    function money(cents){ return '$' + (Number(cents)/100).toFixed(2); }
+    if (!/\/pages\/bookings/.test(location.pathname)) return;
+    var root = document.querySelector('.suas-bookings-page');
+    if (!root) return;
+    if (!root.querySelector('[data-suas-seat-meter]')) {
+      var copy = root.querySelector('.suas-book-copy') || root.querySelector('p');
+      var meter = document.createElement('div');
+      meter.className = 'suas-seat-meter';
+      meter.setAttribute('data-suas-seat-meter', '');
+      meter.innerHTML = '<strong data-suas-seat-text>12 of 12 seats left</strong><span data-suas-seat-hint>pick a date on a form</span>';
+      if (copy && copy.parentNode) copy.insertAdjacentElement('afterend', meter);
+      else root.insertAdjacentElement('afterbegin', meter);
+    }
+    if (!root.querySelector('#suas-seat-style')) {
+      var style = document.createElement('style');
+      style.id = 'suas-seat-style';
+      style.textContent = '.suas-seat-meter{display:flex;justify-content:space-between;align-items:end;gap:8px;margin:14px 0 0;padding:10px 12px;border:2px solid #101010;border-radius:18px;background:#d9ff78;box-shadow:3px 4px 0 #101010}.suas-seat-meter strong{font-family:Casual Human,Futura,Arial,sans-serif;font-size:clamp(1.4rem,3vw,1.9rem);line-height:.9}.suas-seat-meter span{font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.65}.suas-seat-meter.is-full{background:#ffe8ef}.suas-seat-meter.is-low{background:#fff2a8}.suas-book-button[disabled]{opacity:.58;cursor:not-allowed;background:#fff}';
+      root.appendChild(style);
+    }
     var remaining = 12;
-    function paintSeats(date){
+    function paintSeats(){
       remaining = 12;
-      return fetch('/cart.js', { credentials: 'same-origin' }).then(function(r){ return r.json(); }).then(function(cart){
-        (cart.items || []).forEach(function(item){ var p = item.properties || {}; var d = p['Preferred date'] || p['Class date'] || ''; if (date && d === date) remaining -= Number(item.quantity || 0); });
+      var dateInputs = Array.prototype.slice.call(root.querySelectorAll('input[type="date"]')).map(function(i){ return i.value; }).filter(Boolean);
+      var date = dateInputs[0] || '';
+      var text = root.querySelector('[data-suas-seat-text],[data-seat-text]');
+      var hint = root.querySelector('[data-suas-seat-hint],[data-seat-hint]');
+      var meter = root.querySelector('[data-suas-seat-meter],.suas-seat-meter');
+      if (!date) {
+        if (text) text.textContent = '12 of 12 seats left';
+        if (hint) hint.textContent = 'pick a date on a form';
+        return;
+      }
+      fetch('/cart.js', { credentials: 'same-origin' }).then(function(r){ return r.json(); }).then(function(cart){
+        remaining = 12;
+        (cart.items || []).forEach(function(item){
+          var p = item.properties || {};
+          var d = p['Preferred date'] || p['Class date'] || '';
+          if (d === date) remaining -= Number(item.quantity || 0);
+        });
         remaining = Math.max(0, remaining);
-        var text = root.querySelector('[data-seat-text]'); var hint = root.querySelector('[data-seat-hint]');
         if (text) text.textContent = remaining + ' of 12 seats left';
-        if (hint) hint.textContent = date ? (remaining ? 'live for this date' : 'sold out') : 'pick a date';
-        root.querySelectorAll('[data-self-submit],[data-guided-submit]').forEach(function(btn){ btn.disabled = remaining <= 0; if (remaining <= 0) btn.textContent = 'sold out for this date'; });
+        if (hint) hint.textContent = remaining ? 'live for this date' : 'sold out';
+        if (meter) { meter.classList.toggle('is-low', remaining > 0 && remaining <= 3); meter.classList.toggle('is-full', remaining <= 0); }
+        root.querySelectorAll('button[type="submit"]').forEach(function(btn){
+          btn.disabled = remaining <= 0;
+          if (remaining <= 0) btn.textContent = 'sold out for this date';
+        });
       }).catch(function(){});
     }
-    Promise.all([
-      fetch('/products/lab-session-eau-de-parfum.js').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
-      fetch('/products/lab-session-body-oil.js').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
-      fetch('/products/lab-session-combo-sesh.js').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
-      fetch('/products/deluxe-lab-session.js').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
-    ]).then(function(products){
-      var selfSel = root.querySelector('[data-self-exp]');
-      var guidedSel = root.querySelector('[data-guided-exp]');
-      products.slice(0,3).forEach(function(product){
-        if (!product || !product.variants || !product.variants[0]) return;
-        var opt = document.createElement('option');
-        opt.value = product.variants[0].id;
-        opt.textContent = product.title + ' • ' + money(product.variants[0].price);
-        selfSel.appendChild(opt);
-      });
-      var deluxe = products[3];
-      if (deluxe && deluxe.variants) deluxe.variants.forEach(function(v){
-        var opt = document.createElement('option');
-        opt.value = v.id;
-        opt.textContent = v.title + ' • ' + money(v.price);
-        guidedSel.appendChild(opt);
+    root.querySelectorAll('input[type="date"]').forEach(function(input){ input.addEventListener('change', paintSeats); });
+    root.querySelectorAll('form').forEach(function(form){
+      form.addEventListener('submit', function(event){
+        var guests = Number((form.querySelector('[name="quantity"]') || {}).value || 1);
+        if (remaining <= 0 || guests > remaining) {
+          event.preventDefault();
+          alert('Only ' + remaining + ' seats left for that date.');
+        }
       });
     });
-    var selfDate = root.querySelector('[data-self-date]');
-    var selfTime = root.querySelector('[data-self-time]');
-    var guidedDate = root.querySelector('[data-guided-date]');
-    var guidedTime = root.querySelector('[data-guided-time]');
-    var today = new Date().toISOString().slice(0,10);
-    selfDate.min = today; guidedDate.min = today;
-    selfDate.addEventListener('change', function(){ var d = dayOf(selfDate.value); var opts = selfTimes[d] || []; if (!opts.length) { alert(dayNames[d] + ' is closed for self-guided bookings.'); selfDate.value=''; fillTimes(selfTime, []); return; } fillTimes(selfTime, opts); paintSeats(selfDate.value); });
-    guidedDate.addEventListener('change', function(){ var d = dayOf(guidedDate.value); var opts = guidedTimes[d] || []; if (!opts.length) { alert(dayNames[d] + ' is not available for guided Lab classes.'); guidedDate.value=''; fillTimes(guidedTime, []); return; } fillTimes(guidedTime, opts); paintSeats(guidedDate.value); });
-    function bindForm(form, kind){
-      form.addEventListener('submit', function(event){
-        event.preventDefault();
-        var id = Number((kind === 'self' ? root.querySelector('[data-self-exp]') : root.querySelector('[data-guided-exp]')).value);
-        var date = kind === 'self' ? selfDate.value : guidedDate.value;
-        var time = kind === 'self' ? selfTime.value : guidedTime.value;
-        var guests = Math.max(1, Number((kind === 'self' ? root.querySelector('[data-self-guests]') : root.querySelector('[data-guided-guests]')).value || 1));
-        var name = (kind === 'self' ? root.querySelector('[data-self-name]') : root.querySelector('[data-guided-name]')).value.trim();
-        var phone = (kind === 'self' ? root.querySelector('[data-self-phone]') : root.querySelector('[data-guided-phone]')).value.trim();
-        var err = kind === 'self' ? root.querySelector('[data-self-error]') : root.querySelector('[data-guided-error]');
-        function show(msg){ err.textContent = msg || ''; err.classList.toggle('is-on', !!msg); }
-        if (!id || !date || !time || !name || !phone) { show('Fill the experiment, date, time, name, and phone.'); return; }
-        if (remaining <= 0 || guests > remaining) { show('Only ' + remaining + ' seats left for that date.'); return; }
-        var properties = { 'Booking type': kind === 'guided' ? 'Guided Lab Session' : 'Self-Guided Lab Experiment', 'Guest name': name, 'Phone number': phone, 'Seats': String(guests), 'Seat cap': '12' };
-        if (kind === 'guided') { properties['Class date'] = date; properties['Class time'] = time; }
-        else { properties['Preferred date'] = date; properties['Preferred time'] = time; }
-        fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ items: [{ id: id, quantity: guests, properties: properties }] }) }).then(function(r){ if (!r.ok) throw new Error('cart'); location.assign('/cart'); }).catch(function(){ show('Could not hold those seats. Try again.'); });
-      });
-    }
-    bindForm(root.querySelector('[data-form="self"]'), 'self');
-    bindForm(root.querySelector('[data-form="guided"]'), 'guided');
+    paintSeats();
   });
 </script>
