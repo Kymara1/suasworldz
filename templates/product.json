@@ -84,7 +84,7 @@
         "img.lazyloaded {border-radius: 20px; overflow: hidden;}"
       ],
       "settings": {
-        "modal-enabled": true,
+        "modal-enabled": false,
         "hide-variant-media": false,
         "loop-enabled": false
       }

@@ -1,484 +1,295 @@
-/* SUAS product page final layer. Loaded last in theme.liquid. */
+/* SUAS OS selling station — product detail page */
+html body.template--product {
+  --ink: #101010;
+  --pink: #ffd8e8;
+  --hot: #ff9bc4;
+  --lime: #d9ff78;
+  --blue: #cdeeff;
+  --sun: #fff1a8;
+  --paper: #fbfaf7;
+}
 html body.template--product,
 html body.template--product .off-canvas--main-content,
 html body.template--product .layout--main-content {
   background:
     linear-gradient(rgba(16, 16, 16, .035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(16, 16, 16, .035) 1px, transparent 1px),
-    #fbfaf7 !important;
-  background-size: 22px 22px, 22px 22px, auto !important;
+    var(--paper);
+  background-size: 22px 22px, 22px 22px, auto;
 }
-
 html body.template--product .layout--main-content {
-  padding: clamp(18px, 3vw, 38px) 14px 56px !important;
+  padding: 18px 16px 56px;
 }
-
 @media (min-width: 1024px) {
   html body.template--product .off-canvas--main-content {
-    margin-left: 220px !important;
-    width: calc(100% - 220px) !important;
+    margin-left: 220px;
+    width: calc(100% - 220px);
   }
 }
 
-html body.template--product .shopify-section,
-html body.template--product .product-page--root,
-html body.template--product .product-page--top-panel,
+html body.template--product .suas-station,
+html body.template--product .product-page--root.suas-station {
+  width: min(1280px, calc(100vw - 248px));
+  max-width: 1280px;
+  margin: 0 auto 28px;
+  padding: 0;
+  background: transparent;
+}
+html body.template--product .suas-station-desk,
+html body.template--product .product-page--top-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(400px, .9fr);
+  gap: 18px;
+  align-items: stretch;
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  background: transparent;
+}
+html body.template--product .suas-station-media,
+html body.template--product .suas-station-buy {
+  display: flex;
+  flex-direction: column;
+  min-height: 620px;
+  width: 100%;
+  max-width: none;
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 8px 9px 0 var(--ink);
+  overflow: hidden;
+  aspect-ratio: auto;
+}
+html body.template--product .suas-os-winbar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 14px;
+  border-bottom: 2px solid var(--ink);
+  background: linear-gradient(#f7f8fb, #e8edf3);
+}
+html body.template--product .suas-os-winbar i {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: #ff5f57;
+  display: block;
+}
+html body.template--product .suas-os-winbar i:nth-child(2) { background: #febc2e; }
+html body.template--product .suas-os-winbar i:nth-child(3) { background: #28c840; }
+html body.template--product .suas-os-winbar b {
+  margin-left: auto;
+  font: 900 8px/1 Futura, Arial, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+html body.template--product .suas-station-stage {
+  position: relative;
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+  min-height: 540px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(255, 216, 232, .55), transparent 36%),
+    radial-gradient(circle at 88% 86%, rgba(205, 238, 255, .45), transparent 32%),
+    #fff;
+}
+html body.template--product .suas-station-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: min(72vh, 680px);
+  object-fit: contain;
+  border-radius: 18px;
+  opacity: 1;
+  visibility: visible;
+}
+html body.template--product .suas-station-thumbs {
+  display: flex;
+  gap: 8px;
+  padding: 0 14px 14px;
+  overflow-x: auto;
+}
+html body.template--product .suas-station-thumb {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+}
+html body.template--product .suas-station-thumb.is-active {
+  background: var(--pink);
+  box-shadow: 0 3px 0 var(--ink);
+}
+html body.template--product .suas-station-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+html body.template--product .suas-station-gravity-media,
 html body.template--product .product-page--content,
-html body.template--product .product-page--single-column,
-html body.template--product .product-page--content-blocks {
-  background: transparent !important;
-}
-
-html body.template--product .product-page--root {
-  width: min(1080px, calc(100vw - 34px)) !important;
-  max-width: 1080px !important;
-  margin: 0 auto !important;
-  padding: 0 !important;
-}
-
-html body.template--product .product-page--panel-wrapper {
-  width: 100% !important;
-  display: grid !important;
-  grid-template-columns: minmax(280px, 480px) minmax(300px, 430px) !important;
-  justify-content: center !important;
-  align-items: start !important;
-  gap: clamp(18px, 3vw, 32px) !important;
-}
-
-html body.template--product .product-page--featured-media,
-html body.template--product .product-page--featured-blocks {
-  border: 2px solid #101010 !important;
-  border-radius: 24px !important;
-  background: rgba(255, 255, 255, .94) !important;
-  box-shadow: 7px 8px 0 #101010 !important;
-  padding: clamp(15px, 2vw, 22px) !important;
-  overflow: visible !important;
-}
-
-html body.template--product .product-page--featured-media {
-  aspect-ratio: 1 / 1 !important;
-  min-height: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-html body.template--product .product-page--featured-media img,
-html body.template--product .product-page--featured-media picture,
-html body.template--product .product-page--featured-media .image--root img,
-html body.template--product .product-media--root img {
-  width: 100% !important;
-  height: auto !important;
-  max-width: 420px !important;
-  max-height: 420px !important;
-  object-fit: contain !important;
-  border-radius: 18px !important;
-  image-rendering: auto !important;
-}
-
-html body.template--product .product-page--featured-blocks {
-  width: 100% !important;
-  max-width: 430px !important;
-  min-height: 0 !important;
-}
-
-html body.template--product .product-page--block {
-  margin: 0 0 12px !important;
-}
-
-html body.template--product .product-page--heading,
-html body.template--product .product-page--heading *,
-html body.template--product [data-block-type="heading"],
-html body.template--product [data-block-type="heading"] *,
-html body.template--product [data-item="section-heading"],
-html body.template--product h1 {
-  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-  font-size: clamp(1.85rem, 3vw, 3rem) !important;
-  font-weight: 700 !important;
-  line-height: 1.02 !important;
-  letter-spacing: 0 !important;
-  text-transform: uppercase !important;
-  color: #101010 !important;
-  white-space: normal !important;
-  overflow: visible !important;
-  overflow-wrap: anywhere !important;
-  word-break: normal !important;
-  max-width: 100% !important;
-}
-
-html body.template--product .product-page--description,
-html body.template--product .product-page--description *,
-html body.template--product [data-block-type*="tabs_product_descriptions"],
-html body.template--product [data-block-type*="tabs_product_descriptions"] * {
-  font-family: Futura, 'Futura PT', Arial, sans-serif !important;
-  font-size: 12px !important;
-  line-height: 1.48 !important;
-  color: #101010 !important;
-}
-
-html body.template--product .product-page--description,
-html body.template--product [data-block-type*="tabs_product_descriptions"] {
-  max-height: 245px !important;
-  overflow: auto !important;
-  padding: 12px 8px 0 0 !important;
-  border-top: 1px dashed rgba(16, 16, 16, .24) !important;
-}
-
-html body.template--product .product-price--root .money,
-html body.template--product .product-page--price .money,
-html body.template--product [data-block-type="price"] .money {
-  display: inline-flex !important;
-  width: fit-content !important;
-  border: 2px solid #101010 !important;
-  border-radius: 999px !important;
-  background: #d9ff78 !important;
-  box-shadow: 0 4px 0 #101010 !important;
-  padding: 7px 13px !important;
-  color: #101010 !important;
-  font: 900 13px/1 Futura, Arial, sans-serif !important;
-}
-
-html body.template--product .product-buy-buttons--primary button,
-html body.template--product .product-page--block button,
-html body.template--product .shopify-payment-button__button,
-html body.template--product form[action*="/cart/add"] button[type="submit"] {
-  min-height: 40px !important;
-  border: 2px solid #101010 !important;
-  border-radius: 999px !important;
-  background: #ffd8e8 !important;
-  color: #101010 !important;
-  box-shadow: 0 4px 0 #101010 !important;
-  font: 900 10px/1 Futura, Arial, sans-serif !important;
-  letter-spacing: .14em !important;
-  text-transform: uppercase !important;
-}
-
-html body.template--product .shopify-payment-button__button {
-  background: #311858 !important;
-  color: #fff !important;
-}
-
-/* Extra product images: no giant blank cards, no overlap with reviews. */
-html body.template--product .product-page--content {
-  clear: both !important;
-  width: min(940px, calc(100vw - 34px)) !important;
-  margin: clamp(20px, 3vw, 34px) auto 0 !important;
-  padding: 0 !important;
-  position: relative !important;
-  z-index: 1 !important;
-}
-
 html body.template--product .product-page--column-container,
-html body.template--product .product-page--content-blocks:empty {
-  display: none !important;
-}
-
-html body.template--product .product-page--single-column {
-  width: 100% !important;
-  max-width: 100% !important;
-  display: flex !important;
-  flex-wrap: wrap !important;
-  justify-content: center !important;
-  align-items: stretch !important;
-  gap: 18px !important;
-  margin: 0 auto !important;
-  padding: 0 !important;
-  min-height: 0 !important;
-  overflow: visible !important;
-}
-
-html body.template--product .product-page--media-variant {
-  flex: 0 1 360px !important;
-  width: min(360px, 100%) !important;
-  max-width: 360px !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  border: 2px solid #101010 !important;
-  border-radius: 24px !important;
-  background: linear-gradient(135deg, #fff7fb 0%, #ffffff 56%, #f3ffe1 100%) !important;
-  box-shadow: 6px 7px 0 #101010 !important;
-  padding: 14px !important;
-  overflow: visible !important;
-  position: static !important;
-  transform: none !important;
-}
-
-html body.template--product .product-page--media-variant img,
-html body.template--product .product-page--media-variant .image--root img {
-  width: 100% !important;
-  height: auto !important;
-  max-height: 320px !important;
-  object-fit: contain !important;
-  border-radius: 18px !important;
-  display: block !important;
-}
-
-/* Smell Reports: SUAS OS review shell instead of plain app white box. */
-html body.template--product .shopify-section:has(#aftership_reviews_carousel_v2_production),
-html body.template--product .shopify-section:has(#aftership_reviews_all_reviews_widget_production),
-html body.template--product .shopify-section:has(.jdgm-widget),
-html body.template--product .shopify-section:has(.spr-container),
-html body.template--product .shopify-section:has(#shopify-product-reviews) {
-  clear: both !important;
-  width: min(940px, calc(100vw - 34px)) !important;
-  margin: clamp(34px, 5vw, 58px) auto !important;
-  padding: 0 !important;
-  background: transparent !important;
-  overflow: visible !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-
-html body.template--product .shopify-section:has(#aftership_reviews_carousel_v2_production)::before,
-html body.template--product .shopify-section:has(#aftership_reviews_all_reviews_widget_production)::before,
-html body.template--product .shopify-section:has(.jdgm-widget)::before,
-html body.template--product .shopify-section:has(.spr-container)::before,
-html body.template--product .shopify-section:has(#shopify-product-reviews)::before {
-  content: 'smell reports.' !important;
-  display: block !important;
-  width: fit-content !important;
-  margin: 0 auto -18px !important;
-  padding: 9px 26px 7px !important;
-  border: 2px solid #101010 !important;
-  border-radius: 999px !important;
-  background: #d9ff78 !important;
-  box-shadow: 0 6px 0 #101010 !important;
-  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-  font-size: clamp(1.7rem, 3.3vw, 2.5rem) !important;
-  line-height: .88 !important;
-  text-transform: uppercase !important;
-  color: #101010 !important;
-  position: relative !important;
-  z-index: 5 !important;
-}
-
-html body.template--product #aftership_reviews_carousel_v2_production,
-html body.template--product #aftership_reviews_all_reviews_widget_production,
-html body.template--product .jdgm-widget,
-html body.template--product .jdgm-rev-widg,
-html body.template--product .spr-container,
-html body.template--product #shopify-product-reviews {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-height: 190px !important;
-  margin: 0 !important;
-  border: 2px solid #101010 !important;
-  border-radius: 28px !important;
-  background:
-    linear-gradient(rgba(16, 16, 16, .026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .026) 1px, transparent 1px),
-    radial-gradient(circle at 10% 14%, rgba(255, 216, 232, .88) 0 0, transparent 28%),
-    radial-gradient(circle at 88% 18%, rgba(217, 255, 120, .74) 0 0, transparent 26%),
-    linear-gradient(135deg, #fff7fb 0%, #ffffff 55%, #f3ffe1 100%) !important;
-  background-size: 18px 18px, 18px 18px, auto, auto, auto !important;
-  box-shadow: 8px 9px 0 #101010 !important;
-  padding: clamp(22px, 3vw, 32px) !important;
+html body.template--product .product-page--media-variant,
+html body.template--product .product-page--hidden-variant {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
   overflow: hidden !important;
-  position: relative !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  pointer-events: none !important;
 }
 
-html body.template--product #aftership_reviews_carousel_v2_production::before,
-html body.template--product #aftership_reviews_all_reviews_widget_production::before,
-html body.template--product .jdgm-widget::before,
-html body.template--product .spr-container::before,
-html body.template--product #shopify-product-reviews::before {
-  content: '' !important;
-  display: block !important;
-  height: 26px !important;
-  margin: calc(clamp(22px, 3vw, 32px) * -1) calc(clamp(22px, 3vw, 32px) * -1) 20px !important;
-  border-bottom: 1px solid rgba(16, 16, 16, .18) !important;
+html body.template--product .suas-station-buy-body {
+  flex: 1 1 auto;
+  padding: 10px 28px 28px;
   background:
-    radial-gradient(circle, #ff6257 0 6px, transparent 7px) 16px 50% / 22px 22px no-repeat,
-    radial-gradient(circle, #ffbd2e 0 6px, transparent 7px) 39px 50% / 22px 22px no-repeat,
-    radial-gradient(circle, #28c840 0 6px, transparent 7px) 62px 50% / 22px 22px no-repeat,
-    linear-gradient(#f6f7f9, #e9edf2) !important;
+    linear-gradient(rgba(16, 16, 16, .028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, .028) 1px, transparent 1px),
+    #fff;
+  background-size: 20px 20px, 20px 20px, auto;
+}
+html body.template--product .suas-station-kicker {
+  margin: 8px 0 6px;
+  font: 900 10px/1 Futura, Arial, sans-serif;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(16, 16, 16, .5);
+}
+html body.template--product .suas-station-buy .product-page--heading,
+html body.template--product .suas-station-buy .product-page--heading *,
+html body.template--product .suas-station-buy h2 {
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  font-weight: 400;
+  line-height: .86;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin: 8px 0 12px;
+  color: var(--ink);
+}
+html body.template--product .product-price--root,
+html body.template--product .product-page--price,
+html body.template--product [data-product-block='price'] {
+  font: 900 1.4rem/1 Futura, Arial, sans-serif;
+  margin: 8px 0 16px;
+}
+html body.template--product .product-price--root .money {
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--lime);
+  box-shadow: 0 4px 0 var(--ink);
+  padding: 10px 16px;
+}
+html body.template--product .product-buy-buttons--cta,
+html body.template--product [name='add'],
+html body.template--product form[action*='/cart/add'] button[type='submit'] {
+  min-height: 56px;
+  width: 100%;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--hot);
+  color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+  font: 900 11px/1 Futura, Arial, sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+html body.template--product .shopify-payment-button__button {
+  min-height: 52px;
+  border-radius: 999px;
+  background: #311858;
+  color: #fff;
+}
+html body.template--product .radios--container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+html body.template--product .radios--input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+html body.template--product .radios--value-button {
+  inline-size: 64px;
+  block-size: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font: 900 11px/1 Futura, Arial, sans-serif;
+  cursor: pointer;
+}
+html body.template--product .radios--input:checked + .radios--value-button {
+  box-shadow: 0 4px 0 var(--hot);
 }
 
-html body.template--product #aftership_reviews_carousel_v2_production > *,
-html body.template--product #aftership_reviews_all_reviews_widget_production > *,
-html body.template--product .jdgm-widget > *,
-html body.template--product .spr-container > *,
-html body.template--product #shopify-product-reviews > * {
-  background: transparent !important;
+html body.template--product .suas-product-experience {
+  width: 100%;
+  margin: 22px 0 0;
+}
+html body.template--product .suas-product-description {
+  max-height: none;
+  overflow: visible;
 }
 
-html body.template--product #aftership_reviews_carousel_v2_production *,
-html body.template--product #aftership_reviews_all_reviews_widget_production *,
-html body.template--product .jdgm-widget *,
-html body.template--product .spr-container *,
-html body.template--product #shopify-product-reviews * {
-  font-family: Futura, 'Futura PT', Arial, sans-serif !important;
-  color: #101010 !important;
+html body.template--product .shopify-section:has(.suas-product-review-shell),
+html body.template--product .shopify-section:has([id*='aftership']),
+html body.template--product .suas-product-review-shell {
+  width: min(1280px, calc(100vw - 248px));
+  max-width: 1280px;
+  margin: 22px auto 48px;
 }
 
-html body.template--product .jdgm-rev,
-html body.template--product .spr-review,
-html body.template--product [class*='review-card'],
-html body.template--product [class*='reviewItem'],
-html body.template--product [class*='ReviewCard'] {
-  border: 2px solid #101010 !important;
-  border-radius: 22px !important;
-  background: #ffd8e8 !important;
-  box-shadow: 5px 6px 0 #101010 !important;
-  padding: 16px !important;
-  margin: 12px 0 !important;
-}
-
-html body.template--product .jdgm-rev:nth-of-type(2n),
-html body.template--product .spr-review:nth-of-type(2n),
-html body.template--product [class*='review-card']:nth-of-type(2n),
-html body.template--product [class*='ReviewCard']:nth-of-type(2n) {
-  background: #dff3ff !important;
-}
-
-html body.template--product .jdgm-rev:nth-of-type(3n),
-html body.template--product .spr-review:nth-of-type(3n),
-html body.template--product [class*='review-card']:nth-of-type(3n),
-html body.template--product [class*='ReviewCard']:nth-of-type(3n) {
-  background: #fff1a8 !important;
-}
-
-html body.template--product .jdgm-star,
-html body.template--product .spr-icon,
-html body.template--product [class*='star'],
-html body.template--product [class*='rating'] svg,
-html body.template--product [class*='Rating'] svg {
-  color: #101010 !important;
-  fill: #fff1a8 !important;
-  stroke: #101010 !important;
-}
-
-html body.template--product .jdgm-write-rev-link,
-html body.template--product .jdgm-btn,
-html body.template--product .spr-button,
-html body.template--product #shopify-product-reviews button,
-html body.template--product [class*='reviews'] button,
-html body.template--product [class*='Reviews'] button,
-html body.template--product [class*='review'] a[role='button'] {
-  min-height: 38px !important;
-  border: 2px solid #101010 !important;
-  border-radius: 999px !important;
-  background: #101010 !important;
-  color: #fff !important;
-  box-shadow: 0 4px 0 rgba(16, 16, 16, .35) !important;
-  padding: 10px 18px !important;
-  font: 900 11px/1 Futura, Arial, sans-serif !important;
-  letter-spacing: .12em !important;
-  text-transform: uppercase !important;
-  text-decoration: none !important;
-}
-
-html body.template--product .jdgm-form input,
-html body.template--product .jdgm-form textarea,
-html body.template--product .spr-form input,
-html body.template--product .spr-form textarea,
-html body.template--product [class*='review'] input,
-html body.template--product [class*='review'] textarea {
-  border: 1.5px solid #101010 !important;
-  border-radius: 18px !important;
-  background: rgba(255, 255, 255, .94) !important;
-  padding: 12px 14px !important;
-  font: 700 13px/1.2 Futura, Arial, sans-serif !important;
-  color: #101010 !important;
-}
-
-/* Review popup/modal polish. */
-html body.template--product [role='dialog'],
-html body.template--product [aria-modal='true'],
-html body.template--product [class*='modal'][class*='review'],
-html body.template--product [class*='Modal'][class*='Review'],
-html body.template--product [class*='popup'][class*='review'],
-html body.template--product [class*='Popup'][class*='Review'] {
-  border: 2px solid #101010 !important;
-  border-radius: 24px !important;
-  background:
-    linear-gradient(rgba(16, 16, 16, .024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .024) 1px, transparent 1px),
-    linear-gradient(135deg, #fff7fb 0%, #fff 62%, #f3ffe1 100%) !important;
-  background-size: 18px 18px, 18px 18px, auto !important;
-  box-shadow: 8px 9px 0 #101010, 0 18px 60px rgba(16, 16, 16, .24) !important;
-  color: #101010 !important;
-}
-
-html body.template--product [role='dialog'] input,
-html body.template--product [role='dialog'] textarea,
-html body.template--product [aria-modal='true'] input,
-html body.template--product [aria-modal='true'] textarea {
-  border: 1.5px solid #101010 !important;
-  border-radius: 16px !important;
-  background: rgba(255, 255, 255, .94) !important;
-}
-
-html body.template--product [role='dialog'] button,
-html body.template--product [aria-modal='true'] button {
-  border-radius: 999px !important;
-  font-weight: 900 !important;
-}
-
-@media (max-width: 749px) {
+@media (max-width: 1023px) {
   html body.template--product .layout--main-content {
-    padding: 12px 8px 42px !important;
+    padding: 12px 10px 40px;
   }
-
-  html body.template--product .product-page--root,
-  html body.template--product .product-page--content,
-  html body.template--product .shopify-section:has(#aftership_reviews_carousel_v2_production),
-  html body.template--product .shopify-section:has(#aftership_reviews_all_reviews_widget_production),
-  html body.template--product .shopify-section:has(.jdgm-widget),
-  html body.template--product .shopify-section:has(.spr-container),
-  html body.template--product .shopify-section:has(#shopify-product-reviews) {
-    width: min(430px, calc(100vw - 16px)) !important;
+  html body.template--product .suas-station,
+  html body.template--product .product-page--root.suas-station,
+  html body.template--product .shopify-section:has(.suas-product-review-shell),
+  html body.template--product .shopify-section:has([id*='aftership']),
+  html body.template--product .suas-product-review-shell {
+    width: min(100% - 12px, 720px);
+    max-width: none;
   }
-
-  html body.template--product .product-page--panel-wrapper {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
+  html body.template--product .suas-station-desk,
+  html body.template--product .product-page--top-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
-
-  html body.template--product .product-page--featured-media,
-  html body.template--product .product-page--featured-blocks,
-  html body.template--product .product-page--media-variant {
-    border-radius: 20px !important;
-    box-shadow: 5px 6px 0 #101010 !important;
-    padding: 12px !important;
+  html body.template--product .suas-station-media,
+  html body.template--product .suas-station-buy {
+    min-height: 0;
   }
-
-  html body.template--product .product-page--featured-media img,
-  html body.template--product .product-page--featured-media .image--root img,
-  html body.template--product .product-media--root img {
-    max-height: 310px !important;
+  html body.template--product .suas-station-stage {
+    min-height: 280px;
+    padding: 12px;
   }
-
-  html body.template--product .product-page--heading,
-  html body.template--product .product-page--heading *,
-  html body.template--product [data-item='section-heading'],
-  html body.template--product h1 {
-    font-size: clamp(1.65rem, 8.8vw, 2.35rem) !important;
-    line-height: 1.04 !important;
+  html body.template--product .suas-station-photo {
+    max-height: 360px;
   }
-
-  html body.template--product .product-page--single-column {
-    gap: 14px !important;
+  html body.template--product .suas-station-buy-body {
+    padding: 8px 16px 18px;
   }
-
-  html body.template--product .product-page--media-variant {
-    flex-basis: min(340px, 100%) !important;
-    max-width: 340px !important;
-  }
-
-  html body.template--product .product-page--description,
-  html body.template--product [data-block-type*='tabs_product_descriptions'] {
-    max-height: 220px !important;
-  }
-
-  html body.template--product #aftership_reviews_carousel_v2_production,
-  html body.template--product #aftership_reviews_all_reviews_widget_production,
-  html body.template--product .jdgm-widget,
-  html body.template--product .jdgm-rev-widg,
-  html body.template--product .spr-container,
-  html body.template--product #shopify-product-reviews {
-    border-radius: 22px !important;
-    box-shadow: 5px 6px 0 #101010 !important;
-    padding: 18px !important;
+  html body.template--product .suas-station-buy .product-page--heading,
+  html body.template--product .suas-station-buy h2 {
+    font-size: clamp(2rem, 9vw, 2.8rem);
   }
 }

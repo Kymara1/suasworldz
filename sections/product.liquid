@@ -218,7 +218,7 @@
 {%- endfor -%}
 
 <div
-  class="product-page--root"
+  class="product-page--root suas-station"
   data-featured-blocks="{{ featured_blocks }}"
   data-section-id="{{ section.id }}"
   data-section-type="product_page"
@@ -227,81 +227,108 @@
   data-product-id="{{ product_id }}"
   data-handle="{{ product.handle }}"
 >
-  {% if modal_enabled %}
-    <div
-      class="modal--root"
-      data-js-class="CoreModal"
-      data-modal-view="product-media"
-    >
-  {% endif %}
-
-  <div class="product-page--top-panel">
-    {%- if featured_blocks -%}
-      <div class="product-page--panel-wrapper">
-    {%- endif -%}
-
-    <div class="product-page--featured-media">
-      <div class="suas-os-winbar" aria-hidden="true"><i></i><i></i><i></i><b>product.view</b></div>
-      {% if modal_enabled and featured_media.media_type == 'image' %}
-        <a class="modal--link" href="#" aria-label="{{ image_modal_t }}">
-      {% endif %}
-
-      {%- liquid
-        if featured_media
-          render "product--media", media_view: "featured", inside_carousel: false, product_media: featured_media, video_looping_enabled: video_looping_enabled
-        else
-          render 'placeholder', type: 'product', aspect_ratio: 1, placeholder_index: 1
-        endif
-      %}
-
-      {% if modal_enabled and featured_media.media_type == 'image' %}
-        </a>
-      {% endif %}
-    </div>
-
-    {%- if featured_blocks -%}
-        <div class="product-page--featured-blocks">
-          <div class="suas-os-winbar" aria-hidden="true"><i></i><i></i><i></i><b>product.info</b></div>
-          {{ featured_blocks_html }}
-        </div>
+  <div class="suas-station-desk product-page--top-panel">
+    <section class="suas-station-media product-page--featured-media" data-suas-station-media aria-label="{{ product.title | escape }} photos">
+      <div class="suas-os-winbar" aria-hidden="true"><i></i><i></i><i></i><b>media.view</b></div>
+      <div class="suas-station-stage">
+        {%- if featured_media -%}
+          <img
+            class="suas-station-photo"
+            data-suas-station-photo
+            src="{{ featured_media | image_url: width: 1600 }}"
+            srcset="{{ featured_media | image_url: width: 800 }} 800w, {{ featured_media | image_url: width: 1200 }} 1200w, {{ featured_media | image_url: width: 1600 }} 1600w"
+            sizes="(max-width: 1023px) 92vw, min(52vw, 720px)"
+            alt="{{ featured_media.alt | default: product.title | escape }}"
+            width="{{ featured_media.width | default: 1600 }}"
+            height="{{ featured_media.height | default: 1600 }}"
+          >
+        {%- else -%}
+          {% render 'placeholder', type: 'product', aspect_ratio: 1, placeholder_index: 1 %}
+        {%- endif -%}
+        {%- if product.media.size > 1 -%}
+          <button type="button" class="suas-product-gallery-arrow" data-suas-gallery-dir="prev" aria-label="Previous product photo">‹</button>
+          <button type="button" class="suas-product-gallery-arrow" data-suas-gallery-dir="next" aria-label="Next product photo">›</button>
+          <div class="suas-product-gallery-count" data-suas-station-count>1 / {{ product.media.size }}</div>
+        {%- endif -%}
       </div>
-    {%- endif -%}
+      {%- if product.media.size > 1 -%}
+        <div class="suas-station-thumbs" role="list">
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              <button
+                type="button"
+                class="suas-station-thumb{% if featured_media and media.id == featured_media.id %} is-active{% endif %}"
+                data-suas-thumb
+                data-src="{{ media | image_url: width: 1600 }}"
+                data-srcset="{{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1200 }} 1200w, {{ media | image_url: width: 1600 }} 1600w"
+                data-alt="{{ media.alt | default: product.title | escape }}"
+                aria-label="Show photo {{ forloop.index }}"
+              >
+                <img src="{{ media | image_url: width: 240 }}" alt="">
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <div class="suas-station-gravity-media" aria-hidden="true">
+        {%- if featured_media -%}
+          {% render "product--media", media_view: "featured", inside_carousel: false, product_media: featured_media, video_looping_enabled: video_looping_enabled %}
+        {%- endif -%}
+      </div>
+    </section>
+
+    <section class="suas-station-buy product-page--featured-blocks">
+      <div class="suas-os-winbar" aria-hidden="true"><i></i><i></i><i></i><b>buy.panel</b></div>
+      <div class="suas-station-buy-body">
+        <p class="suas-station-kicker">suas os selling station</p>
+        {{ featured_blocks_html }}
+      </div>
+    </section>
   </div>
 
   {% render 'suas-product-experience', product: product, note_blocks: section.blocks %}
 
-  <div class="product-page--content">
-    <div class="product-page--column-container" data-mq="medium-large">
-      <div class="product-page--column-left"></div>
-      <div class="product-page--column-right"></div>
-    </div>
-
-    <div class="product-page--single-column">
-      {%- liquid
-        unless content_blocks == blank
-          echo '<div class="product-page--content-blocks">'
-          echo content_blocks
-          echo '</div>'
-        endunless
-      -%}
-
-      {%- unless variant_media == blank -%}
-        <div class="suas-product-media-gallery" aria-label="More product photos">
-          <div class="suas-product-gallery-label">smells like this.</div>
-          <div class="suas-product-gallery-track">
-            {{ variant_media }}
-          </div>
-        </div>
-      {%- endunless -%}
-    </div>
+  <div class="product-page--content" hidden>
+    {{ content_blocks }}
   </div>
 
-  {% if modal_enabled %}
-      <div class="product-page--modal-wrapper">
-        {{ modal_media }}
-      </div>
-    </div>
-  {% endif %}
+  <script>
+    (function () {
+      var root = document.querySelector('[data-product-id="{{ product_id }}"]');
+      if (!root) return;
+      var photo = root.querySelector('[data-suas-station-photo]');
+      var thumbs = Array.prototype.slice.call(root.querySelectorAll('[data-suas-thumb]'));
+      var count = root.querySelector('[data-suas-station-count]');
+      var index = Math.max(0, thumbs.findIndex(function (thumb) { return thumb.classList.contains('is-active'); }));
+      function show(next) {
+        if (!photo || !thumbs.length) return;
+        index = (next + thumbs.length) % thumbs.length;
+        var thumb = thumbs[index];
+        photo.src = thumb.getAttribute('data-src');
+        photo.srcset = thumb.getAttribute('data-srcset') || '';
+        photo.alt = thumb.getAttribute('data-alt') || '';
+        thumbs.forEach(function (item, i) { item.classList.toggle('is-active', i === index); });
+        if (count) count.textContent = (index + 1) + ' / ' + thumbs.length;
+      }
+      thumbs.forEach(function (thumb, i) {
+        thumb.addEventListener('click', function () { show(i); });
+      });
+      root.querySelectorAll('[data-suas-gallery-dir]').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
+          show(index + (button.getAttribute('data-suas-gallery-dir') === 'next' ? 1 : -1));
+        });
+      });
+      root.addEventListener('variantUpdated', function (event) {
+        var variant = event.detail || {};
+        var image = variant.featured_image || variant.featured_media || {};
+        var src = image.src || image.preview_image || '';
+        if (!photo || !src) return;
+        photo.src = String(src).replace(/(\.[a-zA-Z]+)(\?|$)/, '_1600x$1$2').replace('http:', 'https:');
+        photo.srcset = '';
+      });
+    })();
+  </script>
 </div>
 
 {%
