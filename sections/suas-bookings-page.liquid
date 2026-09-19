@@ -1,4 +1,4 @@
-<section class="suas-bookings-page" data-suas-book-v="prices" aria-label="Book The Lab">
+<section class="suas-bookings-page" data-suas-book-v="head" aria-label="Book The Lab">
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
     .suas-bookings-page{--ink:#101010;--pink:#ffe8ef;--hot:#ff9fc2;--lime:#d9ff78;--blue:#c9e7ff;--sun:#fff2a8;--lav:#e8ddff;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 8%,rgba(255,159,194,.25),transparent 30%),radial-gradient(circle at 90% 14%,rgba(217,255,120,.3),transparent 30%),linear-gradient(180deg,#fff 0%,#fffaf5 100%);font-family:Futura,'Futura PT',Arial,sans-serif}
@@ -25,10 +25,12 @@
     .suas-book-grid{display:grid;gap:12px;grid-template-columns:1fr!important}
     .suas-book-option{display:none!important;gap:10px;background:var(--card);padding:14px 16px;scroll-margin-top:88px}
     .suas-book-option.is-open{display:grid!important}
-    .suas-book-option-head{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:stretch}
-    .suas-book-option h2{margin:4px 0 0;font-size:clamp(1.35rem,2.2vw,2rem);line-height:.88}
+    .suas-book-option-head{display:flex!important;flex-wrap:wrap;align-items:flex-start;justify-content:flex-start;gap:10px 12px}
+    .suas-book-option-head>:first-child{flex:0 1 auto;width:fit-content;max-width:min(36rem,100%)}
+    .suas-book-option h2{margin:4px 0 0;font-size:clamp(1.35rem,2.2vw,2rem);line-height:.88;width:fit-content;max-width:100%}
     .suas-book-desc{margin:4px 0 0;font-size:13px;line-height:1.3;font-weight:800;color:rgba(16,16,16,.68)}
-    .suas-book-price-card{min-width:0;width:auto;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:0 3px 0 var(--ink);padding:8px;text-align:center}
+    .suas-book-price-card,.suas-seat-meter{flex:0 0 auto;width:auto!important;max-width:100%}
+    .suas-book-price-card{border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:0 3px 0 var(--ink);padding:8px 12px;text-align:center}
     .suas-book-price-card span{display:block;margin-bottom:4px;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:rgba(16,16,16,.55)}
     .suas-book-price{display:block;font-size:clamp(1.3rem,2vw,1.8rem);line-height:.9}
     .suas-book-badge{display:inline-flex;width:fit-content;border:2px solid var(--ink);border-radius:999px;padding:6px 10px 5px;background:rgba(255,255,255,.76);box-shadow:0 3px 0 rgba(16,16,16,.18)}
@@ -84,7 +86,7 @@
     .suas-bookings-page #ParfumTime{
       position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;opacity:0!important;pointer-events:none!important;border:0!important;padding:0!important;margin:0!important
     }
-    @media(max-width:1023px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-top,.suas-book-hours-grid,.suas-type-grid{grid-template-columns:minmax(0,1fr)!important}.suas-book-option-head{grid-template-columns:minmax(0,1fr)!important}.suas-book-price-card,.suas-seat-meter{width:100%;min-width:0}.suas-book-form{grid-template-columns:1fr 1fr}}
+    @media(max-width:1023px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-top,.suas-book-hours-grid,.suas-type-grid{grid-template-columns:minmax(0,1fr)!important}.suas-book-form{grid-template-columns:1fr 1fr}}
     @media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 28px}.suas-book-card,.suas-book-panel,.suas-book-option{border-radius:18px;box-shadow:0 4px 0 var(--ink)}.suas-book-title{font-size:clamp(2.1rem,12vw,3rem)}.suas-book-form,.suas-plus-choice,.suas-type-grid{grid-template-columns:1fr}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}}
   </style>
 
