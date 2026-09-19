@@ -23,6 +23,12 @@
             "custom-liquid": "{% render 'suas-product-polish' %}"
           }
         },
+        "suas_variant_label_fix": {
+          "type": "liquid",
+          "settings": {
+            "custom-liquid": "<script>(function(){function clean(t){return String(t||'').replace(/\\bfl\\.?\\s*oz\\.?\\b/ig,'Oz').replace(/\\b(\\d+)\\s*oz\\b/ig,'$1 Oz').replace(/\\s+/g,' ').trim()}function run(){document.querySelectorAll('.radios--value-button').forEach(function(label){var inner=label.querySelector('div')||label;var next=clean(inner.textContent);if(next){inner.textContent=next;label.setAttribute('aria-label',next)}})}run();document.addEventListener('DOMContentLoaded',run);document.addEventListener('shopify:section:load',run);setTimeout(run,750);setTimeout(run,2000)})();</script>"
+          }
+        },
         "heading": {
           "type": "heading",
           "settings": {}
@@ -62,6 +68,7 @@
       },
       "block_order": [
         "suas_product_polish",
+        "suas_variant_label_fix",
         "heading",
         "price",
         "options",
