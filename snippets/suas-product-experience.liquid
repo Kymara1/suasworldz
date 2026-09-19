@@ -46,6 +46,8 @@
   assign note_2_file = ''
   assign note_3_label = ''
   assign note_3_file = ''
+  assign note_4_label = ''
+  assign note_4_file = ''
   case product.handle
     when 'poppy'
       assign note_1_label = 'bubblegum'
@@ -62,6 +64,10 @@
       assign note_1_file = 'note-pineapple.png'
       assign note_2_label = 'passionfruit'
       assign note_2_file = 'note-passionfruit.png'
+      assign note_3_label = 'pineapple juice'
+      assign note_3_file = 'note-pineapple-slices.png'
+      assign note_4_label = 'passionfruit pulp'
+      assign note_4_file = 'note-passionfruit-swirl.png'
     when 'good-girl-butter-creme-2'
       assign note_1_label = 'creamy coconut'
       assign note_1_file = 'note-coconut.png'
@@ -70,8 +76,10 @@
     when 'haze-butter-creme'
       assign note_1_label = 'wildflower bouquet'
       assign note_1_file = 'note-wildflower.png'
-      assign note_2_label = 'soft sunshine'
-      assign note_2_file = 'note-sunshine.png'
+      assign note_2_label = 'fresh petals'
+      assign note_2_file = 'note-petals.png'
+      assign note_3_label = 'soft sunshine'
+      assign note_3_file = 'note-sunshine.png'
   endcase
 %}
 
@@ -133,7 +141,7 @@
         <small>scent notes</small>
         <h2>what it smells like.</h2>
       </div>
-      <div class="suas-scent-notes-grid{% if note_3_file != blank %} is-three{% endif %}">
+      <div class="suas-scent-notes-grid{% if note_4_file != blank %} is-four{% elsif note_3_file != blank %} is-three{% endif %}">
         <figure class="suas-scent-note">
           <span class="pic"><img src="{{ note_1_file | asset_url }}" alt="{{ note_1_label }}" width="800" height="800" loading="lazy"></span>
           <b>{{ note_1_label }}</b>
@@ -148,6 +156,12 @@
           <figure class="suas-scent-note">
             <span class="pic"><img src="{{ note_3_file | asset_url }}" alt="{{ note_3_label }}" width="800" height="800" loading="lazy"></span>
             <b>{{ note_3_label }}</b>
+          </figure>
+        {% endif %}
+        {% if note_4_file != blank %}
+          <figure class="suas-scent-note">
+            <span class="pic"><img src="{{ note_4_file | asset_url }}" alt="{{ note_4_label }}" width="800" height="800" loading="lazy"></span>
+            <b>{{ note_4_label }}</b>
           </figure>
         {% endif %}
       </div>
