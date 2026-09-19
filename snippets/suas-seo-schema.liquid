@@ -1,0 +1,45 @@
+{%- comment -%}
+Sitewide JSON-LD for Google (Organization + WebSite). Product review schema lives in product-schema.
+{%- endcomment -%}
+{%- liquid
+  assign org_url = shop.url
+  if org_url == blank
+    assign org_url = request.origin
+  endif
+  assign org_logo = ''
+  if settings.logo
+    assign org_logo = settings.logo | img_url: '600x'
+    unless org_logo contains 'https:'
+      assign org_logo = org_logo | prepend: 'https:'
+    endunless
+  elsif settings.favicon
+    assign org_logo = settings.favicon | img_url: '180x'
+    unless org_logo contains 'https:'
+      assign org_logo = org_logo | prepend: 'https:'
+    endunless
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": {{ org_url | append: '#organization' | json }},
+      "name": {{ shop.name | json }},
+      "url": {{ org_url | json }}{% if org_logo != blank %},
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ org_logo | json }}
+      }{% endif %}
+    },
+    {
+      "@type": "WebSite",
+      "@id": {{ org_url | append: '#website' | json }},
+      "url": {{ org_url | json }},
+      "name": {{ shop.name | json }},
+      "publisher": { "@id": {{ org_url | append: '#organization' | json }} }
+    }
+  ]
+}
+</script>
