@@ -27,7 +27,12 @@
     .suas-simple-review [class*='review-title'],
     .suas-simple-review [class*='review_title']{display:none!important}
     .suas-simple-review .jdgm-rev{margin:0 0 8px!important;padding:8px!important;border:2px solid #101010!important;border-radius:12px!important;background:#fff1a8!important;box-shadow:2px 3px 0 #101010!important}
-    .suas-simple-review .jdgm-form-wrapper,.suas-simple-review form.jdgm-form{margin:0!important;padding:8px!important;border:2px solid #101010!important;border-radius:12px!important;background:#fff1a8!important;box-shadow:2px 3px 0 #101010!important;display:grid!important;gap:6px!important}
+    .suas-simple-review .jdgm-form-wrapper,
+    .suas-simple-review form.jdgm-form,
+    .suas-simple-review .jdgm-form{display:none!important;margin:0!important;padding:8px!important;border:2px solid #101010!important;border-radius:12px!important;background:#fff1a8!important;box-shadow:2px 3px 0 #101010!important;gap:6px!important}
+    .suas-simple-review.is-writing .jdgm-form-wrapper,
+    .suas-simple-review.is-writing form.jdgm-form,
+    .suas-simple-review.is-writing .jdgm-form{display:grid!important}
     .suas-simple-review .jdgm-form-wrapper > *{margin:0!important}
     .suas-simple-review :is(.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn){min-height:34px!important;padding:0 12px!important;border:2px solid #101010!important;border-radius:999px!important;background:#ffd8e8!important;color:#101010!important;box-shadow:0 3px 0 #101010!important;font:900 9px/1 Futura,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important}
     .suas-simple-review textarea{min-height:52px!important;max-height:64px!important;height:52px!important}
@@ -41,8 +46,6 @@
       html body.template--product .suas-review-intro{flex-wrap:nowrap!important}
       html body.template--product .suas-review-action{width:auto!important;min-height:34px!important;flex:0 0 auto}
       .suas-simple-review{margin:4px 8px 8px}
-      .suas-simple-review .jdgm-form-wrapper,.suas-simple-review form.jdgm-form{display:none!important;padding:6px!important}
-      .suas-simple-review.is-writing .jdgm-form-wrapper,.suas-simple-review.is-writing form.jdgm-form{display:grid!important}
       .suas-simple-review .jdgm-rev{padding:6px 8px!important;margin:0 0 6px!important;font-size:13px!important}
       .suas-simple-review .jdgm-rev__body,.suas-simple-review .jdgm-rev p{font-size:13px!important;line-height:1.35!important;margin:0!important}
       .suas-simple-review :is(.jdgm-btn,input[type='submit'].jdgm-btn){width:100%!important}
@@ -64,21 +67,47 @@
       var root = document.currentScript.closest('.suas-simple-review');
       if (!root || root.dataset.suasJudgeReady === 'true') return;
       root.dataset.suasJudgeReady = 'true';
-      function openForm() {
-        var btn = root.querySelector('.jdgm-write-rev-link, a.jdgm-write-rev-link, button.jdgm-write-rev-link, [data-action="write-review"]');
-        if (btn) {
-          btn.click();
-          return true;
-        }
-        var form = root.querySelector('.jdgm-form-wrapper, .jdgm-rev-widg form');
-        if (form) {
-          form.style.display = 'block';
-          form.hidden = false;
-          return true;
-        }
-        return false;
+
+      function formNodes() {
+        return root.querySelectorAll('.jdgm-form-wrapper, form.jdgm-form, .jdgm-form, .jdgm-rev-widg form, #judgeme_product_reviews form');
       }
+
+      function revealForms() {
+        var found = false;
+        formNodes().forEach(function (form) {
+          form.hidden = false;
+          form.removeAttribute('hidden');
+          form.classList.remove('jdgm-hidden');
+          form.style.setProperty('display', 'grid', 'important');
+          found = true;
+        });
+        return found;
+      }
+
+      function openForm() {
+        root.classList.add('is-writing');
+        var shown = revealForms();
+        var btn = document.querySelector('.jdgm-write-rev-link, a.jdgm-write-rev-link, button.jdgm-write-rev-link, [data-action="write-review"], .jdgm-btn--write');
+        if (btn) {
+          var prev = btn.style.display;
+          btn.style.setProperty('display', 'block', 'important');
+          try { btn.click(); } catch (err) {}
+          btn.style.display = prev;
+        }
+        shown = revealForms() || shown;
+        if (shown) {
+          var form = formNodes()[0];
+          if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          var field = root.querySelector('.jdgm-form-wrapper textarea, form.jdgm-form textarea, .jdgm-form textarea');
+          if (field) {
+            try { field.focus(); } catch (err) {}
+          }
+        }
+        return shown;
+      }
+
       function compactForm() {
+        if (!root.classList.contains('is-writing')) return;
         root.querySelectorAll('[class*="picture"],[class*="Picture"],[class*="upload"],[class*="media-uploader"]').forEach(function (el) {
           el.style.setProperty('display', 'none', 'important');
         });
@@ -99,9 +128,10 @@
           if (lab) lab.style.setProperty('display', 'none', 'important');
         }
       }
+
       function scrub() {
         compactForm();
-        document.querySelectorAll('.suas-product-review-shell p, .suas-review-app-stage p, .suas-simple-review p, .suas-simple-review div, .jdgm-widget p').forEach(function (el) {
+        document.querySelectorAll('.suas-product-review-shell p, .suas-review-app-stage p, .suas-simple-review p').forEach(function (el) {
           if (el.closest('.jdgm-rev')) return;
           if (el.querySelector('input,textarea,button,.jdgm-rev')) return;
           var t = String(el.textContent || '').replace(/\s+/g, ' ').trim();
@@ -109,32 +139,28 @@
             el.style.setProperty('display', 'none', 'important');
           }
         });
-        root.querySelectorAll('a[href*="://judge.me"],a[href*="judgeme.com"]').forEach(function (a) {
-          if (!a.classList.contains('jdgm-write-rev-link')) a.style.display = 'none';
-        });
       }
+
       scrub();
       var n = 0;
-      var t = setInterval(function () { scrub(); if (++n > 80) clearInterval(t); }, 350);
-      var mo = new MutationObserver(function () { scrub(); });
-      mo.observe(document.body, { childList: true, subtree: true, characterData: true });
+      var t = setInterval(function () { scrub(); if (++n > 40) clearInterval(t); }, 400);
       document.addEventListener('click', function (event) {
-        var writer = event.target.closest('[data-suas-write-review]');
+        var writer = event.target.closest('[data-suas-write-review], .suas-review-action, a.suas-product-stars, a[href*="showWriteReviews"]');
         if (!writer) return;
         event.preventDefault();
-        root.classList.add('is-writing');
-        root.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        event.stopPropagation();
         var tries = 0;
-        if (openForm()) return;
+        openForm();
         var open = setInterval(function () {
-          if (openForm() || ++tries > 20) clearInterval(open);
-        }, 250);
-      });
-      if (location.search.indexOf('showWriteReviews') === -1) return;
-      var tries = 0;
-      var open = setInterval(function () {
-        if (openForm() || ++tries > 20) clearInterval(open);
-      }, 400);
+          if (openForm() || ++tries > 24) clearInterval(open);
+        }, 200);
+      }, true);
+      if (location.search.indexOf('showWriteReviews') !== -1) {
+        var tries = 0;
+        var open = setInterval(function () {
+          if (openForm() || ++tries > 24) clearInterval(open);
+        }, 300);
+      }
     })();
   </script>
 </div>
