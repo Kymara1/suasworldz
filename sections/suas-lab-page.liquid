@@ -10,21 +10,426 @@
 
   assign guided_price_text = section.settings.guided_price
   if guided_product != blank
-    assign guided_price_text = 'starts at ' | append: guided_product.price_min | money | append: ' per person'
+    assign guided_min = guided_product.price_min | money
+    assign guided_price_text = 'starts at ' | append: guided_min | append: ' per person'
+  endif
+
+  assign self_href = section.settings.self_link
+  if self_href == blank
+    assign self_href = '/pages/bookings#self-guided'
+  endif
+  assign guided_href = section.settings.guided_link
+  if guided_href == blank
+    assign guided_href = '/pages/bookings#guided-class'
+  endif
+  assign deluxe_href = section.settings.deluxe_link
+  if deluxe_href == blank
+    assign deluxe_href = '/pages/bookings#guided-class'
   endif
 
   assign deluxe_price_text = section.settings.deluxe_price
   if deluxe_product != blank
     assign deluxe_price_text = deluxe_product.price | money
   endif
+
+  assign cta_href = section.settings.cta_link
+  if cta_href == blank
+    assign cta_href = '#build-a-fragrance'
+  endif
 -%}
 
 <section class="suas-lab-page" aria-label="The Lab">
   <style>
-    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}.suas-lab-page{--ink:#111;--cream:#fffaf5;--blush:#ffe8ef;--pink:#ff9fc2;--lime:#d9ff78;--blue:#c9e7ff;--lav:#dccbff;color:var(--ink);background:radial-gradient(circle at 14% 12%,rgba(217,255,120,.34),transparent 24%),radial-gradient(circle at 84% 28%,rgba(201,231,255,.44),transparent 25%),linear-gradient(180deg,#fff 0%,#fffaf5 100%);overflow:hidden;font-family:Futura,'Futura PT',Arial,sans-serif}.suas-lab-page *{box-sizing:border-box}.suas-lab-wrap{width:min(980px,calc(100vw - 32px));margin:0 auto}.suas-lab-hero{position:relative;min-height:420px;display:grid;place-items:center;text-align:center;padding:clamp(30px,4vw,54px) 0 36px}.suas-lab-hero:before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(17,17,17,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.055) 1px,transparent 1px);background-size:34px 34px;pointer-events:none}.suas-lab-copy{position:relative;z-index:1}.suas-lab-kicker{margin:0 0 14px;font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:rgba(17,17,17,.45)}.suas-lab-title{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.8rem,6.2vw,5.8rem);font-weight:400;line-height:.88;letter-spacing:0;text-transform:uppercase}.suas-lab-subtitle{width:min(700px,100%);margin:18px auto 0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(.95rem,1.7vw,1.28rem);line-height:1.22;color:rgba(17,17,17,.62);text-transform:uppercase}.suas-lab-floater{display:none!important}.suas-lab-steps{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:32px}.suas-lab-step{min-height:92px;border-radius:20px;border:2px solid rgba(17,17,17,.08);background:rgba(255,255,255,.72);box-shadow:0 12px 28px rgba(17,17,17,.07);padding:15px;text-align:left}.suas-lab-step b{display:block;margin-bottom:13px;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(17,17,17,.5)}.suas-lab-step span{display:block;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(.98rem,1.35vw,1.24rem);line-height:1;text-transform:uppercase}.suas-lab-cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px}.suas-lab-cta{display:inline-flex;align-items:center;justify-content:center;min-height:46px;min-width:196px;border:3px solid var(--ink);border-radius:999px;background:linear-gradient(180deg,#ffd4e5 0%,#ff9fc2 100%);color:var(--ink);font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1rem;text-decoration:none;text-transform:uppercase;box-shadow:0 5px 0 var(--ink),0 12px 24px rgba(255,159,194,.28);transition:transform 160ms ease,box-shadow 160ms ease}.suas-lab-cta[data-light]{background:linear-gradient(180deg,#fff 0%,#d9ff78 140%)}.suas-lab-cta:hover{color:var(--ink);transform:translateY(3px);box-shadow:0 2px 0 var(--ink),0 8px 18px rgba(255,159,194,.3)}.suas-lab-menu{padding:34px 0 48px;border-top:2px solid var(--ink);background:#fff}.suas-lab-menu h2{margin:0 0 18px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.2rem,4vw,4rem);font-weight:400;line-height:.9;text-transform:lowercase}.suas-session-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}.suas-session{min-height:250px;border:2px solid var(--ink);border-radius:21px;padding:16px;background:var(--card-bg);box-shadow:0 6px 0 var(--ink);display:flex;flex-direction:column;justify-content:space-between;gap:14px}.suas-session h3{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.18rem,1.75vw,1.72rem);font-weight:400;line-height:.94;text-transform:uppercase}.suas-session p{margin:10px 0;font-size:11px;line-height:1.34;font-weight:800;color:rgba(17,17,17,.68)}.suas-session-badges{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 8px}.suas-session em{display:inline-flex;width:fit-content;max-width:100%;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:999px;padding:6px 9px 5px;background:rgba(255,255,255,.72);box-shadow:0 3px 0 rgba(17,17,17,.18);font-size:7.5px;line-height:1.12;font-style:normal;font-weight:900;letter-spacing:.04em;text-align:center;text-transform:uppercase}.suas-price{display:block;margin-top:auto;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.42rem,2vw,1.9rem);line-height:.95}.suas-session-link{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:38px;margin-top:12px;border:2px solid var(--ink);border-radius:999px;background:#fff;color:var(--ink);box-shadow:0 4px 0 var(--ink);font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}.suas-session-link:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}@media(max-width:980px){.suas-session-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.suas-lab-hero{min-height:auto}.suas-lab-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.suas-session{min-height:230px;padding:12px}.suas-session h3{font-size:clamp(.95rem,4vw,1.28rem)}.suas-session p{font-size:9px}.suas-price{font-size:1.25rem}.suas-session em{font-size:6.8px}.suas-session-link{font-size:7.5px}}@media(max-width:620px){.suas-lab-wrap{width:min(100% - 16px,520px)}.suas-lab-kicker{letter-spacing:.26em}.suas-lab-title{font-size:clamp(2.65rem,13vw,4.4rem)}.suas-lab-steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.suas-lab-step{min-height:74px;padding:11px;border-radius:16px}.suas-session-grid{grid-template-columns:1fr}.suas-session{min-height:0}.suas-lab-cta{width:100%;min-width:0}}
+    @font-face {
+      font-family: 'Casual Human';
+      src: url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');
+      font-display: swap;
+    }
+    .suas-lab-page {
+      --ink: #111;
+      --cream: #fffaf5;
+      --blush: #ffe8ef;
+      --pink: #ff9fc2;
+      --lime: #d9ff78;
+      --blue: #c9e7ff;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(17, 17, 17, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 17, 17, 0.045) 1px, transparent 1px),
+        radial-gradient(circle at 12% 10%, rgba(217, 255, 120, 0.32), transparent 26%),
+        radial-gradient(circle at 88% 18%, rgba(201, 231, 255, 0.4), transparent 28%),
+        linear-gradient(180deg, #fff 0%, #fffaf5 100%);
+      background-size: 28px 28px, 28px 28px, auto, auto, auto;
+      overflow: hidden;
+      font-family: Futura, 'Futura PT', Arial, sans-serif;
+    }
+    .suas-lab-page * { box-sizing: border-box; }
+    .suas-lab-wrap { width: min(1100px, calc(100vw - 32px)); margin: 0 auto; }
+    .suas-lab-hero { padding: clamp(22px, 3.5vw, 42px) 0 8px; }
+    .suas-lab-window {
+      border: 2px solid var(--ink);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 8px 9px 0 var(--ink);
+      overflow: hidden;
+    }
+    .suas-lab-titlebar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      min-height: 42px;
+      padding: 8px 14px;
+      border-bottom: 2px solid var(--ink);
+      background: linear-gradient(180deg, #fff, #e8edf3);
+    }
+    .suas-lab-dots { display: flex; gap: 7px; }
+    .suas-lab-dots i {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: var(--dot);
+    }
+    .suas-lab-app {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+    }
+    .suas-lab-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+    }
+    .suas-lab-live b {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #28c840;
+      box-shadow: 0 0 0 4px rgba(40, 200, 64, 0.18);
+      animation: suasLabBlink 1.4s steps(2, end) infinite;
+    }
+    @keyframes suasLabBlink {
+      50% { opacity: 0.35; }
+    }
+    .suas-lab-screen { padding: clamp(22px, 4vw, 42px) clamp(18px, 3vw, 36px) 22px; text-align: center; }
+    .suas-lab-path {
+      margin: 0 0 12px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(17, 17, 17, 0.5);
+    }
+    .suas-lab-title {
+      margin: 0;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
+      font-weight: 400;
+      line-height: 0.88;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+    .suas-lab-subtitle {
+      width: min(640px, 100%);
+      margin: 16px auto 0;
+      font-size: clamp(1rem, 1.5vw, 1.12rem);
+      line-height: 1.45;
+      font-weight: 800;
+      color: rgba(17, 17, 17, 0.66);
+    }
+    .suas-lab-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    .suas-lab-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      min-width: 188px;
+      padding: 0 18px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--pink);
+      color: var(--ink);
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: 1.05rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 4px 0 var(--ink);
+    }
+    .suas-lab-cta[data-light] { background: var(--lime); }
+    .suas-lab-cta:hover {
+      color: var(--ink);
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--ink);
+    }
+    .suas-lab-taskbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto 1fr auto 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: var(--ink);
+      color: #fff;
+    }
+    .suas-lab-task {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .suas-lab-task b {
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: 1.55rem;
+      font-weight: 400;
+      color: var(--lime);
+      line-height: 1;
+    }
+    .suas-lab-task span {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+    }
+    .suas-lab-taskbar > i {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.22);
+    }
+    .suas-lab-menu { padding: 34px 0 52px; }
+    .suas-lab-menu h2 {
+      margin: 0 0 16px;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 400;
+      line-height: 0.9;
+      text-transform: lowercase;
+    }
+    .suas-session-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      align-items: stretch;
+    }
+    .suas-session {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+      border: 2px solid var(--ink);
+      border-radius: 22px;
+      background: var(--card-bg);
+      box-shadow: 6px 7px 0 var(--ink);
+    }
+    .suas-session-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 7px 12px;
+      border-bottom: 2px solid var(--ink);
+      background: rgba(255, 255, 255, 0.72);
+    }
+    .suas-session-bar small {
+      margin-left: auto;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+    }
+    .suas-session-file {
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+    }
+    .suas-session-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+    }
+    .suas-session h3 {
+      margin: 0;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(1.35rem, 2vw, 1.85rem);
+      font-weight: 400;
+      line-height: 0.92;
+      text-transform: uppercase;
+    }
+    .suas-session p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 800;
+      color: rgba(17, 17, 17, 0.68);
+    }
+    .suas-session-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .suas-session-chips span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 2px 0 var(--ink);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .suas-price {
+      margin-top: auto;
+      font-family: 'Casual Human', Futura, Arial, sans-serif;
+      font-size: clamp(1.55rem, 2.1vw, 2rem);
+      line-height: 0.95;
+    }
+    .suas-session-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 4px 0 var(--ink);
+      font: 900 12px/1 Futura, Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .suas-session-link:hover {
+      color: var(--ink);
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--ink);
+    }
+    @media (max-width: 980px) {
+      .suas-session-grid { grid-template-columns: 1fr; }
+      .suas-lab-taskbar {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 10px;
+      }
+      .suas-lab-taskbar > i { display: none; }
+    }
+    @media (max-width: 620px) {
+      .suas-lab-wrap { width: min(100% - 16px, 520px); }
+      .suas-lab-titlebar { grid-template-columns: auto 1fr; }
+      .suas-lab-live { grid-column: 1 / -1; justify-self: start; }
+      .suas-lab-cta-row { display: grid; }
+      .suas-lab-cta { width: 100%; min-width: 0; min-height: 52px; }
+      .suas-lab-taskbar { grid-template-columns: 1fr; }
+    }
   </style>
-  <div class="suas-lab-hero"><div class="suas-lab-wrap suas-lab-copy"><p class="suas-lab-kicker">{{ section.settings.kicker }}</p><h1 class="suas-lab-title">{{ section.settings.heading }}</h1><p class="suas-lab-subtitle">{{ section.settings.copy }}</p><div class="suas-lab-steps"><div class="suas-lab-step"><b>Step 01</b><span>choose session</span></div><div class="suas-lab-step"><b>Step 02</b><span>pick notes</span></div><div class="suas-lab-step"><b>Step 03</b><span>mix formula</span></div><div class="suas-lab-step"><b>Step 04</b><span>bottle it</span></div></div><div class="suas-lab-cta-row"><a class="suas-lab-cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a><a class="suas-lab-cta" data-light href="/pages/bookings">book a session</a></div></div></div>
-  <div class="suas-lab-menu"><div class="suas-lab-wrap"><h2>{{ section.settings.sessions_heading }}</h2><div class="suas-session-grid"><article class="suas-session" style="--card-bg:#ffe8ef"><div><h3>{{ section.settings.self_title }}</h3><p>{{ section.settings.self_copy }}</p><div class="suas-session-badges"><em>{{ section.settings.self_badge }}</em></div></div><strong class="suas-price">{{ self_price_text }}</strong><a class="suas-session-link" href="{{ section.settings.self_link }}">{{ section.settings.self_button }}</a></article><article class="suas-session" style="--card-bg:#c9e7ff"><div><h3>{{ section.settings.guided_title }}</h3><p>{{ section.settings.guided_copy }}</p><div class="suas-session-badges"><em>{{ section.settings.guided_badge }}</em></div></div><strong class="suas-price">{{ guided_price_text }}</strong><a class="suas-session-link" href="{{ section.settings.guided_link }}">{{ section.settings.guided_button }}</a></article><article class="suas-session" style="--card-bg:#d9ff78"><div><h3>{{ section.settings.deluxe_title }}</h3><p>{{ section.settings.deluxe_copy }}</p><div class="suas-session-badges"><em>{{ section.settings.deluxe_badge_1 }}</em><em>{{ section.settings.deluxe_badge_2 }}</em></div></div><strong class="suas-price">{{ deluxe_price_text }}</strong><a class="suas-session-link" href="{{ section.settings.deluxe_link }}">{{ section.settings.deluxe_button }}</a></article></div></div></div>
+
+  <div class="suas-lab-hero">
+    <div class="suas-lab-wrap">
+      <div class="suas-lab-window">
+        <div class="suas-lab-titlebar">
+          <span class="suas-lab-dots" aria-hidden="true">
+            <i style="--dot:#ff5f57"></i>
+            <i style="--dot:#febc2e"></i>
+            <i style="--dot:#28c840"></i>
+          </span>
+          <span class="suas-lab-app">THE LAB.EXE</span>
+          <span class="suas-lab-live"><b></b> STATION OPEN</span>
+        </div>
+        <div class="suas-lab-screen">
+          <p class="suas-lab-path">SUAS.OS / {{ section.settings.kicker }}</p>
+          <h1 class="suas-lab-title">{{ section.settings.heading }}</h1>
+          <p class="suas-lab-subtitle">{{ section.settings.copy }}</p>
+          <div class="suas-lab-cta-row">
+            <a class="suas-lab-cta" href="/pages/bookings">book a session</a>
+            <a class="suas-lab-cta" data-light href="{{ cta_href }}">{{ section.settings.cta_label }}</a>
+          </div>
+        </div>
+        <div class="suas-lab-taskbar" aria-label="How the lab works">
+          <div class="suas-lab-task"><b>01</b><span>CHOOSE</span></div>
+          <i></i>
+          <div class="suas-lab-task"><b>02</b><span>NOTES</span></div>
+          <i></i>
+          <div class="suas-lab-task"><b>03</b><span>MIX</span></div>
+          <i></i>
+          <div class="suas-lab-task"><b>04</b><span>BOTTLE</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="suas-lab-menu">
+    <div class="suas-lab-wrap">
+      <h2>{{ section.settings.sessions_heading }}</h2>
+      <div class="suas-session-grid">
+        <article class="suas-session" style="--card-bg:#ffe8ef">
+          <div class="suas-session-bar">
+            <span class="suas-lab-dots" aria-hidden="true"><i style="--dot:#ff5f57"></i><i style="--dot:#febc2e"></i><i style="--dot:#28c840"></i></span>
+            <span class="suas-session-file">SELF.GUIDED</span>
+            <small>WALK-IN</small>
+          </div>
+          <div class="suas-session-body">
+            <h3>{{ section.settings.self_title }}</h3>
+            <p>{{ section.settings.self_copy }}</p>
+            <div class="suas-session-chips">
+              <span>30mL EDP</span>
+              <span>your pace</span>
+              <span>{{ section.settings.self_badge }}</span>
+            </div>
+            <strong class="suas-price">{{ self_price_text }}</strong>
+            <a class="suas-session-link" href="{{ self_href }}">{{ section.settings.self_button }}</a>
+          </div>
+        </article>
+
+        <article class="suas-session" style="--card-bg:#c9e7ff">
+          <div class="suas-session-bar">
+            <span class="suas-lab-dots" aria-hidden="true"><i style="--dot:#ff5f57"></i><i style="--dot:#febc2e"></i><i style="--dot:#28c840"></i></span>
+            <span class="suas-session-file">GUIDED.CLASS</span>
+            <small>12 SEATS</small>
+          </div>
+          <div class="suas-session-body">
+            <h3>{{ section.settings.guided_title }}</h3>
+            <p>{{ section.settings.guided_copy }}</p>
+            <div class="suas-session-chips">
+              <span>90 min</span>
+              <span>30mL perfume</span>
+              <span>{{ section.settings.guided_badge }}</span>
+            </div>
+            <strong class="suas-price">{{ guided_price_text }}</strong>
+            <a class="suas-session-link" href="{{ guided_href }}">{{ section.settings.guided_button }}</a>
+          </div>
+        </article>
+
+        <article class="suas-session" style="--card-bg:#d9ff78">
+          <div class="suas-session-bar">
+            <span class="suas-lab-dots" aria-hidden="true"><i style="--dot:#ff5f57"></i><i style="--dot:#febc2e"></i><i style="--dot:#28c840"></i></span>
+            <span class="suas-session-file">DELUXE.SET</span>
+            <small>ALL THREE</small>
+          </div>
+          <div class="suas-session-body">
+            <h3>{{ section.settings.deluxe_title }}</h3>
+            <p>{{ section.settings.deluxe_copy }}</p>
+            <div class="suas-session-chips">
+              <span>perfume</span>
+              <span>body oil</span>
+              <span>butter creme</span>
+            </div>
+            <strong class="suas-price">{{ deluxe_price_text }}</strong>
+            <a class="suas-session-link" href="{{ deluxe_href }}">{{ section.settings.deluxe_button }}</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
 </section>
 {% schema %}
 {
