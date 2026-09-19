@@ -311,7 +311,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     const rewriteSuasHomeLinks = () => {
       document.querySelectorAll('.suas-world-home a[href="#suas-reviews"]').forEach((link) => { link.setAttribute('href', routes.reviews); });
       document.querySelectorAll('a[href="/account"], a[href="/pages/suas-account"], a[href="/pages/suas-accounts"], a[href="/pages/accounts"]').forEach((link) => { link.setAttribute('href', routes.account); });
-      document.querySelectorAll('a[href="/account/addresses"]').forEach((link) => { link.setAttribute('href', '/pages/account#addresses'); });
+      document.querySelectorAll('a[href="/pages/about"], a[href="/pages/about-us"]').forEach((link) => { link.setAttribute('href', '/pages/who-are-we'); });
       document.querySelectorAll('a[href="/account/login"], a[href="/account/login/"], a[href*="/account/login"]').forEach((link) => {
         const href = link.getAttribute('href') || '';
         if (href.indexOf('/account/login') !== -1) link.setAttribute('href', '/pages/account');
@@ -353,7 +353,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"footer_label_1","label":"Footer label 1","default":"account"},
     {"type":"text","id":"footer_link_1","label":"Footer link 1","default":"/pages/account"},
     {"type":"text","id":"footer_label_2","label":"Footer label 2","default":"about"},
-    {"type":"text","id":"footer_link_2","label":"Footer link 2","default":"/pages/about"},
+    {"type":"text","id":"footer_link_2","label":"Footer link 2","default":"/pages/who-are-we"},
 
     {"type":"header","content":"Feminine dropdown"},
     {"type":"checkbox","id":"body_enabled","label":"Show Feminine dropdown","default":true},
