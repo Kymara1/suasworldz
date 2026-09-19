@@ -14,6 +14,12 @@
     html body.template--product .suas-review-intro p,
     html body.template--product .suas-review-empty{display:none!important}
     html body.template--product .suas-review-action{display:inline-flex!important;align-items:center;justify-content:center;min-height:36px;padding:0 14px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010;box-shadow:0 3px 0 #101010;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+    html body.template--product .suas-review-intro [data-suas-minimize-review]{display:none!important;background:#d9ff78!important}
+    html body.template--product .suas-product-review-shell:has(.suas-simple-review.is-writing) .suas-review-intro [data-suas-write-review]{display:none!important}
+    html body.template--product .suas-product-review-shell:has(.suas-simple-review.is-writing) .suas-review-intro [data-suas-minimize-review]{display:inline-flex!important}
+    .suas-review-form-bar{display:none;justify-content:flex-end;margin:0 0 6px}
+    .suas-simple-review.is-writing .suas-review-form-bar{display:flex}
+    .suas-review-form-bar .suas-review-minimize{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:0 12px;border:2px solid #101010;border-radius:999px;background:#d9ff78;color:#101010;box-shadow:0 2px 0 #101010;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
     html body.template--product .suas-review-app-stage{padding:0 10px 10px!important;min-height:0!important}
     html body.template--product .suas-review-app-stage .shopify-app-block{min-height:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
     .suas-simple-review{margin:6px 10px 10px;padding:0;border:0;background:transparent;box-shadow:none}
@@ -54,6 +60,9 @@
       .suas-simple-review textarea{min-height:44px!important;max-height:52px!important;height:44px!important}
     }
   </style>
+  <div class="suas-review-form-bar">
+    <button class="suas-review-minimize" type="button" data-suas-minimize-review>minimize</button>
+  </div>
   <div data-suas-judgeme-mount>
     <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}" data-product-id="{{ product.id }}" data-widget="review" data-auto-install="false" data-shop-reviews-count="{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}" data-entry-point="review_widget.js" data-entry-key="review-widget/main.js">
       {% if has_legacy %}
@@ -114,6 +123,19 @@
         return shown;
       }
 
+      function closeForm() {
+        root.classList.remove('is-writing');
+        formNodes().forEach(function (form) {
+          form.style.setProperty('display', 'none', 'important');
+        });
+        var jq = window.jdgm && (window.jdgm.jQuery || window.jdgm.$);
+        try {
+          if (jq && typeof window.jdgm.closeForm === 'function') {
+            window.jdgm.closeForm(jq('.jdgm-rev-widg'));
+          }
+        } catch (err) {}
+      }
+
       function compactForm() {
         if (!root.classList.contains('is-writing')) return;
         root.querySelectorAll('[class*="picture"],[class*="Picture"],[class*="upload"],[class*="media-uploader"]').forEach(function (el) {
@@ -153,8 +175,16 @@
       var n = 0;
       var t = setInterval(function () { scrub(); if (++n > 40) clearInterval(t); }, 400);
       document.addEventListener('click', function (event) {
-        var writer = event.target.closest('[data-suas-write-review], .suas-review-action, a.suas-product-stars, a[href*="showWriteReviews"]');
+        var closer = event.target.closest('[data-suas-minimize-review]');
+        if (closer) {
+          event.preventDefault();
+          event.stopPropagation();
+          closeForm();
+          return;
+        }
+        var writer = event.target.closest('[data-suas-write-review], a.suas-product-stars, a[href*="showWriteReviews"]');
         if (!writer) return;
+        if (writer.matches('[data-suas-minimize-review]')) return;
         event.preventDefault();
         event.stopPropagation();
         var tries = 0;

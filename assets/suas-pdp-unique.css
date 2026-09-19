@@ -1,4 +1,4 @@
-/* SUAS PDP — roomy OS windows, not a glued Starface clone */
+/* SUAS PDP - roomy OS windows, not a glued Starface clone */
 html body.template--product .layout--main-content {
   max-width: none !important;
   padding: 14px 16px 64px !important;
@@ -249,7 +249,14 @@ html body.template--product .suas-station-buy-body {
 html body.template--product .suas-pdp-jump { display: none !important; }
 html body.template--product .suas-station-buy .suas-product-stars {
   display: flex !important;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: 0 0 8px;
+}
+html body.template--product .suas-star-n {
+  font-size: 11px !important;
+  letter-spacing: .08em !important;
 }
 html body.template--product .suas-pdp-stamp {
   margin: 0 0 8px;

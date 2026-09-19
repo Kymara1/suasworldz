@@ -1,4 +1,4 @@
-/* 4 bubbles per row on mobile — minimal + safe */
+/* 4 bubbles per row on mobile - minimal + safe */
 @media (max-width:749px){
   .featured-grid--body--container{
     display:grid !important;
@@ -490,7 +490,7 @@ nav *,
   color: rgba(16,16,16,.62) !important;
 }
 
-/* SUAS OS cart page — visual system lives in suas-cart-fit.css */
+/* SUAS OS cart page - visual system lives in suas-cart-fit.css */
 .template--cart {
   --cart-ink: #101010;
   --cart-pink: #ffd8e8;
@@ -710,6 +710,15 @@ footer.footer--root {
 }
 .suas-product-stars .jdgm-prev-badge__text {
   display: none !important;
+}
+.suas-star-n {
+  display: inline-block;
+  margin: 0;
+  font: 900 8px/1 Futura, 'Futura PT', Arial, sans-serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #101010;
+  white-space: nowrap;
 }
 .suas-product-stars :is(.jdgm-powered, .jdgm-branding, a[href*='://judge.me'], a[href*='judgeme.com']) {
   display: none !important;

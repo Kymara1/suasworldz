@@ -33,6 +33,9 @@
     html body.template--product .suas-review-empty{display:none!important}
     html body.template--product .suas-review-action{display:inline-flex!important;align-items:center;justify-content:center;min-height:36px;padding:0 14px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010;box-shadow:0 3px 0 #101010;text-decoration:none;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
     html body.template--product .suas-review-action:hover{color:#101010;transform:translateY(1px);box-shadow:0 2px 0 #101010}
+    html body.template--product .suas-review-intro [data-suas-minimize-review]{display:none!important;background:#d9ff78}
+    html body.template--product .suas-product-review-shell:has(.suas-simple-review.is-writing) .suas-review-intro [data-suas-write-review]{display:none!important}
+    html body.template--product .suas-product-review-shell:has(.suas-simple-review.is-writing) .suas-review-intro [data-suas-minimize-review]{display:inline-flex!important}
     html body.template--product .suas-review-app-stage{padding:0 10px 10px;min-height:0}
     html body.template--product .suas-review-app-stage iframe[src*='aftership'],
     html body.template--product .suas-review-app-stage iframe[id*='aftership']{display:none!important}
@@ -49,6 +52,7 @@
       <div class="suas-review-intro">
         <h2>reviews</h2>
         <button class="suas-review-action" type="button" data-suas-write-review>write a review</button>
+        <button class="suas-review-action" type="button" data-suas-minimize-review>minimize</button>
       </div>
       {% render 'suas-simple-review-form', product: product %}
     {% endif %}
