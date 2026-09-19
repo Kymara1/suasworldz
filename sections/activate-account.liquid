@@ -1,64 +1,33 @@
-{%- liquid
-  assign activate_title_t = 'customer.activate_account.page_title' | t
-  assign activate_subtext_t = 'customer.activate_account.subtext' | t
-  assign activate_password_t = 'customer.activate_account.password' | t
-  assign activate_password_confirm_t = 'customer.activate_account.password_confirm' | t
-  assign activate_cancel_t = 'customer.activate_account.cancel' | t
-  assign activate_submit_t = 'customer.activate_account.submit' | t
--%}
-
-<div
-  class="customer--root account--activate"
-  data-section-id="{{ section.id }}"
->
-  <div class="customer--wrapper">
-    <h1 data-item="section-heading">
-      {{ activate_title_t }}
-    </h1>
-
-    <p class="account--activate--create-password">
-      {{ activate_subtext_t }}
-    </p>
-
-    {% form 'activate_customer_password' %}
-      {{ form.errors | default_errors }}
-
-      <label for="customer_password">
-        {{ activate_password_t }}
-      </label>
-      <input
-        class="text"
-        type="password"
-        value=""
-        name="customer[password]"
-        id="customer_password"
-        size="16"
-      />
-
-      <label for="customer_password_confirmation">
-        {{ activate_password_confirm_t }}
-      </label>
-      <input
-        class="text"
-        type="password"
-        value=""
-        name="customer[password_confirmation]"
-        id="customer_password_confirmation"
-        size="16"
-      />
-
-      <div class="account--activate--button-container">
-        <div class="account--activate--button" data-item='button'>
-          <button type="submit" value="{{ activate_submit_t }}">
-            {{ activate_submit_t }}
-          </button>
+{% render 'suas-os-account-styles' %}
+<section class="suas-os-account" aria-label="Activate account">
+  <div class="suas-os-wrap">
+    {% render 'suas-os-account-mark' %}
+    <article class="suas-os-win">
+      <div class="suas-os-winbar">
+        <div class="suas-os-dots">
+          <span class="suas-os-dot" style="--dot:#ff5f57"></span>
+          <span class="suas-os-dot" style="--dot:#febc2e"></span>
+          <span class="suas-os-dot" style="--dot:#28c840"></span>
         </div>
-        <div data-item="block-link">
-          <a href="{{ routes.root_url }}">
-            {{ activate_cancel_t }}
-          </a>
-        </div>
+        <span class="suas-os-wintitle suas-mono">ACCOUNT.ACTIVATE</span>
+        <span class="suas-os-live suas-mono"><b></b>NEW</span>
       </div>
-    {% endform %}
+      <div class="suas-os-body">
+        <p class="suas-os-kicker">suas.os / security</p>
+        <h1 class="suas-os-title suas-font">set a password.</h1>
+        <p class="suas-os-copy">then this window opens for real.</p>
+        {% form 'activate_customer_password' %}
+          <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
+          <div class="suas-os-form">
+            <div class="suas-os-field"><label for="customer_password">password</label><input id="customer_password" type="password" name="customer[password]" autocomplete="new-password" required></div>
+            <div class="suas-os-field"><label for="customer_password_confirmation">confirm password</label><input id="customer_password_confirmation" type="password" name="customer[password_confirmation]" autocomplete="new-password" required></div>
+            <div class="suas-os-actions">
+              <button class="suas-os-btn is-dark" type="submit">activate</button>
+              <a class="suas-os-btn" href="{{ routes.root_url }}">cancel</a>
+            </div>
+          </div>
+        {% endform %}
+      </div>
+    </article>
   </div>
-</div>
+</section>

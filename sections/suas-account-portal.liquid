@@ -17,167 +17,173 @@
   assign saved_points = saved_points | default: 0 | plus: 0
 -%}
 
-<style>
-  @font-face{font-family:"Casual Human";src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-weight:400;font-display:swap}
-  @font-face{font-family:"Casual Human";src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
-  .suas-account-hub{--ink:#101010;--muted:rgba(16,16,16,.62);--paper:#fffaf4;--pink:#ffd8e8;--hot:#ff9bc4;--yellow:#fff1a8;--blue:#cdeeff;--green:#d9ff78;--lav:#e4d5ff;min-height:86vh;padding:clamp(22px,4vw,54px) 14px 62px;color:var(--ink);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 9% 12%,rgba(255,216,232,.65),transparent 28%),radial-gradient(circle at 88% 7%,rgba(217,255,120,.4),transparent 26%),linear-gradient(180deg,#fffaf4,#fff 54%,#fff8fb);background-size:24px 24px,24px 24px,auto,auto,auto;font-family:Futura,"Futura PT",Arial,sans-serif;overflow:hidden}.suas-account-hub *{box-sizing:border-box}.suas-account-hub a{color:inherit;text-decoration:none}.suas-ah-shell{width:min(1180px,100%);margin:0 auto}.suas-ah-brand{display:flex;align-items:center;gap:13px;margin-bottom:18px}.suas-ah-orb{width:50px;height:50px;border-radius:999px;background:conic-gradient(from 210deg,#ffd8e8,#cdeeff,#d9ff78,#e4d5ff,#ffd8e8);box-shadow:inset 0 -7px 14px rgba(0,0,0,.16),0 12px 24px rgba(0,0,0,.13)}.suas-ah-logo,.suas-ah-title,.suas-ah-card h2,.suas-ah-number,.suas-ah-feature strong,.suas-ah-hand{font-family:"Casual Human",Futura,Arial,sans-serif!important;font-weight:700!important;letter-spacing:0!important}.suas-ah-logo{font-size:38px;line-height:1;text-transform:lowercase}.suas-ah-panel,.suas-ah-card,.suas-ah-feature,.suas-ah-ticket,.suas-ah-module{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.92);box-shadow:6px 7px 0 var(--ink)}.suas-ah-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.42fr);gap:16px;align-items:stretch;margin-bottom:16px}.suas-ah-panel{padding:clamp(18px,3vw,30px)}.suas-ah-kicker,.suas-ah-btn,.suas-ah-mini,.suas-ah-label,.suas-ah-tab,.suas-ah-input label{font:900 9px/1 Futura,"Futura PT",Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}.suas-ah-kicker,.suas-ah-label{color:var(--muted)}.suas-ah-title{max-width:800px;margin:10px 0 12px;font-size:clamp(3rem,7vw,6.2rem);line-height:.82;text-transform:lowercase}.suas-ah-copy{max-width:64ch;margin:0;color:var(--muted);font-size:13px;line-height:1.55;font-weight:800}.suas-ah-actions,.suas-ah-tabs,.suas-ah-point-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.suas-ah-btn,.suas-ah-tab{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:11px 15px;border:2px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 4px 0 var(--ink);transition:transform 160ms ease,box-shadow 160ms ease,background 160ms ease;cursor:pointer}.suas-ah-btn:hover,.suas-ah-tab:hover{transform:translateY(2px);box-shadow:0 2px 0 var(--ink);background:var(--pink)}.suas-ah-btn.is-dark,.suas-ah-tab.is-active{background:var(--ink);color:#fff}.suas-ah-status{display:grid;align-content:center;gap:11px;background:#050505;color:#fff}.suas-ah-status .suas-ah-copy{color:rgba(255,255,255,.72)}.suas-ah-pill{display:inline-flex;width:max-content;max-width:100%;padding:7px 9px;border:1.5px solid var(--ink);border-radius:999px;background:var(--yellow);box-shadow:0 3px 0 var(--ink);color:var(--ink)}.suas-ah-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(300px,.74fr);gap:16px}.suas-ah-stack{display:grid;gap:16px}.suas-ah-card,.suas-ah-module{padding:clamp(16px,2.4vw,24px)}.suas-ah-card h2,.suas-ah-module h2{margin:5px 0 9px;font-size:clamp(2rem,4vw,3.35rem);line-height:.88;text-transform:lowercase}.suas-ah-number{margin:6px 0;font-size:clamp(4.2rem,8vw,7rem);line-height:.82}.suas-ah-progress{height:13px;margin:18px 0 8px;border-radius:999px;background:rgba(16,16,16,.1);overflow:hidden}.suas-ah-progress span{display:block;height:100%;width:var(--progress,0%);border-radius:inherit;background:#101010;transition:width 280ms ease}.suas-ah-row{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;font-weight:800}.suas-ah-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.suas-ah-feature{min-height:132px;padding:13px;display:flex;flex-direction:column;justify-content:space-between;background:var(--tile);transition:transform 160ms ease,box-shadow 160ms ease;cursor:pointer;text-align:left}.suas-ah-feature:hover{transform:translateY(2px);box-shadow:4px 5px 0 var(--ink)}.suas-ah-feature span{font-size:22px}.suas-ah-feature strong{font-size:clamp(1.35rem,2.4vw,2rem);line-height:.9;text-transform:lowercase}.suas-ah-feature small{color:rgba(16,16,16,.62);font-size:10px;line-height:1.3;font-weight:800}.suas-ah-ticket{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:11px;align-items:center;min-height:70px;padding:12px;margin-top:10px;background:#fff}.suas-ah-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:999px;background:var(--tile);font-family:"Casual Human",Futura,Arial,sans-serif;font-weight:700}.suas-ah-ticket strong{display:block;font-size:14px}.suas-ah-ticket small{display:block;color:var(--muted);font-size:11px;line-height:1.35}.suas-ah-view{display:none}.suas-ah-view.is-active{display:block}.suas-ah-form{display:grid;gap:12px;margin-top:14px}.suas-ah-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.suas-ah-input{display:grid;gap:6px}.suas-ah-input input,.suas-ah-input textarea,.suas-ah-input select{width:100%;min-height:44px;border:2px solid var(--ink);border-radius:16px;background:#fff;padding:11px 12px;color:var(--ink);font:800 13px/1.35 Futura,"Futura PT",Arial,sans-serif;box-shadow:0 3px 0 rgba(16,16,16,.12)}.suas-ah-input textarea{min-height:110px;resize:vertical}.suas-ah-list{display:grid;gap:10px;margin-top:14px}.suas-ah-entry{display:grid;gap:7px;padding:13px;border:1.75px solid var(--ink);border-radius:18px;background:var(--tile,#fff);box-shadow:0 4px 0 var(--ink)}.suas-ah-entry strong{font-size:15px}.suas-ah-entry small{color:var(--muted);font-weight:800}.suas-ah-entry p{margin:0;color:rgba(16,16,16,.72);font-size:12px;line-height:1.45;font-weight:800}.suas-ah-game-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.suas-ah-game-option{min-height:62px;border:2px solid var(--ink);border-radius:18px;background:var(--tile,#fff);box-shadow:0 4px 0 var(--ink);padding:12px;font-weight:900;text-align:left;cursor:pointer}.suas-ah-game-option.is-right{background:var(--green)}.suas-ah-game-option.is-wrong{background:var(--pink)}.suas-ah-note{margin-top:10px;padding:10px 12px;border:1.5px solid rgba(16,16,16,.18);border-radius:16px;background:rgba(255,255,255,.72);color:var(--muted);font-size:11px;line-height:1.4;font-weight:800}.suas-ah-empty{padding:13px;border:1.5px dashed rgba(16,16,16,.35);border-radius:18px;color:var(--muted);font-size:12px;font-weight:800}.suas-ah-toast{position:fixed;right:16px;bottom:16px;z-index:9999;max-width:min(330px,calc(100vw - 32px));padding:13px 15px;border:2px solid var(--ink);border-radius:18px;background:var(--green);box-shadow:5px 6px 0 var(--ink);font-size:12px;font-weight:900;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity 180ms ease,transform 180ms ease}.suas-ah-toast.is-live{opacity:1;transform:translateY(0)}.suas-ah-hero.is-gate{grid-template-columns:1fr;max-width:560px;margin:0 auto 0}.suas-ah-auth{display:none}.suas-ah-auth.is-on{display:block}.suas-ah-errors{margin:0 0 10px;color:#b10d2a;font-size:12px;line-height:1.4;font-weight:800}.suas-ah-errors:empty,.suas-ah-errors:not(:has(*)){display:none}.suas-ah-errors ul{margin:0;padding-left:18px}.suas-ah-lock{display:grid;place-items:center;width:52px;height:52px;border:2px solid var(--ink);border-radius:18px;background:var(--yellow);box-shadow:0 4px 0 var(--ink);font-size:22px;margin-bottom:8px}@media(max-width:900px){.suas-ah-hero,.suas-ah-grid{grid-template-columns:1fr}.suas-ah-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.suas-account-hub{padding:18px 10px 48px}.suas-ah-title{font-size:clamp(2.65rem,16vw,4.8rem)}.suas-ah-feature-grid,.suas-ah-two,.suas-ah-game-options{grid-template-columns:1fr}.suas-ah-feature{min-height:112px;border-radius:18px;padding:11px}.suas-ah-feature strong{font-size:1.15rem}.suas-ah-feature small{font-size:8.5px}.suas-ah-ticket{grid-template-columns:38px minmax(0,1fr);border-radius:18px}.suas-ah-icon{width:38px;height:38px}.suas-ah-ticket .suas-ah-mini{display:none}.suas-ah-tabs{position:sticky;top:0;z-index:2;padding:8px 0;background:rgba(255,250,244,.92);backdrop-filter:blur(8px)}}
-</style>
-
-<section class="suas-account-hub" data-suas-account-hub data-shopify-points="{{ saved_points }}">
-  <div class="suas-ah-shell">
-    <div class="suas-ah-brand"><span class="suas-ah-orb"></span><span class="suas-ah-logo">suas</span></div>
+{% render 'suas-os-account-styles' %}
+<section class="suas-os-account" data-suas-account-hub data-shopify-points="{{ saved_points }}" aria-label="SUAS account">
+  <div class="suas-os-wrap{% if customer %} is-wide{% endif %}">
+    {% render 'suas-os-account-mark' %}
 
     {% unless customer %}
-      <div class="suas-ah-hero is-gate">
-        <article class="suas-ah-panel">
-          <span class="suas-ah-lock" aria-hidden="true">lock</span>
-          <p class="suas-ah-kicker">suas.os / security</p>
-          <h1 class="suas-ah-title">sign in first.</h1>
-          <p class="suas-ah-copy">this door stays locked until you log in or make an account. orders, addresses, and your notes wait on the other side.</p>
-          <div class="suas-ah-actions" role="tablist" aria-label="Account access">
-            <button class="suas-ah-tab is-active" type="button" data-suas-auth="login">log in</button>
-            <button class="suas-ah-tab" type="button" data-suas-auth="register">create account</button>
-            <button class="suas-ah-tab" type="button" data-suas-auth="recover">forgot password</button>
+      <article class="suas-os-win">
+        <div class="suas-os-winbar">
+          <div class="suas-os-dots">
+            <span class="suas-os-dot" style="--dot:#ff5f57"></span>
+            <span class="suas-os-dot" style="--dot:#febc2e"></span>
+            <span class="suas-os-dot" style="--dot:#28c840"></span>
+          </div>
+          <span class="suas-os-wintitle suas-mono">ACCOUNT.LOCK</span>
+          <span class="suas-os-live suas-mono"><b></b>SECURE</span>
+        </div>
+        <div class="suas-os-body">
+          <p class="suas-os-kicker">suas.os / security</p>
+          <h1 class="suas-os-title suas-font">sign in first.</h1>
+          <p class="suas-os-copy">this door stays locked until you log in or make an account. orders, addresses, and your notes wait on the other side.</p>
+          <div class="suas-os-tabs" role="tablist" aria-label="Account access">
+            <button class="suas-os-tab is-on" type="button" data-suas-auth="login">log in</button>
+            <button class="suas-os-tab" type="button" data-suas-auth="register">create account</button>
+            <button class="suas-os-tab" type="button" data-suas-auth="recover">forgot password</button>
           </div>
 
-          <div class="suas-ah-auth is-on" data-suas-auth-view="login">
+          <div class="suas-os-auth is-on" data-suas-auth-view="login">
             {% form 'customer_login' %}
               <input type="hidden" name="return_to" value="/pages/account">
-              <div class="suas-ah-errors">{{ form.errors | default_errors }}</div>
-              <div class="suas-ah-form">
-                <div class="suas-ah-input"><label for="suas-login-email">email</label><input id="suas-login-email" type="email" name="customer[email]" autocomplete="email" required></div>
+              <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
+              <div class="suas-os-form">
+                <div class="suas-os-field"><label for="suas-login-email">email</label><input id="suas-login-email" type="email" name="customer[email]" autocomplete="email" required></div>
                 {% if form.password_needed %}
-                  <div class="suas-ah-input"><label for="suas-login-password">password</label><input id="suas-login-password" type="password" name="customer[password]" autocomplete="current-password" required></div>
+                  <div class="suas-os-field"><label for="suas-login-password">password</label><input id="suas-login-password" type="password" name="customer[password]" autocomplete="current-password" required></div>
                 {% endif %}
-                <button class="suas-ah-btn is-dark" type="submit">log in</button>
+                <button class="suas-os-btn is-dark" type="submit">log in</button>
               </div>
             {% endform %}
           </div>
 
-          <div class="suas-ah-auth" data-suas-auth-view="register">
+          <div class="suas-os-auth" data-suas-auth-view="register">
             {% form 'create_customer' %}
               <input type="hidden" name="return_to" value="/pages/account">
-              <div class="suas-ah-errors">{{ form.errors | default_errors }}</div>
-              <div class="suas-ah-form">
-                <div class="suas-ah-two">
-                  <div class="suas-ah-input"><label for="suas-reg-first">first name</label><input id="suas-reg-first" type="text" name="customer[first_name]" autocomplete="given-name" required></div>
-                  <div class="suas-ah-input"><label for="suas-reg-last">last name</label><input id="suas-reg-last" type="text" name="customer[last_name]" autocomplete="family-name" required></div>
+              <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
+              <div class="suas-os-form">
+                <div class="suas-os-two">
+                  <div class="suas-os-field"><label for="suas-reg-first">first name</label><input id="suas-reg-first" type="text" name="customer[first_name]" autocomplete="given-name" required></div>
+                  <div class="suas-os-field"><label for="suas-reg-last">last name</label><input id="suas-reg-last" type="text" name="customer[last_name]" autocomplete="family-name" required></div>
                 </div>
-                <div class="suas-ah-input"><label for="suas-reg-email">email</label><input id="suas-reg-email" type="email" name="customer[email]" autocomplete="email" required></div>
-                <div class="suas-ah-input"><label for="suas-reg-password">password</label><input id="suas-reg-password" type="password" name="customer[password]" autocomplete="new-password" required></div>
-                <button class="suas-ah-btn is-dark" type="submit">create account</button>
+                <div class="suas-os-field"><label for="suas-reg-email">email</label><input id="suas-reg-email" type="email" name="customer[email]" autocomplete="email" required></div>
+                <div class="suas-os-field"><label for="suas-reg-password">password</label><input id="suas-reg-password" type="password" name="customer[password]" autocomplete="new-password" required></div>
+                <button class="suas-os-btn is-dark" type="submit">create account</button>
               </div>
             {% endform %}
           </div>
 
-          <div class="suas-ah-auth" data-suas-auth-view="recover">
+          <div class="suas-os-auth" data-suas-auth-view="recover">
             {% form 'recover_customer_password' %}
-              <div class="suas-ah-errors">{{ form.errors | default_errors }}</div>
+              <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
               {% if form.posted_successfully? %}
-                <p class="suas-ah-copy">reset email sent. check your inbox.</p>
+                <p class="suas-os-copy">reset email sent. check your inbox.</p>
               {% else %}
-                <div class="suas-ah-form">
-                  <div class="suas-ah-input"><label for="suas-recover-email">email</label><input id="suas-recover-email" type="email" name="email" autocomplete="email" required></div>
-                  <button class="suas-ah-btn is-dark" type="submit">send reset</button>
+                <div class="suas-os-form">
+                  <div class="suas-os-field"><label for="suas-recover-email">email</label><input id="suas-recover-email" type="email" name="email" autocomplete="email" required></div>
+                  <button class="suas-os-btn is-dark" type="submit">send reset</button>
                 </div>
               {% endif %}
             {% endform %}
           </div>
-        </article>
-      </div>
+        </div>
+      </article>
     {% else %}
-      <div class="suas-ah-hero">
-        <article class="suas-ah-panel">
-          <p class="suas-ah-kicker">suas.os / security</p>
-          <h1 class="suas-ah-title">hi, {{ account_name | downcase }}.</h1>
-          <p class="suas-ah-copy">you're in. start with your login, then orders if you want them.</p>
-          <div class="suas-ah-actions">
-            <a class="suas-ah-btn" href="{{ routes.account_logout_url }}">sign out</a>
+      <div class="suas-os-mid">
+        <article class="suas-os-win">
+          <div class="suas-os-winbar">
+            <div class="suas-os-dots">
+              <span class="suas-os-dot" style="--dot:#ff5f57"></span>
+              <span class="suas-os-dot" style="--dot:#febc2e"></span>
+              <span class="suas-os-dot" style="--dot:#28c840"></span>
+            </div>
+            <span class="suas-os-wintitle suas-mono" data-suas-win-title>SECURITY.SYS</span>
+            <span class="suas-os-live suas-mono"><b></b>IN</span>
           </div>
-        </article>
-        <aside class="suas-ah-panel suas-ah-status">
-          <span class="suas-ah-pill suas-ah-mini">signed in</span>
-          <p class="suas-ah-copy">{{ customer.email }}</p>
-        </aside>
-      </div>
-
-      <div class="suas-ah-tabs" role="tablist" aria-label="Account tools">
-        <button class="suas-ah-tab is-active" type="button" data-suas-open="security">security</button>
-        <button class="suas-ah-tab" type="button" data-suas-open="orders">orders</button>
-        <button class="suas-ah-tab" type="button" data-suas-open="journal">scent journal</button>
-      </div>
-
-      <div class="suas-ah-grid">
-        <main class="suas-ah-stack">
-          <section class="suas-ah-view is-active" data-suas-view="security">
-            <article class="suas-ah-card">
-              <p class="suas-ah-label">login + safety</p>
-              <h2>your account.</h2>
-              <p class="suas-ah-copy">email, password reset, and where we ship. that's the important part.</p>
-              <div class="suas-ah-list">
-                <div class="suas-ah-ticket"><span class="suas-ah-icon" style="--tile:#fff1a8">@</span><span><strong>{{ customer.email }}</strong><small>signed-in email</small></span></div>
-                <a class="suas-ah-ticket" href="{{ routes.account_addresses_url }}"><span class="suas-ah-icon" style="--tile:#cdeeff">pin</span><span><strong>addresses</strong><small>shipping + pickup</small></span><span class="suas-ah-mini">edit</span></a>
-                <a class="suas-ah-ticket" href="{{ routes.account_logout_url }}"><span class="suas-ah-icon" style="--tile:#ffd8e8">bye</span><span><strong>sign out</strong><small>lock this window</small></span><span class="suas-ah-mini">go</span></a>
+          <div class="suas-os-body">
+            <section class="suas-os-view is-on" data-suas-view="security">
+              <p class="suas-os-kicker">suas.os / security</p>
+              <h1 class="suas-os-title suas-font">hi, {{ account_name | downcase }}.</h1>
+              <p class="suas-os-copy">you're in. email, password, and where we ship — that's the important part.</p>
+              <div class="suas-os-list">
+                <div class="suas-os-ticket"><span class="suas-os-icon" style="--tile:#fff1a8">@</span><span><strong>{{ customer.email }}</strong><small>signed-in email</small></span></div>
+                <a class="suas-os-ticket" href="{{ routes.account_addresses_url }}"><span class="suas-os-icon" style="--tile:#cdeeff">pin</span><span><strong>addresses</strong><small>shipping + pickup</small></span><span class="suas-os-mini suas-mono">edit</span></a>
+                <a class="suas-os-ticket" href="{{ routes.account_logout_url }}"><span class="suas-os-icon" style="--tile:#ffd8e8">bye</span><span><strong>sign out</strong><small>lock this window</small></span><span class="suas-os-mini suas-mono">go</span></a>
               </div>
-              <p class="suas-ah-label" style="margin-top:18px">reset password</p>
               {% form 'recover_customer_password' %}
-                <div class="suas-ah-errors">{{ form.errors | default_errors }}</div>
+                <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
                 {% if form.posted_successfully? %}
-                  <p class="suas-ah-copy">reset email sent to {{ customer.email }}.</p>
+                  <p class="suas-os-note">reset email sent to {{ customer.email }}.</p>
                 {% else %}
-                  <div class="suas-ah-form">
+                  <div class="suas-os-form">
                     <input type="hidden" name="email" value="{{ customer.email }}">
-                    <button class="suas-ah-btn is-dark" type="submit">email me a reset link</button>
+                    <button class="suas-os-btn is-dark" type="submit">email me a reset link</button>
                   </div>
                 {% endif %}
               {% endform %}
-            </article>
-          </section>
+            </section>
 
-          <section class="suas-ah-view" data-suas-view="orders">
-            <article class="suas-ah-card">
-              <p class="suas-ah-label">orders</p>
-              <h2>your orders.</h2>
-              <div class="suas-ah-list">
+            <section class="suas-os-view" data-suas-view="orders">
+              <p class="suas-os-kicker">suas.os / orders</p>
+              <h1 class="suas-os-title suas-font">your orders.</h1>
+              <div class="suas-os-list">
                 {% for order in customer.orders limit: 5 %}
-                  <a class="suas-ah-ticket" href="{{ order.customer_url }}">
-                    <span class="suas-ah-icon" style="--tile:#ffd8e8">{{ forloop.index }}</span>
+                  <a class="suas-os-ticket" href="{{ order.customer_url }}">
+                    <span class="suas-os-icon" style="--tile:#ffd8e8">{{ forloop.index }}</span>
                     <span>
                       <strong>{{ order.name }}</strong>
                       <small>{{ order.created_at | date: '%b %d, %Y' }} · {{ order.financial_status | replace: '_', ' ' }}</small>
                     </span>
-                    <span class="suas-ah-mini">{{ order.total_price | money }}</span>
+                    <span class="suas-os-mini suas-mono">{{ order.total_price | money }}</span>
                   </a>
                 {% else %}
-                  <div class="suas-ah-empty">no orders yet. go smell something.</div>
+                  <div class="suas-os-empty">no orders yet. go smell something.</div>
                 {% endfor %}
-                <a class="suas-ah-ticket" href="{{ routes.account_url }}"><span class="suas-ah-icon" style="--tile:#d9ff78">all</span><span><strong>full order history</strong><small>every drop, every mix</small></span><span class="suas-ah-mini">go</span></a>
+                <a class="suas-os-ticket" href="{{ routes.account_url }}"><span class="suas-os-icon" style="--tile:#d9ff78">all</span><span><strong>full order history</strong><small>every drop, every mix</small></span><span class="suas-os-mini suas-mono">go</span></a>
               </div>
-            </article>
-          </section>
+            </section>
 
-          <section class="suas-ah-view" data-suas-view="journal">
-            <article class="suas-ah-card">
-              <p class="suas-ah-label">scent journal</p>
-              <h2>what did you make?</h2>
-              <p class="suas-ah-copy">save a Lab mix or a favorite bottle. notes stay on this phone.</p>
-              <form class="suas-ah-form" data-suas-journal-form>
-                <div class="suas-ah-two">
-                  <div class="suas-ah-input"><label for="suas-journal-name">name</label><input id="suas-journal-name" name="name" placeholder="pink sugar villain" required></div>
-                  <div class="suas-ah-input"><label for="suas-journal-product">product</label><select id="suas-journal-product" name="product"><option>Perfume / Cologne</option><option>Roll-On</option><option>Body Oil</option><option>Butter Creme</option><option>Everything Mist</option><option>Candle</option></select></div>
+            <section class="suas-os-view" data-suas-view="journal">
+              <p class="suas-os-kicker">suas.os / journal</p>
+              <h1 class="suas-os-title suas-font">what did you make?</h1>
+              <p class="suas-os-copy">save a Lab mix or a favorite bottle. notes stay on this phone.</p>
+              <form class="suas-os-form" data-suas-journal-form>
+                <div class="suas-os-two">
+                  <div class="suas-os-field"><label for="suas-journal-name">name</label><input id="suas-journal-name" name="name" placeholder="pink sugar villain" required></div>
+                  <div class="suas-os-field"><label for="suas-journal-product">product</label><select id="suas-journal-product" name="product"><option>Perfume / Cologne</option><option>Roll-On</option><option>Body Oil</option><option>Butter Creme</option><option>Everything Mist</option><option>Candle</option></select></div>
                 </div>
-                <div class="suas-ah-input"><label for="suas-journal-notes">notes</label><input id="suas-journal-notes" name="notes" placeholder="mandarin, vanilla, amber"></div>
-                <div class="suas-ah-input"><label for="suas-journal-vibe">how did it smell?</label><textarea id="suas-journal-vibe" name="vibe" placeholder="sweet, warm, clean, loud, soft..."></textarea></div>
-                <button class="suas-ah-btn is-dark" type="submit">save note</button>
+                <div class="suas-os-field"><label for="suas-journal-notes">notes</label><input id="suas-journal-notes" name="notes" placeholder="mandarin, vanilla, amber"></div>
+                <div class="suas-os-field"><label for="suas-journal-vibe">how did it smell?</label><textarea id="suas-journal-vibe" name="vibe" placeholder="sweet, warm, clean, loud, soft..."></textarea></div>
+                <button class="suas-os-btn is-dark" type="submit">save note</button>
               </form>
-              <div class="suas-ah-list" data-suas-journal-list></div>
-            </article>
-          </section>
-        </main>
+              <div class="suas-os-list" data-suas-journal-list></div>
+            </section>
+          </div>
+        </article>
+
+        <aside class="suas-os-win">
+          <div class="suas-os-winbar">
+            <div class="suas-os-dots">
+              <span class="suas-os-dot" style="--dot:#ff5f57"></span>
+              <span class="suas-os-dot" style="--dot:#febc2e"></span>
+              <span class="suas-os-dot" style="--dot:#28c840"></span>
+            </div>
+            <span class="suas-os-wintitle suas-mono">QUICK.LAUNCH</span>
+            <span class="suas-os-live suas-mono"><b></b>GO</span>
+          </div>
+          <div class="suas-os-body">
+            <div class="suas-os-launch">
+              <button class="suas-os-tile is-on" type="button" style="--tile:#fff1a8" data-suas-open="security"><strong class="suas-font">security</strong><span>login + safety</span></button>
+              <button class="suas-os-tile" type="button" style="--tile:#ffd8e8" data-suas-open="orders"><strong class="suas-font">orders</strong><span>history</span></button>
+              <button class="suas-os-tile" type="button" style="--tile:#d9ff78" data-suas-open="journal"><strong class="suas-font">journal</strong><span>what you mixed</span></button>
+              <a class="suas-os-tile" style="--tile:#cdeeff" href="{{ routes.account_logout_url }}"><strong class="suas-font">sign out</strong><span>lock it</span></a>
+            </div>
+          </div>
+        </aside>
       </div>
     {% endunless %}
   </div>
-  <div class="suas-ah-toast" data-suas-toast></div>
+  <div class="suas-os-toast" data-suas-toast></div>
 </section>
 
 <script>
@@ -188,7 +194,6 @@
 
   const storageKey = 'suasAccountPortal.v2';
   const shopifyPoints = parseInt(root.dataset.shopifyPoints || '0', 10) || 0;
-  const rewardGoal = 1000;
   const emptyState = { points: shopifyPoints, journal: [], log: [], answered: [] };
 
   const load = () => {
@@ -201,7 +206,6 @@
   };
 
   let state = load();
-
   const save = () => localStorage.setItem(storageKey, JSON.stringify(state));
   const $ = (selector) => root.querySelector(selector);
   const $$ = (selector) => [...root.querySelectorAll(selector)];
@@ -221,58 +225,44 @@
     state.log = state.log.slice(0, 12);
     save();
     render();
-    toast(`+${pts} points: ${reason}`);
+    toast('saved.');
   };
 
   const openView = (name) => {
-    $$('[data-suas-view]').forEach((view) => view.classList.toggle('is-active', view.dataset.suasView === name));
-    $$('[data-suas-open]').forEach((button) => button.classList.toggle('is-active', button.dataset.suasOpen === name));
-  };
-
-  const renderPoints = () => {
-    $$('[data-suas-points]').forEach((el) => { el.textContent = state.points; });
-    const progress = Math.min(100, Math.round((state.points / rewardGoal) * 100));
-    const bar = $('[data-suas-progress]');
-    if (bar) bar.style.setProperty('--progress', `${progress}%`);
-    const left = $('[data-suas-points-left]');
-    if (left) left.textContent = `${Math.max(0, rewardGoal - state.points)} pts to next reward`;
-    const log = $('[data-suas-points-log]');
-    if (log) {
-      log.innerHTML = state.log.length ? state.log.map((item) => `<div class="suas-ah-entry" style="--tile:#fff1a8"><strong>+${item.amount} ${item.reason}</strong><small>${item.date}</small></div>`).join('') : '<div class="suas-ah-empty">No point activity yet. Save a journal entry or play a quiz.</div>';
-    }
+    $$('[data-suas-view]').forEach((view) => view.classList.toggle('is-on', view.dataset.suasView === name));
+    $$('[data-suas-open]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasOpen === name));
+    const titles = { security: 'SECURITY.SYS', orders: 'ORDERS.LOG', journal: 'SCENT.JOURNAL' };
+    const win = $('[data-suas-win-title]');
+    if (win) win.textContent = titles[name] || 'SECURITY.SYS';
   };
 
   const renderJournal = () => {
-    const html = state.journal.length ? state.journal.map((entry, index) => `<div class="suas-ah-entry" style="--tile:${index % 2 ? '#cdeeff' : '#ffd8e8'}"><strong>${entry.name}</strong><small>${entry.product} • ${entry.date}</small><p><b>Notes:</b> ${entry.notes || 'not listed'}</p><p>${entry.vibe || ''}</p><button class="suas-ah-btn" type="button" data-delete-journal="${entry.id}">delete</button></div>`).join('') : '<div class="suas-ah-empty">No scents saved yet. Add your first mix above.</div>';
     const list = $('[data-suas-journal-list]');
-    if (list) list.innerHTML = html;
-  };
-
-  const render = () => {
-    renderPoints();
-    renderJournal();
+    if (!list) return;
+    list.innerHTML = state.journal.length
+      ? state.journal.map((entry, index) => `<div class="suas-os-ticket" style="grid-template-columns:minmax(0,1fr) auto"><span><strong>${entry.name}</strong><small>${entry.product} • ${entry.date}</small></span><button class="suas-os-btn" type="button" data-delete-journal="${entry.id}">delete</button></div>`)
+        .join('')
+      : '<div class="suas-os-empty">no scents saved yet. add your first mix above.</div>';
   };
 
   const openAuth = (name) => {
     $$('[data-suas-auth-view]').forEach((view) => view.classList.toggle('is-on', view.dataset.suasAuthView === name));
-    $$('[data-suas-auth]').forEach((button) => button.classList.toggle('is-active', button.dataset.suasAuth === name));
+    $$('[data-suas-auth]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasAuth === name));
   };
+
+  const render = () => { renderJournal(); };
 
   root.addEventListener('click', (event) => {
     const auth = event.target.closest('[data-suas-auth]');
     if (auth) openAuth(auth.dataset.suasAuth);
     const open = event.target.closest('[data-suas-open]');
     if (open) openView(open.dataset.suasOpen);
-
-    const add = event.target.closest('[data-suas-add-points]');
-    if (add) addPoints(add.dataset.suasAddPoints, add.dataset.reason || 'account activity');
-
     const del = event.target.closest('[data-delete-journal]');
     if (del) {
       state.journal = state.journal.filter((entry) => entry.id !== del.dataset.deleteJournal);
       save();
       render();
-      toast('Journal entry deleted.');
+      toast('note deleted.');
     }
   });
 
@@ -281,7 +271,7 @@
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const data = new FormData(form);
-      state.journal.unshift({ id: `${Date.now()}`, name: data.get('name') || 'untitled formula', product: data.get('product') || 'product', notes: data.get('notes') || '', vibe: data.get('vibe') || '', date: new Date().toLocaleDateString() });
+      state.journal.unshift({ id: `${Date.now()}`, name: data.get('name') || 'untitled mix', product: data.get('product') || 'product', notes: data.get('notes') || '', vibe: data.get('vibe') || '', date: new Date().toLocaleDateString() });
       state.journal = state.journal.slice(0, 24);
       form.reset();
       addPoints(10, 'journal');
@@ -290,7 +280,6 @@
   }
 
   render();
-
   const authHas = (name) => {
     const box = $(`[data-suas-auth-view="${name}"]`);
     if (!box) return false;

@@ -1,158 +1,90 @@
-{%- liquid
-  assign reset_instructions_t = 'customer.login.reset_instructions' | t
-  assign title_t = 'customer.login.page_title' | t
-  assign email_t = 'customer.login.email' | t
-  assign password_t = 'customer.login.password' | t
-  assign forgot_password_t = 'customer.login.forgot_password' | t
-  assign sign_in_t = 'customer.login.sign_in' | t
-  assign new_account_t = 'customer.login.new_account' | t
-  assign reset_password_t = 'customer.login.reset_password' | t
-  assign guest_title_t = 'customer.login.guest_title' | t
-  assign guest_continue_t = 'customer.login.guest_continue' | t
-  assign submit_t = 'customer.login.submit' | t
-  assign cancel_t = 'customer.login.cancel' | t
--%}
-
-<div
-  class="customer--root"
-  data-section-id="{{ section.id }}"
->
-  <div class="customer--wrapper">
-    <div id="customer-login" class="customer--login">
-      <p id="account-reset" class="account--reset" data-item="paragraph">
-        {{ reset_instructions_t }}
-      </p>
-      <h1 data-item="section-heading">
-        {{ title_t }}
-      </h1>
-
-      {% form 'customer_login' %}
-        {{ form.errors | default_errors }}
-
-        <label for="customer_email" class="label" data-item="accent-text">
-          {{ email_t }}
-        </label>
-        <input
-          class="text"
-          type="email"
-          value=""
-          name="customer[email]"
-          id="customer_email"
-          required
-        />
-
-        {% if form.password_needed %}
-          <label for="customer_password" class="label" data-item="accent-text">
-            {{ password_t }}
-          </label>
-          <input
-            class="text"
-            type="password"
-            value=""
-            name="customer[password]"
-            id="customer_password"
-            size="16"
-            required
-          />
-          <p class="account--forgot-password" data-item="block-link">
-            <a href="#" onclick="showRecoverPasswordForm();return false;">
-              {{ forgot_password_t }}
-            </a>
-          </p>
-        {% endif %}
-
-        <div class="account--button-container">
-          <div class="account--sign-in" data-item='button'>
-            <button type="submit" value="{{ sign_in_t }}">
-              {{ sign_in_t }}
-            </button>
-          </div>
-          <a
-            class="account--register"
-            href="{{ routes.account_register_url }}"
-            data-item="secondary-button"
-          >
-            <div>{{ new_account_t }}</div>
-          </a>
+{% render 'suas-os-account-styles' %}
+<section class="suas-os-account" data-suas-os-login aria-label="Log in">
+  <div class="suas-os-wrap">
+    {% render 'suas-os-account-mark' %}
+    <article class="suas-os-win">
+      <div class="suas-os-winbar">
+        <div class="suas-os-dots">
+          <span class="suas-os-dot" style="--dot:#ff5f57"></span>
+          <span class="suas-os-dot" style="--dot:#febc2e"></span>
+          <span class="suas-os-dot" style="--dot:#28c840"></span>
         </div>
-      {% endform %}
-    </div>
-
-    <div class="account--recover-password" id="recover-password" style="display:none;">
-      <h1 data-item="section-heading">
-        {{ reset_password_t }}
-      </h1>
-      <p class="account--reset-instructions" data-item="paragraph">
-        {{ reset_instructions_t }}
-      </p>
-
-      {% form 'recover_customer_password' %}
-        {{ form.errors | default_errors }}
-
-        <label for="email" class="label" data-item="accent-text">
-          {{ email_t }}
-        </label>
-        <input
-          class="text"
-          type="email"
-          value=""
-          size="30"
-          name="email"
-          id="recover-email"
-          required
-        />
-
-        <div class="account--password-buttons">
-          <div class="account--submit" data-item='button'>
-            <button type="submit" value="{{ submit_t }}">
-              {{ submit_t }}
-            </button>
-          </div>
-          <span data-item="block-link">
-            <a
-              class="account--cancel"
-              href="#"
-              onclick="hideRecoverPasswordForm();return false;"
-            >
-              {{ cancel_t }}
-            </a>
-          </span>
-        </div>
-
-        {% if form.posted_successfully? or form.errors %}
-          <script>window.location.hash = '#recover-successful';</script>
-        {% endif %}
-      {% endform %}
-    </div>
-
-    {% if shop.checkout.guest_login %}
-      <div id="guest" class="columns">
-        <h1 data-item="section-heading">{{ guest_title_t }}</h1>
-
-        {% form 'guest_login' %}
-          <input class="button" type="submit" value="{{ guest_continue_t }}" />
-        {% endform %}
+        <span class="suas-os-wintitle suas-mono">ACCOUNT.LOCK</span>
+        <span class="suas-os-live suas-mono"><b></b>SECURE</span>
       </div>
-    {% endif %}
+      <div class="suas-os-body">
+        <p class="suas-os-kicker">suas.os / security</p>
+        <h1 class="suas-os-title suas-font">sign in first.</h1>
+        <p class="suas-os-copy">this door stays locked until you log in or make an account.</p>
+        <div class="suas-os-tabs" role="tablist" aria-label="Account access">
+          <button class="suas-os-tab is-on" type="button" data-suas-auth="login">log in</button>
+          <button class="suas-os-tab" type="button" data-suas-auth="register">create account</button>
+          <button class="suas-os-tab" type="button" data-suas-auth="recover">forgot password</button>
+        </div>
+
+        <div class="suas-os-auth is-on" data-suas-auth-view="login">
+          {% form 'customer_login' %}
+            <input type="hidden" name="return_to" value="/pages/account">
+            <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
+            <div class="suas-os-form">
+              <div class="suas-os-field"><label for="suas-login-email">email</label><input id="suas-login-email" type="email" name="customer[email]" autocomplete="email" required></div>
+              {% if form.password_needed %}
+                <div class="suas-os-field"><label for="suas-login-password">password</label><input id="suas-login-password" type="password" name="customer[password]" autocomplete="current-password" required></div>
+              {% endif %}
+              <button class="suas-os-btn is-dark" type="submit">log in</button>
+            </div>
+          {% endform %}
+        </div>
+
+        <div class="suas-os-auth" data-suas-auth-view="register">
+          {% form 'create_customer' %}
+            <input type="hidden" name="return_to" value="/pages/account">
+            <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
+            <div class="suas-os-form">
+              <div class="suas-os-two">
+                <div class="suas-os-field"><label for="suas-reg-first">first name</label><input id="suas-reg-first" type="text" name="customer[first_name]" autocomplete="given-name" required></div>
+                <div class="suas-os-field"><label for="suas-reg-last">last name</label><input id="suas-reg-last" type="text" name="customer[last_name]" autocomplete="family-name" required></div>
+              </div>
+              <div class="suas-os-field"><label for="suas-reg-email">email</label><input id="suas-reg-email" type="email" name="customer[email]" autocomplete="email" required></div>
+              <div class="suas-os-field"><label for="suas-reg-password">password</label><input id="suas-reg-password" type="password" name="customer[password]" autocomplete="new-password" required></div>
+              <button class="suas-os-btn is-dark" type="submit">create account</button>
+            </div>
+          {% endform %}
+        </div>
+
+        <div class="suas-os-auth" data-suas-auth-view="recover">
+          {% form 'recover_customer_password' %}
+            <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
+            {% if form.posted_successfully? %}
+              <p class="suas-os-copy">reset email sent. check your inbox.</p>
+            {% else %}
+              <div class="suas-os-form">
+                <div class="suas-os-field"><label for="suas-recover-email">email</label><input id="suas-recover-email" type="email" name="email" autocomplete="email" required></div>
+                <button class="suas-os-btn is-dark" type="submit">send reset</button>
+              </div>
+            {% endif %}
+          {% endform %}
+        </div>
+      </div>
+    </article>
   </div>
-</div>
-
-<script type="text/javascript">
-  function showRecoverPasswordForm() {
-    document.getElementById('recover-password').style.display = 'block';
-    document.getElementById('customer-login').style.display= 'none';
-  }
-
-  function hideRecoverPasswordForm() {
-    document.getElementById('recover-password').style.display = 'none';
-    document.getElementById('customer-login').style.display = 'block';
-  }
-
-  function showRecoverSuccess() {
-    document.getElementById('account-reset').style.display = 'block';
-  }
-
-  if (window.location.hash == '#recover') { showRecoverPasswordForm() }
-
-  if (window.location.hash == '#recover-successful') { showRecoverSuccess() }
+</section>
+<script>
+(() => {
+  const root = document.querySelector('[data-suas-os-login]');
+  if (!root) return;
+  const openAuth = (name) => {
+    root.querySelectorAll('[data-suas-auth-view]').forEach((view) => view.classList.toggle('is-on', view.dataset.suasAuthView === name));
+    root.querySelectorAll('[data-suas-auth]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasAuth === name));
+  };
+  root.addEventListener('click', (event) => {
+    const auth = event.target.closest('[data-suas-auth]');
+    if (auth) openAuth(auth.dataset.suasAuth);
+  });
+  const hash = window.location.hash;
+  const recover = root.querySelector('[data-suas-auth-view="recover"]');
+  const register = root.querySelector('[data-suas-auth-view="register"]');
+  if (hash === '#recover' || hash === '#recover-successful' || (recover && /reset email sent/i.test(recover.textContent))) openAuth('recover');
+  else if (register && register.querySelector('.errors, li')) openAuth('register');
+})();
 </script>
