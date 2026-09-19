@@ -20,7 +20,8 @@
     .suas-profile-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
     .suas-profile-actions a,.suas-profile-card a,.suas-format-card a,.suas-profile-footer a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;border:2px solid var(--ink);border-radius:999px;background:var(--lime);box-shadow:0 4px 0 var(--ink);color:var(--ink);padding:10px 16px;text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
     .suas-hero-photo{min-height:280px}
-    .suas-hero-photo img{display:block;width:100%;height:100%;object-fit:cover;min-height:280px}
+    .suas-hero-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px;background:#f4f1ea;min-height:280px}
+    .suas-hero-mosaic img{display:block;width:100%;height:100%;min-height:140px;object-fit:cover;border:2px solid var(--ink);border-radius:18px;background:#fff}
     .suas-note-system{display:grid;grid-template-columns:.7fr 1.3fr;margin-bottom:22px}
     .suas-note-system-copy{padding:clamp(20px,3vw,32px);border-right:2px solid var(--ink)}
     .suas-note-system h2{margin:8px 0 10px;font-size:clamp(2.6rem,5vw,4.6rem);line-height:.82}
@@ -78,8 +79,13 @@
         </div>
       </div>
       <div class="suas-profile-window suas-hero-photo">
-        <div class="suas-window-bar"><i></i><i></i><i></i><b>THE.BAR / GASTONIA</b></div>
-        <img src="{{ 'suas-fragrance-bar.jpg' | asset_url }}" alt="SUAS fragrance bar in downtown Gastonia" width="900" height="900">
+        <div class="suas-window-bar"><i></i><i></i><i></i><b>NOTES / LIVE</b></div>
+        <div class="suas-hero-mosaic">
+          <img src="{{ 'note-poppy-cosmos.png' | asset_url }}" alt="cosmos" width="800" height="800">
+          <img src="{{ 'note-pineapple.png' | asset_url }}" alt="pineapple" width="800" height="800">
+          <img src="{{ 'note-jasmine.png' | asset_url }}" alt="jasmine" width="800" height="800">
+          <img src="{{ 'note-wildflower.png' | asset_url }}" alt="wildflower" width="800" height="800">
+        </div>
       </div>
     </header>
 
