@@ -17,9 +17,7 @@
     html body.template--product .suas-review-intro [data-suas-minimize-review]{display:none!important;background:#d9ff78!important}
     html body.template--product .suas-product-review-shell:has(.suas-simple-review.is-writing) .suas-review-intro [data-suas-write-review]{display:none!important}
     html body.template--product .suas-product-review-shell:has(.suas-simple-review.is-writing) .suas-review-intro [data-suas-minimize-review]{display:inline-flex!important}
-    .suas-review-form-bar{display:none;justify-content:flex-end;margin:0 0 6px}
-    .suas-simple-review.is-writing .suas-review-form-bar{display:flex}
-    .suas-review-form-bar .suas-review-minimize{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:0 12px;border:2px solid #101010;border-radius:999px;background:#d9ff78;color:#101010;box-shadow:0 2px 0 #101010;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+    .suas-review-form-bar,.suas-review-minimize{display:none!important}
     html body.template--product .suas-review-app-stage{padding:0 10px 10px!important;min-height:0!important}
     html body.template--product .suas-review-app-stage .shopify-app-block{min-height:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
     .suas-simple-review{margin:6px 10px 10px;padding:0;border:0;background:transparent;box-shadow:none}
@@ -60,9 +58,6 @@
       .suas-simple-review textarea{min-height:44px!important;max-height:52px!important;height:44px!important}
     }
   </style>
-  <div class="suas-review-form-bar">
-    <button class="suas-review-minimize" type="button" data-suas-minimize-review>minimize</button>
-  </div>
   <div data-suas-judgeme-mount>
     <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-product-title="{{ product.title | escape }}" data-id="{{ product.id }}" data-product-id="{{ product.id }}" data-widget="review" data-auto-install="false" data-shop-reviews-count="{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}" data-entry-point="review_widget.js" data-entry-key="review-widget/main.js">
       {% if has_legacy %}
