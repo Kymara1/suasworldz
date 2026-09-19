@@ -84,7 +84,7 @@
       </div>
       <div class="suas-lab-body">
         <h1 class="suas-lab-title">book your experiment.</h1>
-        <p class="suas-lab-copy">Pick a mix, grab a time, hold your seats. The Lab has 12 seats a date. When they are gone, that date stops selling.{% if calendly_url != blank or calendly_embed != blank %} The calendar writes the appointment for you.{% endif %}</p>
+        <p class="suas-lab-copy">Sessions start November 14. Dates before then stay closed. After that, pick a mix, grab a time, hold your seats. The Lab has 12 seats a date.{% if calendly_url != blank or calendly_embed != blank %} The calendar writes the appointment for you.{% endif %}</p>
 
         <div class="suas-lab-meter" data-suas-seat-meter>
           <div class="suas-lab-seat-row">
@@ -133,7 +133,7 @@
           </div>
 
           <div class="suas-lab-pane" data-suas-pane="2" hidden>
-            <div class="suas-lab-field"><label for="LabDate">date</label><input class="suas-lab-input" id="LabDate" type="date" required></div>
+            <div class="suas-lab-field"><label for="LabDate">date</label><input class="suas-lab-input" id="LabDate" type="date" min="2026-11-14" required></div>
             <div class="suas-lab-field"><span>time</span><div class="suas-lab-times" data-suas-times></div></div>
             {% if calendly_url != blank or calendly_embed != blank %}
               <p class="suas-lab-note">Match the date and time you picked in Calendly so checkout and the calendar stay on the same seat.</p>
@@ -204,8 +204,15 @@
       let remaining = TOTAL;
       let board = {};
       try { board = JSON.parse((root.querySelector('[data-suas-seat-board]') || {}).textContent || '{}') || {}; } catch (e) { board = {}; }
-      const today = new Date();
-      dateInput.min = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+      const OPENS = '2026-11-14';
+      let todayStamp = '';
+      try {
+        todayStamp = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+      } catch (e) {
+        const today = new Date();
+        todayStamp = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+      }
+      dateInput.min = todayStamp > OPENS ? todayStamp : OPENS;
       const showError = (msg) => { errorEl.textContent = msg || ''; errorEl.classList.toggle('is-on', Boolean(msg)); };
       const dateDay = (value) => {
         if (!value) return null;
@@ -296,7 +303,14 @@
           showError('');
         });
       });
-      dateInput.addEventListener('change', renderTimes);
+      dateInput.addEventListener('change', () => {
+        if (dateInput.value && dateInput.value < OPENS) {
+          showError('The Lab opens November 14. Pick a date from then on.');
+          dateInput.value = '';
+          return;
+        }
+        renderTimes();
+      });
       window.addEventListener('message', (event) => {
         if (!event.data || event.data.event !== 'calendly.event_scheduled') return;
         const payload = event.data.payload || {};
@@ -311,7 +325,8 @@
       nextBtn.addEventListener('click', () => {
         if (step === 1 && !choice) { showError('Pick an experiment first.'); return; }
         if (step === 2) {
-          if (!dateInput.value || !timeValue) { showError('Pick a date and a time.'); return; }
+          if (!dateInput.value || dateInput.value < OPENS) { showError('The Lab opens November 14. Pick a date from then on.'); return; }
+          if (!timeValue) { showError('Pick a date and a time.'); return; }
           if (remaining <= 0) { showError('That date is booked up. 0 of 12 seats left.'); return; }
         }
         showError('');
@@ -323,7 +338,7 @@
         event.preventDefault();
         await refreshSeats();
         const guests = Math.max(1, Number(guestsInput.value || 1));
-        if (!choice || !dateInput.value || !timeValue) { showError('Finish the date and time step.'); return; }
+        if (!choice || !dateInput.value || dateInput.value < OPENS || !timeValue) { showError('Finish the date and time step. Sessions start November 14.'); return; }
         if (remaining <= 0 || guests > remaining) { showError(`Only ${remaining} seat${remaining === 1 ? '' : 's'} left for that date.`); return; }
         const name = root.querySelector('#LabName').value.trim();
         const phone = root.querySelector('#LabPhone').value.trim();
