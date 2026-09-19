@@ -128,7 +128,7 @@
       <span class="suas-catalog-dot" style="--dot:#febc2e"></span>
       <span class="suas-catalog-dot" style="--dot:#28c840"></span>
       <b>{{ collection.title | default: 'shop' | downcase }}</b>
-      <em>{{ collection.products_count }} {{ collection.products_count | pluralize: 'scent', 'scents' }}</em>
+      <em>{% if collection.products_count > 0 %}{{ collection.products_count }} {{ collection.products_count | pluralize: 'scent', 'scents' }}{% else %}coming soon{% endif %}</em>
     </div>
   </div>
   <div
@@ -273,20 +273,15 @@
         -%}
 
       {% elsif current_tags == blank %}
-        <div class="collection--body--empty" data-container="block">
-          <p data-item="paragraph">
-            {{ no_products_t }}
-          </p>
-          <a href="{{ routes.root_url }}" data-item="block-link">
-            <div>{{ continue_shopping_t }}</div>
-          </a>
+        <div class="collection--body--empty suas-catalog-soon" data-container="block">
+          <p class="suas-catalog-soon-kicker">this aisle</p>
+          <h3 class="suas-catalog-soon-title">products coming soon.</h3>
         </div>
 
       {% else %}
-        <div class="collection--body--empty" data-container="block">
-          <p data-item="paragraph">
-            {{ filter_feedback_t }}
-          </p>
+        <div class="collection--body--empty suas-catalog-soon" data-container="block">
+          <p class="suas-catalog-soon-kicker">filters</p>
+          <h3 class="suas-catalog-soon-title">nothing in this mix.</h3>
         </div>
 
       {% endif %}

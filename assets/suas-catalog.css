@@ -316,6 +316,34 @@ html body.template--collection .suas-catalog-card .product--quick-add {
   display: none !important;
 }
 
+html body.template--collection .collection--body--empty.suas-catalog-soon {
+  grid-column: 1 / -1 !important;
+  width: min(1280px, 100%) !important;
+  margin: 0 auto !important;
+  padding: 42px 20px !important;
+  border: 2px solid #101010 !important;
+  border-radius: 22px !important;
+  background: radial-gradient(circle at 16% 18%, rgba(255,216,232,.9), transparent 46%), #fff7fb !important;
+  box-shadow: 4px 5px 0 #101010 !important;
+  text-align: center !important;
+}
+html body.template--collection .suas-catalog-soon-kicker {
+  margin: 0 0 8px !important;
+  font: 900 9px/1 Futura, Arial, sans-serif !important;
+  letter-spacing: .16em !important;
+  text-transform: uppercase !important;
+  color: #101010 !important;
+}
+html body.template--collection .suas-catalog-soon-title {
+  margin: 0 !important;
+  font-family: 'Casual Human', Futura, Arial, sans-serif !important;
+  font-size: clamp(1.8rem, 5vw, 2.8rem) !important;
+  font-weight: 400 !important;
+  line-height: .88 !important;
+  text-transform: lowercase !important;
+  color: #101010 !important;
+}
+
 @media (max-width: 1023px) {
   html body.template--collection .product-grid,
   html body.template--collection .featured-collection--grid,
