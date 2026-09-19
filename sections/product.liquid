@@ -360,8 +360,10 @@
         <span class="suas-window-live"><b></b>now</span>
       </div>
       <div class="suas-station-buy-body">
-        <p class="suas-pdp-stamp">{% if product.type != blank %}{{ product.type }}{% else %}handmade{% endif %} · suas.os</p>
         <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
+        {%- if product.type != blank -%}
+          <p class="suas-pdp-stamp">{{ product.type }}</p>
+        {%- endif -%}
         {%- if pdp_hook != blank -%}
           <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
         {%- endif -%}
