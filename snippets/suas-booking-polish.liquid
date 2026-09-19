@@ -1,3 +1,7 @@
+{% assign suas_roll_on_booking_product = all_products['lab-session-roll-on-perfume'] %}
+<script>
+  window.suasRollOnBookingProduct = {% if suas_roll_on_booking_product != blank %}{{ suas_roll_on_booking_product | json }}{% else %}null{% endif %};
+</script>
 <style id="suas-booking-polish">
   html body .suas-bookings-page .suas-book-hours-grid p:first-child::after {
     content: "Walk-ins welcomed when a station is open.";
@@ -153,33 +157,35 @@
       });
     }
 
-    function ensureRollOn(root) {
+    function addRollOn(root, product) {
       var selfTypes = root.querySelector('[data-self-types]');
       var selfSelect = root.querySelector('#SelfExperience');
-      if (!selfTypes || !selfSelect || /roll-on|roll on/i.test(selfTypes.textContent)) return;
-      if (!window.fetch) return;
+      if (!selfTypes || !selfSelect || !product || !product.variants || !product.variants.length || /roll-on|roll on/i.test(selfTypes.textContent)) return;
+      var variant = product.variants.find(function (item) { return item.available !== false; }) || product.variants[0];
+      if (!variant || !variant.id) return;
+      var price = formatMoney(variant.price);
+      var option = document.createElement('option');
+      option.value = String(variant.id);
+      option.dataset.experience = 'Lab Session: Roll-On Perfume (10mL)';
+      option.dataset.price = price;
+      option.textContent = 'Lab Session: Roll-On Perfume (10mL)';
+      selfSelect.appendChild(option);
 
+      var label = document.createElement('label');
+      label.className = 'suas-type-card';
+      label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil."><em>02</em><strong>roll-on</strong><small>The roll-on perfume experiment.</small><b>' + price + '</b>';
+      var combo = Array.prototype.slice.call(selfTypes.querySelectorAll('.suas-type-card')).find(function (card) { return /combo/i.test(card.textContent); });
+      if (combo) selfTypes.insertBefore(label, combo);
+      else selfTypes.appendChild(label);
+    }
+
+    function ensureRollOn(root) {
+      addRollOn(root, window.suasRollOnBookingProduct);
+      if (/roll-on|roll on/i.test((root.querySelector('[data-self-types]') || {}).textContent || '')) return;
+      if (!window.fetch) return;
       window.fetch('/products/lab-session-roll-on-perfume.js', { credentials: 'same-origin' })
         .then(function (response) { return response.ok ? response.json() : null; })
-        .then(function (product) {
-          if (!product || !product.variants || !product.variants.length || /roll-on|roll on/i.test(selfTypes.textContent)) return;
-          var variant = product.variants.find(function (item) { return item.available; }) || product.variants[0];
-          if (!variant || !variant.id) return;
-          var price = formatMoney(variant.price);
-          var option = document.createElement('option');
-          option.value = String(variant.id);
-          option.dataset.experience = 'Lab Session: Roll-On Perfume (10mL)';
-          option.dataset.price = price;
-          option.textContent = 'Lab Session: Roll-On Perfume (10mL)';
-          selfSelect.appendChild(option);
-
-          var label = document.createElement('label');
-          label.className = 'suas-type-card';
-          label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil."><em>02</em><strong>roll-on</strong><small>The roll-on perfume experiment.</small><b>' + price + '</b>';
-          var combo = Array.prototype.slice.call(selfTypes.querySelectorAll('.suas-type-card')).find(function (card) { return /combo/i.test(card.textContent); });
-          if (combo) selfTypes.insertBefore(label, combo);
-          else selfTypes.appendChild(label);
-        })
+        .then(function (product) { addRollOn(root, product); })
         .catch(function () {});
     }
 
