@@ -43,18 +43,20 @@
   @media only screen and (max-width:1023px){
     body .suas-world-home .suas-home-wrap{width:min(100% - 16px,920px)!important}
     body .suas-world-home .suas-hero{padding:12px 0 14px!important}
-    body .suas-world-home .suas-hero-grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(236px,270px)!important;gap:12px!important;align-items:start!important}
-    body .suas-world-home .suas-now-card,body .suas-world-home .suas-launch-panel,body .suas-world-home .suas-feed-notes{border:2px solid #101010!important;border-radius:22px!important;box-shadow:4px 5px 0 #101010!important;overflow:hidden!important}
+    body .suas-world-home .suas-hero-stack{display:grid!important;gap:12px!important}
+    body .suas-world-home .suas-lower-grid{display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)!important;gap:12px!important}
+    body .suas-world-home .suas-now-card,body .suas-world-home .suas-launch-panel,body .suas-world-home .suas-feed-notes,body .suas-world-home .suas-boost{border:2px solid #101010!important;border-radius:22px!important;box-shadow:4px 5px 0 #101010!important;overflow:hidden!important}
     body .suas-world-home .suas-window-bar{min-height:40px!important;padding:8px 12px!important}
     body .suas-world-home .suas-window-title{font-size:9px!important;letter-spacing:.14em!important}
     body .suas-world-home .suas-window-live{font-size:8px!important}
     body .suas-world-home .suas-dot{width:10px!important;height:10px!important}
-    body .suas-world-home .suas-product-rotator{height:auto!important;min-height:0!important;padding:12px!important}
-    body .suas-world-home .suas-product-slide{position:relative!important;inset:auto!important;display:none!important;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)!important;grid-template-rows:auto!important;align-items:start!important;justify-items:stretch!important;gap:10px!important;opacity:1!important;transform:none!important;pointer-events:auto!important}
+    body .suas-world-home .suas-product-rotator{height:auto!important;min-height:0!important;padding:12px!important;overflow:hidden!important}
+    body .suas-world-home .suas-product-slide{position:relative!important;inset:auto!important;display:none!important;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)!important;grid-template-rows:auto!important;align-items:center!important;justify-items:stretch!important;gap:10px!important;opacity:1!important;transform:none!important;pointer-events:auto!important}
     body .suas-world-home .suas-product-slide.is-active,body .suas-world-home .suas-product-slide.is-static,body .suas-world-home .suas-product-rotator[data-count='1'] .suas-product-slide{display:grid!important}
-    body .suas-world-home .suas-product-photo{width:100%!important;max-width:none!important;aspect-ratio:1!important;height:auto!important;align-self:start!important;border-radius:18px!important;box-shadow:4px 5px 0 #101010!important;justify-self:stretch!important}
-    body .suas-world-home .suas-product-copy{width:100%!important;min-height:0!important;padding:12px!important;border:2px solid #101010!important;border-radius:18px!important;background:rgba(255,255,255,.95)!important;box-shadow:4px 5px 0 #101010!important;text-align:left!important;justify-items:start!important;align-content:start!important}
-    body .suas-world-home .suas-product-title{font-size:clamp(1.05rem,3.4vw,1.45rem)!important;line-height:.86!important;display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important}
+    body .suas-world-home .suas-product-photo{width:100%!important;max-width:none!important;aspect-ratio:1!important;height:auto!important;align-self:center!important;border-radius:18px!important;box-shadow:3px 4px 0 #101010!important;justify-self:stretch!important}
+    body .suas-world-home .suas-product-copy{width:100%!important;min-height:0!important;padding:12px!important;border:2px solid #101010!important;border-radius:18px!important;background:rgba(255,255,255,.95)!important;box-shadow:3px 4px 0 #101010!important;text-align:left!important;justify-items:start!important;align-content:start!important}
+    body .suas-world-home .suas-product-title{font-size:clamp(1.15rem,3.6vw,1.6rem)!important;line-height:.86!important;display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important}
+    body .suas-world-home .suas-product-actions{display:flex!important}
     body .suas-world-home .suas-product-buy{margin-top:10px!important;justify-content:flex-start!important}
     body .suas-world-home .suas-product-price{min-height:30px!important;margin:0!important;padding:7px 10px!important;font-size:10px!important}
     body .suas-world-home .suas-launch-panel{display:flex!important;flex-direction:column!important;justify-content:flex-start!important;padding:0!important;gap:0!important;min-height:0!important;height:auto!important}
@@ -67,7 +69,7 @@
     body .suas-world-home .suas-launch{min-height:58px!important;padding:10px!important;border-radius:16px!important;box-shadow:0 3px 0 #101010!important}
     body .suas-world-home .suas-launch strong{font-size:.92rem!important;line-height:.9!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:block!important}
     body .suas-world-home .suas-launch span{display:none!important}
-    body .suas-world-home .suas-feed-btn{min-height:42px!important;font-size:11px!important}
+    body .suas-world-home .suas-feed-btn{min-height:32px!important;font-size:9px!important}
     body .product-page--root{padding-top:12px!important}
     body .product-page--panel-wrapper{width:min(100% - 14px,620px)!important;grid-template-columns:1fr!important;gap:12px!important}
     body .product-page--featured-media,body .product-page--featured-blocks{border-radius:18px!important;box-shadow:4px 5px 0 #101010!important;padding:14px!important}
@@ -82,8 +84,9 @@
     body .suas-bookings-page .suas-book-desc{font-size:9px!important;line-height:1.25!important}
     body .suas-bookings-page .suas-book-form{grid-template-columns:1fr!important;gap:6px!important}
     body .suas-bookings-page .suas-book-input,body .suas-bookings-page .suas-book-select{min-height:32px!important;font-size:10px!important}
-    body .suas-frame .suas-side-rail{display:grid!important;grid-template-columns:1fr auto!important;align-items:center!important;overflow:visible!important;padding:4px 8px 8px!important;position:relative!important;top:auto!important;z-index:20!important;margin-top:34px!important}
-    body .suas-frame .suas-side-head{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:8px!important;padding:2px 4px 8px!important;width:auto!important;grid-column:1!important;grid-row:1!important}
+    body .suas-frame .suas-side-rail{display:grid!important;grid-template-columns:40px 1fr 40px!important;align-items:center!important;overflow:visible!important;padding:4px 8px 8px!important;position:relative!important;top:auto!important;z-index:20!important;margin-top:34px!important}
+    body .suas-frame .suas-side-head{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;padding:2px 4px 8px!important;width:auto!important;grid-column:1/-1!important;grid-row:1!important}
+    body .suas-frame .suas-floating-cart{grid-column:3!important;grid-row:1!important;z-index:3!important}
     body .suas-frame .suas-side-orb{width:26px!important;height:26px!important}
     body .suas-frame .suas-side-brand{font-size:1.2rem!important}
     body .suas-frame .suas-side-nav{display:grid!important;grid-column:1/-1!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;overflow:visible!important;padding:0!important;position:relative!important}
@@ -107,8 +110,8 @@
   @media only screen and (max-width:560px){
     body .suas-world-home .suas-home-wrap{width:calc(100vw - 12px)!important}
     body .suas-world-home .suas-hero{padding:8px 0 10px!important}
-    body .suas-world-home .suas-hero-grid{grid-template-columns:minmax(0,1.55fr) minmax(148px,38%)!important;gap:8px!important;align-items:start!important}
-    body .suas-world-home .suas-now-card,body .suas-world-home .suas-launch-panel,body .suas-world-home .suas-feed-notes{border-radius:18px!important}
+    body .suas-world-home .suas-lower-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)!important;gap:8px!important}
+    body .suas-world-home .suas-now-card,body .suas-world-home .suas-launch-panel,body .suas-world-home .suas-feed-notes,body .suas-world-home .suas-boost{border-radius:18px!important}
     body .suas-world-home .suas-window-bar{min-height:34px!important;padding:6px 8px!important;gap:6px!important}
     body .suas-world-home .suas-window-title{font-size:7.5px!important;letter-spacing:.1em!important}
     body .suas-world-home .suas-window-live{display:none!important}
@@ -116,9 +119,10 @@
     body .suas-world-home .suas-product-slide{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)!important;align-items:start!important;gap:8px!important}
     body .suas-world-home .suas-product-photo{max-width:none!important;aspect-ratio:1!important;height:auto!important;align-self:start!important;border-radius:14px!important}
     body .suas-world-home .suas-product-copy{padding:8px 9px!important;border-radius:14px!important;text-align:left!important;justify-items:stretch!important;align-content:start!important;min-width:0!important}
-    body .suas-world-home .suas-product-title{font-size:clamp(.78rem,3.4vw,1.05rem)!important}
-    body .suas-world-home .suas-product-buy{flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;margin-top:8px!important;gap:6px!important}
-    body .suas-world-home .suas-product-price,body .suas-world-home .suas-feed-atc{width:100%!important;justify-content:center!important}
+    body .suas-world-home .suas-product-title{font-size:clamp(.9rem,3.6vw,1.15rem)!important}
+    body .suas-world-home .suas-product-actions{display:flex!important;gap:6px!important}
+    body .suas-world-home .suas-product-buy{flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;margin-top:8px!important;gap:6px!important}
+    body .suas-world-home .suas-product-price,body .suas-world-home .suas-feed-atc{width:auto!important;justify-content:center!important}
     body .suas-world-home .suas-feed-atc{min-height:30px!important;padding:6px!important;font-size:7px!important;letter-spacing:.06em!important;min-width:0!important}
     body .suas-world-home .suas-launch-body{padding:8px!important;gap:8px!important}
     body .suas-world-home .suas-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important}

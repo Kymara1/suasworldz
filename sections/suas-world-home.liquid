@@ -8,92 +8,98 @@
     .suas-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1260px,calc(100vw - 32px));margin:0 auto}
-    .suas-hero{padding:clamp(14px,2vw,22px) 0 18px}
-    .suas-hero-grid{display:grid!important;grid-template-columns:minmax(0,1.48fr) minmax(285px,.52fr)!important;gap:14px!important;align-items:start!important}
-    .suas-feed-column{display:grid;gap:14px;min-width:0}
+    .suas-hero{padding:clamp(14px,2vw,22px) 0 22px}
+    .suas-hero-stack{display:grid;gap:12px}
+    .suas-lower-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:12px;align-items:stretch}
     .suas-feed-notes{min-height:0;display:flex;flex-direction:column;gap:0;border:2px solid var(--ink);border-radius:22px;background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(135deg,rgba(255,216,232,.52),rgba(255,255,255,.95) 58%,rgba(217,255,120,.36));background-size:18px 18px,18px 18px,auto;box-shadow:5px 6px 0 var(--ink);padding:0;overflow:hidden}
-    .suas-feed-note-label{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .suas-feed-note-label strong{font-size:1.05rem;line-height:.9;text-transform:lowercase}
-    .suas-feed-note{width:100%;min-height:72px;resize:vertical;border:1.5px solid var(--ink);border-radius:15px;background:rgba(255,255,255,.9);padding:10px;color:var(--ink);font:700 12px/1.35 Futura,'Futura PT',Arial,sans-serif}
-    .suas-feed-note::placeholder{color:rgba(16,16,16,.48)}
-    .suas-feed-announcement{width:100%;min-height:0;display:flex;align-items:center;border:1.5px solid var(--ink);border-radius:15px;background:rgba(255,255,255,.9);padding:8px 10px;color:var(--ink);font-size:1rem;line-height:1.15}
-    .suas-feed-notes-actions{display:flex;gap:8px;align-items:center}
-    .suas-feed-notes-actions .suas-feed-btn{flex:1}
-    .suas-product-copy>.suas-product-actions{display:none!important}
-    .suas-product-buy{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:16px}
+    .suas-feed-announcement{width:100%;min-height:0;flex:1;display:flex;align-items:center;border:1.5px solid var(--ink);border-radius:15px;background:rgba(255,255,255,.9);padding:10px 12px;color:var(--ink);font-size:1.05rem;line-height:1.15}
+    .suas-product-buy{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
     .suas-feed-atc{min-height:34px;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:8px 12px;color:var(--ink)!important;background:var(--lime)!important;box-shadow:0 3px 0 var(--ink);font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
     .suas-feed-atc:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
     .suas-feed-atc:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:0 3px 0 var(--ink)}
-    .suas-now-card,.suas-launch-panel{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
-    .suas-window-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:42px;padding:8px 14px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#e8edf3)}
-    .suas-window-dots{display:flex;gap:7px}
-    .suas-dot{width:11px;height:11px;border-radius:999px;background:var(--dot)}
-    .suas-window-title{text-align:center;font-size:10px;letter-spacing:.2em;color:var(--ink)}
+    .suas-now-card,.suas-launch-panel,.suas-boost{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-window-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:42px;padding:8px 14px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#e8edf3);overflow:hidden}
+    .suas-window-dots{display:flex;gap:7px;min-width:0}
+    .suas-dot{width:11px;height:11px;flex:0 0 auto;border-radius:999px;background:var(--dot)}
+    .suas-window-title{text-align:center;font-size:10px;letter-spacing:.2em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .suas-window-live{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:900;letter-spacing:.16em}
     .suas-window-live b{width:8px;height:8px;border-radius:999px;background:#28c840;box-shadow:0 0 0 4px rgba(40,200,64,.18);animation:suasHomeBlink 1.4s steps(2,end) infinite}
     @keyframes suasHomeBlink{50%{opacity:.35}}
-    .suas-feed-notes-body{display:flex;flex-direction:column;gap:6px;padding:8px 12px 10px}
-    .suas-product-rotator{position:relative;height:360px!important;min-height:0!important;padding:16px;isolation:isolate}
-    .suas-product-slide{position:absolute!important;inset:18px!important;display:grid!important;grid-template-columns:minmax(340px,1.2fr) minmax(220px,.7fr);justify-content:center;align-items:center;justify-items:stretch;gap:clamp(16px,2.8vw,32px);color:var(--ink);text-decoration:none;opacity:0;pointer-events:none;transform:translateY(8px) scale(.985);transition:opacity 950ms ease,transform 950ms ease}
-    .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{opacity:1;pointer-events:auto;transform:translateY(0) scale(1);z-index:2}
-    .suas-product-photo{width:min(100%,370px);aspect-ratio:1;display:grid;place-items:center;border:2px solid var(--ink);border-radius:26px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:7px 8px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
-    .suas-product-photo img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 12px 16px rgba(16,16,16,.15));animation:suasBob 6.8s ease-in-out infinite}
+    .suas-feed-notes-body{display:flex;flex:1;flex-direction:column;gap:6px;padding:10px 12px 12px}
+    .suas-product-rotator{position:relative;height:300px;min-height:0;padding:14px 16px 16px;overflow:hidden;isolation:isolate}
+    .suas-product-slide{position:absolute;inset:14px 16px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:center;gap:16px;color:var(--ink);opacity:0;pointer-events:none;transform:translateY(8px) scale(.985);transition:opacity 950ms ease,transform 950ms ease}
+    .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{opacity:1;pointer-events:auto;transform:none;z-index:2}
+    .suas-product-photo{width:100%;max-width:280px;aspect-ratio:1;display:grid;place-items:center;justify-self:center;border:2px solid var(--ink);border-radius:22px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:3px 4px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
+    .suas-product-photo img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(16,16,16,.12));animation:suasBob 6.8s ease-in-out infinite}
     .suas-product-fallback{width:72%;aspect-ratio:1;display:grid;place-items:center;border-radius:999px;background:#fff;color:var(--ink);font-size:4rem}
     .suas-world-home .suas-product-kicker{display:none!important}
-    .suas-product-copy{width:100%;min-height:0;display:grid;align-content:center;border:2px solid var(--ink);border-radius:25px;background:rgba(255,255,255,.95);box-shadow:6px 7px 0 var(--ink);padding:22px 24px}
-    .suas-product-title{display:block;color:var(--ink);text-decoration:none;font-size:clamp(1.8rem,3vw,2.7rem);line-height:.86;text-transform:lowercase}
+    .suas-product-copy{width:100%;min-height:0;min-width:0;display:grid;align-content:center;border:2px solid var(--ink);border-radius:22px;background:rgba(255,255,255,.95);box-shadow:3px 4px 0 var(--ink);padding:16px 18px}
+    .suas-product-title{display:block;color:var(--ink);text-decoration:none;font-size:clamp(1.7rem,2.8vw,2.5rem);line-height:.86;text-transform:lowercase}
     .suas-product-title:hover{color:var(--ink)}
     .suas-product-price{display:inline-flex;width:max-content;min-height:34px;align-items:center;margin-top:0;padding:8px 13px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 3px 0 var(--ink);font-weight:900}
-    .suas-product-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-    .suas-feed-btn{min-height:36px;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:9px 13px;color:var(--ink);background:var(--feed-btn,#fff);box-shadow:0 3px 0 var(--ink);text-decoration:none;font-weight:900;transition:transform 160ms ease,box-shadow 160ms ease}
+    .suas-product-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .suas-feed-btn{min-height:34px;display:inline-flex;align-items:center;justify-content:center;border:1.75px solid var(--ink);border-radius:999px;padding:8px 12px;color:var(--ink);background:var(--feed-btn,#fff);box-shadow:0 3px 0 var(--ink);text-decoration:none;font-weight:900;transition:transform 160ms ease,box-shadow 160ms ease}
     .suas-feed-btn:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
-    .suas-launch-panel{display:flex;flex-direction:column;justify-content:flex-start;min-height:0!important}
-    .suas-launch-body{display:flex;flex-direction:column;gap:11px;padding:14px}
+    .suas-launch-panel{display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
+    .suas-launch-body{display:flex;flex-direction:column;gap:11px;padding:14px;flex:1}
     .suas-launch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .suas-launch-grid .suas-launch:nth-of-type(n+7){display:none!important}
-    .suas-launch{min-height:72px;display:flex;flex-direction:column;justify-content:center;border:1.75px solid var(--ink);border-radius:18px;padding:12px;color:var(--ink);background:var(--launch);box-shadow:0 4px 0 var(--ink);text-decoration:none;transition:transform 160ms ease,box-shadow 160ms ease}
+    .suas-launch{min-height:64px;display:flex;flex-direction:column;justify-content:center;border:1.75px solid var(--ink);border-radius:18px;padding:12px;color:var(--ink);background:var(--launch);box-shadow:0 4px 0 var(--ink);text-decoration:none;transition:transform 160ms ease,box-shadow 160ms ease}
     .suas-launch:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 2px 0 var(--ink)}
     .suas-launch strong{font-size:1.13rem;line-height:.9;text-transform:lowercase}
-    .suas-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+    .suas-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:auto}
     .suas-btn{min-height:38px;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:999px;padding:9px 14px;color:var(--ink);background:#fff;box-shadow:0 4px 0 var(--ink);text-decoration:none;font-weight:900}
     .suas-btn[data-dark]{color:#fff;background:var(--ink)}
+    .suas-boost-body{display:grid;grid-template-columns:minmax(180px,.7fr) minmax(0,1.3fr);gap:12px;padding:14px}
+    .suas-boost-copy{display:flex;flex-direction:column;justify-content:center;gap:8px;padding:10px;border:2px solid var(--ink);border-radius:18px;background:linear-gradient(135deg,var(--lime),#fff 70%)}
+    .suas-boost-copy strong{font-size:clamp(1.6rem,3vw,2.3rem);line-height:.86;text-transform:lowercase}
+    .suas-boost-copy p{margin:0;font-size:12px;font-weight:700;line-height:1.3}
+    .suas-boost-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .suas-boost-card{display:flex;flex-direction:column;gap:8px;min-width:0;padding:10px;border:2px solid var(--ink);border-radius:18px;background:#fff;box-shadow:3px 4px 0 var(--ink);text-decoration:none;color:var(--ink)}
+    .suas-boost-card img,.suas-boost-fallback{width:100%;aspect-ratio:1;object-fit:contain;border:1.5px solid var(--ink);border-radius:14px;background:linear-gradient(135deg,#fff,var(--pink))}
+    .suas-boost-card:nth-child(2) img,.suas-boost-card:nth-child(2) .suas-boost-fallback{background:linear-gradient(135deg,#fff,var(--blue))}
+    .suas-boost-card:nth-child(3) img,.suas-boost-card:nth-child(3) .suas-boost-fallback{background:linear-gradient(135deg,#fff,var(--sun))}
+    .suas-boost-card b{font-size:.92rem;line-height:.95;text-transform:lowercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .suas-boost-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+    .suas-sale{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1.5px solid var(--ink);border-radius:999px;background:var(--hot);font-size:8px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .suas-boost-card s{opacity:.45;font-size:9px}
     .suas-product-slide:nth-child(2) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--blue))}
     .suas-product-slide:nth-child(3) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--sun))}
     .suas-product-slide:nth-child(4) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--lav))}
     .suas-product-slide:nth-child(5) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--lime))}
     .suas-product-slide:nth-child(6) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--hot))}
-    @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}@keyframes suasProductName{0%,12%{transform:translateX(0)}88%,100%{transform:translateX(var(--name-travel,-34%))}}
+    @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
     @media(max-width:990px){
       .suas-home-wrap{width:min(100% - 16px,920px)}
-      .suas-hero-grid{grid-template-columns:minmax(0,1fr) minmax(236px,270px)!important;gap:12px!important;align-items:start!important}
       .suas-window-title{font-size:9px}
-      .suas-product-rotator{height:auto!important;min-height:0;padding:12px}
-      .suas-product-slide{position:relative!important;inset:auto!important;display:none!important;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);align-items:start;gap:10px;opacity:1;transform:none;pointer-events:auto}
-      .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid!important}
-      .suas-product-photo{width:100%;max-width:none;aspect-ratio:1;height:auto;align-self:start;justify-self:stretch}
-      .suas-product-copy{min-height:0;padding:12px;box-shadow:4px 5px 0 var(--ink);text-align:left;justify-items:start;align-content:start}
-      .suas-product-title{font-size:clamp(1.05rem,3.4vw,1.45rem)}
-      .suas-product-buy{margin-top:10px}
-      .suas-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}
+      .suas-product-rotator{height:auto;padding:12px}
+      .suas-product-slide{position:relative;inset:auto;display:none;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:10px;opacity:1;transform:none;pointer-events:auto}
+      .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid}
+      .suas-product-photo{max-width:none}
+      .suas-product-copy{padding:12px}
+      .suas-product-title{font-size:clamp(1.15rem,3.6vw,1.6rem)}
       .suas-launch{min-height:58px;padding:10px}
       .suas-launch strong{font-size:1rem}
       .suas-launch span{display:none}
+      .suas-boost-body{grid-template-columns:1fr}
+      .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
     @media(max-width:560px){
       .suas-home-wrap{width:calc(100vw - 12px)}
-      .suas-hero-grid{grid-template-columns:minmax(0,1.55fr) minmax(148px,38%)!important;gap:8px!important;align-items:start!important}
-      .suas-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px}
+      .suas-lower-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:8px}
       .suas-window-live{display:none}
-      .suas-product-rotator{height:auto!important;min-height:0;padding:8px}
-      .suas-product-slide{position:relative!important;inset:auto!important;display:none!important;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:start;gap:8px;opacity:1;transform:none;pointer-events:auto}
-      .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid!important}
-      .suas-product-photo{width:100%;max-width:none;aspect-ratio:1;height:auto;align-self:start}
-      .suas-product-copy{text-align:left;justify-items:start;padding:8px 9px;align-content:start;min-width:0}
-      .suas-product-title{font-size:clamp(.78rem,3.4vw,1.05rem);white-space:normal}
-      .suas-product-buy{flex-direction:column;align-items:stretch;justify-content:flex-start;margin-top:8px;gap:6px}
-      .suas-product-price,.suas-feed-atc{width:100%;justify-content:center;box-sizing:border-box;min-width:0}
-      .suas-feed-atc{min-height:30px;padding:6px 6px;font-size:7px;letter-spacing:.06em}
+      .suas-product-rotator{padding:8px}
+      .suas-product-slide{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:8px}
+      .suas-product-copy{padding:8px 9px}
+      .suas-product-title{font-size:clamp(.9rem,3.6vw,1.15rem)}
+      .suas-product-buy{margin-top:8px;gap:6px}
+      .suas-product-price{min-height:30px;padding:6px 9px;font-size:10px}
+      .suas-feed-atc{min-height:30px;padding:6px 8px;font-size:7px;letter-spacing:.06em}
+      .suas-feed-btn{min-height:28px;padding:6px 8px;font-size:8px}
       .suas-launch span{display:none}
+      .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+      .suas-boost-card{padding:6px;border-radius:14px}
+      .suas-boost-card b{font-size:.68rem}
     }
     @media(prefers-reduced-motion:reduce){.suas-product-title,.suas-product-photo img,.suas-window-live b{animation:none!important}}
   </style>
@@ -112,8 +118,150 @@
     if butter_count > 6
       assign butter_count = 6
     endif
+    assign boost_collection = collections['best-sellers']
+    if boost_collection == blank or boost_collection.products_count == 0
+      assign boost_collection = collections['new-arrivals']
+    endif
+    if boost_collection == blank or boost_collection.products_count == 0
+      assign boost_collection = butter_collection
+    endif
   %}
-  <div class="suas-hero"><div class="suas-home-wrap"><div class="suas-hero-grid"><div class="suas-feed-column"><div class="suas-now-card"><div class="suas-window-bar"><div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div><span class="suas-window-title suas-mono">HOME.EXE / product feed</span><span class="suas-window-live suas-mono"><b></b>LIVE</span></div><div class="suas-product-rotator" data-suas-product-rotator data-count="{{ butter_count }}">{% if butter_collection != blank and butter_collection.products_count > 0 %}{% for product in butter_collection.products limit:6 %}<div class="suas-product-slide{% if forloop.first %} is-active{% endif %}"><a class="suas-product-photo" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 | image_tag: loading: 'eager', alt: product.title }}{% else %}<div class="suas-product-fallback suas-font">s.</div>{% endif %}</a><div class="suas-product-copy"><a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a><div class="suas-product-buy"><div class="suas-product-price suas-mono">{{ product.price | money }}</div><button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add to cart</button></div><div class="suas-product-actions"><a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a><a class="suas-feed-btn suas-mono" href="/account" style="--feed-btn:#ffd8e8">account</a></div></div></div>{% endfor %}{% else %}<div class="suas-product-slide is-static is-active"><a class="suas-product-photo" href="/collections/butter-creme"><div class="suas-product-fallback suas-font">s.</div></a><div class="suas-product-copy"><a class="suas-product-title suas-font" href="/collections/butter-creme">butter creme</a><div class="suas-product-price suas-mono">shop</div><div class="suas-product-actions"><a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a><a class="suas-feed-btn suas-mono" href="/account" style="--feed-btn:#ffd8e8">account</a></div></div></div>{% endif %}</div></div><div class="suas-feed-notes"><div class="suas-window-bar"><div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div><span class="suas-window-title suas-mono">DAILY.TXT</span><span class="suas-window-live suas-mono"><b></b>NOW</span></div><div class="suas-feed-notes-body"><div class="suas-feed-announcement suas-font">{{ section.settings.announcement_text | default: 'Plot twist: a new SUAS store and Fragrance Bar are coming soon. Your next signature scent is getting a new home.' }}</div></div></div></div><aside class="suas-launch-panel"><div class="suas-window-bar"><div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div><span class="suas-window-title suas-mono">QUICK.LAUNCH</span><span class="suas-window-live suas-mono"><b></b>APPS</span></div><div class="suas-launch-body"><div class="suas-launch-grid"><a class="suas-launch" href="/collections/new-arrivals" style="--launch:#ffd8e8"><strong class="suas-font">new arrivals</strong><span class="suas-mono">shop</span></a><a class="suas-launch" href="/collections/best-sellers" style="--launch:#d9ff78"><strong class="suas-font">best sellers</strong><span class="suas-mono">shop</span></a><a class="suas-launch" href="/pages/scent-profile" style="--launch:#e4d5ff"><strong class="suas-font">scent profile</strong><span class="suas-mono">find your lane</span></a><a class="suas-launch" href="/collections/home-care" style="--launch:#cdeeff"><strong class="suas-font">home products</strong><span class="suas-mono">shop</span></a><a class="suas-launch" href="/collections/oddities" style="--launch:#fff1a8"><strong class="suas-font">oddities</strong><span class="suas-mono">shop</span></a><a class="suas-launch" href="/pages/the-lab" style="--launch:#ff9bc4"><strong class="suas-font">the lab</strong><span class="suas-mono">mix</span></a></div><div class="suas-actions"><a class="suas-btn suas-mono" data-dark href="/collections/all">shop all</a></div></div></aside></div></div></div>
-  <script>(()=>{function wireFeedNote(){const note=document.querySelector('.suas-world-home [data-suas-feed-note]');if(!note||note.dataset.suasNoteReady==='true')return;note.dataset.suasNoteReady='true';try{note.value=localStorage.getItem('suasProductFeedNote')||''}catch(error){}note.addEventListener('input',()=>{try{localStorage.setItem('suasProductFeedNote',note.value)}catch(error){}})}wireFeedNote();function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{const href=link.getAttribute('href')||'';if(href.charAt(0)!=='#')return;event.preventDefault();const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}})})}wireFeedLinks();function wireFeedCart(){document.querySelectorAll('.suas-world-home [data-suas-atc]').forEach(button=>{if(button.dataset.suasAtcReady==='true')return;button.dataset.suasAtcReady='true';button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(button.disabled)return;const id=Number(button.getAttribute('data-suas-atc'));if(!id)return;const original=button.textContent;button.disabled=true;button.textContent='adding';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},credentials:'same-origin',body:JSON.stringify({id,quantity:1})}).then(response=>{if(!response.ok)throw new Error('cart');return response.json()}).then(()=>fetch('/cart.js',{credentials:'same-origin'})).then(response=>response.json()).then(cart=>{document.querySelectorAll('[data-suas-cart-count]').forEach(node=>{node.textContent=cart.item_count});button.textContent='added';setTimeout(()=>{button.disabled=false;button.textContent=original},1200)}).catch(()=>{button.disabled=false;button.textContent='try again';setTimeout(()=>{button.textContent=original},1400)})})})}wireFeedCart();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=6){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500,3000,5200].forEach(t=>setTimeout(dedupeLaunch,t));const root=document.currentScript.closest('.suas-world-home');if(root)new MutationObserver(dedupeLaunch).observe(root,{childList:true,subtree:true});document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;let active=0;setInterval(()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')},7600)})})();</script>
+  <div class="suas-hero">
+    <div class="suas-home-wrap">
+      <div class="suas-hero-stack">
+        <div class="suas-now-card">
+          <div class="suas-window-bar">
+            <div class="suas-window-dots">
+              <span class="suas-dot" style="--dot:#ff5f57"></span>
+              <span class="suas-dot" style="--dot:#febc2e"></span>
+              <span class="suas-dot" style="--dot:#28c840"></span>
+            </div>
+            <span class="suas-window-title suas-mono">PRODUCT.FEED</span>
+            <span class="suas-window-live suas-mono"><b></b>LIVE</span>
+          </div>
+          <div class="suas-product-rotator" data-suas-product-rotator data-count="{{ butter_count }}">
+            {% if butter_collection != blank and butter_collection.products_count > 0 %}
+              {% for product in butter_collection.products limit: 6 %}
+                <div class="suas-product-slide{% if forloop.first %} is-active{% endif %}">
+                  <a class="suas-product-photo" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
+                    {% if product.featured_image %}
+                      {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'eager', alt: product.title }}
+                    {% else %}
+                      <div class="suas-product-fallback suas-font">s.</div>
+                    {% endif %}
+                  </a>
+                  <div class="suas-product-copy">
+                    <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
+                    <div class="suas-product-buy">
+                      <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
+                      <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add to cart</button>
+                    </div>
+                    <div class="suas-product-actions">
+                      <a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a>
+                      <a class="suas-feed-btn suas-mono" href="/pages/account" style="--feed-btn:#ffd8e8">account</a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="suas-product-slide is-static is-active">
+                <a class="suas-product-photo" href="/collections/butter-creme"><div class="suas-product-fallback suas-font">s.</div></a>
+                <div class="suas-product-copy">
+                  <a class="suas-product-title suas-font" href="/collections/butter-creme">butter creme</a>
+                  <div class="suas-product-buy">
+                    <div class="suas-product-price suas-mono">shop</div>
+                  </div>
+                  <div class="suas-product-actions">
+                    <a class="suas-feed-btn suas-mono" href="#suas-reviews" style="--feed-btn:#fff1a8">reviews</a>
+                    <a class="suas-feed-btn suas-mono" href="/pages/account" style="--feed-btn:#ffd8e8">account</a>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="suas-lower-grid">
+          <aside class="suas-launch-panel">
+            <div class="suas-window-bar">
+              <div class="suas-window-dots">
+                <span class="suas-dot" style="--dot:#ff5f57"></span>
+                <span class="suas-dot" style="--dot:#febc2e"></span>
+                <span class="suas-dot" style="--dot:#28c840"></span>
+              </div>
+              <span class="suas-window-title suas-mono">QUICK.LAUNCH</span>
+              <span class="suas-window-live suas-mono"><b></b>APPS</span>
+            </div>
+            <div class="suas-launch-body">
+              <div class="suas-launch-grid">
+                <a class="suas-launch" href="/collections/new-arrivals" style="--launch:#ffd8e8"><strong class="suas-font">new arrivals</strong><span class="suas-mono">shop</span></a>
+                <a class="suas-launch" href="/collections/best-sellers" style="--launch:#d9ff78"><strong class="suas-font">best sellers</strong><span class="suas-mono">shop</span></a>
+                <a class="suas-launch" href="/pages/scent-profile" style="--launch:#e4d5ff"><strong class="suas-font">scent profile</strong><span class="suas-mono">find your lane</span></a>
+                <a class="suas-launch" href="/collections/home-care" style="--launch:#cdeeff"><strong class="suas-font">home products</strong><span class="suas-mono">shop</span></a>
+                <a class="suas-launch" href="/collections/oddities" style="--launch:#fff1a8"><strong class="suas-font">oddities</strong><span class="suas-mono">shop</span></a>
+                <a class="suas-launch" href="/pages/the-lab" style="--launch:#ff9bc4"><strong class="suas-font">the lab</strong><span class="suas-mono">mix</span></a>
+              </div>
+              <div class="suas-actions"><a class="suas-btn suas-mono" data-dark href="/collections/all">shop all</a></div>
+            </div>
+          </aside>
+          <div class="suas-feed-notes">
+            <div class="suas-window-bar">
+              <div class="suas-window-dots">
+                <span class="suas-dot" style="--dot:#ff5f57"></span>
+                <span class="suas-dot" style="--dot:#febc2e"></span>
+                <span class="suas-dot" style="--dot:#28c840"></span>
+              </div>
+              <span class="suas-window-title suas-mono">DAILY.TXT</span>
+              <span class="suas-window-live suas-mono"><b></b>NOW</span>
+            </div>
+            <div class="suas-feed-notes-body">
+              <div class="suas-feed-announcement suas-font">{{ section.settings.announcement_text | default: 'Plot twist: a new SUAS store and Fragrance Bar are coming soon. Your next signature scent is getting a new home.' }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="suas-boost">
+          <div class="suas-window-bar">
+            <div class="suas-window-dots">
+              <span class="suas-dot" style="--dot:#ff5f57"></span>
+              <span class="suas-dot" style="--dot:#febc2e"></span>
+              <span class="suas-dot" style="--dot:#28c840"></span>
+            </div>
+            <span class="suas-window-title suas-mono">HOT.NOW / best sellers</span>
+            <span class="suas-window-live suas-mono"><b></b>MOVE</span>
+          </div>
+          <div class="suas-boost-body">
+            <div class="suas-boost-copy">
+              <strong class="suas-font">grab it while it lasts.</strong>
+              <p>The jars people actually repurchase. Shop the movers, then leave a smell report below.</p>
+              <a class="suas-btn suas-mono" data-dark href="/collections/best-sellers">shop best sellers</a>
+            </div>
+            <div class="suas-boost-rail">
+              {% if boost_collection != blank %}
+                {% for product in boost_collection.products limit: 3 %}
+                  <a class="suas-boost-card" href="{{ product.url }}">
+                    {% if product.featured_image %}
+                      {{ product.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: product.title }}
+                    {% else %}
+                      <div class="suas-boost-fallback"></div>
+                    {% endif %}
+                    <b class="suas-font">{{ product.title }}</b>
+                    <div class="suas-boost-meta">
+                      {% if product.compare_at_price > product.price %}
+                        <span class="suas-sale">sale</span>
+                        <s class="suas-mono">{{ product.compare_at_price | money }}</s>
+                      {% endif %}
+                      <span class="suas-mono">{{ product.price | money }}</span>
+                    </div>
+                  </a>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>(()=>{function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{const href=link.getAttribute('href')||'';if(href.charAt(0)!=='#')return;event.preventDefault();const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}})})}wireFeedLinks();function wireFeedCart(){document.querySelectorAll('.suas-world-home [data-suas-atc]').forEach(button=>{if(button.dataset.suasAtcReady==='true')return;button.dataset.suasAtcReady='true';button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(button.disabled)return;const id=Number(button.getAttribute('data-suas-atc'));if(!id)return;const original=button.textContent;button.disabled=true;button.textContent='adding';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},credentials:'same-origin',body:JSON.stringify({id,quantity:1})}).then(response=>{if(!response.ok)throw new Error('cart');return response.json()}).then(()=>fetch('/cart.js',{credentials:'same-origin'})).then(response=>response.json()).then(cart=>{document.querySelectorAll('[data-suas-cart-count]').forEach(node=>{node.textContent=cart.item_count});button.textContent='added';setTimeout(()=>{button.disabled=false;button.textContent=original},1200)}).catch(()=>{button.disabled=false;button.textContent='try again';setTimeout(()=>{button.textContent=original},1400)})})})}wireFeedCart();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=6){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500].forEach(t=>setTimeout(dedupeLaunch,t));document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;let active=0;setInterval(()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')},7600)})})();</script>
 </section>
 {% schema %}{"name":"SUAS World Home","settings":[{"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},{"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"Plot twist: a new SUAS store and Fragrance Bar are coming soon. Your next signature scent is getting a new home."}],"presets":[{"name":"SUAS World Home"}]}{% endschema %}

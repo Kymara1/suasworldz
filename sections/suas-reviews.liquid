@@ -4,18 +4,19 @@
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
     .suas-reviews{--ink:#101010;--paper:#fbfaf7;--pink:#ffd8e8;--hot:#ff9bc4;--blue:#cdeeff;--lime:#d9ff78;--yellow:#fff1a8;--lav:#e4d5ff;color:var(--ink);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 12% 12%,rgba(255,216,232,.58),transparent 28%),radial-gradient(circle at 88% 76%,rgba(217,255,120,.32),transparent 30%),var(--paper);background-size:22px 22px,22px 22px,auto,auto,auto;font-family:Futura,'Futura PT',Arial,sans-serif;overflow:hidden}
     .suas-reviews *{box-sizing:border-box}
-    .suas-reviews-wrap{width:min(1160px,calc(100vw - 24px));margin:0 auto;padding:clamp(24px,3.8vw,48px) 0}
-    .suas-reviews-head{text-align:center;margin-bottom:16px}
-    .suas-reviews-head h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif!important;font-size:clamp(2.7rem,6vw,5.25rem);font-weight:400!important;line-height:.84;letter-spacing:0;text-transform:lowercase}
+    .suas-reviews-wrap{width:min(1160px,calc(100vw - 24px));margin:0 auto;padding:clamp(10px,2vw,22px) 0 28px}
+    .suas-reviews-head{text-align:left;margin-bottom:10px;display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:8px}
+    .suas-reviews-head h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif!important;font-size:clamp(1.8rem,4.4vw,3.2rem);font-weight:400!important;line-height:.84;letter-spacing:0;text-transform:lowercase}
     .suas-review-window{border:2px solid var(--ink);border-radius:26px;background:rgba(255,255,255,.96);box-shadow:7px 8px 0 var(--ink);overflow:hidden}
     .suas-review-bar{display:flex;align-items:center;gap:7px;min-height:38px;padding:8px 13px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#edf0f5)}
     .suas-review-dot{width:10px;height:10px;border-radius:999px;background:var(--dot);flex:0 0 auto}
     .suas-review-title{margin-left:auto;padding:6px 10px;border:1.5px solid var(--ink);border-radius:999px;background:var(--yellow);box-shadow:0 2px 0 var(--ink);font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--ink)}
-    .suas-judgeme-host{position:relative;min-height:420px;padding:clamp(14px,2.5vw,26px);background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(135deg,rgba(255,216,232,.3),rgba(217,255,120,.18));background-size:18px 18px,18px 18px,auto}
-    .suas-review-status{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;margin-bottom:18px;padding:clamp(14px,2vw,20px);border:2px solid var(--ink);border-radius:24px;background:var(--pink);box-shadow:4px 5px 0 var(--ink)}
-    .suas-review-status h3{margin:0 0 4px;font-family:'Casual Human',Futura,Arial,sans-serif!important;font-size:clamp(2rem,4vw,3.5rem);font-weight:400!important;line-height:.86;text-transform:lowercase;color:var(--ink)}
+    .suas-judgeme-host{position:relative;min-height:0;padding:clamp(12px,2vw,18px);background:linear-gradient(rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.025) 1px,transparent 1px),linear-gradient(135deg,rgba(255,216,232,.3),rgba(217,255,120,.18));background-size:18px 18px,18px 18px,auto}
+    .suas-review-status{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;margin-bottom:12px;padding:12px 14px;border:2px solid var(--ink);border-radius:20px;background:var(--pink);box-shadow:3px 4px 0 var(--ink)}
+    .suas-review-status h3{margin:0 0 4px;font-family:'Casual Human',Futura,Arial,sans-serif!important;font-size:clamp(1.4rem,3vw,2.1rem);font-weight:400!important;line-height:.86;text-transform:lowercase;color:var(--ink)}
     .suas-review-status p{margin:0;font-size:12px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--ink)}
-    .suas-review-score{display:grid;place-items:center;min-width:118px;min-height:96px;border:2px solid var(--ink);border-radius:22px;background:var(--lime);box-shadow:3px 4px 0 var(--ink);text-align:center}
+    .suas-review-status .suas-review-shop{min-width:132px;background:var(--yellow)}
+    .suas-review-score{display:grid;place-items:center;min-width:88px;min-height:72px;border:2px solid var(--ink);border-radius:18px;background:var(--lime);box-shadow:3px 4px 0 var(--ink);text-align:center}
     .suas-review-score strong{display:block;font-size:2rem;line-height:1;font-weight:900;color:var(--ink)}
     .suas-review-score span{display:block;margin-top:4px;font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
     .suas-judge-panel{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.8);box-shadow:4px 5px 0 var(--ink);padding:clamp(12px,2vw,18px);overflow:hidden}
@@ -37,7 +38,7 @@
     .suas-aftership-note span{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
     .suas-review-shop{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border:2px solid var(--ink);border-radius:999px;background:var(--pink);box-shadow:0 3px 0 var(--ink);color:var(--ink);text-decoration:none;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
     .suas-review-shop:hover{color:var(--ink);transform:translateY(1px);box-shadow:0 2px 0 var(--ink)}
-    @media(max-width:600px){.suas-reviews-wrap{width:calc(100vw - 14px);padding:22px 0}.suas-review-window{border-radius:19px;box-shadow:4px 5px 0 var(--ink)}.suas-judgeme-host{min-height:300px;padding:9px}.suas-review-status{grid-template-columns:1fr;border-radius:18px;box-shadow:3px 4px 0 var(--ink)}.suas-review-score{width:100%;min-height:78px}.suas-judge-panel{border-radius:18px;padding:10px;box-shadow:3px 4px 0 var(--ink)}.suas-judge-panel :is(.jdgm-carousel-item,.jdgm-rev,.jdgm-rev-widg__reviews .jdgm-rev){border-radius:16px!important;padding:12px!important;box-shadow:3px 4px 0 var(--ink)!important}.suas-aftership-note{align-items:stretch;flex-direction:column;padding:10px}.suas-review-shop{width:100%}}
+    @media(max-width:600px){.suas-reviews-wrap{width:calc(100vw - 14px);padding:14px 0 22px}.suas-reviews-head h2{font-size:clamp(1.5rem,8vw,2.2rem)}.suas-review-window{border-radius:19px;box-shadow:4px 5px 0 var(--ink)}.suas-judgeme-host{min-height:0;padding:9px}.suas-review-status{grid-template-columns:1fr;border-radius:18px;box-shadow:3px 4px 0 var(--ink)}.suas-review-score{width:100%;min-height:64px}.suas-judge-panel{border-radius:18px;padding:10px;box-shadow:3px 4px 0 var(--ink)}.suas-judge-panel :is(.jdgm-carousel-item,.jdgm-rev,.jdgm-rev-widg__reviews .jdgm-rev){border-radius:16px!important;padding:12px!important;box-shadow:3px 4px 0 var(--ink)!important}.suas-aftership-note{align-items:stretch;flex-direction:column;padding:10px}.suas-review-shop{width:100%}}
   </style>
   {% assign jm_reviews_count = shop.metafields.judgeme.all_reviews_count | default: 0 | plus: 0 %}
   {% assign jm_rating = shop.metafields.judgeme.all_reviews_rating | default: 0 | plus: 0 %}
@@ -55,12 +56,13 @@
         <div class="suas-review-status">
           <div>
             <h3>smell reports</h3>
-            <p>verified customer notes from SUAS products.</p>
+            <p>verified notes from real SUAS customers.</p>
           </div>
           <div class="suas-review-score" aria-label="{{ jm_rating | round: 1 }} out of 5 stars from {{ jm_reviews_count }} reviews">
             <strong>{{ jm_rating | round: 1 }}</strong>
             <span>{{ jm_reviews_count }} reviews</span>
           </div>
+          <button class="suas-review-shop" type="button" data-suas-review-open-picker>leave a review</button>
         </div>
         <div class="suas-judge-panel">
           {% if jm_carousel != blank %}
