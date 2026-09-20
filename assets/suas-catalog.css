@@ -143,14 +143,17 @@ html body.template--search .suas-catalog-card > a {
   color: #101010;
   text-decoration: none;
 }
+html body.template--collection .product--root .product--image-wrapper,
+html body.template--search .product--root .product--image-wrapper,
 html body.template--collection .suas-catalog-card .product--image-wrapper,
 html body.template--search .suas-catalog-card .product--image-wrapper {
-  position: relative;
+  position: relative !important;
   order: 1;
   flex: 0 0 auto;
-  min-height: 180px;
-  display: block;
-  aspect-ratio: 1 / 1;
+  display: block !important;
+  width: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 1 / 1 !important;
   overflow: hidden !important;
   margin: 10px 10px 0 !important;
   padding: 0 !important;
@@ -170,13 +173,17 @@ html body.template--collection .collection--body--grid > .suas-catalog-card:nth-
 html body.template--search .product-grid > .suas-catalog-card:nth-child(4n) .product--image-wrapper {
   background: linear-gradient(160deg, #fff, #cdeeff) !important;
 }
+html body.template--collection .product--root .product--image,
+html body.template--search .product--root .product--image,
 html body.template--collection .suas-catalog-card .product--image,
 html body.template--search .suas-catalog-card .product--image {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
@@ -185,47 +192,75 @@ html body.template--collection .suas-catalog-card .product--hover-image,
 html body.template--search .suas-catalog-card .product--hover-image {
   display: none !important;
 }
-html body.template--collection .suas-catalog-card .product--image picture,
-html body.template--search .suas-catalog-card .product--image picture,
-html body.template--collection .suas-catalog-card .product--image .image--root,
-html body.template--search .suas-catalog-card .product--image .image--root,
-html body.template--collection .suas-catalog-card .product--image .image--container,
-html body.template--search .suas-catalog-card .product--image .image--container {
+html body.template--collection .product--root .product--image picture,
+html body.template--search .product--root .product--image picture,
+html body.template--collection .product--root .product--image .image--root,
+html body.template--search .product--root .product--image .image--root,
+html body.template--collection .product--root .product--image .image--container,
+html body.template--search .product--root .product--image .image--container {
   position: absolute !important;
   inset: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: 100% !important;
   height: 100% !important;
   max-width: none !important;
+  max-height: none !important;
   padding: 0 !important;
   padding-top: 0 !important;
   margin: 0 !important;
-}
-html body.template--collection .suas-catalog-card .product--image img,
-html body.template--search .suas-catalog-card .product--image img,
-html body.template--collection .suas-catalog-card .product--image img.lazyload,
-html body.template--collection .suas-catalog-card .product--image img.lazyloaded,
-html body.template--search .suas-catalog-card .product--image img.lazyload,
-html body.template--search .suas-catalog-card .product--image img.lazyloaded {
-  position: absolute !important;
-  inset: 0 !important;
   box-sizing: border-box !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
+  transform: none !important;
+}
+html body.template--collection .product--root .product--image img,
+html body.template--search .product--root .product--image img,
+html body.template--collection .product--root .product--image img.lazyload,
+html body.template--collection .product--root .product--image img.lazyloaded,
+html body.template--search .product--root .product--image img.lazyload,
+html body.template--search .product--root .product--image img.lazyloaded {
+  position: absolute !important;
+  inset: auto !important;
+  top: 50% !important;
+  left: 53% !important;
+  right: auto !important;
+  bottom: auto !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  width: 122% !important;
+  height: 122% !important;
+  min-width: 122% !important;
+  min-height: 122% !important;
+  max-width: none !important;
+  max-height: none !important;
   margin: 0 !important;
-  padding: 6% !important;
-  object-fit: contain !important;
+  padding: 0 !important;
+  object-fit: cover !important;
   object-position: center center !important;
   opacity: 1 !important;
   visibility: visible !important;
   background: transparent !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  transform: none !important;
+  transform: translate(-50%, -50%) !important;
   animation: none !important;
+}
+html body.template--collection .product--root.is-lab-experiment .product--image img,
+html body.template--search .product--root.is-lab-experiment .product--image img {
+  top: 50% !important;
+  left: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 8% !important;
+  object-fit: contain !important;
+  background: #000 !important;
+  transform: translate(-50%, -50%) !important;
 }
 html body.template--collection .suas-catalog-card .product--details-container,
 html body.template--search .suas-catalog-card .product--details-container {
@@ -396,13 +431,18 @@ html body.template--collection .suas-catalog-soon-title {
     min-height: 0 !important;
     aspect-ratio: 1 / 1 !important;
   }
-  html body.template--collection .suas-catalog-card .product--image img,
-  html body.template--search .suas-catalog-card .product--image img {
-    width: 100% !important;
-    height: 100% !important;
-    max-height: 100% !important;
-    object-fit: contain !important;
+  html body.template--collection .product--root .product--image img,
+  html body.template--search .product--root .product--image img {
+    top: 50% !important;
+    left: 53% !important;
+    width: 122% !important;
+    height: 122% !important;
+    min-width: 122% !important;
+    min-height: 122% !important;
+    max-height: none !important;
+    object-fit: cover !important;
     object-position: center center !important;
+    transform: translate(-50%, -50%) !important;
   }
   html body.template--collection .suas-catalog-card .product--details-container,
   html body.template--search .suas-catalog-card .product--details-container {

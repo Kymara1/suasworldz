@@ -112,7 +112,7 @@
   else
     capture image
       if product.featured_media.preview_image
-        render 'image', image: product.featured_media.preview_image, full_width: true
+        render 'image', image: product.featured_media.preview_image, full_width: true, cover: true
       else
         render "placeholder", type: 'product', aspect_ratio: 0.714, placeholder_index: placeholder_index
       endif

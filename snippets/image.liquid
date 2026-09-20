@@ -56,6 +56,10 @@
   endif
 
   assign width = "100%"
+  assign pad_top = 1 | divided_by: aspect_ratio | times: 100 | append: '%'
+  if cover == true or cover == 'true'
+    assign pad_top = '0'
+  endif
 -%}
 
 <div
@@ -79,10 +83,10 @@
     </div>
 
   {% else %}
-    <div
-      class="image--container"
-      style="padding-top:{{ 1 | divided_by: aspect_ratio | times: 100 }}%;"
-    >
+      <div
+        class="image--container"
+        style="padding-top:{{ pad_top }};"
+      >
       <img
         class="{{ lazy_classes }}"
         src="{{ image | image_url: width: 800 }}"
