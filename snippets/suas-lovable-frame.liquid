@@ -126,7 +126,15 @@
                 {%- for childlink in link.links -%}
                   {%- liquid assign child_down = childlink.title | downcase -%}
                   {%- if child_down contains 'visit' -%}{%- liquid assign has_visit = true -%}{%- endif -%}
-                  <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+                  {%- unless child_down contains 'parties' or child_down contains 'event' -%}
+                    {%- liquid
+                      assign child_url = childlink.url
+                      if child_url == '/pages/contact'
+                        assign child_url = '/pages/contact-us'
+                      endif
+                    -%}
+                    <a href="{{ child_url }}">{{ childlink.title }}</a>
+                  {%- endunless -%}
                 {%- endfor -%}
                 {%- if is_about and has_visit == false -%}<a href="/pages/visit-us">Visit Us</a>{%- endif -%}
               </div>
@@ -141,7 +149,7 @@
         <a class="suas-side-link" data-suas-mobile-keep="true" href="/collections/dupe"><span class="suas-side-icon" style="--tint: var(--suas-lime);">~</span><span class="suas-side-label">Dupe?</span><span class="suas-side-num">03</span></a>
         <a class="suas-side-link" data-suas-mobile-keep="true" href="/collections/clearance"><span class="suas-side-icon" style="--tint: var(--suas-pink);">%</span><span class="suas-side-label">clearance</span><span class="suas-side-num">04</span></a>
         <a class="suas-side-link" href="/collections/oddities"><span class="suas-side-icon" style="--tint: var(--suas-lav);">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">05</span></a>
-        <details class="suas-panel-dropdown suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-lav);">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who Are We</a><a href="/pages/bookings">Bookings</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
+        <details class="suas-panel-dropdown suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-lav);">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who Are We</a><a href="/pages/bookings">Bookings</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact-us">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
       {%- endif -%}
     </nav>
     <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>lab status</b><span>open + mixing</span></div></div>

@@ -293,9 +293,10 @@
         document.querySelectorAll('.suas-side-rail a, .suas-mobile-panel a').forEach((link) => {
           const label = (link.textContent || '').trim().toLowerCase();
           if (label.includes('who are we') || label === 'about') link.href = '/pages/who-are-we';
-          if (label.includes('contact us')) link.href = '/pages/contact';
+          if (label.includes('contact us')) link.href = '/pages/contact-us';
           if (label.includes('refund policy')) link.href = '/pages/refund-policy';
           if (label.includes('bookings')) link.href = '/pages/bookings';
+          if (label.includes('parties')) link.remove();
         });
       };
 

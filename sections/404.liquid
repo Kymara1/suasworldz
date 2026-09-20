@@ -6,7 +6,7 @@
   endif
 
   assign is_contact_alias = false
-  if current_path == '/pages/contact'
+  if current_path == '/pages/contact' or current_path == '/pages/contact/'
     assign is_contact_alias = true
   endif
 
@@ -15,6 +15,12 @@
     assign is_account_alias = true
   endif
 -%}
+<script>
+  (function () {
+    var path = (window.location.pathname || '').replace(/\/+$/, '');
+    if (path === '/pages/contact') window.location.replace('/pages/contact-us');
+  })();
+</script>
 
 {%- if is_account_alias -%}
   <style>

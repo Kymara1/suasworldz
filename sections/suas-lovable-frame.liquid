@@ -26,6 +26,9 @@
     assign suas_contact_page = pages['contact']
   endif
   assign suas_contact_url = suas_contact_page.url | default: '/pages/contact-us'
+  if suas_contact_url == blank or suas_contact_url == '/pages/contact'
+    assign suas_contact_url = '/pages/contact-us'
+  endif
 %}
 
 {% capture body_submenu_default %}Body|/collections/body-care
@@ -51,7 +54,6 @@ Skin Jelly|/collections/body-jelly{% endcapture %}
 {% capture about_submenu_default %}Who are we|/pages/who-are-we
 Book the Lab|/pages/bookings
 Charm Bar|/pages/charm-bar
-Parties & Events|/pages/parties-events
 Contact Us|{{ suas_contact_url }}
 Refund Policy|/pages/refund-policy{% endcapture %}
 
@@ -211,7 +213,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% if section.settings.lab_enabled %}
         {% liquid
           assign item_active = false
-          assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/charm-bar,/pages/parties-events' | split: ','
+          assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/charm-bar' | split: ','
           for active_path in active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
@@ -225,7 +227,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% if section.settings.about_enabled %}
         {% liquid
           assign item_active = false
-          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/parties-events,/pages/contact,/pages/refund-policy' | split: ','
+          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/contact-us,/pages/refund-policy' | split: ','
           for active_path in about_active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
@@ -242,7 +244,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
             endif
           endfor
         %}
-        <details class="suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% if about_menu.links.size > 0 %}{% for link in about_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif has_about_block_collections %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% else %}{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+        <details class="suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% if about_menu.links.size > 0 %}{% for link in about_menu.links %}{% assign link_down = link.title | downcase %}{% unless link_down contains 'parties' or link_down contains 'event' %}{% assign about_link_url = link.url %}{% if about_link_url == '/pages/contact' %}{% assign about_link_url = '/pages/contact-us' %}{% endif %}<a href="{{ about_link_url }}">{{ link.title }}</a>{% endunless %}{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}{% assign item_down = item_title | downcase %}{% unless item_down contains 'parties' or item_down contains 'event' %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endunless %}{% endif %}{% endfor %}{% elsif has_about_block_collections %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}{% assign item_down = item_title | downcase %}{% unless item_down contains 'parties' or item_down contains 'event' %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endunless %}{% endif %}{% endfor %}{% else %}{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% assign link_down = link_label | downcase %}{% if link_url == '/pages/contact' %}{% assign link_url = '/pages/contact-us' %}{% endif %}{% if link_label != blank and link_url != blank %}{% unless link_down contains 'parties' or link_down contains 'event' %}<a href="{{ link_url }}">{{ link_label }}</a>{% endunless %}{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
       {% if section.settings.visit_enabled %}
         {% liquid
@@ -431,7 +433,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"lab_icon","label":"Icon","default":"/"},
     {"type":"text","id":"lab_number","label":"Number","default":"05"},
     {"type":"color","id":"lab_tint","label":"Icon color","default":"#c6f76a"},
-    {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/charm-bar,/pages/parties-events"},
+    {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/charm-bar"},
 
     {"type":"header","content":"About dropdown"},
     {"type":"checkbox","id":"about_enabled","label":"Show About dropdown","default":true},
@@ -440,8 +442,8 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"about_number","label":"Number","default":"06"},
     {"type":"color","id":"about_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"link_list","id":"about_menu","label":"About dropdown menu","info":"Choose a Shopify Navigation menu. Add page links to that menu instead of typing URLs here."},
-    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu or item blocks are selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nCharm Bar|/pages/charm-bar\nParties & Events|/pages/parties-events\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
-    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/parties-events,/pages/contact,/pages/refund-policy"},
+    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu or item blocks are selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nCharm Bar|/pages/charm-bar\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
+    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/contact-us,/pages/refund-policy"},
 
     {"type":"header","content":"Visit Us item"},
     {"type":"checkbox","id":"visit_enabled","label":"Show Visit Us","default":true},
