@@ -76,7 +76,7 @@
       "custom_css": [],
       "settings": {
         "products-per-row--desktop": 4,
-        "products-per-row--mobile": "2",
+        "products-per-row--mobile": "3",
         "number-of-rows": 7
       }
     }
