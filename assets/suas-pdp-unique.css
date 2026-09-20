@@ -120,9 +120,8 @@ html body.template--product .suas-pdp .suas-window-live b {
 }
 
 html body.template--product .suas-pdp-life-frame {
+  position: relative;
   flex: 0 0 auto;
-  display: grid;
-  place-items: center;
   width: 100%;
   height: auto;
   min-height: 0;
@@ -132,12 +131,15 @@ html body.template--product .suas-pdp-life-frame {
   background: var(--wash, #fff6ee);
 }
 html body.template--product .suas-pdp-life-photo {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 124%;
+  height: 124%;
+  max-width: none;
   max-height: none;
-  object-fit: contain;
-  object-position: center center;
+  object-fit: cover;
+  object-position: left top;
   display: block;
 }
 html body.template--product .suas-pdp-life .suas-station-thumbs {
@@ -473,11 +475,14 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     background: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 124%;
+    height: 124%;
     max-height: none;
-    object-fit: contain;
-    object-position: center center;
+    object-fit: cover;
+    object-position: left top;
   }
   html body.template--product .suas-pdp-ticket .suas-window-bar {
     width: 100% !important;
@@ -541,11 +546,11 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     background: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
-    width: 100%;
-    height: 100%;
+    width: 124%;
+    height: 124%;
     max-height: none !important;
-    object-fit: contain;
-    object-position: center center;
+    object-fit: cover;
+    object-position: left top;
   }
   html body.template--product .suas-pdp-life .suas-station-thumbs { display: none !important; }
   html body.template--product .suas-pdp-life,
@@ -572,13 +577,16 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
   }
   html body.template--product .suas-pdp-ticket .suas-window-live { display: none !important; }
   html body.template--product .suas-pdp .suas-dot { width: 8px; height: 8px; }
-  html body.template--product .suas-pdp-life-frame,
-  html body.template--product .suas-pdp-life-photo {
+  html body.template--product .suas-pdp-life-frame {
+    position: relative;
     height: auto;
     min-height: 0;
     max-height: none;
-    object-fit: contain;
     background: var(--wash, #fff6ee);
+  }
+  html body.template--product .suas-pdp-life-photo {
+    object-fit: cover;
+    object-position: left top;
   }
   html body.template--product .suas-pdp-diagram {
     overflow: hidden !important;

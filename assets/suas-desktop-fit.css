@@ -265,9 +265,13 @@
   }
 
   .suas-world-home .suas-product-photo img {
-    width: 92% !important;
-    height: 92% !important;
-    object-fit: contain !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 124% !important;
+    height: 124% !important;
+    object-fit: cover !important;
+    object-position: left top !important;
   }
 
   .suas-world-home .suas-product-copy {

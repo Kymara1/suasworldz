@@ -207,18 +207,21 @@ html body.template--collection .suas-catalog-card .product--image img.lazyloaded
 html body.template--search .suas-catalog-card .product--image img.lazyload,
 html body.template--search .suas-catalog-card .product--image img.lazyloaded {
   position: absolute !important;
-  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
   box-sizing: border-box !important;
-  width: 100% !important;
-  height: 100% !important;
+  width: 124% !important;
+  height: 124% !important;
   min-width: 0 !important;
   min-height: 0 !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
   margin: 0 !important;
-  padding: 7% !important;
-  object-fit: contain !important;
-  object-position: center center !important;
+  padding: 0 !important;
+  object-fit: cover !important;
+  object-position: left top !important;
   opacity: 1 !important;
   visibility: visible !important;
   background: transparent !important;
@@ -397,9 +400,11 @@ html body.template--collection .suas-catalog-soon-title {
   }
   html body.template--collection .suas-catalog-card .product--image img,
   html body.template--search .suas-catalog-card .product--image img {
-    max-height: 100% !important;
-    object-fit: contain !important;
-    object-position: center center !important;
+    width: 124% !important;
+    height: 124% !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: left top !important;
   }
   html body.template--collection .suas-catalog-card .product--details-container,
   html body.template--search .suas-catalog-card .product--details-container {

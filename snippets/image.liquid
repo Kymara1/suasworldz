@@ -55,12 +55,7 @@
     assign lazy_classes = lazy_classes | append: ' lazypreload'
   endif
 
-  assign width = image.width | append: "px"
-  if max_height > 0
-    assign width = max_height | times: aspect_ratio | round: 2 | append: 'px'
-  elsif full_width
-    assign width = "100%"
-  endif
+  assign width = "100%"
 -%}
 
 <div
