@@ -9,10 +9,12 @@
   .suas-os-wrap{width:min(640px,calc(100vw - 24px));margin:0 auto}
   .suas-os-wrap.is-wide{width:min(1180px,calc(100vw - 24px))}
   .suas-os-billboard{display:grid;justify-items:center;gap:0;padding:8px 2px 18px;text-align:center}
-  .suas-os-account .suas-home-logo{display:inline-flex;flex-direction:column;align-items:center;gap:7px;color:inherit}
-  .suas-os-account .suas-home-logo-img{display:block;width:152px;height:152px;max-width:152px;object-fit:contain;background:#000;border:2px solid var(--ink);border-radius:16px;box-shadow:3px 4px 0 var(--ink)}
+  .suas-os-account .suas-home-logo{position:relative;display:grid;place-items:center;width:220px;height:220px;color:inherit;overflow:visible}
+  .suas-os-account .suas-home-logo-img{grid-area:1/1;display:block;width:152px;height:152px;max-width:152px;object-fit:contain;background:#000;border:2px solid var(--ink);border-radius:16px;box-shadow:3px 4px 0 var(--ink);z-index:1}
   .suas-os-account .suas-home-logo-img--season{display:none}
-  .suas-os-account .suas-home-logo-tag{display:block;margin:0;font:900 16px/1 Futura,"Futura PT",Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+  .suas-os-account .suas-home-logo-arc{grid-area:1/1;width:220px;height:220px;overflow:visible;pointer-events:none;z-index:2}
+  .suas-os-account .suas-home-logo-arc-text{font-family:Futura,'Futura PT',Arial,sans-serif;font-weight:900;font-size:14.5px;letter-spacing:.13em;text-transform:uppercase;fill:var(--ink,#101010)}
+  .suas-os-account .suas-home-logo-tag{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
   .suas-os-win{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
   .suas-os-winbar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:42px;padding:8px 14px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#e8edf3)}
   .suas-os-dots{display:flex;gap:7px}
@@ -69,8 +71,10 @@
   @media(max-width:900px){.suas-os-mid{grid-template-columns:1fr}}
   @media(max-width:560px){
     .suas-os-account{padding:10px 8px 48px}
+    .suas-os-account .suas-home-logo{width:176px;height:176px}
     .suas-os-account .suas-home-logo-img{width:118px;height:118px;max-width:118px;border-radius:999px;box-shadow:2px 3px 0 var(--ink)}
-    .suas-os-account .suas-home-logo-tag{font-size:13px;letter-spacing:.14em}
+    .suas-os-account .suas-home-logo-arc{width:176px;height:176px}
+    .suas-os-account .suas-home-logo-arc-text{font-size:13px}
     .suas-os-title{font-size:clamp(2.4rem,14vw,3.8rem)}
     .suas-os-two,.suas-os-launch{grid-template-columns:1fr}
     .suas-os-live{display:none}
