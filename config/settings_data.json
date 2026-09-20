@@ -413,7 +413,7 @@
           "home_link": "/",
           "control_label": "control panel",
           "status_label": "lab status",
-          "status_text": "open + mixing",
+          "status_text": "mixing",
           "version_text": "v.04",
           "footer_label_1": "account",
           "footer_link_1": "/pages/account",
