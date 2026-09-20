@@ -42,10 +42,10 @@
       "type": "collection--navigation",
       "custom_css": [],
       "settings": {
-        "show-browse-button": true,
+        "show-browse-button": false,
         "show-sort-button": false,
-        "show-refine-button": true,
-        "show-layout-buttons": true,
+        "show-refine-button": false,
+        "show-layout-buttons": false,
         "show-collections-list": false,
         "custom-list-collections": "",
         "show-sort-list": false,
