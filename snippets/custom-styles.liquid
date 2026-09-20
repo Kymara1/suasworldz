@@ -515,10 +515,10 @@
       });
     }
 
-    addControlSubmenu('.suas-side-nav > a.suas-side-link[href="/collections/body-care"]', panelSubmenus.body, 'suas-side-dropdown');
-    addControlSubmenu('.suas-side-nav > a.suas-side-link[href="/collections/home-care"]', panelSubmenus.home, 'suas-side-dropdown');
-    addControlSubmenu('.suas-panel-nav > a.suas-panel-link[href="/collections/body-care"]', panelSubmenus.body, 'suas-home-panel-dropdown');
-    addControlSubmenu('.suas-panel-nav > a.suas-panel-link[href="/collections/home-care"]', panelSubmenus.home, 'suas-home-panel-dropdown');
+    addControlSubmenu('.suas-side-nav > a.suas-side-link[href="/collections/body"]', panelSubmenus.body, 'suas-side-dropdown');
+    addControlSubmenu('.suas-side-nav > a.suas-side-link[href="/collections/home"]', panelSubmenus.home, 'suas-side-dropdown');
+    addControlSubmenu('.suas-panel-nav > a.suas-panel-link[href="/collections/body"]', panelSubmenus.body, 'suas-home-panel-dropdown');
+    addControlSubmenu('.suas-panel-nav > a.suas-panel-link[href="/collections/home"]', panelSubmenus.home, 'suas-home-panel-dropdown');
 
     var grid = document.querySelector('.suas-world-home .suas-launch-grid');
     if (!grid || grid.getAttribute('data-suas-fixed-launch') === 'true' || grid.querySelector('[data-suas-extra-launch="new-arrivals"]')) return;
