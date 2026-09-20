@@ -435,7 +435,7 @@
           "home_tint": "#9dd7ff",
           "home_collections": [],
           "home_menu": "",
-          "home_submenu": "Cleansing Bar|/collections/cleansing-bar\nBody Oil|/collections/body-oil\nBody Wash|/collections/body-wash\nButter Creme|/collections/butter-creme\nCologne|/collections/cologne\nExfoliating Body Wash|/collections/exfoliating-body-wash\nBeard|/collections/beard",
+          "home_submenu": "Cologne|/collections/cologne\nBody Oil|/collections/body-oil\nCleansing Bar|/collections/cleansing-bar\nBody Oil|/collections/body-oil\nExfoliating Body Wash|/collections/exfoliating-body-wash\nBeard|/collections/beard",
           "home_active_paths": "/collections/masculine,/collections/cologne,/collections/exfoliating-body-wash,/collections/beard",
           "shared_enabled": false,
           "shared_label": "shared",
