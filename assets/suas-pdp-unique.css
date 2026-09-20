@@ -134,11 +134,11 @@ html body.template--product .suas-pdp-life-photo {
   position: absolute;
   top: 0;
   left: 0;
-  width: 124%;
-  height: 124%;
+  width: 116%;
+  height: 116%;
   max-width: none;
   max-height: none;
-  object-fit: cover;
+  object-fit: contain;
   object-position: left top;
   display: block;
 }
@@ -478,10 +478,10 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     position: absolute;
     top: 0;
     left: 0;
-    width: 124%;
-    height: 124%;
+    width: 116%;
+    height: 116%;
     max-height: none;
-    object-fit: cover;
+    object-fit: contain;
     object-position: left top;
   }
   html body.template--product .suas-pdp-ticket .suas-window-bar {
@@ -546,10 +546,10 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     background: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
-    width: 124%;
-    height: 124%;
+    width: 116%;
+    height: 116%;
     max-height: none !important;
-    object-fit: cover;
+    object-fit: contain;
     object-position: left top;
   }
   html body.template--product .suas-pdp-life .suas-station-thumbs { display: none !important; }
@@ -585,7 +585,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     background: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
-    object-fit: cover;
+    object-fit: contain;
     object-position: left top;
   }
   html body.template--product .suas-pdp-diagram {
