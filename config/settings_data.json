@@ -426,7 +426,7 @@
           "body_tint": "#ff9bc4",
           "body_collections": [],
           "body_menu": "",
-          "body_submenu": "Cleansing Bar|/collections/cleansing-bar\nBody Oil|/collections/body-oil\nBody Wash|/collections/body-wash\nButter Creme|/collections/butter-creme\nBody Scrub|/collections/body-scrub\nPerfume|/collections/eau-de-parfum\nSkin Jelly|/collections/body-jelly",
+          "body_submenu": "Cleansing Bar|/collections/cleansing-bar\nBody Oil|/collections/body-oil\nBody Wash|/collections/body-wash\nButter Creme|/collections/butter-creme\nButter Scrub|/collections/body-scrub\nPerfume|/collections/eau-de-parfum\nSkin Jelly|/collections/body-jelly",
           "body_active_paths": "/collections/feminine,/collections/cleansing-bar,/collections/body-oil,/collections/body-wash,/collections/butter-creme,/collections/body-scrub,/collections/eau-de-parfum,/collections/body-jelly",
           "home_enabled": true,
           "home_label": "masculine",
