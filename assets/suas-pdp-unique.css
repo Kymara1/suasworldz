@@ -121,9 +121,13 @@ html body.template--product .suas-pdp .suas-window-live b {
 
 html body.template--product .suas-pdp-life-frame {
   flex: 0 0 auto;
-  height: min(48vh, 460px);
-  min-height: 280px;
-  max-height: 460px;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--wash, #fff6ee);
 }
@@ -131,7 +135,9 @@ html body.template--product .suas-pdp-life-photo {
   width: 100%;
   height: 100%;
   min-height: 0;
-  object-fit: cover;
+  max-height: none;
+  object-fit: contain;
+  object-position: center center;
   display: block;
 }
 html body.template--product .suas-pdp-life .suas-station-thumbs {
@@ -457,22 +463,21 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     justify-content: stretch;
     gap: 14px !important;
   }
-  html body.template--product .suas-pdp-life-frame,
-  html body.template--product .suas-pdp-life-photo {
-    height: auto;
-    min-height: 0;
-    max-height: 360px;
-    aspect-ratio: 1 / 1;
-  }
   html body.template--product .suas-pdp-life-frame {
     flex: 0 0 auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 1 / 1;
     background: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
     width: 100%;
     height: 100%;
+    max-height: none;
     object-fit: contain;
-    object-position: center;
+    object-position: center center;
   }
   html body.template--product .suas-pdp-ticket .suas-window-bar {
     width: 100% !important;
@@ -532,14 +537,15 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     aspect-ratio: 1 / 1;
     height: auto !important;
     min-height: 0 !important;
-    max-height: 220px !important;
+    max-height: none !important;
     background: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
     width: 100%;
     height: 100%;
+    max-height: none !important;
     object-fit: contain;
-    object-position: center;
+    object-position: center center;
   }
   html body.template--product .suas-pdp-life .suas-station-thumbs { display: none !important; }
   html body.template--product .suas-pdp-life,
@@ -570,7 +576,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
   html body.template--product .suas-pdp-life-photo {
     height: auto;
     min-height: 0;
-    max-height: 220px;
+    max-height: none;
     object-fit: contain;
     background: var(--wash, #fff6ee);
   }
