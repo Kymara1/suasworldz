@@ -1,9 +1,9 @@
 {%- assign curve_id = arc_id | default: 'home' | handleize -%}
 <svg class="suas-home-logo-arc" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false">
   <defs>
-    <path id="suas-logo-curve-{{ curve_id }}" d="M 18 158 A 104 104 0 0 1 202 158" fill="none"></path>
+    <path id="suas-logo-curve-{{ curve_id }}" d="M 26 122 A 110 110 0 0 0 194 122" fill="none"></path>
   </defs>
-  <text class="suas-home-logo-arc-text">
+  <text class="suas-home-logo-arc-text" dy="11">
     <textPath href="#suas-logo-curve-{{ curve_id }}" xlink:href="#suas-logo-curve-{{ curve_id }}" startOffset="50%" text-anchor="middle">shut up &amp; smell</textPath>
   </text>
 </svg>
