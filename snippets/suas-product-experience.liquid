@@ -8,7 +8,7 @@
     assign is_body_oil = true
   endif
   assign is_body_scrub = false
-  if pdp_type contains 'body scrub' or pdp_handle contains 'body-scrub'
+  if pdp_type contains 'body scrub' or pdp_type contains 'butter scrub' or pdp_handle contains 'body-scrub'
     assign is_body_scrub = true
   endif
   assign pdp_home = false

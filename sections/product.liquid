@@ -353,7 +353,7 @@
     if pdp_type contains 'candle' or pdp_type contains 'mist' or pdp_type contains 'home' or pdp_handle contains 'candle' or pdp_handle contains 'mist' or pdp_handle contains 'burnt-oil'
       assign pdp_home = true
     endif
-    if pdp_type contains 'body oil' or pdp_handle contains 'body-oil' or pdp_type contains 'body scrub' or pdp_handle contains 'body-scrub'
+    if pdp_type contains 'body oil' or pdp_handle contains 'body-oil' or pdp_type contains 'body scrub' or pdp_type contains 'butter scrub' or pdp_handle contains 'body-scrub'
       assign pdp_home = false
     endif
     assign is_body_oil = false
@@ -361,7 +361,7 @@
       assign is_body_oil = true
     endif
     assign is_body_scrub = false
-    if pdp_type contains 'body scrub' or pdp_handle contains 'body-scrub'
+    if pdp_type contains 'body scrub' or pdp_type contains 'butter scrub' or pdp_handle contains 'body-scrub'
       assign is_body_scrub = true
     endif
   -%}
