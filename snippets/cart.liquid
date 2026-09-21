@@ -73,13 +73,17 @@
     >
       <div class="cart--item--image">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
-          {%- liquid
-            if preview_image != false
-              render "image", image: preview_image
-            else
-              render "placeholder", type: 'product', aspect_ratio: 1, placeholder_index: 1
-            endif
-          -%}
+          {%- if preview_image != false -%}
+            <img
+              src="{{ preview_image | image_url: width: 480 }}"
+              alt="{{ item.product.title | escape }}"
+              width="480"
+              height="480"
+              loading="eager"
+            >
+          {%- else -%}
+            {% render "placeholder", type: 'product', aspect_ratio: 1, placeholder_index: 1 %}
+          {%- endif -%}
         </a>
       </div>
 
@@ -232,13 +236,17 @@
     >
       <div class="cart--item--image">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
-          {%- liquid
-            if preview_image != false
-              render "image", image: preview_image
-            else
-              render "placeholder", type: 'product', aspect_ratio: 1, placeholder_index: 1
-            endif
-          -%}
+          {%- if preview_image != false -%}
+            <img
+              src="{{ preview_image | image_url: width: 480 }}"
+              alt="{{ item.product.title | escape }}"
+              width="480"
+              height="480"
+              loading="eager"
+            >
+          {%- else -%}
+            {% render "placeholder", type: 'product', aspect_ratio: 1, placeholder_index: 1 %}
+          {%- endif -%}
         </a>
       </div>
 
