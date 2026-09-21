@@ -135,22 +135,11 @@ html body.template--product .suas-pdp-life-frame {
   aspect-ratio: 1 / 1;
   overflow: hidden;
   isolation: isolate;
-  background-color: #fff;
+  background-color: #fff !important;
   background-image:
     linear-gradient(rgba(16, 16, 16, .12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .12) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-html body.template--product .suas-pdp-life-zoom {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
+    linear-gradient(90deg, rgba(16, 16, 16, .12) 1px, transparent 1px) !important;
+  background-size: 22px 22px !important;
   cursor: zoom-in;
 }
 html body.template--product .suas-pdp-life-photo {
@@ -165,6 +154,7 @@ html body.template--product .suas-pdp-life-photo {
   object-fit: contain !important;
   object-position: center center;
   display: block;
+  background: transparent !important;
   transform: none;
   mix-blend-mode: normal;
   filter: none;

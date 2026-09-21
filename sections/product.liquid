@@ -361,19 +361,17 @@
         <span class="suas-window-title">LIVE.LOOK</span>
         <span class="suas-window-live"><b></b>cam</span>
       </div>
-      <div class="suas-pdp-life-frame">
+      <div class="suas-pdp-life-frame" data-suas-zoom-open role="button" tabindex="0" aria-label="View larger product photo">
         {%- if pdp_life -%}
-          <button type="button" class="suas-pdp-life-zoom" data-suas-zoom-open aria-label="View larger product photo">
-            <img
-              class="suas-pdp-life-photo"
-              src="{{ pdp_life | image_url: width: 1600 }}"
-              srcset="{{ pdp_life | image_url: width: 800 }} 800w, {{ pdp_life | image_url: width: 1200 }} 1200w, {{ pdp_life | image_url: width: 1600 }} 1600w"
-              sizes="(max-width: 1023px) 48vw, 36vw"
-              alt="{{ pdp_life.alt | default: product.title | escape }}"
-              width="{{ pdp_life.width | default: 1200 }}"
-              height="{{ pdp_life.height | default: 1200 }}"
-            >
-          </button>
+          <img
+            class="suas-pdp-life-photo"
+            src="{{ pdp_life | image_url: width: 1600 }}"
+            srcset="{{ pdp_life | image_url: width: 800 }} 800w, {{ pdp_life | image_url: width: 1200 }} 1200w, {{ pdp_life | image_url: width: 1600 }} 1600w"
+            sizes="(max-width: 1023px) 48vw, 36vw"
+            alt="{{ pdp_life.alt | default: product.title | escape }}"
+            width="{{ pdp_life.width | default: 1200 }}"
+            height="{{ pdp_life.height | default: 1200 }}"
+          >
         {%- endif -%}
       </div>
       {%- if product.media.size > 1 -%}
@@ -513,7 +511,15 @@
         document.body.style.overflow = '';
         if (zoomOpen) zoomOpen.focus();
       }
-      if (zoomOpen) zoomOpen.addEventListener('click', openZoom);
+      if (zoomOpen) {
+        zoomOpen.addEventListener('click', openZoom);
+        zoomOpen.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openZoom();
+          }
+        });
+      }
       if (zoom) {
         zoom.addEventListener('click', function (event) {
           if (event.target === zoom || event.target.hasAttribute('data-suas-zoom-close')) closeZoom();
