@@ -157,6 +157,8 @@
     if butter_count > 6
       assign butter_count = 6
     endif
+    assign oil_collection = collections['body-oil']
+    assign edp_collection = collections['eau-de-parfum']
     assign home_collection = collections['home-care']
     if home_collection == blank or home_collection.products_count == 0
       assign home_collection = collections['candles']
@@ -219,49 +221,45 @@
             <span class="suas-window-title suas-mono">PRODUCT.FEED</span>
             <span class="suas-window-live suas-mono"><b></b>LIVE</span>
           </div>
-          <div class="suas-product-rotator" data-suas-product-rotator data-count="{{ butter_count }}">
-            {% if butter_collection != blank and butter_collection.products_count > 0 %}
-              {% for product in butter_collection.products limit: 3 %}
-                <div class="suas-product-slide{% if forloop.first %} is-active{% endif %}" data-handle="{{ product.handle }}">
-                  <a class="suas-product-photo" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
-                    {% if product.featured_image %}
-                      {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'eager', alt: product.title }}
-                    {% else %}
-                      <div class="suas-product-fallback suas-font">s.</div>
-                    {% endif %}
-                  </a>
-                  <div class="suas-product-copy">
-                    <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
-                    {% render 'product-rating', product: product, star_link: true %}
-                    <div class="suas-product-buy">
-                      <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
-                      <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-              {% if home_collection != blank and home_collection.products_count > 0 %}
-                {% for product in home_collection.products limit: 3 %}
-                  <div class="suas-product-slide" data-handle="{{ product.handle }}">
-                    <a class="suas-product-photo" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
-                      {% if product.featured_image %}
-                        {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.title }}
-                      {% else %}
-                        <div class="suas-product-fallback suas-font">s.</div>
-                      {% endif %}
-                    </a>
-                    <div class="suas-product-copy">
-                      <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
-                      {% render 'product-rating', product: product, star_link: true %}
-                      <div class="suas-product-buy">
-                        <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
-                        <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
+          <div class="suas-product-rotator" data-suas-product-rotator>
+            {% liquid
+              assign feed_seen = ''
+              assign feed_shown = 0
+              assign feed_cols = 'body-oil,eau-de-parfum,butter-creme' | split: ','
+            %}
+            {% for col_handle in feed_cols %}
+              {% assign feed_col = collections[col_handle] %}
+              {% if feed_col != blank and feed_col.products_count > 0 %}
+                {% for product in feed_col.products limit: 5 %}
+                  {% if feed_shown >= 12 %}{% break %}{% endif %}
+                  {% assign feed_key = product.handle | append: ',' %}
+                  {% unless feed_seen contains feed_key %}
+                    {% unless product.handle contains 'lab-session' %}
+                      <div class="suas-product-slide{% if feed_shown == 0 %} is-active{% endif %}" data-handle="{{ product.handle }}">
+                        <a class="suas-product-photo" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
+                          {% if product.featured_image %}
+                            {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'eager', alt: product.title }}
+                          {% else %}
+                            <div class="suas-product-fallback suas-font">s.</div>
+                          {% endif %}
+                        </a>
+                        <div class="suas-product-copy">
+                          <a class="suas-product-title suas-font" href="{{ product.url }}">{{ product.title }}</a>
+                          {% render 'product-rating', product: product, star_link: true %}
+                          <div class="suas-product-buy">
+                            <div class="suas-product-price suas-mono">{{ product.price | money }}</div>
+                            <button type="button" class="suas-feed-atc suas-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                      {% assign feed_seen = feed_seen | append: feed_key %}
+                      {% assign feed_shown = feed_shown | plus: 1 %}
+                    {% endunless %}
+                  {% endunless %}
                 {% endfor %}
               {% endif %}
-            {% else %}
+            {% endfor %}
+            {% if feed_shown == 0 %}
               <div class="suas-product-slide is-static is-active">
                 <a class="suas-product-photo" href="/collections/butter-creme"><div class="suas-product-fallback suas-font">s.</div></a>
                 <div class="suas-product-copy">
