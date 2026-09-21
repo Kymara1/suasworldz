@@ -1,4 +1,4 @@
-{{ 'suas-stations-b29.css' | asset_url | stylesheet_tag }}
+{{ 'suas-stations-b30.css' | asset_url | stylesheet_tag }}
 <style>
   html.suas-station-page body{margin:0;background:#f8f7f4}
   html.suas-station-page .layout--main-content,
@@ -10,13 +10,14 @@
   html.suas-station-page .product-photo{width:168px!important;height:168px!important;max-width:none!important;opacity:1!important;visibility:visible!important}
 </style>
 <script>
-  window.SUAS_STATION_BUILD = "b29";
+  window.SUAS_STATION_BUILD = "b30";
   window.SUAS_STATION_LOGO = {{ 'suas-stations-logo.png' | asset_url | json }};
   window.SUAS_LAB_MODE_SELF = {{ 'suas-lab-mode-self-guided.png' | asset_url | json }};
   window.SUAS_LAB_MODE_GUIDED = {{ 'suas-lab-mode-guided.png' | asset_url | json }};
   window.SUAS_PACK = {
     perfume: {{ 'suas-pack-perfume.jpg' | asset_url | json }},
     oil: {{ 'suas-pack-oil.jpg' | asset_url | json }},
+    rollon: {{ 'suas-pack-rollon.jpg' | asset_url | json }},
     butter: {{ 'suas-pack-butter.jpg' | asset_url | json }}
   };
   if (document.body) document.body.classList.add('suas-stations-template');
@@ -59,7 +60,7 @@
         <button class="panel-link" data-view="studio" type="button"><i class="dot-purple">04</i><span>LABELS</span><small>04</small></button>
         <button class="panel-link" data-view="accounts" type="button"><i class="dot-pink">05</i><span>ACCOUNT</span><small>05</small></button>
       </nav>
-      <div class="lab-status"><span></span><div><small>STATION STATUS</small><b>READY / B29</b></div></div>
+      <div class="lab-status"><span></span><div><small>STATION STATUS</small><b>READY / B30</b></div></div>
       <button class="admin-link" data-staff-login type="button">STAFF SETTINGS</button>
     </aside>
 
@@ -350,7 +351,7 @@
     <div><p class="eyebrow">STILL CREATING?</p><h2>YOUR SESSION<br>IS PAUSED.</h2><p>Tap continue to keep your work. This station will clear private guest details in <b id="timeoutCountdown">60</b> seconds.</p><button class="primary-command" id="continueSession" type="button">CONTINUE SESSION</button></div>
   </div>
 </div>
-<script src="{{ 'suas-stations-b29.js' | asset_url }}" defer></script>
+<script src="{{ 'suas-stations-b30.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
