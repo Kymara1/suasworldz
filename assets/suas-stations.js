@@ -9,9 +9,9 @@ const store = {
 };
 
 const productChoices = [
-  { id: 'self-perfume', mode: 'self', name: 'Eau De Parfum', label: '30 mL Perfume / Cologne', volume: 30, source: '24 finished perfume-bar notes', size: 'round175' },
-  { id: 'self-rollon', mode: 'self', name: 'Roll-On Perfume Oil', label: '10 mL Roll-On', volume: 10, source: '12 finished body-oil-bar notes', size: 'round125' },
-  { id: 'self-oil', mode: 'self', name: 'Body Oil', label: '1 oz Body Oil', volume: 30, source: '12 finished body-oil-bar notes', size: 'rect13' },
+  { id: 'self-perfume', mode: 'self', name: 'Eau De Parfum', label: 'Perfume / Cologne', volume: 30, source: 'spray bottle ?? 3 scents ?? 30 mL', size: 'round175' },
+  { id: 'self-rollon', mode: 'self', name: 'Roll-On Perfume Oil', label: 'Roll-On', volume: 10, source: 'pocket oil ?? 3 scents ?? 10 mL', size: 'round125' },
+  { id: 'self-oil', mode: 'self', name: 'Body Oil', label: 'Body Oil', volume: 30, source: 'skin oil ?? 3 scents ?? 1 oz', size: 'rect13' },
   { id: 'guided-perfume', mode: 'guided', name: 'Eau De Parfum', label: '30 mL Perfume From Scratch', source: 'scent organ + perfumer base', size: 'round175' },
   { id: 'guided-oil', mode: 'guided', name: 'Body Oil', label: '1 oz Body Oil From Scratch', source: 'scent organ + chosen oil base', size: 'rect13' },
   { id: 'guided-butter', mode: 'guided', name: 'Butter Creme', label: '4 oz Butter Creme', source: 'pre-portioned creation kit', size: 'round175' },
@@ -86,10 +86,37 @@ function scentIngredientArt(profile) {
   return `<span class="ingredient-art ingredient-${visual}" aria-hidden="true"><i></i><b></b><em></em><strong></strong></span>`;
 }
 
+function scentFamilyGroup(note) {
+  const style = scentNoteProfile(note).style;
+  if (style === 'fruit' || style === 'citrus') return 'fruit';
+  if (style === 'floral') return 'floral';
+  if (style === 'cream' || style === 'resin' || style === 'bean') return 'gourmand';
+  if (style === 'herbal' || style === 'wood') return 'green';
+  return 'sparkle';
+}
+
+function formatPourMl(value) {
+  const amount = Number(value);
+  if (!Number.isFinite(amount)) return '';
+  return `${Number.isInteger(amount) ? amount : amount.toFixed(1)} mL`;
+}
+
+function selfPourLabel(index) {
+  const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
+  const plan = selfPourPlan(product.volume);
+  const item = plan[index];
+  if (!item) return '';
+  if (plan.length === 1) return `${formatPourMl(item.ml)} ?? ALL`;
+  if (index === 0) return `${formatPourMl(item.ml)} ?? STAR`;
+  return `${formatPourMl(item.ml)} ?? PLUS`;
+}
+
 function scentNoteCard(note, selected, index) {
   const profile = scentNoteProfile(note);
   const safeNote = escapeMarkup(note);
-  return `<button class="scent-note-card scent-note-${profile.style} scent-visual-${profile.visual || profile.style}${selected ? ' is-selected' : ''}" data-note="${escapeDataAttr(note)}" type="button" aria-pressed="${selected}" style="--note-a:${profile.a};--note-b:${profile.b};--note-ink:${profile.ink};--note-index:${index}"><span class="scent-note-photo" aria-label="${safeNote} visual">${scentIngredientArt(profile)}</span><span class="scent-note-copy"><strong>${safeNote}</strong><small>${profile.family}</small><small>${profile.mood}</small></span></button>`;
+  const slot = selected ? guideState.notes.indexOf(note) : -1;
+  const pour = slot >= 0 ? selfPourLabel(slot) : '';
+  return `<button class="scent-note-card scent-note-${profile.style} scent-visual-${profile.visual || profile.style}${selected ? ' is-selected' : ''}" data-note="${escapeDataAttr(note)}" ${pour ? `data-pour="${escapeDataAttr(pour)}"` : ''} type="button" aria-pressed="${selected}" style="--note-a:${profile.a};--note-b:${profile.b};--note-ink:${profile.ink};--note-index:${index}"><span class="scent-note-photo" aria-label="${safeNote} visual">${scentIngredientArt(profile)}</span><span class="scent-note-copy"><strong>${safeNote}</strong><small>${profile.family}</small><small>${profile.mood}</small></span></button>`;
 }
 
 function scentNoteMini(note, index) {
@@ -143,6 +170,17 @@ const guides = {
       { title: 'NAME IT. LABEL IT.', copy: 'Give the creation a name, check the product type, and send it to Label Studio.', art: 'label', panel: 'label' }
     ]
   },
+  selfLab: {
+    kicker: 'SELF-GUIDED / NO EXPERIENCE NEEDED',
+    label: 'THE LAB',
+    steps: [
+      { title: 'PICK YOUR BOTTLE.', copy: 'tap one. perfume sprays. roll-on is pocket size. body oil goes on skin. you cannot mess this up.', art: 'options', panel: 'product' },
+      { title: 'SMELL. PICK THREE.', copy: 'smell the blotters. tap the scent you want the most of first. that one gets the big pour. two more get a little extra. tap again to undo.', art: 'notes', panel: 'notes' },
+      { title: 'POUR THE RECIPE.', copy: 'the numbers on the right are the whole job. press the matching dispenser until that amount is in your bottle. no math. no mixing from scratch.', art: 'tools', panel: 'measure' },
+      { title: 'CAP. SWIRL. DONE.', copy: 'lid on first. turn it like a snow globe. do not shake. wipe the bottle. you made a scent.', art: 'bottle', panel: 'finish' },
+      { title: 'NAME IT. LABEL IT.', copy: 'give it a rude little name. check the preview. print. stick it on a clean bottle.', art: 'label', panel: 'label' }
+    ]
+  },
   charm: {
     kicker: 'THE CHARM BAR / VISUAL GUIDE',
     label: 'CHARM BAR',
@@ -162,6 +200,18 @@ if (!productChoices.some((item) => item.id === guideState.product)) guideState.p
 guideState.notes = (guideState.notes || []).filter((note) => [...getScentCatalog().perfume, ...getScentCatalog().oil].includes(note));
 guideState.base = normalizeOilBase(guideState.base);
 if (guideState.labMode === 'self') guideState.notes = guideState.notes.slice(0, SELF_NOTE_MAX);
+let scentFamilyFilter = 'ALL';
+function activeGuide() {
+  if (guideState.type === 'charm') return guides.charm;
+  if (guideState.labMode === 'self') return guides.selfLab;
+  return guides.lab;
+}
+function selfGuideBlocker() {
+  if (guideState.type !== 'lab' || guideState.labMode !== 'self') return '';
+  const step = activeGuide().steps[guideState.step];
+  if (step?.panel === 'notes' && !guideState.notes.length) return 'smell one. tap one. three is the full pour.';
+  return '';
+}
 let activeTemplate = store.get('labelTemplate', 'white');
 const staffSession = {
   hours: 10,
@@ -404,20 +454,47 @@ function finalCharmDemo() {
 
 function labMeasureDemo(guided) {
   if (guided) return operationDemo('MEASURE FROM SCRATCH', 'Tare the scale, add only the displayed fragrance amount, then add the predetermined SUAS base.', `<div class="premium-measure-demo guided-premium-measure"><article><b>01</b><strong>TARE</strong><i class="scale-shape"><b>0.00</b></i><span>Start at zero before every ingredient.</span></article><article><b>02</b><strong>MEASURE</strong><i class="dropper-shape"><em></em></i><span>Add only the amount shown in the worksheet.</span></article><article><b>03</b><strong>ADD BASE</strong><i class="base-shape"><em></em></i><span>Finish with the predetermined SUAS base.</span></article></div>`, 'measure-operation');
+  return selfPourDemo();
+}
+
+function selfPourDemo() {
   const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
   const plan = selfPourPlan(product.volume);
-  const hasNotes = plan.length > 0;
-  const notes = hasNotes ? plan : [{ note: 'CHOOSE NOTES FIRST', ml: '?��' }];
-  return operationDemo('DISPENSE YOUR FINISHED NOTES', hasNotes ? 'These notes are already balanced. Measure 20 mL of the first note, then 5 mL of each supporting note.' : 'Go back to BUILD YOUR FORMULA and choose up to three notes before dispensing.', `<div class="premium-dispense-demo${hasNotes ? '' : ' needs-notes'}"><section class="premium-note-rail"><span>${hasNotes ? '20 / 5 / 5 POUR' : 'NOTES NEEDED'}</span>${notes.slice(0,3).map((item,index)=>`<p><b>${hasNotes ? String(index+1).padStart(2,'0') : '!'}</b><strong>${escapeMarkup(item.note)}</strong><small>${item.ml} mL</small></p>`).join('')}</section><section class="premium-dispenser"><span>PRESS DISPENSER</span><div class="premium-dispenser-head"><i></i><b></b></div><div class="premium-drop-path"><i></i><i></i><i></i></div><strong>20 / 5 / 5 mL</strong></section><section class="premium-target-bottle"><span>STOP AT TARGET</span><div><i></i><b></b><em></em></div><strong>${product.volume} mL TOTAL TARGET</strong></section></div>`, 'dispense-operation');
+  const slots = plan.length ? plan : [
+    { note: 'STAR SCENT', ml: Number((20 * (product.volume / 30)).toFixed(1)), empty: true },
+    { note: 'PLUS ONE', ml: Number((5 * (product.volume / 30)).toFixed(1)), empty: true },
+    { note: 'PLUS TWO', ml: Number((5 * (product.volume / 30)).toFixed(1)), empty: true }
+  ];
+  const cards = slots.map((item, index) => {
+    const role = plan.length ? (plan.length === 1 ? 'THE WHOLE BOTTLE' : index === 0 ? 'STAR / BIG POUR' : 'PLUS / LITTLE POUR') : (index === 0 ? 'STAR / BIG POUR' : 'PLUS / LITTLE POUR');
+    return `<article class="beginner-pour-card${item.empty ? ' is-empty' : ''}"><b>${String(index + 1).padStart(2, '0')}</b><small>${role}</small><strong>${escapeMarkup(item.note)}</strong><em>${formatPourMl(item.ml)}</em><span>${item.empty ? 'pick this on the last screen' : 'press this dispenser until the number is in'}</span></article>`;
+  }).join('');
+  return operationDemo('POUR THE RECIPE.', plan.length ? 'your bottle is empty. each card is one dispenser. hit the number, stop, next card.' : 'go back one screen and tap at least one scent. three is the full SUAS pour.', `<div class="beginner-pour">${cards}</div>`, 'dispense-operation');
 }
 
 function formulaDemo() {
+  if (guideState.labMode === 'self') return selfFormulaDemo();
   const notes = guideState.notes.length ? guideState.notes : ['NOTE 01','NOTE 02','NOTE 03'];
   return operationDemo('SMELL, COMPARE, RECORD', 'Self-guided: pick up to three already-balanced notes. Tap the 20 mL note first, then the two 5 mL notes.', `<div class="formula-demo scent-gallery-demo"><div class="scent-polaroid-grid">${notes.slice(0,3).map((note,index)=>scentNoteMini(note,index)).join('')}</div><b>?��</b><div class="record-card scent-record-card"><small>20 / 5 / 5 POUR</small>${notes.slice(0,3).map((note,index)=>`<span>${['20 mL','5 mL','5 mL'][index]} / ${escapeMarkup(note)}</span>`).join('')}<em>${guideState.notes.length ? 'LIVE SELECTION' : 'PICK NOTES TO BUILD THIS CARD'}</em></div></div>`, 'formula-operation');
 }
 
+function selfFormulaDemo() {
+  const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
+  const plan = selfPourPlan(product.volume);
+  const placeholders = [
+    { note: 'STAR', ml: Number((20 * (product.volume / 30)).toFixed(1)), hint: 'tap your favorite first' },
+    { note: 'PLUS', ml: Number((5 * (product.volume / 30)).toFixed(1)), hint: 'a little extra' },
+    { note: 'PLUS', ml: Number((5 * (product.volume / 30)).toFixed(1)), hint: 'a little extra' }
+  ];
+  const slots = [0, 1, 2].map((index) => plan[index] ? { ...plan[index], hint: index === 0 ? 'big pour' : 'little pour' } : placeholders[index]);
+  return operationDemo('YOUR RECIPE.', 'left is what you picked. right is how much goes in the bottle. tap scents on the panel to fill the slots.', `<div class="self-recipe">${slots.map((item, index) => `<article class="${plan[index] ? 'is-filled' : ''}"><b>${String(index + 1).padStart(2, '0')}</b><strong>${escapeMarkup(item.note)}</strong><em>${formatPourMl(item.ml)}</em><small>${item.hint}</small></article>`).join('')}</div>`, 'formula-operation');
+}
+
 function finishBottleDemo() {
-  const closure = guideState.product === 'self-rollon' ? 'ROLL-ON INSERT' : guideState.product.includes('oil') ? 'DISC CAP' : 'SPRAYER / CAP';
+  const closure = guideState.product === 'self-rollon' ? 'ROLLER + CAP' : guideState.product.includes('oil') ? 'DISC CAP' : 'SPRAYER + CAP';
+  if (guideState.labMode === 'self') {
+    return operationDemo('CAP. SWIRL. DONE.', 'lid first so nothing jumps out. slow turns. if it looks streaky, keep turning. no specialist required.', `<div class="premium-finish-demo"><article class="finish-step close-step"><b>01</b><strong>CAP ON</strong><div class="premium-finish-bottle"><i></i><em></em></div><span>${closure}</span></article><article class="finish-step mix-step"><b>02</b><strong>SLOW SWIRL</strong><div class="mix-orbit"><i></i><i></i><i></i></div><span>snow globe. not a cocktail shaker.</span></article><article class="finish-step fit-step"><b>03</b><strong>WIPE</strong><div class="premium-closure"><i></i><em></em></div><span>clean bottle. you are done.</span></article></div>`, 'finish-operation');
+  }
   return operationDemo('MIX, FIT, AND FINISH', 'Close the bottle first, mix gently until the blend looks even, then fit the correct closure straight down.', `<div class="premium-finish-demo"><article class="finish-step close-step"><b>01</b><strong>CLOSE</strong><div class="premium-finish-bottle"><i></i><em></em></div><span>Cap before mixing.</span></article><article class="finish-step mix-step"><b>02</b><strong>GENTLE MIX</strong><div class="mix-orbit"><i></i><i></i><i></i></div><span>Turn slowly. Do not shake hard.</span></article><article class="finish-step fit-step"><b>03</b><strong>FIT</strong><div class="premium-closure"><i></i><em></em></div><span>${closure}</span></article></div>`, 'finish-operation');
 }
 
@@ -482,17 +559,16 @@ function renderLabMeasurePanel() {
   const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
   if (guideState.labMode === 'self') {
     const plan = selfPourPlan(product.volume);
-    const pourLines = plan.length
-      ? plan.map((item) => `Dispense ${item.ml} mL of ${item.note}.`)
-      : ['Pick three notes first. Tap the 20 mL note first, then the two 5 mL notes.'];
-    return numberedBoard(product.id === 'self-perfume' ? '20 / 5 / 5 POUR' : `${product.volume} mL / 20-5-5 PLAN`, [
-      `Start with the clean ${product.label} bottle supplied for your experiment.`,
-      product.id === 'self-perfume'
-        ? 'The perfume notes are already balanced. You are only measuring how much of each finished note goes into the bottle.'
-        : `Use only the finished notes at the ${product.id === 'self-oil' ? 'body oil bar' : 'roll-on / oil bar'}; the product base is already included.`,
+    if (!plan.length) {
+      return `<div class="self-coach">pick your scents first. the pour numbers live on the last screen.</div>${numberedBoard('NOT YET', ['go back. tap a scent you like. three is the full pour.'])}`;
+    }
+    const bottle = product.id === 'self-rollon' ? 'the small roll-on bottle' : product.id === 'self-oil' ? 'the body oil bottle' : 'the spray bottle';
+    const pourLines = plan.map((item, index) => `find ${item.note}. press until you have ${formatPourMl(item.ml)}.${index === 0 && plan.length > 1 ? ' this is the big one.' : ''}`);
+    return `<div class="self-coach">you are pouring ready-made scent. do not use the scent organ. do not add extra oil.</div>${numberedBoard('DO THIS', [
+      `take ${bottle}. keep it empty until the recipe is in.`,
       ...pourLines,
-      'There is no fill line on the packaging bottle. Stop when the measured amounts are in.'
-    ]);
+      'when the last number is in, cap it. next screen is the swirl.'
+    ])}`;
   }
   const guidedPlans = {
     'guided-perfume': ['Tare the mixing vessel on the scale.', 'Measure each fragrance oil from the scent organ using the live formula worksheet.', 'Add your perfumer base from the squeeze bottle to the specialist-provided 30 mL target.', 'Mix, check, and transfer into the finishing bottle.'],
@@ -507,9 +583,9 @@ function renderLabFinishPanel() {
   const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
   if (guideState.labMode === 'self') {
     const directions = product.id === 'self-rollon'
-      ? ['Dispense the measured amount while leaving room for the roller fitment.', 'Press in the roller fitment and tighten the cap.', 'Gently roll the bottle between your palms, then check for leaks and wipe it clean.']
-      : ['Secure the cap before mixing.', 'Gently turn the bottle until the finished notes look completely even.', 'Check that the cap is secure, test for leaks, and wipe the bottle exterior clean.'];
-    return numberedBoard('BEGINNER FINISH', directions);
+      ? ['leave a little room at the top.', 'press the roller in, then the cap.', 'roll it between your palms. wipe. done.']
+      : ['cap on before you swirl.', 'slow turns until it looks even. no hard shake.', 'check the lid. wipe the bottle. you made that.'];
+    return `<div class="self-coach">if it looks weird, keep swirling. if anything leaks, call staff with the ghost button.</div>${numberedBoard('LAST MOVES', directions)}`;
   }
   if (product.id === 'guided-butter') return numberedBoard('PIPE + JAR', ['Confirm the scent is evenly mixed.', 'Pipe or spoon into the finishing jar.', 'Smooth the top, close the jar, and wipe it clean.']);
   return numberedBoard('SPECIALIST FINAL CHECK', ['Mix the from-scratch formula until fully uniform.', 'Transfer the complete measured mixture into the correct finishing bottle.', 'Fit the closure, wipe the bottle clean, and review the finished product with your specialist.']);
@@ -531,19 +607,46 @@ function renderSelectionPanel(step) {
   }
   if (step.panel === 'product') {
     const availableProducts = productChoices.filter((item) => item.mode === guideState.labMode);
-    panel.innerHTML = `<p class="selection-title">WHAT ARE YOU MAKING?</p><div class="selection-grid">${availableProducts.map((item) => choiceButton(`${item.label}<small>${item.source}</small>`, guideState.product === item.id, `data-product="${item.id}"`)).join('')}</div>`;
-    panel.querySelectorAll('[data-product]').forEach((button) => button.addEventListener('click', () => { guideState.product = button.dataset.product; guideState.notes = []; saveGuide(); renderGuide(); }));
+    const selfHint = guideState.labMode === 'self' ? '<p class="selection-message">one tap. that is your bottle for the rest of this walkthrough.</p>' : '';
+    panel.innerHTML = `<p class="selection-title">${guideState.labMode === 'self' ? 'WHAT ARE WE MAKING?' : 'WHAT ARE YOU MAKING?'}</p><div class="selection-grid">${availableProducts.map((item) => choiceButton(`${item.label}<small>${item.source}</small>`, guideState.product === item.id, `data-product="${item.id}"`)).join('')}</div>${selfHint}`;
+    panel.querySelectorAll('[data-product]').forEach((button) => button.addEventListener('click', () => { guideState.product = button.dataset.product; guideState.notes = []; scentFamilyFilter = 'ALL'; saveGuide(); renderGuide(); }));
     return;
   }
   if (step.panel === 'notes') {
     const guidedOil = guideState.product === 'guided-oil' || guideState.product === 'guided-collection';
-    const selfSource = guideState.product === 'self-perfume'
-      ? 'Choose up to three already-balanced perfume-bar notes. Tap the 20 mL note first, then the two 5 mL notes. No extra mixing is needed.'
-      : 'Choose up to three finished body-oil-bar notes. The body oil base is already blended.';
-    const guidedSource = guideState.product === 'guided-butter' ? 'Your specialist presents the history, fun facts, and mixology lesson before you scent the pre-portioned butter creme kit.' : 'Your specialist presents the history, fun facts, and mixology lesson before you build a formula from the scent organ.';
     const scentChoices = currentScentChoices();
     const maxNotes = noteLimit();
-    panel.innerHTML = `${guidedOil ? `<p class="selection-title">CHOOSE YOUR BODY OIL BASE</p><div class="selection-grid compact">${oilBases.map((base) => choiceButton(`${base.name}<small>${base.loadPercent}% FRAGRANCE LOAD</small>`, guideState.base === base.name, `data-base="${base.name}"`)).join('')}</div>` : ''}<div class="track-note scent-picker-brief">${guideState.labMode === 'self' ? selfSource : guidedSource}</div><p class="selection-title scent-picker-title">SCENT NOTES <span>${guideState.notes.length}/${maxNotes}</span></p><div class="scent-note-picker">${scentChoices.map((note, index) => scentNoteCard(note, guideState.notes.includes(note), index)).join('')}</div><p class="selection-message" id="selectionMessage">${guideState.labMode === 'self' ? 'Select up to three notes. First tap is 20 mL.' : 'Choose the exact notes used in this creation. Select up to four.'}</p>`;
+    if (guideState.labMode === 'self') {
+      const families = [
+        { id: 'ALL', label: 'ALL' },
+        { id: 'fruit', label: 'FRUIT' },
+        { id: 'floral', label: 'FLORAL' },
+        { id: 'gourmand', label: 'GOURMAND' },
+        { id: 'green', label: 'GREEN' },
+        { id: 'sparkle', label: 'SPARKLE' }
+      ];
+      const visible = scentFamilyFilter === 'ALL' ? scentChoices : scentChoices.filter((note) => scentFamilyGroup(note) === scentFamilyFilter);
+      const nextRole = guideState.notes.length >= maxNotes ? 'three is the max. tap one to drop it.' : guideState.notes.length === 0 ? 'next tap is your STAR. biggest pour.' : 'next tap is a little extra.';
+      const recipe = [0, 1, 2].map((index) => {
+        const note = guideState.notes[index];
+        return `<span class="${note ? 'is-filled' : ''}"><b>${index === 0 ? 'STAR' : 'PLUS'}</b><strong>${note ? escapeMarkup(note) : 'tap a scent'}</strong><small>${note ? selfPourLabel(index) : index === 0 ? 'big pour' : 'little pour'}</small></span>`;
+      }).join('');
+      const grid = visible.length
+        ? visible.map((note, index) => scentNoteCard(note, guideState.notes.includes(note), index)).join('')
+        : '<p class="selection-message">nothing in this family. tap ALL.</p>';
+      panel.innerHTML = `<div class="self-coach">smell the blotter. tap the one you want the most of first. that is the big pour. two more if you want company.</div><div class="self-recipe-mini">${recipe}</div><div class="family-filter">${families.map((item) => `<button type="button" data-family="${item.id}" class="${scentFamilyFilter === item.id ? 'is-active' : ''}">${item.label}</button>`).join('')}</div><p class="selection-title scent-picker-title">SCENTS <span>${guideState.notes.length}/${maxNotes}</span></p><div class="scent-note-picker self-note-picker">${grid}</div><p class="selection-message" id="selectionMessage">${nextRole}</p>`;
+      panel.querySelectorAll('[data-family]').forEach((button) => button.addEventListener('click', () => { scentFamilyFilter = button.dataset.family; renderGuide(); }));
+      panel.querySelectorAll('[data-note]').forEach((button) => button.addEventListener('click', () => {
+        const note = button.dataset.note;
+        if (guideState.notes.includes(note)) guideState.notes = guideState.notes.filter((item) => item !== note);
+        else if (guideState.notes.length < maxNotes) guideState.notes.push(note);
+        else { $('selectionMessage').textContent = 'three is the max. tap a picked scent to drop it.'; return; }
+        saveGuide(); renderGuide();
+      }));
+      return;
+    }
+    const guidedSource = guideState.product === 'guided-butter' ? 'Your specialist presents the history, fun facts, and mixology lesson before you scent the pre-portioned butter creme kit.' : 'Your specialist presents the history, fun facts, and mixology lesson before you build a formula from the scent organ.';
+    panel.innerHTML = `${guidedOil ? `<p class="selection-title">CHOOSE YOUR BODY OIL BASE</p><div class="selection-grid compact">${oilBases.map((base) => choiceButton(`${base.name}<small>${base.loadPercent}% FRAGRANCE LOAD</small>`, guideState.base === base.name, `data-base="${base.name}"`)).join('')}</div>` : ''}<div class="track-note scent-picker-brief">${guidedSource}</div><p class="selection-title scent-picker-title">SCENT NOTES <span>${guideState.notes.length}/${maxNotes}</span></p><div class="scent-note-picker">${scentChoices.map((note, index) => scentNoteCard(note, guideState.notes.includes(note), index)).join('')}</div><p class="selection-message" id="selectionMessage">Choose the exact notes used in this creation. Select up to four.</p>`;
     panel.querySelectorAll('[data-base]').forEach((button) => button.addEventListener('click', () => { guideState.base = normalizeOilBase(button.dataset.base); saveGuide(); renderGuide(); }));
     panel.querySelectorAll('[data-note]').forEach((button) => button.addEventListener('click', () => {
       const note = button.dataset.note;
@@ -578,6 +681,10 @@ function renderSelectionPanel(step) {
     check: ['FINAL SAFETY CHECK', 'Look for a completely closed ring with no gap.', 'Gently tug each charm once.', 'If anything moves or opens, stop and ask staff to re-close it.']
   };
   const copy = messages[step.panel];
+  if (guideState.labMode === 'self' && step.panel === 'label') {
+    panel.innerHTML = `<p class="selection-title">STICK THE NAME ON IT.</p><div class="check-list"><span><i></i>type a blend name. rude is fine.</span><span><i></i>check that the three scents look right.</span><span><i></i>print one. center it. smooth from the middle out.</span></div>`;
+    return;
+  }
   panel.innerHTML = `<p class="selection-title">${copy[0]}</p><div class="check-list">${copy.slice(1).map((item) => `<span><i></i>${item}</span>`).join('')}</div>`;
 }
 
@@ -594,6 +701,7 @@ function bindVisualChoiceCards() {
   $('stageArt')?.querySelectorAll('[data-product]').forEach((button) => button.addEventListener('click', () => {
     guideState.product = button.dataset.product;
     guideState.notes = [];
+    scentFamilyFilter = 'ALL';
     saveGuide(); renderGuide();
   }));
   $('stageArt')?.querySelectorAll('[data-piece]').forEach((button) => button.addEventListener('click', () => {
@@ -603,7 +711,7 @@ function bindVisualChoiceCards() {
 }
 
 function renderGuide() {
-  const guide = guides[guideState.type] || guides.lab;
+  const guide = activeGuide();
   guideState.step = Math.max(0, Math.min(guideState.step, guide.steps.length - 1));
   const step = guide.steps[guideState.step];
   $('guideKicker').textContent = guide.kicker;
@@ -615,12 +723,21 @@ function renderGuide() {
   $('guideProgressBar').style.width = `${((guideState.step + 1) / guide.steps.length) * 100}%`;
   $('stageArt').innerHTML = renderStageArt(guideState.type, step);
   $('stepList').innerHTML = guide.steps.map((item, index) => `<button class="step-chip${index === guideState.step ? ' is-active' : ''}" data-step="${index}" type="button"><span>${String(index + 1).padStart(2, '0')}</span>${item.title}</button>`).join('');
-  $('stepList').querySelectorAll('[data-step]').forEach((button) => button.addEventListener('click', () => { guideState.step = Number(button.dataset.step); saveGuide(); renderGuide(); }));
+  $('stepList').querySelectorAll('[data-step]').forEach((button) => button.addEventListener('click', () => {
+    const target = Number(button.dataset.step);
+    if (target > guideState.step) {
+      const block = selfGuideBlocker();
+      if (block) { const message = $('selectionMessage'); if (message) message.textContent = block; return; }
+    }
+    guideState.step = target; saveGuide(); renderGuide();
+  }));
   renderSelectionPanel(step);
   bindVisualChoiceCards();
   $('previousStep').disabled = guideState.step === 0;
   const finalStep = guideState.step === guide.steps.length - 1;
-  $('nextStep').innerHTML = finalStep ? 'REVIEW CREATION <span>-></span>' : 'NEXT STEP <span>-></span>';
+  const block = selfGuideBlocker();
+  $('nextStep').innerHTML = block ? 'PICK A SCENT FIRST' : (finalStep ? 'REVIEW CREATION <span>-></span>' : 'NEXT STEP <span>-></span>');
+  $('nextStep').disabled = Boolean(block);
   $('saveGuideFormula').hidden = guideState.type !== 'lab';
   $('saveGuideFormula').textContent = 'SAVE FORMULA';
   saveGuide();
@@ -628,11 +745,17 @@ function renderGuide() {
 
 $('previousStep')?.addEventListener('click', () => { guideState.step = Math.max(0, guideState.step - 1); saveGuide(); renderGuide(); });
 $('nextStep')?.addEventListener('click', () => {
-  const guide = guides[guideState.type];
+  const guide = activeGuide();
+  const block = selfGuideBlocker();
+  if (block) {
+    const message = $('selectionMessage');
+    if (message) message.textContent = block;
+    return;
+  }
   if (guideState.step < guide.steps.length - 1) { guideState.step += 1; saveGuide(); renderGuide(); return; }
   showView('summary');
 });
-$('restartGuide')?.addEventListener('click', () => { guideState.step = 0; guideState.notes = []; guideState.charms = []; saveGuide(); renderGuide(); });
+$('restartGuide')?.addEventListener('click', () => { guideState.step = 0; guideState.notes = []; guideState.charms = []; scentFamilyFilter = 'ALL'; saveGuide(); renderGuide(); });
 $('saveGuideFormula')?.addEventListener('click', () => {
   if (guideState.type === 'charm') return;
   if (!getActiveAccount()) {
@@ -677,7 +800,7 @@ function renderSummary() {
   const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
   const rows = isCharm
     ? [['EXPERIENCE', 'CHARM BAR'], ['BASE PIECE', guideState.piece], ['CHARMS', 'ANY FIVE / DIY ATTACHMENT'], ['GUEST', guest.name], ['PARTY', guest.party]]
-    : [['PRODUCT', product.label], ['SESSION', guideState.labMode === 'guided' ? 'GUIDED / FROM SCRATCH' : 'SELF-GUIDED / FINISHED NOTES'], ['SCENT NOTES', guideState.notes.length ? guideState.notes.join(' + ') : 'NOT SELECTED'], ...(guideState.product.includes('oil') || guideState.product === 'guided-collection' ? [['OIL BASE', guideState.base]] : []), ['GUEST', guest.name], ['PARTY', guest.party]];
+    : [['PRODUCT', product.label], ['SESSION', guideState.labMode === 'guided' ? 'GUIDED / FROM SCRATCH' : 'SELF-GUIDED / NO EXPERIENCE NEEDED'], ['SCENT NOTES', guideState.notes.length ? guideState.notes.join(' + ') : 'NOT SELECTED'], ...(guideState.product.includes('oil') || guideState.product === 'guided-collection' ? [['OIL BASE', guideState.base]] : []), ['GUEST', guest.name], ['PARTY', guest.party]];
   $('summaryGrid').innerHTML = rows.map(([label, value]) => `<div><small>${label}</small><b>${value}</b></div>`).join('');
   $('summaryTicket').innerHTML = `<small>SUAS OS / CREATION TICKET</small><h3>${isCharm ? guideState.piece : product.name}</h3><p>${isCharm ? 'LAY OUT / ATTACH / TUG TEST' : (guideState.notes.join(' / ') || 'ADD YOUR SCENT NOTES')}</p><div><span>${new Date().toLocaleDateString()}</span><span>${store.get('stationName', 'MIXING STATION 01')}</span></div>`;
   $('summaryContinue').textContent = isCharm ? 'FINISH SESSION ->' : 'CREATE LABEL ->';
@@ -784,7 +907,7 @@ function loadLabelDraft() {
 
 function updateAdminProgress() {
   if (!$('savedProgress')) return;
-  const guide = guides[guideState.type];
+  const guide = activeGuide();
   $('savedProgress').textContent = guide ? `${guide.label} / STEP ${guideState.step + 1} OF ${guide.steps.length}` : 'NO ACTIVE GUIDE';
 }
 
@@ -808,10 +931,10 @@ function renderAccountPanel(mode = 'signin') {
   const active = getActiveAccount();
   if (active) {
     const creations = active.creations || [];
-    const currentGuide = guides[guideState.type] || guides.lab;
+    const current = activeGuide();
     const currentProduct = productChoices.find((item) => item.id === guideState.product);
     const currentTitle = guideState.type === 'lab' ? (currentProduct?.label || 'THE LAB') : 'THE CHARM BAR';
-    const progress = Math.round(((guideState.step + 1) / currentGuide.steps.length) * 100);
+    const progress = Math.round(((guideState.step + 1) / current.steps.length) * 100);
     const labCreations = creations.filter((item) => item.guideType === 'lab' || item.type !== 'CHARM BAR');
     const productCount = new Set(labCreations.map((item) => item.type)).size;
     const latest = creations[0]?.date || 'NOT YET';
@@ -819,7 +942,7 @@ function renderAccountPanel(mode = 'signin') {
       const remixable = item.guideType === 'lab' && item.productId;
       return `<article class="creation-card"><header><span>${escapeAccountText(item.type)}</span><small>${escapeAccountText(item.date)}</small></header><b>${escapeAccountText(item.title)}</b><p>${escapeAccountText(item.details)}</p><div class="creation-card-actions">${remixable ? `<button class="creation-label" data-label-creation="${item.id}" type="button">MAKE LABEL</button><button class="creation-remix" data-remix-creation="${item.id}" type="button">REMIX FORMULA <span>-&gt;</span></button>` : ''}<button class="creation-delete" data-delete-creation="${item.id}" type="button" aria-label="Delete ${escapeAccountText(item.title)}" title="Delete formula">&times;</button></div></article>`;
     }).join('') : `<div class="empty-creations"><i>+</i><b>YOUR FIRST FILE STARTS IN THE LAB.</b><span>Build a formula, name it, then come back here to save and remix it.</span><button class="secondary-command" data-account-action="start" type="button">OPEN THE GUIDES</button></div>`;
-    panel.innerHTML = `<div class="account-dashboard"><div class="account-userbar"><div class="account-identity"><i>${escapeAccountText(active.name.slice(0, 1).toUpperCase())}</i><span><small>MY SUAS PROFILE</small><b>${escapeAccountText(active.name.toUpperCase())}</b><em>${escapeAccountText(active.email)}</em></span></div><button class="secondary-command" id="accountSignOut" type="button">SIGN OUT</button></div><section class="account-live"><div class="account-live-head"><span><small>CURRENT EXPERIMENT</small><b>${escapeAccountText(currentTitle)}</b></span><strong>STEP ${guideState.step + 1} / ${currentGuide.steps.length}</strong></div><i><b style="width:${progress}%"></b></i><button data-account-action="continue" type="button">CONTINUE WHERE I LEFT OFF <span>-&gt;</span></button></section><div class="account-stats"><span><b>${creations.length}</b><small>SAVED FILES</small></span><span><b>${productCount}</b><small>PRODUCT TYPES</small></span><span><b>${escapeAccountText(latest)}</b><small>LAST SAVED</small></span></div><div class="account-quick"><button data-account-action="start" type="button"><b>+</b><span>NEW EXPERIMENT<small>OPEN THE GUIDES</small></span></button><button data-account-action="labels" type="button"><b>Aa</b><span>LABEL STUDIO<small>NAME THE FINISHED BLEND</small></span></button><button id="saveCreation" type="button"${guideState.type !== 'lab' || !guideState.notes.length ? ' disabled' : ''}><b>+</b><span>SAVE THIS FORMULA<small>${guideState.notes.length ? `${guideState.notes.length} NOTES SELECTED` : 'ADD NOTES IN THE LAB FIRST'}</small></span></button></div><div class="account-section-heading"><span><small>FORMULA BOOK</small><b>YOUR SAVED FILES</b></span><em>${creations.length} TOTAL</em></div><div class="creation-list">${files}</div><p class="account-error account-notice" id="accountMessage"></p></div>`;
+    panel.innerHTML = `<div class="account-dashboard"><div class="account-userbar"><div class="account-identity"><i>${escapeAccountText(active.name.slice(0, 1).toUpperCase())}</i><span><small>MY SUAS PROFILE</small><b>${escapeAccountText(active.name.toUpperCase())}</b><em>${escapeAccountText(active.email)}</em></span></div><button class="secondary-command" id="accountSignOut" type="button">SIGN OUT</button></div><section class="account-live"><div class="account-live-head"><span><small>CURRENT EXPERIMENT</small><b>${escapeAccountText(currentTitle)}</b></span><strong>STEP ${guideState.step + 1} / ${current.steps.length}</strong></div><i><b style="width:${progress}%"></b></i><button data-account-action="continue" type="button">CONTINUE WHERE I LEFT OFF <span>-&gt;</span></button></section><div class="account-stats"><span><b>${creations.length}</b><small>SAVED FILES</small></span><span><b>${productCount}</b><small>PRODUCT TYPES</small></span><span><b>${escapeAccountText(latest)}</b><small>LAST SAVED</small></span></div><div class="account-quick"><button data-account-action="start" type="button"><b>+</b><span>NEW EXPERIMENT<small>OPEN THE GUIDES</small></span></button><button data-account-action="labels" type="button"><b>Aa</b><span>LABEL STUDIO<small>NAME THE FINISHED BLEND</small></span></button><button id="saveCreation" type="button"${guideState.type !== 'lab' || !guideState.notes.length ? ' disabled' : ''}><b>+</b><span>SAVE THIS FORMULA<small>${guideState.notes.length ? `${guideState.notes.length} NOTES SELECTED` : 'ADD NOTES IN THE LAB FIRST'}</small></span></button></div><div class="account-section-heading"><span><small>FORMULA BOOK</small><b>YOUR SAVED FILES</b></span><em>${creations.length} TOTAL</em></div><div class="creation-list">${files}</div><p class="account-error account-notice" id="accountMessage"></p></div>`;
     $('accountSignOut').addEventListener('click', () => { store.remove('activeAccount'); renderAccountPanel('signin'); updateAdminSettings(); });
     $('saveCreation').addEventListener('click', saveCurrentCreation);
     panel.querySelectorAll('[data-account-action]').forEach((button) => button.addEventListener('click', () => {

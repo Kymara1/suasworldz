@@ -502,3 +502,30 @@ body:has(#guided.is-visible) .help-button{transform:scale(.86);transform-origin:
 @media(max-width:900px){.premium-dispense-demo,.premium-finish-demo,.premium-label-demo,.premium-measure-demo{grid-template-columns:1fr}.premium-note-rail,.premium-dispenser,.premium-target-bottle,.premium-finish-demo .finish-step,.premium-label-demo>section,.premium-measure-demo article{min-height:190px}.premium-note-rail p{grid-template-columns:32px 1fr auto}.premium-label-demo>section{min-height:220px}.premium-finish-demo .finish-step{min-height:230px}}
 @media(max-width:560px){.premium-note-rail,.premium-dispenser,.premium-target-bottle,.premium-finish-demo .finish-step,.premium-label-demo>section,.premium-measure-demo article{min-height:170px;padding:14px}.premium-dispenser-head{transform:scale(.82);margin:-4px 0}.premium-target-bottle>div,.premium-finish-bottle,.label-bottle-premium{transform:scale(.8);margin:-12px}.mix-orbit{transform:scale(.82);margin:-8px}.premium-note-rail p strong{font-size:10px}.premium-note-rail p small{font-size:7px}.label-file-preview b{font-size:25px}}
 
+.self-coach{border:2px solid var(--ink);border-radius:16px;background:var(--lime);padding:12px 14px;font-size:12px;font-weight:800;line-height:1.4;box-shadow:0 4px 0 var(--ink)}
+.family-filter{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.family-filter button{min-height:36px;border:1px solid var(--line);border-radius:999px;background:#fff;padding:6px 11px;font-size:8px;font-weight:900;letter-spacing:.12em}
+.family-filter button.is-active{border-color:var(--ink);background:var(--pink);box-shadow:0 3px 0 var(--ink)}
+.self-recipe-mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.self-recipe-mini span{display:grid;gap:4px;align-content:start;min-height:90px;border:2px solid var(--ink);border-radius:16px;background:#fff;padding:10px}
+.self-recipe-mini span.is-filled{background:var(--lime)}
+.self-recipe-mini b{font-size:8px;font-weight:900;letter-spacing:.14em}
+.self-recipe-mini strong{font-family:var(--display);font-size:20px;font-weight:400;line-height:.9;text-transform:lowercase}
+.self-recipe-mini small{font-size:8px;font-weight:900}
+.self-note-picker{max-height:320px}
+.self-recipe,.beginner-pour{display:grid;width:min(760px,96%);grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.self-recipe article,.beginner-pour-card{position:relative;display:grid;gap:8px;align-content:end;min-height:230px;border:3px solid var(--ink);border-radius:24px;background:#fff;padding:18px 16px;box-shadow:0 7px 0 var(--ink);text-align:left}
+.self-recipe article.is-filled{background:linear-gradient(160deg,#fff,var(--lime))}
+.self-recipe article b,.beginner-pour-card b{display:grid;width:34px;height:34px;place-items:center;border:2px solid var(--ink);border-radius:50%;background:var(--lime);font-size:10px;font-weight:950}
+.self-recipe article strong,.beginner-pour-card strong{font-family:var(--display);font-size:clamp(26px,3.4vw,44px);font-weight:400;line-height:.85;text-transform:lowercase}
+.self-recipe article em,.beginner-pour-card em{font-style:normal;font-size:22px;font-weight:950}
+.self-recipe article small,.beginner-pour-card small,.beginner-pour-card span{font-size:10px;font-weight:800;line-height:1.35}
+.beginner-pour-card{align-content:center;text-align:center;background:linear-gradient(160deg,#fff,var(--pink))}
+.beginner-pour-card:nth-child(2){background:linear-gradient(160deg,#fff,var(--yellow))}
+.beginner-pour-card:nth-child(3){background:linear-gradient(160deg,#fff,var(--blue))}
+.beginner-pour-card.is-empty{opacity:.42}
+.beginner-pour-card b{justify-self:center}
+.scent-note-card.is-selected[data-pour]:after{content:attr(data-pour);max-width:92px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#nextStep:disabled{opacity:.4;box-shadow:none;pointer-events:none}
+@media(max-width:900px){.self-recipe,.beginner-pour,.self-recipe-mini{grid-template-columns:1fr}.self-recipe article,.beginner-pour-card{min-height:160px}}
+
