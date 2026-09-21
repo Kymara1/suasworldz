@@ -226,20 +226,20 @@ html body.template--search .product--root .product--image img.lazyloaded {
   position: absolute !important;
   inset: auto !important;
   top: 50% !important;
-  left: 53% !important;
+  left: 50% !important;
   right: auto !important;
   bottom: auto !important;
   box-sizing: border-box !important;
   display: block !important;
-  width: 122% !important;
-  height: 122% !important;
-  min-width: 122% !important;
-  min-height: 122% !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
   max-width: none !important;
   max-height: none !important;
   margin: 0 !important;
-  padding: 0 !important;
-  object-fit: cover !important;
+  padding: 10% !important;
+  object-fit: contain !important;
   object-position: center center !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -446,13 +446,14 @@ html body.template--collection .suas-catalog-soon-title {
   html body.template--collection .product--root .product--image img,
   html body.template--search .product--root .product--image img {
     top: 50% !important;
-    left: 53% !important;
-    width: 122% !important;
-    height: 122% !important;
-    min-width: 122% !important;
-    min-height: 122% !important;
+    left: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
     max-height: none !important;
-    object-fit: cover !important;
+    padding: 12% !important;
+    object-fit: contain !important;
     object-position: center center !important;
     transform: translate(-50%, -50%) !important;
   }
