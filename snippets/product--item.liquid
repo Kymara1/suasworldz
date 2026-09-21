@@ -119,10 +119,10 @@
     endcapture
 
     assign title = product.title
-    assign catalog_name = title | split: '✿' | first | split: '?' | first | strip
+    assign catalog_name = title | split: '?�?' | first | split: '?' | first | strip
     assign catalog_kind = ''
-    if title contains '✿'
-      assign catalog_kind = title | split: '✿' | last | strip
+    if title contains '?�?'
+      assign catalog_kind = title | split: '?�?' | last | strip
     elsif product.type != blank
       assign catalog_kind = product.type
     endif
@@ -243,6 +243,7 @@
 
 <div
   class="product--root suas-catalog-card{% if is_lab_experiment %} is-lab-experiment{% endif %}"
+  data-handle="{{ product.handle }}"
   data-product-view="{{ view }}"
   data-label-color="{{ label_color }}"
   data-label-shape="{{ label_shape }}"
