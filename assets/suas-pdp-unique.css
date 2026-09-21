@@ -155,7 +155,7 @@ html body.template--product .suas-pdp-life-photo {
   display: block;
   transform: none;
   mix-blend-mode: normal;
-  filter: drop-shadow(6px 10px 0 rgba(16, 16, 16, .22));
+  filter: none;
 }
 html body.template--product .suas-pdp-life .suas-station-thumbs {
   position: relative;

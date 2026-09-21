@@ -1,5 +1,5 @@
 {% comment %}
-  SUAS OS seasonal overlay - autumn / Halloween 2026 only.
+  SUAS OS seasonal overlay ?�� autumn / Halloween 2026 only.
   Liquid serves markup from 2026-09-01 through 2026-11-01 (shop timezone buffer).
   JS America/New_York is the hard gate: on 2026-09-01 through 2026-10-31.
   After Nov 1 Liquid emits nothing. Recolors chrome; not a product drop or rebrand.
@@ -172,7 +172,10 @@
       }
 
       html.suas-halloween .suas-world-home .suas-product-photo {
-        background: linear-gradient(135deg, #fff8ee, #e8b48a);
+        background-image:
+          linear-gradient(rgba(42, 20, 24, .1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(42, 20, 24, .1) 1px, transparent 1px);
+        background-size: 22px 22px;
       }
 
       html.suas-halloween .suas-launch:nth-of-type(1) { background: #f0c4a0 !important; }

@@ -164,7 +164,7 @@ html body.template--search .suas-catalog-card .product--image-wrapper {
   background-image:
     linear-gradient(rgba(16, 16, 16, .08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(16, 16, 16, .08) 1px, transparent 1px) !important;
-  background-size: 18px 18px !important;
+  background-size: 22px 22px !important;
 }
 html body.template--collection .collection--body--grid > .suas-catalog-card:nth-child(4n+2) .product--image-wrapper,
 html body.template--search .product-grid > .suas-catalog-card:nth-child(4n+2) .product--image-wrapper {
@@ -262,7 +262,7 @@ html body.template--search .product--root .product--image img.lazyloaded {
   background: transparent !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  filter: drop-shadow(4px 7px 0 rgba(16, 16, 16, .18));
+  filter: none;
   transform: none !important;
   animation: none !important;
 }
