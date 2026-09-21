@@ -360,15 +360,17 @@
       </div>
       <div class="suas-pdp-life-frame">
         {%- if pdp_life -%}
-          <img
-            class="suas-pdp-life-photo"
-            src="{{ pdp_life | image_url: width: 1600 }}"
-            srcset="{{ pdp_life | image_url: width: 800 }} 800w, {{ pdp_life | image_url: width: 1200 }} 1200w, {{ pdp_life | image_url: width: 1600 }} 1600w"
-            sizes="(max-width: 1023px) 100vw, 36vw"
-            alt="{{ pdp_life.alt | default: product.title | escape }}"
-            width="{{ pdp_life.width | default: 1200 }}"
-            height="{{ pdp_life.height | default: 1200 }}"
-          >
+          <button type="button" class="suas-pdp-life-zoom" data-suas-zoom-open aria-label="View larger product photo">
+            <img
+              class="suas-pdp-life-photo"
+              src="{{ pdp_life | image_url: width: 1600 }}"
+              srcset="{{ pdp_life | image_url: width: 800 }} 800w, {{ pdp_life | image_url: width: 1200 }} 1200w, {{ pdp_life | image_url: width: 1600 }} 1600w"
+              sizes="(max-width: 1023px) 48vw, 36vw"
+              alt="{{ pdp_life.alt | default: product.title | escape }}"
+              width="{{ pdp_life.width | default: 1200 }}"
+              height="{{ pdp_life.height | default: 1200 }}"
+            >
+          </button>
         {%- endif -%}
       </div>
       {%- if product.media.size > 1 -%}
@@ -446,6 +448,11 @@
 
   {{ 'suas-pdp-unique.css' | asset_url | stylesheet_tag }}
 
+  <div class="suas-pdp-zoom" hidden data-suas-zoom>
+    <button type="button" class="suas-pdp-zoom-close" data-suas-zoom-close aria-label="Close zoom">close</button>
+    <img class="suas-pdp-zoom-photo" data-suas-zoom-photo alt="">
+  </div>
+
   <div class="product-page--content" hidden>
     {{ content_blocks }}
   </div>
@@ -455,6 +462,9 @@
       var root = document.querySelector('[data-product-id="{{ product_id }}"]');
       if (!root) return;
       var photo = root.querySelector('.suas-pdp-life-photo');
+      var zoomOpen = root.querySelector('[data-suas-zoom-open]');
+      var zoom = root.querySelector('[data-suas-zoom]');
+      var zoomPhoto = root.querySelector('[data-suas-zoom-photo]');
       var thumbs = Array.prototype.slice.call(root.querySelectorAll('[data-suas-thumb]'));
       var count = root.querySelector('[data-suas-station-count]');
       var index = Math.max(0, thumbs.findIndex(function (thumb) { return thumb.classList.contains('is-active'); }));
@@ -484,6 +494,30 @@
           root.querySelectorAll('[data-suas-mix]').forEach(function (item) { item.classList.toggle('is-on', item === chip); });
           root.style.setProperty('--hot', chip.getAttribute('data-tint') || '#ff9bc4');
         });
+      });
+      function openZoom() {
+        if (!photo || !zoom || !zoomPhoto) return;
+        zoomPhoto.src = photo.currentSrc || photo.src;
+        zoomPhoto.alt = photo.alt || '';
+        zoom.hidden = false;
+        document.body.style.overflow = 'hidden';
+        var closeBtn = zoom.querySelector('[data-suas-zoom-close]');
+        if (closeBtn) closeBtn.focus();
+      }
+      function closeZoom() {
+        if (!zoom) return;
+        zoom.hidden = true;
+        document.body.style.overflow = '';
+        if (zoomOpen) zoomOpen.focus();
+      }
+      if (zoomOpen) zoomOpen.addEventListener('click', openZoom);
+      if (zoom) {
+        zoom.addEventListener('click', function (event) {
+          if (event.target === zoom || event.target.hasAttribute('data-suas-zoom-close')) closeZoom();
+        });
+      }
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && zoom && !zoom.hidden) closeZoom();
       });
       root.addEventListener('variantUpdated', function (event) {
         var variant = event.detail || {};
