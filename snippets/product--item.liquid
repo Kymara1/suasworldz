@@ -270,7 +270,11 @@
             {{ catalog_name | default: title }}
           </p>
           {%- if catalog_kind != blank and catalog_kind != catalog_name -%}
-            <p class="product--kicker">{{ catalog_kind }}</p>
+            {%- assign kind_down = catalog_kind | downcase -%}
+            {%- assign name_down = catalog_name | downcase -%}
+            {%- unless name_down contains kind_down -%}
+              <p class="product--kicker">{{ catalog_kind }}</p>
+            {%- endunless -%}
           {%- endif -%}
 
             <div class="product--rating">
