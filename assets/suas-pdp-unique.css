@@ -363,7 +363,13 @@ html body.template--product shopify-payment-terms {
   font-size: 11px !important;
   line-height: 1.3 !important;
 }
-html body.template--product .product-buy-buttons--select { order: 9; }
+html body.template--product .suas-pdp-ticket .product-pickup--root,
+html body.template--product .suas-pdp-ticket product-pickup-root,
+html body.template--product .suas-pdp-ticket .product-page--description,
+html body.template--product .suas-pdp-ticket .shopify-payment-button__more-options,
+html body.template--product .suas-pdp-ticket .additional-checkout-buttons {
+  display: none !important;
+}
 html body.template--product .shopify-payment-button,
 html body.template--product .additional-checkout-buttons {
   margin-top: 0 !important;

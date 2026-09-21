@@ -328,6 +328,9 @@
         echo block_html
       endcapture
     endunless
+    if block.type == 'buy-buttons'
+      assign move_to_next_container = true
+    endif
   -%}
 {%- endfor -%}
 
