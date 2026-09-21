@@ -107,6 +107,12 @@
   assign blocks_per_page = products_per_row_desktop | times: number_of_rows
   assign products_per_page = blocks_per_page | minus: promo_grid_blocks | plus: promo_grid_duplicates
 
+  assign suas_group_body = false
+  if collection.handle == 'body' or collection.handle == 'body-care'
+    assign suas_group_body = true
+    assign products_per_page = 250
+  endif
+
   assign promo_grid_coords_arr = promo_grid_coords | split: '|'
   assign promo_widths_arr = promo_widths | split: '|'
   assign promo_html_arr = promo_html | split: '|'
@@ -128,7 +134,7 @@
       <span class="suas-catalog-dot" style="--dot:#febc2e"></span>
       <span class="suas-catalog-dot" style="--dot:#28c840"></span>
       <b>{{ collection.title | default: 'shop' | downcase }}</b>
-      <em>{% if collection.products_count > 0 %}{{ collection.products_count }} {{ collection.products_count | pluralize: 'scent', 'scents' }}{% else %}coming soon{% endif %}</em>
+      <em>{% if collection.products_count > 0 %}{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}{% else %}coming soon{% endif %}</em>
     </div>
   </div>
   <div
@@ -149,6 +155,14 @@
       </a>
     {% endif %}
 
+    {% if suas_group_body and collection.products_count > 0 %}
+      {% render 'suas-body-aisle-grid',
+        collection: collection,
+        products_per_row_desktop: products_per_row_desktop,
+        products_per_row_mobile: products_per_row_mobile,
+        section: section
+      %}
+    {% else %}
     <div
       class="collection--body--grid"
       data-body-grid
@@ -286,6 +300,7 @@
 
       {% endif %}
     </div>
+    {% endif %}
 
     <div
       class="collection--body--pagination"

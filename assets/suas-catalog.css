@@ -444,3 +444,37 @@ html body.template--collection .suas-catalog-soon-title {
     padding: 10px 10px 12px !important;
   }
 }
+
+.suas-body-aisles {
+  width: min(1280px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 28px;
+}
+.suas-type-aisle-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 12px;
+  padding: 8px 14px;
+  border: 2px solid #101010;
+  border-radius: 999px;
+  background: #ffd4ea;
+  box-shadow: 0 3px 0 #101010;
+}
+.suas-type-aisle-label b {
+  margin: 0 2px 0 4px;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(1.35rem, 3.2vw, 2rem);
+  font-weight: 400;
+  line-height: .9;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  color: #101010;
+}
+html body.template--collection .suas-type-aisle .collection--body--grid {
+  width: 100% !important;
+}
+
