@@ -184,10 +184,7 @@ html body.template--search .product-grid > .suas-catalog-card.suas-wash-nectar .
 }
 html body.template--collection .collection--body--grid > .suas-catalog-card.suas-wash-tonic .product--image-wrapper,
 html body.template--search .product-grid > .suas-catalog-card.suas-wash-tonic .product--image-wrapper {
-  background-color: #3b1480 !important;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, .22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .22) 1px, transparent 1px) !important;
+  background-color: #ddd0ff !important;
 }
 html body.template--collection .product--root .product--image,
 html body.template--search .product--root .product--image,
