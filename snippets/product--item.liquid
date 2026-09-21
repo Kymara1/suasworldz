@@ -242,7 +242,7 @@
 {% endcapture %}
 
 <div
-  class="product--root suas-catalog-card{% if is_lab_experiment %} is-lab-experiment{% endif %}"
+  class="product--root suas-catalog-card{% if is_lab_experiment %} is-lab-experiment{% endif %}{% if product.handle contains 'nectar' %} suas-wash-nectar{% endif %}{% if product.handle contains 'tonic' %} suas-wash-tonic{% endif %}"
   data-handle="{{ product.handle }}"
   data-product-view="{{ view }}"
   data-label-color="{{ label_color }}"
