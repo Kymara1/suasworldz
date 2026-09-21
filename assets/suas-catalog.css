@@ -226,20 +226,20 @@ html body.template--search .product--root .product--image img.lazyloaded {
   position: absolute !important;
   inset: auto !important;
   top: 50% !important;
-  left: 53% !important;
+  left: 50% !important;
   right: auto !important;
   bottom: auto !important;
   box-sizing: border-box !important;
   display: block !important;
-  width: 122% !important;
-  height: 122% !important;
-  min-width: 122% !important;
-  min-height: 122% !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
   max-width: none !important;
   max-height: none !important;
   margin: 0 !important;
-  padding: 0 !important;
-  object-fit: cover !important;
+  padding: 10% !important;
+  object-fit: contain !important;
   object-position: center center !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -414,19 +414,31 @@ html body.template--collection .suas-catalog-soon-title {
   html body.template--collection [data-grid],
   html body.template--search .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
+    gap: 16px !important;
   }
   html body.template--collection .layout--main-content,
   html body.template--search .layout--main-content {
-    padding: 10px 10px 48px !important;
+    padding: 14px 14px 56px !important;
+  }
+  html body.template--collection .suas-catalog-head,
+  html body.template--search .suas-catalog-head {
+    margin: 0 auto 18px !important;
+  }
+  html body.template--collection .suas-catalog-card.product--root,
+  html body.template--search .suas-catalog-card.product--root {
+    box-shadow: 3px 4px 0 #101010 !important;
+  }
+  html body.template--collection .suas-catalog-card.product--root:hover,
+  html body.template--search .suas-catalog-card.product--root:hover {
+    box-shadow: 3px 6px 0 #101010 !important;
   }
   html body.template--collection .suas-catalog-card .product--title,
   html body.template--search .suas-catalog-card .product--title {
-    font-size: 1.15rem !important;
+    font-size: 1.05rem !important;
   }
   html body.template--collection .suas-catalog-card .product--image-wrapper,
   html body.template--search .suas-catalog-card .product--image-wrapper {
-    margin: 8px 8px 0 !important;
+    margin: 10px 10px 0 !important;
     padding: 0 !important;
     min-height: 0 !important;
     aspect-ratio: 1 / 1 !important;
@@ -434,18 +446,41 @@ html body.template--collection .suas-catalog-soon-title {
   html body.template--collection .product--root .product--image img,
   html body.template--search .product--root .product--image img {
     top: 50% !important;
-    left: 53% !important;
-    width: 122% !important;
-    height: 122% !important;
-    min-width: 122% !important;
-    min-height: 122% !important;
+    left: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
     max-height: none !important;
-    object-fit: cover !important;
+    padding: 12% !important;
+    object-fit: contain !important;
     object-position: center center !important;
     transform: translate(-50%, -50%) !important;
   }
   html body.template--collection .suas-catalog-card .product--details-container,
   html body.template--search .suas-catalog-card .product--details-container {
-    padding: 10px 10px 12px !important;
+    padding: 10px 12px 14px !important;
+  }
+  /* Stack title + price so narrow 2-col cards aren't squeezed side-by-side */
+  html body.template--collection .suas-catalog-card .product--details,
+  html body.template--search .suas-catalog-card .product--details {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 6px !important;
+  }
+  html body.template--collection .suas-catalog-card .product--price-container,
+  html body.template--search .suas-catalog-card .product--price-container {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    text-align: left !important;
+  }
+  html body.template--collection .suas-catalog-card .product--price,
+  html body.template--search .suas-catalog-card .product--price {
+    min-height: 24px;
+    padding: 3px 8px;
+    font-size: 10px !important;
+  }
+  html body.template--collection .suas-catalog-card .product--rating,
+  html body.template--search .suas-catalog-card .product--rating {
+    margin: 4px 0 0;
   }
 }
