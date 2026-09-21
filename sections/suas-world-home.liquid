@@ -225,7 +225,7 @@
             {% liquid
               assign feed_seen = ''
               assign feed_shown = 0
-              assign feed_cols = 'body-oil,eau-de-parfum,butter-creme' | split: ','
+              assign feed_cols = 'body-scrub,body-oil,eau-de-parfum,butter-creme' | split: ','
             %}
             {% for col_handle in feed_cols %}
               {% assign feed_col = collections[col_handle] %}
