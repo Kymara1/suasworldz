@@ -1,4 +1,4 @@
-{{ 'suas-stations-b27.css' | asset_url | stylesheet_tag }}
+{{ 'suas-stations-b28.css' | asset_url | stylesheet_tag }}
 <style>
   html.suas-station-page body{margin:0;background:#f8f7f4}
   html.suas-station-page .layout--main-content,
@@ -8,7 +8,7 @@
 </style>
 <script>
   document.body.classList.add('suas-stations-template');
-  window.SUAS_STATION_BUILD = "b27";
+  window.SUAS_STATION_BUILD = "b28";
   window.SUAS_STATION_LOGO = {{ 'suas-stations-logo.png' | asset_url | json }};
   window.SUAS_LAB_MODE_SELF = {{ 'suas-lab-mode-self-guided.png' | asset_url | json }};
   window.SUAS_LAB_MODE_GUIDED = {{ 'suas-lab-mode-guided.png' | asset_url | json }};
@@ -17,27 +17,29 @@
     oil: {{ 'suas-pack-oil.jpg' | asset_url | json }},
     butter: {{ 'suas-pack-butter.jpg' | asset_url | json }}
   };
+</script>
+<script>
   window.SUAS_NOTES = {
-    "note-jasmine.png": {{ "note-jasmine.png" | asset_url | json }},
-    "note-station-mandarin.png": {{ "note-station-mandarin.png" | asset_url | json }},
-    "note-blackberry.png": {{ "note-blackberry.png" | asset_url | json }},
-    "note-station-vanilla.png": {{ "note-station-vanilla.png" | asset_url | json }},
-    "note-station-caramel.png": {{ "note-station-caramel.png" | asset_url | json }},
-    "note-wildflower.png": {{ "note-wildflower.png" | asset_url | json }},
-    "note-station-rose.png": {{ "note-station-rose.png" | asset_url | json }},
-    "note-station-lavender.png": {{ "note-station-lavender.png" | asset_url | json }},
-    "note-nectar-orange.png": {{ "note-nectar-orange.png" | asset_url | json }},
-    "note-sunshine.png": {{ "note-sunshine.png" | asset_url | json }},
-    "note-poppy-cosmos.png": {{ "note-poppy-cosmos.png" | asset_url | json }},
-    "note-goodgirl-pear.png": {{ "note-goodgirl-pear.png" | asset_url | json }},
-    "note-nectar-mango.png": {{ "note-nectar-mango.png" | asset_url | json }},
-    "note-station-strawberry.png": {{ "note-station-strawberry.png" | asset_url | json }},
-    "note-coconut.png": {{ "note-coconut.png" | asset_url | json }},
-    "note-station-sandalwood.png": {{ "note-station-sandalwood.png" | asset_url | json }},
-    "note-tonic-mojito.png": {{ "note-tonic-mojito.png" | asset_url | json }},
-    "note-sage-mint.png": {{ "note-sage-mint.png" | asset_url | json }},
-    "note-station-pink-pepper.png": {{ "note-station-pink-pepper.png" | asset_url | json }},
-    "note-passionfruit.png": {{ "note-passionfruit.png" | asset_url | json }}
+    'note-jasmine.png': {{ 'note-jasmine.png' | asset_url | json }},
+    'note-station-mandarin.png': {{ 'note-station-mandarin.png' | asset_url | json }},
+    'note-blackberry.png': {{ 'note-blackberry.png' | asset_url | json }},
+    'note-station-vanilla.png': {{ 'note-station-vanilla.png' | asset_url | json }},
+    'note-station-caramel.png': {{ 'note-station-caramel.png' | asset_url | json }},
+    'note-wildflower.png': {{ 'note-wildflower.png' | asset_url | json }},
+    'note-station-rose.png': {{ 'note-station-rose.png' | asset_url | json }},
+    'note-station-lavender.png': {{ 'note-station-lavender.png' | asset_url | json }},
+    'note-nectar-orange.png': {{ 'note-nectar-orange.png' | asset_url | json }},
+    'note-sunshine.png': {{ 'note-sunshine.png' | asset_url | json }},
+    'note-poppy-cosmos.png': {{ 'note-poppy-cosmos.png' | asset_url | json }},
+    'note-goodgirl-pear.png': {{ 'note-goodgirl-pear.png' | asset_url | json }},
+    'note-nectar-mango.png': {{ 'note-nectar-mango.png' | asset_url | json }},
+    'note-station-strawberry.png': {{ 'note-station-strawberry.png' | asset_url | json }},
+    'note-coconut.png': {{ 'note-coconut.png' | asset_url | json }},
+    'note-station-sandalwood.png': {{ 'note-station-sandalwood.png' | asset_url | json }},
+    'note-tonic-mojito.png': {{ 'note-tonic-mojito.png' | asset_url | json }},
+    'note-sage-mint.png': {{ 'note-sage-mint.png' | asset_url | json }},
+    'note-station-pink-pepper.png': {{ 'note-station-pink-pepper.png' | asset_url | json }},
+    'note-passionfruit.png': {{ 'note-passionfruit.png' | asset_url | json }}
   };
 </script>
 <div id="suas-station-root">
@@ -54,7 +56,7 @@
         <button class="panel-link" data-view="studio" type="button"><i class="dot-purple">04</i><span>LABELS</span><small>04</small></button>
         <button class="panel-link" data-view="accounts" type="button"><i class="dot-pink">05</i><span>ACCOUNT</span><small>05</small></button>
       </nav>
-      <div class="lab-status"><span></span><div><small>STATION STATUS</small><b>READY / B27</b></div></div>
+      <div class="lab-status"><span></span><div><small>STATION STATUS</small><b>READY / B28</b></div></div>
       <button class="admin-link" data-staff-login type="button">STAFF SETTINGS</button>
     </aside>
 
@@ -345,7 +347,7 @@
     <div><p class="eyebrow">STILL CREATING?</p><h2>YOUR SESSION<br>IS PAUSED.</h2><p>Tap continue to keep your work. This station will clear private guest details in <b id="timeoutCountdown">60</b> seconds.</p><button class="primary-command" id="continueSession" type="button">CONTINUE SESSION</button></div>
   </div>
 </div>
-<script src="{{ 'suas-stations-b27.js' | asset_url }}" defer></script>
+<script src="{{ 'suas-stations-b28.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
