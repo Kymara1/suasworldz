@@ -14,7 +14,8 @@
     .suas-charm-form-shell{padding:20px;background:var(--lime)}
     .suas-charm-menu h2,.suas-charm-form-shell h2{margin:0 0 14px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:30px;line-height:1}
     .suas-charm-prices{display:grid;gap:7px}
-    .suas-charm-price-row{display:flex;justify-content:space-between;gap:16px;padding:9px 11px;border:1.5px solid var(--ink);border-radius:7px;background:rgba(255,255,255,.82);font-size:12px;font-weight:800}
+    .suas-charm-price-row{display:flex;justify-content:space-between;gap:16px;padding:9px 11px;border:1.5px solid var(--ink);border-radius:7px;background:rgba(255,255,255,.82);font-size:12px;font-weight:800;width:100%;color:inherit;cursor:pointer;font-family:inherit;text-align:left}
+    .suas-charm-price-row.is-on{background:#fff;box-shadow:0 3px 0 var(--ink)}
     .suas-charm-price-row span:last-child{white-space:nowrap}
     .suas-charm-extras{margin-top:14px;padding-top:12px;border-top:1.5px dashed var(--ink)}
     .suas-charm-extras p{margin:5px 0;font-size:12px;font-weight:700}
@@ -46,18 +47,18 @@
   <div class="suas-charm-wrap">
     <header class="suas-charm-head">
       <div><span class="suas-charm-kicker">bookings / charm bar</span><h1 class="suas-charm-title">build your little extra.</h1></div>
-      <p class="suas-charm-intro">Choose your base, add the details, and reserve a seat at the Charm Bar. Five seats are available per time slot.</p>
+      <p class="suas-charm-intro">Choose your base, add the extras, and hold a seat. Five seats per slot. Same days as the Lab: Thursday through Sunday, starting November 14.</p>
     </header>
     <div class="suas-charm-layout">
       <aside class="suas-charm-menu">
         <h2>pick your piece.</h2>
         <div class="suas-charm-prices">
-          <div class="suas-charm-price-row"><span>Bracelet + 5 charms</span><span>$28</span></div>
-          <div class="suas-charm-price-row"><span>Necklace + 5 charms</span><span>$42</span></div>
-          <div class="suas-charm-price-row"><span>Bag tag + 5 charms</span><span>$24</span></div>
-          <div class="suas-charm-price-row"><span>Bag chain + 5 charms</span><span>$35</span></div>
-          <div class="suas-charm-price-row"><span>Keychain + 5 charms</span><span>$25</span></div>
-          <div class="suas-charm-price-row"><span>Paracord name chain</span><span>$27</span></div>
+          <button class="suas-charm-price-row" type="button" data-charm-piece="Bracelet + 5 charms"><span>Bracelet + 5 charms</span><span>$28</span></button>
+          <button class="suas-charm-price-row" type="button" data-charm-piece="Necklace + 5 charms"><span>Necklace + 5 charms</span><span>$42</span></button>
+          <button class="suas-charm-price-row" type="button" data-charm-piece="Bag tag + 5 charms"><span>Bag tag + 5 charms</span><span>$24</span></button>
+          <button class="suas-charm-price-row" type="button" data-charm-piece="Bag chain + 5 charms"><span>Bag chain + 5 charms</span><span>$35</span></button>
+          <button class="suas-charm-price-row" type="button" data-charm-piece="Keychain + 5 charms"><span>Keychain + 5 charms</span><span>$25</span></button>
+          <button class="suas-charm-price-row" type="button" data-charm-piece="Paracord name chain"><span>Paracord name chain</span><span>$27</span></button>
         </div>
         <div class="suas-charm-extras">
           <span class="suas-charm-badge">extras</span>
@@ -69,39 +70,52 @@
       </aside>
       <article class="suas-charm-form-shell">
         <h2>reserve your seat.</h2>
-        {% assign booking_product = section.settings.booking_product %}
-        {% assign charm_addon_product = section.settings.charm_addon_product %}
-        {% assign plushie_product = section.settings.plushie_product %}
-        {% assign bead_product = section.settings.bead_product %}
+        {% liquid
+          assign booking_product = section.settings.booking_product
+          if booking_product == blank
+            assign booking_product = all_products['charm-bar-reservation']
+          endif
+          assign charm_addon_product = section.settings.charm_addon_product
+          if charm_addon_product == blank
+            assign charm_addon_product = all_products['charm-bar-extra-charms']
+          endif
+          assign plushie_product = section.settings.plushie_product
+          if plushie_product == blank
+            assign plushie_product = all_products['charm-bar-plushie']
+          endif
+          assign bead_product = section.settings.bead_product
+          if bead_product == blank
+            assign bead_product = all_products['charm-bar-bead-sticks']
+          endif
+        %}
         {% if booking_product != blank %}
           <form class="suas-charm-form" data-charm-booking-form>
             <div class="suas-charm-field" data-wide>
-              <label class="suas-charm-label" for="CharmExperience">choose your Charm Bar experience</label>
+              <label class="suas-charm-label" for="CharmExperience">choose your piece</label>
               <select class="suas-charm-select" id="CharmExperience" name="id" required>
-                <option value="">choose experience</option>
+                <option value="">choose piece</option>
                 {% for variant in booking_product.variants %}
-                  <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}{% unless variant.available %} - unavailable{% endunless %}</option>
+                  <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} &mdash; {{ variant.price | money }}{% unless variant.available %} &mdash; unavailable{% endunless %}</option>
                 {% endfor %}
               </select>
             </div>
-            <div class="suas-charm-field"><label class="suas-charm-label" for="CharmDate">date</label><input class="suas-charm-input" id="CharmDate" type="date" required></div>
-            <div class="suas-charm-field"><label class="suas-charm-label" for="CharmTime">estimated arrival</label><select class="suas-charm-select" id="CharmTime" required><option value="">choose time</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div>
+            <div class="suas-charm-field"><label class="suas-charm-label" for="CharmDate">date</label><input class="suas-charm-input" id="CharmDate" type="date" min="2026-11-14" required></div>
+            <div class="suas-charm-field"><label class="suas-charm-label" for="CharmTime">estimated arrival</label><select class="suas-charm-select" id="CharmTime" required><option value="">choose time</option></select></div>
             <div class="suas-charm-field"><label class="suas-charm-label" for="CharmGuests">seats</label><input class="suas-charm-input" id="CharmGuests" type="number" min="1" max="5" value="1" required></div>
             <div class="suas-charm-field"><label class="suas-charm-label" for="CharmPhone">phone</label><input class="suas-charm-input" id="CharmPhone" type="tel" required></div>
             <div class="suas-charm-field" data-wide><label class="suas-charm-label" for="CharmName">name</label><input class="suas-charm-input" id="CharmName" type="text" required></div>
             <div class="suas-charm-addons">
-              {% if charm_addon_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmExtras">extra charms</label><select class="suas-charm-select" id="CharmExtras" data-addon-select><option value="">none</option>{% for variant in charm_addon_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
-              {% if plushie_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmPlushie">plushie / collectible</label><select class="suas-charm-select" id="CharmPlushie" data-addon-select><option value="">none</option>{% for variant in plushie_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
-              {% if bead_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmBeads">bead sticks</label><select class="suas-charm-select" id="CharmBeads" data-addon-select><option value="">none</option>{% for variant in bead_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} - {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
+              {% if charm_addon_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmExtras">extra charms</label><select class="suas-charm-select" id="CharmExtras" data-addon-select><option value="">none</option>{% for variant in charm_addon_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} &mdash; {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
+              {% if plushie_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmPlushie">plushie / collectible</label><select class="suas-charm-select" id="CharmPlushie" data-addon-select><option value="">none</option>{% for variant in plushie_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} &mdash; {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
+              {% if bead_product != blank %}<div class="suas-charm-addon"><label class="suas-charm-label" for="CharmBeads">bead sticks</label><select class="suas-charm-select" id="CharmBeads" data-addon-select><option value="">none</option>{% for variant in bead_product.variants %}<option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} &mdash; {{ variant.price | money }}</option>{% endfor %}</select></div>{% endif %}
             </div>
             <p class="suas-charm-status" data-charm-status aria-live="polite"></p>
-            <button class="suas-charm-button" type="submit">add reservation to cart</button>
+            <button class="suas-charm-button" type="submit">add reservation to bag</button>
           </form>
         {% else %}
-          <p class="suas-charm-status">Select your Charm Bar booking product in the Theme Editor to activate reservations.</p>
-          <button class="suas-charm-button" type="button" disabled>connect booking product</button>
+          <p class="suas-charm-status">Charm Bar reservations are warming up. Text us or walk in during Lab hours.</p>
         {% endif %}
-        <div class="suas-charm-policy"><strong>Reservation note</strong>Walk-ins are always welcome; however, advance reservations are strongly recommended because the Charm Bar is limited to five seats per time slot. Booking online secures the selected number of seats for your party.</div>
+        <div class="suas-charm-policy"><strong>Reservation note</strong>Bookings open Saturday, November 14. Closed Monday&ndash;Wednesday. Five seats per slot. Walk-ins welcome if a seat is free. Booking online holds seats for your party.</div>
       </article>
     </div>
   </div>
@@ -110,40 +124,109 @@
       const section = document.currentScript.closest('.suas-charm-booking');
       const form = section?.querySelector('[data-charm-booking-form]');
       if (!form) return;
+      const OPENS = '2026-11-14';
+      const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const slotMap = {
+        0: ['1:00 PM','2:00 PM','3:00 PM','4:00 PM'],
+        4: ['1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],
+        5: ['1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'],
+        6: ['1:00 PM','2:00 PM','3:00 PM','4:00 PM']
+      };
       const date = form.querySelector('#CharmDate');
-      const today = new Date();
-      date.min = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-      form.addEventListener('submit', async event => {
+      const time = form.querySelector('#CharmTime');
+      const experience = form.querySelector('#CharmExperience');
+      const status = form.querySelector('[data-charm-status]');
+      date.min = OPENS;
+      function dayOf(value) {
+        if (!value) return null;
+        const parts = value.split('-').map(Number);
+        return new Date(parts[0], parts[1] - 1, parts[2]).getDay();
+      }
+      function fillTimes() {
+        const day = dayOf(date.value);
+        time.innerHTML = '<option value="">choose time</option>';
+        if (!date.value) return;
+        if (date.value < OPENS) {
+          status.textContent = 'Charm Bar bookings open November 14.';
+          return;
+        }
+        const slots = slotMap[day] || [];
+        if (!slots.length) {
+          status.textContent = (dayNames[day] || 'That day') + ' is closed. Pick Thursday through Sunday.';
+          return;
+        }
+        status.textContent = '';
+        slots.forEach((slot) => {
+          const opt = document.createElement('option');
+          opt.value = slot;
+          opt.textContent = slot;
+          time.appendChild(opt);
+        });
+      }
+      date.addEventListener('change', fillTimes);
+      section.querySelectorAll('[data-charm-piece]').forEach((row) => {
+        row.addEventListener('click', () => {
+          const piece = row.getAttribute('data-charm-piece');
+          const match = Array.from(experience.options).find((opt) => opt.textContent.indexOf(piece) === 0);
+          if (match && match.value) {
+            experience.value = match.value;
+            section.querySelectorAll('[data-charm-piece]').forEach((el) => el.classList.toggle('is-on', el === row));
+          }
+        });
+      });
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const status = form.querySelector('[data-charm-status]');
         const submit = form.querySelector('button[type="submit"]');
-        const experience = form.querySelector('#CharmExperience');
         const guests = Math.max(1, Math.min(5, Number(form.querySelector('#CharmGuests').value || 1)));
-        if (!experience.value || !date.value || !form.querySelector('#CharmTime').value) {
-          status.textContent = 'Choose an experience, date, and arrival time.';
+        const day = dayOf(date.value);
+        const slots = slotMap[day] || [];
+        if (!experience.value) {
+          status.textContent = 'Pick a piece first.';
+          return;
+        }
+        if (!date.value || date.value < OPENS) {
+          status.textContent = 'Charm Bar bookings open November 14.';
+          return;
+        }
+        if (!slots.length || slots.indexOf(time.value) === -1) {
+          status.textContent = 'Pick a Thursday through Sunday arrival during Charm Bar hours.';
           return;
         }
         const properties = {
           'Booking type': 'Charm Bar Reservation',
-          'Experience': experience.options[experience.selectedIndex].text.replace(/\s+-\s+\$[\d.,]+.*$/, ''),
+          'Experience': experience.options[experience.selectedIndex].text.replace(/\s+[—–-]\s+\$[\d.,]+.*$/, ''),
           'Reservation date': date.value,
-          'Estimated arrival': form.querySelector('#CharmTime').value,
+          'Estimated arrival': time.value,
           'Guest name': form.querySelector('#CharmName').value,
           'Phone number': form.querySelector('#CharmPhone').value,
           'Seats reserved': String(guests)
         };
-        const items = [{id:Number(experience.value),quantity:guests,properties}];
-        form.querySelectorAll('[data-addon-select]').forEach(select => {
-          if (select.value) items.push({id:Number(select.value),quantity:1,properties:{'Add-on for':properties.Experience,'Reservation date':date.value,'Guest name':properties['Guest name']}});
+        const items = [{ id: Number(experience.value), quantity: guests, properties }];
+        form.querySelectorAll('[data-addon-select]').forEach((select) => {
+          if (select.value) {
+            items.push({
+              id: Number(select.value),
+              quantity: 1,
+              properties: {
+                'Add-on for': properties.Experience,
+                'Reservation date': date.value,
+                'Guest name': properties['Guest name']
+              }
+            });
+          }
         });
         submit.disabled = true;
         status.textContent = 'Adding your Charm Bar reservation...';
         try {
-          const response = await fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items})});
+          const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ items })
+          });
           if (!response.ok) throw new Error('Cart request failed');
           window.location.href = '/cart';
         } catch (error) {
-          status.textContent = 'That reservation could not be added. Please check availability and try again.';
+          status.textContent = 'That reservation could not be added. Try again or walk in during Lab hours.';
           submit.disabled = false;
         }
       });
