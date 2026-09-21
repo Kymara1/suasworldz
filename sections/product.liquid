@@ -31,6 +31,11 @@
       assign is_lab_experiment = true
     endif
   endfor
+  assign is_charm_bar = false
+  assign pdp_type_down = product.type | downcase
+  if pdp_handle contains 'charm-bar' or pdp_type_down contains 'charm'
+    assign is_charm_bar = true
+  endif
   assign mix_1 = 'handmade'
   assign mix_2 = 'small batch'
   assign mix_3 = 'skin glow'
@@ -299,6 +304,7 @@
   data-product-id="{{ product_id }}"
   data-handle="{{ product.handle }}"
   {% if is_lab_experiment %}data-lab-experiment="true"{% endif %}
+  {% if is_charm_bar %}data-charm-bar="true"{% endif %}
 >
   {%- liquid
     assign pdp_life = featured_media
@@ -349,7 +355,7 @@
       {%- endif -%}
     </section>
 
-    {%- unless is_lab_experiment -%}
+    {%- unless is_lab_experiment or is_charm_bar -%}
     <section class="suas-pdp-diagram" aria-label="what's inside">
       <div class="suas-window-bar">
         <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>
@@ -382,13 +388,15 @@
         <span class="suas-window-live"><b></b>now</span>
       </div>
       <div class="suas-station-buy-body">
-        <h1 class="suas-pdp-name">{{ pdp_name }}</h1>
+        <h1 class="suas-pdp-name{% if is_charm_bar %} is-compact{% endif %}">{{ pdp_name }}</h1>
         {%- render 'product-rating', product: product, star_link: true -%}
         {%- if product.type != blank -%}
           <p class="suas-pdp-stamp">{{ product.type }}</p>
         {%- endif -%}
         {%- if is_lab_experiment -%}
           <p class="suas-pdp-hook">You mix this in The Lab. It is not a finished bottle sitting on a shelf.</p>
+        {%- elsif is_charm_bar -%}
+          <p class="suas-pdp-hook">Build it at the Charm Bar. Five seats. Same days as the Lab.</p>
         {%- elsif pdp_hook != blank -%}
           <p class="suas-pdp-hook">{{ pdp_hook }}.</p>
         {%- endif -%}
@@ -397,7 +405,7 @@
     </aside>
   </div>
 
-  {% render 'suas-product-experience', product: product, note_blocks: section.blocks, is_lab_experiment: is_lab_experiment %}
+  {% render 'suas-product-experience', product: product, note_blocks: section.blocks, is_lab_experiment: is_lab_experiment, is_charm_bar: is_charm_bar %}
 
   {{ 'suas-pdp-unique.css' | asset_url | stylesheet_tag }}
 

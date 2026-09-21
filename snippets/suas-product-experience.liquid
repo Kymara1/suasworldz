@@ -103,6 +103,8 @@
         <p><a class="suas-lab-book-cta" href="/pages/bookings">Book your date and time</a></p>
       </div>
     </details>
+  {% elsif is_charm_bar %}
+    <p class="suas-pdp-charm-cta"><a class="suas-lab-book-cta" href="/pages/charm-bar">Reserve a Charm Bar seat</a></p>
   {% else %}
   {% render 'suas-scent-map', suas_scent_mode: 'pdp', product: product %}
 
