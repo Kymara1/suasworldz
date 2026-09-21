@@ -65,6 +65,7 @@
     .suas-book-contact p{margin:0;font:800 14px/1.4 Futura,Arial,sans-serif}
     .suas-book-contact a{display:grid;place-items:center;min-height:48px;border:2px solid var(--ink);border-radius:999px;background:var(--sun);color:var(--ink);text-decoration:none;font:900 12px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
     .suas-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    .suas-type-grid.is-charm{grid-template-columns:repeat(3,minmax(0,1fr))}
     .suas-type-card{position:relative;display:grid;grid-template-columns:1fr auto;gap:2px 8px;min-height:0;align-content:center;padding:10px 12px;border:2px solid rgba(16,16,16,.2);border-radius:16px;background:#fff;cursor:pointer;box-shadow:0 3px 0 rgba(16,16,16,.18)}
     .suas-type-card input{position:absolute;opacity:0;pointer-events:none}
     .suas-type-card em{grid-column:1;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
@@ -84,11 +85,13 @@
     .suas-bookings-page #GuidedVariant,
     .suas-bookings-page #GuidedTime,
     .suas-bookings-page #SelfExperience,
-    .suas-bookings-page #ParfumTime{
+    .suas-bookings-page #ParfumTime,
+    .suas-bookings-page #BookCharmExperience,
+    .suas-bookings-page #BookCharmTime{
       position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;opacity:0!important;pointer-events:none!important;border:0!important;padding:0!important;margin:0!important
     }
-    @media(max-width:1023px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-top,.suas-book-hours-grid,.suas-type-grid{grid-template-columns:minmax(0,1fr)!important}.suas-book-form{grid-template-columns:1fr 1fr}}
-    @media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 28px}.suas-book-card,.suas-book-panel,.suas-book-option{border-radius:18px;box-shadow:0 4px 0 var(--ink)}.suas-book-title{font-size:clamp(2.1rem,12vw,3rem)}.suas-book-form,.suas-plus-choice,.suas-type-grid{grid-template-columns:1fr}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}.suas-book-tabs{grid-template-columns:1fr;gap:6px}.suas-book-tab{min-height:40px;font-size:10px}}
+    @media(max-width:1023px){.suas-book-wrap{width:min(760px,calc(100vw - 18px))}.suas-book-top,.suas-book-hours-grid,.suas-type-grid{grid-template-columns:minmax(0,1fr)!important}.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important}.suas-book-form{grid-template-columns:1fr 1fr}}
+    @media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 28px}.suas-book-card,.suas-book-panel,.suas-book-option{border-radius:18px;box-shadow:0 4px 0 var(--ink)}.suas-book-title{font-size:clamp(2.1rem,12vw,3rem)}.suas-book-form,.suas-plus-choice,.suas-type-grid{grid-template-columns:1fr}.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}.suas-book-tabs{grid-template-columns:1fr;gap:6px}.suas-book-tab{min-height:40px;font-size:10px}}
   </style>
 
   <div class="suas-book-wrap">
@@ -349,65 +352,72 @@
       <article class="suas-book-option" id="charm-bar" style="--card:#fff2a8;">
         <div class="suas-book-option-head">
           <div>
-            <span class="suas-book-badge">charm bar</span>
+            <span class="suas-book-badge">charm bar · 5 seats</span>
             <h2>Build your little extra</h2>
-            <p class="suas-book-desc">Five seats. Pick a piece, add extras, and hold your spot. Same days as self-guided Lab hours.</p>
+            <p class="suas-book-desc" data-charm-description>Pick a piece, add extras, and hold a seat. Same days as self-guided Lab hours.</p>
           </div>
-          <div class="suas-book-price-card"><span>seats</span><strong class="suas-book-price">5</strong></div>
+          <div class="suas-seat-meter"><strong>5 of 5 seats</strong><span>per slot</span></div>
+          <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
         </div>
         {% if charm_product != blank %}
           <form class="suas-book-form" data-charm-booking-form>
-            <div class="suas-book-field" data-wide>
-              <label class="suas-book-label" for="BookCharmExperience">choose your piece</label>
-              <select class="suas-book-select" id="BookCharmExperience" name="id" required>
-                <option value="">choose piece</option>
-                {% for variant in charm_product.variants %}
-                  <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.title }} &mdash; {{ variant.price | money }}</option>
-                {% endfor %}
-              </select>
+            <div class="suas-type-grid is-charm" data-charm-types>
+              {% for variant in charm_product.variants %}
+                {% assign piece_short = variant.title | split: '+' | first | strip %}
+                <label class="suas-type-card{% if forloop.first %} is-on{% endif %}">
+                  <input type="radio" name="_charm_piece" value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}" {% if forloop.first %}checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                  <em>{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</em>
+                  <strong>{{ piece_short }}</strong>
+                  <b>{{ variant.price | money }}</b>
+                </label>
+              {% endfor %}
             </div>
+            <label class="suas-book-label suas-visually-hidden" for="BookCharmExperience">choose your piece</label>
+            <select class="suas-book-select suas-visually-hidden" id="BookCharmExperience" name="id" required>
+              {% for variant in charm_product.variants %}
+                <option value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}"{% if forloop.first %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
+              {% endfor %}
+            </select>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmDate">date</label><input class="suas-book-input" id="BookCharmDate" type="date" min="2026-11-14" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="BookCharmTime">estimated arrival</label><select class="suas-book-select" id="BookCharmTime" required><option value="">choose time</option></select></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmGuests">seats</label><input class="suas-book-input" id="BookCharmGuests" type="number" min="1" max="5" value="1" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmPhone">phone</label><input class="suas-book-input" id="BookCharmPhone" type="tel" required></div>
-            <div class="suas-book-field" data-wide><label class="suas-book-label" for="BookCharmName">name</label><input class="suas-book-input" id="BookCharmName" type="text" required></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="BookCharmName">name</label><input class="suas-book-input" id="BookCharmName" type="text" required></div>
+            <div class="suas-book-field" data-wide>
+              <span class="suas-book-label">arrival time</span>
+              <div class="suas-time-chips" data-charm-chips></div>
+              <select class="suas-book-select suas-time-select suas-visually-hidden" id="BookCharmTime" required><option value="">choose time</option></select>
+            </div>
             <div class="suas-book-addons">
               {% if charm_extra_product != blank %}
-                <div class="suas-book-field">
-                  <label class="suas-book-label" for="BookCharmExtras">extra charms</label>
-                  <select class="suas-book-select" id="BookCharmExtras" data-addon-select>
-                    <option value="">none</option>
-                    {% for variant in charm_extra_product.variants %}
-                      <option value="{{ variant.id }}">{{ variant.title }} &mdash; {{ variant.price | money }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
+                {% for variant in charm_extra_product.variants %}
+                  <label class="suas-book-addon">
+                    <input type="checkbox" data-addon-variant="{{ variant.id }}">
+                    <strong>{{ variant.title }}</strong>
+                    <span>{{ variant.price | money }}</span>
+                  </label>
+                {% endfor %}
               {% endif %}
               {% if charm_plushie_product != blank %}
-                <div class="suas-book-field">
-                  <label class="suas-book-label" for="BookCharmPlushie">plushie / collectible</label>
-                  <select class="suas-book-select" id="BookCharmPlushie" data-addon-select>
-                    <option value="">none</option>
-                    {% for variant in charm_plushie_product.variants %}
-                      <option value="{{ variant.id }}">{{ variant.title }} &mdash; {{ variant.price | money }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
+                {% for variant in charm_plushie_product.variants %}
+                  <label class="suas-book-addon">
+                    <input type="checkbox" data-addon-variant="{{ variant.id }}">
+                    <strong>{{ variant.title }}</strong>
+                    <span>{{ variant.price | money }}</span>
+                  </label>
+                {% endfor %}
               {% endif %}
               {% if charm_bead_product != blank %}
-                <div class="suas-book-field">
-                  <label class="suas-book-label" for="BookCharmBeads">bead sticks</label>
-                  <select class="suas-book-select" id="BookCharmBeads" data-addon-select>
-                    <option value="">none</option>
-                    {% for variant in charm_bead_product.variants %}
-                      <option value="{{ variant.id }}">{{ variant.title }} &mdash; {{ variant.price | money }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
+                {% for variant in charm_bead_product.variants %}
+                  <label class="suas-book-addon">
+                    <input type="checkbox" data-addon-variant="{{ variant.id }}">
+                    <strong>{{ variant.title }}</strong>
+                    <span>{{ variant.price | money }}</span>
+                  </label>
+                {% endfor %}
               {% endif %}
             </div>
             <p class="suas-book-note" data-charm-status>Five seats per slot. Closed Monday through Wednesday. Opens November 14.</p>
-            <button class="suas-book-button" type="submit">add charm bar seat to bag</button>
+            <button class="suas-book-button" type="submit">add booking to cart</button>
           </form>
         {% else %}
           <a class="suas-book-button" href="/pages/charm-bar">book the charm bar</a>
@@ -514,7 +524,7 @@
           if (kind === 'guided') field.setAttribute('required', 'required');
           else field.removeAttribute('required');
         });
-        root.querySelectorAll('#charm-bar [required]').forEach(function (field) {
+        root.querySelectorAll('#charm-bar [required], #charm-bar select[name="id"]').forEach(function (field) {
           if (kind === 'charm') field.setAttribute('required', 'required');
           else field.removeAttribute('required');
         });
@@ -904,40 +914,90 @@
       paintSeats();
 
       var charmForm = root.querySelector('[data-charm-booking-form]');
+      var charmChips = root.querySelector('[data-charm-chips]');
+      var charmTypes = root.querySelector('[data-charm-types]');
+      var charmExperience = root.querySelector('#BookCharmExperience');
+      var charmPrice = root.querySelector('[data-charm-price]');
+      var charmDescription = root.querySelector('[data-charm-description]');
+      function syncCharmType() {
+        if (!charmTypes) return;
+        var input = charmTypes.querySelector('input:checked');
+        charmTypes.querySelectorAll('.suas-type-card').forEach(function (card) {
+          card.classList.toggle('is-on', card.contains(input));
+        });
+        if (!input) return;
+        if (charmExperience) charmExperience.value = input.value;
+        if (charmPrice) charmPrice.textContent = input.dataset.price || '';
+        if (charmDescription) charmDescription.textContent = input.dataset.label || '';
+      }
+      if (charmTypes) {
+        charmTypes.addEventListener('change', syncCharmType);
+        syncCharmType();
+      }
+      function renderCharmChips(options, selected) {
+        if (!charmChips) return;
+        charmChips.innerHTML = '';
+        if (!options.length) {
+          var empty = document.createElement('button');
+          empty.type = 'button';
+          empty.disabled = true;
+          empty.textContent = 'pick Thursday–Sunday';
+          charmChips.appendChild(empty);
+          return;
+        }
+        options.forEach(function (time) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = time;
+          button.classList.toggle('is-on', time === selected);
+          button.addEventListener('click', function () {
+            if (charmTime) charmTime.value = time;
+            renderCharmChips(options, time);
+          });
+          charmChips.appendChild(button);
+        });
+      }
       if (charmForm) {
         var charmDate = charmForm.querySelector('#BookCharmDate');
         var charmTime = charmForm.querySelector('#BookCharmTime');
         var charmStatus = charmForm.querySelector('[data-charm-status]');
         function fillCharmTimes() {
-          charmTime.innerHTML = '<option value="">choose time</option>';
-          if (!charmDate.value) return;
+          if (!charmDate.value) {
+            if (charmTime) setOptions(charmTime, []);
+            renderCharmChips([], '');
+            return;
+          }
           if (charmDate.value < OPENS) {
+            if (charmTime) setOptions(charmTime, []);
+            renderCharmChips([], '');
             charmStatus.textContent = 'Charm Bar bookings open November 14.';
+            reject(charmDate, 'Charm Bar bookings open November 14. Pick a date from then on.');
             return;
           }
           var day = dateDay(charmDate.value);
           var slots = selfTimes[day] || [];
           if (!slots.length) {
+            if (charmTime) setOptions(charmTime, []);
+            renderCharmChips([], '');
             charmStatus.textContent = (dayNames[day] || 'That day') + ' is closed. Pick Thursday through Sunday.';
+            reject(charmDate, (dayNames[day] || 'That day') + ' is closed for Charm Bar. Please choose Thursday, Friday, Saturday, or Sunday.');
             return;
           }
           charmStatus.textContent = 'Five seats per slot. Closed Monday through Wednesday. Opens November 14.';
-          slots.forEach(function (slot) {
-            var opt = document.createElement('option');
-            opt.value = slot;
-            opt.textContent = slot;
-            charmTime.appendChild(opt);
-          });
+          setOptions(charmTime, slots);
+          if (slots.indexOf(charmTime.value) === -1) charmTime.value = slots[0];
+          renderCharmChips(slots, charmTime.value);
         }
         charmDate.addEventListener('change', fillCharmTimes);
+        renderCharmChips([], '');
         charmForm.addEventListener('submit', async function (event) {
           event.preventDefault();
-          var experience = charmForm.querySelector('#BookCharmExperience');
+          syncCharmType();
           var guests = Math.max(1, Math.min(5, Number(charmForm.querySelector('#BookCharmGuests').value || 1)));
           var day = dateDay(charmDate.value);
           var slots = selfTimes[day] || [];
           var submit = charmForm.querySelector('button[type="submit"]');
-          if (!experience.value) {
+          if (!charmExperience || !charmExperience.value) {
             charmStatus.textContent = 'Pick a piece first.';
             return;
           }
@@ -949,30 +1009,31 @@
             charmStatus.textContent = 'Pick a Thursday through Sunday arrival during Charm Bar hours.';
             return;
           }
+          var pieceLabel = (charmTypes && charmTypes.querySelector('input:checked') && charmTypes.querySelector('input:checked').dataset.label) || charmExperience.options[charmExperience.selectedIndex].text;
           var properties = {
             'Booking type': 'Charm Bar Reservation',
-            'Experience': experience.options[experience.selectedIndex].text.replace(/\s+[—–-]\s+\$[\d.,]+.*$/, ''),
+            'Experience': pieceLabel,
             'Reservation date': charmDate.value,
             'Estimated arrival': charmTime.value,
             'Guest name': charmForm.querySelector('#BookCharmName').value,
             'Phone number': charmForm.querySelector('#BookCharmPhone').value,
             'Seats reserved': String(guests)
           };
-          var items = [{ id: Number(experience.value), quantity: guests, properties: properties }];
-          charmForm.querySelectorAll('[data-addon-select]').forEach(function (select) {
-            if (select.value) {
-              items.push({
-                id: Number(select.value),
-                quantity: 1,
-                properties: {
-                  'Add-on for': properties.Experience,
-                  'Reservation date': charmDate.value,
-                  'Guest name': properties['Guest name']
-                }
-              });
-            }
+          var items = [{ id: Number(charmExperience.value), quantity: guests, properties: properties }];
+          charmForm.querySelectorAll('[data-addon-variant]:checked').forEach(function (box) {
+            if (!box.dataset.addonVariant) return;
+            items.push({
+              id: Number(box.dataset.addonVariant),
+              quantity: 1,
+              properties: {
+                'Add-on for': properties.Experience,
+                'Reservation date': charmDate.value,
+                'Guest name': properties['Guest name']
+              }
+            });
           });
           submit.disabled = true;
+          submit.textContent = 'reserving...';
           charmStatus.textContent = 'Adding your Charm Bar reservation...';
           try {
             var response = await fetch('/cart/add.js', {
@@ -985,6 +1046,7 @@
           } catch (err) {
             charmStatus.textContent = 'That reservation could not be added. Try again or walk in during Lab hours.';
             submit.disabled = false;
+            submit.textContent = 'add booking to cart';
           }
         });
       }
