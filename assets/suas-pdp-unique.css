@@ -23,6 +23,7 @@ html body.template--product .suas-pdp[data-handle*='haze'] { --wash: #fff1a8; --
 html body.template--product .suas-pdp[data-handle*='poppy'] { --wash: #ffd4ea; --hot: #ff8cbc; }
 html body.template--product .suas-pdp[data-handle*='good-girl'] { --wash: #e8ff8a; --hot: #c6f76a; }
 html body.template--product .suas-pdp[data-handle*='tonic'] { --wash: #ead9ff; --hot: #c9a6ff; }
+html body.template--product .suas-pdp[data-handle*='nectar'] { --wash: #ffd9b8; --hot: #ff9a4a; }
 html body.template--product .suas-pdp[data-handle*='cologne'] { --wash: #d7f0ff; --hot: #7ad0ff; }
 
 html body.template--product .suas-pdp-world,
@@ -128,7 +129,12 @@ html body.template--product .suas-pdp-life-frame {
   max-height: none;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: var(--wash, #fff6ee);
+  isolation: isolate;
+  background-color: var(--wash, #fff6ee);
+  background-image:
+    linear-gradient(rgba(16, 16, 16, .08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, .08) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 html body.template--product .suas-pdp-life-photo {
   position: absolute;
@@ -137,11 +143,13 @@ html body.template--product .suas-pdp-life-photo {
   height: 100%;
   max-width: 100%;
   max-height: none;
-  padding: 6%;
+  padding: 7%;
   box-sizing: border-box;
   object-fit: contain;
   object-position: center center;
   display: block;
+  transform: rotate(-2.4deg);
+  mix-blend-mode: multiply;
 }
 html body.template--product .suas-pdp-life .suas-station-thumbs {
   position: relative;
@@ -473,7 +481,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     min-height: 0;
     max-height: none;
     aspect-ratio: 1 / 1;
-    background: var(--wash, #fff6ee);
+    background-color: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
     position: absolute;
@@ -545,13 +553,13 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    background: var(--wash, #fff6ee);
+    background-color: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
     width: 100%;
     height: 100%;
     max-height: none !important;
-    padding: 6%;
+    padding: 7%;
     box-sizing: border-box;
     object-fit: contain;
     object-position: center center;
@@ -586,7 +594,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     height: auto;
     min-height: 0;
     max-height: none;
-    background: var(--wash, #fff6ee);
+    background-color: var(--wash, #fff6ee);
   }
   html body.template--product .suas-pdp-life-photo {
     object-fit: contain;
