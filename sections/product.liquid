@@ -13,12 +13,12 @@
   assign product_id = product.id | append: '-' | append: section.id
   assign video_looping_enabled = section.settings.loop-enabled
   assign pdp_name = product.title | split: '?' | first | strip
-  assign pdp_name = pdp_name | split: '?????' | first | split: '*' | first | strip
+  assign pdp_name = pdp_name | split: '?�?' | first | split: '*' | first | strip
   if product.type != blank
     assign pdp_name = pdp_name | replace: product.type, '' | strip
   endif
   if pdp_name == blank
-    assign pdp_name = product.title | split: '?????' | first | split: '?' | first | strip
+    assign pdp_name = product.title | split: '?�?' | first | split: '?' | first | strip
   endif
   assign pdp_hook = product.description | strip_html | split: '.' | first | strip
   assign pdp_handle = product.handle | downcase
@@ -101,12 +101,19 @@
     assign mix_3 = 'coconut'
     assign mix_3_note = 'the drydown'
   elsif pdp_handle contains 'nectar'
-    assign mix_1 = 'nectar'
-    assign mix_1_note = 'honeyed fruit'
-    assign mix_2 = 'soft florals'
-    assign mix_2_note = 'the heart'
-    assign mix_3 = 'skin musk'
-    assign mix_3_note = 'the drydown'
+    assign mix_1 = 'pineapple'
+    assign mix_1_note = 'bright fruit'
+    assign mix_2 = 'passionfruit'
+    assign mix_2_note = 'pulp + heat'
+    assign mix_3 = 'mango'
+    assign mix_3_note = 'the juice'
+  elsif pdp_handle contains 'ember'
+    assign mix_1 = 'smoke'
+    assign mix_1_note = 'the strike'
+    assign mix_2 = 'cocoa'
+    assign mix_2_note = 'warm + dense'
+    assign mix_3 = 'woods'
+    assign mix_3_note = 'the trail'
   endif
 
   capture variant_media_ids
