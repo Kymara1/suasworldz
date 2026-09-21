@@ -350,8 +350,15 @@
     assign pdp_life = featured_media
     assign pdp_type = product.type | downcase
     assign pdp_home = false
-    if pdp_type contains 'candle' or pdp_type contains 'mist' or pdp_type contains 'home' or pdp_type contains 'oil' or pdp_handle contains 'candle' or pdp_handle contains 'mist'
+    if pdp_type contains 'candle' or pdp_type contains 'mist' or pdp_type contains 'home' or pdp_handle contains 'candle' or pdp_handle contains 'mist' or pdp_handle contains 'burnt-oil'
       assign pdp_home = true
+    endif
+    if pdp_type contains 'body oil' or pdp_handle contains 'body-oil'
+      assign pdp_home = false
+    endif
+    assign is_body_oil = false
+    if pdp_type contains 'body oil' or pdp_handle contains 'body-oil'
+      assign is_body_oil = true
     endif
   -%}
   <div class="suas-pdp-world suas-station-desk product-page--top-panel">
@@ -395,7 +402,7 @@
       {%- endif -%}
     </section>
 
-    {%- unless is_lab_experiment or is_charm_bar -%}
+    {%- unless is_lab_experiment or is_charm_bar or is_body_oil -%}
     <section class="suas-pdp-diagram" aria-label="what's inside">
       <div class="suas-window-bar">
         <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>

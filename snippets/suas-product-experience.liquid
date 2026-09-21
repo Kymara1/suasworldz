@@ -2,9 +2,17 @@
   assign desc_text = product.description | strip_html
   assign product_title_down = product.title | downcase
   assign pdp_type = product.type | downcase
+  assign pdp_handle = product.handle | downcase
+  assign is_body_oil = false
+  if pdp_type contains 'body oil' or pdp_handle contains 'body-oil'
+    assign is_body_oil = true
+  endif
   assign pdp_home = false
-  if pdp_type contains 'candle' or pdp_type contains 'mist' or pdp_type contains 'home' or product_title_down contains 'candle' or product_title_down contains 'mist'
+  if pdp_type contains 'candle' or pdp_type contains 'mist' or pdp_type contains 'home' or product_title_down contains 'candle' or product_title_down contains 'mist' or pdp_handle contains 'burnt-oil'
     assign pdp_home = true
+  endif
+  if is_body_oil
+    assign pdp_home = false
   endif
 
   assign story_html = product.description
@@ -38,6 +46,25 @@
   assign for_line = ''
   if desc_text contains 'For:'
     assign for_line = desc_text | split: 'For:' | last | split: 'Ingredients' | first | split: 'ingredients' | first | strip
+  endif
+
+  if is_body_oil
+    assign ingredients_html = 'Cocos Nucifera (Fractionated Coconut) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Persea Gratissima (Avocado) Oil, Carthamus Tinctorius (Safflower) Seed Oil, Ricinus Communis (Castor) Seed Oil, Isopropyl Myristate, Tocopherol, Parfum.'
+    assign scent_line = ''
+    assign for_line = ''
+    if pdp_handle contains 'nectar'
+      assign story_html = '<p>wet-skin shine. pineapple that follows you out the door. put it on and stay gone.</p>'
+    elsif pdp_handle contains 'haze'
+      assign story_html = '<p>wildflower in the heat. pretty with an agenda. this is not a spa pamphlet.</p>'
+    elsif pdp_handle contains 'crimson'
+      assign story_html = '<p>the loud red one. slick it on like you meant the stain.</p>'
+    elsif pdp_handle contains 'good-girl'
+      assign story_html = '<p>pear, jasmine, coconut. sweet until it isn&apos;t. you already know.</p>'
+    elsif pdp_handle contains 'ember'
+      assign story_html = '<p>smoke, cocoa, woods. the kind of warm that lingers like you planned it.</p>'
+    else
+      assign story_html = '<p>skin-slick. pulse-loud. oil you put on then invent a reason to leave the house.</p>'
+    endif
   endif
 %}
 
@@ -106,7 +133,19 @@
   {% elsif is_charm_bar %}
     <p class="suas-pdp-charm-cta"><a class="suas-lab-book-cta" href="/pages/charm-bar">Reserve a Charm Bar seat</a></p>
   {% else %}
-  {% render 'suas-scent-map', suas_scent_mode: 'pdp', product: product %}
+  {% if is_body_oil %}
+    {% capture suas_oil_notes %}{% render 'suas-scent-map', suas_scent_mode: 'pdp', product: product %}{% endcapture %}
+    {% if suas_oil_notes contains 'suas-scent-note' %}
+    <details class="suas-pdp-fold">
+      <summary>scent profile</summary>
+      <div class="suas-pdp-fold-body">
+        {{ suas_oil_notes }}
+      </div>
+    </details>
+    {% endif %}
+  {% else %}
+    {% render 'suas-scent-map', suas_scent_mode: 'pdp', product: product %}
+  {% endif %}
 
   <details class="suas-pdp-fold">
     <summary>details</summary>
@@ -149,6 +188,10 @@
           <div class="suas-pdp-step"><em>01 / set</em><p>Light it, mist it, or warm it.</p></div>
           <div class="suas-pdp-step"><em>02 / wait</em><p>Give the room a minute to catch it.</p></div>
           <div class="suas-pdp-step"><em>03 / live in it</em><p>The scent blooms, then sits pretty.</p></div>
+        {% elsif is_body_oil %}
+          <div class="suas-pdp-step"><em>01 / pump</em><p>One pump. That's a mood, not a ration.</p></div>
+          <div class="suas-pdp-step"><em>02 / warm</em><p>Rub it in your palms like you mean it.</p></div>
+          <div class="suas-pdp-step"><em>03 / glow</em><p>Slide it on still-damp skin. Shine stays. You leave.</p></div>
         {% else %}
           <div class="suas-pdp-step"><em>01 / warm</em><p>Warm a little in your hands.</p></div>
           <div class="suas-pdp-step"><em>02 / press</em><p>Press it into still-damp skin.</p></div>
