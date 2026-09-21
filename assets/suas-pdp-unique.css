@@ -24,6 +24,7 @@ html body.template--product .suas-pdp[data-handle*='poppy'] { --wash: #ffd4ea; -
 html body.template--product .suas-pdp[data-handle*='good-girl'] { --wash: #e8ff8a; --hot: #c6f76a; }
 html body.template--product .suas-pdp[data-handle*='tonic'] { --wash: #ddd0ff; --hot: #7a3cff; }
 html body.template--product .suas-pdp[data-handle*='nectar'] { --wash: #ffd2a8; --hot: #ffb06a; }
+html body.template--product .suas-pdp[data-handle*='ember'] { --wash: #e8c4a0; --hot: #8a4a22; }
 html body.template--product .suas-pdp[data-handle*='cologne'] { --wash: #d7f0ff; --hot: #7ad0ff; }
 
 html body.template--product .suas-pdp-world,

@@ -13,12 +13,12 @@
   assign product_id = product.id | append: '-' | append: section.id
   assign video_looping_enabled = section.settings.loop-enabled
   assign pdp_name = product.title | split: '?' | first | strip
-  assign pdp_name = pdp_name | split: '?�?' | first | split: '*' | first | strip
+  assign pdp_name = pdp_name | split: '?????' | first | split: '*' | first | strip
   if product.type != blank
     assign pdp_name = pdp_name | replace: product.type, '' | strip
   endif
   if pdp_name == blank
-    assign pdp_name = product.title | split: '?�?' | first | split: '?' | first | strip
+    assign pdp_name = product.title | split: '?????' | first | split: '?' | first | strip
   endif
   assign pdp_hook = product.description | strip_html | split: '.' | first | strip
   assign pdp_handle = product.handle | downcase
@@ -42,7 +42,37 @@
   assign mix_1_note = 'the open'
   assign mix_2_note = 'the heart'
   assign mix_3_note = 'the drydown'
-  if pdp_handle contains 'tonic'
+  if pdp_handle contains 'eau-de-parfum' or pdp_handle contains '-edp'
+    if pdp_handle contains 'ember'
+      assign mix_1 = 'smoke'
+      assign mix_1_note = 'the strike'
+      assign mix_2 = 'cocoa'
+      assign mix_2_note = 'warm + dense'
+      assign mix_3 = 'woods'
+      assign mix_3_note = 'the trail'
+    elsif pdp_handle contains 'tonic'
+      assign mix_1 = 'blackberry'
+      assign mix_1_note = 'juicy + sweet'
+      assign mix_2 = 'mint'
+      assign mix_2_note = 'fresh + cooling'
+      assign mix_3 = 'sage'
+      assign mix_3_note = 'earthy + herbal'
+    elsif pdp_handle contains 'poppy'
+      assign mix_1 = 'bubblegum'
+      assign mix_1_note = 'sweet + playful'
+      assign mix_2 = 'soft florals'
+      assign mix_2_note = 'pink lip gloss'
+      assign mix_3 = 'skin musk'
+      assign mix_3_note = 'the drydown'
+    elsif pdp_handle contains 'nectar'
+      assign mix_1 = 'pineapple'
+      assign mix_1_note = 'bright fruit'
+      assign mix_2 = 'passionfruit'
+      assign mix_2_note = 'pulp + heat'
+      assign mix_3 = 'mango'
+      assign mix_3_note = 'the juice'
+    endif
+  elsif pdp_handle contains 'tonic'
     assign mix_1 = 'blackberry'
     assign mix_1_note = 'juicy + sweet'
     assign mix_2 = 'mint'
