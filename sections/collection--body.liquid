@@ -107,9 +107,15 @@
   assign blocks_per_page = products_per_row_desktop | times: number_of_rows
   assign products_per_page = blocks_per_page | minus: promo_grid_blocks | plus: promo_grid_duplicates
 
-  assign suas_group_body = false
+  assign suas_group_aisle = false
+  assign suas_aisle = 'body'
   if collection.handle == 'body' or collection.handle == 'body-care'
-    assign suas_group_body = true
+    assign suas_group_aisle = true
+    assign suas_aisle = 'body'
+    assign products_per_page = 250
+  elsif collection.handle == 'home' or collection.handle == 'home-care'
+    assign suas_group_aisle = true
+    assign suas_aisle = 'home'
     assign products_per_page = 250
   endif
 
@@ -155,8 +161,9 @@
       </a>
     {% endif %}
 
-    {% if suas_group_body and collection.products_count > 0 %}
+    {% if suas_group_aisle and collection.products_count > 0 %}
       {% render 'suas-body-aisle-grid',
+        aisle: suas_aisle,
         collection: collection,
         products_per_row_desktop: products_per_row_desktop,
         products_per_row_mobile: products_per_row_mobile,

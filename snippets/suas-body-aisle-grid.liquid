@@ -1,8 +1,15 @@
 {%- comment -%}
-  Shop body aisle: every body product, grouped under its format label.
+  Shop body / shop home: products grouped under format labels.
 {%- endcomment -%}
 {%- liquid
-  assign type_order = 'Butter Creme|Body Wash|Body Oil|Cleansing Bar|Body Scrub|Perfume|Cologne|Skin Jelly|Exfoliating Body Wash|Beard|More body'
+  assign aisle_key = aisle | default: 'body'
+  if aisle_key == 'home'
+    assign type_order = 'Candles|Everything Mist|Burnt Oils|Incense|Carpet Dust|All Purpose Cleaner|More home'
+    assign aisle_tint = 'is-home'
+  else
+    assign type_order = 'Butter Creme|Body Wash|Body Oil|Cleansing Bar|Body Scrub|Perfume|Cologne|Skin Jelly|Exfoliating Body Wash|Beard|More body'
+    assign aisle_tint = 'is-body'
+  endif
   assign type_order_arr = type_order | split: '|'
 -%}
 
@@ -13,38 +20,58 @@
       {%- liquid
         assign suas_kind = ''
         assign hay = product.type | append: ' ' | append: product.title | downcase
-        if product.handle contains 'lab-session' or hay contains 'lab session'
-          assign suas_kind = 'skip'
-        elsif hay contains 'beard'
-          assign suas_kind = 'Beard'
-        elsif hay contains 'cologne'
-          assign suas_kind = 'Cologne'
-        elsif hay contains 'parfum' or hay contains 'perfume'
-          assign suas_kind = 'Perfume'
-        elsif hay contains 'jelly'
-          assign suas_kind = 'Skin Jelly'
-        elsif hay contains 'exfoliat'
-          assign suas_kind = 'Exfoliating Body Wash'
-        elsif hay contains 'cleansing' or hay contains 'soap bar'
-          assign suas_kind = 'Cleansing Bar'
-        elsif hay contains 'scrub' or hay contains 'polish'
-          assign suas_kind = 'Body Scrub'
-        elsif hay contains 'body wash' or hay contains 'shower'
-          assign suas_kind = 'Body Wash'
-        elsif hay contains 'hair oil'
-          assign suas_kind = 'skip'
-        elsif hay contains 'body oil' or hay contains ' · oil' or hay contains ' • oil'
-          assign suas_kind = 'Body Oil'
-        elsif hay contains 'creme' or hay contains 'cream' or hay contains 'body butter' or hay contains 'butter creme'
-          assign suas_kind = 'Butter Creme'
-        elsif hay contains 'oil' and hay contains 'perfume'
-          assign suas_kind = 'Perfume'
-        elsif hay contains 'oil'
-          assign suas_kind = 'Body Oil'
-        elsif hay contains 'wash'
-          assign suas_kind = 'Body Wash'
+        if aisle_key == 'home'
+          if hay contains 'lab session' or product.handle contains 'lab-session'
+            assign suas_kind = 'skip'
+          elsif hay contains 'candle' or hay contains 'wax melt'
+            assign suas_kind = 'Candles'
+          elsif hay contains 'mist' or hay contains 'room spray'
+            assign suas_kind = 'Everything Mist'
+          elsif hay contains 'burnt'
+            assign suas_kind = 'Burnt Oils'
+          elsif hay contains 'incense'
+            assign suas_kind = 'Incense'
+          elsif hay contains 'carpet' or hay contains 'dust'
+            assign suas_kind = 'Carpet Dust'
+          elsif hay contains 'cleaner' or hay contains 'all purpose'
+            assign suas_kind = 'All Purpose Cleaner'
+          else
+            assign suas_kind = 'More home'
+          endif
         else
-          assign suas_kind = 'More body'
+          if product.handle contains 'lab-session' or hay contains 'lab session'
+            assign suas_kind = 'skip'
+          elsif hay contains 'beard'
+            assign suas_kind = 'Beard'
+          elsif hay contains 'cologne'
+            assign suas_kind = 'Cologne'
+          elsif hay contains 'parfum' or hay contains 'perfume'
+            assign suas_kind = 'Perfume'
+          elsif hay contains 'jelly'
+            assign suas_kind = 'Skin Jelly'
+          elsif hay contains 'exfoliat'
+            assign suas_kind = 'Exfoliating Body Wash'
+          elsif hay contains 'cleansing' or hay contains 'soap bar'
+            assign suas_kind = 'Cleansing Bar'
+          elsif hay contains 'scrub' or hay contains 'polish'
+            assign suas_kind = 'Body Scrub'
+          elsif hay contains 'body wash' or hay contains 'shower'
+            assign suas_kind = 'Body Wash'
+          elsif hay contains 'hair oil'
+            assign suas_kind = 'skip'
+          elsif hay contains 'body oil'
+            assign suas_kind = 'Body Oil'
+          elsif hay contains 'creme' or hay contains 'cream' or hay contains 'body butter' or hay contains 'butter creme'
+            assign suas_kind = 'Butter Creme'
+          elsif hay contains 'oil' and hay contains 'perfume'
+            assign suas_kind = 'Perfume'
+          elsif hay contains 'oil'
+            assign suas_kind = 'Body Oil'
+          elsif hay contains 'wash'
+            assign suas_kind = 'Body Wash'
+          else
+            assign suas_kind = 'More body'
+          endif
         endif
       -%}
       {%- if suas_kind == kind -%}
@@ -55,7 +82,7 @@
 
     {%- if kind_has -%}
       <section class="suas-type-aisle" aria-label="{{ kind }}">
-        <header class="suas-type-aisle-label">
+        <header class="suas-type-aisle-label {{ aisle_tint }}">
           <span class="suas-catalog-dot" style="--dot:#ff5f57"></span>
           <span class="suas-catalog-dot" style="--dot:#febc2e"></span>
           <span class="suas-catalog-dot" style="--dot:#28c840"></span>
@@ -71,38 +98,58 @@
             {%- liquid
               assign suas_kind = ''
               assign hay = product.type | append: ' ' | append: product.title | downcase
-              if product.handle contains 'lab-session' or hay contains 'lab session'
-                assign suas_kind = 'skip'
-              elsif hay contains 'beard'
-                assign suas_kind = 'Beard'
-              elsif hay contains 'cologne'
-                assign suas_kind = 'Cologne'
-              elsif hay contains 'parfum' or hay contains 'perfume'
-                assign suas_kind = 'Perfume'
-              elsif hay contains 'jelly'
-                assign suas_kind = 'Skin Jelly'
-              elsif hay contains 'exfoliat'
-                assign suas_kind = 'Exfoliating Body Wash'
-              elsif hay contains 'cleansing' or hay contains 'soap bar'
-                assign suas_kind = 'Cleansing Bar'
-              elsif hay contains 'scrub' or hay contains 'polish'
-                assign suas_kind = 'Body Scrub'
-              elsif hay contains 'body wash' or hay contains 'shower'
-                assign suas_kind = 'Body Wash'
-              elsif hay contains 'hair oil'
-                assign suas_kind = 'skip'
-              elsif hay contains 'body oil' or hay contains ' · oil' or hay contains ' • oil'
-                assign suas_kind = 'Body Oil'
-              elsif hay contains 'creme' or hay contains 'cream' or hay contains 'body butter' or hay contains 'butter creme'
-                assign suas_kind = 'Butter Creme'
-              elsif hay contains 'oil' and hay contains 'perfume'
-                assign suas_kind = 'Perfume'
-              elsif hay contains 'oil'
-                assign suas_kind = 'Body Oil'
-              elsif hay contains 'wash'
-                assign suas_kind = 'Body Wash'
+              if aisle_key == 'home'
+                if hay contains 'lab session' or product.handle contains 'lab-session'
+                  assign suas_kind = 'skip'
+                elsif hay contains 'candle' or hay contains 'wax melt'
+                  assign suas_kind = 'Candles'
+                elsif hay contains 'mist' or hay contains 'room spray'
+                  assign suas_kind = 'Everything Mist'
+                elsif hay contains 'burnt'
+                  assign suas_kind = 'Burnt Oils'
+                elsif hay contains 'incense'
+                  assign suas_kind = 'Incense'
+                elsif hay contains 'carpet' or hay contains 'dust'
+                  assign suas_kind = 'Carpet Dust'
+                elsif hay contains 'cleaner' or hay contains 'all purpose'
+                  assign suas_kind = 'All Purpose Cleaner'
+                else
+                  assign suas_kind = 'More home'
+                endif
               else
-                assign suas_kind = 'More body'
+                if product.handle contains 'lab-session' or hay contains 'lab session'
+                  assign suas_kind = 'skip'
+                elsif hay contains 'beard'
+                  assign suas_kind = 'Beard'
+                elsif hay contains 'cologne'
+                  assign suas_kind = 'Cologne'
+                elsif hay contains 'parfum' or hay contains 'perfume'
+                  assign suas_kind = 'Perfume'
+                elsif hay contains 'jelly'
+                  assign suas_kind = 'Skin Jelly'
+                elsif hay contains 'exfoliat'
+                  assign suas_kind = 'Exfoliating Body Wash'
+                elsif hay contains 'cleansing' or hay contains 'soap bar'
+                  assign suas_kind = 'Cleansing Bar'
+                elsif hay contains 'scrub' or hay contains 'polish'
+                  assign suas_kind = 'Body Scrub'
+                elsif hay contains 'body wash' or hay contains 'shower'
+                  assign suas_kind = 'Body Wash'
+                elsif hay contains 'hair oil'
+                  assign suas_kind = 'skip'
+                elsif hay contains 'body oil'
+                  assign suas_kind = 'Body Oil'
+                elsif hay contains 'creme' or hay contains 'cream' or hay contains 'body butter' or hay contains 'butter creme'
+                  assign suas_kind = 'Butter Creme'
+                elsif hay contains 'oil' and hay contains 'perfume'
+                  assign suas_kind = 'Perfume'
+                elsif hay contains 'oil'
+                  assign suas_kind = 'Body Oil'
+                elsif hay contains 'wash'
+                  assign suas_kind = 'Body Wash'
+                else
+                  assign suas_kind = 'More body'
+                endif
               endif
             -%}
             {%- if suas_kind == kind -%}
