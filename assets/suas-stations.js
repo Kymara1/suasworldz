@@ -878,11 +878,31 @@ function renderOilBook() {
 }
 function showIngredient(name) { $('ingredientDetail').innerHTML = `<small>INGREDIENT ENCYCLOPEDIA</small><h3>${name.toUpperCase()}</h3><p>${oilDetails[name]}</p>`; }
 
+const LABEL_PRINT_PAGES = {
+  round175: '1.75in 1.75in',
+  round125: '1.25in 1.25in',
+  rect13: '1in 3in'
+};
+
+function applyLabelPrintPage(size = $('sizeSelect')?.value || 'round175') {
+  document.documentElement.dataset.printSize = size;
+  let tag = document.getElementById('suasPrintPage');
+  if (!tag) {
+    tag = document.createElement('style');
+    tag.id = 'suasPrintPage';
+    document.head.appendChild(tag);
+  }
+  tag.textContent = `@page{size:${LABEL_PRINT_PAGES[size] || LABEL_PRINT_PAGES.round175};margin:0}`;
+}
+
 function syncLabelPreview() {
   const preview = $('labelPreview');
-  const isRect = $('sizeSelect').value === 'rect13';
+  const size = $('sizeSelect').value;
+  const isRect = size === 'rect13';
+  preview.dataset.size = size;
   preview.classList.toggle('is-rect', isRect);
   preview.classList.toggle('is-round', !isRect);
+  preview.classList.toggle('is-round-sm', size === 'round125');
   preview.classList.remove('theme-white', 'theme-pink', 'theme-black');
   preview.classList.add(`theme-${activeTemplate}`);
   $('previewProduct').textContent = $('productName').value.trim().toUpperCase() || 'YOUR BLEND';
@@ -891,6 +911,7 @@ function syncLabelPreview() {
   $('previewNotes').textContent = $('scentNotes').value.trim().toUpperCase() || 'YOUR SCENT NOTES';
   $('previewCustomer').style.fontFamily = $('customerFont').value === 'casual' ? 'CasualHuman' : 'Futura, Arial, sans-serif';
   $('previewNotes').style.fontFamily = $('notesFont').value === 'casual' ? 'CasualHuman' : 'Futura, Arial, sans-serif';
+  applyLabelPrintPage(size);
 }
 
 ['labelProductType', 'sizeSelect', 'productName', 'customerName', 'scentNotes', 'customerFont', 'notesFont'].forEach((id) => $(id)?.addEventListener('input', syncLabelPreview));
@@ -904,10 +925,19 @@ $('saveLabel')?.addEventListener('click', () => {
   $('studioStatus').textContent = 'Draft saved on this iPad.';
 });
 $('printLabel')?.addEventListener('click', () => {
-  $('studioStatus').textContent = 'Opening the iPad print dialog...';
+  syncLabelPreview();
+  document.documentElement.classList.add('is-printing');
+  $('studioStatus').textContent = 'print the sticker only. pick the matching paper size on the iPad.';
+  let finished = false;
+  const done = () => {
+    if (finished) return;
+    finished = true;
+    document.documentElement.classList.remove('is-printing');
+    window.removeEventListener('afterprint', done);
+    $('studioStatus').textContent = 'Print sent. Peel one sticker. Press it on a dry bottle.';
+  };
+  window.addEventListener('afterprint', done);
   window.print();
-  $('studioStatus').textContent = 'Print sent. Finish the session when the label is ready.';
-  showView('finish');
 });
 
 function loadLabelDraft() {
