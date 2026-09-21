@@ -130,10 +130,10 @@ html body.template--product .suas-pdp-life-frame {
   aspect-ratio: 1 / 1;
   overflow: hidden;
   isolation: isolate;
-  background-color: var(--wash, #fff6ee);
+  background-color: #fff;
   background-image:
-    linear-gradient(rgba(16, 16, 16, .08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .08) 1px, transparent 1px);
+    linear-gradient(rgba(16, 16, 16, .12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, .12) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 html body.template--product .suas-pdp-life-photo {
@@ -483,7 +483,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     min-height: 0;
     max-height: calc(100vh - 170px);
     aspect-ratio: 1 / 1;
-    background-color: var(--wash, #fff6ee);
+    background-color: #fff;
   }
   html body.template--product .suas-pdp-life-photo {
     position: absolute;
@@ -556,7 +556,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    background-color: var(--wash, #fff6ee);
+    background-color: #fff;
   }
   html body.template--product .suas-pdp-life-photo {
     width: 100%;
@@ -597,7 +597,7 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     height: auto;
     min-height: 0;
     max-height: none;
-    background-color: var(--wash, #fff6ee);
+    background-color: #fff;
   }
   html body.template--product .suas-pdp-life-photo {
     object-fit: contain;

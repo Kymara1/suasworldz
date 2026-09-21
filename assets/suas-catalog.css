@@ -160,31 +160,11 @@ html body.template--search .suas-catalog-card .product--image-wrapper {
   padding: 0 !important;
   border: 2px solid #101010;
   border-radius: 16px;
-  background-color: #ffd8e8 !important;
+  background-color: #fff !important;
   background-image:
-    linear-gradient(rgba(16, 16, 16, .08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, .08) 1px, transparent 1px) !important;
+    linear-gradient(rgba(16, 16, 16, .12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, .12) 1px, transparent 1px) !important;
   background-size: 22px 22px !important;
-}
-html body.template--collection .collection--body--grid > .suas-catalog-card:nth-child(4n+2) .product--image-wrapper,
-html body.template--search .product-grid > .suas-catalog-card:nth-child(4n+2) .product--image-wrapper {
-  background-color: #fff1a8 !important;
-}
-html body.template--collection .collection--body--grid > .suas-catalog-card:nth-child(4n+3) .product--image-wrapper,
-html body.template--search .product-grid > .suas-catalog-card:nth-child(4n+3) .product--image-wrapper {
-  background-color: #d9ff78 !important;
-}
-html body.template--collection .collection--body--grid > .suas-catalog-card:nth-child(4n) .product--image-wrapper,
-html body.template--search .product-grid > .suas-catalog-card:nth-child(4n) .product--image-wrapper {
-  background-color: #cdeeff !important;
-}
-html body.template--collection .collection--body--grid > .suas-catalog-card.suas-wash-nectar .product--image-wrapper,
-html body.template--search .product-grid > .suas-catalog-card.suas-wash-nectar .product--image-wrapper {
-  background-color: #ffd2a8 !important;
-}
-html body.template--collection .collection--body--grid > .suas-catalog-card.suas-wash-tonic .product--image-wrapper,
-html body.template--search .product-grid > .suas-catalog-card.suas-wash-tonic .product--image-wrapper {
-  background-color: #ddd0ff !important;
 }
 html body.template--collection .product--root .product--image,
 html body.template--search .product--root .product--image,
