@@ -1,5 +1,5 @@
 {% comment %}
-  First-visit SUAS.OS laptop open. sessionStorage so in-site clicks do not replay.
+  SUAS.OS laptop open. Shows for first visit, then again only after 45 minutes away.
 {% endcomment %}
 {%- if suas_boot_slot == 'head' -%}
   <script>
@@ -10,7 +10,16 @@
         var path = String(location.pathname || '');
         if (/^\/(checkouts?|cart)(\/|$)/.test(path) || path.indexOf('/checkouts/') !== -1) return;
         var force = /(?:\?|&)boot=1(?:&|$)/.test(location.search);
-        if (!force && sessionStorage.getItem('suasOsBooted') === '1') return;
+        var key = 'suasOsSeenAt';
+        var wait = 45 * 60 * 1000;
+        var now = Date.now();
+        var last = parseInt(localStorage.getItem(key) || '0', 10);
+        var seenLately = last > 0 && (now - last) < wait;
+        if (!force && seenLately) {
+          localStorage.setItem(key, String(now));
+          return;
+        }
+        localStorage.setItem(key, String(now));
         document.documentElement.classList.add('suas-booting');
       } catch (e) {}
     })();
@@ -99,7 +108,7 @@
         if (done) return;
         done = true;
         timers.forEach(function (id) { clearTimeout(id); });
-        try { sessionStorage.setItem('suasOsBooted', '1'); } catch (e) {}
+        try { localStorage.setItem('suasOsSeenAt', String(Date.now())); } catch (e) {}
         root.classList.add('is-gone');
         later(function () {
           document.documentElement.classList.remove('suas-booting');
