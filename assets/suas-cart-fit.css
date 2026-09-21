@@ -1,4 +1,4 @@
-/* SUAS OS cart station — loaded from snippets/cart.liquid */
+/* SUAS OS cart station - loaded from snippets/cart.liquid */
 .template--cart,
 .suas-cart-station,
 .off-canvas--container[data-view="cart"] {
@@ -725,7 +725,12 @@ html.suas-halloween .template--cart .layout--main-content {
 }
 
 html.suas-halloween .suas-cart-winbar {
-  background: linear-gradient(180deg, #fff8ee, #f0c4a0);
+  background: linear-gradient(180deg, #f0b15a 0%, #e07a3d 40%, #6b2430 100%);
+  color: #fff8ee;
+}
+html.suas-halloween .suas-cart-win-title,
+html.suas-halloween .suas-cart-chip {
+  color: #fff8ee;
 }
 
 html.suas-halloween .suas-cart-dots i:nth-child(1) { background: #e07a3d; }

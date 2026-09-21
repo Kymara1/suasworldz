@@ -1,0 +1,136 @@
+{% comment %}
+  SUAS.OS window chrome: Windows XP Luna title bars, not iOS traffic lights.
+  Halloween/fall recasts Luna as pumpkin-to-wine. After the season, bars go classic blue.
+{% endcomment %}
+<style id="suas-xp-chrome">
+  html {
+    --suas-xp-bar: linear-gradient(180deg, #6eb0f8 0%, #2b7ae4 42%, #1554be 100%);
+    --suas-xp-ink: #fff;
+    --suas-xp-close: linear-gradient(#ffd0e4, #ff5aa0);
+    --suas-xp-btn: linear-gradient(#fff, #c5d3ea);
+  }
+  html.suas-halloween {
+    --suas-xp-bar: linear-gradient(180deg, #f0b15a 0%, #e07a3d 36%, #a43b24 72%, #6b2430 100%);
+    --suas-xp-ink: #fff8ee;
+    --suas-xp-close: linear-gradient(#ffd8a8, #c45c26);
+    --suas-xp-btn: linear-gradient(#fff8ee, #e6c9a0);
+  }
+
+  html body .suas-window-bar,
+  html body .suas-os-winbar,
+  html body .suas-cart-winbar,
+  html body .suas-review-window-bar,
+  html body .suas-xp-bar,
+  html body .suas-lab-bar,
+  html body .suas-window-strip {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: var(--suas-xp-bar) !important;
+    color: var(--suas-xp-ink) !important;
+    border-bottom: 2px solid #101010 !important;
+  }
+
+  html body .suas-window-title,
+  html body .suas-os-wintitle,
+  html body .suas-cart-win-title,
+  html body .suas-xp-title,
+  html body .suas-lab-bar-title,
+  html body .suas-window-live,
+  html body .suas-os-live,
+  html body .suas-lab-live,
+  html body .suas-cart-chip,
+  html body .suas-review-window-bar strong {
+    color: var(--suas-xp-ink) !important;
+    text-align: left !important;
+    text-shadow: 1px 1px 0 rgba(16, 16, 16, .35);
+  }
+
+  html body .suas-window-title,
+  html body .suas-os-wintitle,
+  html body .suas-cart-win-title,
+  html body .suas-xp-title,
+  html body .suas-lab-bar-title {
+    flex: 1 1 auto !important;
+    order: 1 !important;
+    min-width: 0;
+    font-family: Tahoma, 'Segoe UI', Futura, Arial, sans-serif !important;
+    letter-spacing: .06em !important;
+  }
+
+  html body .suas-window-live,
+  html body .suas-os-live,
+  html body .suas-lab-live,
+  html body .suas-cart-chip {
+    order: 2 !important;
+    flex: 0 0 auto !important;
+    opacity: .92;
+  }
+
+  html body .suas-window-dots,
+  html body .suas-os-dots,
+  html body .suas-cart-dots,
+  html body .suas-lab-dots,
+  html body .suas-xp-btns {
+    order: 3 !important;
+    margin-left: 0 !important;
+    display: flex !important;
+    gap: 3px !important;
+    flex: 0 0 auto !important;
+  }
+
+  html body .suas-dot,
+  html body .suas-os-dot,
+  html body .suas-lab-dot,
+  html body .suas-cart-dots i,
+  html body .suas-xp-btns i,
+  html body .suas-review-window-bar span,
+  html body .suas-pr-dot,
+  html body .suas-review-picker__dot {
+    width: 14px !important;
+    height: 13px !important;
+    border-radius: 2px !important;
+    border: 1px solid #fff !important;
+    box-shadow: 0 1px 0 rgba(16, 16, 16, .35) !important;
+    background: var(--suas-xp-btn) !important;
+  }
+
+  html body .suas-dot:nth-child(1),
+  html body .suas-os-dot:nth-child(1),
+  html body .suas-lab-dot:nth-child(1),
+  html body .suas-cart-dots i:nth-child(1),
+  html body .suas-review-window-bar span:nth-child(1),
+  html body .suas-xp-btns i.x,
+  html body .suas-pr-dot:nth-child(1),
+  html body .suas-review-picker__dot:nth-child(1) {
+    order: 3;
+    background: var(--suas-xp-close) !important;
+  }
+  html body .suas-dot:nth-child(2),
+  html body .suas-os-dot:nth-child(2),
+  html body .suas-lab-dot:nth-child(2),
+  html body .suas-cart-dots i:nth-child(2),
+  html body .suas-review-window-bar span:nth-child(2),
+  html body .suas-xp-btns i.min {
+    order: 1;
+  }
+  html body .suas-dot:nth-child(3),
+  html body .suas-os-dot:nth-child(3),
+  html body .suas-lab-dot:nth-child(3),
+  html body .suas-cart-dots i:nth-child(3),
+  html body .suas-review-window-bar span:nth-child(3),
+  html body .suas-xp-btns i.max {
+    order: 2;
+  }
+
+  html body .suas-window-live b,
+  html body .suas-os-live b {
+    background: #d9ff78 !important;
+    box-shadow: 0 0 0 3px rgba(217, 255, 120, .25) !important;
+  }
+  html.suas-halloween body .suas-window-live b,
+  html.suas-halloween body .suas-os-live b {
+    background: #e6c35c !important;
+    box-shadow: 0 0 0 3px rgba(230, 195, 92, .28) !important;
+  }
+</style>
