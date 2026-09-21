@@ -11,8 +11,8 @@ html body.template--product .product-page--root.suas-station {
   --lime: #d9ff78;
   --blue: #cdeeff;
   --sun: #fff1a8;
-  width: min(1180px, 100%) !important;
-  max-width: 1180px !important;
+  width: min(860px, 100%) !important;
+  max-width: 860px !important;
   margin: 0 auto 22px !important;
   padding: 0 !important;
   background: transparent !important;
@@ -29,7 +29,7 @@ html body.template--product .suas-pdp[data-handle*='cologne'] { --wash: #d7f0ff;
 html body.template--product .suas-pdp-world,
 html body.template--product .suas-station-desk {
   display: grid !important;
-  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 400px) !important;
+  grid-template-columns: minmax(0, 1.2fr) minmax(240px, 300px) !important;
   grid-template-areas:
     "life buy"
     "mix mix" !important;
@@ -149,7 +149,8 @@ html body.template--product .suas-pdp-life-photo {
   object-position: center center;
   display: block;
   transform: rotate(-2.4deg);
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
+  filter: drop-shadow(8px 14px 0 rgba(16, 16, 16, .22));
 }
 html body.template--product .suas-pdp-life .suas-station-thumbs {
   position: relative;
@@ -456,13 +457,14 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
     padding-top: 0 !important;
   }
   html body.template--product .layout--main-content {
-    padding: 52px 18px 64px !important;
+    padding: 22px 18px 52px !important;
   }
   html body.template--product .suas-pdp,
   html body.template--product .product-page--root.suas-station {
     position: relative;
     z-index: 2;
-    width: min(1120px, 100%) !important;
+    width: min(860px, 92vw) !important;
+    max-width: 860px !important;
   }
   html body.template--product .suas-pdp-world,
   html body.template--product .suas-station-desk,

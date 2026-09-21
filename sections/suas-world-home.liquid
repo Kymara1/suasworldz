@@ -53,8 +53,8 @@
     .suas-product-rotator{position:relative;height:auto;min-height:0;padding:16px;overflow:hidden;isolation:isolate}
     .suas-product-slide{position:relative;inset:auto;display:none;grid-template-columns:minmax(0,320px) minmax(0,1fr);align-items:stretch;gap:14px;color:var(--ink);opacity:1;pointer-events:auto;transform:none;animation:none!important;min-width:0}
     .suas-product-slide.is-active,.suas-product-slide.is-static,.suas-product-rotator[data-count='1'] .suas-product-slide{display:grid;opacity:1;pointer-events:auto;transform:none;z-index:2}
-    .suas-product-photo{position:relative;width:100%;max-width:min(320px,42vh);max-height:min(320px,42vh);min-width:0;aspect-ratio:1;display:block;justify-self:start;align-self:center;border:2px solid var(--ink);border-radius:20px;background:linear-gradient(135deg,#fff,var(--pink));box-shadow:3px 4px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
-    .suas-product-photo img{position:absolute;inset:0;width:100%;height:100%;padding:6%;box-sizing:border-box;object-fit:contain;object-position:center center;filter:drop-shadow(0 8px 10px rgba(16,16,16,.12));animation:none}
+    .suas-product-photo{position:relative;width:100%;max-width:min(320px,42vh);max-height:min(320px,42vh);min-width:0;aspect-ratio:1;display:block;justify-self:start;align-self:center;border:2px solid var(--ink);border-radius:20px;isolation:isolate;background-color:var(--pink);background-image:linear-gradient(rgba(16,16,16,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.08) 1px,transparent 1px);background-size:18px 18px;box-shadow:3px 4px 0 var(--ink);overflow:hidden;color:var(--ink);text-decoration:none}
+    .suas-product-photo img{position:absolute;inset:0;width:100%;height:100%;padding:8%;box-sizing:border-box;object-fit:contain;object-position:center center;transform:rotate(-2.2deg);filter:drop-shadow(6px 10px 0 rgba(16,16,16,.2));animation:none}
     .suas-product-fallback{width:72%;aspect-ratio:1;display:grid;place-items:center;border-radius:999px;background:#fff;color:var(--ink);font-size:4rem}
     .suas-world-home .suas-product-kicker{display:none!important}
     .suas-product-copy{width:100%;min-height:0;min-width:0;height:100%;display:grid;align-content:center;gap:8px;border:2px solid var(--ink);border-radius:18px;background:rgba(255,255,255,.95);box-shadow:none;padding:10px 12px;overflow:hidden}
@@ -90,11 +90,11 @@
     .suas-boost-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
     .suas-sale{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1.5px solid var(--ink);border-radius:999px;background:var(--hot);font-size:8px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
     .suas-boost-card s{opacity:.45;font-size:9px}
-    .suas-product-slide:nth-child(2) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--blue))}
-    .suas-product-slide:nth-child(3) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--sun))}
-    .suas-product-slide:nth-child(4) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--lav))}
-    .suas-product-slide:nth-child(5) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--lime))}
-    .suas-product-slide:nth-child(6) .suas-product-photo{background:linear-gradient(135deg,#fff,var(--hot))}
+    .suas-product-slide:nth-child(2) .suas-product-photo{background-color:var(--blue)}
+    .suas-product-slide:nth-child(3) .suas-product-photo{background-color:var(--sun)}
+    .suas-product-slide:nth-child(4) .suas-product-photo{background-color:var(--lav)}
+    .suas-product-slide:nth-child(5) .suas-product-photo{background-color:var(--lime)}
+    .suas-product-slide:nth-child(6) .suas-product-photo{background-color:var(--hot)}
     @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
     @media(max-width:990px){
       .suas-aisles{grid-template-columns:1fr 1fr;gap:8px}
@@ -325,10 +325,10 @@
           </div>
           <div class="suas-hours-body">
             <ul class="suas-hours-list">
-              <li><span>mon–wed</span><span>closed / make days</span></li>
-              <li><span>thu–fri</span><span>self-guided 1–5 · guided 6–7:15</span></li>
-              <li><span>saturday</span><span>self-guided 1–4 · guided 4:30 or 6:00</span></li>
-              <li><span>sunday</span><span>self-guided 1–4 · no guided class</span></li>
+              <li><span>mon?��wed</span><span>closed / make days</span></li>
+              <li><span>thu?��fri</span><span>self-guided 1?��5 ?? guided 6?��7:15</span></li>
+              <li><span>saturday</span><span>self-guided 1?��4 ?? guided 4:30 or 6:00</span></li>
+              <li><span>sunday</span><span>self-guided 1?��4 ?? no guided class</span></li>
             </ul>
           </div>
         </div>
