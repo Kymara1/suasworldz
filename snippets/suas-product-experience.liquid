@@ -74,12 +74,20 @@
   .suas-pdp-step p{margin:0;font-size:14px;line-height:1.35}
   .suas-pdp-ing{margin:0;font-size:14px;font-weight:700;line-height:1.55}
   .suas-scent-notes{margin:8px 0 22px;clear:both;position:relative;z-index:1}
-  .suas-scent-notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
+  .suas-scent-notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
   .suas-scent-notes-grid.is-three{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .suas-scent-note{margin:0;border:2px solid #101010;border-radius:22px;overflow:hidden;background:#fff;box-shadow:4px 5px 0 #101010;display:flex;flex-direction:column}
+  .suas-scent-note{margin:0;border:2px solid #101010;border-radius:10px;overflow:hidden;background:#fff;box-shadow:4px 5px 0 #101010;display:flex;flex-direction:column}
+  .suas-xp-bar{display:grid;grid-template-columns:14px 1fr auto;align-items:center;gap:6px;min-height:22px;padding:3px 5px 3px 6px;background:linear-gradient(180deg,#5ea6f7 0%,#2b7ae4 38%,#1657c2 100%);border-bottom:2px solid #101010}
+  .suas-xp-icon{width:11px;height:11px;border-radius:2px;background:linear-gradient(180deg,#d9ff78,#7ad0ff);box-shadow:0 0 0 1px #101010}
+  .suas-xp-title{color:#fff;font-family:Tahoma,'Segoe UI',Futura,Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.02em;text-transform:lowercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:1px 1px 0 rgba(10,30,80,.55)}
+  .suas-xp-btns{display:flex;gap:3px}
+  .suas-xp-btns i{display:block;width:13px;height:12px;border:1px solid #fff;border-radius:2px;background:linear-gradient(#fff,#c5d3ea);box-shadow:0 1px 0 #0a246a;position:relative}
+  .suas-xp-btns i.min:after{content:'';position:absolute;left:2px;right:2px;bottom:2px;height:2px;background:#101010}
+  .suas-xp-btns i.max:after{content:'';position:absolute;inset:2px;border:1px solid #101010}
+  .suas-xp-btns i.x{background:linear-gradient(#ffc0da,#ff5aa0)}
   .suas-scent-note .pic{display:block;width:100%;aspect-ratio:1/1;overflow:hidden;background:#f4f1ea}
   .suas-scent-note img{display:block;width:100%!important;height:100%!important;max-height:none!important;object-fit:cover!important;object-position:center}
-  .suas-scent-note b{display:block;padding:10px 12px 12px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.15rem,3vw,1.55rem);line-height:.9;text-transform:lowercase;font-weight:700}
+  .suas-scent-note b{display:block;padding:8px 10px 10px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.15rem,3vw,1.55rem);line-height:.9;text-transform:lowercase;font-weight:700;background:#fff}
   @media(max-width:820px){
     .suas-pdp-fold-body{padding:0 14px 16px}
     .suas-pdp-fold summary{font-size:clamp(1.5rem,8vw,2rem);padding:14px}

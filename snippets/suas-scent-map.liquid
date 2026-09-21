@@ -20,6 +20,11 @@ Uncategorized notes default to sparkle.
           {%- assign np = rec | split: '|' -%}
           {%- if np[0] == product.handle -%}
             <figure class="suas-scent-note">
+              <span class="suas-xp-bar" aria-hidden="true">
+                <span class="suas-xp-icon"></span>
+                <span class="suas-xp-title">{{ np[1] }}.jpg</span>
+                <span class="suas-xp-btns"><i class="min"></i><i class="max"></i><i class="x"></i></span>
+              </span>
               <span class="pic"><img src="{{ np[3] | asset_url }}" alt="{{ np[1] }}" width="800" height="800" loading="lazy"></span>
               <b>{{ np[1] }}</b>
             </figure>
@@ -42,7 +47,12 @@ Uncategorized notes default to sparkle.
             {%- assign note_key = np[2] | append: '|' -%}
             {%- unless seen_notes contains note_key -%}
               {%- assign seen_notes = seen_notes | append: note_key -%}
-              <a href="/products/{{ np[0] }}">
+              <a class="suas-scent-note is-family" href="/products/{{ np[0] }}">
+                <span class="suas-xp-bar" aria-hidden="true">
+                  <span class="suas-xp-icon"></span>
+                  <span class="suas-xp-title">{{ np[2] }}.jpg</span>
+                  <span class="suas-xp-btns"><i class="min"></i><i class="max"></i><i class="x"></i></span>
+                </span>
                 <img src="{{ np[3] | asset_url }}" alt="{{ np[2] }}" width="800" height="800" loading="lazy">
                 <b>{{ np[2] }}</b>
               </a>
