@@ -1,4 +1,4 @@
-{{ 'suas-stations.css' | asset_url | stylesheet_tag }}
+{{ 'suas-stations.css' | asset_url | append: '&v=self25' | stylesheet_tag }}
 <style>
   html.suas-station-page body{margin:0;background:#f8f7f4}
   html.suas-station-page .layout--main-content,
@@ -317,7 +317,7 @@
     <div><p class="eyebrow">STILL CREATING?</p><h2>YOUR SESSION<br>IS PAUSED.</h2><p>Tap continue to keep your work. This station will clear private guest details in <b id="timeoutCountdown">60</b> seconds.</p><button class="primary-command" id="continueSession" type="button">CONTINUE SESSION</button></div>
   </div>
 </div>
-<script src="{{ 'suas-stations.js' | asset_url }}" defer></script>
+<script src="{{ 'suas-stations.js' | asset_url | append: '&v=self25' }}" defer></script>
 
 {% schema %}
 {

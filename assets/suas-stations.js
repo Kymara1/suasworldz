@@ -9,9 +9,9 @@ const store = {
 };
 
 const productChoices = [
-  { id: 'self-perfume', mode: 'self', name: 'Eau De Parfum', label: 'Perfume / Cologne', volume: 30, source: 'spray bottle ?? 3 scents ?? 30 mL', size: 'round175' },
-  { id: 'self-rollon', mode: 'self', name: 'Roll-On Perfume Oil', label: 'Roll-On', volume: 10, source: 'pocket oil ?? 3 scents ?? 10 mL', size: 'round125' },
-  { id: 'self-oil', mode: 'self', name: 'Body Oil', label: 'Body Oil', volume: 30, source: 'skin oil ?? 3 scents ?? 1 oz', size: 'rect13' },
+  { id: 'self-perfume', mode: 'self', name: 'Eau De Parfum', label: 'Perfume / Cologne', volume: 30, source: 'spray bottle / 3 scents / 30 mL', size: 'round175' },
+  { id: 'self-rollon', mode: 'self', name: 'Roll-On Perfume Oil', label: 'Roll-On', volume: 10, source: 'pocket oil / 3 scents / 10 mL', size: 'round125' },
+  { id: 'self-oil', mode: 'self', name: 'Body Oil', label: 'Body Oil', volume: 30, source: 'skin oil / 3 scents / 1 oz', size: 'rect13' },
   { id: 'guided-perfume', mode: 'guided', name: 'Eau De Parfum', label: '30 mL Perfume From Scratch', source: 'scent organ + perfumer base', size: 'round175' },
   { id: 'guided-oil', mode: 'guided', name: 'Body Oil', label: '1 oz Body Oil From Scratch', source: 'scent organ + chosen oil base', size: 'rect13' },
   { id: 'guided-butter', mode: 'guided', name: 'Butter Creme', label: '4 oz Butter Creme', source: 'pre-portioned creation kit', size: 'round175' },
@@ -106,9 +106,9 @@ function selfPourLabel(index) {
   const plan = selfPourPlan(product.volume);
   const item = plan[index];
   if (!item) return '';
-  if (plan.length === 1) return `${formatPourMl(item.ml)} ?? ALL`;
-  if (index === 0) return `${formatPourMl(item.ml)} ?? STAR`;
-  return `${formatPourMl(item.ml)} ?? PLUS`;
+  if (plan.length === 1) return `${formatPourMl(item.ml)} / ALL`;
+  if (index === 0) return `${formatPourMl(item.ml)} / MAIN`;
+  return `${formatPourMl(item.ml)} / EXTRA`;
 }
 
 function scentNoteCard(note, selected, index) {
@@ -176,9 +176,9 @@ const guides = {
     steps: [
       { title: 'PICK YOUR BOTTLE.', copy: 'tap one. perfume sprays. roll-on is pocket size. body oil goes on skin. you cannot mess this up.', art: 'options', panel: 'product' },
       { title: 'SMELL. PICK THREE.', copy: 'smell the blotters. tap the scent you want the most of first. that one gets the big pour. two more get a little extra. tap again to undo.', art: 'notes', panel: 'notes' },
-      { title: 'POUR THE RECIPE.', copy: 'the numbers on the right are the whole job. press the matching dispenser until that amount is in your bottle. no math. no mixing from scratch.', art: 'tools', panel: 'measure' },
-      { title: 'CAP. SWIRL. DONE.', copy: 'lid on first. turn it like a snow globe. do not shake. wipe the bottle. you made a scent.', art: 'bottle', panel: 'finish' },
-      { title: 'NAME IT. LABEL IT.', copy: 'give it a rude little name. check the preview. print. stick it on a clean bottle.', art: 'label', panel: 'label' }
+      { title: 'POUR THE RECIPE.', copy: 'each card is one tap on the bar. pour that amount, then the next. stop when the number is in the bottle.', art: 'tools', panel: 'measure' },
+      { title: 'LID. ROLL. WIPE.', copy: 'put the lid on. roll the bottle in your hands. wipe the glass. that is the finish.', art: 'bottle', panel: 'finish' },
+      { title: 'NAME THE BOTTLE.', copy: 'type a name. print one sticker. press it on a dry bottle.', art: 'label', panel: 'label' }
     ]
   },
   charm: {
@@ -423,6 +423,10 @@ function operationDemo(title, instruction, body, className = '') {
   </div>`;
 }
 
+function selfGuestStage(title, instruction, body) {
+  return `<div class="self-guest-stage"><div class="self-guest-art">${body}</div><div class="self-guest-copy"><strong>${title}</strong><span>${instruction}</span></div></div>`;
+}
+
 function charmLayoutDemo() {
   return operationDemo('LAY IT OUT BEFORE YOU ATTACH', 'Keep the piece flat. Slide each loose charm beside an attachment point until the spacing looks balanced.', `<div class="layout-demo">
     <div class="layout-demo__base">${[1,2,3,4,5].map((n) => `<i><small>${n}</small></i>`).join('')}</div>
@@ -461,15 +465,15 @@ function selfPourDemo() {
   const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
   const plan = selfPourPlan(product.volume);
   const slots = plan.length ? plan : [
-    { note: 'STAR SCENT', ml: Number((20 * (product.volume / 30)).toFixed(1)), empty: true },
-    { note: 'PLUS ONE', ml: Number((5 * (product.volume / 30)).toFixed(1)), empty: true },
-    { note: 'PLUS TWO', ml: Number((5 * (product.volume / 30)).toFixed(1)), empty: true }
+    { note: 'MAIN SCENT', ml: Number((20 * (product.volume / 30)).toFixed(1)), empty: true },
+    { note: 'EXTRA', ml: Number((5 * (product.volume / 30)).toFixed(1)), empty: true },
+    { note: 'EXTRA', ml: Number((5 * (product.volume / 30)).toFixed(1)), empty: true }
   ];
   const cards = slots.map((item, index) => {
-    const role = plan.length ? (plan.length === 1 ? 'THE WHOLE BOTTLE' : index === 0 ? 'STAR / BIG POUR' : 'PLUS / LITTLE POUR') : (index === 0 ? 'STAR / BIG POUR' : 'PLUS / LITTLE POUR');
-    return `<article class="beginner-pour-card${item.empty ? ' is-empty' : ''}"><b>${String(index + 1).padStart(2, '0')}</b><small>${role}</small><strong>${escapeMarkup(item.note)}</strong><em>${formatPourMl(item.ml)}</em><span>${item.empty ? 'pick this on the last screen' : 'press this dispenser until the number is in'}</span></article>`;
+    const role = plan.length === 1 ? 'THE WHOLE BOTTLE' : index === 0 ? 'MAIN SCENT' : 'A LITTLE EXTRA';
+    return `<article class="beginner-pour-card${item.empty ? ' is-empty' : ''}"><b>${String(index + 1).padStart(2, '0')}</b><small>${role}</small><strong>${escapeMarkup(item.note)}</strong><em>${formatPourMl(item.ml)}</em><span>${item.empty ? 'pick this on the last screen' : 'pour until this amount is in the bottle'}</span></article>`;
   }).join('');
-  return operationDemo('POUR THE RECIPE.', plan.length ? 'your bottle is empty. each card is one dispenser. hit the number, stop, next card.' : 'go back one screen and tap at least one scent. three is the full SUAS pour.', `<div class="beginner-pour">${cards}</div>`, 'dispense-operation');
+  return selfGuestStage('POUR THE RECIPE.', plan.length ? 'match each card to a tap. pour, stop, next card.' : 'go back one screen and tap at least one scent.', `<div class="beginner-pour">${cards}</div>`);
 }
 
 function formulaDemo() {
@@ -482,19 +486,27 @@ function selfFormulaDemo() {
   const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
   const plan = selfPourPlan(product.volume);
   const placeholders = [
-    { note: 'STAR', ml: Number((20 * (product.volume / 30)).toFixed(1)), hint: 'tap your favorite first' },
-    { note: 'PLUS', ml: Number((5 * (product.volume / 30)).toFixed(1)), hint: 'a little extra' },
-    { note: 'PLUS', ml: Number((5 * (product.volume / 30)).toFixed(1)), hint: 'a little extra' }
+    { note: 'MAIN', ml: Number((20 * (product.volume / 30)).toFixed(1)), hint: 'tap your favorite first' },
+    { note: 'EXTRA', ml: Number((5 * (product.volume / 30)).toFixed(1)), hint: 'a little extra' },
+    { note: 'EXTRA', ml: Number((5 * (product.volume / 30)).toFixed(1)), hint: 'a little extra' }
   ];
-  const slots = [0, 1, 2].map((index) => plan[index] ? { ...plan[index], hint: index === 0 ? 'big pour' : 'little pour' } : placeholders[index]);
-  return operationDemo('YOUR RECIPE.', 'left is what you picked. right is how much goes in the bottle. tap scents on the panel to fill the slots.', `<div class="self-recipe">${slots.map((item, index) => `<article class="${plan[index] ? 'is-filled' : ''}"><b>${String(index + 1).padStart(2, '0')}</b><strong>${escapeMarkup(item.note)}</strong><em>${formatPourMl(item.ml)}</em><small>${item.hint}</small></article>`).join('')}</div>`, 'formula-operation');
+  const slots = [0, 1, 2].map((index) => plan[index] ? { ...plan[index], hint: index === 0 ? 'main scent' : 'a little extra' } : placeholders[index]);
+  return selfGuestStage('YOUR RECIPE.', 'tap scents on the right to fill these cards.', `<div class="self-recipe">${slots.map((item, index) => `<article class="${plan[index] ? 'is-filled' : ''}"><b>${String(index + 1).padStart(2, '0')}</b><strong>${escapeMarkup(item.note)}</strong><em>${formatPourMl(item.ml)}</em><small>${item.hint}</small></article>`).join('')}</div>`);
 }
 
 function finishBottleDemo() {
-  const closure = guideState.product === 'self-rollon' ? 'ROLLER + CAP' : guideState.product.includes('oil') ? 'DISC CAP' : 'SPRAYER + CAP';
+  const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
+  const figure = productFigure(product.id);
   if (guideState.labMode === 'self') {
-    return operationDemo('CAP. SWIRL. DONE.', 'lid first so nothing jumps out. slow turns. if it looks streaky, keep turning. no specialist required.', `<div class="premium-finish-demo"><article class="finish-step close-step"><b>01</b><strong>CAP ON</strong><div class="premium-finish-bottle"><i></i><em></em></div><span>${closure}</span></article><article class="finish-step mix-step"><b>02</b><strong>SLOW SWIRL</strong><div class="mix-orbit"><i></i><i></i><i></i></div><span>snow globe. not a cocktail shaker.</span></article><article class="finish-step fit-step"><b>03</b><strong>WIPE</strong><div class="premium-closure"><i></i><em></em></div><span>clean bottle. you are done.</span></article></div>`, 'finish-operation');
+    const lidCopy = product.id === 'self-rollon' ? 'press the roller in, then the cap' : 'screw the cap on first';
+    const rollCopy = product.id === 'self-rollon' ? 'roll it between your palms' : 'roll it in your hands. no shaking';
+    return selfGuestStage('LID. ROLL. WIPE.', 'cap first. roll until it looks even. wipe the glass.', `<div class="beginner-pour self-finish-grid">
+      <article class="beginner-pour-card"><b>01</b><div class="self-step-visual cap-visual">${figure}</div><strong>lid on</strong><span>${lidCopy}</span></article>
+      <article class="beginner-pour-card"><b>02</b><div class="self-step-visual roll-visual">${figure}</div><strong>roll it</strong><span>${rollCopy}</span></article>
+      <article class="beginner-pour-card"><b>03</b><div class="self-step-visual wipe-visual">${figure}<i class="wipe-shine"></i></div><strong>wipe</strong><span>clean bottle. you are done.</span></article>
+    </div>`);
   }
+  const closure = product.id === 'self-rollon' || product.id.includes('rollon') ? 'ROLLER + CAP' : product.id.includes('oil') ? 'DISC CAP' : 'SPRAYER + CAP';
   return operationDemo('MIX, FIT, AND FINISH', 'Close the bottle first, mix gently until the blend looks even, then fit the correct closure straight down.', `<div class="premium-finish-demo"><article class="finish-step close-step"><b>01</b><strong>CLOSE</strong><div class="premium-finish-bottle"><i></i><em></em></div><span>Cap before mixing.</span></article><article class="finish-step mix-step"><b>02</b><strong>GENTLE MIX</strong><div class="mix-orbit"><i></i><i></i><i></i></div><span>Turn slowly. Do not shake hard.</span></article><article class="finish-step fit-step"><b>03</b><strong>FIT</strong><div class="premium-closure"><i></i><em></em></div><span>${closure}</span></article></div>`, 'finish-operation');
 }
 
@@ -521,8 +533,16 @@ function charmPieceDemo() {
 }
 
 function labelDemo() {
-  const product = productChoices.find((item) => item.id === guideState.product)?.label || 'YOUR CREATION';
-  return operationDemo('NAME IT. LABEL IT.', 'Name the formula, preview the label, then center it on the clean bottle and smooth from the middle outward.', `<div class="premium-label-demo"><section class="label-file-preview"><small>LABEL FILE</small><b>${escapeMarkup(product)}</b><span>${guideState.notes.join(' / ') || 'YOUR SCENT NOTES'}</span><em>CENTER / PRESS / SMOOTH</em></section><section class="label-application"><div class="label-bottle-premium"><i></i><b>${escapeMarkup(product)}</b></div><div class="label-guide-lines"><span></span><span></span></div></section><section class="label-checks"><p><b>01</b> NAME</p><p><b>02</b> CENTER</p><p><b>03</b> SMOOTH</p></section></div>`, 'label-operation');
+  const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
+  const notes = guideState.notes.join(' / ') || 'your scents';
+  if (guideState.labMode === 'self') {
+    return selfGuestStage('NAME THE BOTTLE.', 'type a name. print one sticker. press it on.', `<div class="beginner-pour self-label-grid">
+      <article class="beginner-pour-card"><b>01</b><div class="self-step-visual name-visual"><i class="art-nameplate"><strong>NAME</strong></i></div><strong>name it</strong><span>type the blend name on the next screen</span></article>
+      <article class="beginner-pour-card"><b>02</b><div class="self-step-visual print-visual"><i class="art-sticker"><b>${escapeMarkup(product.label)}</b><small>${escapeMarkup(notes)}</small></i></div><strong>print one</strong><span>one sticker. that is it.</span></article>
+      <article class="beginner-pour-card"><b>03</b><div class="self-step-visual stick-visual">${productFigure(product.id)}<i class="art-on-bottle"></i></div><strong>stick it on</strong><span>press it onto a dry bottle</span></article>
+    </div>`);
+  }
+  return operationDemo('NAME IT. LABEL IT.', 'Name the formula, preview the label, then center it on the clean bottle and smooth from the middle outward.', `<div class="premium-label-demo"><section class="label-file-preview"><small>LABEL FILE</small><b>${escapeMarkup(product.label)}</b><span>${escapeMarkup(notes === 'your scents' ? 'YOUR SCENT NOTES' : notes)}</span><em>CENTER / PRESS / SMOOTH</em></section><section class="label-application"><div class="label-bottle-premium"><i></i><b>${escapeMarkup(product.label)}</b></div><div class="label-guide-lines"><span></span><span></span></div></section><section class="label-checks"><p><b>01</b> NAME</p><p><b>02</b> CENTER</p><p><b>03</b> SMOOTH</p></section></div>`, 'label-operation');
 }
 
 function renderStageArt(type, step) {
@@ -562,12 +582,11 @@ function renderLabMeasurePanel() {
     if (!plan.length) {
       return `<div class="self-coach">pick your scents first. the pour numbers live on the last screen.</div>${numberedBoard('NOT YET', ['go back. tap a scent you like. three is the full pour.'])}`;
     }
-    const bottle = product.id === 'self-rollon' ? 'the small roll-on bottle' : product.id === 'self-oil' ? 'the body oil bottle' : 'the spray bottle';
-    const pourLines = plan.map((item, index) => `find ${item.note}. press until you have ${formatPourMl(item.ml)}.${index === 0 && plan.length > 1 ? ' this is the big one.' : ''}`);
-    return `<div class="self-coach">you are pouring ready-made scent. do not use the scent organ. do not add extra oil.</div>${numberedBoard('DO THIS', [
-      `take ${bottle}. keep it empty until the recipe is in.`,
+    const pourLines = plan.map((item) => `pour ${item.note} to ${formatPourMl(item.ml)}.`);
+    return `<div class="self-coach">match each card to a tap on the bar. stop when the number is in.</div>${numberedBoard('YOUR STEPS', [
+      `grab your empty ${product.id === 'self-rollon' ? 'roll-on' : product.id === 'self-oil' ? 'body oil' : 'spray'} bottle.`,
       ...pourLines,
-      'when the last number is in, cap it. next screen is the swirl.'
+      'when the last pour is in, go to the next screen.'
     ])}`;
   }
   const guidedPlans = {
@@ -583,9 +602,9 @@ function renderLabFinishPanel() {
   const product = productChoices.find((item) => item.id === guideState.product) || productChoices[0];
   if (guideState.labMode === 'self') {
     const directions = product.id === 'self-rollon'
-      ? ['leave a little room at the top.', 'press the roller in, then the cap.', 'roll it between your palms. wipe. done.']
-      : ['cap on before you swirl.', 'slow turns until it looks even. no hard shake.', 'check the lid. wipe the bottle. you made that.'];
-    return `<div class="self-coach">if it looks weird, keep swirling. if anything leaks, call staff with the ghost button.</div>${numberedBoard('LAST MOVES', directions)}`;
+      ? ['press the roller in, then the cap.', 'roll it between your palms.', 'wipe the bottle. done.']
+      : ['put the lid on first.', 'roll it in your hands until it looks even.', 'wipe the glass.'];
+    return `<div class="self-coach">if it looks streaky, keep rolling. wave if you need a hand.</div>${numberedBoard('YOUR STEPS', directions)}`;
   }
   if (product.id === 'guided-butter') return numberedBoard('PIPE + JAR', ['Confirm the scent is evenly mixed.', 'Pipe or spoon into the finishing jar.', 'Smooth the top, close the jar, and wipe it clean.']);
   return numberedBoard('SPECIALIST FINAL CHECK', ['Mix the from-scratch formula until fully uniform.', 'Transfer the complete measured mixture into the correct finishing bottle.', 'Fit the closure, wipe the bottle clean, and review the finished product with your specialist.']);
@@ -626,10 +645,10 @@ function renderSelectionPanel(step) {
         { id: 'sparkle', label: 'SPARKLE' }
       ];
       const visible = scentFamilyFilter === 'ALL' ? scentChoices : scentChoices.filter((note) => scentFamilyGroup(note) === scentFamilyFilter);
-      const nextRole = guideState.notes.length >= maxNotes ? 'three is the max. tap one to drop it.' : guideState.notes.length === 0 ? 'next tap is your STAR. biggest pour.' : 'next tap is a little extra.';
+      const nextRole = guideState.notes.length >= maxNotes ? 'three is the max. tap one to drop it.' : guideState.notes.length === 0 ? 'next tap is your main scent. biggest pour.' : 'next tap is a little extra.';
       const recipe = [0, 1, 2].map((index) => {
         const note = guideState.notes[index];
-        return `<span class="${note ? 'is-filled' : ''}"><b>${index === 0 ? 'STAR' : 'PLUS'}</b><strong>${note ? escapeMarkup(note) : 'tap a scent'}</strong><small>${note ? selfPourLabel(index) : index === 0 ? 'big pour' : 'little pour'}</small></span>`;
+        return `<span class="${note ? 'is-filled' : ''}"><b>${index === 0 ? 'MAIN' : 'EXTRA'}</b><strong>${note ? escapeMarkup(note) : 'tap a scent'}</strong><small>${note ? selfPourLabel(index) : index === 0 ? 'main scent' : 'a little extra'}</small></span>`;
       }).join('');
       const grid = visible.length
         ? visible.map((note, index) => scentNoteCard(note, guideState.notes.includes(note), index)).join('')
@@ -682,7 +701,7 @@ function renderSelectionPanel(step) {
   };
   const copy = messages[step.panel];
   if (guideState.labMode === 'self' && step.panel === 'label') {
-    panel.innerHTML = `<p class="selection-title">STICK THE NAME ON IT.</p><div class="check-list"><span><i></i>type a blend name. rude is fine.</span><span><i></i>check that the three scents look right.</span><span><i></i>print one. center it. smooth from the middle out.</span></div>`;
+    panel.innerHTML = `<p class="selection-title">NAME THE BOTTLE.</p><div class="check-list"><span><i></i>type a name for what you made.</span><span><i></i>print one sticker.</span><span><i></i>press it onto a dry bottle.</span></div>`;
     return;
   }
   panel.innerHTML = `<p class="selection-title">${copy[0]}</p><div class="check-list">${copy.slice(1).map((item) => `<span><i></i>${item}</span>`).join('')}</div>`;

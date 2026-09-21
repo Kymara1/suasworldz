@@ -114,6 +114,11 @@ h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:0}
 @media(max-width:560px){.art-formula-flow,.art-measure-flow{grid-template-columns:1fr}.art-formula-flow>i,.art-measure-flow>i{transform:rotate(90deg)}.art-tray{min-height:270px}.tray-spots{gap:5px}.tray-spots i{font-size:21px}.measure-picture{min-height:180px}}
 
 /* Practical, beginner-first guide demonstrations */
+.self-guest-stage{display:grid;width:min(820px,96%);overflow:hidden;border:3px solid var(--ink);border-radius:24px;background:#fff;box-shadow:0 8px 0 var(--ink)}
+.self-guest-art{display:grid;min-height:390px;place-items:center;background:linear-gradient(120deg,#fff5f8,#fff 50%,#f7ffe4);padding:26px}
+.self-guest-copy{display:grid;gap:5px;border-top:2px solid var(--ink);padding:15px 20px}
+.self-guest-copy strong{font-family:var(--display);font-size:32px;line-height:1}
+.self-guest-copy span{max-width:72ch;font-size:12px;font-weight:750;line-height:1.4;color:#50505a}
 .operation-demo{display:grid;width:min(820px,96%);overflow:hidden;border:3px solid var(--ink);border-radius:24px;background:#fff;box-shadow:0 8px 0 var(--ink)}
 .operation-demo__bar{display:flex;min-height:38px;align-items:center;justify-content:space-between;border-bottom:2px solid var(--ink);background:#eef1f4;padding:0 14px;font-size:8px;font-weight:900;letter-spacing:.14em}
 .operation-demo__bar:before{width:42px;height:10px;background:radial-gradient(circle at 5px 5px,#ff5d57 0 5px,transparent 5.5px),radial-gradient(circle at 21px 5px,#ffbd2e 0 5px,transparent 5.5px),radial-gradient(circle at 37px 5px,#28c840 0 5px,transparent 5.5px);content:""}
@@ -133,7 +138,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:0}
 .label-demo{position:relative;width:480px;height:260px}.label-demo__bottle{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}.label-demo__sticker{position:absolute;left:50%;top:50%;display:grid;width:155px;min-height:75px;place-items:center;border:3px solid var(--ink);border-radius:12px;background:#fff;padding:8px;text-align:center;transform:translate(-50%,-50%);animation:labelApply 3s ease-in-out infinite}.label-demo__sticker b{font-family:var(--display);font-size:17px}.label-demo__sticker span{font-size:7px;font-weight:900}.label-demo__hands i{position:absolute;top:40%;width:85px;height:55px;border:5px solid var(--ink);border-radius:50%;background:var(--yellow);animation:smoothLabel 3s ease-in-out infinite}.label-demo__hands i:first-child{left:10%}.label-demo__hands i:last-child{right:10%;--hand-move:-35px}@keyframes labelApply{0%,15%{transform:translate(-50%,-50%) scale(1.15);opacity:.55}45%,100%{transform:translate(-50%,-50%) scale(1);opacity:1}}@keyframes smoothLabel{0%,35%,100%{transform:translateX(0)}60%,80%{transform:translateX(var(--hand-move,35px))}}
 .final-demo>div{display:grid;min-height:190px;place-items:center;align-content:center;gap:12px;border:3px solid var(--ink);border-radius:22px;background:#fff;box-shadow:0 6px 0 var(--ink)}.final-demo>div:nth-child(2){background:var(--blue)}.final-demo>div:nth-child(3){background:var(--lime)}.final-demo__seam i{width:88px;height:88px;border:10px solid var(--ink);border-radius:50%}.final-demo__tug i,.final-demo__done i{display:grid;width:82px;height:82px;place-items:center;border:6px solid var(--ink);border-radius:50%;background:#fff;font-size:35px;font-style:normal}.final-demo__tug span{font-size:35px}.final-demo b{font-size:9px;letter-spacing:.1em}
 
-@media(max-width:820px){.operation-demo{width:100%}.operation-demo__stage{min-height:350px;padding:18px}.operation-demo__caption strong{font-size:27px}.operation-demo__caption span{font-size:11px}.jump-demo__work{height:210px}.demo-plier{transform:scale(.82)}.demo-plier--right{transform:scaleX(-1) scale(.82)}.wall-demo,.formula-demo,.measure-demo,.finish-demo,.final-demo{gap:12px}}
+@media(max-width:820px){.self-guest-stage,.operation-demo{width:100%}.self-guest-art,.operation-demo__stage{min-height:350px;padding:18px}.self-guest-copy strong,.operation-demo__caption strong{font-size:27px}.operation-demo__caption span{font-size:11px}.jump-demo__work{height:210px}.demo-plier{transform:scale(.82)}.demo-plier--right{transform:scaleX(-1) scale(.82)}.wall-demo,.formula-demo,.measure-demo,.finish-demo,.final-demo{gap:12px}}
 @media(max-width:560px){.operation-demo__bar span{display:none}.operation-demo__stage{min-height:310px;padding:14px}.operation-demo__caption{padding:13px 15px}.operation-demo__caption strong{font-size:24px}.layout-demo{min-height:245px}.layout-demo__charms b{width:34px}.jump-demo__labels{grid-template-columns:1fr}.jump-demo__labels span{padding:5px}.jump-demo__work{height:190px}.demo-plier{left:-45px;transform:scale(.66)}.demo-plier--right{right:-45px;transform:scaleX(-1) scale(.66)}.demo-ring{width:92px;height:92px}.ring-half{border-width:11px}.jump-demo__warning{font-size:8px}.wall-demo,.formula-demo,.measure-demo,.finish-demo,.final-demo{grid-template-columns:1fr}.wall-demo>b,.formula-demo>b,.measure-demo>b{transform:rotate(90deg);font-size:28px}.wall-demo__grid{grid-template-columns:repeat(4,52px)}.wall-demo__tray{grid-template-columns:repeat(5,42px);padding:10px}.blotter-fan{height:190px}.blotter-fan i{height:165px;width:48px}.record-card{padding:14px}.measure-demo>div,.final-demo>div{min-height:125px}.dispense-demo{min-height:270px}.dispenser-shape{left:3%;transform:scale(.8)}.fill-bottle{right:8%;transform:scale(.8)}.finish-demo__fit{min-height:150px}.label-demo{width:300px;height:235px}.label-demo__hands i{width:55px}.label-demo__hands i:first-child{left:0}.label-demo__hands i:last-child{right:0}}
 
 /* Keep both pliers attached to the ring throughout the sideways-twist demo. */
@@ -516,15 +521,28 @@ body:has(#guided.is-visible) .help-button{transform:scale(.86);transform-origin:
 .self-recipe,.beginner-pour{display:grid;width:min(760px,96%);grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .self-recipe article,.beginner-pour-card{position:relative;display:grid;gap:8px;align-content:end;min-height:230px;border:3px solid var(--ink);border-radius:24px;background:#fff;padding:18px 16px;box-shadow:0 7px 0 var(--ink);text-align:left}
 .self-recipe article.is-filled{background:linear-gradient(160deg,#fff,var(--lime))}
-.self-recipe article b,.beginner-pour-card b{display:grid;width:34px;height:34px;place-items:center;border:2px solid var(--ink);border-radius:50%;background:var(--lime);font-size:10px;font-weight:950}
+.self-recipe article > b,.beginner-pour-card > b{display:grid;width:34px;height:34px;place-items:center;border:2px solid var(--ink);border-radius:50%;background:var(--lime);font-size:10px;font-weight:950}
 .self-recipe article strong,.beginner-pour-card strong{font-family:var(--display);font-size:clamp(26px,3.4vw,44px);font-weight:400;line-height:.85;text-transform:lowercase}
-.self-recipe article em,.beginner-pour-card em{font-style:normal;font-size:22px;font-weight:950}
+.self-recipe article > em,.beginner-pour-card > em{font-style:normal;font-size:22px;font-weight:950}
 .self-recipe article small,.beginner-pour-card small,.beginner-pour-card span{font-size:10px;font-weight:800;line-height:1.35}
 .beginner-pour-card{align-content:center;text-align:center;background:linear-gradient(160deg,#fff,var(--pink))}
 .beginner-pour-card:nth-child(2){background:linear-gradient(160deg,#fff,var(--yellow))}
 .beginner-pour-card:nth-child(3){background:linear-gradient(160deg,#fff,var(--blue))}
 .beginner-pour-card.is-empty{opacity:.42}
-.beginner-pour-card b{justify-self:center}
+.beginner-pour-card > b{justify-self:center}
+.self-step-visual{position:relative;display:grid;place-items:center;min-height:118px;width:100%}
+.self-step-visual .product-figure{transform:scale(1.22);margin:6px 0}
+.roll-visual .product-figure{animation:selfRoll 1.8s ease-in-out infinite}
+@keyframes selfRoll{0%,100%{transform:scale(1.22) rotate(-14deg)}50%{transform:scale(1.22) rotate(14deg)}}
+.wipe-shine{position:absolute;left:50%;top:42%;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fff,transparent 62%);transform:translate(-50%,-50%);pointer-events:none;animation:wipePop 1.6s ease-in-out infinite}
+@keyframes wipePop{50%{opacity:.25;transform:translate(-50%,-50%) scale(1.25)}}
+.art-nameplate{display:grid;width:128px;min-height:62px;place-items:center;border:4px solid var(--ink);border-radius:16px;background:#fff;box-shadow:0 4px 0 var(--ink)}
+.art-nameplate strong{font-family:var(--display);font-size:30px;font-weight:400;text-transform:lowercase}
+.art-sticker{display:grid;width:132px;min-height:84px;align-content:center;gap:5px;border:4px solid var(--ink);border-radius:16px;background:var(--lime);padding:10px 8px;text-align:center;box-shadow:0 4px 0 var(--ink)}
+.art-sticker b{display:block;font-family:var(--display);font-size:15px;font-weight:400;line-height:.9;text-transform:lowercase}
+.art-sticker small{display:block;max-width:100%;overflow:hidden;font-size:7px;font-weight:900;letter-spacing:.03em;text-overflow:ellipsis;white-space:nowrap}
+.stick-visual .art-on-bottle{position:absolute;left:50%;top:52%;width:52px;height:26px;border:3px solid var(--ink);border-radius:8px;background:#fff;transform:translate(-50%,-50%)}
+.self-finish-grid .beginner-pour-card,.self-label-grid .beginner-pour-card{align-content:center;text-align:center}
 .scent-note-card.is-selected[data-pour]:after{content:attr(data-pour);max-width:92px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #nextStep:disabled{opacity:.4;box-shadow:none;pointer-events:none}
 @media(max-width:900px){.self-recipe,.beginner-pour,.self-recipe-mini{grid-template-columns:1fr}.self-recipe article,.beginner-pour-card{min-height:160px}}
