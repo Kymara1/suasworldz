@@ -13,12 +13,12 @@
   assign product_id = product.id | append: '-' | append: section.id
   assign video_looping_enabled = section.settings.loop-enabled
   assign pdp_name = product.title | split: '?' | first | strip
-  assign pdp_name = pdp_name | split: '✿' | first | split: '*' | first | strip
+  assign pdp_name = pdp_name | split: '?�?' | first | split: '*' | first | strip
   if product.type != blank
     assign pdp_name = pdp_name | replace: product.type, '' | strip
   endif
   if pdp_name == blank
-    assign pdp_name = product.title | split: '✿' | first | split: '?' | first | strip
+    assign pdp_name = product.title | split: '?�?' | first | split: '?' | first | strip
   endif
   assign pdp_hook = product.description | strip_html | split: '.' | first | strip
   assign pdp_handle = product.handle | downcase
@@ -52,12 +52,12 @@
     assign mix_3 = 'skin musk'
     assign mix_3_note = 'the drydown'
   elsif pdp_handle contains 'haze'
-    assign mix_1 = 'coconut'
-    assign mix_1_note = 'creamy + sunny'
-    assign mix_2 = 'vanilla'
-    assign mix_2_note = 'warm + plush'
-    assign mix_3 = 'warm skin'
-    assign mix_3_note = 'the trail'
+    assign mix_1 = 'wildflower'
+    assign mix_1_note = 'bouquet on a breeze'
+    assign mix_2 = 'petals'
+    assign mix_2_note = 'fresh + pretty'
+    assign mix_3 = 'sunshine'
+    assign mix_3_note = 'golden hour'
   elsif pdp_handle contains 'good'
     assign mix_1 = 'pear'
     assign mix_1_note = 'juicy + bright'
@@ -647,7 +647,7 @@
           "id": "description",
           "label": "Text",
           "default": "<p>Use tabs to highlight unique features, sizing information, or other sales information.</p>",
-          "info": "You can use product metafields to assign content to this tab that is unique to an individual product. Learn more about�[metafields](https://help.shopify.com/en/manual/metafields/displaying-metafields-on-your-online-store)."
+          "info": "You can use product metafields to assign content to this tab that is unique to an individual product. Learn more about???[metafields](https://help.shopify.com/en/manual/metafields/displaying-metafields-on-your-online-store)."
         },
         {
           "type": "page",
