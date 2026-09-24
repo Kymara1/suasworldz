@@ -57,7 +57,7 @@ Book the Lab|/pages/bookings
 Charm Bar|/pages/charm-bar
 Contact Us|{{ suas_contact_url }}
 Refund Policy|/pages/refund-policy{% endcapture %}
-{% if template.suffix == 'suas-men' or template.suffix == 'suas-men-inner' or template.suffix == 'cologne' or template.suffix == 'exfoliating-body-wash' or template.suffix == 'body-oil-1' or template.suffix contains 'men-s-' or template.suffix contains 'masculine' or template.suffix contains 'beard' or template.suffix contains 'm-body' or template.suffix contains 'm-butter' or template.suffix contains 'm-eau' or template.suffix contains 'm-skin' %}
+{% if template.suffix == 'suas-men' or template.suffix == 'suas-men-inner' or template.suffix == 'cologne' or template.suffix == 'exfoliating-body-wash' or template.suffix contains 'men-s-' or template.suffix contains 'masculine' or template.suffix contains 'beard' or template.suffix contains 'm-body' or template.suffix contains 'm-butter' or template.suffix contains 'm-eau' or template.suffix contains 'm-skin' %}
   {% assign suas_men_panel = true %}
 {% else %}
   {% assign suas_men_panel = false %}
@@ -96,7 +96,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     <nav class="suas-side-nav">
       {% if suas_men_panel %}
         <a class="suas-side-link{% if request.path contains '/collections/cologne' %} is-active{% endif %}" href="/collections/cologne"><span class="suas-side-icon" style="--tint:#fff">01</span><span class="suas-side-label">cologne</span><span class="suas-side-num">01</span></a>
-        <a class="suas-side-link{% if request.path contains '/collections/body-oil-1' or request.path contains '/collections/m-body-oil' %} is-active{% endif %}" href="/collections/body-oil-1"><span class="suas-side-icon" style="--tint:#fff">02</span><span class="suas-side-label">oil</span><span class="suas-side-num">02</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/m-body-oil' %} is-active{% endif %}" href="/collections/m-body-oil"><span class="suas-side-icon" style="--tint:#fff">02</span><span class="suas-side-label">oil</span><span class="suas-side-num">02</span></a>
         <a class="suas-side-link{% if request.path contains '/collections/masculine' %} is-active{% endif %}" href="/collections/masculine"><span class="suas-side-icon" style="--tint:#fff">03</span><span class="suas-side-label">the rack</span><span class="suas-side-num">03</span></a>
         <a class="suas-side-link{% if request.path contains '/collections/exfoliating-body-wash' %} is-active{% endif %}" href="/collections/exfoliating-body-wash"><span class="suas-side-icon" style="--tint:#fff">04</span><span class="suas-side-label">wash</span><span class="suas-side-num">04</span></a>
         <a class="suas-side-link{% if request.path contains '/collections/beard' %} is-active{% endif %}" href="/collections/beard"><span class="suas-side-icon" style="--tint:#fff">05</span><span class="suas-side-label">beard</span><span class="suas-side-num">05</span></a>
