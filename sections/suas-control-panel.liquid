@@ -101,6 +101,7 @@
                 assign panel_color = 'var(--violet)'
               endif
             -%}
+            {%- unless title_down contains 'masculine' -%}
             {%- if link.links.size > 0 -%}
               <details class="suas-panel-dropdown">
                 <summary class="suas-panel-link{% if link.active or link.child_active %} is-active{% endif %}"><span class="suas-panel-icon" style="--icon-bg: {{ panel_color }};">{{ panel_icon }}</span><span class="suas-panel-label">{{ link.title }}</span><span class="suas-panel-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></summary>
@@ -150,12 +151,12 @@
             {%- else -%}
               <a class="suas-panel-link{% if link.active %} is-active{% endif %}" href="{{ panel_url }}"><span class="suas-panel-icon" style="--icon-bg: {{ panel_color }};">{{ panel_icon }}</span><span class="suas-panel-label">{{ link.title }}</span><span class="suas-panel-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></a>
             {%- endif -%}
+            {%- endunless -%}
           {%- endfor -%}
         {%- else -%}
           <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">o</span><span class="suas-panel-label">body</span><span class="suas-panel-number">01</span></summary><div class="suas-panel-submenu"><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/collections/body-jelly">Body Jelly</a><a href="/collections/body-oil">Body Oil</a><a href="/collections/cleansing-bar">Cleansing Bar</a><a href="/collections/body-wash">Body Wash</a></div></details>
           <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--yellow);">i</span><span class="suas-panel-label">home</span><span class="suas-panel-number">02</span></summary><div class="suas-panel-submenu"><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/collections/burnt-oils">Burnt Oils</a></div></details>
-          <a class="suas-panel-link" href="/collections/masculine"><span class="suas-panel-icon" style="--icon-bg: var(--blue);">*</span><span class="suas-panel-label">masculine</span><span class="suas-panel-number">03</span></a>
-          <a class="suas-panel-link" href="/collections/feminine"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">x</span><span class="suas-panel-label">feminine</span><span class="suas-panel-number">04</span></a>
+          <a class="suas-panel-link" href="/collections/feminine"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">x</span><span class="suas-panel-label">feminine</span><span class="suas-panel-number">03</span></a>
           <a class="suas-panel-link" href="/collections/oddities"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">*</span><span class="suas-panel-label">oddities</span><span class="suas-panel-number">05</span></a>
           <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">?</span><span class="suas-panel-label">about us</span><span class="suas-panel-number">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who Are We</a><details class="suas-panel-subgroup"><summary>Bookings</summary><div class="suas-panel-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact-us">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
         {%- endif -%}

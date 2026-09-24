@@ -89,10 +89,6 @@
               assign side_icon = 'x'
               assign side_color = 'var(--suas-pink)'
               assign mobile_keep = true
-            elsif title_down contains 'masculine'
-              assign side_icon = '*'
-              assign side_color = 'var(--suas-blue)'
-              assign mobile_keep = true
             elsif title_down contains 'dupe'
               assign side_icon = '~'
               assign side_color = 'var(--suas-lime)'
@@ -118,6 +114,7 @@
               assign is_about = true
             endif
           -%}
+          {%- unless title_down contains 'masculine' -%}
           {%- if link.links.size > 0 or is_about -%}
             {%- liquid assign has_visit = false -%}
             <details class="suas-panel-dropdown suas-side-dropdown" data-suas-menu-title="{{ title_handle }}"{% if mobile_keep %} data-suas-mobile-keep="true"{% endif %}>
@@ -142,11 +139,11 @@
           {%- else -%}
             <a class="suas-side-link{% if link.active %} is-active{% endif %}" data-suas-menu-title="{{ title_handle }}"{% if mobile_keep %} data-suas-mobile-keep="true"{% endif %} href="{{ link.url }}"><span class="suas-side-icon" style="--tint: {{ side_color }};">{{ side_icon }}</span><span class="suas-side-label">{{ link.title }}</span><span class="suas-side-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span></a>
           {%- endif -%}
+          {%- endunless -%}
         {%- endfor -%}
       {%- else -%}
         <details class="suas-panel-dropdown suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-pink);">x</span><span class="suas-side-label">feminine</span><span class="suas-side-num">01</span></summary><div class="suas-panel-submenu"><a href="/collections/cleansing-bar">Cleansing Bar</a><a href="/collections/body-oil">Body Oil</a><a href="/collections/body-wash">Body Wash</a><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/body-scrub">Body Scrub</a><a href="/collections/eau-de-parfum">Perfume</a><a href="/collections/body-jelly">Skin Jelly</a></div></details>
-        <details class="suas-panel-dropdown suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-blue);">*</span><span class="suas-side-label">masculine</span><span class="suas-side-num">02</span></summary><div class="suas-panel-submenu"><a href="/collections/cleansing-bar">Cleansing Bar</a><a href="/collections/body-oil">Body Oil</a><a href="/collections/body-wash">Body Wash</a><a href="/collections/butter-creme">Butter Creme</a><a href="/collections/cologne">Cologne</a><a href="/collections/exfoliating-body-wash">Exfoliating Body Wash</a><a href="/collections/beard">Beard</a></div></details>
-        <a class="suas-side-link" data-suas-mobile-keep="true" href="/collections/dupe"><span class="suas-side-icon" style="--tint: var(--suas-lime);">~</span><span class="suas-side-label">Dupe?</span><span class="suas-side-num">03</span></a>
+        <a class="suas-side-link" data-suas-mobile-keep="true" href="/collections/dupe"><span class="suas-side-icon" style="--tint: var(--suas-lime);">~</span><span class="suas-side-label">Dupe?</span><span class="suas-side-num">02</span></a>
         <a class="suas-side-link" data-suas-mobile-keep="true" href="/collections/clearance"><span class="suas-side-icon" style="--tint: var(--suas-pink);">%</span><span class="suas-side-label">clearance</span><span class="suas-side-num">04</span></a>
         <a class="suas-side-link" href="/collections/oddities"><span class="suas-side-icon" style="--tint: var(--suas-lav);">*</span><span class="suas-side-label">oddities</span><span class="suas-side-num">05</span></a>
         <details class="suas-panel-dropdown suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link"><span class="suas-side-icon" style="--tint: var(--suas-lav);">?</span><span class="suas-side-label">about us</span><span class="suas-side-num">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who Are We</a><a href="/pages/bookings">Bookings</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact-us">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>

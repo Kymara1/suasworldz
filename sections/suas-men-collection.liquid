@@ -1,0 +1,83 @@
+<section class="suas-men-collection" aria-label="{{ collection.title | escape }}">
+  {% render 'suas-men-chrome' %}
+  <style>
+    .suas-men-collection{display:grid;place-items:start center;color:#fff;background:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),#000;background-size:22px 22px,22px 22px,auto;font-family:Futura,'Futura PT',Arial,sans-serif;padding:24px 16px 40px;min-height:calc(100vh - 36px)}
+    .suas-men-collection *{box-sizing:border-box}
+    .suas-men-collection a{color:inherit}
+    .suas-men-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;letter-spacing:0!important}
+    .suas-men-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900}
+    .suas-men-win{width:min(880px,100%);border:2px solid #fff;border-radius:22px;background:#000;box-shadow:5px 6px 0 #fff;overflow:hidden}
+    .suas-men-bar{min-height:40px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:7px 12px;border-bottom:2px solid #fff}
+    .suas-men-dots{display:flex;gap:6px}
+    .suas-men-dot{width:10px;height:10px;border-radius:999px;border:1.5px solid #fff}
+    .suas-men-dot.is-on{background:#fff}
+    .suas-men-bar b{text-align:center;font-size:11px;letter-spacing:.18em}
+    .suas-men-exit{color:#fff;text-decoration:none;font-size:9px;letter-spacing:.14em}
+    .suas-men-body{display:flex;flex-direction:column;gap:12px;padding:14px}
+    .suas-men-body h1{margin:0;text-align:center;font-size:clamp(2rem,5vw,2.8rem);line-height:.8;text-transform:lowercase}
+    .suas-men-chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+    .suas-men-chips a{min-height:36px;display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;border:1.75px solid #fff;border-radius:999px;background:#000;color:#fff;box-shadow:0 2px 0 #fff;text-decoration:none;text-align:center;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    .suas-men-chips a.is-on{background:#fff;color:#000}
+    .suas-men-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .suas-men-tile{display:flex;flex-direction:column;gap:7px;padding:10px;border:2px solid #fff;border-radius:14px;text-decoration:none}
+    .suas-men-tile img,.suas-men-blank{display:block;width:100%;aspect-ratio:1;object-fit:contain;border:1.5px solid #fff;border-radius:10px;background:#111}
+    .suas-men-tile b{font-size:.9rem;line-height:.95;text-transform:lowercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .suas-men-empty{margin:0;text-align:center;font-size:13px;font-weight:800;opacity:.7}
+    .suas-men-pages{display:flex;justify-content:center;gap:8px}
+    .suas-men-pages a,.suas-men-pages span{min-height:32px;display:inline-flex;align-items:center;padding:0 10px;border:1.5px solid #fff;border-radius:999px;text-decoration:none;font-size:10px;font-weight:900}
+    @media(max-width:700px){
+      .suas-men-chips,.suas-men-grid{grid-template-columns:1fr 1fr}
+      .suas-men-win{border-radius:18px}
+    }
+  </style>
+  {% paginate collection.products by 24 %}
+  <article class="suas-men-win">
+    <div class="suas-men-bar">
+      <div class="suas-men-dots" aria-hidden="true"><span class="suas-men-dot is-on"></span><span class="suas-men-dot"></span><span class="suas-men-dot"></span></div>
+      <b class="suas-men-mono">the rack</b>
+      <a class="suas-men-exit suas-men-mono" href="/pages/suas-men">back</a>
+    </div>
+    <div class="suas-men-body">
+      <h1 class="suas-men-font">{{ collection.title }}</h1>
+      <div class="suas-men-chips">
+        <a href="/collections/cologne"{% if collection.handle == 'cologne' or collection.handle == 'men-s-cologne' %} class="is-on"{% endif %}>Cologne</a>
+        <a href="/collections/m-eau-de-parfum"{% if collection.handle == 'm-eau-de-parfum' %} class="is-on"{% endif %}>Parfum</a>
+        <a href="/collections/m-body-oil"{% if collection.handle == 'm-body-oil' %} class="is-on"{% endif %}>Body oil</a>
+        <a href="/collections/m-butter-creme"{% if collection.handle == 'm-butter-creme' %} class="is-on"{% endif %}>Butter creme</a>
+        <a href="/collections/m-body-wash"{% if collection.handle == 'm-body-wash' or collection.handle == 'exfoliating-body-wash' %} class="is-on"{% endif %}>Body wash</a>
+        <a href="/collections/beard"{% if collection.handle contains 'beard' %} class="is-on"{% endif %}>Beard</a>
+      </div>
+      <div class="suas-men-grid">
+        {% for product in collection.products %}
+          {% unless product.handle contains 'lab-session' or product.handle contains 'charm-bar' %}
+            <a class="suas-men-tile" href="{{ product.url }}">
+              {% if product.featured_image %}
+                {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+              {% else %}
+                <div class="suas-men-blank"></div>
+              {% endif %}
+              <b class="suas-men-font">{{ product.title }}</b>
+              <span class="suas-men-mono">{{ product.price | money }}</span>
+            </a>
+          {% endunless %}
+        {% endfor %}
+      </div>
+      {% if collection.products_count == 0 %}
+        <p class="suas-men-empty">nothing on this shelf yet.</p>
+      {% endif %}
+      {% if paginate.pages > 1 %}
+        <div class="suas-men-pages">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
+    </div>
+  </article>
+  {% endpaginate %}
+</section>
+{% schema %}
+{
+  "name": "SUAS Men Collection",
+  "settings": [],
+  "presets": [{"name": "SUAS Men Collection"}]
+}
+{% endschema %}

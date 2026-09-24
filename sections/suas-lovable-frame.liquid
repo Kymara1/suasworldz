@@ -57,7 +57,7 @@ Book the Lab|/pages/bookings
 Charm Bar|/pages/charm-bar
 Contact Us|{{ suas_contact_url }}
 Refund Policy|/pages/refund-policy{% endcapture %}
-{% if template.suffix == 'suas-men' %}
+{% if template.suffix == 'suas-men' or template.suffix == 'suas-men-inner' or template.suffix == 'cologne' or template.suffix == 'exfoliating-body-wash' or template.suffix contains 'men-s-' or template.suffix contains 'masculine' or template.suffix contains 'beard' or template.suffix contains 'm-body' or template.suffix contains 'm-butter' or template.suffix contains 'm-eau' or template.suffix contains 'm-skin' %}
   {% assign suas_men_panel = true %}
 {% else %}
   {% assign suas_men_panel = false %}
@@ -128,7 +128,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
         <details class="suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.body_tint }}">{{ section.settings.body_icon }}</span><span class="suas-side-label">{{ section.settings.body_label }}</span><span class="suas-side-num">{{ section.settings.body_number }}</span></summary><div class="suas-panel-submenu">{% if body_collections.size > 0 or has_body_block_collections %}{% for collection in body_collections %}<a href="{{ collection.url }}">{{ collection.title }}</a>{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'body' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endif %}{% endfor %}{% elsif body_menu.links.size > 0 %}{% for link in body_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in body_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
-      {% if section.settings.home_enabled %}
+      {% if false %}
         {% liquid
           assign item_active = false
           assign home_active_paths = section.settings.home_active_paths | default: '/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/incense,/collections/carpet-dust,/collections/all-purpose-cleaner' | split: ','
