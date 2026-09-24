@@ -58,82 +58,50 @@
     html.suas-halloween.suas-men .suas-floating-cart{background:#000!important;color:#fff!important;border:1px solid #fff!important;box-shadow:none!important}
     html.suas-men .suas-floating-cart__count,
     html.suas-halloween.suas-men .suas-floating-cart__count{background:#fff!important;color:#000!important;border-color:#fff!important}
-    .suas-men-world{color:#fff;background:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),#000;background-size:22px 22px,22px 22px,auto;font-family:Futura,'Futura PT',Arial,sans-serif;padding:18px 0 36px;min-height:calc(100vh - 36px)}
+    .suas-men-world{display:grid;place-items:center;color:#fff;background:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),#000;background-size:22px 22px,22px 22px,auto;font-family:Futura,'Futura PT',Arial,sans-serif;padding:28px 16px;min-height:calc(100vh - 36px)}
     .suas-men-world *{box-sizing:border-box}
     .suas-men-world a{color:inherit}
     .suas-men-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;letter-spacing:0!important}
     .suas-men-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900}
-    .suas-men-wrap{width:min(1080px,calc(100vw - 24px));margin:0 auto}
-    .suas-men-win{border:2px solid #fff;border-radius:20px;background:#000;box-shadow:5px 6px 0 #fff;overflow:hidden}
-    .suas-men-bar{min-height:42px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:8px 14px;border-bottom:2px solid #fff;background:#000;color:#fff}
+    .suas-men-win{width:min(420px,100%);border:2px solid #fff;border-radius:22px;background:#000;box-shadow:5px 6px 0 #fff;overflow:hidden}
+    .suas-men-bar{min-height:40px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:7px 12px;border-bottom:2px solid #fff}
     .suas-men-dots{display:flex;gap:6px}
-    .suas-men-dot{width:10px;height:10px;border-radius:999px;border:1.5px solid #fff;background:transparent}
+    .suas-men-dot{width:10px;height:10px;border-radius:999px;border:1.5px solid #fff}
     .suas-men-dot.is-on{background:#fff}
-    .suas-men-bar b{text-align:center;font-size:11px;letter-spacing:.2em}
+    .suas-men-bar b{text-align:center;font-size:11px;letter-spacing:.18em}
     .suas-men-exit{color:#fff;text-decoration:none;font-size:9px;letter-spacing:.14em}
-    .suas-men-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:12px}
-    .suas-men-tile{display:flex;flex-direction:column;gap:7px;padding:10px;border:2px solid #fff;border-radius:14px;background:#000;color:#fff;text-decoration:none}
-    .suas-men-tile img,.suas-men-blank{display:block;width:100%;aspect-ratio:1;object-fit:contain;border:1.5px solid #fff;border-radius:10px;background:#111}
-    .suas-men-tile b{font-size:.9rem;line-height:.95;text-transform:lowercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .suas-men-tile span{opacity:.8}
-    @media(max-width:700px){.suas-men-grid{grid-template-columns:1fr 1fr;gap:8px;padding:10px}}
+    .suas-men-body{display:flex;flex-direction:column;gap:10px;padding:14px 14px 16px}
+    .suas-men-body small{display:block;text-align:center}
+    .suas-men-body h1{margin:0;text-align:center;font-size:clamp(2.1rem,6vw,2.8rem);line-height:.8;text-transform:lowercase}
+    .suas-men-chips{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+    .suas-men-chips a{min-height:36px;display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;border:1.75px solid #fff;border-radius:999px;background:#000;color:#fff;box-shadow:0 2px 0 #fff;text-decoration:none;text-align:center;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    .suas-men-chips a:hover{transform:translateY(1px);box-shadow:0 1px 0 #fff;color:#fff}
+    @media(max-width:560px){
+      .suas-men-world{padding:18px 12px}
+      .suas-men-win{border-radius:18px}
+      .suas-men-body h1{font-size:clamp(1.7rem,8vw,2.2rem)}
+      .suas-men-chips a{min-height:32px;font-size:9px}
+    }
   </style>
-  {% liquid
-    assign rack_handles = 'ember-eau-de-parfum,ember-body-oil,ember-body-scrub,crimson-body-oil,crimson-body-scrub' | split: ','
-    assign rack_shown = 0
-    assign rack_seen = ''
-  %}
-  <div class="suas-men-wrap">
-    <div class="suas-men-win">
-      <div class="suas-men-bar">
-        <div class="suas-men-dots" aria-hidden="true"><span class="suas-men-dot is-on"></span><span class="suas-men-dot"></span><span class="suas-men-dot"></span></div>
-        <b class="suas-men-mono">the rack</b>
-        <a class="suas-men-exit suas-men-mono" href="/">exit</a>
-      </div>
-      <div class="suas-men-grid">
-        {% if collections['masculine'] != blank %}
-          {% for product in collections['masculine'].products limit: 8 %}
-            {% unless product.handle contains 'lab-session' or product.handle contains 'charm-bar' %}
-              {% assign rack_key = product.handle | append: ',' %}
-              {% unless rack_seen contains rack_key %}
-                {% assign rack_shown = rack_shown | plus: 1 %}
-                {% assign rack_seen = rack_seen | append: rack_key %}
-                <a class="suas-men-tile" href="{{ product.url }}">
-                  {% if product.featured_image %}
-                    {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
-                  {% else %}
-                    <div class="suas-men-blank"></div>
-                  {% endif %}
-                  <b class="suas-men-font">{{ product.title }}</b>
-                  <span class="suas-men-mono">{{ product.price | money }}</span>
-                </a>
-              {% endunless %}
-            {% endunless %}
-          {% endfor %}
-        {% endif %}
-        {% for handle in rack_handles %}
-          {% if rack_shown >= 8 %}{% break %}{% endif %}
-          {% assign product = all_products[handle] %}
-          {% if product != blank %}
-            {% assign rack_key = product.handle | append: ',' %}
-            {% unless rack_seen contains rack_key %}
-              {% assign rack_shown = rack_shown | plus: 1 %}
-              {% assign rack_seen = rack_seen | append: rack_key %}
-              <a class="suas-men-tile" href="{{ product.url }}">
-                {% if product.featured_image %}
-                  {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
-                {% else %}
-                  <div class="suas-men-blank"></div>
-                {% endif %}
-                <b class="suas-men-font">{{ product.title }}</b>
-                <span class="suas-men-mono">{{ product.price | money }}</span>
-              </a>
-            {% endunless %}
-          {% endif %}
-        {% endfor %}
+  <article class="suas-men-win">
+    <div class="suas-men-bar">
+      <div class="suas-men-dots" aria-hidden="true"><span class="suas-men-dot is-on"></span><span class="suas-men-dot"></span><span class="suas-men-dot"></span></div>
+      <b class="suas-men-mono">the rack</b>
+      <a class="suas-men-exit suas-men-mono" href="/">exit</a>
+    </div>
+    <div class="suas-men-body">
+      <small class="suas-men-mono">suas men</small>
+      <h1 class="suas-men-font">the rack</h1>
+      <div class="suas-men-chips">
+        <a href="/collections/cologne">Cologne</a>
+        <a href="/collections/m-eau-de-parfum">Parfum</a>
+        <a href="/collections/m-body-oil">Body oil</a>
+        <a href="/collections/m-butter-creme">Butter creme</a>
+        <a href="/collections/m-body-wash">Body wash</a>
+        <a href="/collections/beard">Beard</a>
       </div>
     </div>
-  </div>
+  </article>
 </section>
 {% schema %}
 {
