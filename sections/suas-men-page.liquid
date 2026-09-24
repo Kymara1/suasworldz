@@ -31,7 +31,7 @@
     }
   </style>
   {% liquid
-    assign rack_handles = 'cologne,m-eau-de-parfum,m-body-oil,m-butter-creme,m-body-wash,beard' | split: ','
+    assign rack_handles = 'cologne,body-oil-1,exfoliating-body-wash,beard,masculine' | split: ','
     assign mapped_handle = ''
     case page.handle
       when 'men-s-butters'
@@ -61,11 +61,11 @@
       <h1 class="suas-men-font">{{ page.title }}</h1>
       <div class="suas-men-chips">
         <a href="/collections/cologne">Cologne</a>
-        <a href="/collections/m-eau-de-parfum">Parfum</a>
-        <a href="/collections/m-body-oil">Body oil</a>
-        <a href="/collections/m-butter-creme">Butter creme</a>
-        <a href="/collections/m-body-wash">Body wash</a>
+        <a href="/collections/body-oil-1">Body oil</a>
+        <a href="/collections/masculine">Butter creme</a>
+        <a href="/collections/exfoliating-body-wash">Body wash</a>
         <a href="/collections/beard">Beard</a>
+        <a href="/collections/masculine">The rack</a>
       </div>
       {% if show_all_racks %}
         {% for handle in rack_handles %}

@@ -40,12 +40,12 @@
     <div class="suas-men-body">
       <h1 class="suas-men-font">{{ collection.title }}</h1>
       <div class="suas-men-chips">
-        <a href="/collections/cologne"{% if collection.handle == 'cologne' or collection.handle == 'men-s-cologne' %} class="is-on"{% endif %}>Cologne</a>
-        <a href="/collections/m-eau-de-parfum"{% if collection.handle == 'm-eau-de-parfum' %} class="is-on"{% endif %}>Parfum</a>
-        <a href="/collections/m-body-oil"{% if collection.handle == 'm-body-oil' %} class="is-on"{% endif %}>Body oil</a>
-        <a href="/collections/m-butter-creme"{% if collection.handle == 'm-butter-creme' %} class="is-on"{% endif %}>Butter creme</a>
-        <a href="/collections/m-body-wash"{% if collection.handle == 'm-body-wash' or collection.handle == 'exfoliating-body-wash' %} class="is-on"{% endif %}>Body wash</a>
+        <a href="/collections/cologne"{% if collection.handle == 'cologne' %} class="is-on"{% endif %}>Cologne</a>
+        <a href="/collections/body-oil-1"{% if collection.handle == 'body-oil-1' or collection.handle == 'm-body-oil' %} class="is-on"{% endif %}>Body oil</a>
+        <a href="/collections/masculine"{% if collection.handle == 'masculine' %} class="is-on"{% endif %}>Butter creme</a>
+        <a href="/collections/exfoliating-body-wash"{% if collection.handle == 'exfoliating-body-wash' or collection.handle == 'm-body-wash' %} class="is-on"{% endif %}>Body wash</a>
         <a href="/collections/beard"{% if collection.handle contains 'beard' %} class="is-on"{% endif %}>Beard</a>
+        <a href="/collections/masculine"{% if collection.handle == 'masculine' %} class="is-on"{% endif %}>The rack</a>
       </div>
       <div class="suas-men-grid">
         {% for product in collection.products %}
