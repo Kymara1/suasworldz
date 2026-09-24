@@ -39,10 +39,26 @@
     html.suas-men .suas-side-status-dot,
     html.suas-halloween.suas-men .suas-side-status-dot{background:#fff!important;box-shadow:none!important}
     html.suas-men .suas-frame-marquee,
-    html.suas-halloween.suas-men .suas-frame-marquee{background:#000!important;color:#fff!important;border-bottom:1px solid #fff!important}
+    html.suas-halloween.suas-men .suas-frame-marquee{background:#000!important;color:#fff!important;border-bottom:1px solid #fff!important;box-shadow:none!important}
     html.suas-men .suas-mobile-bar{background:#000!important;color:#fff!important;border-color:#fff!important}
     html.suas-men .suas-panel-toggle{color:#fff!important;border-color:#fff!important;background:#000!important}
-    .suas-men-world{color:#fff;background:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),#000;background-size:22px 22px,22px 22px,auto;font-family:Futura,'Futura PT',Arial,sans-serif;padding:18px 0 36px;min-height:70vh}
+    html.suas-men .off-canvas--viewport,
+    html.suas-men .off-canvas--main-content,
+    html.suas-men .layout--main-content,
+    html.suas-men .shopify-section,
+    html.suas-halloween.suas-men .off-canvas--viewport,
+    html.suas-halloween.suas-men .off-canvas--main-content,
+    html.suas-halloween.suas-men .layout--main-content{background:#000!important}
+    html.suas-men #shopify-section-footer,
+    html.suas-men .section--footer,
+    html.suas-men .footer--root,
+    html.suas-men .header--root,
+    html.suas-men .announcement--root{display:none!important;background:#000!important}
+    html.suas-men .suas-floating-cart,
+    html.suas-halloween.suas-men .suas-floating-cart{background:#000!important;color:#fff!important;border:1px solid #fff!important;box-shadow:none!important}
+    html.suas-men .suas-floating-cart__count,
+    html.suas-halloween.suas-men .suas-floating-cart__count{background:#fff!important;color:#000!important;border-color:#fff!important}
+    .suas-men-world{color:#fff;background:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),#000;background-size:22px 22px,22px 22px,auto;font-family:Futura,'Futura PT',Arial,sans-serif;padding:18px 0 36px;min-height:calc(100vh - 36px)}
     .suas-men-world *{box-sizing:border-box}
     .suas-men-world a{color:inherit}
     .suas-men-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;letter-spacing:0!important}
@@ -63,13 +79,9 @@
     @media(max-width:700px){.suas-men-grid{grid-template-columns:1fr 1fr;gap:8px;padding:10px}}
   </style>
   {% liquid
-    assign rack = collections['masculine']
-    if rack == blank or rack.products_count == 0
-      assign rack = collections['cologne']
-    endif
-    if rack == blank or rack.products_count == 0
-      assign rack = collections['m-eau-de-parfum']
-    endif
+    assign rack_handles = 'ember-eau-de-parfum,ember-body-oil,ember-body-scrub,crimson-body-oil,crimson-body-scrub' | split: ','
+    assign rack_shown = 0
+    assign rack_seen = ''
   %}
   <div class="suas-men-wrap">
     <div class="suas-men-win">
@@ -79,11 +91,34 @@
         <a class="suas-men-exit suas-men-mono" href="/">exit</a>
       </div>
       <div class="suas-men-grid">
-        {% assign rack_shown = 0 %}
-        {% if rack != blank %}
-          {% for product in rack.products limit: 8 %}
+        {% if collections['masculine'] != blank %}
+          {% for product in collections['masculine'].products limit: 8 %}
             {% unless product.handle contains 'lab-session' or product.handle contains 'charm-bar' %}
+              {% assign rack_key = product.handle | append: ',' %}
+              {% unless rack_seen contains rack_key %}
+                {% assign rack_shown = rack_shown | plus: 1 %}
+                {% assign rack_seen = rack_seen | append: rack_key %}
+                <a class="suas-men-tile" href="{{ product.url }}">
+                  {% if product.featured_image %}
+                    {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+                  {% else %}
+                    <div class="suas-men-blank"></div>
+                  {% endif %}
+                  <b class="suas-men-font">{{ product.title }}</b>
+                  <span class="suas-men-mono">{{ product.price | money }}</span>
+                </a>
+              {% endunless %}
+            {% endunless %}
+          {% endfor %}
+        {% endif %}
+        {% for handle in rack_handles %}
+          {% if rack_shown >= 8 %}{% break %}{% endif %}
+          {% assign product = all_products[handle] %}
+          {% if product != blank %}
+            {% assign rack_key = product.handle | append: ',' %}
+            {% unless rack_seen contains rack_key %}
               {% assign rack_shown = rack_shown | plus: 1 %}
+              {% assign rack_seen = rack_seen | append: rack_key %}
               <a class="suas-men-tile" href="{{ product.url }}">
                 {% if product.featured_image %}
                   {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
@@ -94,11 +129,8 @@
                 <span class="suas-men-mono">{{ product.price | money }}</span>
               </a>
             {% endunless %}
-          {% endfor %}
-        {% endif %}
-        {% if rack_shown == 0 %}
-          <a class="suas-men-tile" href="/collections/masculine"><div class="suas-men-blank"></div><b class="suas-men-font">open masculine</b></a>
-        {% endif %}
+          {% endif %}
+        {% endfor %}
       </div>
     </div>
   </div>
