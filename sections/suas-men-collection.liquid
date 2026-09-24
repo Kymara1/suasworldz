@@ -34,18 +34,17 @@
   <article class="suas-men-win">
     <div class="suas-men-bar">
       <div class="suas-men-dots" aria-hidden="true"><span class="suas-men-dot is-on"></span><span class="suas-men-dot"></span><span class="suas-men-dot"></span></div>
-      <b class="suas-men-mono">the rack</b>
+      <b class="suas-men-mono">suas men</b>
       <a class="suas-men-exit suas-men-mono" href="/pages/suas-men">back</a>
     </div>
     <div class="suas-men-body">
-      <h1 class="suas-men-font">{{ collection.title }}</h1>
+      <h1 class="suas-men-font">{% if collection.handle == 'masculine' %}the rack{% else %}{{ collection.title }}{% endif %}</h1>
       <div class="suas-men-chips">
         <a href="/collections/cologne"{% if collection.handle == 'cologne' %} class="is-on"{% endif %}>Cologne</a>
         <a href="/collections/m-body-oil"{% if collection.handle == 'm-body-oil' %} class="is-on"{% endif %}>Body oil</a>
         <a href="/collections/m-butter-creme"{% if collection.handle == 'm-butter-creme' %} class="is-on"{% endif %}>Butter creme</a>
         <a href="/collections/exfoliating-body-wash"{% if collection.handle == 'exfoliating-body-wash' %} class="is-on"{% endif %}>Body wash</a>
         <a href="/collections/beard"{% if collection.handle contains 'beard' %} class="is-on"{% endif %}>Beard</a>
-        <a href="/collections/masculine"{% if collection.handle == 'masculine' %} class="is-on"{% endif %}>The rack</a>
       </div>
       <div class="suas-men-grid">
         {% assign suas_men_shown = 0 %}

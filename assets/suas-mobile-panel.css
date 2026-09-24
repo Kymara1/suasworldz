@@ -256,14 +256,14 @@
   html body .suas-side-dropdown .suas-panel-submenu {
     position: static !important;
     display: none !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     gap: 6px !important;
     margin: 2px 0 10px 8px !important;
-    padding: 8px !important;
+    padding: 4px 4px 8px 12px !important;
     max-height: none !important;
-    border: 1px solid rgba(16, 16, 16, 0.1) !important;
-    border-radius: 18px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
     box-shadow: none !important;
   }
 
@@ -272,14 +272,16 @@
   }
 
   html body .suas-panel-submenu a {
-    min-height: 34px !important;
-    justify-content: center !important;
-    text-align: center !important;
-    padding: 6px 7px !important;
-    font-size: 10px !important;
-    letter-spacing: .06em !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    min-height: 32px !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding: 6px 10px !important;
+    font-size: 9px !important;
+    letter-spacing: .1em !important;
     line-height: 1.15 !important;
-    white-space: normal !important;
+    white-space: nowrap !important;
   }
 
   html body .suas-side-nav a.suas-side-link[href*='the-lab'],
