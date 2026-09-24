@@ -1,0 +1,297 @@
+<section class="suas-men-world" aria-label="SUAS Men">
+  <style>
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
+    .suas-men-world{--ink:#101010;--cream:#f3f1ea;--lime:#d9ff78;--ice:#9ec7d9;--steel:#6f8494;--char:#1c1c1c;color:var(--ink);background:linear-gradient(rgba(16,16,16,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.05) 1px,transparent 1px),radial-gradient(circle at 10% 12%,rgba(158,199,217,.42),transparent 30%),radial-gradient(circle at 92% 80%,rgba(217,255,120,.22),transparent 32%),var(--cream);background-size:22px 22px,22px 22px,auto,auto,auto;font-family:Futura,'Futura PT',Arial,sans-serif;padding:12px 0 36px}
+    .suas-men-world *{box-sizing:border-box}
+    .suas-men-world a{color:inherit}
+    .suas-men-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
+    .suas-men-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:900}
+    .suas-men-wrap{width:min(1340px,calc(100vw - 24px));margin:0 auto;display:grid;gap:12px}
+    .suas-men-top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(240px,.8fr);gap:12px;align-items:stretch}
+    .suas-men-hero,.suas-men-side,.suas-men-aisle,.suas-men-win{border:2px solid var(--ink);border-radius:22px;box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-men-hero{padding:18px 20px;background:linear-gradient(135deg,#101010 0%,#2a3238 58%,#3d4a38 100%);color:#f3f1ea}
+    .suas-men-kicker{opacity:.7;color:var(--lime)}
+    .suas-men-title{margin:6px 0 0;font-size:clamp(2.4rem,6vw,4.4rem);line-height:.82;text-transform:uppercase;color:#f3f1ea}
+    .suas-men-copy{margin:10px 0 0;max-width:34rem;font-size:14px;font-weight:800;line-height:1.35;color:rgba(243,241,234,.78)}
+    .suas-men-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .suas-men-btn{min-height:42px;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--lime);border-radius:999px;padding:8px 16px;background:var(--lime);color:var(--ink);box-shadow:0 4px 0 #000;text-decoration:none;font-weight:900}
+    .suas-men-btn[data-ghost]{background:transparent;color:var(--lime)}
+    .suas-men-btn:hover{color:var(--ink);transform:translateY(2px);box-shadow:0 2px 0 #000}
+    .suas-men-btn[data-ghost]:hover{color:var(--lime)}
+    .suas-men-side{background:#fff;padding:0;display:flex;flex-direction:column}
+    .suas-men-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;min-height:40px;padding:8px 12px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#d7dde2,#b7c0c8)}
+    .suas-men-dots{display:flex;gap:6px}
+    .suas-men-dot{width:10px;height:10px;border-radius:999px;background:var(--dot)}
+    .suas-men-bar span{text-align:center;font-size:10px;letter-spacing:.16em;font-weight:900}
+    .suas-men-side-body{display:grid;gap:8px;padding:12px}
+    .suas-men-side-body p{margin:0;padding:10px;border:1.5px solid var(--ink);border-radius:14px;background:#f3f1ea;font-size:12px;font-weight:800;line-height:1.35}
+    .suas-men-aisles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .suas-men-aisle{padding:16px;display:flex;flex-direction:column;gap:10px;background-image:linear-gradient(rgba(16,16,16,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.1) 1px,transparent 1px);background-size:22px 22px}
+    .suas-men-aisle--scent{background-color:#9ec7d9}
+    .suas-men-aisle--kit{background-color:#d9ff78}
+    .suas-men-aisle small{display:block;text-align:center;font-size:10px;letter-spacing:.18em}
+    .suas-men-aisle h2{margin:0;text-align:center;font-size:clamp(2rem,4vw,3.2rem);line-height:.8;text-transform:lowercase}
+    .suas-men-chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+    .suas-men-chips a{min-height:36px;display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;border:1.75px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 2px 0 var(--ink);text-decoration:none;text-align:center;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    .suas-men-chips a:hover{transform:translateY(1px);box-shadow:0 1px 0 var(--ink)}
+    .suas-men-mid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,1fr);gap:12px}
+    .suas-men-win{background:rgba(255,255,255,.94)}
+    .suas-men-feed{padding:14px;display:grid;gap:12px}
+    .suas-men-slide{display:none;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:12px;align-items:center}
+    .suas-men-slide.is-on{display:grid}
+    .suas-men-photo{position:relative;aspect-ratio:1;border:2px solid var(--ink);border-radius:18px;background:#fff;overflow:hidden;text-decoration:none;box-shadow:3px 4px 0 var(--ink)}
+    .suas-men-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:6%}
+    .suas-men-card{display:grid;align-content:center;gap:8px;min-width:0;padding:12px;border:2px solid var(--ink);border-radius:16px;background:#f3f1ea}
+    .suas-men-card a{text-decoration:none;font-size:clamp(1.2rem,2vw,1.6rem);line-height:.9;text-transform:lowercase}
+    .suas-men-price{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .suas-men-price b{min-height:32px;display:inline-flex;align-items:center;padding:6px 10px;border:1.5px solid var(--ink);border-radius:999px;background:#fff}
+    .suas-men-atc{min-height:32px;border:1.75px solid var(--ink);border-radius:999px;padding:6px 12px;background:var(--lime);box-shadow:0 2px 0 var(--ink);font-weight:900;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+    .suas-men-atc:disabled{opacity:.4;cursor:not-allowed}
+    .suas-men-launch{padding:12px;display:grid;gap:8px}
+    .suas-men-launch a{min-height:58px;display:flex;flex-direction:column;justify-content:center;padding:10px 12px;border:1.75px solid var(--ink);border-radius:16px;background:var(--tile,#fff);box-shadow:0 3px 0 var(--ink);text-decoration:none}
+    .suas-men-launch a strong{font-size:1.15rem;line-height:.9;text-transform:lowercase}
+    .suas-men-launch a span{margin-top:4px;font-size:9px;letter-spacing:.12em}
+    .suas-men-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .suas-men-tile{display:flex;flex-direction:column;gap:8px;padding:10px;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:3px 4px 0 var(--ink);text-decoration:none;overflow:hidden}
+    .suas-men-tile img,.suas-men-blank{display:block;width:100%;aspect-ratio:1;object-fit:contain;border:1.5px solid var(--ink);border-radius:12px;background:linear-gradient(135deg,#fff,var(--ice))}
+    .suas-men-tile b{font-size:.92rem;line-height:.95;text-transform:lowercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    @media(max-width:990px){
+      .suas-men-top,.suas-men-aisles,.suas-men-mid{grid-template-columns:1fr}
+      .suas-men-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .suas-men-slide,.suas-men-slide.is-on{grid-template-columns:minmax(0,180px) minmax(0,1fr)}
+    }
+    @media(max-width:560px){
+      .suas-men-aisles{grid-template-columns:1fr 1fr;gap:6px}
+      .suas-men-aisle{padding:8px}
+      .suas-men-aisle h2{font-size:clamp(1.3rem,7vw,1.8rem)}
+      .suas-men-chips a{min-height:28px;font-size:8px}
+      .suas-men-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+    }
+  </style>
+  {% liquid
+    assign men_scent = collections['cologne']
+    if men_scent == blank or men_scent.products_count == 0
+      assign men_scent = collections['m-eau-de-parfum']
+    endif
+    assign men_oil = collections['m-body-oil']
+    if men_oil == blank or men_oil.products_count == 0
+      assign men_oil = collections['body-oil']
+    endif
+    assign men_butter = collections['m-butter-creme']
+    if men_butter == blank or men_butter.products_count == 0
+      assign men_butter = collections['m-butter-creme']
+    endif
+    assign men_wash = collections['m-body-wash']
+    assign men_beard = collections['beard']
+    assign men_all = collections['masculine']
+    if men_all == blank or men_all.products_count == 0
+      assign men_all = collections['masculine-scents']
+    endif
+    assign feed_cols = 'cologne,m-eau-de-parfum,beard,m-body-oil,m-butter-creme,m-body-wash,masculine' | split: ','
+  %}
+  <div class="suas-men-wrap">
+    <div class="suas-men-top">
+      <header class="suas-men-hero">
+        <div class="suas-men-kicker suas-men-mono">suas.os / terminal 02</div>
+        <h1 class="suas-men-title suas-men-font">suas men.</h1>
+        <p class="suas-men-copy">cologne. oil. beard. butter. same OS, no bouquet copy. mix it in the lab or grab a finished bottle.</p>
+        <div class="suas-men-actions">
+          <a class="suas-men-btn suas-men-mono" href="/collections/masculine">shop the rack</a>
+          <a class="suas-men-btn suas-men-mono" data-ghost href="/pages/bookings">book the lab</a>
+          <a class="suas-men-btn suas-men-mono" data-ghost href="/">exit to main world</a>
+        </div>
+      </header>
+      <aside class="suas-men-side">
+        <div class="suas-men-bar">
+          <div class="suas-men-dots"><span class="suas-men-dot" style="--dot:#ff5f57"></span><span class="suas-men-dot" style="--dot:#febc2e"></span><span class="suas-men-dot" style="--dot:#28c840"></span></div>
+          <span class="suas-men-mono">SYS.NOTE</span>
+          <span class="suas-men-mono">LIVE</span>
+        </div>
+        <div class="suas-men-side-body">
+          <p>this is the men terminal. pink stays on the other desk.</p>
+          <p>walk-ins during lab hours. gastonia. 188 w franklin.</p>
+          <p>thu&ndash;sun. closed mon&ndash;wed.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="suas-men-aisles">
+      <article class="suas-men-aisle suas-men-aisle--scent">
+        <small class="suas-men-mono">aisle 01</small>
+        <h2 class="suas-men-font">scent</h2>
+        <div class="suas-men-chips">
+          <a href="/collections/cologne">Cologne</a>
+          <a href="/collections/m-eau-de-parfum">Eau de Parfum</a>
+          <a href="/pages/bookings">Lab session</a>
+          <a href="/collections/masculine">All masculine</a>
+        </div>
+      </article>
+      <article class="suas-men-aisle suas-men-aisle--kit">
+        <small class="suas-men-mono">aisle 02</small>
+        <h2 class="suas-men-font">kit</h2>
+        <div class="suas-men-chips">
+          <a href="/collections/m-body-oil">Body oil</a>
+          <a href="/collections/m-butter-creme">Butter creme</a>
+          <a href="/collections/m-body-wash">Body wash</a>
+          <a href="/collections/beard">Beard</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="suas-men-mid">
+      <div class="suas-men-win">
+        <div class="suas-men-bar">
+          <div class="suas-men-dots"><span class="suas-men-dot" style="--dot:#ff5f57"></span><span class="suas-men-dot" style="--dot:#febc2e"></span><span class="suas-men-dot" style="--dot:#28c840"></span></div>
+          <span class="suas-men-mono">MEN.FEED</span>
+          <span class="suas-men-mono">LIVE</span>
+        </div>
+        <div class="suas-men-feed" data-suas-men-feed>
+          {% liquid
+            assign feed_seen = ''
+            assign feed_shown = 0
+          %}
+          {% for col_handle in feed_cols %}
+            {% assign feed_col = collections[col_handle] %}
+            {% if feed_col != blank and feed_col.products_count > 0 %}
+              {% for product in feed_col.products limit: 6 %}
+                {% if feed_shown >= 8 %}{% break %}{% endif %}
+                {% assign feed_key = product.handle | append: ',' %}
+                {% unless feed_seen contains feed_key %}
+                  {% unless product.handle contains 'lab-session' or product.handle contains 'charm-bar' %}
+                    <div class="suas-men-slide{% if feed_shown == 0 %} is-on{% endif %}">
+                      <a class="suas-men-photo" href="{{ product.url }}">
+                        {% if product.featured_image %}
+                          {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'eager', alt: product.title }}
+                        {% endif %}
+                      </a>
+                      <div class="suas-men-card">
+                        <a class="suas-men-font" href="{{ product.url }}">{{ product.title }}</a>
+                        {% render 'product-rating', product: product, star_link: true %}
+                        <div class="suas-men-price">
+                          <b class="suas-men-mono">{{ product.price | money }}</b>
+                          <button type="button" class="suas-men-atc suas-men-mono" data-suas-atc="{{ product.selected_or_first_available_variant.id }}"{% unless product.available %} disabled{% endunless %}>add</button>
+                        </div>
+                      </div>
+                    </div>
+                    {% assign feed_seen = feed_seen | append: feed_key %}
+                    {% assign feed_shown = feed_shown | plus: 1 %}
+                  {% endunless %}
+                {% endunless %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+          {% if feed_shown == 0 %}
+            <div class="suas-men-slide is-on">
+              <a class="suas-men-photo" href="/collections/masculine"></a>
+              <div class="suas-men-card">
+                <a class="suas-men-font" href="/collections/masculine">masculine rack</a>
+                <div class="suas-men-price"><b class="suas-men-mono">shop</b></div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="suas-men-win">
+        <div class="suas-men-bar">
+          <div class="suas-men-dots"><span class="suas-men-dot" style="--dot:#ff5f57"></span><span class="suas-men-dot" style="--dot:#febc2e"></span><span class="suas-men-dot" style="--dot:#28c840"></span></div>
+          <span class="suas-men-mono">QUICK.LAUNCH</span>
+          <span class="suas-men-mono">GO</span>
+        </div>
+        <div class="suas-men-launch">
+          <a href="/collections/cologne" style="--tile:#9ec7d9"><strong class="suas-men-font">cologne</strong><span class="suas-men-mono">scent</span></a>
+          <a href="/collections/beard" style="--tile:#d9ff78"><strong class="suas-men-font">beard</strong><span class="suas-men-mono">kit</span></a>
+          <a href="/pages/bookings" style="--tile:#e8edf0"><strong class="suas-men-font">book the lab</strong><span class="suas-men-mono">reserve</span></a>
+          <a href="/pages/visit-us" style="--tile:#fff"><strong class="suas-men-font">visit us</strong><span class="suas-men-mono">gastonia</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="suas-men-win">
+      <div class="suas-men-bar">
+        <div class="suas-men-dots"><span class="suas-men-dot" style="--dot:#ff5f57"></span><span class="suas-men-dot" style="--dot:#febc2e"></span><span class="suas-men-dot" style="--dot:#28c840"></span></div>
+        <span class="suas-men-mono">THE.RACK</span>
+        <span class="suas-men-mono">OPEN</span>
+      </div>
+      <div class="suas-men-feed">
+        <div class="suas-men-grid">
+          {% liquid
+            assign rack = men_all
+            if rack == blank or rack.products_count == 0
+              assign rack = men_scent
+            endif
+            assign rack_shown = 0
+          %}
+          {% if rack != blank %}
+            {% for product in rack.products limit: 8 %}
+              {% unless product.handle contains 'lab-session' or product.handle contains 'charm-bar' %}
+                {% assign rack_shown = rack_shown | plus: 1 %}
+                <a class="suas-men-tile" href="{{ product.url }}">
+                  {% if product.featured_image %}
+                    {{ product.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: product.title }}
+                  {% else %}
+                    <div class="suas-men-blank"></div>
+                  {% endif %}
+                  <b class="suas-men-font">{{ product.title }}</b>
+                  <span class="suas-men-mono">{{ product.price | money }}</span>
+                </a>
+              {% endunless %}
+            {% endfor %}
+          {% endif %}
+          {% if rack_shown == 0 %}
+            <a class="suas-men-tile" href="/collections/masculine"><div class="suas-men-blank"></div><b class="suas-men-font">open masculine</b></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var root = document.currentScript.closest('.suas-men-world');
+      if (!root) return;
+      var slides = root.querySelectorAll('.suas-men-slide');
+      if (slides.length > 1) {
+        var active = 0;
+        setInterval(function () {
+          slides[active].classList.remove('is-on');
+          active = (active + 1) % slides.length;
+          slides[active].classList.add('is-on');
+        }, 7600);
+      }
+      root.querySelectorAll('[data-suas-atc]').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+          event.preventDefault();
+          if (button.disabled) return;
+          var id = Number(button.getAttribute('data-suas-atc'));
+          if (!id) return;
+          var original = button.textContent;
+          button.disabled = true;
+          button.textContent = 'adding';
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ id: id, quantity: 1 })
+          }).then(function (response) {
+            if (!response.ok) throw new Error('cart');
+            return response.json();
+          }).then(function () {
+            button.textContent = 'added';
+            setTimeout(function () { button.disabled = false; button.textContent = original; }, 1200);
+          }).catch(function () {
+            button.disabled = false;
+            button.textContent = 'try again';
+            setTimeout(function () { button.textContent = original; }, 1400);
+          });
+        });
+      });
+    })();
+  </script>
+</section>
+{% schema %}
+{
+  "name": "SUAS Men World",
+  "settings": [],
+  "presets": [{"name": "SUAS Men World"}]
+}
+{% endschema %}

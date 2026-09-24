@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "suas_men_world": {
+      "type": "suas-men-world",
+      "settings": {}
+    }
+  },
+  "order": ["suas_men_world"]
+}

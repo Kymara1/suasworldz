@@ -17,7 +17,11 @@
     .suas-home-logo-arc-text{font-family:Futura,'Futura PT',Arial,sans-serif;font-weight:900;font-size:22px;letter-spacing:.04em;text-transform:uppercase;fill:var(--ink)}
     .suas-home-logo-tag{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     .suas-home-logo-type{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(3.6rem,10vw,6.4rem);font-weight:700;line-height:.8;text-transform:uppercase}
-    .suas-aisles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .suas-aisles{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch}
+    .suas-aisle-col{display:flex;flex-direction:column;gap:10px;min-width:0;min-height:0}
+    .suas-aisle-col .suas-aisle{flex:1}
+    .suas-men-jump{min-height:46px;display:flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:999px;background:#101010;color:#d9ff78;box-shadow:4px 5px 0 var(--ink);text-decoration:none;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.35rem,2.4vw,1.85rem);line-height:.85;letter-spacing:0;text-transform:uppercase}
+    .suas-men-jump:hover{color:#d9ff78;transform:translateY(2px);box-shadow:2px 3px 0 var(--ink)}
     .suas-aisle{display:flex;flex-direction:column;gap:10px;min-height:0;padding:16px;border:2px solid var(--ink);border-radius:24px;box-shadow:5px 6px 0 var(--ink);overflow:hidden;background-image:linear-gradient(rgba(16,16,16,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.1) 1px,transparent 1px);background-size:22px 22px}
     .suas-aisle--body{background-color:#ffd4ea}
     .suas-aisle--home{background-color:#fff1a8}
@@ -108,6 +112,8 @@
     }
     @media(max-width:560px){
       .suas-aisles{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px}
+      .suas-aisle-col{gap:6px}
+      .suas-men-jump{min-height:32px;font-size:clamp(1rem,4.6vw,1.25rem);box-shadow:2px 3px 0 var(--ink)}
       .suas-aisle{padding:8px 7px 9px;border-radius:14px;gap:6px;box-shadow:3px 4px 0 var(--ink)}
       .suas-aisle small{font-size:7px;letter-spacing:.12em}
       .suas-aisle h3{font-size:clamp(1.35rem,7.5vw,1.85rem)}
@@ -196,19 +202,22 @@
               <a href="/collections/body">Shop body</a>
             </div>
           </article>
-          <article class="suas-aisle suas-aisle--home">
-            <small class="suas-mono">aisle 02</small>
-            <h3 class="suas-font">home</h3>
-            <div class="suas-aisle-chips">
-              <a href="/collections/candles">Candles</a>
-              <a href="/collections/everything-mist">Everything Mist</a>
-              <a href="/collections/burnt-oils">Burnt Oils</a>
-              <a href="/collections/incense">Incense</a>
-              <a href="/collections/carpet-dust">Carpet Dust</a>
-              <a href="/collections/all-purpose-cleaner">All Purpose Cleaner</a>
-              <a href="/collections/home">Shop home</a>
-            </div>
-          </article>
+          <div class="suas-aisle-col">
+            <a class="suas-men-jump" href="/pages/suas-men">suas men</a>
+            <article class="suas-aisle suas-aisle--home">
+              <small class="suas-mono">aisle 02</small>
+              <h3 class="suas-font">home</h3>
+              <div class="suas-aisle-chips">
+                <a href="/collections/candles">Candles</a>
+                <a href="/collections/everything-mist">Everything Mist</a>
+                <a href="/collections/burnt-oils">Burnt Oils</a>
+                <a href="/collections/incense">Incense</a>
+                <a href="/collections/carpet-dust">Carpet Dust</a>
+                <a href="/collections/all-purpose-cleaner">All Purpose Cleaner</a>
+                <a href="/collections/home">Shop home</a>
+              </div>
+            </article>
+          </div>
         </div>
         <div class="suas-mid-row">
         <div class="suas-now-card">
