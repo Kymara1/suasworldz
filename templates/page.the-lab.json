@@ -18,8 +18,8 @@
         "kicker": "the lab",
         "heading": "Create your Signature Scent",
         "copy": "Pick a session, add your notes, name it, save the idea, then bottle the good one in-store.",
-        "cta_label": "build a fragrance",
-        "cta_link": "#build-a-fragrance",
+        "cta_label": "choose your session",
+        "cta_link": "#lab-sessions",
         "sessions_heading": "choose your session.",
         "self_title": "Self-Guided Perfume Experiment",
         "self_copy": "Create a 30 mL eau de parfum at your own pace. Choose your notes, mix, bottle, label, and decorate.",
@@ -36,10 +36,6 @@
         "deluxe_button": "book this session"
       }
     },
-    "formula_builder": {
-      "type": "suas-formula-builder",
-      "settings": {}
-    },
     "reviews": {
       "type": "suas-reviews",
       "settings": {
@@ -49,7 +45,6 @@
   },
   "order": [
     "suas_lab",
-    "formula_builder",
     "reviews"
   ]
 }
