@@ -57,21 +57,30 @@ Book the Lab|/pages/bookings
 Charm Bar|/pages/charm-bar
 Contact Us|{{ suas_contact_url }}
 Refund Policy|/pages/refund-policy{% endcapture %}
+{% if template.suffix == 'suas-men' %}
+  {% assign suas_men_panel = true %}
+{% else %}
+  {% assign suas_men_panel = false %}
+{% endif %}
 
-<div class="suas-frame" aria-label="SUAS site frame">
+<div class="suas-frame" aria-label="{% if suas_men_panel %}SUAS Men control panel{% else %}SUAS site frame{% endif %}">
   <div class="suas-frame-marquee" aria-hidden="true"><div class="suas-frame-marquee-track">
     {% for i in (1..2) %}
-      {% if section.settings.marquee_1 != blank %}<span>{{ section.settings.marquee_1 }}</span>{% endif %}
-      {% if section.settings.marquee_2 != blank %}<span>{{ section.settings.marquee_2 }}</span>{% endif %}
-      {% if section.settings.marquee_3 != blank %}<span>{{ section.settings.marquee_3 }}</span>{% endif %}
-      {% if section.settings.marquee_4 != blank %}<span>{{ section.settings.marquee_4 }}</span>{% endif %}
-      {% if section.settings.marquee_5 != blank %}<span>{{ section.settings.marquee_5 }}</span>{% endif %}
-      {% if section.settings.marquee_6 != blank %}<span>{{ section.settings.marquee_6 }}</span>{% endif %}
+      {% if suas_men_panel %}
+        <span>suas men</span><span>the rack</span><span>cologne. oil. beard.</span><span>the lab is mixing</span><span>handmade in gastonia</span><span>no bouquet copy</span>
+      {% else %}
+        {% if section.settings.marquee_1 != blank %}<span>{{ section.settings.marquee_1 }}</span>{% endif %}
+        {% if section.settings.marquee_2 != blank %}<span>{{ section.settings.marquee_2 }}</span>{% endif %}
+        {% if section.settings.marquee_3 != blank %}<span>{{ section.settings.marquee_3 }}</span>{% endif %}
+        {% if section.settings.marquee_4 != blank %}<span>{{ section.settings.marquee_4 }}</span>{% endif %}
+        {% if section.settings.marquee_5 != blank %}<span>{{ section.settings.marquee_5 }}</span>{% endif %}
+        {% if section.settings.marquee_6 != blank %}<span>{{ section.settings.marquee_6 }}</span>{% endif %}
+      {% endif %}
     {% endfor %}
   </div></div>
 
   <div class="suas-mobile-bar">
-    <a class="suas-side-head suas-mobile-home" href="{{ section.settings.home_link | default: routes.root_url }}" aria-label="Go to SUAS homepage"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{{ section.settings.brand_text }}</span></a>
+    <a class="suas-side-head suas-mobile-home" href="{% if suas_men_panel %}/pages/suas-men{% else %}{{ section.settings.home_link | default: routes.root_url }}{% endif %}" aria-label="{% if suas_men_panel %}SUAS Men{% else %}Go to SUAS homepage{% endif %}"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{% if suas_men_panel %}SUAS{% else %}{{ section.settings.brand_text }}{% endif %}</span></a>
     <div class="suas-mobile-bar-actions">
       <button type="button" class="suas-panel-toggle" aria-expanded="false" aria-controls="suas-control-panel">
         <span class="suas-panel-toggle-lines" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -81,10 +90,20 @@ Refund Policy|/pages/refund-policy{% endcapture %}
   </div>
   <div class="suas-panel-scrim" hidden></div>
 
-  <aside class="suas-side-rail" id="suas-control-panel" aria-label="SUAS control panel">
-    <a class="suas-side-head" href="{{ section.settings.home_link | default: routes.root_url }}" aria-label="Go to SUAS homepage"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{{ section.settings.brand_text }}</span></a>
-    <p class="suas-side-kicker">{{ section.settings.control_label }}</p>
+  <aside class="suas-side-rail" id="suas-control-panel" aria-label="{% if suas_men_panel %}SUAS Men control panel{% else %}SUAS control panel{% endif %}">
+    <a class="suas-side-head" href="{% if suas_men_panel %}/pages/suas-men{% else %}{{ section.settings.home_link | default: routes.root_url }}{% endif %}" aria-label="{% if suas_men_panel %}SUAS Men{% else %}Go to SUAS homepage{% endif %}"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{% if suas_men_panel %}SUAS{% else %}{{ section.settings.brand_text }}{% endif %}</span></a>
+    <p class="suas-side-kicker">{% if suas_men_panel %}men terminal{% else %}{{ section.settings.control_label }}{% endif %}</p>
     <nav class="suas-side-nav">
+      {% if suas_men_panel %}
+        <a class="suas-side-link{% if request.path contains '/collections/cologne' or request.path contains '/collections/m-eau-de-parfum' %} is-active{% endif %}" href="/collections/cologne"><span class="suas-side-icon" style="--tint:#fff">01</span><span class="suas-side-label">cologne</span><span class="suas-side-num">01</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/m-body-oil' or request.path contains '/collections/body-oil' %} is-active{% endif %}" href="/collections/m-body-oil"><span class="suas-side-icon" style="--tint:#fff">02</span><span class="suas-side-label">oil</span><span class="suas-side-num">02</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/m-butter-creme' %} is-active{% endif %}" href="/collections/m-butter-creme"><span class="suas-side-icon" style="--tint:#fff">03</span><span class="suas-side-label">butter</span><span class="suas-side-num">03</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/m-body-wash' %} is-active{% endif %}" href="/collections/m-body-wash"><span class="suas-side-icon" style="--tint:#fff">04</span><span class="suas-side-label">wash</span><span class="suas-side-num">04</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/beard' %} is-active{% endif %}" href="/collections/beard"><span class="suas-side-icon" style="--tint:#fff">05</span><span class="suas-side-label">beard</span><span class="suas-side-num">05</span></a>
+        <a class="suas-side-link{% if request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' %} is-active{% endif %}" href="/pages/bookings"><span class="suas-side-icon" style="--tint:#fff">06</span><span class="suas-side-label">the lab</span><span class="suas-side-num">06</span></a>
+        <a class="suas-side-link{% if request.path contains '/pages/visit-us' %} is-active{% endif %}" href="/pages/visit-us"><span class="suas-side-icon" style="--tint:#fff">07</span><span class="suas-side-label">visit us</span><span class="suas-side-num">07</span></a>
+        <a class="suas-side-link" href="/"><span class="suas-side-icon" style="--tint:#fff">08</span><span class="suas-side-label">exit</span><span class="suas-side-num">08</span></a>
+      {% else %}
       {% if section.settings.body_enabled %}
         {% liquid
           assign item_active = false
@@ -302,9 +321,10 @@ Refund Policy|/pages/refund-policy{% endcapture %}
           {% endif %}
         {% endif %}
       {% endfor %}
+      {% endif %}
     </nav>
-    <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>{{ section.settings.status_label }}</b><span>{{ section.settings.status_text }}</span></div></div>
-    <div class="suas-side-foot" aria-hidden="true"><a href="{{ section.settings.footer_link_1 }}">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span></div>
+    <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>{% if suas_men_panel %}men status{% else %}{{ section.settings.status_label }}{% endif %}</b><span>{% if suas_men_panel %}the rack{% else %}{{ section.settings.status_text }}{% endif %}</span></div></div>
+    <div class="suas-side-foot" aria-hidden="true">{% if suas_men_panel %}<a href="/pages/account">account</a><a href="/">main world</a><span>men</span>{% else %}<a href="{{ section.settings.footer_link_1 }}">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span>{% endif %}</div>
   </aside>
 </div>
 
