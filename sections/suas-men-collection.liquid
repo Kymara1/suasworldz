@@ -41,15 +41,18 @@
       <h1 class="suas-men-font">{{ collection.title }}</h1>
       <div class="suas-men-chips">
         <a href="/collections/cologne"{% if collection.handle == 'cologne' %} class="is-on"{% endif %}>Cologne</a>
-        <a href="/collections/body-oil-1"{% if collection.handle == 'body-oil-1' or collection.handle == 'm-body-oil' %} class="is-on"{% endif %}>Body oil</a>
-        <a href="/collections/masculine"{% if collection.handle == 'masculine' %} class="is-on"{% endif %}>Butter creme</a>
-        <a href="/collections/exfoliating-body-wash"{% if collection.handle == 'exfoliating-body-wash' or collection.handle == 'm-body-wash' %} class="is-on"{% endif %}>Body wash</a>
+        <a href="/collections/body-oil-1"{% if collection.handle == 'body-oil-1' %} class="is-on"{% endif %}>Body oil</a>
+        <a href="/collections/m-butter-creme"{% if collection.handle == 'm-butter-creme' %} class="is-on"{% endif %}>Butter creme</a>
+        <a href="/collections/exfoliating-body-wash"{% if collection.handle == 'exfoliating-body-wash' %} class="is-on"{% endif %}>Body wash</a>
         <a href="/collections/beard"{% if collection.handle contains 'beard' %} class="is-on"{% endif %}>Beard</a>
         <a href="/collections/masculine"{% if collection.handle == 'masculine' %} class="is-on"{% endif %}>The rack</a>
       </div>
       <div class="suas-men-grid">
+        {% assign suas_men_shown = 0 %}
         {% for product in collection.products %}
-          {% unless product.handle contains 'lab-session' or product.handle contains 'charm-bar' %}
+          {% include 'suas-men-hide-women' %}
+          {% unless suas_men_hide %}
+            {% assign suas_men_shown = suas_men_shown | plus: 1 %}
             <a class="suas-men-tile" href="{{ product.url }}">
               {% if product.featured_image %}
                 {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
@@ -62,7 +65,7 @@
           {% endunless %}
         {% endfor %}
       </div>
-      {% if collection.products_count == 0 %}
+      {% if collection.products_count == 0 or suas_men_shown == 0 %}
         <p class="suas-men-empty">nothing on this shelf yet.</p>
       {% endif %}
       {% if paginate.pages > 1 %}

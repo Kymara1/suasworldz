@@ -1,0 +1,21 @@
+{% liquid
+  assign suas_men_hide = false
+  assign suas_type = product.type | downcase
+  assign suas_title = product.title | downcase
+  assign suas_handle = product.handle | downcase
+  if suas_handle contains 'lab-session' or suas_handle contains 'charm-bar'
+    assign suas_men_hide = true
+  endif
+  if suas_title contains 'poppy' or suas_title contains 'haze' or suas_title contains 'nectar' or suas_title contains 'tonic' or suas_title contains 'good girl' or suas_handle contains 'poppy' or suas_handle contains 'haze' or suas_handle contains 'nectar' or suas_handle contains 'tonic' or suas_handle contains 'good-girl'
+    assign suas_men_hide = true
+  endif
+  for col in product.collections
+    assign col_handle = col.handle | downcase
+    if col_handle == 'feminine' or col_handle == 'butter-creme' or col_handle == 'body-scrub' or col_handle == 'body-oil'
+      assign suas_men_hide = true
+    endif
+  endfor
+  if suas_type == 'butter creme' or suas_type == 'butter scrub'
+    assign suas_men_hide = true
+  endif
+%}
