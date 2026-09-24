@@ -9,8 +9,12 @@
   if template.suffix == 'suas-stations'
     assign suas_station_page = true
   endif
+  assign suas_men_page = false
+  if template.suffix == 'suas-men'
+    assign suas_men_page = true
+  endif
 -%}
-<html class="no-js flexbox-gap{% if suas_halloween_liquid %} suas-halloween{% endif %}{% if suas_station_page %} suas-station-page{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
+<html class="no-js flexbox-gap{% if suas_halloween_liquid %} suas-halloween{% endif %}{% if suas_station_page %} suas-station-page{% endif %}{% if suas_men_page %} suas-men{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
   <head>
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">

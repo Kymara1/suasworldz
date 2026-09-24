@@ -1,41 +1,66 @@
 <section class="suas-men-world" aria-label="SUAS Men">
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
-    .suas-men-world{--ink:#101010;--cream:#f3f1ea;--ice:#9ec7d9;--lime:#d9ff78;color:var(--ink);background:linear-gradient(rgba(16,16,16,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.05) 1px,transparent 1px),var(--cream);background-size:22px 22px,22px 22px,auto;font-family:Futura,'Futura PT',Arial,sans-serif;padding:14px 0 28px}
+    html.suas-men,
+    html.suas-halloween.suas-men{background:#000!important}
+    html.suas-men body,
+    html.suas-halloween.suas-men body{background:#000!important;color:#fff}
+    html.suas-men .suas-side-rail,
+    html.suas-halloween.suas-men .suas-side-rail{background:#000!important;border-right:1px solid #fff!important;color:#fff!important;box-shadow:none!important}
+    html.suas-men .suas-side-head,
+    html.suas-men .suas-side-brand,
+    html.suas-men .suas-side-kicker,
+    html.suas-men .suas-side-link,
+    html.suas-men .suas-side-label,
+    html.suas-men .suas-side-num,
+    html.suas-men .suas-side-status,
+    html.suas-men .suas-side-status b,
+    html.suas-men .suas-side-status span,
+    html.suas-men .suas-side-foot a,
+    html.suas-men .suas-side-foot span{color:#fff!important}
+    html.suas-men .suas-side-kicker,
+    html.suas-halloween.suas-men .suas-side-kicker{border-top-color:#fff!important;color:rgba(255,255,255,.55)!important}
+    html.suas-men .suas-side-orb,
+    html.suas-halloween.suas-men .suas-side-orb{background:#fff!important;box-shadow:none!important;filter:none!important}
+    html.suas-men .suas-side-link:hover,
+    html.suas-men .suas-side-link.is-active,
+    html.suas-halloween.suas-men .suas-side-link.is-active{background:#fff!important;color:#000!important}
+    html.suas-men .suas-side-link.is-active .suas-side-label,
+    html.suas-men .suas-side-link.is-active .suas-side-num,
+    html.suas-men .suas-side-link:hover .suas-side-label{color:#000!important}
+    html.suas-men .suas-side-icon{border-color:#fff!important;background:#111!important;color:#fff!important;box-shadow:none!important}
+    html.suas-men .suas-side-link.is-active .suas-side-icon,
+    html.suas-men .suas-side-link:hover .suas-side-icon{background:#000!important;color:#fff!important;border-color:#000!important}
+    html.suas-men .suas-panel-submenu{background:#000!important;border-color:#fff!important}
+    html.suas-men .suas-panel-submenu a,
+    html.suas-halloween.suas-men .suas-panel-submenu a{background:#000!important;color:#fff!important;border-color:#fff!important;box-shadow:0 2px 0 #fff!important}
+    html.suas-men .suas-side-status,
+    html.suas-halloween.suas-men .suas-side-status{background:#111!important;box-shadow:none!important}
+    html.suas-men .suas-side-status-dot,
+    html.suas-halloween.suas-men .suas-side-status-dot{background:#fff!important;box-shadow:none!important}
+    html.suas-men .suas-frame-marquee,
+    html.suas-halloween.suas-men .suas-frame-marquee{background:#000!important;color:#fff!important;border-bottom:1px solid #fff!important}
+    html.suas-men .suas-mobile-bar{background:#000!important;color:#fff!important;border-color:#fff!important}
+    html.suas-men .suas-panel-toggle{color:#fff!important;border-color:#fff!important;background:#000!important}
+    .suas-men-world{color:#fff;background:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),#000;background-size:22px 22px,22px 22px,auto;font-family:Futura,'Futura PT',Arial,sans-serif;padding:18px 0 36px;min-height:70vh}
     .suas-men-world *{box-sizing:border-box}
     .suas-men-world a{color:inherit}
     .suas-men-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;letter-spacing:0!important}
     .suas-men-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900}
-    .suas-men-wrap{width:min(980px,calc(100vw - 24px));margin:0 auto;display:grid;gap:10px}
-    .suas-men-hero,.suas-men-aisle,.suas-men-win{border:2px solid var(--ink);border-radius:20px;box-shadow:4px 5px 0 var(--ink);overflow:hidden}
-    .suas-men-hero{padding:16px 18px;background:#101010;color:#fff}
-    .suas-men-kicker{opacity:.7}
-    .suas-men-title{margin:4px 0 0;font-size:clamp(2.1rem,5vw,3.4rem);line-height:.82;text-transform:uppercase;color:#fff}
-    .suas-men-copy{margin:8px 0 0;font-size:13px;font-weight:800;line-height:1.3;color:rgba(255,255,255,.78)}
-    .suas-men-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .suas-men-btn{min-height:40px;display:inline-flex;align-items:center;justify-content:center;border:2px solid #fff;border-radius:999px;padding:7px 14px;background:#fff;color:#101010;box-shadow:0 3px 0 #000;text-decoration:none;font-weight:900}
-    .suas-men-btn[data-ghost]{background:transparent;color:#fff}
-    .suas-men-btn:hover{color:#101010;transform:translateY(1px);box-shadow:0 2px 0 #000}
-    .suas-men-btn[data-ghost]:hover{color:#fff}
-    .suas-men-aisles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .suas-men-aisle{padding:12px;display:flex;flex-direction:column;gap:8px;background-image:linear-gradient(rgba(16,16,16,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.1) 1px,transparent 1px);background-size:22px 22px}
-    .suas-men-aisle--scent{background-color:var(--ice)}
-    .suas-men-aisle--kit{background-color:var(--lime)}
-    .suas-men-aisle small{display:block;text-align:center}
-    .suas-men-aisle h2{margin:0;text-align:center;font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:.8;text-transform:lowercase}
-    .suas-men-chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
-    .suas-men-chips a{min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:5px 7px;border:1.75px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 2px 0 var(--ink);text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
-    .suas-men-win{background:#fff}
-    .suas-men-bar{min-height:34px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#d7dde2,#b7c0c8);font-size:10px;letter-spacing:.16em;font-weight:900}
-    .suas-men-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:10px}
-    .suas-men-tile{display:flex;flex-direction:column;gap:6px;padding:8px;border:2px solid var(--ink);border-radius:14px;background:#fff;text-decoration:none}
-    .suas-men-tile img,.suas-men-blank{display:block;width:100%;aspect-ratio:1;object-fit:contain;border:1.5px solid var(--ink);border-radius:10px;background:#f3f1ea}
-    .suas-men-tile b{font-size:.85rem;line-height:.95;text-transform:lowercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    @media(max-width:700px){
-      .suas-men-aisles,.suas-men-grid{grid-template-columns:1fr 1fr}
-      .suas-men-aisle h2{font-size:clamp(1.25rem,7vw,1.7rem)}
-      .suas-men-chips a{min-height:28px;font-size:8px}
-    }
+    .suas-men-wrap{width:min(1080px,calc(100vw - 24px));margin:0 auto}
+    .suas-men-win{border:2px solid #fff;border-radius:20px;background:#000;box-shadow:5px 6px 0 #fff;overflow:hidden}
+    .suas-men-bar{min-height:42px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:8px 14px;border-bottom:2px solid #fff;background:#000;color:#fff}
+    .suas-men-dots{display:flex;gap:6px}
+    .suas-men-dot{width:10px;height:10px;border-radius:999px;border:1.5px solid #fff;background:transparent}
+    .suas-men-dot.is-on{background:#fff}
+    .suas-men-bar b{text-align:center;font-size:11px;letter-spacing:.2em}
+    .suas-men-exit{color:#fff;text-decoration:none;font-size:9px;letter-spacing:.14em}
+    .suas-men-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:12px}
+    .suas-men-tile{display:flex;flex-direction:column;gap:7px;padding:10px;border:2px solid #fff;border-radius:14px;background:#000;color:#fff;text-decoration:none}
+    .suas-men-tile img,.suas-men-blank{display:block;width:100%;aspect-ratio:1;object-fit:contain;border:1.5px solid #fff;border-radius:10px;background:#111}
+    .suas-men-tile b{font-size:.9rem;line-height:.95;text-transform:lowercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .suas-men-tile span{opacity:.8}
+    @media(max-width:700px){.suas-men-grid{grid-template-columns:1fr 1fr;gap:8px;padding:10px}}
   </style>
   {% liquid
     assign rack = collections['masculine']
@@ -47,49 +72,21 @@
     endif
   %}
   <div class="suas-men-wrap">
-    <header class="suas-men-hero">
-      <div class="suas-men-kicker suas-men-mono">suas.os / men</div>
-      <h1 class="suas-men-title suas-men-font">suas men.</h1>
-      <p class="suas-men-copy">cologne. oil. beard. butter. no bouquet copy.</p>
-      <div class="suas-men-actions">
-        <a class="suas-men-btn suas-men-mono" href="/collections/masculine">shop</a>
-        <a class="suas-men-btn suas-men-mono" data-ghost href="/pages/bookings">book the lab</a>
-        <a class="suas-men-btn suas-men-mono" data-ghost href="/">exit</a>
-      </div>
-    </header>
-    <div class="suas-men-aisles">
-      <article class="suas-men-aisle suas-men-aisle--scent">
-        <small class="suas-men-mono">aisle 01</small>
-        <h2 class="suas-men-font">scent</h2>
-        <div class="suas-men-chips">
-          <a href="/collections/cologne">Cologne</a>
-          <a href="/collections/m-eau-de-parfum">Parfum</a>
-          <a href="/pages/bookings">Lab</a>
-          <a href="/collections/masculine">All</a>
-        </div>
-      </article>
-      <article class="suas-men-aisle suas-men-aisle--kit">
-        <small class="suas-men-mono">aisle 02</small>
-        <h2 class="suas-men-font">kit</h2>
-        <div class="suas-men-chips">
-          <a href="/collections/m-body-oil">Oil</a>
-          <a href="/collections/m-butter-creme">Butter</a>
-          <a href="/collections/m-body-wash">Wash</a>
-          <a href="/collections/beard">Beard</a>
-        </div>
-      </article>
-    </div>
     <div class="suas-men-win">
-      <div class="suas-men-bar suas-men-mono">THE.RACK</div>
+      <div class="suas-men-bar">
+        <div class="suas-men-dots" aria-hidden="true"><span class="suas-men-dot is-on"></span><span class="suas-men-dot"></span><span class="suas-men-dot"></span></div>
+        <b class="suas-men-mono">the rack</b>
+        <a class="suas-men-exit suas-men-mono" href="/">exit</a>
+      </div>
       <div class="suas-men-grid">
         {% assign rack_shown = 0 %}
         {% if rack != blank %}
-          {% for product in rack.products limit: 4 %}
+          {% for product in rack.products limit: 8 %}
             {% unless product.handle contains 'lab-session' or product.handle contains 'charm-bar' %}
               {% assign rack_shown = rack_shown | plus: 1 %}
               <a class="suas-men-tile" href="{{ product.url }}">
                 {% if product.featured_image %}
-                  {{ product.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: product.title }}
+                  {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
                 {% else %}
                   <div class="suas-men-blank"></div>
                 {% endif %}
