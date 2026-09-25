@@ -159,9 +159,48 @@
   }
 
   html body .suas-side-kicker,
-  html body .suas-side-status,
-  html body .suas-side-foot {
+  html body .suas-side-status {
     display: flex !important;
+  }
+
+  html body .suas-side-status {
+    margin: 8px 10px 10px !important;
+    min-height: 58px !important;
+    padding: 10px 14px !important;
+  }
+
+  html body .suas-side-foot {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+    padding: 0 10px max(14px, env(safe-area-inset-bottom)) !important;
+  }
+
+  html body .suas-side-foot .suas-os-search {
+    display: none !important;
+  }
+
+  html body .suas-side-foot span {
+    display: none !important;
+  }
+
+  html body .suas-side-foot a {
+    min-height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 6px !important;
+    border: 1.5px solid #101010 !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    box-shadow: 0 2px 0 #101010 !important;
+    color: #101010 !important;
+    font-size: 9px !important;
+    letter-spacing: 0.08em !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
   }
 
   html body .suas-side-kicker {
@@ -289,11 +328,6 @@
     letter-spacing: .1em !important;
     line-height: 1.15 !important;
     white-space: nowrap !important;
-  }
-
-  html body .suas-side-nav a.suas-side-link[href*='the-lab'],
-  html body .suas-side-nav a.suas-side-link[href*='shut-up-and-smell'] {
-    display: none !important;
   }
 
   html.suas-panel-open,

@@ -444,6 +444,47 @@ html body.template--collection .suas-catalog-soon-title {
   html body.template--search .suas-catalog-card .product--details-container {
     padding: 10px 10px 12px !important;
   }
+  html body.template--collection .layout--main-content,
+  html body.template--search .layout--main-content {
+    width: 100% !important;
+    max-width: none !important;
+  }
+  html body.template--collection .suas-body-aisles,
+  html body.template--collection .suas-type-aisle,
+  html body.template--collection .suas-type-aisle .collection--body--grid,
+  html body.template--collection .suas-catalog-head {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  html body.template--collection .collection--body--grid > * {
+    min-width: 0 !important;
+  }
+  html body.template--collection .suas-catalog-card.product--root,
+  html body.template--search .suas-catalog-card.product--root {
+    height: 100% !important;
+  }
+  html body.template--collection .suas-catalog-card .product--title,
+  html body.template--search .suas-catalog-card .product--title {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+    min-height: 2em !important;
+    -webkit-line-clamp: 2 !important;
+  }
+  html body.template--collection .suas-catalog-card .product--rating,
+  html body.template--search .suas-catalog-card .product--rating {
+    min-height: 16px !important;
+  }
+  html body.template--collection .suas-catalog-card .product--price-container,
+  html body.template--search .suas-catalog-card .product--price-container {
+    align-self: start !important;
+  }
+  html body.template--collection .shopify-payment-button,
+  html body.template--collection shopify-payment-terms,
+  html body.template--collection .product--form-for-off-canvas {
+    display: none !important;
+  }
 }
 
 .suas-body-aisles {
