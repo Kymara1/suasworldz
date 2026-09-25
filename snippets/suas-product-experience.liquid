@@ -11,6 +11,16 @@
   if pdp_type contains 'body scrub' or pdp_type contains 'butter scrub' or pdp_handle contains 'body-scrub'
     assign is_body_scrub = true
   endif
+  assign is_perfume = false
+  if pdp_type contains 'parfum' or pdp_type contains 'perfume' or pdp_type contains 'cologne' or pdp_type contains 'eau de'
+    assign is_perfume = true
+  endif
+  if pdp_handle contains 'eau-de-parfum' or pdp_handle contains '-edp' or pdp_handle contains 'cologne' or pdp_handle contains 'perfume'
+    assign is_perfume = true
+  endif
+  if is_body_oil or is_body_scrub or pdp_handle contains 'lab-session'
+    assign is_perfume = false
+  endif
   assign pdp_home = false
   if pdp_type contains 'candle' or pdp_type contains 'mist' or pdp_type contains 'home' or product_title_down contains 'candle' or product_title_down contains 'mist' or pdp_handle contains 'burnt-oil'
     assign pdp_home = true
@@ -91,6 +101,9 @@
     else
       assign story_html = '<p>sugar, shea, scent. 9 ounces of get-off-me then smell-like-that.</p>'
     endif
+  endif
+  if is_perfume
+    assign ingredients_html = 'Alcohol Denat., Parfum (Fragrance), Aqua (Water).'
   endif
 %}
 
@@ -201,7 +214,7 @@
           {% endif %}
           <div class="suas-pdp-chip">
             <b>the feel</b>
-            <p>{% if pdp_home %}Room-filling scent for the house, the car, the after-hours.{% else %}Soothes. Moisturizes. Layers. Cushiony handmade formula for skin that wants to smell like something, not like a lecture.{% endif %}</p>
+            <p>{% if pdp_home %}Room-filling scent for the house, the car, the after-hours.{% elsif is_perfume %}Spray-loud. Pulse points. A trail, not a lotion.{% else %}Soothes. Moisturizes. Layers. Cushiony handmade formula for skin that wants to smell like something, not like a lecture.{% endif %}</p>
           </div>
         </aside>
       </div>
@@ -216,6 +229,10 @@
           <div class="suas-pdp-step"><em>01 / set</em><p>Light it, mist it, or warm it.</p></div>
           <div class="suas-pdp-step"><em>02 / wait</em><p>Give the room a minute to catch it.</p></div>
           <div class="suas-pdp-step"><em>03 / live in it</em><p>The scent blooms, then sits pretty.</p></div>
+        {% elsif is_perfume %}
+          <div class="suas-pdp-step"><em>01 / mist</em><p>Pulse points. Neck, wrists, wherever you want remembered.</p></div>
+          <div class="suas-pdp-step"><em>02 / don't rub</em><p>Let it sit. Mashing it kills the top notes.</p></div>
+          <div class="suas-pdp-step"><em>03 / trail</em><p>Walk out. That's the whole point.</p></div>
         {% elsif is_body_oil %}
           <div class="suas-pdp-step"><em>01 / pump</em><p>One pump. That's a mood, not a ration.</p></div>
           <div class="suas-pdp-step"><em>02 / warm</em><p>Rub it in your palms like you mean it.</p></div>
@@ -238,6 +255,8 @@
     <div class="suas-pdp-fold-body">
       {% if ingredients_html != blank %}
         <p class="suas-pdp-ing">{{ ingredients_html | strip_html }}</p>
+      {% elsif is_perfume %}
+        <p class="suas-pdp-ing">Alcohol Denat., Parfum (Fragrance), Aqua (Water). Handmade in small batches in Gastonia, NC.</p>
       {% else %}
         <p class="suas-pdp-ing">Shea butter, mango seed butter, and the scent mix on this jar. Handmade in small batches in Gastonia, NC.</p>
       {% endif %}
