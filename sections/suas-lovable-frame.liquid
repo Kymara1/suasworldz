@@ -22,6 +22,19 @@
   .suas-os-search svg{display:block}
   .suas-side-foot a:focus-visible,.suas-os-search:focus-visible,.suas-panel-toggle:focus-visible,.suas-side-link:focus-visible,.suas-panel-submenu a:focus-visible{outline:3px solid var(--suas-ink);outline-offset:3px}
   .suas-skip{position:absolute;left:8px;top:8px;z-index:2147483647;display:flex;gap:8px}
+  .suas-search-layer{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:18px}
+  .suas-search-layer[hidden]{display:none!important}
+  .suas-search-scrim{position:absolute;inset:0;background:rgba(16,16,16,.42)}
+  .suas-search-win{position:relative;z-index:1;width:min(420px,100%);border:2px solid #101010;border-radius:22px;background:#fff;box-shadow:5px 6px 0 #101010;overflow:hidden;font-family:Futura,'Futura PT',Arial,sans-serif}
+  .suas-search-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;min-height:40px;padding:8px 12px;border-bottom:2px solid #101010;background:linear-gradient(180deg,#fff,#e8edf3)}
+  .suas-search-bar b{text-align:center;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+  .suas-search-close{min-height:32px;padding:0 10px;border:1.5px solid #101010;border-radius:999px;background:#ffd8e8;box-shadow:0 2px 0 #101010;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  .suas-search-body{display:grid;gap:10px;padding:16px}
+  .suas-search-body label{font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+  .suas-search-body input{width:100%;min-height:48px;border:2px solid #101010;border-radius:14px;padding:10px 12px;font:800 16px/1.2 Futura,Arial,sans-serif}
+  .suas-search-body input:focus{outline:3px solid #101010;outline-offset:2px}
+  .suas-search-go{min-height:48px;border:2px solid #101010;border-radius:999px;background:#d9ff78;box-shadow:0 3px 0 #101010;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.35rem;cursor:pointer}
+  html.suas-search-open,html.suas-search-open body{overflow:hidden}
 </style>
 
 {% liquid
@@ -332,6 +345,22 @@ Refund Policy|/pages/refund-policy{% endcapture %}
   </aside>
 </div>
 
+<div class="suas-search-layer" id="suas-search-win" hidden>
+  <div class="suas-search-scrim" data-suas-search-close></div>
+  <div class="suas-search-win" role="dialog" aria-modal="true" aria-labelledby="suas-search-title">
+    <div class="suas-search-bar">
+      <span aria-hidden="true"></span>
+      <b id="suas-search-title">search.exe</b>
+      <button class="suas-search-close" type="button" data-suas-search-close>close</button>
+    </div>
+    <form class="suas-search-body" action="{{ routes.search_url }}" method="get" role="search">
+      <label for="suas-search-q-os">find a scent</label>
+      <input id="suas-search-q-os" type="search" name="q" placeholder="poppy, butter, lab..." autocomplete="off" required>
+      <button class="suas-search-go" type="submit">find it</button>
+    </form>
+  </div>
+</div>
+
 <script>
   (() => {
     const routes = { reviews: '/pages/reviews', account: '/pages/account' };
@@ -348,6 +377,38 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       });
     };
     rewriteSuasHomeLinks();
+    (function bindSuasSearch() {
+      const layer = document.getElementById('suas-search-win');
+      const input = document.getElementById('suas-search-q-os');
+      if (!layer || !input) return;
+      let lastFocus = null;
+      const open = (event) => {
+        if (event) event.preventDefault();
+        lastFocus = document.activeElement;
+        document.documentElement.classList.remove('suas-panel-open');
+        layer.hidden = false;
+        document.documentElement.classList.add('suas-search-open');
+        window.setTimeout(() => input.focus(), 30);
+      };
+      const close = () => {
+        layer.hidden = true;
+        document.documentElement.classList.remove('suas-search-open');
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      };
+      document.querySelectorAll('[data-suas-search-open]').forEach((link) => {
+        link.addEventListener('click', open);
+      });
+      layer.querySelectorAll('[data-suas-search-close]').forEach((node) => {
+        node.addEventListener('click', close);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (!document.documentElement.classList.contains('suas-search-open')) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          close();
+        }
+      });
+    })();
     document.addEventListener('click', (event) => {
       const link = event.target.closest('a');
       if (!link || !link.href) return;

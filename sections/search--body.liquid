@@ -24,6 +24,14 @@
   endfor
 -%}
 
+<style>
+  .suas-search-empty{width:min(420px,100%);margin:24px auto;padding:18px;border:2px solid #101010;border-radius:22px;background:#fff;box-shadow:5px 6px 0 #101010}
+  .suas-search-empty form{display:grid;gap:10px}
+  .suas-search-empty label{font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+  .suas-search-empty input{min-height:48px;border:2px solid #101010;border-radius:14px;padding:10px 12px;font:800 16px/1.2 Futura,Arial,sans-serif}
+  .suas-search-empty button{min-height:48px;border:2px solid #101010;border-radius:999px;background:#d9ff78;box-shadow:0 3px 0 #101010;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.35rem;cursor:pointer}
+</style>
+
 {% if result_type == 'product' or search.results.size == 0 %}
   <div
     class="search--root"
@@ -73,12 +81,18 @@
           {% endfor %}
 
         {% else %}
-          <div class="search--body--filter-feedback" data-container="block">
-            <p data-item="paragraph">
-              {{ filter_feedback_t }}
-            </p>
+          <div class="search--body--filter-feedback suas-search-empty" data-container="block">
+            <form action="{{ routes.search_url }}" method="get" role="search">
+              <label for="suas-search-page-q">find a scent</label>
+              <input id="suas-search-page-q" type="search" name="q" value="{{ search.terms | escape }}" placeholder="poppy, butter, lab..." required>
+              <button type="submit">find it</button>
+            </form>
+            {% if search.performed and search.terms != blank %}
+              <p data-item="paragraph">nothing matched “{{ search.terms | escape }}”.</p>
+            {% else %}
+              <p data-item="paragraph">type a scent, product, or vibe.</p>
+            {% endif %}
           </div>
-
         {% endif %}
       </div>
 

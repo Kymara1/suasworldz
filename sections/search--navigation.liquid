@@ -20,6 +20,7 @@
 {%- endcapture -%}
 
 {% if result_type == 'product' or search.results.size == 0 %}
+  {%- if search.performed and search.terms != blank -%}
   {%-
     render 'navigation',
     ajax_url: ajax_url,
@@ -53,6 +54,7 @@
       %}
     </div>
   {% endif %}
+  {%- endif -%}
 {% endif %}
 
 {% schema %}
