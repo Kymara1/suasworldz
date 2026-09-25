@@ -792,8 +792,10 @@
       plus_button = _this.root.find('.cart--plus');
       return plus_button.on('click keydown', function(event) {
         var input, line_num, quantity;
-        if (event.type === 'keydown' && event.key !== 'Enter') {
-          return;
+        if (event.type === 'keydown') {
+          if (this.tagName === 'BUTTON' || (event.key !== 'Enter' && event.key !== ' ')) {
+            return;
+          }
         }
         event.preventDefault();
         input = this.previousElementSibling;
@@ -824,8 +826,10 @@
       minus_button = _this.root.find('.cart--minus');
       return minus_button.on('click keydown', function(event) {
         var input, line_num, quantity;
-        if (event.type === 'keydown' && event.key !== 'Enter') {
-          return;
+        if (event.type === 'keydown') {
+          if (this.tagName === 'BUTTON' || (event.key !== 'Enter' && event.key !== ' ')) {
+            return;
+          }
         }
         event.preventDefault();
         input = this.closest('.cart--quantity--container').querySelector('input');

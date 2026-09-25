@@ -427,6 +427,11 @@ html body.template--product .radios--input:checked + .radios--value-button {
   color: #fff !important;
   box-shadow: 0 3px 0 #d9ff78;
 }
+html body.template--product .radios--main:focus-within .radios--value-button,
+html body.template--product .radios--main:focus-within .radios--swatch-button {
+  outline: 3px solid #101010 !important;
+  outline-offset: 3px !important;
+}
 html body.template--product .suas-pdp-ticket-label { display: none !important; }
 html body.template--product .product-page--price,
 html body.template--product .suas-pdp-ticket .money {

@@ -100,12 +100,14 @@
   html body.template--product .shopify-section:has([class*='aftership'])::before,html body.template--product .shopify-section:has([class*='automizely'])::before{content:none!important;display:none!important}
   html body.template--product .product-options--container{margin-top:8px!important}
   html body.template--product .radios--container{display:flex!important;flex-wrap:wrap!important;gap:8px!important;align-items:center!important}
-  html body.template--product .radios--input{position:absolute!important;inline-size:1px!important;block-size:1px!important;opacity:0!important;pointer-events:none!important}
+  html body.template--product .radios--input{position:absolute!important;inline-size:1px!important;block-size:1px!important;opacity:0!important}
   html body.template--product .radios--main{position:relative!important;background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
   html body.template--product .radios--swatch-button{inline-size:42px!important;block-size:42px!important;border:2px solid #101010!important;border-radius:999px!important}
   html body.template--product .radios--value-button{inline-size:auto!important;min-inline-size:52px!important;block-size:32px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:0 10px!important;border:2px solid #101010!important;border-radius:999px!important;background:#fff!important;color:#101010!important;box-shadow:0 3px 0 #101010!important;font-size:11px!important;font-weight:900!important;line-height:1!important;cursor:pointer!important;overflow:visible!important;white-space:nowrap!important}
   html body.template--product .radios--value-button div{font-size:11px!important;line-height:1!important;color:inherit!important}
   html body.template--product .radios--input:checked+.radios--value-button{background:#101010!important;color:#fff!important;box-shadow:0 0 0 3px #101010,0 3px 0 #d9ff78!important}
+  html body.template--product .radios--main:focus-within .radios--value-button,
+  html body.template--product .radios--main:focus-within .radios--swatch-button{outline:3px solid #101010!important;outline-offset:3px!important}
   html body.template--product .product-page--price{margin:4px 0 8px!important;font-size:1.35rem!important;font-weight:900!important}
   .suas-pdp-fold{border:2px solid #101010;border-radius:22px;box-shadow:5px 6px 0 #101010;margin:0 0 12px;overflow:hidden}
   .suas-pdp-fold+.suas-pdp-fold{margin-top:10px}

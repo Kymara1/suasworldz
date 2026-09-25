@@ -11,6 +11,18 @@
   --cart-paper: #fbfaf7;
 }
 
+.suas-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 .template--cart .layout--main-content {
   min-height: 100vh;
   padding: clamp(22px, 3.4vw, 44px) 16px 40px !important;
@@ -356,21 +368,33 @@
   place-items: center !important;
   width: 32px !important;
   height: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
   color: var(--cart-ink) !important;
   cursor: pointer !important;
+  appearance: none !important;
+  font: inherit !important;
   transition: background 140ms ease;
 }
 
 .template--cart .cart--minus:hover,
 .template--cart .cart--plus:hover,
+.suas-cart-station .cart--minus:hover,
+.suas-cart-station .cart--plus:hover {
+  background: var(--cart-sun) !important;
+}
+
 .template--cart .cart--minus:focus-visible,
 .template--cart .cart--plus:focus-visible,
-.suas-cart-station .cart--minus:hover,
-.suas-cart-station .cart--plus:hover,
+.template--cart .cart--quantity--input:focus-visible,
 .suas-cart-station .cart--minus:focus-visible,
-.suas-cart-station .cart--plus:focus-visible {
+.suas-cart-station .cart--plus:focus-visible,
+.suas-cart-station .cart--quantity--input:focus-visible {
   background: var(--cart-sun) !important;
-  outline: none;
+  outline: 3px solid var(--cart-ink) !important;
+  outline-offset: 2px !important;
 }
 
 .template--cart .cart--quantity--input,

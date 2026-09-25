@@ -115,14 +115,12 @@
         box-shadow: none !important;
         outline: 0 !important;
         clip: rect(0 0 0 0) !important;
-        clip-path: inset(50%) !important;
         overflow: hidden !important;
-        pointer-events: none !important;
       }
-      html body.template--product .radios--main,
-      html body.template--product .radios--value-button,
-      html body.template--product .radios--value-button div {
-        outline: 0 !important;
+      html body.template--product .radios--main:focus-within .radios--value-button,
+      html body.template--product .radios--main:focus-within .radios--swatch-button {
+        outline: 3px solid #101010 !important;
+        outline-offset: 3px !important;
       }
       html body.template--product .radios--value-button,
       html body.template--product .radios--value-button div {

@@ -1,5 +1,5 @@
 {% unless request.page_type == 'password' %}
-  <a class="suas-floating-cart" href="{{ routes.cart_url }}" aria-label="Open cart" data-suas-cart-button>
+  <a class="suas-floating-cart" href="{{ routes.cart_url }}" aria-label="{% if cart.item_count == 0 %}Open cart, empty{% elsif cart.item_count == 1 %}Open cart, 1 item{% else %}Open cart, {{ cart.item_count }} items{% endif %}" data-suas-cart-button>
     <span class="suas-floating-cart__icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" focusable="false">
         <path d="M7 8h13l-1.25 7.25a2 2 0 0 1-1.97 1.66H9.28a2 2 0 0 1-1.97-1.66L5.75 5.8H3" />
@@ -9,6 +9,7 @@
     <span class="suas-floating-cart__label">cart</span>
     <span class="suas-floating-cart__count" data-suas-cart-count>{{ cart.item_count }}</span>
   </a>
+  <p id="suas-commerce-live" class="suas-sr-only" role="status" aria-live="polite"></p>
 
   <style>
     .suas-side-rail { position: fixed; }
@@ -41,7 +42,20 @@
       box-shadow: 0 5px 0 #f8cddd;
       transform: translateY(-2px);
       text-decoration: none;
-      outline: none;
+      outline: 3px solid #101010;
+      outline-offset: 3px;
+    }
+
+    .suas-sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
     }
 
     .suas-floating-cart__label {
@@ -276,12 +290,27 @@
       window.addEventListener('resize', placeCart);
 
       if (countNode) {
+        const announce = (message) => {
+          const live = document.getElementById('suas-commerce-live');
+          if (!live) return;
+          live.textContent = '';
+          window.setTimeout(() => { live.textContent = message; }, 40);
+        };
+        window.suasAnnounceCart = announce;
+        const setCartCount = (count) => {
+          countNode.textContent = count;
+          if (cartButton) {
+            const label = count === 0 ? 'Open cart, empty' : (count === 1 ? 'Open cart, 1 item' : 'Open cart, ' + count + ' items');
+            cartButton.setAttribute('aria-label', label);
+          }
+        };
         fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
           .then((response) => response.ok ? response.json() : null)
           .then((cart) => {
-            if (cart && typeof cart.item_count === 'number') countNode.textContent = cart.item_count;
+            if (cart && typeof cart.item_count === 'number') setCartCount(cart.item_count);
           })
           .catch(() => {});
+        window.suasSetCartCount = setCartCount;
       }
 
       const ready = (callback) => {

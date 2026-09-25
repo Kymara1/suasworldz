@@ -66,13 +66,16 @@
     .suas-book-contact a{display:grid;place-items:center;min-height:48px;border:2px solid var(--ink);border-radius:999px;background:var(--sun);color:var(--ink);text-decoration:none;font:900 12px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
     .suas-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
     .suas-type-grid.is-charm{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .suas-type-card{position:relative;display:grid;grid-template-columns:1fr auto;gap:2px 8px;min-height:0;align-content:center;padding:10px 12px;border:2px solid rgba(16,16,16,.2);border-radius:16px;background:#fff;cursor:pointer;box-shadow:0 3px 0 rgba(16,16,16,.18)}
-    .suas-type-card input{position:absolute;opacity:0;pointer-events:none}
+    .suas-type-card{position:relative;display:grid;grid-template-columns:1fr auto;gap:2px 8px;min-height:0;align-content:center;padding:10px 12px;border:2px solid var(--ink);border-radius:16px;background:#fff;cursor:pointer;box-shadow:0 3px 0 rgba(16,16,16,.18)}
+    .suas-type-card input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0}
     .suas-type-card em{grid-column:1;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
     .suas-type-card strong{grid-column:1;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;line-height:.88;font-weight:400;text-transform:uppercase}
     .suas-type-card small{display:none}
     .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:center;font:900 13px/1 Futura,Arial,sans-serif}
-    .suas-type-card.is-on{border-color:var(--ink);background:var(--sun);box-shadow:0 4px 0 var(--ink)}
+    .suas-type-card.is-on{border-color:var(--ink);border-width:3px;background:var(--sun);box-shadow:0 4px 0 var(--ink)}
+    .suas-type-card.is-on em{opacity:1}
+    .suas-type-card:focus-within{outline:3px solid var(--ink);outline-offset:3px}
+    .suas-book-tab:focus-visible,.suas-plus-choice button:focus-visible,.suas-time-chips button:focus-visible,.suas-book-button:focus-visible,.suas-book-input:focus-visible,.suas-book-select:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
     .suas-plus-choice{grid-column:1/-1;display:none;grid-template-columns:1fr 1fr;gap:8px}
     .suas-plus-choice.is-on{display:grid}
     .suas-plus-choice button{min-height:46px;border:2px solid rgba(16,16,16,.2);border-radius:999px;background:#fff;font:900 11px/1 Futura,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
@@ -100,10 +103,10 @@
         <div class="suas-book-kicker">about us / bookings</div>
         <h1 class="suas-book-title">book the lab.</h1>
         <p class="suas-book-copy">Sessions start November 14. Book The Lab or a Charm Bar seat, check out, and we ping you the day before.</p>
-        <div class="suas-book-tabs" data-book-tabs>
-          <button class="suas-book-tab is-on" type="button" data-kind="self">self-guided</button>
-          <button class="suas-book-tab" type="button" data-kind="guided">guided class</button>
-          <button class="suas-book-tab" type="button" data-kind="charm">charm bar</button>
+        <div class="suas-book-tabs" data-book-tabs role="tablist" aria-label="Booking type">
+          <button class="suas-book-tab is-on" type="button" data-kind="self" role="tab" aria-selected="true" aria-controls="self-guided" id="book-tab-self">self-guided</button>
+          <button class="suas-book-tab" type="button" data-kind="guided" role="tab" aria-selected="false" aria-controls="guided-class" id="book-tab-guided">guided class</button>
+          <button class="suas-book-tab" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm">charm bar</button>
         </div>
       </div>
       <aside class="suas-book-panel">
@@ -193,7 +196,7 @@
         assign charm_bead_product = all_products['charm-bar-bead-sticks']
       %}
 
-      <article class="suas-book-option is-open" id="self-guided" style="--card:#ffe8ef;">
+      <article class="suas-book-option is-open" id="self-guided" role="tabpanel" aria-labelledby="book-tab-self" style="--card:#ffe8ef;">
         <div class="suas-book-option-head">
           <div>
             <span class="suas-book-badge">self-guided</span>
@@ -260,7 +263,7 @@
         {% endif %}
       </article>
 
-      <article class="suas-book-option" id="guided-class" style="--card:#d9ff78;">
+      <article class="suas-book-option" id="guided-class" role="tabpanel" aria-labelledby="book-tab-guided" style="--card:#d9ff78;">
         <div class="suas-book-option-head">
           <div>
             <span class="suas-book-badge">guided class · 75 min</span>
@@ -349,7 +352,7 @@
         {% endif %}
       </article>
 
-      <article class="suas-book-option" id="charm-bar" style="--card:#fff2a8;">
+      <article class="suas-book-option" id="charm-bar" role="tabpanel" aria-labelledby="book-tab-charm" style="--card:#fff2a8;">
         <div class="suas-book-option-head">
           <div>
             <span class="suas-book-badge">charm bar · 5 seats</span>
@@ -514,7 +517,10 @@
         if (guidedCard) guidedCard.classList.toggle('is-open', kind === 'guided');
         if (charmCard) charmCard.classList.toggle('is-open', kind === 'charm');
         root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
-          tab.classList.toggle('is-on', tab.getAttribute('data-kind') === kind);
+          var on = tab.getAttribute('data-kind') === kind;
+          tab.classList.toggle('is-on', on);
+          tab.setAttribute('aria-selected', on ? 'true' : 'false');
+          tab.setAttribute('tabindex', on ? '0' : '-1');
         });
         root.querySelectorAll('#self-guided [required], #self-guided select[name="id"]').forEach(function (field) {
           if (kind === 'self') field.setAttribute('required', 'required');
@@ -531,6 +537,15 @@
       }
       root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
         tab.addEventListener('click', function () { showBookKind(tab.getAttribute('data-kind')); });
+        tab.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+          event.preventDefault();
+          var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-book-tabs] .suas-book-tab'));
+          var i = tabs.indexOf(tab);
+          var next = event.key === 'ArrowRight' ? tabs[(i + 1) % tabs.length] : tabs[(i - 1 + tabs.length) % tabs.length];
+          showBookKind(next.getAttribute('data-kind'));
+          next.focus();
+        });
       });
       var startKind = 'self';
       if ((location.hash || '').indexOf('guided') !== -1) startKind = 'guided';

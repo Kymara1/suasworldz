@@ -164,36 +164,37 @@
 
       <div class="cart--item--quantity">
         <div class="cart--quantity--container" data-item="input">
-          <a
+          <button
+            type="button"
             class="cart--minus"
             data-item="minus"
-            tabindex="0"
-            aria-label="{{ minus_t }}"
+            aria-label="{{ minus_t }} {{ item.product.title | escape }}"
           >
             {% render 'icons', icon: 'minus' %}
-          </a>
+          </button>
           <label for="{{ cart_id }}-updates-{{ item.key }}" data-item="hidden-text">
-            {{ quantity_t }}
+            {{ quantity_t }} {{ item.product.title | escape }}
           </label>
           <input
             class="cart--quantity--input"
             id="{{ cart_id }}-updates-{{ item.key }}"
             type="text"
+            inputmode="numeric"
             name="updates[]"
             value="{{ item.quantity }}"
             min="1"
             pattern="[0-9]*"
             data-loading="false"
-            tabindex='-1'
+            aria-label="{{ quantity_t }} {{ item.product.title | escape }}"
           />
-          <a
+          <button
+            type="button"
             class="cart--plus"
             data-item="plus"
-            tabindex="0"
-            aria-label="{{ plus_t }}"
+            aria-label="{{ plus_t }} {{ item.product.title | escape }}"
           >
             {% render 'icons', icon: 'plus' %}
-          </a>
+          </button>
         </div>
 
         <div class="cart--item--remove" data-item="block-link">
@@ -328,36 +329,37 @@
 
         <div class="cart--item--quantity">
           <div class="cart--quantity--container" data-item="input">
-            <a
+            <button
+              type="button"
               class="cart--minus"
               data-item="minus"
-              tabindex="0"
-              aria-label="{{ minus_t }}"
+              aria-label="{{ minus_t }} {{ item.product.title | escape }}"
             >
               {% render 'icons', icon: 'minus' %}
-            </a>
+            </button>
             <label for="{{ cart_id }}-updates-{{ item.key }}" data-item="hidden-text">
-              {{ quantity_t }}
+              {{ quantity_t }} {{ item.product.title | escape }}
             </label>
             <input
               class="cart--quantity--input"
               id="{{ cart_id }}-updates-{{ item.key }}"
               type="text"
+              inputmode="numeric"
               name="updates[]"
               value="{{ item.quantity }}"
               min="1"
               pattern="[0-9]*"
-              tabindex='-1'
               data-loading="false"
+              aria-label="{{ quantity_t }} {{ item.product.title | escape }}"
             />
-            <a
+            <button
+              type="button"
               class="cart--plus"
               data-item="plus"
-              tabindex="0"
-              aria-label="{{ plus_t }}"
+              aria-label="{{ plus_t }} {{ item.product.title | escape }}"
             >
               {% render 'icons', icon: 'plus' %}
-            </a>
+            </button>
           </div>
 
           <div class="cart--item--remove" data-item='block-link'>
@@ -389,6 +391,7 @@
     <span class="suas-cart-win-title">cart.bag</span>
     <span class="suas-cart-chip" data-suas-bag-chip>{{ bag_chip }}</span>
   </div>
+  <p class="suas-sr-only" role="status" aria-live="polite">{{ bag_chip }}. {{ total_t }} {{ cart.total_price | money }}.</p>
 
   <div class="cart--header suas-cart-header">
     <p class="suas-cart-kicker">your bag</p>
