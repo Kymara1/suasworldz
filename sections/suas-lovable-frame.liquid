@@ -35,6 +35,7 @@
   .suas-search-body input:focus{outline:3px solid #101010;outline-offset:2px}
   .suas-search-go{min-height:48px;border:2px solid #101010;border-radius:999px;background:#d9ff78;box-shadow:0 3px 0 #101010;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.35rem;cursor:pointer}
   html.suas-search-open,html.suas-search-open body{overflow:hidden}
+  @media(prefers-reduced-motion:reduce){.suas-frame-marquee-track{animation:none!important}}
 </style>
 
 {% liquid
@@ -341,7 +342,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% endif %}
     </nav>
     <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>{% if suas_men_panel %}men status{% else %}{{ section.settings.status_label }}{% endif %}</b><span>{% if suas_men_panel %}the rack{% else %}{{ section.settings.status_text }}{% endif %}</span></div></div>
-    <div class="suas-side-foot">{% render 'suas-os-search' %}{% if suas_men_panel %}<a href="/pages/account">account</a><a href="/">main world</a>{% else %}<a href="{{ section.settings.footer_link_1 }}">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span>{% endif %}</div>
+    <div class="suas-side-foot">{% render 'suas-os-search' %}{% if suas_men_panel %}<a href="/pages/account">account</a><a href="/pages/accessibility">access</a><a href="/">main world</a>{% else %}<a href="{{ section.settings.footer_link_1 }}">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><a href="/pages/accessibility">access</a><span>{{ section.settings.version_text }}</span>{% endif %}</div>
   </aside>
 </div>
 

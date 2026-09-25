@@ -131,6 +131,21 @@
         } catch (err) {}
       }
 
+      function nameJudgeFields() {
+        root.querySelectorAll('input, textarea, select').forEach(function (el) {
+          if (el.type === 'hidden') return;
+          if (el.getAttribute('aria-label')) return;
+          if (el.id && root.querySelector('label[for="' + el.id + '"]')) return;
+          if (el.closest('label')) return;
+          var ph = (el.getAttribute('placeholder') || el.getAttribute('name') || el.getAttribute('type') || 'field').replace(/[_-]+/g, ' ');
+          el.setAttribute('aria-label', ph);
+        });
+        root.querySelectorAll('input[type="radio"][name*="rating" i], input[type="radio"][class*="star"]').forEach(function (el) {
+          if (el.getAttribute('aria-label')) return;
+          el.setAttribute('aria-label', (el.value || el.getAttribute('data-value') || '') + ' of 5');
+        });
+      }
+
       function compactForm() {
         if (!root.classList.contains('is-writing')) return;
         root.querySelectorAll('[class*="picture"],[class*="Picture"],[class*="upload"],[class*="media-uploader"]').forEach(function (el) {
@@ -156,6 +171,7 @@
 
       function scrub() {
         compactForm();
+        nameJudgeFields();
         document.querySelectorAll('.suas-product-review-shell p, .suas-review-app-stage p, .suas-simple-review p').forEach(function (el) {
           if (el.closest('.jdgm-rev')) return;
           if (el.querySelector('input,textarea,button,.jdgm-rev')) return;

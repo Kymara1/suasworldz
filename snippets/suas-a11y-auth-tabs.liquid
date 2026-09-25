@@ -1,0 +1,40 @@
+<script>
+  window.suasBindAuthTabs = function (root) {
+    if (!root) return function () {};
+    const tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"][data-suas-auth]'));
+    const panels = Array.prototype.slice.call(root.querySelectorAll('[data-suas-auth-view]'));
+    const openAuth = function (name) {
+      tabs.forEach(function (tab) {
+        const on = tab.getAttribute('data-suas-auth') === name;
+        tab.classList.toggle('is-on', on);
+        tab.setAttribute('aria-selected', on ? 'true' : 'false');
+        tab.tabIndex = on ? 0 : -1;
+      });
+      panels.forEach(function (view) {
+        const on = view.getAttribute('data-suas-auth-view') === name;
+        view.classList.toggle('is-on', on);
+        view.hidden = !on;
+        if (on) view.removeAttribute('inert');
+        else view.setAttribute('inert', '');
+      });
+    };
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        openAuth(tab.getAttribute('data-suas-auth'));
+      });
+      tab.addEventListener('keydown', function (event) {
+        const i = tabs.indexOf(tab);
+        let next = -1;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (i + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        if (next < 0) return;
+        event.preventDefault();
+        tabs[next].focus();
+        openAuth(tabs[next].getAttribute('data-suas-auth'));
+      });
+    });
+    return openAuth;
+  };
+</script>

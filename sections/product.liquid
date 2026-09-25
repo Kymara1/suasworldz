@@ -396,9 +396,9 @@
                 data-src="{{ media | image_url: width: 1600 }}"
                 data-srcset="{{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1200 }} 1200w, {{ media | image_url: width: 1600 }} 1600w"
                 data-alt="{{ media.alt | default: product.title | escape }}"
-                aria-label="Show photo {{ forloop.index }}"
+                aria-label="Show {{ product.title | escape }} photo {{ forloop.index }}"
               >
-                <img src="{{ media | image_url: width: 240 }}" alt="">
+                <img src="{{ media | image_url: width: 240 }}" alt="{{ product.title | escape }}, view {{ forloop.index }}" aria-hidden="true">
               </button>
             {%- endif -%}
           {%- endfor -%}
@@ -460,7 +460,7 @@
 
   {{ 'suas-pdp-unique.css' | asset_url | stylesheet_tag }}
 
-  <div class="suas-pdp-zoom" hidden data-suas-zoom>
+  <div class="suas-pdp-zoom" hidden data-suas-zoom role="dialog" aria-modal="true" aria-label="Zoomed product photo">
     <button type="button" class="suas-pdp-zoom-close" data-suas-zoom-close aria-label="Close zoom">close</button>
     <img class="suas-pdp-zoom-photo" data-suas-zoom-photo alt="">
   </div>

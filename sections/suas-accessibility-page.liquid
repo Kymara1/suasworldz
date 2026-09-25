@@ -1,0 +1,30 @@
+<section class="suas-a11y-page" aria-labelledby="suas-a11y-title">
+  <style>
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
+    .suas-a11y-page{--ink:#101010;--cream:#fbfaf7;--pink:#ffd8e8;--lime:#d9ff78;min-height:86vh;padding:clamp(28px,5vw,64px) clamp(16px,4vw,48px);color:var(--ink);background:radial-gradient(circle at 12% 18%,rgba(255,216,232,.55),transparent 30%),radial-gradient(circle at 90% 80%,rgba(217,255,120,.3),transparent 28%),#fbfaf7;font-family:Futura,Arial,sans-serif}
+    .suas-a11y-inner{max-width:720px;margin:0 auto}
+    .suas-a11y-kicker{margin:0;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:rgba(16,16,16,.78)}
+    .suas-a11y-page h1{margin:14px 0 22px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(3.2rem,8vw,6rem);font-weight:400;line-height:.82;text-transform:lowercase}
+    .suas-a11y-win{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.92);box-shadow:5px 6px 0 var(--ink);padding:clamp(18px,3vw,28px)}
+    .suas-a11y-win p{margin:0 0 14px;font:800 1rem/1.55 Futura,Arial,sans-serif;color:rgba(16,16,16,.88)}
+    .suas-a11y-win p:last-child{margin-bottom:0}
+    .suas-a11y-win a{color:var(--ink);font-weight:900}
+  </style>
+  <div class="suas-a11y-inner">
+    <p class="suas-a11y-kicker">suas.os / access</p>
+    <h1 id="suas-a11y-title">accessibility.</h1>
+    <article class="suas-a11y-win">
+      <p>SUAS.OS is a handmade storefront. We are working to make shopping, booking The Lab, and reading this site possible with keyboards, screen readers, zoom, and reduced motion, without stripping the Windows-era interface.</p>
+      <p>We aim at WCAG 2.2 Level AA as a practical bar. We do not claim the site is ADA compliant, fully accessible, or WCAG 2.2 AA conformant. Accessibility is checked with both tools and people, and it is ongoing.</p>
+      <p>If something blocks you from buying, booking, or reading, use <a href="/pages/contact">Contact Us</a> or write hello@suasco.us. Include the page URL and the assistive tech you use if you want. We will work a path with you.</p>
+      <p>188 W Franklin Blvd, Gastonia, NC — say if you need help when you visit.</p>
+    </article>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "SUAS Accessibility",
+  "settings": [],
+  "presets": [{ "name": "SUAS Accessibility" }]
+}
+{% endschema %}

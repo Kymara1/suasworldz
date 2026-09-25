@@ -1,0 +1,89 @@
+/* SUAS.OS a11y: keep XP chrome, fix names/contrast/motion/targets. Not a conformance claim. */
+html.js body :is(a, button, input, select, textarea, summary, [role='button'], [role='tab'], [tabindex]:not([tabindex='-1'])):focus-visible {
+  outline: 3px solid #101010;
+  outline-offset: 3px;
+}
+html.js body[data-tabbing='false'] :is(a, button, input, select, textarea, summary, [role='button'], [role='tab'], [tabindex]:not([tabindex='-1'])):focus-visible {
+  outline: 3px solid #101010;
+  outline-offset: 3px;
+}
+
+.suas-side-kicker,
+.suas-side-status b {
+  color: rgba(16, 16, 16, 0.78) !important;
+}
+.suas-side-foot a,
+.suas-side-foot span {
+  color: rgba(16, 16, 16, 0.82) !important;
+}
+.suas-panel-submenu a {
+  min-height: 32px;
+  min-width: 32px;
+}
+
+.suas-world-home .suas-aisle-chips a {
+  min-height: 32px;
+}
+.suas-world-home .suas-feed-atc,
+.suas-world-home .suas-feed-btn,
+.suas-world-home .suas-product-price {
+  min-height: 40px;
+}
+.suas-world-home .suas-men-jump {
+  min-height: 44px;
+}
+.suas-world-home .suas-aisle p,
+.suas-world-home .suas-boost-copy p,
+.suas-world-home .suas-hours-list span:last-child {
+  color: #101010;
+  opacity: 0.88;
+}
+.suas-world-home .suas-boost-card s {
+  opacity: 0.72;
+}
+
+.suas-contact-kicker,
+.suas-story-kicker {
+  color: rgba(16, 16, 16, 0.78) !important;
+}
+.suas-contact-card p,
+.suas-contact-card li,
+.suas-story-lede,
+.suas-story-card p {
+  color: rgba(16, 16, 16, 0.88) !important;
+}
+
+.suas-os-copy,
+.suas-os-kicker,
+.suas-os-field label,
+.suas-os-ticket small,
+.suas-os-row {
+  color: rgba(16, 16, 16, 0.82) !important;
+}
+
+@media (max-width: 560px) {
+  .suas-world-home .suas-aisle-chips a {
+    min-height: 32px;
+    padding: 8px 6px;
+    font-size: 8px;
+  }
+  .suas-world-home .suas-product-price,
+  .suas-world-home .suas-feed-atc,
+  .suas-world-home .suas-feed-btn {
+    min-height: 40px;
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .suas-frame-marquee-track,
+  html.suas-halloween .suas-frame-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .suas-side-status-dot,
+  .suas-window-live b,
+  .suas-os-live b {
+    animation: none !important;
+  }
+}

@@ -16,13 +16,14 @@
         <p class="suas-os-kicker">suas.os / security</p>
         <h1 class="suas-os-title suas-font">sign in first.</h1>
         <p class="suas-os-copy">this door stays locked until you log in or make an account.</p>
+        {% render 'suas-a11y-auth-tabs' %}
         <div class="suas-os-tabs" role="tablist" aria-label="Account access">
-          <button class="suas-os-tab is-on" type="button" data-suas-auth="login">log in</button>
-          <button class="suas-os-tab" type="button" data-suas-auth="register">create account</button>
-          <button class="suas-os-tab" type="button" data-suas-auth="recover">forgot password</button>
+          <button class="suas-os-tab is-on" type="button" role="tab" id="suas-tab-login" data-suas-auth="login" aria-controls="suas-panel-login" aria-selected="true" tabindex="0">log in</button>
+          <button class="suas-os-tab" type="button" role="tab" id="suas-tab-register" data-suas-auth="register" aria-controls="suas-panel-register" aria-selected="false" tabindex="-1">create account</button>
+          <button class="suas-os-tab" type="button" role="tab" id="suas-tab-recover" data-suas-auth="recover" aria-controls="suas-panel-recover" aria-selected="false" tabindex="-1">forgot password</button>
         </div>
 
-        <div class="suas-os-auth is-on" data-suas-auth-view="login">
+        <div class="suas-os-auth is-on" role="tabpanel" id="suas-panel-login" data-suas-auth-view="login" aria-labelledby="suas-tab-login">
           {% form 'customer_login' %}
             <input type="hidden" name="return_to" value="/pages/account">
             <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
@@ -36,7 +37,7 @@
           {% endform %}
         </div>
 
-        <div class="suas-os-auth" data-suas-auth-view="register">
+        <div class="suas-os-auth" role="tabpanel" id="suas-panel-register" data-suas-auth-view="register" aria-labelledby="suas-tab-register" hidden inert>
           {% form 'create_customer' %}
             <input type="hidden" name="return_to" value="/pages/account">
             <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
@@ -52,7 +53,7 @@
           {% endform %}
         </div>
 
-        <div class="suas-os-auth" data-suas-auth-view="recover">
+        <div class="suas-os-auth" role="tabpanel" id="suas-panel-recover" data-suas-auth-view="recover" aria-labelledby="suas-tab-recover" hidden inert>
           {% form 'recover_customer_password' %}
             <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
             {% if form.posted_successfully? %}
@@ -73,14 +74,7 @@
 (() => {
   const root = document.querySelector('[data-suas-os-login]');
   if (!root) return;
-  const openAuth = (name) => {
-    root.querySelectorAll('[data-suas-auth-view]').forEach((view) => view.classList.toggle('is-on', view.dataset.suasAuthView === name));
-    root.querySelectorAll('[data-suas-auth]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasAuth === name));
-  };
-  root.addEventListener('click', (event) => {
-    const auth = event.target.closest('[data-suas-auth]');
-    if (auth) openAuth(auth.dataset.suasAuth);
-  });
+  const openAuth = window.suasBindAuthTabs(root);
   const hash = window.location.hash;
   const recover = root.querySelector('[data-suas-auth-view="recover"]');
   const register = root.querySelector('[data-suas-auth-view="register"]');

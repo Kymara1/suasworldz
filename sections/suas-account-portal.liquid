@@ -36,6 +36,7 @@
 -%}
 
 {% render 'suas-os-account-styles' %}
+{% render 'suas-a11y-auth-tabs' %}
 <section class="suas-os-account" data-suas-account-hub data-shopify-points="{{ saved_points }}" aria-label="SUAS account">
   <div class="suas-os-wrap{% if customer %} is-wide{% endif %}">
     {% render 'suas-os-account-mark' %}
@@ -56,12 +57,12 @@
           <h1 class="suas-os-title suas-font">sign in first.</h1>
           <p class="suas-os-copy">this door stays locked until you log in or make an account. orders, addresses, and your notes wait on the other side.</p>
           <div class="suas-os-tabs" role="tablist" aria-label="Account access">
-            <button class="suas-os-tab is-on" type="button" data-suas-auth="login">log in</button>
-            <button class="suas-os-tab" type="button" data-suas-auth="register">create account</button>
-            <button class="suas-os-tab" type="button" data-suas-auth="recover">forgot password</button>
+            <button class="suas-os-tab is-on" type="button" role="tab" id="suas-tab-login" data-suas-auth="login" aria-controls="suas-panel-login" aria-selected="true" tabindex="0">log in</button>
+            <button class="suas-os-tab" type="button" role="tab" id="suas-tab-register" data-suas-auth="register" aria-controls="suas-panel-register" aria-selected="false" tabindex="-1">create account</button>
+            <button class="suas-os-tab" type="button" role="tab" id="suas-tab-recover" data-suas-auth="recover" aria-controls="suas-panel-recover" aria-selected="false" tabindex="-1">forgot password</button>
           </div>
 
-          <div class="suas-os-auth is-on" data-suas-auth-view="login">
+          <div class="suas-os-auth is-on" role="tabpanel" id="suas-panel-login" data-suas-auth-view="login" aria-labelledby="suas-tab-login">
             {% form 'customer_login' %}
               <input type="hidden" name="return_to" value="/pages/account">
               <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
@@ -75,7 +76,7 @@
             {% endform %}
           </div>
 
-          <div class="suas-os-auth" data-suas-auth-view="register">
+          <div class="suas-os-auth" role="tabpanel" id="suas-panel-register" data-suas-auth-view="register" aria-labelledby="suas-tab-register" hidden inert>
             {% form 'create_customer' %}
               <input type="hidden" name="return_to" value="/pages/account">
               <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
@@ -91,7 +92,7 @@
             {% endform %}
           </div>
 
-          <div class="suas-os-auth" data-suas-auth-view="recover">
+          <div class="suas-os-auth" role="tabpanel" id="suas-panel-recover" data-suas-auth-view="recover" aria-labelledby="suas-tab-recover" hidden inert>
             {% form 'recover_customer_password' %}
               <div class="suas-os-errors">{{ form.errors | default_errors }}</div>
               {% if form.posted_successfully? %}
@@ -119,7 +120,7 @@
             <span class="suas-os-live suas-mono"><b></b>IN</span>
           </div>
           <div class="suas-os-body">
-            <section class="suas-os-view is-on" data-suas-view="security">
+            <section class="suas-os-view is-on" id="suas-view-security" data-suas-view="security" role="tabpanel" aria-labelledby="suas-hub-security">
               <p class="suas-os-kicker">suas.os / security</p>
               <h1 class="suas-os-title suas-font">hi, {{ account_name | downcase }}.</h1>
               <p class="suas-os-copy">you're in. email, password, and where we ship — that's the important part.</p>
@@ -141,9 +142,9 @@
               {% endform %}
             </section>
 
-            <section class="suas-os-view" data-suas-view="orders">
+            <section class="suas-os-view" id="suas-view-orders" data-suas-view="orders" role="tabpanel" aria-labelledby="suas-hub-orders" hidden inert>
               <p class="suas-os-kicker">suas.os / orders</p>
-              <h1 class="suas-os-title suas-font">your orders.</h1>
+              <h2 class="suas-os-title suas-font">your orders.</h2>
               <div class="suas-os-list">
                 {% paginate customer.orders by 50 %}
                 {% for order in customer.orders %}
@@ -162,9 +163,9 @@
               </div>
             </section>
 
-            <section class="suas-os-view" data-suas-view="addresses">
+            <section class="suas-os-view" id="suas-view-addresses" data-suas-view="addresses" role="tabpanel" aria-labelledby="suas-hub-addresses" hidden inert>
               <p class="suas-os-kicker">suas.os / addresses</p>
-              <h1 class="suas-os-title suas-font">where we ship.</h1>
+              <h2 class="suas-os-title suas-font">where we ship.</h2>
               <p class="suas-os-copy">saved on your SUAS login. add or edit without leaving this window.</p>
               <div class="suas-os-list">
                 {% for address in customer.addresses %}
@@ -193,14 +194,14 @@
             </section>
 
             {% for order in customer.orders limit: 50 %}
-              <section class="suas-os-view" data-suas-view="order-{{ order.id }}">
+              <section class="suas-os-view" data-suas-view="order-{{ order.id }}" hidden inert>
                 {% render 'suas-os-order-card', order: order %}
               </section>
             {% endfor %}
 
-            <section class="suas-os-view" data-suas-view="points">
+            <section class="suas-os-view" id="suas-view-points" data-suas-view="points" role="tabpanel" aria-labelledby="suas-hub-points" hidden inert>
               <p class="suas-os-kicker">suas.os / points</p>
-              <h1 class="suas-os-title suas-font">your points.</h1>
+              <h2 class="suas-os-title suas-font">your points.</h2>
               <p class="suas-os-number suas-font">{{ saved_points }}</p>
               <p class="suas-os-copy">1 point for every $1 you spend. at 1,000 points you get $10 off. show this screen at checkout or in the Lab.</p>
               <div class="suas-os-progress" style="--progress: {{ points_progress }}%;" aria-label="{{ points_progress }} percent to reward"><span></span></div>
@@ -213,9 +214,9 @@
               </div>
             </section>
 
-            <section class="suas-os-view" data-suas-view="journal">
+            <section class="suas-os-view" id="suas-view-journal" data-suas-view="journal" role="tabpanel" aria-labelledby="suas-hub-journal" hidden inert>
               <p class="suas-os-kicker">suas.os / journal</p>
-              <h1 class="suas-os-title suas-font">what did you make?</h1>
+              <h2 class="suas-os-title suas-font">what did you make?</h2>
               <p class="suas-os-copy">save a Lab mix or a favorite bottle. notes stay on this phone.</p>
               <form class="suas-os-form" data-suas-journal-form>
                 <div class="suas-os-two">
@@ -242,12 +243,12 @@
             <span class="suas-os-live suas-mono"><b></b>GO</span>
           </div>
           <div class="suas-os-body">
-            <div class="suas-os-launch">
-              <button class="suas-os-tile is-on" type="button" style="--tile:#fff1a8" data-suas-open="security"><strong class="suas-font">security</strong><span>login + safety</span></button>
-              <button class="suas-os-tile" type="button" style="--tile:#fff1a8" data-suas-open="points"><strong class="suas-font">points</strong><span>{{ saved_points }} pts</span></button>
-              <button class="suas-os-tile" type="button" style="--tile:#ffd8e8" data-suas-open="orders"><strong class="suas-font">orders</strong><span>history</span></button>
-              <button class="suas-os-tile" type="button" style="--tile:#cdeeff" data-suas-open="addresses"><strong class="suas-font">addresses</strong><span>ship here</span></button>
-              <button class="suas-os-tile" type="button" style="--tile:#d9ff78" data-suas-open="journal"><strong class="suas-font">journal</strong><span>what you mixed</span></button>
+            <div class="suas-os-launch" role="tablist" aria-label="Account windows">
+              <button class="suas-os-tile is-on" type="button" role="tab" id="suas-hub-security" style="--tile:#fff1a8" data-suas-open="security" aria-controls="suas-view-security" aria-selected="true" tabindex="0"><strong class="suas-font">security</strong><span>login + safety</span></button>
+              <button class="suas-os-tile" type="button" role="tab" id="suas-hub-points" style="--tile:#fff1a8" data-suas-open="points" aria-controls="suas-view-points" aria-selected="false" tabindex="-1"><strong class="suas-font">points</strong><span>{{ saved_points }} pts</span></button>
+              <button class="suas-os-tile" type="button" role="tab" id="suas-hub-orders" style="--tile:#ffd8e8" data-suas-open="orders" aria-controls="suas-view-orders" aria-selected="false" tabindex="-1"><strong class="suas-font">orders</strong><span>history</span></button>
+              <button class="suas-os-tile" type="button" role="tab" id="suas-hub-addresses" style="--tile:#cdeeff" data-suas-open="addresses" aria-controls="suas-view-addresses" aria-selected="false" tabindex="-1"><strong class="suas-font">addresses</strong><span>ship here</span></button>
+              <button class="suas-os-tile" type="button" role="tab" id="suas-hub-journal" style="--tile:#d9ff78" data-suas-open="journal" aria-controls="suas-view-journal" aria-selected="false" tabindex="-1"><strong class="suas-font">journal</strong><span>what you mixed</span></button>
             </div>
           </div>
         </aside>
@@ -300,9 +301,22 @@
   };
 
   const openView = (name) => {
-    $$('[data-suas-view]').forEach((view) => view.classList.toggle('is-on', view.dataset.suasView === name));
+    $$('[data-suas-view]').forEach((view) => {
+      const on = view.dataset.suasView === name;
+      view.classList.toggle('is-on', on);
+      view.hidden = !on;
+      if (on) view.removeAttribute('inert');
+      else view.setAttribute('inert', '');
+    });
     const tab = name.indexOf('order-') === 0 ? 'orders' : name;
-    $$('[data-suas-open]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasOpen === tab));
+    $$('[data-suas-open]').forEach((button) => {
+      const on = button.dataset.suasOpen === tab;
+      button.classList.toggle('is-on', on);
+      if (button.getAttribute('role') === 'tab') {
+        button.setAttribute('aria-selected', on ? 'true' : 'false');
+        button.tabIndex = on ? 0 : -1;
+      }
+    });
     const titles = { security: 'SECURITY.SYS', orders: 'ORDERS.LOG', addresses: 'ADDRESS.BOOK', journal: 'SCENT.JOURNAL', points: 'POINTS.WALLET' };
     const win = $('[data-suas-win-title]');
     if (win) win.textContent = name.indexOf('order-') === 0 ? 'ORDER.FILE' : (titles[name] || 'SECURITY.SYS');
@@ -318,10 +332,7 @@
       : '<div class="suas-os-empty">no scents saved yet. add your first mix above.</div>';
   };
 
-  const openAuth = (name) => {
-    $$('[data-suas-auth-view]').forEach((view) => view.classList.toggle('is-on', view.dataset.suasAuthView === name));
-    $$('[data-suas-auth]').forEach((button) => button.classList.toggle('is-on', button.dataset.suasAuth === name));
-  };
+  const openAuth = window.suasBindAuthTabs(root);
 
   const render = () => { renderJournal(); };
 

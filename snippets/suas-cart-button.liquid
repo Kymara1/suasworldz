@@ -211,6 +211,18 @@
       gap: 12px;
     }
 
+    .suas-review-form-grid label {
+      display: grid;
+      gap: 6px;
+      font: 900 10px/1 Futura, Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .suas-review-form-grid label:last-child {
+      grid-column: 1 / -1;
+    }
+
     .suas-review-form-card input,
     .suas-review-form-card select,
     .suas-review-form-card textarea {
@@ -443,7 +455,7 @@
           }
           const form = document.createElement('form');
           form.className = 'suas-review-form-card';
-          form.innerHTML = '<h3>leave a love note.</h3><div class="suas-review-form-grid"><select name="type" aria-label="Review type"><option>Lab Experience</option><option>Product Review</option></select><input name="product" placeholder="Product or experiment name" required><input name="name" placeholder="Your name" required><select name="rating" aria-label="Rating"><option>★★★★★</option><option>★★★★☆</option><option>★★★☆☆</option></select><textarea name="review" placeholder="Tell us what you loved" required></textarea></div><button class="suas-review-submit-button" type="submit">submit review</button><p class="suas-review-save-note">Your note appears on this device. Public review publishing needs a review app or backend connection.</p>';
+          form.innerHTML = '<h3>leave a love note.</h3><div class="suas-review-form-grid"><label>type<select name="type"><option>Lab Experience</option><option>Product Review</option></select></label><label>product or experiment<input name="product" placeholder="poppy butter creme" required></label><label>your name<input name="name" placeholder="your name" required></label><label>rating<select name="rating" aria-label="Rating out of 5"><option value="5">5 of 5</option><option value="4">4 of 5</option><option value="3">3 of 5</option></select></label><label>note<textarea name="review" placeholder="tell us what you loved" required></textarea></label></div><button class="suas-review-submit-button" type="submit">submit review</button><p class="suas-review-save-note">Your note appears on this device. Public review publishing needs a review app or backend connection.</p>';
           form.addEventListener('submit', (event) => {
             event.preventDefault();
             const data = Object.fromEntries(new FormData(form).entries());
