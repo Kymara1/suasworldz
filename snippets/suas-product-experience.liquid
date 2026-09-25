@@ -103,7 +103,7 @@
     endif
   endif
   if is_perfume
-    assign ingredients_html = 'Alcohol Denat., Parfum (Fragrance), Aqua (Water).'
+    assign ingredients_html = 'Alcohol Denat., Parfum (Fragrance).'
   endif
 %}
 
@@ -256,7 +256,7 @@
       {% if ingredients_html != blank %}
         <p class="suas-pdp-ing">{{ ingredients_html | strip_html }}</p>
       {% elsif is_perfume %}
-        <p class="suas-pdp-ing">Alcohol Denat., Parfum (Fragrance), Aqua (Water). Handmade in small batches in Gastonia, NC.</p>
+        <p class="suas-pdp-ing">Alcohol Denat., Parfum (Fragrance). Handmade in small batches in Gastonia, NC.</p>
       {% else %}
         <p class="suas-pdp-ing">Shea butter, mango seed butter, and the scent mix on this jar. Handmade in small batches in Gastonia, NC.</p>
       {% endif %}
