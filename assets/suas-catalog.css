@@ -476,9 +476,17 @@ html body.template--collection .suas-catalog-soon-title {
   html body.template--search .suas-catalog-card .product--rating {
     min-height: 16px !important;
   }
+  html body.template--collection .suas-catalog-card .product--details,
+  html body.template--search .suas-catalog-card .product--details {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 6px !important;
+  }
   html body.template--collection .suas-catalog-card .product--price-container,
   html body.template--search .suas-catalog-card .product--price-container {
-    align-self: start !important;
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    justify-self: start !important;
+    margin-top: 2px !important;
   }
   html body.template--collection .shopify-payment-button,
   html body.template--collection shopify-payment-terms,
