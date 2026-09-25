@@ -40,11 +40,13 @@
             <div class="search--loading">
               {% render 'loading-spinner', size: '35px' %}
             </div>
+            <label data-item="hidden-text" for="suas-search-q">{{ placeholder_t }}</label>
             <input
               class="search--textbox"
+              id="suas-search-q"
               data-item="lowercase-accent-text"
               name="q"
-              type="text"
+              type="search"
               value="{{ search.terms | replace: '*', '' }}"
               placeholder="{{ placeholder_t }}"
             >

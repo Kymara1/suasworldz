@@ -45,6 +45,11 @@
     margin-left: auto !important;
   }
 
+    html body .suas-mobile-bar .suas-os-search {
+      min-height: 40px !important;
+      margin: 0 !important;
+    }
+
   html body .suas-mobile-bar .suas-floating-cart {
     position: relative !important;
     top: auto !important;

@@ -177,9 +177,10 @@
     {% unless suas_station_page %}
       {% render 'suas-laptop-boot', suas_boot_slot: 'body' %}
     {% endunless %}
-    <a data-item="a11y-button" href="#main-content">
-      {{ 'general.a11y.skip_main' | t }}
-    </a>
+    <nav class="suas-skip" aria-label="Skip">
+      <a data-item="a11y-button" href="#main-content">{{ 'general.a11y.skip_main' | t }}</a>
+      <a data-item="a11y-button" href="#suas-control-panel">Skip to menu</a>
+    </nav>
 
     {% unless request.page_type == 'password' or suas_station_page %}
       {% section 'suas-lovable-frame' %}

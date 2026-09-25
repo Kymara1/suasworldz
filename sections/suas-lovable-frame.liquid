@@ -18,6 +18,10 @@
   .suas-side-status{margin:10px 15px 12px;min-height:74px;display:flex;align-items:center;gap:11px;padding:16px 20px;border-radius:999px;background:rgba(255,255,255,.84);box-shadow:0 13px 30px rgba(16,16,16,.08)}.suas-side-status-dot{width:9px;height:9px;border-radius:999px;background:var(--suas-lime);box-shadow:0 0 14px rgba(198,247,106,.9);animation:suasPulse 1.6s ease-in-out infinite}.suas-side-status b,.suas-side-status span{display:block}.suas-side-status b{color:rgba(16,16,16,.42);margin-bottom:5px}.suas-side-status span{font-size:1.08rem;line-height:1;text-transform:uppercase}.suas-side-foot{display:flex;justify-content:space-between;gap:8px;padding:0 14px 16px}.suas-side-foot a,.suas-side-foot span{color:rgba(16,16,16,.46);text-decoration:none}@keyframes suasPulse{0%,100%{opacity:.35;transform:scale(.86)}50%{opacity:1;transform:scale(1.1)}}
   @media(min-width:1024px){.suas-side-rail{inset:36px auto 0 0;padding-top:4px;height:calc(100vh - 36px)}.off-canvas--main-content{margin-left:252px;width:calc(100% - 252px)}.header--root,.announcement--root{display:none!important}}
   @media(max-width:1023px){.header--root,.announcement--root{display:none!important}.suas-frame-marquee{height:34px}.suas-frame-marquee-track span{padding:0 18px;font-size:15px}}
+  .suas-os-search{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 10px;border:1.5px solid #101010;border-radius:999px;background:#d9ff78;color:#101010!important;box-shadow:0 2px 0 #101010;font:900 10px/1 Futura,Arial,sans-serif!important;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+  .suas-mobile-bar .suas-os-search{min-height:40px}
+  .suas-side-foot a:focus-visible,.suas-os-search:focus-visible,.suas-panel-toggle:focus-visible,.suas-side-link:focus-visible,.suas-panel-submenu a:focus-visible{outline:3px solid var(--suas-ink);outline-offset:3px}
+  .suas-skip{position:absolute;left:8px;top:8px;z-index:2147483647;display:flex;gap:8px}
 </style>
 
 {% liquid
@@ -82,6 +86,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
   <div class="suas-mobile-bar">
     <a class="suas-side-head suas-mobile-home" href="{% if suas_men_panel %}/pages/suas-men{% else %}{{ section.settings.home_link | default: routes.root_url }}{% endif %}" aria-label="{% if suas_men_panel %}SUAS Men{% else %}Go to SUAS homepage{% endif %}"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{% if suas_men_panel %}SUAS{% else %}{{ section.settings.brand_text }}{% endif %}</span></a>
     <div class="suas-mobile-bar-actions">
+      <a class="suas-os-search" href="{{ routes.search_url }}" aria-label="Search">search</a>
       <button type="button" class="suas-panel-toggle" aria-expanded="false" aria-controls="suas-control-panel">
         <span class="suas-panel-toggle-lines" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="suas-panel-toggle-text">menu</span>
@@ -93,7 +98,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
   <aside class="suas-side-rail" id="suas-control-panel" aria-label="{% if suas_men_panel %}SUAS Men control panel{% else %}SUAS control panel{% endif %}">
     <a class="suas-side-head" href="{% if suas_men_panel %}/pages/suas-men{% else %}{{ section.settings.home_link | default: routes.root_url }}{% endif %}" aria-label="{% if suas_men_panel %}SUAS Men{% else %}Go to SUAS homepage{% endif %}"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{% if suas_men_panel %}SUAS{% else %}{{ section.settings.brand_text }}{% endif %}</span></a>
     <p class="suas-side-kicker">{% if suas_men_panel %}men terminal{% else %}{{ section.settings.control_label }}{% endif %}</p>
-    <nav class="suas-side-nav">
+    <nav class="suas-side-nav" aria-label="{% if suas_men_panel %}SUAS Men menu{% else %}SUAS menu{% endif %}">
       {% if suas_men_panel %}
         <a class="suas-side-link{% if request.path contains '/collections/cologne' %} is-active{% endif %}" href="/collections/cologne"><span class="suas-side-icon" style="--tint:#fff">01</span><span class="suas-side-label">cologne</span><span class="suas-side-num">01</span></a>
         <a class="suas-side-link{% if request.path contains '/collections/m-body-oil' %} is-active{% endif %}" href="/collections/m-body-oil"><span class="suas-side-icon" style="--tint:#fff">02</span><span class="suas-side-label">oil</span><span class="suas-side-num">02</span></a>
@@ -323,7 +328,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% endif %}
     </nav>
     <div class="suas-side-status"><span class="suas-side-status-dot" aria-hidden="true"></span><div><b>{% if suas_men_panel %}men status{% else %}{{ section.settings.status_label }}{% endif %}</b><span>{% if suas_men_panel %}the rack{% else %}{{ section.settings.status_text }}{% endif %}</span></div></div>
-    <div class="suas-side-foot" aria-hidden="true">{% if suas_men_panel %}<a href="/pages/account">account</a><a href="/">main world</a><span>men</span>{% else %}<a href="{{ section.settings.footer_link_1 }}">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span>{% endif %}</div>
+    <div class="suas-side-foot">{% if suas_men_panel %}<a class="suas-os-search" href="{{ routes.search_url }}" aria-label="Search">search</a><a href="/pages/account">account</a><a href="/">main world</a>{% else %}<a class="suas-os-search" href="{{ routes.search_url }}" aria-label="Search">search</a><a href="{{ section.settings.footer_link_1 }}">{{ section.settings.footer_label_1 }}</a><a href="{{ section.settings.footer_link_2 }}">{{ section.settings.footer_label_2 }}</a><span>{{ section.settings.version_text }}</span>{% endif %}</div>
   </aside>
 </div>
 

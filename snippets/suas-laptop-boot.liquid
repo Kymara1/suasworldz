@@ -128,7 +128,22 @@
       later(function () { root.classList.add('is-enter'); }, 2300);
       later(finish, 3400);
       var skip = root.querySelector('[data-suas-boot-skip]');
-      if (skip) skip.addEventListener('click', finish);
+      if (skip) {
+        skip.addEventListener('click', finish);
+        window.setTimeout(function () { skip.focus(); }, 30);
+      }
+      document.addEventListener('keydown', function (event) {
+        if (!document.documentElement.classList.contains('suas-booting')) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          finish();
+          return;
+        }
+        if (event.key === 'Tab') {
+          timers.forEach(function (id) { clearTimeout(id); });
+          timers = [];
+        }
+      });
     })();
   </script>
   {%- endunless -%}
