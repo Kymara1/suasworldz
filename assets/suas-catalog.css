@@ -110,6 +110,7 @@ html body.template--collection .collection--body--grid > *,
 html body.template--search .product-grid > * {
   width: 100% !important;
   max-width: none !important;
+  min-width: 0 !important;
   float: none !important;
   margin: 0 !important;
 }
@@ -266,9 +267,9 @@ html body.template--search .suas-catalog-card .product--details-container {
 html body.template--collection .suas-catalog-card .product--details,
 html body.template--search .suas-catalog-card .product--details {
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
-  gap: 2px 10px;
+  gap: 6px;
 }
 html body.template--collection .suas-catalog-card .product--details-wrapper {
   min-width: 0;
@@ -303,10 +304,11 @@ html body.template--search .suas-catalog-card .product--kicker {
 }
 html body.template--collection .suas-catalog-card .product--price-container,
 html body.template--search .suas-catalog-card .product--price-container {
-  grid-column: 2;
-  grid-row: 1;
+  grid-column: 1;
+  grid-row: auto;
+  justify-self: start;
   flex: 0 0 auto;
-  text-align: right;
+  text-align: left;
   white-space: nowrap;
 }
 html body.template--collection .suas-catalog-card .product--price,
@@ -369,6 +371,23 @@ html body.template--collection .suas-catalog-card .product--label:not(:empty)::b
 }
 html body.template--collection .suas-catalog-card .product--quick-add {
   display: none !important;
+}
+html body.template--collection .shopify-payment-button,
+html body.template--collection shopify-payment-terms,
+html body.template--collection .product--form-for-off-canvas {
+  display: none !important;
+}
+
+@media (max-width: 1399px) {
+  html body.template--collection .product-grid,
+  html body.template--collection .featured-collection--grid,
+  html body.template--collection .collection--body--grid,
+  html body.template--collection .collection--body--grid[data-mobile-columns],
+  html body.template--collection .collection--body--grid[data-columns],
+  html body.template--collection [data-grid],
+  html body.template--search .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
 }
 
 html body.template--collection .collection--body--empty.suas-catalog-soon {
@@ -475,23 +494,6 @@ html body.template--collection .suas-catalog-soon-title {
   html body.template--collection .suas-catalog-card .product--rating,
   html body.template--search .suas-catalog-card .product--rating {
     min-height: 16px !important;
-  }
-  html body.template--collection .suas-catalog-card .product--details,
-  html body.template--search .suas-catalog-card .product--details {
-    grid-template-columns: minmax(0, 1fr) !important;
-    gap: 6px !important;
-  }
-  html body.template--collection .suas-catalog-card .product--price-container,
-  html body.template--search .suas-catalog-card .product--price-container {
-    grid-column: 1 !important;
-    grid-row: auto !important;
-    justify-self: start !important;
-    margin-top: 2px !important;
-  }
-  html body.template--collection .shopify-payment-button,
-  html body.template--collection shopify-payment-terms,
-  html body.template--collection .product--form-for-off-canvas {
-    display: none !important;
   }
 }
 

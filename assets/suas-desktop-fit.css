@@ -1,6 +1,44 @@
 /* SUAS OS desktop fit pass
    Keeps the expressive handwritten style, but pulls desktop layouts down so they feel usable instead of zoomed-in. */
 @media (min-width: 1024px) {
+  html body .suas-side-foot {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+    padding: 0 12px 18px !important;
+  }
+
+  html body .suas-side-foot .suas-os-search {
+    grid-column: 1 / -1 !important;
+    justify-self: start !important;
+  }
+
+  html body .suas-side-foot span {
+    grid-column: 1 / -1 !important;
+    letter-spacing: 0.14em !important;
+    font-size: 9px !important;
+    text-align: left !important;
+  }
+
+  html body .suas-side-foot a {
+    min-height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 6px 8px !important;
+    border: 1.5px solid #101010 !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    box-shadow: 0 2px 0 #101010 !important;
+    color: #101010 !important;
+    font-size: 9px !important;
+    letter-spacing: 0.08em !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+  }
+
   .suas-lab-page .suas-lab-wrap {
     width: min(1060px, calc(100vw - 310px)) !important;
   }
@@ -144,6 +182,21 @@
 
   .suas-world-home .suas-product-title {
     font-size: clamp(1rem, 1.5vw, 1.32rem) !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .suas-world-home .suas-lab-teaser {
+    grid-template-columns: 1fr !important;
+  }
+
+  .suas-world-home .suas-product-slide {
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr) !important;
+  }
+
+  .suas-world-home .suas-aisle-chips a {
+    font-size: 9px !important;
+    letter-spacing: 0.04em !important;
   }
 }
 
