@@ -1,0 +1,29 @@
+<div class="suas-catalog-head">
+  <div class="suas-catalog-head-bar">
+    <span class="suas-catalog-dot" style="--dot:#ff5f57"></span>
+    <span class="suas-catalog-dot" style="--dot:#febc2e"></span>
+    <span class="suas-catalog-dot" style="--dot:#28c840"></span>
+    <b>{{ page.title | default: section.settings.title | downcase }}</b>
+    {% if section.settings.kicker != blank %}<em>{{ section.settings.kicker }}</em>{% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SUAS page window",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Fallback title",
+      "default": "dupe?"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Right badge"
+    }
+  ],
+  "presets": [{ "name": "SUAS page window" }]
+}
+{% endschema %}

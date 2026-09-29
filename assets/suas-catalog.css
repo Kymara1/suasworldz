@@ -13,8 +13,13 @@ html body.template--search .layout--main-content {
 }
 html body.template--collection .image-with-text--root,
 html body.template--collection .collection--header--root,
-html body.template--collection .featured-collection--title {
+html body.template--collection .featured-collection--title,
+html body.page--dupe .image-with-text--root {
   display: none !important;
+}
+html body.page--dupe .layout--main-content {
+  max-width: none !important;
+  padding: 16px 18px 72px !important;
 }
 html body.template--collection .featured-collection--container,
 html body.template--collection [data-container='panel'],
