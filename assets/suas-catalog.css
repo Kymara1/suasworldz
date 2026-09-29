@@ -17,9 +17,43 @@ html body.template--collection .featured-collection--title,
 html body.page--dupe .image-with-text--root {
   display: none !important;
 }
+html body.page--dupe .off-canvas--main-content {
+  overflow-x: hidden;
+}
 html body.page--dupe .layout--main-content {
   max-width: none !important;
-  padding: 16px 18px 72px !important;
+  padding: 18px 18px 72px !important;
+  background:
+    linear-gradient(rgba(16,16,16,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16,16,16,.04) 1px, transparent 1px),
+    radial-gradient(circle at 8% 0%, rgba(255,216,232,.55), transparent 28%),
+    radial-gradient(circle at 92% 8%, rgba(217,255,120,.28), transparent 24%),
+    #fbfaf7 !important;
+  background-size: 22px 22px, 22px 22px, auto, auto, auto !important;
+}
+html body.page--dupe .layout--main-content > .shopify-section:first-child {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  left: auto !important;
+  transform: none !important;
+}
+html body.page--dupe .page--root,
+html body.page--dupe .page--title {
+  display: none !important;
+}
+@media (min-width: 1024px) {
+  html body.page--dupe .off-canvas--main-content {
+    margin-left: 252px !important;
+    width: calc(100% - 252px) !important;
+  }
+}
+@media (max-width: 1023px) {
+  html body.page--dupe .layout--main-content {
+    padding: 12px 10px 48px !important;
+  }
 }
 html body.template--collection .featured-collection--container,
 html body.template--collection [data-container='panel'],
