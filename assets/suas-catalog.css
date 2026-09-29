@@ -22,7 +22,7 @@ html body.page--dupe .off-canvas--main-content {
 }
 html body.page--dupe .layout--main-content {
   max-width: none !important;
-  padding: 18px 18px 72px !important;
+  padding: 52px 18px 72px !important;
   background:
     linear-gradient(rgba(16,16,16,.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(16,16,16,.04) 1px, transparent 1px),
