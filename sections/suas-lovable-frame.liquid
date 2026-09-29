@@ -75,11 +75,16 @@ Book the Lab|/pages/bookings
 Charm Bar|/pages/charm-bar
 Contact Us|{{ suas_contact_url }}
 Refund Policy|/pages/refund-policy{% endcapture %}
-{% if template.suffix == 'suas-men' or template.suffix == 'suas-men-inner' or template.suffix == 'cologne' or template.suffix == 'exfoliating-body-wash' or template.suffix contains 'men-s-' or template.suffix contains 'masculine' or template.suffix contains 'beard' or template.suffix contains 'm-body' or template.suffix contains 'm-butter' or template.suffix contains 'm-eau' or template.suffix contains 'm-skin' %}
-  {% assign suas_men_panel = true %}
-{% else %}
-  {% assign suas_men_panel = false %}
-{% endif %}
+{% liquid
+  assign suas_men_panel = false
+  assign suas_sfx = template.suffix | default: ''
+  assign suas_col = collection.handle | default: ''
+  if suas_sfx contains 'women' or suas_col == 'body-oil' or suas_col == 'butter-creme' or suas_col == 'body-wash' or suas_col == 'body-scrub' or suas_col == 'body-jelly' or suas_col == 'cleansing-bar' or suas_col == 'eau-de-parfum' or suas_col == 'feminine' or suas_col == 'body'
+    assign suas_men_panel = false
+  elsif suas_sfx == 'suas-men' or suas_sfx == 'suas-men-inner' or suas_sfx == 'cologne' or suas_sfx == 'exfoliating-body-wash' or suas_sfx contains 'men-s-' or suas_sfx contains 'masculine' or suas_sfx contains 'beard' or suas_sfx contains 'm-body' or suas_sfx contains 'm-butter' or suas_sfx contains 'm-eau' or suas_sfx contains 'm-skin'
+    assign suas_men_panel = true
+  endif
+%}
 
 <div class="suas-frame" aria-label="{% if suas_men_panel %}SUAS Men control panel{% else %}SUAS site frame{% endif %}">
   <div class="suas-frame-marquee" aria-hidden="true"><div class="suas-frame-marquee-track">
