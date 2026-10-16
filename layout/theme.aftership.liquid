@@ -24,8 +24,16 @@
   if template.suffix == 'suas-stations'
     assign suas_station_page = true
   endif
+  assign suas_men_page = false
+  assign suas_sfx = template.suffix | default: ''
+  assign suas_col = collection.handle | default: ''
+  if suas_sfx contains 'women' or suas_col == 'body-oil' or suas_col == 'butter-creme' or suas_col == 'body-wash' or suas_col == 'body-scrub' or suas_col == 'body-jelly' or suas_col == 'cleansing-bar' or suas_col == 'eau-de-parfum' or suas_col == 'feminine' or suas_col == 'body'
+    assign suas_men_page = false
+  elsif suas_sfx == 'suas-men' or suas_sfx == 'suas-men-inner' or suas_sfx == 'cologne' or suas_sfx == 'exfoliating-body-wash' or suas_sfx contains 'men-s-' or suas_sfx contains 'masculine' or suas_sfx contains 'beard' or suas_sfx contains 'm-body' or suas_sfx contains 'm-butter' or suas_sfx contains 'm-eau' or suas_sfx contains 'm-skin'
+    assign suas_men_page = true
+  endif
 -%}
-<html class="no-js flexbox-gap{% if suas_halloween_liquid %} suas-halloween{% endif %}{% if suas_station_page %} suas-station-page{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
+<html class="no-js flexbox-gap{% if suas_halloween_liquid %} suas-halloween{% endif %}{% if suas_station_page %} suas-station-page{% endif %}{% if suas_men_page %} suas-men{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
   <head>
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">
@@ -126,14 +134,12 @@
         box-shadow: none !important;
         outline: 0 !important;
         clip: rect(0 0 0 0) !important;
-        clip-path: inset(50%) !important;
         overflow: hidden !important;
-        pointer-events: none !important;
       }
-      html body.template--product .radios--main,
-      html body.template--product .radios--value-button,
-      html body.template--product .radios--value-button div {
-        outline: 0 !important;
+      html body.template--product .radios--main:focus-within .radios--value-button,
+      html body.template--product .radios--main:focus-within .radios--swatch-button {
+        outline: 3px solid #101010 !important;
+        outline-offset: 3px !important;
       }
       html body.template--product .radios--value-button,
       html body.template--product .radios--value-button div {
@@ -175,6 +181,7 @@
     {{ 'suas-pdp-unique.css' | asset_url | stylesheet_tag }}
     {{ 'suas-catalog.css' | asset_url | stylesheet_tag }}
     {{ 'suas-mobile-panel.css' | asset_url | stylesheet_tag }}
+    {{ 'suas-a11y.css' | asset_url | stylesheet_tag }}
     {% render 'suas-booking-polish' %}
     {% render 'suas-halloween-flare', suas_halloween_slot: 'head' %}
   </head>
