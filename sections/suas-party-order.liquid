@@ -46,9 +46,6 @@
     .suas-party-yesno{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
     .suas-party-yesno label{display:inline-flex;align-items:center;gap:8px;min-height:40px;font-weight:900}
     .suas-party-yesno input{width:18px;height:18px}
-    .suas-party-confirm{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:12px}
-    .suas-party-legal{margin:0;font:700 12px/1.4 Tahoma,Arial,sans-serif}
-    .suas-party-sign{display:grid;grid-template-columns:1fr 7.5rem;gap:8px;align-items:end}
     .suas-party-task{display:flex;align-items:center;gap:10px;min-height:36px;padding:6px 10px;background:linear-gradient(180deg,#2f7adf,#1a4ea8);color:#fff}
     .suas-party-start{min-height:40px;padding:0 16px;border:2px solid #101010;border-radius:4px 12px 12px 4px;background:linear-gradient(180deg,#b6ff57,#5bb000);color:#101010;font:900 16px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 0 #101010}
     .suas-party-task em{font:800 12px/1 Tahoma,Arial,sans-serif;font-style:normal;opacity:.9}
@@ -58,7 +55,7 @@
     .suas-party-field-error{margin:0;color:#8a1024;font:800 12px/1.3 Tahoma,Arial,sans-serif}
     @media(max-width:900px){
       .suas-party-os{padding:18px 10px 36px}
-      .suas-party-grid,.suas-party-confirm,.suas-party-field,.suas-party-sign{grid-template-columns:1fr}
+      .suas-party-grid,.suas-party-field{grid-template-columns:1fr}
       .suas-party-hero{grid-template-columns:1fr;padding-bottom:8px}
       .suas-party-mark,.suas-party-mark-fallback{width:64px;height:64px;font-size:2.2rem}
     }
@@ -80,7 +77,7 @@
 
     {% form 'contact', class: 'suas-party-form', id: 'suas-party-form' %}
       {% if form.posted_successfully? %}
-        <p class="suas-party-flash" role="status">Party request sent. We will confirm the date and send the deposit link.</p>
+        <p class="suas-party-flash" role="status">Party request sent. We will review it and send an invoice if the date is open.</p>
       {% endif %}
       {% if form.errors %}
         <div class="suas-party-flash is-bad" role="alert">{{ form.errors | default_errors }}</div>
@@ -188,36 +185,6 @@
             </div>
           </div>
         </section>
-
-        <section class="suas-party-win" style="grid-column:1/-1">
-          <div class="suas-party-bar" style="background:#1e6ad4"><b>S 5. Confirmation + deposit</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
-          <div class="suas-party-body suas-party-confirm">
-            <div class="suas-party-body" style="padding:0">
-              <div class="suas-party-field">
-                <label for="party-deposit">Deposit Amount:</label>
-                <input id="party-deposit" type="text" inputmode="decimal" placeholder="50% holds the date">
-              </div>
-              <div class="suas-party-field">
-                <label for="party-balance">Remaining Balance:</label>
-                <input id="party-balance" type="text" readonly>
-              </div>
-              <p class="suas-party-hint">Total updates from package × guests. Deposit defaults to half. We send a payment link after we confirm the slot.</p>
-            </div>
-            <div>
-              <p class="suas-party-legal">By sending this form, I confirm the party details above and understand that a deposit is required to reserve my date and that the remaining balance is due before the event begins.</p>
-              <div class="suas-party-sign">
-                <div>
-                  <label for="party-sign">Client Signature:</label>
-                  <input id="party-sign" type="text" autocomplete="name" required>
-                </div>
-                <div>
-                  <label for="party-sign-date">Date:</label>
-                  <input id="party-sign-date" type="date" required>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
 
       <div class="suas-party-task">
@@ -232,29 +199,17 @@
       var form = document.getElementById('suas-party-form');
       if (!form) return;
       var guests = document.getElementById('party-guests');
-      var deposit = document.getElementById('party-deposit');
-      var balance = document.getElementById('party-balance');
-      var depositTouched = false;
       function money(n) { return '$' + (Math.max(0, n) || 0).toFixed(2); }
-      function num(v) { return Number(String(v || '').replace(/[^0-9.]/g, '')) || 0; }
       function rate() {
         var pack = form.querySelector('input[name="party_pack"]:checked');
         return pack ? Number(pack.getAttribute('data-rate')) || 0 : 0;
       }
-      function total() { return rate() * (Number(guests.value) || 0); }
-      function sync() {
-        var t = total();
-        if (!depositTouched) deposit.value = t ? money(t * 0.5) : '';
-        balance.value = t ? money(t - num(deposit.value)) : '';
-      }
-      deposit.addEventListener('input', function () { depositTouched = true; sync(); });
-      form.addEventListener('change', sync);
-      guests.addEventListener('input', sync);
       form.addEventListener('submit', function () {
         var pack = form.querySelector('input[name="party_pack"]:checked');
         var food = form.querySelector('input[name="party_food"]:checked');
         var cake = form.querySelector('input[name="party_cake"]:checked');
         var name = document.getElementById('party-name').value.trim();
+        var guestCount = Number(guests.value) || 0;
         document.getElementById('suas-party-contact-name').value = name;
         document.getElementById('suas-party-contact-email').value = document.getElementById('party-email').value.trim();
         document.getElementById('suas-party-contact-phone').value = document.getElementById('party-phone').value.trim();
@@ -269,21 +224,13 @@
           'Guests: ' + guests.value,
           'Occasion: ' + document.getElementById('party-occasion').value.trim(),
           'Ages: ' + document.getElementById('party-ages').value.trim(),
-          'Package: ' + (pack ? pack.value : '') + ' @ $' + rate() + ' x ' + (guests.value || 0),
-          'Total: ' + money(total()),
-          'Deposit: ' + deposit.value,
-          'Balance: ' + balance.value,
+          'Package: ' + (pack ? pack.value : '') + ' @ $' + rate() + ' x ' + guestCount,
+          'Estimated total: ' + money(rate() * guestCount),
           'Food: ' + (food ? food.value : ''),
           'Cake: ' + (cake ? cake.value : ''),
-          'Notes: ' + document.getElementById('party-notes').value.trim(),
-          'Signature: ' + document.getElementById('party-sign').value.trim(),
-          'Signed: ' + document.getElementById('party-sign-date').value
+          'Notes: ' + document.getElementById('party-notes').value.trim()
         ].join('\n');
       });
-      var today = new Date().toISOString().slice(0, 10);
-      var signDate = document.getElementById('party-sign-date');
-      if (signDate && !signDate.value) signDate.value = today;
-      sync();
     })();
   </script>
 </section>
