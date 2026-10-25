@@ -83,10 +83,6 @@
         <div class="suas-party-flash is-bad" role="alert">{{ form.errors | default_errors }}</div>
       {% endif %}
       <input type="hidden" name="contact[subject]" value="Party booking request">
-      <textarea id="suas-party-body" name="contact[body]" hidden>Party booking request</textarea>
-      <input type="hidden" name="contact[name]" id="suas-party-contact-name">
-      <input type="hidden" name="contact[email]" id="suas-party-contact-email">
-      <input type="hidden" name="contact[phone]" id="suas-party-contact-phone">
 
       <div class="suas-party-grid">
         <section class="suas-party-win">
@@ -94,19 +90,19 @@
           <div class="suas-party-body">
             <div class="suas-party-field">
               <label for="party-name">Full Name:</label>
-              <input id="party-name" type="text" autocomplete="name" required>
+              <input id="party-name" type="text" name="contact[name]" autocomplete="name" required>
             </div>
             <div class="suas-party-field">
               <label for="party-phone">Phone Number:</label>
-              <input id="party-phone" type="tel" autocomplete="tel" required>
+              <input id="party-phone" type="tel" name="contact[phone]" autocomplete="tel" required>
             </div>
             <div class="suas-party-field">
               <label for="party-email">Email Address:</label>
-              <input id="party-email" type="email" autocomplete="email" required>
+              <input id="party-email" type="email" name="contact[email]" autocomplete="email" required>
             </div>
             <div class="suas-party-field">
               <label for="party-ig">Instagram / Preferred Contact:</label>
-              <input id="party-ig" type="text" autocomplete="off">
+              <input id="party-ig" type="text" name="contact[Instagram]" autocomplete="off">
             </div>
           </div>
         </section>
@@ -116,27 +112,27 @@
           <div class="suas-party-body">
             <div class="suas-party-field">
               <label for="party-date">Event Date:</label>
-              <input id="party-date" type="date" required>
+              <input id="party-date" type="date" name="contact[Event date]" required>
             </div>
             <div class="suas-party-field">
               <label for="party-time">Preferred Party Time:</label>
-              <input id="party-time" type="text" placeholder="ex. 2:00 PM">
+              <input id="party-time" type="text" name="contact[Preferred time]" placeholder="ex. 2:00 PM">
             </div>
             <div class="suas-party-field">
               <label for="party-guests">Guest Count:</label>
-              <input id="party-guests" type="number" min="1" max="12" inputmode="numeric" required>
+              <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="12" inputmode="numeric" required>
             </div>
             <div class="suas-party-field">
               <label for="party-occasion">Occasion:</label>
-              <input id="party-occasion" type="text" placeholder="Birthday, Girls' Day, Team Celebration">
+              <input id="party-occasion" type="text" name="contact[Occasion]" placeholder="Birthday, Girls' Day, Team Celebration">
             </div>
             <div class="suas-party-field">
               <label for="party-ages">Guest Age Range (if relevant):</label>
-              <input id="party-ages" type="text">
+              <input id="party-ages" type="text" name="contact[Age range]">
             </div>
             <div class="suas-party-field is-stack">
               <label for="party-notes">Notes / Special Requests:</label>
-              <textarea id="party-notes"></textarea>
+              <textarea id="party-notes" name="contact[body]"></textarea>
             </div>
           </div>
         </section>
@@ -146,22 +142,22 @@
           <div class="suas-party-body">
             <div class="suas-party-packs" role="radiogroup" aria-label="Package selection">
               <label class="suas-party-pack">
-                <input type="radio" name="party_pack" value="Self-Guided Party Pack" data-rate="65" required>
+                <input type="radio" name="contact[Package]" value="Self-Guided Party Pack — $65/person" data-rate="65" required>
                 <span><b>Self-Guided Party Pack</b></span>
                 <em>$65 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
-                <input type="radio" name="party_pack" value="Party Session" data-rate="95">
+                <input type="radio" name="contact[Package]" value="Party Session — $95/guest" data-rate="95">
                 <span><b>Party Session</b></span>
                 <em>$95 <small>per guest</small></em>
               </label>
               <label class="suas-party-pack">
-                <input type="radio" name="party_pack" value="Deluxe Party" data-rate="145">
+                <input type="radio" name="contact[Package]" value="Deluxe Party — $145/person" data-rate="145">
                 <span><b>Deluxe Party</b></span>
                 <em>$145 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
-                <input type="radio" name="party_pack" value="Signature Collection" data-rate="165">
+                <input type="radio" name="contact[Package]" value="Signature Collection — $165/person" data-rate="165">
                 <span><b>Signature Collection</b></span>
                 <em>$165 <small>per person</small></em>
               </label>
@@ -175,13 +171,13 @@
           <div class="suas-party-body">
             <div class="suas-party-yesno">
               <span>Bringing food?</span>
-              <label><input type="radio" name="party_food" value="Yes"> Yes</label>
-              <label><input type="radio" name="party_food" value="No" checked> No</label>
+              <label><input type="radio" name="contact[Food]" value="Yes"> Yes</label>
+              <label><input type="radio" name="contact[Food]" value="No" checked> No</label>
             </div>
             <div class="suas-party-yesno">
               <span>Bringing cake?</span>
-              <label><input type="radio" name="party_cake" value="Yes"> Yes</label>
-              <label><input type="radio" name="party_cake" value="No" checked> No</label>
+              <label><input type="radio" name="contact[Cake]" value="Yes"> Yes</label>
+              <label><input type="radio" name="contact[Cake]" value="No" checked> No</label>
             </div>
           </div>
         </section>
@@ -205,31 +201,21 @@
         return pack ? Number(pack.getAttribute('data-rate')) || 0 : 0;
       }
       form.addEventListener('submit', function () {
-        var pack = form.querySelector('input[name="party_pack"]:checked');
-        var food = form.querySelector('input[name="party_food"]:checked');
-        var cake = form.querySelector('input[name="party_cake"]:checked');
-        var name = document.getElementById('party-name').value.trim();
+        var pack = form.querySelector('input[name="contact[Package]"]:checked');
+        var food = form.querySelector('input[name="contact[Food]"]:checked');
+        var cake = form.querySelector('input[name="contact[Cake]"]:checked');
+        var notes = document.getElementById('party-notes');
         var guestCount = Number(guests.value) || 0;
-        document.getElementById('suas-party-contact-name').value = name;
-        document.getElementById('suas-party-contact-email').value = document.getElementById('party-email').value.trim();
-        document.getElementById('suas-party-contact-phone').value = document.getElementById('party-phone').value.trim();
-        document.getElementById('suas-party-body').value = [
+        var summary = [
           'PARTY BOOKING REQUEST',
-          'Name: ' + name,
-          'Phone: ' + document.getElementById('party-phone').value.trim(),
-          'Email: ' + document.getElementById('party-email').value.trim(),
-          'Instagram: ' + document.getElementById('party-ig').value.trim(),
-          'Date: ' + document.getElementById('party-date').value,
-          'Time: ' + document.getElementById('party-time').value.trim(),
-          'Guests: ' + guests.value,
-          'Occasion: ' + document.getElementById('party-occasion').value.trim(),
-          'Ages: ' + document.getElementById('party-ages').value.trim(),
-          'Package: ' + (pack ? pack.value : '') + ' @ $' + rate() + ' x ' + guestCount,
+          'Package: ' + (pack ? pack.value : ''),
+          'Guests: ' + guestCount,
           'Estimated total: ' + money(rate() * guestCount),
           'Food: ' + (food ? food.value : ''),
           'Cake: ' + (cake ? cake.value : ''),
-          'Notes: ' + document.getElementById('party-notes').value.trim()
+          'Notes: ' + notes.value.trim()
         ].join('\n');
+        notes.value = summary;
       });
     })();
   </script>
