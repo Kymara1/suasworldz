@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "suas-party-order",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

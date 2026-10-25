@@ -72,6 +72,7 @@ Perfume|/collections/eau-de-parfum
 Skin Jelly|/collections/body-jelly{% endcapture %}
 {% capture about_submenu_default %}Who are we|/pages/who-are-we
 Book the Lab|/pages/bookings
+Party booking|/pages/party-booking
 Charm Bar|/pages/charm-bar
 Contact Us|{{ suas_contact_url }}
 Refund Policy|/pages/refund-policy{% endcapture %}
@@ -270,7 +271,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% if section.settings.about_enabled %}
         {% liquid
           assign item_active = false
-          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/contact-us,/pages/refund-policy' | split: ','
+          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/bookings,/pages/party-booking,/pages/charm-bar,/pages/contact-us,/pages/refund-policy' | split: ','
           for active_path in about_active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
@@ -534,8 +535,8 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"about_number","label":"Number","default":"06"},
     {"type":"color","id":"about_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"link_list","id":"about_menu","label":"About dropdown menu","info":"Choose a Shopify Navigation menu. Add page links to that menu instead of typing URLs here."},
-    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu or item blocks are selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nCharm Bar|/pages/charm-bar\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
-    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/charm-bar,/pages/contact-us,/pages/refund-policy"},
+    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu or item blocks are selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nParty booking|/pages/party-booking\nCharm Bar|/pages/charm-bar\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
+    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/party-booking,/pages/charm-bar,/pages/contact-us,/pages/refund-policy"},
 
     {"type":"header","content":"Visit Us item"},
     {"type":"checkbox","id":"visit_enabled","label":"Show Visit Us","default":true},
