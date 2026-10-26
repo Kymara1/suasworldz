@@ -22,7 +22,9 @@
     .suas-invoice-desk .toolbar{width:min(820px,100%);margin:0 auto 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
     .suas-invoice-desk .toolbar button,.suas-invoice-desk .gate-go{min-height:40px;padding:0 16px;border:2px solid #101010;border-radius:999px;background:var(--lime);color:#101010;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #101010}
     .suas-invoice-desk .toolbar button.ghost{background:#fff}
+    .suas-invoice-desk .toolbar button.is-mail{background:var(--hot)}
     .suas-invoice-desk .toolbar em{font:800 11px/1.3 Tahoma,Arial,sans-serif;font-style:normal;opacity:.7}
+    .suas-invoice-desk .toolbar .mail-status{flex:1 1 100%;margin:0;font:800 12px/1.35 Tahoma,Arial,sans-serif}
     .suas-invoice-desk .sheet{width:min(820px,100%);margin:0 auto;overflow:hidden;border:4px solid #101010;border-radius:32px;background:#0b1a36;box-shadow:8px 10px 0 #101010}
     .suas-invoice-desk .titlebar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:38px;padding:7px 12px;background:#101010;color:var(--lime)}
     .suas-invoice-desk .orb{width:16px;height:16px;border:2px solid #fff;border-radius:999px;background:radial-gradient(circle at 32% 28%,#fff 0 28%,#d9ff78 42%,#7adf3a 100%);box-shadow:0 0 0 1px #101010}
@@ -64,7 +66,7 @@
     @media(max-width:700px){.suas-invoice-desk .row,.suas-invoice-desk .line,.suas-invoice-desk .hero,.suas-invoice-desk .pay{grid-template-columns:1fr}.suas-invoice-desk .mark{width:56px;height:56px;font-size:2rem}}
     @media print{
       .suas-invoice-desk{background:#fff;padding:0}
-      .suas-invoice-desk .toolbar{display:none!important}
+      .suas-invoice-desk .toolbar,.suas-invoice-desk .mail-status{display:none!important}
       .suas-invoice-desk .sheet{width:100%;border-radius:0;box-shadow:none}
       .suas-invoice-desk input,.suas-invoice-desk select,.suas-invoice-desk textarea{border-color:transparent;background:transparent;padding-left:0}
     }
@@ -120,6 +122,8 @@
     </article>
   {% else %}
   <div class="toolbar">
+    <button type="button" class="is-mail" id="sendBtn">email invoice</button>
+    <button type="button" class="ghost" id="gmailBtn">open in gmail</button>
     <button type="button" id="printBtn">save as pdf</button>
     <button type="button" class="ghost" id="clearBtn">clear fields</button>
     <form method="post" action="{{ routes.cart_url }}/update" style="margin:0">
@@ -127,7 +131,8 @@
       <input type="hidden" name="return_to" value="{{ page.url }}">
       <button type="submit" class="ghost">lock</button>
     </form>
-    <em>staff only. fill it here. optional PDF if you still want a file. nothing emails itself.</em>
+    <em>paste the invoice # and email from the booking. email invoice opens your mail to that address — hit send there.</em>
+    <p class="mail-status" id="mailStatus" hidden></p>
   </div>
   <article class="sheet" aria-label="SUAS party invoice">
     <div class="titlebar"><span class="orb" aria-hidden="true"></span><b>INVOICE.EXE</b><span class="winbtns" aria-hidden="true"><i></i><i></i><i></i></span></div>
@@ -176,14 +181,14 @@
           <div class="bar" style="background:#d6c21a">bill to<span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="pad">
             <label>name<input id="name" autocomplete="name"></label>
-            <label>email<input id="email" type="email"></label>
+            <label>email from booking<input id="email" type="email" placeholder="paste from the party email" required></label>
             <label>phone<input id="phone" type="tel"></label>
           </div>
         </section>
         <section class="win">
           <div class="bar" style="background:#e23d8a">file<span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="pad">
-            <label>invoice #<input id="number"></label>
+            <label>invoice # from booking<input id="number" placeholder="SUAS-YYYYMMDD-XXXX"></label>
             <label>issued<input id="issued" type="date"></label>
             <label>deposit due<input id="due" type="date"></label>
             <label>balance due<input id="balanceDue" type="date" readonly></label>
@@ -249,7 +254,92 @@
         var d = new Date();
         if (!document.getElementById('issued').value) document.getElementById('issued').value = ymd(d);
         if (!document.getElementById('due').value) document.getElementById('due').value = ymd(d);
-        if (!document.getElementById('number').value) document.getElementById('number').value = 'SUAS-' + ymd(d).replace(/-/g,'') + '-01';
+      }
+      function val(id){
+        var el = document.getElementById(id);
+        return el ? String(el.value || '').trim() : '';
+      }
+      function packLabel(){
+        var opt = pack.options[pack.selectedIndex];
+        return opt ? opt.text : '';
+      }
+      function invoiceMail(){
+        var to = val('email');
+        var num = val('number');
+        var status = document.getElementById('mailStatus');
+        function say(msg, ok){
+          if (!status) return;
+          status.hidden = false;
+          status.textContent = msg;
+          status.style.color = ok ? '#07162e' : '#7a1028';
+        }
+        if (!to || to.indexOf('@') < 1) {
+          say('Paste the booking email in bill to, then send.');
+          document.getElementById('email').focus();
+          return null;
+        }
+        if (!num) {
+          say('Paste the invoice number from the booking email.');
+          document.getElementById('number').focus();
+          return null;
+        }
+        var who = val('name') || 'there';
+        var pay = val('payMethod') || '(add method)';
+        var handle = val('payHandle');
+        var memo = val('payMemo') || num;
+        var lines = [
+          'hey ' + who.toLowerCase() + ',',
+          '',
+          'invoice ' + num + ' for your private 90-minute lab party.',
+          '',
+          'date: ' + (val('eventDate') || 'tbd'),
+          'time: ' + (val('time') || 'tbd'),
+          'guests: ' + (val('guests') || 'tbd') + ' (max 14)',
+          'occasion: ' + (val('occasion') || '—'),
+          'package: ' + packLabel(),
+          'food / cake: ' + val('food') + ' / ' + val('cake'),
+          'total: ' + (total.textContent || ''),
+          'deposit due now (50%, holds the date): ' + (deposit.textContent || ''),
+          'remaining (48 hours before start): ' + (remain.textContent || ''),
+          'deposit due date: ' + (val('due') || 'today'),
+          'balance due date: ' + (val('balanceDue') || '48 hours before'),
+          '',
+          'pay ' + pay + (handle ? ' to ' + handle : '') + '. put ' + memo + ' in the memo.',
+          'cancel within 72 hours of this invoice and the deposit comes back. after that, non-refundable.',
+          'the date is held when the deposit clears.',
+          '',
+          val('notes') ? 'notes: ' + val('notes') : '',
+          '',
+          'suas',
+          '188 w franklin blvd, gastonia, nc 28052'
+        ].filter(function(line, i, arr){ return line !== '' || (arr[i-1] && arr[i-1] !== ''); });
+        return {
+          to: to,
+          subject: 'suas party invoice ' + num,
+          body: lines.join('\n').replace(/\n{3,}/g, '\n\n')
+        };
+      }
+      function openMail(viaGmail){
+        var mail = invoiceMail();
+        if (!mail) return;
+        var status = document.getElementById('mailStatus');
+        var href;
+        if (viaGmail) {
+          href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(mail.to) +
+            '&su=' + encodeURIComponent(mail.subject) +
+            '&body=' + encodeURIComponent(mail.body);
+          window.open(href, '_blank', 'noopener');
+        } else {
+          href = 'mailto:' + encodeURIComponent(mail.to) +
+            '?subject=' + encodeURIComponent(mail.subject) +
+            '&body=' + encodeURIComponent(mail.body);
+          window.location.href = href;
+        }
+        if (status) {
+          status.hidden = false;
+          status.style.color = '#07162e';
+          status.textContent = 'Mail opened to ' + mail.to + ' · invoice ' + val('number') + '. Hit send in that window.';
+        }
       }
       function calc(){
         var n = Math.max(1, Math.min(14, Number(guests.value) || 1));
@@ -290,6 +380,8 @@
       document.querySelector('.suas-invoice-desk .sheet').addEventListener('input', function(){ calc(); save(); });
       document.querySelector('.suas-invoice-desk .sheet').addEventListener('change', function(){ calc(); save(); });
       document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+      document.getElementById('sendBtn').addEventListener('click', function(){ openMail(false); });
+      document.getElementById('gmailBtn').addEventListener('click', function(){ openMail(true); });
       document.getElementById('clearBtn').addEventListener('click', function(){
         ids.forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
         guests.value = 1;

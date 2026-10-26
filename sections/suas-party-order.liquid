@@ -78,12 +78,13 @@
 
     {% form 'contact', class: 'suas-party-form', id: 'suas-party-form' %}
       {% if form.posted_successfully? %}
-        <p class="suas-party-flash" role="status">Party request sent. We will review it and send an invoice if the date is open.</p>
+        <p class="suas-party-flash" role="status">Party request sent. Invoice <b id="party-invoice-flash">number is on our email</b>. We will review it and send that invoice if the date is open.</p>
       {% endif %}
       {% if form.errors %}
         <div class="suas-party-flash is-bad" role="alert">{{ form.errors | default_errors }}</div>
       {% endif %}
-      <input type="hidden" name="contact[subject]" value="Party booking request">
+      <input type="hidden" name="contact[subject]" id="party-subject" value="Party booking request">
+      <input type="hidden" name="contact[Invoice number]" id="party-invoice-no" value="">
 
       <div class="suas-party-grid">
         <section class="suas-party-win">
@@ -252,15 +253,56 @@
         if (remain) remain.value = money(full - half);
         if (depositHint) depositHint.textContent = 'Deposit due now: ' + money(half) + ' · remaining 48 hours before: ' + money(full - half);
       }
+      function makeInvoiceNo() {
+        var d = new Date();
+        var ymd = d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+        var rand = (Math.random().toString(36).replace(/[^a-z0-9]/g, '') + Date.now().toString(36)).slice(0, 4).toUpperCase();
+        return 'SUAS-' + ymd + '-' + rand;
+      }
+      function setInvoiceNo(num) {
+        var inv = document.getElementById('party-invoice-no');
+        var sub = document.getElementById('party-subject');
+        if (inv) inv.value = num;
+        if (sub) sub.value = 'Party booking ' + num;
+      }
+      var pendingKey = 'suas-party-invoice-pending';
+      var sentKey = 'suas-party-invoice-sent';
+      var flash = document.getElementById('party-invoice-flash');
+      if (flash) {
+        try {
+          var sent = sessionStorage.getItem(sentKey) || sessionStorage.getItem(pendingKey);
+          if (sent) flash.textContent = sent;
+          sessionStorage.removeItem(pendingKey);
+          sessionStorage.removeItem(sentKey);
+        } catch (e) {}
+        setInvoiceNo(makeInvoiceNo());
+      } else {
+        var existing = '';
+        try { existing = sessionStorage.getItem(pendingKey) || ''; } catch (e) {}
+        if (!/^SUAS-\d{8}-[A-Z0-9]{4}$/.test(existing)) existing = makeInvoiceNo();
+        try { sessionStorage.setItem(pendingKey, existing); } catch (e) {}
+        setInvoiceNo(existing);
+      }
       form.addEventListener('change', refreshTotal);
       form.addEventListener('input', refreshTotal);
       form.addEventListener('submit', function () {
         refreshTotal();
+        var inv = document.getElementById('party-invoice-no');
+        var num = inv && inv.value ? inv.value : makeInvoiceNo();
+        setInvoiceNo(num);
+        try {
+          sessionStorage.setItem(pendingKey, num);
+          sessionStorage.setItem(sentKey, num);
+        } catch (e) {}
         if (!notes || !total) return;
         var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
+        var head = 'Invoice number: ' + num;
+        if (notes.value.indexOf('Invoice number:') === -1) {
+          notes.value = notes.value.trim() ? head + '\n' + notes.value.trim() : head;
+        }
         var line = 'Estimated total: ' + total.value + ' · deposit now: ' + (deposit ? deposit.value : '') + ' · remaining: ' + (remain ? remain.value : '') + (method ? ' · deposit method: ' + method.value : '');
         if (notes.value.indexOf('Estimated total:') === -1) {
-          notes.value = notes.value.trim() ? notes.value.trim() + '\n' + line : line;
+          notes.value = notes.value.trim() + '\n' + line;
         }
       });
       refreshTotal();
