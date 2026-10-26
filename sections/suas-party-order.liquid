@@ -17,6 +17,7 @@
     .suas-party-mark{width:92px;height:92px;object-fit:contain;filter:drop-shadow(0 2px 0 #000)}
     .suas-party-mark-fallback{width:88px;height:88px;display:grid;place-items:center;border:3px solid #fff;border-radius:999px;background:var(--lime);color:var(--navy);font-family:'Casual Human',Futura,Arial,sans-serif;font-size:3.2rem;line-height:.8}
     .suas-party-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 12px;background:rgba(7,22,46,.18)}
+    .suas-party-grid > .suas-party-win:last-child{grid-column:1 / -1}
     .suas-party-win{border:2.5px solid var(--ink);background:var(--cream);box-shadow:4px 5px 0 #101010;min-width:0}
     .suas-party-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:30px;padding:5px 8px;color:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
     .suas-party-bar span{display:flex;gap:3px}
@@ -162,7 +163,7 @@
                 <em>$165 <small>per person</small></em>
               </label>
             </div>
-            <p class="suas-party-note">All parties are 90 minutes. The Lab is completely closed off during your reserved time slot.</p>
+            <p class="suas-party-note">All parties are 90 minutes. The Lab is completely closed off during your reserved time slot. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
           </div>
         </section>
 
@@ -181,6 +182,36 @@
             </div>
           </div>
         </section>
+
+        <section class="suas-party-win">
+          <div class="suas-party-bar" style="background:#5bb000"><b>S 5. Deposit payment</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="suas-party-body">
+            <p class="suas-party-hint">How should we invoice the 50% deposit? The date is held when that payment lands.</p>
+            <div class="suas-party-packs" role="radiogroup" aria-label="Deposit payment method">
+              <label class="suas-party-pack">
+                <input type="radio" name="contact[Deposit payment]" value="Venmo" required>
+                <span><b>Venmo</b></span>
+              </label>
+              <label class="suas-party-pack">
+                <input type="radio" name="contact[Deposit payment]" value="Zelle">
+                <span><b>Zelle</b></span>
+              </label>
+              <label class="suas-party-pack">
+                <input type="radio" name="contact[Deposit payment]" value="Cash App">
+                <span><b>Cash App</b></span>
+              </label>
+              <label class="suas-party-pack">
+                <input type="radio" name="contact[Deposit payment]" value="Card / Shopify invoice">
+                <span><b>Card</b></span>
+              </label>
+              <label class="suas-party-pack">
+                <input type="radio" name="contact[Deposit payment]" value="Cash in store">
+                <span><b>Cash in store</b></span>
+              </label>
+            </div>
+            <p class="suas-party-hint" id="party-deposit-hint">Deposit due now: $0.00 · remaining 48 hours before: $0.00</p>
+          </div>
+        </section>
       </div>
 
       <div class="suas-party-task">
@@ -188,6 +219,8 @@
         <em>party.exe</em>
         <label for="party-total" style="margin-left:auto;font:800 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em">Est.</label>
         <input id="party-total" type="text" name="contact[Estimated total]" value="$0.00" aria-live="polite" style="width:7.5rem;min-height:32px;border:2px solid #101010;background:#fff;color:#101010;font:900 14px/1 Tahoma,Arial,sans-serif;padding:4px 8px">
+        <input type="hidden" id="party-deposit" name="contact[Estimated deposit]" value="$0.00">
+        <input type="hidden" id="party-remain" name="contact[Estimated remaining]" value="$0.00">
         <b>SUAS.OS</b>
       </div>
     {% endform %}
@@ -208,16 +241,24 @@
         var match = String(pack.value).match(/\$(\d+)/);
         return match ? Number(match[1]) : 0;
       }
+      var deposit = document.getElementById('party-deposit');
+      var remain = document.getElementById('party-remain');
+      var depositHint = document.getElementById('party-deposit-hint');
       function refreshTotal() {
-        if (!total) return;
-        total.value = money(rate() * (Number(guests && guests.value) || 0));
+        var full = rate() * (Number(guests && guests.value) || 0);
+        var half = Math.round(full * 50) / 100;
+        if (total) total.value = money(full);
+        if (deposit) deposit.value = money(half);
+        if (remain) remain.value = money(full - half);
+        if (depositHint) depositHint.textContent = 'Deposit due now: ' + money(half) + ' · remaining 48 hours before: ' + money(full - half);
       }
       form.addEventListener('change', refreshTotal);
       form.addEventListener('input', refreshTotal);
       form.addEventListener('submit', function () {
         refreshTotal();
         if (!notes || !total) return;
-        var line = 'Estimated total: ' + total.value;
+        var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
+        var line = 'Estimated total: ' + total.value + ' · deposit now: ' + (deposit ? deposit.value : '') + ' · remaining: ' + (remain ? remain.value : '') + (method ? ' · deposit method: ' + method.value : '');
         if (notes.value.indexOf('Estimated total:') === -1) {
           notes.value = notes.value.trim() ? notes.value.trim() + '\n' + line : line;
         }
