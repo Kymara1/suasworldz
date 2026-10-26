@@ -1,0 +1,309 @@
+/* Party-page OS: Bliss hills + XP windows. Not Men Terminal. Not Lab stations. */
+html:not(.suas-men):not(.suas-station-page) {
+  --suas-ink: #101010;
+  --suas-navy: #07162e;
+  --suas-lime: #d9ff78;
+  --suas-hot: #ff9bc4;
+  --suas-pink: #ffd8e8;
+  --suas-cream: #f4ecd4;
+  --suas-sky: #4eb8ea;
+}
+html:not(.suas-men):not(.suas-station-page) body,
+html:not(.suas-men):not(.suas-station-page) body .off-canvas--viewport,
+html:not(.suas-men):not(.suas-station-page) body .off-canvas--main-content,
+html:not(.suas-men):not(.suas-station-page) body .layout--main-content {
+  background: linear-gradient(180deg, #3aa4e0 0%, #8ed0ef 36%, #d7ecc8 58%, #6aae3e 78%, #3d7c22 100%) !important;
+  background-attachment: fixed !important;
+}
+
+html:not(.suas-men):not(.suas-station-page) .suas-side-rail {
+  background: linear-gradient(180deg, #0a1a36, #10264a) !important;
+  border-right: 3px solid #101010 !important;
+  box-shadow: 6px 0 0 #101010 !important;
+  color: #fff !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-brand {
+  color: #d9ff78 !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-kicker,
+html:not(.suas-men):not(.suas-station-page) .suas-side-num,
+html:not(.suas-men):not(.suas-station-page) .suas-side-foot a,
+html:not(.suas-men):not(.suas-station-page) .suas-side-foot span,
+html:not(.suas-men):not(.suas-station-page) .suas-side-status b {
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-kicker {
+  border-top-color: rgba(255, 255, 255, 0.22) !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-link,
+html:not(.suas-men):not(.suas-station-page) .suas-side-label,
+html:not(.suas-men):not(.suas-station-page) .suas-side-status span {
+  color: #fff !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-link:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-link.is-active,
+html:not(.suas-men):not(.suas-station-page) .suas-side-dropdown[open] > summary.suas-side-link {
+  background: #ff9bc4 !important;
+  color: #101010 !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-link.is-active .suas-side-label,
+html:not(.suas-men):not(.suas-station-page) .suas-side-link.is-active .suas-side-num,
+html:not(.suas-men):not(.suas-station-page) .suas-side-dropdown[open] > summary.suas-side-link .suas-side-label,
+html:not(.suas-men):not(.suas-station-page) .suas-side-dropdown[open] > summary.suas-side-link .suas-side-num {
+  color: #101010 !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-icon {
+  border: 1.5px solid #fff !important;
+  background: #1c3f78 !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-status {
+  border: 2px solid #101010 !important;
+  border-radius: 0 !important;
+  background: #f4ecd4 !important;
+  box-shadow: 3px 4px 0 #101010 !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-status span {
+  color: #101010 !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-status b {
+  color: rgba(16, 16, 16, 0.55) !important;
+}
+html:not(.suas-men):not(.suas-station-page) .suas-side-link,
+html:not(.suas-men):not(.suas-station-page) .suas-panel-submenu a {
+  border-radius: 0 !important;
+}
+
+@media only screen and (max-width: 1023px) {
+  html:not(.suas-men):not(.suas-station-page) body .suas-mobile-bar {
+    background: linear-gradient(180deg, #1c3f78, #0d2448) !important;
+    border-bottom: 2px solid #101010 !important;
+    box-shadow: 0 3px 0 #101010 !important;
+  }
+  html:not(.suas-men):not(.suas-station-page) body .suas-mobile-bar .suas-side-brand {
+    color: #d9ff78 !important;
+  }
+  html:not(.suas-men):not(.suas-station-page) body .suas-panel-toggle {
+    border-radius: 0 !important;
+    background: #d9ff78 !important;
+  }
+}
+
+html:not(.suas-men):not(.suas-station-page) .suas-window-bar,
+html:not(.suas-men):not(.suas-station-page) .suas-catalog-head-bar,
+html:not(.suas-men):not(.suas-station-page) .suas-story-winbar,
+html:not(.suas-men):not(.suas-station-page) .suas-search-bar {
+  background: linear-gradient(180deg, #1c3f78, #0d2448) !important;
+  color: #fff !important;
+  border-bottom: 0 !important;
+  border-radius: 0 !important;
+}
+html:not(.suas-men) .suas-window-title,
+html:not(.suas-men) .suas-window-live,
+html:not(.suas-men) .suas-catalog-head-bar b,
+html:not(.suas-men) .suas-story-win-title,
+html:not(.suas-men) .suas-search-bar b {
+  color: #fff !important;
+}
+html:not(.suas-men) .suas-dot,
+html:not(.suas-men) .suas-catalog-dot,
+html:not(.suas-men) .suas-story-dot {
+  width: 14px !important;
+  height: 12px !important;
+  border-radius: 0 !important;
+  border: 1.5px solid #fff !important;
+  background: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: none !important;
+}
+html:not(.suas-men) .suas-window-dots span:nth-child(3),
+html:not(.suas-men) .suas-catalog-head-bar .suas-catalog-dot:nth-child(3),
+html:not(.suas-men) .suas-story-dots span:nth-child(3) {
+  background: #ff5f57 !important;
+}
+html:not(.suas-men) .suas-rotator-pause,
+html:not(.suas-men) .suas-catalog-head-bar em,
+html:not(.suas-men) .suas-search-close {
+  border-radius: 0 !important;
+  background: #d9ff78 !important;
+  color: #101010 !important;
+}
+
+html:not(.suas-men) .suas-world-home {
+  background: transparent !important;
+  padding: 18px 12px 56px !important;
+}
+html:not(.suas-men) .suas-home-h1 {
+  color: #d9ff78 !important;
+  text-shadow: 3px 3px 0 #101010 !important;
+}
+html:not(.suas-men) .suas-now-card,
+html:not(.suas-men) .suas-launch-panel,
+html:not(.suas-men) .suas-hours-win,
+html:not(.suas-men) .suas-boost,
+html:not(.suas-men) .suas-feed-notes,
+html:not(.suas-men) .suas-aisle,
+html:not(.suas-men) .suas-catalog-head,
+html:not(.suas-men) .suas-search-win {
+  border-radius: 0 !important;
+  border: 2.5px solid #101010 !important;
+  background: #f4ecd4 !important;
+  box-shadow: 4px 5px 0 #101010 !important;
+}
+html:not(.suas-men) .suas-aisle {
+  position: relative;
+  padding: 0 0 12px !important;
+  overflow: hidden;
+}
+html:not(.suas-men) .suas-aisle::before {
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  margin: 0 0 10px;
+  padding: 5px 8px;
+  color: #fff;
+  font: 900 11px/1 Tahoma, Arial, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+html:not(.suas-men) .suas-aisle--body {
+  background: #ffd8e8 !important;
+}
+html:not(.suas-men) .suas-aisle--body::before {
+  content: "S 1. Body";
+  background: #e23d8a;
+}
+html:not(.suas-men) .suas-aisle--home {
+  background: #fff1a8 !important;
+}
+html:not(.suas-men) .suas-aisle--home::before {
+  content: "S 2. Home";
+  background: #d6c21a;
+}
+html:not(.suas-men) .suas-aisle small {
+  display: none;
+}
+html:not(.suas-men) .suas-aisle h2,
+html:not(.suas-men) .suas-aisle-chips {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+html:not(.suas-men) .suas-aisle-chips a,
+html:not(.suas-men) .suas-men-jump,
+html:not(.suas-men) .suas-btn,
+html:not(.suas-men) .suas-feed-btn,
+html:not(.suas-men) .suas-feed-atc,
+html:not(.suas-men) .suas-product-price,
+html:not(.suas-men) .suas-launch {
+  border-radius: 0 !important;
+}
+html:not(.suas-men) .suas-men-jump {
+  background: linear-gradient(180deg, #b6ff57, #5bb000) !important;
+  color: #101010 !important;
+  box-shadow: 4px 5px 0 #101010 !important;
+}
+html:not(.suas-men) .suas-product-photo,
+html:not(.suas-men) .suas-product-copy,
+html:not(.suas-men) .suas-boost-card,
+html:not(.suas-men) .suas-hours-list li {
+  border-radius: 0 !important;
+}
+
+html:not(.suas-men) body.template--collection .layout--main-content,
+html:not(.suas-men) body.template--search .layout--main-content,
+html:not(.suas-men) body.page--dupe .layout--main-content,
+html:not(.suas-men) body.template--product .layout--main-content {
+  background: transparent !important;
+}
+html:not(.suas-men) body.template--collection .suas-catalog-card.product--root,
+html:not(.suas-men) body.template--search .suas-catalog-card.product--root,
+html:not(.suas-men) body.template--product .suas-pdp-life,
+html:not(.suas-men) body.template--product .suas-pdp-diagram,
+html:not(.suas-men) body.template--product .suas-pdp-ticket {
+  border-radius: 0 !important;
+  background: #f4ecd4 !important;
+}
+html:not(.suas-men) body.template--collection .navigation--root button,
+html:not(.suas-men) body.template--search .navigation--root button {
+  border-radius: 0 !important;
+}
+
+html:not(.suas-men) .suas-bookings-page,
+html:not(.suas-men) .suas-contact-page,
+html:not(.suas-men) .suas-story-page,
+html:not(.suas-men) .suas-visit-page,
+html:not(.suas-men) .suas-a11y-page,
+html:not(.suas-men) .suas-reviews,
+html:not(.suas-men) .suas-lab-page {
+  background: transparent !important;
+}
+html:not(.suas-men) .suas-lab-window,
+html:not(.suas-men) .suas-rev-win {
+  border-radius: 0 !important;
+  background: #f4ecd4 !important;
+  box-shadow: 4px 5px 0 #101010 !important;
+}
+html:not(.suas-men) .suas-lab-titlebar,
+html:not(.suas-men) .suas-rev-bar {
+  background: linear-gradient(180deg, #1c3f78, #0d2448) !important;
+  color: #fff !important;
+  border-bottom: 0 !important;
+}
+html:not(.suas-men) .suas-lab-dots i,
+html:not(.suas-men) .suas-rev-dot {
+  width: 14px !important;
+  height: 12px !important;
+  border-radius: 0 !important;
+  border: 1.5px solid #fff !important;
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+html:not(.suas-men) .suas-book-card,
+html:not(.suas-men) .suas-book-panel,
+html:not(.suas-men) .suas-book-option,
+html:not(.suas-men) .suas-contact-card,
+html:not(.suas-men) .suas-contact-form,
+html:not(.suas-men) .suas-story-win,
+html:not(.suas-men) .suas-story-card,
+html:not(.suas-men) .suas-visit-card,
+html:not(.suas-men) .suas-a11y-win,
+html:not(.suas-men) .suas-book-tab,
+html:not(.suas-men) .suas-book-button,
+html:not(.suas-men) .suas-contact-button,
+html:not(.suas-men) .suas-socials a,
+html:not(.suas-men) .suas-visit-button,
+html:not(.suas-men) .suas-book-input,
+html:not(.suas-men) .suas-book-select,
+html:not(.suas-men) .suas-contact-form input,
+html:not(.suas-men) .suas-contact-form select,
+html:not(.suas-men) .suas-contact-form textarea {
+  border-radius: 0 !important;
+}
+html:not(.suas-men) .suas-contact-title,
+html:not(.suas-men) .suas-story-title,
+html:not(.suas-men) .suas-visit-title,
+html:not(.suas-men) .suas-a11y-page h1 {
+  color: #d9ff78 !important;
+  text-shadow: 3px 3px 0 #101010 !important;
+}
+html:not(.suas-men) .suas-contact-kicker,
+html:not(.suas-men) .suas-story-kicker,
+html:not(.suas-men) .suas-visit-kicker,
+html:not(.suas-men) .suas-a11y-kicker {
+  color: #07162e !important;
+  font-weight: 900 !important;
+}
+
+html:not(.suas-men):not(.suas-station-page) .footer--root {
+  background: #07162e !important;
+  color: #d9ff78 !important;
+  border-top: 3px solid #101010 !important;
+}
+html:not(.suas-men):not(.suas-station-page) .footer--root,
+html:not(.suas-men):not(.suas-station-page) .footer--root a,
+html:not(.suas-men):not(.suas-station-page) .footer--root .footer--block--heading,
+html:not(.suas-men):not(.suas-station-page) .footer--root [data-item] {
+  color: #d9ff78 !important;
+}
