@@ -37,8 +37,8 @@
 
 @media (min-width: 1024px) {
   .template--cart .off-canvas--main-content {
-    margin-left: 220px !important;
-    width: calc(100% - 220px) !important;
+    margin-left: 252px !important;
+    width: calc(100% - 252px) !important;
   }
 }
 

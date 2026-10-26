@@ -20,8 +20,8 @@ html body.template--product .layout--main-content {
 }
 @media (min-width: 1024px) {
   html body.template--product .off-canvas--main-content {
-    margin-left: 220px;
-    width: calc(100% - 220px);
+    margin-left: 252px;
+    width: calc(100% - 252px);
   }
 }
 
