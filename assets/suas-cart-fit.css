@@ -989,3 +989,16 @@ html .suas-cart-station .cart--item--total,
 html .suas-cart-station .money {
   color: #101010 !important;
 }
+
+.suas-cart-locked .cart--quantity--container {
+  display: none !important;
+}
+
+.suas-deposit-locked-qty {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: #101010;
+  opacity: 0.72;
+  padding: 0.35rem 0 0.2rem;
+}

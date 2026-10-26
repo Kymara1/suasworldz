@@ -55,19 +55,24 @@
     else
       assign preview_image = false
     endif
+    assign suas_deposit_lock = false
+    if item.product.handle == 'lab-party-deposit'
+      assign suas_deposit_lock = true
+    endif
   -%}
 
   {% capture desktop_items %}
     {{- desktop_items -}}
 
     <div
-      class="cart--item suas-cart-line"
+      class="cart--item suas-cart-line{% if suas_deposit_lock %} suas-cart-locked{% endif %}"
       data-variant-id="{{ item.variant_id }}"
       data-quantity="{{ item.quantity }}"
       data-inventory-management="{{ item.variant.inventory_management }}"
       data-inventory-policy="{{ item.variant.inventory_policy }}"
       data-inventory-quantity="{{ item.variant.inventory_quantity | default: 0 }}"
       data-line-num="{{ forloop.index }}"
+      {% if suas_deposit_lock %}data-suas-lock="deposit"{% endif %}
     >
       <div class="cart--item--image">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
@@ -89,9 +94,11 @@
         <div data-item="block-heading">
           <a href="{{ item.url }}">{{ item.product.title }}</a>
         </div>
+        {% unless suas_deposit_lock %}
         {% render 'product-rating', product: item.product, star_link: true %}
+        {% endunless %}
 
-        {% unless item.variant.title contains 'Default' %}
+        {% unless item.variant.title contains 'Default' or suas_deposit_lock %}
           <div class="cart--item--variant-name" data-item="accent-text">
             <a href="{{ item.url }}">{{ item.variant.title }}</a>
           </div>
@@ -129,6 +136,11 @@
       </div>
 
       <div class="cart--item--price" data-item="accent-text">
+        {% if suas_deposit_lock %}
+          <div class="money" data-item="accent-text">
+            {{ item.final_line_price | money }}
+          </div>
+        {% else %}
         {% if item.original_price != item.final_price %}
           <div data-item="light-accent-text">
             <s class="money">{{ item.original_price | money }}</s>
@@ -138,6 +150,7 @@
         <div class="money" data-item="accent-text">
           {{ item.final_price | money }}
         </div>
+        {% endif %}
 
         <div class="cart--item--unit-price-container" data-item="small-text">
           {%- liquid
@@ -161,6 +174,7 @@
       </div>
 
       <div class="cart--item--quantity">
+        {% unless suas_deposit_lock %}
         <div class="cart--quantity--container" data-item="input">
           <button
             type="button"
@@ -194,6 +208,10 @@
             {% render 'icons', icon: 'plus' %}
           </button>
         </div>
+        {% else %}
+        <input type="hidden" name="updates[]" value="{{ item.quantity }}">
+        <div class="suas-deposit-locked-qty" data-item="small-text">deposit locked</div>
+        {% endunless %}
 
         <div class="cart--item--remove" data-item="block-link">
           <a
@@ -225,13 +243,14 @@
     {{- mobile_items -}}
 
     <div
-      class="cart--item suas-cart-line"
+      class="cart--item suas-cart-line{% if suas_deposit_lock %} suas-cart-locked{% endif %}"
       data-variant-id="{{ item.variant_id }}"
       data-quantity="{{ item.quantity }}"
       data-inventory-management="{{ item.variant.inventory_management }}"
       data-inventory-policy="{{ item.variant.inventory_policy }}"
       data-inventory-quantity="{{ item.variant.inventory_quantity | default: 0 }}"
       data-line-num="{{ forloop.index }}"
+      {% if suas_deposit_lock %}data-suas-lock="deposit"{% endif %}
     >
       <div class="cart--item--image">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
@@ -253,7 +272,9 @@
         <div data-item="block-heading">
           <a href="{{ item.url }}">{{ item.product.title }}</a>
         </div>
+        {% unless suas_deposit_lock %}
         {% render 'product-rating', product: item.product, star_link: true %}
+        {% endunless %}
 
         <div class='cart--error' data-item='small-text' style='display:none;'>
           {{ all_items_added_t }}
@@ -261,7 +282,7 @@
       </div>
 
       <div class="cart--item--info">
-        {% unless item.variant.title contains 'Default' %}
+        {% unless item.variant.title contains 'Default' or suas_deposit_lock %}
           <div class="cart--item--variant-name" data-item="accent-text">
             <a href="{{ item.url }}">{{ item.variant.title }}</a>
           </div>
@@ -300,7 +321,7 @@
           {% endif %}
 
           <div class="cart--item--total money" data-item="accent-text">
-            {{ item.final_price | money }}
+            {% if suas_deposit_lock %}{{ item.final_line_price | money }}{% else %}{{ item.final_price | money }}{% endif %}
           </div>
 
           <div class="cart--item--unit-price-container" data-item="small-text">
@@ -326,6 +347,7 @@
         </div>
 
         <div class="cart--item--quantity">
+          {% unless suas_deposit_lock %}
           <div class="cart--quantity--container" data-item="input">
             <button
               type="button"
@@ -359,6 +381,10 @@
               {% render 'icons', icon: 'plus' %}
             </button>
           </div>
+          {% else %}
+          <input type="hidden" name="updates[]" value="{{ item.quantity }}">
+          <div class="suas-deposit-locked-qty" data-item="small-text">deposit locked</div>
+          {% endunless %}
 
           <div class="cart--item--remove" data-item='block-link'>
             <a
@@ -534,3 +560,35 @@
     })();
   </script>
 {%- endif -%}
+
+<script>
+  (function () {
+    if (window.__suasDepositLock) return;
+    window.__suasDepositLock = true;
+    var locked = function (node) {
+      return node && node.closest && node.closest('.suas-cart-locked');
+    };
+    document.addEventListener('click', function (event) {
+      if (!locked(event.target)) return;
+      if (event.target.closest('.cart--plus, .cart--minus')) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }, true);
+    document.addEventListener('keydown', function (event) {
+      if (!locked(event.target)) return;
+      if (event.target.closest('.cart--plus, .cart--minus, .cart--quantity--input')) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    }, true);
+    document.addEventListener('focusout', function (event) {
+      var item = locked(event.target);
+      if (!item) return;
+      if (event.target.classList && event.target.classList.contains('cart--quantity--input')) {
+        event.target.value = item.getAttribute('data-quantity') || event.target.value;
+        event.stopImmediatePropagation();
+      }
+    }, true);
+  })();
+</script>
