@@ -4,24 +4,22 @@
     @font-face { font-family: 'Casual Human'; src: url({{ 'CasualHuman.otf' | asset_url }}) format('opentype'); font-display: swap; }
     @font-face { font-family: 'Casual Human'; src: url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype'); font-weight: 700; font-display: swap; }
     .suas-visit-page.suas-os-page { padding:52px 14px 48px; min-height:calc(100vh - 36px); }
-    .suas-visit-inner { padding:8px 6px 12px; }
-    .suas-visit-inner { max-width:1080px; margin:0 auto; }
-    .suas-visit-kicker { font-family:Futura,Arial,sans-serif; font-size:.8rem; letter-spacing:.34em; text-transform:uppercase; color:rgba(16,16,16,.48); }
-    .suas-visit-title, .suas-visit-card h2, .suas-visit-button { font-family:'Casual Human',Futura,Arial,sans-serif!important; font-weight:700!important; letter-spacing:0!important; }
-    .suas-visit-title { max-width:850px; margin:8px 0 18px; font-size:clamp(2.4rem,6vw,4.4rem); line-height:.82; text-transform:lowercase; color:#d9ff78; }
-    .suas-visit-kicker { color:#d9ff78; }
-    .suas-visit-copy { max-width:680px; font-family:Futura,Arial,sans-serif; font-size:clamp(1rem,1.45vw,1.16rem); line-height:1.7; color:#fff; }
-    .suas-visit-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:34px; align-items:stretch; }
-    .suas-visit-card { min-height:210px; display:flex; flex-direction:column; justify-content:space-between; padding:24px; border:2px solid var(--ink); border-radius:26px; background:rgba(255,255,255,.78); box-shadow:7px 8px 0 var(--ink); }
-    .suas-visit-card:nth-child(1){background:linear-gradient(160deg,#fff 0%,var(--pink) 160%);} .suas-visit-card:nth-child(2){background:linear-gradient(160deg,#fff 0%,var(--lime) 160%);} .suas-visit-card:nth-child(3){background:linear-gradient(160deg,#fff 0%,var(--blue) 160%); grid-column:1 / -1; min-height:160px;}
-    .suas-visit-card h2 { margin:0 0 14px; font-size:clamp(2.3rem,4vw,4rem); line-height:.9; text-transform:lowercase; }
-    .suas-visit-card p { margin:0 0 10px; font-family:Futura,Arial,sans-serif; font-weight:700; line-height:1.55; color:rgba(16,16,16,.68); }
-    .suas-map-box { min-height:190px; display:grid; place-items:center; margin-top:16px; border:2px solid var(--ink); border-radius:24px; background:linear-gradient(rgba(16,16,16,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.045) 1px,transparent 1px),#fff; background-size:20px 20px; color:var(--ink); text-decoration:none; box-shadow:inset 0 0 0 10px rgba(255,216,232,.28); }
-    .suas-map-box span { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:10px 18px; border:2px solid var(--ink); border-radius:999px; background:var(--lime); box-shadow:0 4px 0 var(--ink); font:900 12px/1 Futura,Arial,sans-serif; letter-spacing:.13em; text-transform:uppercase; }
-    .suas-visit-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:34px; }
-    .suas-visit-button { display:inline-flex; min-height:50px; align-items:center; justify-content:center; padding:13px 24px; border:2px solid var(--ink); border-radius:999px; color:var(--ink); background:#fff; box-shadow:0 5px 0 var(--ink); text-decoration:none; text-transform:lowercase; transition:transform 160ms ease,box-shadow 160ms ease,background 160ms ease; }
-    .suas-visit-button:hover { color:var(--ink); background:var(--pink); transform:translateY(2px); box-shadow:0 3px 0 var(--ink); }
-    .suas-visit-button[data-dark] { color:#fff; background:var(--ink); }
+    .suas-visit-inner { padding:8px 8px 8px; }
+    .suas-visit-kicker { font:800 .72rem/1 Tahoma,Arial,sans-serif; letter-spacing:.28em; text-transform:uppercase; color:#d9ff78; }
+    .suas-visit-title, .suas-visit-card h2 { font-family:'Casual Human',Futura,Arial,sans-serif!important; font-weight:400!important; letter-spacing:0!important; }
+    .suas-visit-title { max-width:850px; margin:8px 0 10px; font-size:clamp(2.4rem,6vw,4.4rem); line-height:.82; text-transform:lowercase; color:#d9ff78; }
+    .suas-visit-copy, .suas-visit-copy p { max-width:720px; margin:0; font:700 1rem/1.55 Tahoma,Arial,sans-serif; color:#fff; }
+    .suas-visit-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px; align-items:stretch; }
+    .suas-visit-card { min-height:210px; display:flex; flex-direction:column; justify-content:space-between; padding:22px 24px; border:2.5px solid #101010; border-radius:28px; background:#fff; }
+    .suas-visit-card:nth-child(1){background:#ffe8ef;} .suas-visit-card:nth-child(2){background:#eaf8c8;} .suas-visit-card:nth-child(3){background:#e7f3ff; grid-column:1 / -1; min-height:120px;}
+    .suas-visit-card h2 { margin:0 0 12px; font-size:clamp(2.1rem,4vw,3.4rem); line-height:.9; text-transform:lowercase; color:#101010; }
+    .suas-visit-card p { margin:0 0 10px; font:700 14px/1.55 Tahoma,Arial,sans-serif; color:rgba(16,16,16,.72); }
+    .suas-map-box { min-height:150px; display:grid; place-items:center; margin-top:14px; border:2.5px solid #101010; border-radius:22px; background:linear-gradient(rgba(16,16,16,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.045) 1px,transparent 1px),#fff; background-size:18px 18px; color:var(--ink); text-decoration:none; }
+    .suas-map-box span { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:10px 18px; border:2px solid #101010; border-radius:999px; background:#d9ff78; font:900 11px/1 Tahoma,Arial,sans-serif; letter-spacing:.13em; text-transform:uppercase; }
+    .suas-visit-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+    .suas-visit-button { display:inline-flex; min-height:46px; align-items:center; justify-content:center; padding:12px 20px; border:2px solid #d9ff78; border-radius:999px; color:#d9ff78; background:transparent; font:900 11px/1 Tahoma,Arial,sans-serif; letter-spacing:.08em; text-decoration:none; text-transform:uppercase; }
+    .suas-visit-button:hover { color:#101010; background:#d9ff78; }
+    .suas-visit-button[data-dark] { color:#fff; background:#101010; border-color:#101010; }
     @media (max-width:760px){ .suas-visit-grid{grid-template-columns:1fr;} .suas-visit-card:nth-child(3){grid-column:auto;} .suas-visit-card{min-height:170px;} .suas-map-box{min-height:150px;} }
   </style>
   <div class="suas-os-sheet">
