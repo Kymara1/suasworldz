@@ -491,12 +491,19 @@
       function esc(s){
         return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       }
-      function shortDate(iso){
-        if (!iso) return 'tbd';
+      function prettyName(s){
+        var t = String(s || '').trim().replace(/\s+/g, ' ');
+        if (!t) return 'there';
+        return t.split(' ').map(function(w){
+          return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+        }).join(' ');
+      }
+      function longDate(iso){
+        if (!iso) return 'TBD';
         var p = String(iso).split('-');
         if (p.length !== 3) return iso;
-        var months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-        return months[Number(p[1]) - 1] + ' ' + Number(p[2]);
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return months[Number(p[1]) - 1] + ' ' + Number(p[2]) + ', ' + p[0];
       }
       function invoiceMail(){
         var to = val('email');
@@ -512,16 +519,52 @@
           return null;
         }
         document.getElementById('invoiceNo').value = num;
-        var who = (val('name') || 'there').toLowerCase();
+        var who = prettyName(val('name'));
+        var pay = val('payMethod');
+        var handle = val('payHandle');
+        var isCard = /card|shopify/i.test(pay);
+        var when = [longDate(val('eventDate')), val('time')].filter(Boolean).join(' at ');
+        var occ = val('occasion');
+        var guestsN = val('guests') || '1';
+        var foodCake = (val('food') || 'No') + ' food / ' + (val('cake') || 'No') + ' cake';
+        var payBlock;
+        if (isCard) {
+          payBlock = [
+            'You chose card. I will email you a Shopify invoice for the ' + deposit.textContent + ' deposit now. Once that is paid, your date is held. I will send a second Shopify invoice for the remaining ' + remain.textContent + ' when the balance is due.'
+          ].join('\n');
+        } else {
+          payBlock = [
+            'Please pay the deposit by ' + (pay || 'the method on your invoice') + (handle ? ' to ' + handle : '') + '.',
+            'Put ' + num + ' in the memo so we can match it. Your date is held when the deposit lands.'
+          ].join('\n');
+        }
         var body = [
-          'hey ' + who + ',',
+          'Hi ' + who + ',',
           '',
-          'click in this email and press ctrl+v — that picture is your suas.os invoice.',
-          'put ' + num + ' in the pay memo. deposit holds the date.',
+          'Thank you for booking a private Lab party with SUAS. Here is invoice ' + num + '.',
           '',
-          'suas.os'
+          when + ' · ' + guestsN + ' guests' + (occ ? ' · ' + occ : ''),
+          packLabel(),
+          '90 minutes. The Lab is closed to walk-ins for your slot. Bringing: ' + foodCake + '.',
+          '',
+          'Booking total: ' + total.textContent,
+          'Deposit due now (50%, holds your date): ' + deposit.textContent + ' · due ' + longDate(val('due')),
+          'Remaining balance: ' + remain.textContent + ' · due 48 hours before the party (' + longDate(val('balanceDue')) + ')',
+          '',
+          payBlock,
+          '',
+          'Cancellations within 72 hours of this invoice are refundable. After that, the deposit is non-refundable.',
+          '',
+          'SUAS.OS',
+          '188 W Franklin Blvd',
+          'Gastonia, NC 28052'
         ].join('\n');
-        return { to: to, subject: 'suas party invoice ' + num, body: body, filename: invoiceFileName('.png') };
+        return {
+          to: to,
+          subject: 'Your SUAS party invoice — ' + num,
+          body: body,
+          filename: invoiceFileName('.png')
+        };
       }
       function openGmail(mail){
         window.open(
