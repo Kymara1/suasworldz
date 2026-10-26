@@ -930,3 +930,62 @@ html.suas-halloween .suas-cart-dots i:nth-child(3) { background: #28c840 !import
     width: 30px !important;
   }
 }
+
+/* XP Bliss cart window */
+html .cart--root.suas-cart-station,
+html .template--cart .cart--root[data-is-drawer="false"] {
+  background: #0b1a36 !important;
+  border: 4px solid #101010 !important;
+  box-shadow: 8px 10px 0 #101010 !important;
+}
+html .suas-cart-winbar,
+html.suas-halloween .suas-cart-winbar {
+  background: #101010 !important;
+  color: #d9ff78 !important;
+}
+html .suas-cart-win-title,
+html.suas-halloween .suas-cart-win-title {
+  color: #d9ff78 !important;
+}
+html .suas-cart-kicker {
+  color: #d9ff78 !important;
+}
+html .suas-cart-station .cart--title,
+html .template--cart .cart--title {
+  color: #d9ff78 !important;
+}
+html .suas-cart-sub {
+  color: #f4ecd4 !important;
+}
+html .suas-cart-station .cart--item,
+html .template--cart .cart--item,
+html .suas-cart-station .cart--item:nth-child(n) {
+  background: #f4ecd4 !important;
+  border: 2.5px solid #101010 !important;
+  border-radius: 10px !important;
+  box-shadow: 4px 5px 0 #101010 !important;
+}
+html .suas-cart-note,
+html .suas-cart-station .cart--totals,
+html .template--cart .cart--totals {
+  background: #f4ecd4 !important;
+  border: 2.5px solid #101010 !important;
+  border-radius: 10px !important;
+  box-shadow: 4px 5px 0 #101010 !important;
+}
+html .suas-cart-station .cart--checkout-button button,
+html .template--cart .cart--checkout-button button {
+  background: #d9ff78 !important;
+  color: #101010 !important;
+}
+html .suas-cart-station .cart--continue-shopping a,
+html .template--cart .cart--continue-shopping a {
+  background: #ff9bc4 !important;
+  color: #101010 !important;
+}
+html .suas-cart-station .cart--item--title a,
+html .suas-cart-station .cart--item--price,
+html .suas-cart-station .cart--item--total,
+html .suas-cart-station .money {
+  color: #101010 !important;
+}

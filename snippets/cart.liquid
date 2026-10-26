@@ -42,9 +42,7 @@
   endif
 -%}
 
-{%- if view == 'desktop' or is_drawer -%}
-  {{ 'suas-cart-fit.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
+{{ 'suas-cart-fit.css' | asset_url | stylesheet_tag }}
 
 {% for item in cart.items %}
   {%- liquid

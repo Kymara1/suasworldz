@@ -22,7 +22,7 @@ html.js body[data-tabbing='false'] :is(a, button, input, select, textarea, summa
 }
 
 .suas-world-home .suas-aisle-chips a {
-  min-height: 32px;
+  min-height: 42px;
 }
 .suas-world-home .suas-feed-atc,
 .suas-world-home .suas-feed-btn,
@@ -65,9 +65,9 @@ html.js body[data-tabbing='false'] :is(a, button, input, select, textarea, summa
 
 @media (max-width: 560px) {
   .suas-world-home .suas-aisle-chips a {
-    min-height: 32px;
+    min-height: 34px;
     padding: 8px 6px;
-    font-size: 8px;
+    font-size: 10px;
   }
   .suas-world-home .suas-product-price,
   .suas-world-home .suas-feed-atc,

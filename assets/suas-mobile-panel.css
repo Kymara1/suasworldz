@@ -14,8 +14,8 @@
     align-items: center !important;
     justify-content: space-between !important;
     gap: 10px !important;
-    min-height: 54px !important;
-    padding: 6px 10px !important;
+    min-height: 42px !important;
+    padding: 4px 10px !important;
     background: rgba(255, 255, 255, 0.96) !important;
     border-bottom: 1px solid rgba(16, 16, 16, 0.1) !important;
   }
@@ -29,13 +29,18 @@
   }
 
   html body .suas-mobile-bar .suas-side-orb {
-    width: 28px !important;
-    height: 28px !important;
+    width: 16px !important;
+    height: 16px !important;
+    flex: 0 0 16px !important;
   }
 
   html body .suas-mobile-bar .suas-side-brand {
-    font-size: 1.35rem !important;
+    font-size: 0.92rem !important;
     line-height: 1 !important;
+    letter-spacing: 0.22em !important;
+    font-weight: 700 !important;
+    transform: scaleY(0.78);
+    transform-origin: left center;
   }
 
   html body .suas-mobile-bar-actions {
@@ -70,7 +75,7 @@
     padding: 0 12px 0 10px !important;
     border: 1.5px solid #101010 !important;
     border-radius: 999px !important;
-    background: #ffd8e8 !important;
+    background: #d9ff78 !important;
     box-shadow: 0 3px 0 #101010 !important;
     color: #101010 !important;
     cursor: pointer !important;
