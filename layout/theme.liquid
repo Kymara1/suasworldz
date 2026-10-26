@@ -6,7 +6,7 @@
     assign suas_halloween_liquid = true
   endif
   assign suas_station_page = false
-  if template.suffix == 'suas-stations' or template.suffix == 'party-invoice'
+  if template.suffix == 'suas-stations' or template.suffix == 'party-invoice' or template.suffix == 'party-invoice-view'
     assign suas_station_page = true
   endif
   assign suas_men_page = false
@@ -29,7 +29,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    {% if template.suffix == 'party-invoice' %}
+    {% if template.suffix == 'party-invoice' or template.suffix == 'party-invoice-view' %}
       <meta name="robots" content="noindex, nofollow">
     {% endif %}
     {% unless suas_station_page %}

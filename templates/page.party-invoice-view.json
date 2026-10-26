@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "suas-party-invoice",
+      "settings": {
+        "customer_view": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
