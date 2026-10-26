@@ -577,7 +577,7 @@ html body .suas-world-home .suas-aisle h3 {
 
 @media (min-width: 1024px) {
   .suas-bookings-page .suas-book-wrap { width: min(1180px, calc(100vw - 248px)) !important; padding-top: 22px !important; }
-  .suas-bookings-page .suas-book-title { font-size: clamp(2.4rem, 4vw, 3.8rem) !important; }
+  .suas-bookings-page .suas-book-title { font-size: clamp(2.2rem, 5vw, 3.6rem) !important; }
   .suas-bookings-page .suas-book-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
   .suas-bookings-page .suas-book-card, .suas-bookings-page .suas-book-panel, .suas-bookings-page .suas-book-option { padding: 14px 16px !important; }
   .suas-bookings-page .suas-book-option h2 { font-size: clamp(1.35rem, 2.2vw, 2rem) !important; }
