@@ -8,9 +8,10 @@
     .suas-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1340px,calc(100vw - 24px));margin:0 auto}
-    .suas-billboard{display:grid;gap:0;padding:16px 2px 14px;text-align:center;justify-items:center;overflow:visible}
-    .suas-home-logo{position:relative;display:grid;place-items:center;width:220px;height:236px;max-width:none;color:inherit;text-decoration:none;overflow:visible}
-    .suas-home-logo-img{grid-area:1/1;display:block;width:152px;height:152px;max-width:152px;max-height:152px;object-fit:contain;background:#000;border:2px solid var(--ink);border-radius:16px;box-shadow:3px 4px 0 var(--ink);z-index:1}
+    .suas-billboard{display:grid;justify-items:center;gap:0;width:min(420px,100%);margin:0 auto 4px;padding:0 0 16px;text-align:center;overflow:visible;border:2px solid var(--ink);border-radius:28px;background:linear-gradient(180deg,#fff 0%,#ffd8e8 48%,#d9ff78 140%);box-shadow:5px 6px 0 var(--ink)}
+    .suas-billboard .suas-window-bar{width:100%;border-radius:26px 26px 0 0}
+    .suas-home-logo{position:relative;display:grid;place-items:center;width:220px;height:220px;max-width:none;margin-top:10px;color:inherit;text-decoration:none;overflow:visible}
+    .suas-home-logo-img{grid-area:1/1;display:block;width:152px;height:152px;max-width:152px;max-height:152px;object-fit:contain;background:transparent;border:0;border-radius:999px;box-shadow:none;z-index:1}
     .suas-home-logo-img--season{display:none}
     .suas-home-logo .suas-side-orb,.suas-home-logo-orb{width:clamp(56px,9vw,92px)!important;height:clamp(56px,9vw,92px)!important;flex:0 0 auto;border-radius:999px;background:radial-gradient(circle at 32% 20%,#fff 0 10%,transparent 32%),conic-gradient(from 210deg,#ffd8e8,#c9e7ff,#d8e26a,#ffd8e8);box-shadow:inset 0 -6px 12px rgba(0,0,0,.16),inset 0 6px 12px rgba(255,255,255,.85),0 8px 16px -8px rgba(16,16,16,.35)}
     .suas-home-logo-arc{grid-area:1/1;width:220px;height:236px;overflow:visible;pointer-events:none;z-index:2}
@@ -121,7 +122,7 @@
       .suas-aisle-chips{gap:5px}
       .suas-aisle-chips a{min-height:26px;padding:4px 5px;font-size:7.5px;letter-spacing:.03em;box-shadow:0 2px 0 var(--ink)}
       .suas-home-logo{width:176px;height:192px;max-width:none}
-      .suas-home-logo-img{width:118px;height:118px;max-width:118px;max-height:118px;border-radius:999px;box-shadow:2px 3px 0 var(--ink)}
+      .suas-home-logo-img{width:118px;height:118px;max-width:118px;max-height:118px;border-radius:999px;box-shadow:none}
       .suas-home-logo-arc{width:176px;height:192px}
       .suas-home-logo-arc-text{font-size:18px;letter-spacing:.03em}
       .suas-mid-row{grid-template-columns:1fr;gap:8px}
@@ -182,6 +183,15 @@
     <div class="suas-home-wrap">
       <div class="suas-hero-stack">
         <header class="suas-billboard">
+          <div class="suas-window-bar">
+            <div class="suas-window-dots">
+              <span class="suas-dot" style="--dot:#ff9bc4"></span>
+              <span class="suas-dot" style="--dot:#d9ff78"></span>
+              <span class="suas-dot" style="--dot:#f4ecd4"></span>
+            </div>
+            <span class="suas-window-title suas-mono">SUAS.OS</span>
+            <span class="suas-window-live suas-mono"><b></b>LIVE</span>
+          </div>
           <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS, Shut Up & Smell">
             <img class="suas-home-logo-img suas-home-logo-img--core" src="{{ 'suas-logo.png' | asset_url }}" width="152" height="152" alt="">
             <img class="suas-home-logo-img suas-home-logo-img--season" src="{{ 'suas-logo-halloween.png' | asset_url }}" width="152" height="152" alt="" aria-hidden="true">
