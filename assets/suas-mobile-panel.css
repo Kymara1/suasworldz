@@ -196,7 +196,7 @@
     background: #fff !important;
     box-shadow: 0 2px 0 #101010 !important;
     color: #101010 !important;
-    font-size: 9px !important;
+    font-size: 13px !important;
     letter-spacing: 0.08em !important;
     line-height: 1 !important;
     text-align: center !important;
@@ -281,7 +281,7 @@
 
   html body .suas-frame .suas-side-label,
   html body.template--product .suas-frame .suas-side-label {
-    font-size: 1.2rem !important;
+    font-size: 1.55rem !important;
     line-height: 1 !important;
     text-align: left !important;
     white-space: nowrap !important;
@@ -324,7 +324,7 @@
     justify-content: flex-start !important;
     text-align: left !important;
     padding: 6px 10px !important;
-    font-size: 9px !important;
+    font-size: 13px !important;
     letter-spacing: .1em !important;
     line-height: 1.15 !important;
     white-space: nowrap !important;
