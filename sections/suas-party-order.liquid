@@ -32,6 +32,7 @@
     .suas-party-os input[type='date'],
     .suas-party-os input[type='number'],
     .suas-party-os textarea{width:100%;min-height:40px;border:2px solid var(--ink);background:#fff;padding:8px 10px;font:800 16px/1.2 Tahoma,Arial,sans-serif;color:var(--ink)}
+    .suas-party-os input[readonly]{background:var(--lime);letter-spacing:.06em}
     .suas-party-os textarea{min-height:72px;resize:vertical}
     .suas-party-os input:focus,
     .suas-party-os textarea:focus{outline:3px solid var(--ink);outline-offset:2px}
@@ -76,15 +77,15 @@
       <span class="suas-party-mark-fallback" aria-hidden="true">S.</span>
     </header>
 
+    {%- capture party_invoice_no -%}SUAS-{{ 'now' | date: '%Y%m%d' }}-{{ 'now' | date: '%H%M' }}{%- endcapture -%}
     {% form 'contact', class: 'suas-party-form', id: 'suas-party-form' %}
       {% if form.posted_successfully? %}
-        <p class="suas-party-flash" role="status">Party request sent. Invoice <b id="party-invoice-flash">number is on our email</b>. We will review it and send that invoice if the date is open.</p>
+        <p class="suas-party-flash" role="status">Party request sent. Invoice <b id="party-invoice-flash">{{ party_invoice_no }}</b>. We will review it and send that invoice if the date is open.</p>
       {% endif %}
       {% if form.errors %}
         <div class="suas-party-flash is-bad" role="alert">{{ form.errors | default_errors }}</div>
       {% endif %}
-      <input type="hidden" name="contact[subject]" id="party-subject" value="Party booking request">
-      <input type="hidden" name="contact[Invoice number]" id="party-invoice-no" value="">
+      <input type="hidden" name="contact[subject]" id="party-subject" value="Party booking {{ party_invoice_no }}">
 
       <div class="suas-party-grid">
         <section class="suas-party-win">
@@ -101,6 +102,10 @@
             <div class="suas-party-field">
               <label for="party-email">Email Address:</label>
               <input id="party-email" type="email" name="contact[email]" autocomplete="email" required>
+            </div>
+            <div class="suas-party-field">
+              <label for="party-invoice-no">Invoice #</label>
+              <input id="party-invoice-no" type="text" name="contact[Invoice number]" value="{{ party_invoice_no }}" readonly required>
             </div>
             <div class="suas-party-field">
               <label for="party-ig">Instagram / Preferred Contact:</label>
@@ -134,7 +139,7 @@
             </div>
             <div class="suas-party-field is-stack">
               <label for="party-notes">Notes / Special Requests:</label>
-              <textarea id="party-notes" name="contact[body]"></textarea>
+              <textarea id="party-notes" name="contact[body]">Invoice {{ party_invoice_no }}</textarea>
             </div>
           </div>
         </section>
@@ -264,6 +269,11 @@
         var sub = document.getElementById('party-subject');
         if (inv) inv.value = num;
         if (sub) sub.value = 'Party booking ' + num;
+        if (notes && notes.value.replace(/\s/g, '') === '') notes.value = 'Invoice ' + num;
+        else if (notes) {
+          notes.value = notes.value.replace(/^Invoice\s+SUAS-\d{8}-[A-Z0-9]+\s*/i, '').replace(/^\s+/, '');
+          if (notes.value.indexOf('Invoice ') !== 0) notes.value = 'Invoice ' + num + (notes.value ? '\n' + notes.value : '');
+        }
       }
       var pendingKey = 'suas-party-invoice-pending';
       var sentKey = 'suas-party-invoice-sent';
@@ -296,10 +306,6 @@
         } catch (e) {}
         if (!notes || !total) return;
         var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
-        var head = 'Invoice number: ' + num;
-        if (notes.value.indexOf('Invoice number:') === -1) {
-          notes.value = notes.value.trim() ? head + '\n' + notes.value.trim() : head;
-        }
         var line = 'Estimated total: ' + total.value + ' · deposit now: ' + (deposit ? deposit.value : '') + ' · remaining: ' + (remain ? remain.value : '') + (method ? ' · deposit method: ' + method.value : '');
         if (notes.value.indexOf('Estimated total:') === -1) {
           notes.value = notes.value.trim() + '\n' + line;
