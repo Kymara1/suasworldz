@@ -303,12 +303,13 @@ nav *,
   }
 
   .suas-launch {
-    min-height: 76px !important;
-    padding: 13px !important;
+    min-height: 92px !important;
+    padding: 14px 16px !important;
   }
 
   .suas-launch strong {
-    font-size: 1.45rem !important;
+    font-size: clamp(1.35rem, 2vw, 1.85rem) !important;
+    text-transform: uppercase !important;
   }
 
   .suas-log {
