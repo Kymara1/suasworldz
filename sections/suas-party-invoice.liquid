@@ -1,12 +1,16 @@
 {%- liquid
-  assign given = request.query_params.k | default: request.params.k | default: ''
+  assign given = cart.attributes.suas_staff_pin | strip
   assign pin = section.settings.staff_pin | strip
   assign unlocked = false
+  assign pin_wrong = false
   if customer and customer.tags contains 'suas-staff'
     assign unlocked = true
   endif
   if pin != blank and given != blank and given == pin
     assign unlocked = true
+  endif
+  if pin != blank and given != blank and given != pin
+    assign pin_wrong = true
   endif
 -%}
 <section class="suas-invoice-desk" aria-label="Staff party invoice">
@@ -85,10 +89,29 @@
           <div class="bar" style="background:#101010">unlock<span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="pad">
             {% if pin != blank %}
-              <form method="get" action="{{ request.path }}">
-                <label>staff pin<input type="password" name="k" autocomplete="current-password" required></label>
+              {% if pin_wrong %}
+                <p class="note">That PIN did not match. Try again.</p>
+              {% endif %}
+              <form id="suas-invoice-gate" method="post" action="{{ routes.cart_url }}/update">
+                <label>staff pin<input type="password" name="attributes[suas_staff_pin]" autocomplete="current-password" required></label>
+                <input type="hidden" name="return_to" value="{{ page.url }}">
                 <button class="gate-go" type="submit">open invoice</button>
               </form>
+              <script>
+                (function () {
+                  var form = document.getElementById('suas-invoice-gate');
+                  if (!form) return;
+                  form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    var pin = form.querySelector('input[type="password"]').value;
+                    fetch('/cart/update.js', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ attributes: { suas_staff_pin: pin } })
+                    }).then(function () { window.location = {{ page.url | json }}; });
+                  });
+                })();
+              </script>
             {% endif %}
           </div>
         </section>
@@ -99,6 +122,11 @@
   <div class="toolbar">
     <button type="button" id="printBtn">save as pdf</button>
     <button type="button" class="ghost" id="clearBtn">clear fields</button>
+    <form method="post" action="{{ routes.cart_url }}/update" style="margin:0">
+      <input type="hidden" name="attributes[suas_staff_pin]" value="">
+      <input type="hidden" name="return_to" value="{{ page.url }}">
+      <button type="submit" class="ghost">lock</button>
+    </form>
     <em>staff only. fill it here. optional PDF if you still want a file. nothing emails itself.</em>
   </div>
   <article class="sheet" aria-label="SUAS party invoice">
