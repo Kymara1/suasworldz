@@ -168,6 +168,9 @@
     {{ 'suas-mobile-panel.css' | asset_url | stylesheet_tag }}
     {{ 'suas-a11y.css' | asset_url | stylesheet_tag }}
     {% render 'suas-xp-chrome' %}
+    {% if suas_men_page %}
+      {% render 'suas-men-chrome' %}
+    {% endif %}
     {% render 'suas-booking-polish' %}
     {% render 'suas-halloween-flare', suas_halloween_slot: 'head' %}
   </head>
