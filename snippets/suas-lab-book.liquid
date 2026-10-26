@@ -66,7 +66,7 @@
     assign roll_on_main_variant = roll_on_product.selected_or_first_available_variant
     assign roll_on_addon_variant = roll_on_addon_product.selected_or_first_available_variant
     assign travel_addon_variant = blank
-    assign seats_total = 12
+    assign seats_total = 14
     assign calendly_url = shop.metafields.suas.calendly_url.value | default: '' | strip
     assign calendly_embed = ''
     if calendly_url != blank
@@ -80,15 +80,15 @@
       <div class="suas-lab-bar">
         <div class="suas-lab-dots"><span class="suas-lab-dot" style="--dot:#ff5f57"></span><span class="suas-lab-dot" style="--dot:#febc2e"></span><span class="suas-lab-dot" style="--dot:#28c840"></span></div>
         <span class="suas-lab-bar-title">LAB.BOOK / calendly</span>
-        <span class="suas-lab-live">12 MAX</span>
+        <span class="suas-lab-live">14 MAX</span>
       </div>
       <div class="suas-lab-body">
         <h1 class="suas-lab-title">book your experiment.</h1>
-        <p class="suas-lab-copy">Sessions start November 14. Dates before then stay closed. After that, pick a mix, grab a time, hold your seats. The Lab has 12 seats a date.{% if calendly_url != blank or calendly_embed != blank %} The calendar writes the appointment for you.{% endif %}</p>
+        <p class="suas-lab-copy">Sessions start November 14. Dates before then stay closed. After that, pick a mix, grab a time, hold your seats. The Lab has 14 seats a date.{% if calendly_url != blank or calendly_embed != blank %} The calendar writes the appointment for you.{% endif %}</p>
 
         <div class="suas-lab-meter" data-suas-seat-meter>
           <div class="suas-lab-seat-row">
-            <strong class="suas-lab-seat-count" data-suas-seat-text>12 of 12 seats left</strong>
+            <strong class="suas-lab-seat-count" data-suas-seat-text>14 of 14 seats left</strong>
             <span class="suas-lab-seat-label" data-suas-seat-hint>pick a date</span>
           </div>
           <div class="suas-lab-bar-track" aria-hidden="true"><i data-suas-seat-fill></i></div>
@@ -327,7 +327,7 @@
         if (step === 2) {
           if (!dateInput.value || dateInput.value < OPENS) { showError('The Lab opens November 14. Pick a date from then on.'); return; }
           if (!timeValue) { showError('Pick a date and a time.'); return; }
-          if (remaining <= 0) { showError('That date is booked up. 0 of 12 seats left.'); return; }
+          if (remaining <= 0) { showError('That date is booked up. 0 of 14 seats left.'); return; }
         }
         showError('');
         setStep(Math.min(3, step + 1));

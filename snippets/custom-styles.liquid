@@ -555,7 +555,7 @@
       var meter = document.createElement('div');
       meter.className = 'suas-seat-meter';
       meter.setAttribute('data-suas-seat-meter', '');
-      meter.innerHTML = '<strong data-suas-seat-text>12 of 12 seats left</strong><span data-suas-seat-hint>pick a date on a form</span>';
+      meter.innerHTML = '<strong data-suas-seat-text>14 of 14 seats left</strong><span data-suas-seat-hint>pick a date on a form</span>';
       if (copy && copy.parentNode) copy.insertAdjacentElement('afterend', meter);
       else root.insertAdjacentElement('afterbegin', meter);
     }
@@ -565,28 +565,28 @@
       style.textContent = '.suas-seat-meter{display:flex;justify-content:space-between;align-items:end;gap:8px;margin:14px 0 0;padding:10px 12px;border:2px solid #101010;border-radius:18px;background:#d9ff78;box-shadow:3px 4px 0 #101010}.suas-seat-meter strong{font-family:Casual Human,Futura,Arial,sans-serif;font-size:clamp(1.4rem,3vw,1.9rem);line-height:.9}.suas-seat-meter span{font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.65}.suas-seat-meter.is-full{background:#ffe8ef}.suas-seat-meter.is-low{background:#fff2a8}.suas-book-button[disabled]{opacity:.58;cursor:not-allowed;background:#fff}';
       root.appendChild(style);
     }
-    var remaining = 12;
+    var remaining = 14;
     function paintSeats(){
-      remaining = 12;
+      remaining = 14;
       var dateInputs = Array.prototype.slice.call(root.querySelectorAll('input[type="date"]')).map(function(i){ return i.value; }).filter(Boolean);
       var date = dateInputs[0] || '';
       var text = root.querySelector('[data-suas-seat-text],[data-seat-text]');
       var hint = root.querySelector('[data-suas-seat-hint],[data-seat-hint]');
       var meter = root.querySelector('[data-suas-seat-meter],.suas-seat-meter');
       if (!date) {
-        if (text) text.textContent = '12 of 12 seats left';
+        if (text) text.textContent = '14 of 14 seats left';
         if (hint) hint.textContent = 'pick a date on a form';
         return;
       }
       fetch('/cart.js', { credentials: 'same-origin' }).then(function(r){ return r.json(); }).then(function(cart){
-        remaining = 12;
+        remaining = 14;
         (cart.items || []).forEach(function(item){
           var p = item.properties || {};
           var d = p['Preferred date'] || p['Class date'] || '';
           if (d === date) remaining -= Number(item.quantity || 0);
         });
         remaining = Math.max(0, remaining);
-        if (text) text.textContent = remaining + ' of 12 seats left';
+        if (text) text.textContent = remaining + ' of 14 seats left';
         if (hint) hint.textContent = remaining ? 'live for this date' : 'sold out';
         if (meter) { meter.classList.toggle('is-low', remaining > 0 && remaining <= 3); meter.classList.toggle('is-full', remaining <= 0); }
         root.querySelectorAll('button[type="submit"]').forEach(function(btn){

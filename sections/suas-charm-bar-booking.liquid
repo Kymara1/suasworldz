@@ -86,16 +86,16 @@
     <header class="suas-charm-hero">
       <span class="suas-charm-kicker">bookings / charm bar</span>
       <h1 class="suas-charm-title">build your little extra.</h1>
-      <p class="suas-charm-intro">Pick a piece, add extras, and hold a seat. Five seats per slot. Same days as the Lab: Thursday through Sunday, starting November 14.</p>
+      <p class="suas-charm-intro">Pick a piece, add extras, and hold a seat. Four seats per slot. Same days as the Lab: Thursday through Sunday, starting November 14.</p>
     </header>
     <article class="suas-charm-option">
       <div class="suas-charm-option-head">
         <div>
-          <span class="suas-charm-badge">charm bar · 5 seats</span>
+          <span class="suas-charm-badge">charm bar · 4 seats</span>
           <h2>Build your little extra</h2>
           <p class="suas-charm-desc" data-charm-description>Pick a piece, add extras, and hold a seat. Same days as self-guided Lab hours.</p>
         </div>
-        <div class="suas-charm-seat"><strong>5 of 5 seats</strong><span>per slot</span></div>
+        <div class="suas-charm-seat"><strong>4 of 4 seats</strong><span>per slot</span></div>
         <div class="suas-charm-price-card"><span>price</span><strong class="suas-charm-price" data-charm-price>{% if booking_product != blank %}{{ booking_product.selected_or_first_available_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
       </div>
       {% if booking_product != blank %}
@@ -118,7 +118,7 @@
             {% endfor %}
           </select>
           <div class="suas-charm-field"><label class="suas-charm-label" for="CharmDate">date</label><input class="suas-charm-input" id="CharmDate" type="date" min="2026-11-14" required></div>
-          <div class="suas-charm-field"><label class="suas-charm-label" for="CharmGuests">seats</label><input class="suas-charm-input" id="CharmGuests" type="number" min="1" max="5" value="1" required></div>
+          <div class="suas-charm-field"><label class="suas-charm-label" for="CharmGuests">seats</label><input class="suas-charm-input" id="CharmGuests" type="number" min="1" max="4" value="1" required></div>
           <div class="suas-charm-field"><label class="suas-charm-label" for="CharmPhone">phone</label><input class="suas-charm-input" id="CharmPhone" type="tel" required></div>
           <div class="suas-charm-field"><label class="suas-charm-label" for="CharmName">name</label><input class="suas-charm-input" id="CharmName" type="text" required></div>
           <div class="suas-charm-field" data-wide>
@@ -143,13 +143,13 @@
               {% endfor %}
             {% endif %}
           </div>
-          <p class="suas-charm-note" data-charm-status>Five seats per slot. Closed Monday through Wednesday. Opens November 14.</p>
+          <p class="suas-charm-note" data-charm-status>Four seats per slot. Closed Monday through Wednesday. Opens November 14.</p>
           <button class="suas-charm-button" type="submit">add booking to cart</button>
         </form>
       {% else %}
         <p class="suas-charm-note">Charm Bar reservations are warming up. Text us or walk in during Lab hours.</p>
       {% endif %}
-      <div class="suas-charm-policy"><strong>Reservation note</strong>Bookings open Saturday, November 14. Closed Monday&ndash;Wednesday. Five seats per slot. Walk-ins welcome if a seat is free. Booking online holds seats for your party.</div>
+      <div class="suas-charm-policy"><strong>Reservation note</strong>Bookings open Saturday, November 14. Closed Monday&ndash;Wednesday. Four seats per slot. Walk-ins welcome if a seat is free. Booking online holds seats for your party.</div>
     </article>
   </div>
   <script>
@@ -229,7 +229,7 @@
           renderChips([], '');
           return;
         }
-        status.textContent = 'Five seats per slot. Closed Monday through Wednesday. Opens November 14.';
+        status.textContent = 'Four seats per slot. Closed Monday through Wednesday. Opens November 14.';
         slots.forEach((slot) => {
           const opt = document.createElement('option');
           opt.value = slot;
@@ -249,7 +249,7 @@
         event.preventDefault();
         syncType();
         const submit = form.querySelector('button[type="submit"]');
-        const guests = Math.max(1, Math.min(5, Number(form.querySelector('#CharmGuests').value || 1)));
+        const guests = Math.max(1, Math.min(4, Number(form.querySelector('#CharmGuests').value || 1)));
         const day = dayOf(date.value);
         const slots = slotMap[day] || [];
         if (!experience.value) {

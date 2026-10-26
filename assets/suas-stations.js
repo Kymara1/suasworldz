@@ -1146,15 +1146,15 @@ function queueNow() { return new Date().toISOString(); }
 function queueId(prefix) { return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`; }
 function queueTodayKey() { return new Date().toISOString().slice(0, 10); }
 function queueDefaultState() {
-  return { version: 1, dayKey: queueTodayKey(), labPaused: false, labFull: false, testMode: false, customers: [], engravingJobs: [], events: [], labStations: Array.from({ length: 13 }, (_, i) => ({ id: i + 1, status: 'AVAILABLE', customerId: null, assignedAt: null, occupiedAt: null, resetAt: null, unavailableReason: '' })), charmSeats: Array.from({ length: 5 }, (_, i) => ({ id: i + 1, status: 'AVAILABLE', customerId: null, assignedAt: null })) };
+  return { version: 1, dayKey: queueTodayKey(), labPaused: false, labFull: false, testMode: false, customers: [], engravingJobs: [], events: [], labStations: Array.from({ length: 14 }, (_, i) => ({ id: i + 1, status: 'AVAILABLE', customerId: null, assignedAt: null, occupiedAt: null, resetAt: null, unavailableReason: '' })), charmSeats: Array.from({ length: 4 }, (_, i) => ({ id: i + 1, status: 'AVAILABLE', customerId: null, assignedAt: null })) };
 }
 function getQueueState() {
   const saved = store.get('queueState', null);
   const base = queueDefaultState();
   if (!saved || typeof saved !== 'object') return base;
   const merged = { ...base, ...saved };
-  merged.labStations = Array.from({ length: 13 }, (_, i) => ({ ...base.labStations[i], ...(saved.labStations?.[i] || {}) }));
-  merged.charmSeats = Array.from({ length: 5 }, (_, i) => ({ ...base.charmSeats[i], ...(saved.charmSeats?.[i] || {}) }));
+  merged.labStations = Array.from({ length: 14 }, (_, i) => ({ ...base.labStations[i], ...(saved.labStations?.[i] || {}) }));
+  merged.charmSeats = Array.from({ length: 4 }, (_, i) => ({ ...base.charmSeats[i], ...(saved.charmSeats?.[i] || {}) }));
   merged.customers = Array.isArray(saved.customers) ? saved.customers : [];
   merged.engravingJobs = Array.isArray(saved.engravingJobs) ? saved.engravingJobs : [];
   merged.events = Array.isArray(saved.events) ? saved.events : [];
@@ -1427,7 +1427,7 @@ function renderQueueStation(station, type, state) {
 function renderQueueCharm(state) {
   const waiting = queueWaitingCharm(state);
   const groups = queueAssignments(state, 'charm');
-  return `<div class="queue-charm-layout"><article class="queue-panel queue-wide"><header><div><span>CHARM BAR</span><b>${queueAvailableCharmSeats(state)} / 5 SEATS OPEN</b></div><div class="queue-action-row"><button data-queue-action="auto-assign-charm" type="button">AUTO ASSIGN CHARM</button><button data-queue-action="call-next-charm" type="button">CALL NEXT CHARM</button></div></header><p>Charm Bar is five seats total. Parties consume seats as a group, just like the Lab.</p></article>
+  return `<div class="queue-charm-layout"><article class="queue-panel queue-wide"><header><div><span>CHARM BAR</span><b>${queueAvailableCharmSeats(state)} / 4 SEATS OPEN</b></div><div class="queue-action-row"><button data-queue-action="auto-assign-charm" type="button">AUTO ASSIGN CHARM</button><button data-queue-action="call-next-charm" type="button">CALL NEXT CHARM</button></div></header><p>Charm Bar is four seats total. Parties consume seats as a group, just like the Lab.</p></article>
     <section class="charm-seat-board">${state.charmSeats.map((seat) => { const customer = seat.customerId ? queueCustomerById(state, seat.customerId) : null; return `<article class="charm-seat-chip status-${seat.status.toLowerCase().replaceAll(' ', '-').replaceAll('/', '')}"><b>${seat.id}</b><span>${customer ? queueEscape(customer.name.split(' ')[0]) : seat.status === 'AVAILABLE' ? 'OPEN' : queueEscape(seat.status)}</span><button data-queue-action="${seat.status === 'RESET NEEDED' ? 'station-ready' : 'seat-inspect'}" data-station-type="charm" data-station-id="${seat.id}" type="button">${seat.status === 'RESET NEEDED' ? 'READY' : 'VIEW'}</button></article>`; }).join('')}</section>
     <section class="queue-group-column"><article class="queue-panel"><header><div><span>SEATED CHARM GROUPS</span><b>${groups.length || 'NO'} ACTIVE</b></div></header><div class="queue-group-list">${groups.map(({ customer, stations }) => `<article class="queue-group-card charm-group-card"><header><div><span>SEATS ${queueSeatsLabel(stations)}</span><h3>${queueEscape(customer.name)}</h3></div><b>${Math.max(1, Number(customer.partySize)||1)} PPL</b></header><p>${queueElapsed(stations[0]?.occupiedAt || stations[0]?.assignedAt)} / ${queueEscape(stations[0]?.status || 'ASSIGNED')}</p><div class="queue-action-row"><button data-queue-action="group-occupy" data-station-type="charm" data-customer-id="${customer.id}" type="button">START GROUP</button><button data-queue-action="group-finishing" data-station-type="charm" data-customer-id="${customer.id}" type="button">FINISHING</button><button data-queue-action="group-reset" data-station-type="charm" data-customer-id="${customer.id}" type="button">GROUP LEFT / RESET</button></div></article>`).join('') || '<p>NO SEATED CHARM GROUPS YET.</p>'}</div></article></section>
     <aside class="queue-side-list compact-waitlist"><span>CHARM WAITLIST</span>${waiting.map((customer) => queueCustomerCard(customer, 'charm')).join('') || '<p>NO CHARM WAITLIST.</p>'}</aside></div>`;

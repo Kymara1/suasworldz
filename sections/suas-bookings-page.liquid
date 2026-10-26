@@ -131,8 +131,8 @@
         <div class="suas-book-bar" style="background:#e23d8a"><b>S 2. Lab hours</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-hours-grid">
           <p style="--chip:#ffe8ef;"><b>Self-guided</b><br>Thu–Fri 1:00–5:00 PM<br>Sat–Sun 1:00–4:00 PM</p>
-          <p style="--chip:#d9ff78;"><b>Guided · 75 min · 12 seats</b><br>Thu–Fri 6:00–7:15 PM<br>Sat 4:30–5:45 or 6:00–7:15 PM</p>
-          <p style="--chip:#fff2a8;"><b>Charm Bar · 5 seats</b><br>Same days as self-guided. Walk-ins if a seat is free.</p>
+          <p style="--chip:#d9ff78;"><b>Guided · 75 min · 14 seats</b><br>Thu–Fri 6:00–7:15 PM<br>Sat 4:30–5:45 or 6:00–7:15 PM</p>
+          <p style="--chip:#fff2a8;"><b>Charm Bar · 4 seats</b><br>Same days as self-guided. Walk-ins if a seat is free.</p>
         </div>
         <p class="suas-book-hours-note">Bookings open Saturday, November 14. Closed Monday–Wednesday. No guided classes on Sunday. Walk-ins welcome in self-guided hours and at the Charm Bar if a seat is free. Guided cancel under 24 hours is non-refundable.</p>
       </aside>
@@ -294,7 +294,7 @@
             <h2>Guided Lab Session</h2>
             <p class="suas-book-desc" data-guided-description>Perfume, perfume + one, or signature collection.</p>
           </div>
-          <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>12 of 12 seats left</strong><span data-suas-seat-hint>pick date + time</span></div>
+          <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>14 of 14 seats left</strong><span data-suas-seat-hint>pick date + time</span></div>
           <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-guided-price aria-live="polite">$85.00</strong></div>
         </div>
 
@@ -343,7 +343,7 @@
                   {% if variant.inventory_management != blank and variant.inventory_quantity > 0 %}
                     {% assign guided_seats = variant.inventory_quantity %}
                   {% else %}
-                    {% assign guided_seats = 12 %}
+                    {% assign guided_seats = 14 %}
                   {% endif %}
                   {% assign guided_kind = 'perfume' %}
                   {% assign guided_title_l = variant.title | downcase %}
@@ -357,7 +357,7 @@
               </select>
             {% endif %}
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedDate">class date</label><input class="suas-book-input" id="GuidedDate" type="date" name="properties[Class date]" min="2026-11-14" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="12" value="1"></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="14" value="1"></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedPhone">phone</label><input class="suas-book-input" id="GuidedPhone" type="tel" name="properties[Phone number]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedName">name</label><input class="suas-book-input" id="GuidedName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedEmail">email</label><input class="suas-book-input" id="GuidedEmail" type="email" name="properties[Email]" autocomplete="email" required></div>
@@ -384,11 +384,11 @@
         <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Charm bar details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
-            <span class="suas-book-badge">charm bar · 5 seats</span>
+            <span class="suas-book-badge">charm bar · 4 seats</span>
             <h2>Build your little extra</h2>
             <p class="suas-book-desc" data-charm-description>Pick a piece, add extras, and hold a seat. Same days as self-guided Lab hours.</p>
           </div>
-          <div class="suas-seat-meter"><strong>5 of 5 seats</strong><span>per slot</span></div>
+          <div class="suas-seat-meter"><strong>4 of 4 seats</strong><span>per slot</span></div>
           <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
         </div>
         {% if charm_product != blank %}
@@ -411,7 +411,7 @@
               {% endfor %}
             </select>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmDate">date</label><input class="suas-book-input" id="BookCharmDate" type="date" min="2026-11-14" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="BookCharmGuests">seats</label><input class="suas-book-input" id="BookCharmGuests" type="number" min="1" max="5" value="1" required></div>
+            <div class="suas-book-field"><label class="suas-book-label" for="BookCharmGuests">seats</label><input class="suas-book-input" id="BookCharmGuests" type="number" min="1" max="4" value="1" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmPhone">phone</label><input class="suas-book-input" id="BookCharmPhone" type="tel" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmName">name</label><input class="suas-book-input" id="BookCharmName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmEmail">email</label><input class="suas-book-input" id="BookCharmEmail" type="email" name="properties[Email]" autocomplete="email" required></div>
@@ -449,7 +449,7 @@
                 {% endfor %}
               {% endif %}
             </div>
-            <p class="suas-book-note" data-charm-status>Five seats per slot. Closed Monday through Wednesday. Opens November 14. You pay now to hold the seat.</p>
+            <p class="suas-book-note" data-charm-status>Four seats per slot. Closed Monday through Wednesday. Opens November 14. You pay now to hold the seat.</p>
             <div class="suas-book-task">
               <button class="suas-book-button" type="submit">pay to hold seat</button>
             </div>
@@ -487,7 +487,7 @@
         5: ['Friday 6:00 PM - 7:15 PM'],
         6: ['Saturday 4:30 PM - 5:45 PM', 'Saturday 6:00 PM - 7:15 PM']
       };
-      var TOTAL = 12;
+      var TOTAL = 14;
       var remaining = TOTAL;
 
       function parseClock(text) {
@@ -1032,7 +1032,7 @@
             reject(charmDate, (dayNames[day] || 'That day') + ' is closed for Charm Bar. Please choose Thursday, Friday, Saturday, or Sunday.');
             return;
           }
-          charmStatus.textContent = 'Five seats per slot. Closed Monday through Wednesday. Opens November 14.';
+          charmStatus.textContent = 'Four seats per slot. Closed Monday through Wednesday. Opens November 14.';
           setOptions(charmTime, slots);
           if (slots.indexOf(charmTime.value) === -1) charmTime.value = slots[0];
           renderCharmChips(slots, charmTime.value);
@@ -1042,7 +1042,7 @@
         charmForm.addEventListener('submit', async function (event) {
           event.preventDefault();
           syncCharmType();
-          var guests = Math.max(1, Math.min(5, Number(charmForm.querySelector('#BookCharmGuests').value || 1)));
+          var guests = Math.max(1, Math.min(4, Number(charmForm.querySelector('#BookCharmGuests').value || 1)));
           var day = dateDay(charmDate.value);
           var slots = selfTimes[day] || [];
           var submit = charmForm.querySelector('button[type="submit"]');
