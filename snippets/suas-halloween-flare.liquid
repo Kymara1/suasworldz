@@ -422,6 +422,105 @@
         box-shadow: 3px 4px 0 #2a1418 !important;
       }
 
+      /* Year-round SUAS/XP chrome: lime, hot pink, cream, ink. Black window bars stay. */
+      html.suas-halloween {
+        --suas-pink: #ffd8e8;
+        --suas-blue: #cdeeff;
+        --suas-sun: #fff1a8;
+        --suas-lime: #d9ff78;
+        --suas-lav: #e4d5ff;
+        --suas-cream: #fbfaf7;
+        --suas-world: #fbfaf7;
+      }
+      html.suas-halloween body {
+        background: #fbfaf7;
+      }
+      html.suas-halloween .suas-frame-marquee {
+        background: #101010 !important;
+        color: #fff !important;
+        box-shadow: none !important;
+      }
+      html.suas-halloween .suas-side-rail {
+        background: linear-gradient(180deg, #fff 0%, #f6f7fa 60%, #eef0f5 100%) !important;
+      }
+      html.suas-halloween .suas-side-kicker {
+        color: rgba(16, 16, 16, 0.42) !important;
+        border-top-color: rgba(16, 16, 16, 0.13) !important;
+      }
+      html.suas-halloween .suas-side-link.is-active {
+        background: #ffd8e8 !important;
+        color: #101010 !important;
+      }
+      html.suas-halloween .suas-side-status {
+        background: rgba(255, 255, 255, 0.84) !important;
+      }
+      html.suas-halloween .suas-side-status-dot {
+        background: #d9ff78 !important;
+        box-shadow: 0 0 14px rgba(217, 255, 120, 0.85) !important;
+      }
+      html.suas-halloween .suas-panel-submenu a:nth-child(6n+1) { background: #ffd8e8 !important; }
+      html.suas-halloween .suas-panel-submenu a:nth-child(6n+2) { background: #fff1a8 !important; }
+      html.suas-halloween .suas-panel-submenu a:nth-child(6n+3) { background: #cdeeff !important; }
+      html.suas-halloween .suas-panel-submenu a:nth-child(6n+4) { background: #e4d5ff !important; }
+      html.suas-halloween .suas-panel-submenu a:nth-child(6n+5) { background: #d9ff78 !important; }
+      html.suas-halloween .suas-panel-submenu a:nth-child(6n+6) { background: #ff9bc4 !important; }
+      html.suas-halloween .suas-world-home,
+      html.suas-halloween .suas-os-account {
+        --cream: #fbfaf7;
+        --pink: #ffd8e8;
+        --hot: #ff9bc4;
+        --blue: #cdeeff;
+        --lime: #d9ff78;
+        --lav: #e4d5ff;
+        --sun: #fff1a8;
+        background:
+          linear-gradient(rgba(16, 16, 16, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(16, 16, 16, 0.035) 1px, transparent 1px),
+          radial-gradient(circle at 8% 14%, rgba(255, 216, 232, 0.55), transparent 28%),
+          radial-gradient(circle at 90% 76%, rgba(217, 255, 120, 0.28), transparent 30%),
+          #fbfaf7 !important;
+        background-size: 22px 22px, 22px 22px, auto, auto, auto !important;
+      }
+      html.suas-halloween .suas-world-home .suas-aisle {
+        background-image:
+          linear-gradient(rgba(16, 16, 16, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(16, 16, 16, 0.1) 1px, transparent 1px) !important;
+      }
+      html.suas-halloween .suas-world-home .suas-aisle--body {
+        background-color: #ffd4ea !important;
+      }
+      html.suas-halloween .suas-world-home .suas-aisle--home {
+        background-color: #d9ff78 !important;
+      }
+      html.suas-halloween .suas-window-bar,
+      html.suas-halloween .suas-os-winbar,
+      html.suas-halloween .suas-window-strip,
+      html.suas-halloween .suas-review-window-bar,
+      html.suas-halloween .suas-cart-winbar,
+      html.suas-halloween .suas-lab-titlebar,
+      html.suas-halloween .suas-catalog-head-bar,
+      html.suas-halloween .suas-story-winbar,
+      html.suas-halloween .suas-search-bar,
+      html.suas-halloween .suas-rev-bar {
+        background: linear-gradient(180deg, #242424 0%, #101010 100%) !important;
+        color: #d9ff78 !important;
+      }
+      html.suas-halloween .suas-window-title,
+      html.suas-halloween .suas-window-live,
+      html.suas-halloween .suas-catalog-head-bar b,
+      html.suas-halloween .suas-search-bar b {
+        color: #d9ff78 !important;
+      }
+      html.suas-halloween .suas-halloween-fx,
+      html.suas-halloween .suas-halloween-ghost,
+      html.suas-halloween .suas-now-card:after,
+      html.suas-halloween .suas-launch-panel:after,
+      html.suas-halloween .suas-feed-notes:after,
+      html.suas-halloween .suas-boost:after,
+      html.suas-halloween .suas-hours-win:after {
+        display: none !important;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         html.suas-halloween .suas-halloween-ghost,
         html.suas-halloween .suas-frame-marquee-track {
