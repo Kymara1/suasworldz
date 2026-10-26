@@ -106,7 +106,17 @@
       html.suas-halloween .suas-panel-submenu a:nth-child(6n+5) { background: #9caf6a !important; }
       html.suas-halloween .suas-panel-submenu a:nth-child(6n+6) { background: #e07a3d !important; }
 
-      html.suas-halloween .suas-world-home,
+      html.suas-halloween .suas-world-home {
+        --ink: #101010;
+        --cream: #fbfaf7;
+        --pink: #ffd8e8;
+        --hot: #ff9bc4;
+        --blue: #cdeeff;
+        --lime: #d9ff78;
+        --lav: #e4d5ff;
+        --sun: #fff1a8;
+        background: linear-gradient(180deg, #6ec4e8 0%, #9bd6ef 38%, #d7ecc8 68%, #5aa832 100%) !important;
+      }
       html.suas-halloween .suas-os-account {
         --ink: #101010;
         --cream: #f4ebe0;
@@ -116,27 +126,19 @@
         --lime: #9caf6a;
         --lav: #c98990;
         --sun: #e6c35c;
-        background:
-          linear-gradient(rgba(61, 36, 24, 0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(61, 36, 24, 0.05) 1px, transparent 1px),
-          radial-gradient(circle at 8% 14%, rgba(224, 122, 61, 0.28), transparent 30%),
-          radial-gradient(circle at 92% 8%, rgba(201, 162, 39, 0.22), transparent 26%),
-          radial-gradient(circle at 88% 78%, rgba(95, 115, 64, 0.2), transparent 32%),
-          #f4ebe0;
-        background-size: 22px 22px, 22px 22px, auto, auto, auto, auto;
       }
 
       html.suas-halloween .suas-world-home .suas-aisle {
         background-image:
-          linear-gradient(rgba(164, 59, 36, 0.14) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(164, 59, 36, 0.14) 1px, transparent 1px) !important;
+          linear-gradient(rgba(16, 16, 16, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(16, 16, 16, 0.1) 1px, transparent 1px) !important;
         background-size: 22px 22px !important;
       }
       html.suas-halloween .suas-world-home .suas-aisle--body {
-        background-color: #f0c4a0 !important;
+        background-color: #ffd4ea !important;
       }
       html.suas-halloween .suas-world-home .suas-aisle--home {
-        background-color: #e6c35c !important;
+        background-color: #d9ff78 !important;
       }
 
       html.suas-halloween .suas-window-bar,
@@ -191,10 +193,16 @@
         background-size: 22px 22px;
       }
 
-      html.suas-halloween .suas-world-home .suas-launch-grid a.suas-launch:nth-child(1) { background: #f0c4a0 !important; }
-      html.suas-halloween .suas-world-home .suas-launch-grid a.suas-launch:nth-child(2) { background: #9caf6a !important; }
-      html.suas-halloween .suas-world-home .suas-launch-grid a.suas-launch:nth-child(3) { background: #c98990 !important; }
-      html.suas-halloween .suas-world-home .suas-launch-grid a.suas-launch:nth-child(4) { background: #c4a36a !important; }
+      html.suas-halloween .suas-world-home .suas-launch-grid a.suas-launch:nth-child(1) { background: #d9ff78 !important; }
+      html.suas-halloween .suas-world-home .suas-launch-grid a.suas-launch:nth-child(2) { background: #ff9bc4 !important; }
+      html.suas-halloween .suas-world-home .suas-launch-grid a.suas-launch:nth-child(3) { background: #cdeeff !important; }
+      html.suas-halloween .suas-world-home .suas-launch-grid a.suas-launch:nth-child(4) { background: #e4d5ff !important; }
+      html.suas-halloween .suas-world-home .suas-launch-panel { background: #fff !important; }
+      html.suas-halloween .suas-world-home .suas-launch-panel:after { content: none !important; }
+      html.suas-halloween .suas-world-home .suas-launch-panel .suas-window-bar {
+        background: #101010 !important;
+        color: #d9ff78 !important;
+      }
 
       html.suas-halloween .suas-feed-atc {
         background: #e07a3d !important;
@@ -462,8 +470,7 @@
       html.suas-halloween .suas-panel-submenu a:nth-child(6n+4) { background: #e4d5ff !important; }
       html.suas-halloween .suas-panel-submenu a:nth-child(6n+5) { background: #d9ff78 !important; }
       html.suas-halloween .suas-panel-submenu a:nth-child(6n+6) { background: #ff9bc4 !important; }
-      html.suas-halloween .suas-world-home,
-      html.suas-halloween .suas-os-account {
+      html.suas-halloween .suas-world-home {
         --cream: #fbfaf7;
         --pink: #ffd8e8;
         --hot: #ff9bc4;
@@ -471,13 +478,7 @@
         --lime: #d9ff78;
         --lav: #e4d5ff;
         --sun: #fff1a8;
-        background:
-          linear-gradient(rgba(16, 16, 16, 0.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(16, 16, 16, 0.035) 1px, transparent 1px),
-          radial-gradient(circle at 8% 14%, rgba(255, 216, 232, 0.55), transparent 28%),
-          radial-gradient(circle at 90% 76%, rgba(217, 255, 120, 0.28), transparent 30%),
-          #fbfaf7 !important;
-        background-size: 22px 22px, 22px 22px, auto, auto, auto !important;
+        background: linear-gradient(180deg, #6ec4e8 0%, #9bd6ef 38%, #d7ecc8 68%, #5aa832 100%) !important;
       }
       html.suas-halloween .suas-world-home .suas-aisle {
         background-image:
