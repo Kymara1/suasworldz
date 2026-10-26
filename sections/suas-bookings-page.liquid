@@ -1,9 +1,10 @@
-<section class="suas-bookings-page" data-suas-book-v="head" aria-label="Book The Lab">
+<section class="suas-bookings-page suas-os-page" data-suas-book-v="head" aria-label="Book The Lab">
+  {% render 'suas-os-page-chrome' %}
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
-    .suas-bookings-page{--ink:#101010;--pink:#ffe8ef;--hot:#ff9fc2;--lime:#d9ff78;--blue:#c9e7ff;--sun:#fff2a8;--lav:#e8ddff;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 10% 8%,rgba(255,159,194,.25),transparent 30%),radial-gradient(circle at 90% 14%,rgba(217,255,120,.3),transparent 30%),linear-gradient(180deg,#fff 0%,#fffaf5 100%);font-family:Futura,'Futura PT',Arial,sans-serif}
+    .suas-bookings-page.suas-os-page{--ink:#101010;--pink:#ffe8ef;--hot:#ff9fc2;--lime:#d9ff78;--blue:#c9e7ff;--sun:#fff2a8;--lav:#e8ddff;min-height:calc(100vh - 36px);color:var(--ink);background:transparent;font-family:Futura,'Futura PT',Arial,sans-serif}
     .suas-bookings-page *{box-sizing:border-box}
-    .suas-book-wrap{width:min(1180px,calc(100vw - 28px));margin:0 auto;padding:18px 0 36px}
+    .suas-book-wrap{width:100%;margin:0;padding:12px 12px 18px}
     .suas-book-card,.suas-book-panel,.suas-book-option{border:2px solid var(--ink);border-radius:22px;box-shadow:0 5px 0 var(--ink)}
     .suas-book-top{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:12px;margin-bottom:12px;align-items:stretch}
     .suas-book-hero{background:rgba(255,255,255,.92);padding:16px 18px;display:grid;align-content:center;gap:8px}
@@ -97,6 +98,8 @@
     @media(max-width:700px){.suas-book-wrap{width:min(430px,calc(100vw - 14px));padding:14px 0 28px}.suas-book-card,.suas-book-panel,.suas-book-option{border-radius:18px;box-shadow:0 4px 0 var(--ink)}.suas-book-title{font-size:clamp(2.1rem,12vw,3rem)}.suas-book-form,.suas-plus-choice,.suas-type-grid{grid-template-columns:1fr}.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}.suas-book-tabs{grid-template-columns:1fr;gap:6px}.suas-book-tab{min-height:40px;font-size:10px}}
   </style>
 
+  <div class="suas-os-sheet">
+    <div class="suas-os-titlebar"><span class="suas-os-orb" aria-hidden="true"></span><b>LAB.EXE</b><span class="suas-os-winbtns" aria-hidden="true"><i></i><i></i><i></i></span></div>
   <div class="suas-book-wrap">
     <div class="suas-book-top">
       <div class="suas-book-hero suas-book-card">
@@ -1067,5 +1070,6 @@
       }
     })();
   </script>
+  </div>
 </section>
 {% schema %}{"name":"SUAS Bookings Page","settings":[{"type":"product","id":"body_oil_product","label":"Self-Guided Body Oil product"},{"type":"product","id":"parfum_product","label":"Self-Guided Lab Experiment product"},{"type":"product","id":"combo_product","label":"Self-Guided Combo product"},{"type":"product","id":"roll_on_product","label":"Self-Guided Roll-On Perfume product"},{"type":"product","id":"roll_on_addon_product","label":"Roll-On add-on product"},{"type":"product","id":"travel_addon_product","label":"Travel / second perfume add-on product"},{"type":"product","id":"deluxe_product","label":"Guided Lab Session product"},{"type":"text","id":"deluxe_product_handle","label":"Guided fallback product handle","info":"Use this if the product picker will not load the guided product."}],"presets":[{"name":"SUAS Bookings Page"}]}{% endschema %}

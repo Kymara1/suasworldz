@@ -1,9 +1,10 @@
-<section class="suas-charm-booking" aria-label="Book the Charm Bar">
+<section class="suas-charm-booking suas-os-page" aria-label="Book the Charm Bar">
+  {% render 'suas-os-page-chrome' %}
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
-    .suas-charm-booking{--ink:#101010;--pink:#ffe8ef;--hot:#ff9fc2;--lime:#d9ff78;--sun:#fff2a8;padding:18px 0 36px;color:var(--ink);font-family:Futura,'Futura PT',Arial,sans-serif}
+    .suas-charm-booking.suas-os-page{--ink:#101010;--pink:#ffe8ef;--hot:#ff9fc2;--lime:#d9ff78;--sun:#fff2a8;padding:52px 14px 48px;min-height:calc(100vh - 36px);color:var(--ink);background:transparent;font-family:Futura,'Futura PT',Arial,sans-serif}
     .suas-charm-booking *{box-sizing:border-box}
-    .suas-charm-wrap{width:min(1180px,calc(100vw - 28px));margin:0 auto}
+    .suas-charm-wrap{width:100%;margin:0;padding:12px 12px 18px}
     .suas-charm-kicker,.suas-charm-label,.suas-charm-button,.suas-charm-badge{font:900 11px/1 Futura,'Futura PT',Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
     .suas-charm-hero{margin-bottom:12px;padding:16px 18px;border:2px solid var(--ink);border-radius:22px;box-shadow:0 5px 0 var(--ink);background:rgba(255,255,255,.92)}
     .suas-charm-kicker{opacity:.7}
@@ -79,6 +80,8 @@
       assign bead_product = all_products['charm-bar-bead-sticks']
     endif
   %}
+  <div class="suas-os-sheet">
+    <div class="suas-os-titlebar"><span class="suas-os-orb" aria-hidden="true"></span><b>CHARM.EXE</b><span class="suas-os-winbtns" aria-hidden="true"><i></i><i></i><i></i></span></div>
   <div class="suas-charm-wrap">
     <header class="suas-charm-hero">
       <span class="suas-charm-kicker">bookings / charm bar</span>
@@ -303,6 +306,7 @@
       });
     })();
   </script>
+  </div>
 </section>
 {% schema %}
 {

@@ -1,0 +1,75 @@
+{% comment %}
+  Shared Bliss desktop + navy sheet for info/booking pages.
+  Black titlebars. Round sheet. Does not recolor the rest of the shop.
+{% endcomment %}
+<style id="suas-os-page-chrome">
+  .suas-os-page{
+    --ink:#101010;
+    --navy:#07162e;
+    --lime:#d9ff78;
+    --hot:#ff9bc4;
+    --pink:#ffd8e8;
+    --cream:#f4ecd4;
+    box-sizing:border-box;
+    padding:52px 14px 48px;
+    min-height:calc(100vh - 36px);
+    color:var(--ink);
+    background:linear-gradient(180deg,#3aa4e0 0%,#8ed0ef 36%,#d7ecc8 58%,#6aae3e 78%,#3d7c22 100%);
+    font-family:Tahoma,Futura,Arial,sans-serif;
+  }
+  .suas-os-page *,.suas-os-page *::before,.suas-os-page *::after{box-sizing:border-box}
+  .suas-os-sheet{
+    width:min(1080px,100%);
+    margin:0 auto;
+    overflow:hidden;
+    border:3px solid var(--navy);
+    border-radius:18px;
+    background:linear-gradient(180deg,#0a1a36,#10264a);
+    box-shadow:8px 10px 0 #101010;
+  }
+  .suas-os-titlebar{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:10px;
+    min-height:34px;
+    padding:6px 10px;
+    background:linear-gradient(180deg,#242424,#101010);
+    color:#d9ff78;
+  }
+  .suas-os-titlebar b{
+    font:900 11px/1 Tahoma,Arial,sans-serif;
+    letter-spacing:.18em;
+    text-align:center;
+  }
+  .suas-os-orb{
+    width:18px;
+    height:18px;
+    border:1.5px solid #fff;
+    border-radius:999px;
+    background:radial-gradient(circle at 30% 30%,#fff,#d9ff78 42%,#101010);
+  }
+  .suas-os-winbtns{display:flex;gap:4px}
+  .suas-os-winbtns i{
+    display:block;
+    width:16px;
+    height:14px;
+    border:1.5px solid #fff;
+    background:#cdeeff;
+    font-style:normal;
+  }
+  .suas-os-winbtns i:nth-child(3){background:#ff5f57}
+  .suas-os-sheet-body{padding:16px 14px 18px}
+  .suas-os-page h1{
+    margin:0 0 12px;
+    color:var(--lime);
+    font-family:'Casual Human',Futura,Arial,sans-serif;
+    font-size:clamp(2.2rem,5vw,3.8rem);
+    font-weight:400;
+    line-height:.86;
+    text-transform:uppercase;
+  }
+  @media(max-width:1023px){
+    .suas-os-page{padding:18px 10px 36px}
+  }
+</style>
