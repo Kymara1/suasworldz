@@ -132,8 +132,7 @@
   {% else %}
   <div class="toolbar">
     {% unless customer_view %}
-    <button type="button" class="is-mail" id="sendBtn">email invoice</button>
-    <button type="button" class="ghost" id="gmailBtn">open in gmail</button>
+    <button type="button" class="is-mail" id="sendBtn">email pdf</button>
     <button type="button" class="ghost" id="clearBtn">clear fields</button>
     <form method="post" action="{{ routes.cart_url }}/update" style="margin:0" class="staff-only">
       <input type="hidden" name="attributes[suas_staff_pin]" value="">
@@ -143,7 +142,7 @@
     {% endunless %}
     <button type="button" id="printBtn">save as pdf</button>
     {% unless customer_view %}
-    <em>paste invoice # from the booking (or hit paste). email invoice sends this suas.os window as a link to the booking email.</em>
+    <em>email pdf builds this whole invoice as one file, then opens mail to the booking address. attach that pdf and send.</em>
     <p class="mail-status" id="mailStatus" hidden></p>
     {% else %}
     <em>your suas.os party invoice. pay the deposit to hold the date.</em>
@@ -257,7 +256,6 @@
   <script>
     (function () {
       var customerView = {{ section.settings.customer_view | json }};
-      var shareBase = {{ pages['invoice'].url | default: '/pages/invoice' | json }};
       var ids = ['name','email','phone','invoiceNo','issued','due','balanceDue','eventDate','time','guests','occasion','pack','food','cake','notes','payMethod','payHandle','payMemo'];
       var guests = document.getElementById('guests');
       var pack = document.getElementById('pack');
@@ -288,22 +286,10 @@
         var opt = pack.options[pack.selectedIndex];
         return opt ? opt.text : '';
       }
-      function encodePayload(obj){
-        return btoa(unescape(encodeURIComponent(JSON.stringify(obj)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-      }
       function decodePayload(raw){
         var s = String(raw || '').replace(/-/g,'+').replace(/_/g,'/');
         while (s.length % 4) s += '=';
         return JSON.parse(decodeURIComponent(escape(atob(s))));
-      }
-      function payload(){
-        var data = {};
-        ids.forEach(function(id){ data[id] = val(id); });
-        data.total = total.textContent;
-        data.deposit = deposit.textContent;
-        data.remain = remain.textContent;
-        data.packLabel = packLabel();
-        return data;
       }
       function applyData(data){
         if (!data) return;
@@ -317,10 +303,77 @@
         status.textContent = msg;
         status.style.color = ok ? '#07162e' : '#7a1028';
       }
-      function shareUrl(){
-        var origin = window.location.origin;
-        var path = shareBase.indexOf('http') === 0 ? shareBase : (origin + shareBase);
-        return path + '#' + encodePayload(payload());
+      function invoiceFileName(){
+        var num = pickInvoice(val('invoiceNo')) || 'invoice';
+        return 'SUAS-' + num.replace(/^SUAS-/i, '') + '.pdf';
+      }
+      function flattenSheet(sheet){
+        var backups = [];
+        sheet.querySelectorAll('button').forEach(function(btn){
+          backups.push({ el: btn, display: btn.style.display });
+          btn.style.display = 'none';
+        });
+        sheet.querySelectorAll('input, select, textarea').forEach(function(el){
+          var span = document.createElement('div');
+          span.setAttribute('data-pdf-flat', '1');
+          span.style.cssText = 'min-height:28px;padding:6px 0;font:800 15px/1.3 Tahoma,Arial,sans-serif;color:#101010';
+          if (el.tagName === 'SELECT') {
+            span.textContent = el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : (el.value || '—');
+          } else {
+            span.textContent = el.value ? el.value : '—';
+          }
+          backups.push({ el: el, span: span });
+          el.style.display = 'none';
+          el.parentNode.insertBefore(span, el);
+        });
+        return function () {
+          backups.forEach(function(item){
+            if (item.span && item.span.parentNode) item.span.parentNode.removeChild(item.span);
+            if (item.el) item.el.style.display = item.display || '';
+          });
+        };
+      }
+      function loadHtml2Pdf(){
+        return new Promise(function(resolve, reject){
+          if (window.html2pdf) { resolve(); return; }
+          var s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js';
+          s.onload = function(){ resolve(); };
+          s.onerror = function(){ reject(new Error('pdf')); };
+          document.head.appendChild(s);
+        });
+      }
+      function makePdfBlob(){
+        var sheet = document.querySelector('.suas-invoice-desk .sheet');
+        var filename = invoiceFileName();
+        return loadHtml2Pdf().then(function(){
+          var undo = flattenSheet(sheet);
+          return html2pdf().set({
+            margin: [0.28, 0.28, 0.28, 0.28],
+            filename: filename,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, backgroundColor: '#0b1a36', windowWidth: 820 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+          }).from(sheet).outputPdf('blob').then(function(blob){
+            undo();
+            blob.name = filename;
+            return blob;
+          }).catch(function(err){
+            undo();
+            throw err;
+          });
+        });
+      }
+      function downloadBlob(blob, filename){
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename || 'SUAS-invoice.pdf';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
       }
       function invoiceMail(){
         var to = val('email');
@@ -337,39 +390,52 @@
         }
         document.getElementById('invoiceNo').value = num;
         var who = val('name') || 'there';
-        var link = shareUrl();
         var handle = val('payHandle');
         var pay = val('payMethod') || 'the method on the invoice';
         var body = [
           'hey ' + who.toLowerCase() + ',',
           '',
-          'your suas.os party invoice is here:',
-          link,
-          '',
+          'your suas.os party invoice is attached as a pdf.',
           'invoice ' + num + '. deposit ' + (deposit.textContent || '') + ' holds the date.',
           'pay ' + pay + (handle ? ' to ' + handle : '') + '. put ' + num + ' in the memo.',
           '',
           'suas',
           '188 w franklin blvd, gastonia'
         ].join('\n');
-        return { to: to, subject: 'suas party invoice ' + num, body: body, link: link };
+        return { to: to, subject: 'suas party invoice ' + num, body: body, filename: invoiceFileName() };
       }
-      function openMail(viaGmail){
+      function openGmail(mail){
+        window.open(
+          'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(mail.to) +
+          '&su=' + encodeURIComponent(mail.subject) +
+          '&body=' + encodeURIComponent(mail.body),
+          '_blank',
+          'noopener'
+        );
+      }
+      function sendPdf(){
         var mail = invoiceMail();
         if (!mail) return;
-        window.open(mail.link, '_blank', 'noopener');
-        var href;
-        if (viaGmail) {
-          href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(mail.to) +
-            '&su=' + encodeURIComponent(mail.subject) +
-            '&body=' + encodeURIComponent(mail.body);
-          window.open(href, '_blank', 'noopener');
-        } else {
-          window.location.href = 'mailto:' + encodeURIComponent(mail.to) +
-            '?subject=' + encodeURIComponent(mail.subject) +
-            '&body=' + encodeURIComponent(mail.body);
-        }
-        say('Mail opened to ' + mail.to + '. The invoice window is the suas.os one — hit send on the email.', true);
+        say('Putting the invoice together as a pdf…', true);
+        makePdfBlob().then(function(blob){
+          downloadBlob(blob, mail.filename);
+          var file = new File([blob], mail.filename, { type: 'application/pdf' });
+          var shared = navigator.canShare && navigator.canShare({ files: [file] });
+          if (shared) {
+            return navigator.share({
+              files: [file],
+              title: mail.subject,
+              text: mail.body
+            }).catch(function(){ openGmail(mail); });
+          }
+          openGmail(mail);
+        }).then(function(){
+          say('PDF saved as ' + mail.filename + '. Attach it in Gmail to ' + mail.to + ' and send.', true);
+        }).catch(function(){
+          window.print();
+          openGmail(mail);
+          say('Use Save as PDF in the print box, then attach that file in Gmail.', true);
+        });
       }
       function calc(){
         var n = Math.max(1, Math.min(14, Number(guests.value) || 1));
@@ -444,12 +510,16 @@
           }).catch(function () { say('Allow clipboard access, or paste with Ctrl+V in the invoice # box.'); });
         });
       }
-      document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+      document.getElementById('printBtn').addEventListener('click', function(){
+        say('Putting the invoice together as a pdf…', true);
+        makePdfBlob().then(function(blob){
+          downloadBlob(blob, invoiceFileName());
+          say('PDF saved. That file is the whole invoice.', true);
+        }).catch(function(){ window.print(); });
+      });
       var sendBtn = document.getElementById('sendBtn');
-      var gmailBtn = document.getElementById('gmailBtn');
       var clearBtn = document.getElementById('clearBtn');
-      if (sendBtn) sendBtn.addEventListener('click', function(){ openMail(false); });
-      if (gmailBtn) gmailBtn.addEventListener('click', function(){ openMail(true); });
+      if (sendBtn) sendBtn.addEventListener('click', sendPdf);
       if (clearBtn) clearBtn.addEventListener('click', function(){
         ids.forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
         guests.value = 1;
