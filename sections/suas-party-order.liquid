@@ -212,8 +212,8 @@
                 <span><b>Cash App</b></span>
               </label>
               <label class="suas-party-pack">
-                <input type="radio" name="contact[Deposit payment]" value="Card / Shopify invoice">
-                <span><b>Card</b></span>
+                <input type="radio" name="contact[Deposit payment]" value="Card / Shopify invoice" data-party-card="true">
+                <span><b>Card</b><small>pay deposit at checkout</small></span>
               </label>
             </div>
             <p class="suas-party-hint" id="party-deposit-hint">Deposit due now: $0.00 · remaining 48 hours before: $0.00</p>
@@ -232,10 +232,27 @@
       </div>
     {% endform %}
   </div>
+  {%- liquid
+    assign suas_deposit_dollar = nil
+    assign suas_deposit_cent = nil
+    assign suas_deposit_product = all_products['lab-party-deposit']
+    if suas_deposit_product
+      for v in suas_deposit_product.variants
+        if v.title contains 'Dollar'
+          assign suas_deposit_dollar = v.id
+        endif
+        if v.title contains 'Cent'
+          assign suas_deposit_cent = v.id
+        endif
+      endfor
+    endif
+  -%}
   <script>
     (function () {
       var form = document.getElementById('suas-party-form');
       if (!form) return;
+      var dollarId = {{ suas_deposit_dollar | json }};
+      var centId = {{ suas_deposit_cent | json }};
       var guests = document.getElementById('party-guests');
       var total = document.getElementById('party-total');
       var notes = document.getElementById('party-notes');
@@ -294,9 +311,58 @@
         try { sessionStorage.setItem(pendingKey, existing); } catch (e) {}
         setInvoiceNo(existing);
       }
-      form.addEventListener('change', refreshTotal);
+      function isCardMethod(method) {
+        return method && /card|shopify/i.test(method.value);
+      }
+      function stampNotes(num) {
+        var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
+        if (!notes || !total) return method;
+        var line = 'Estimated total: ' + total.value + ' · deposit now: ' + (deposit ? deposit.value : '') + ' · remaining: ' + (remain ? remain.value : '') + (method ? ' · deposit method: ' + method.value : '');
+        if (notes.value.indexOf('Estimated total:') === -1) {
+          notes.value = notes.value.trim() + '\n' + line;
+        }
+        return method;
+      }
+      function addDepositToCart(num) {
+        if (!dollarId && !centId) return Promise.resolve();
+        var full = rate() * (Number(guests && guests.value) || 0);
+        var half = Math.round(full * 50) / 100;
+        var cents = Math.round(half * 100);
+        if (cents < 1) return Promise.resolve();
+        var dollars = Math.floor(cents / 100);
+        var leftover = cents % 100;
+        var pack = form.querySelector('.party-pack:checked');
+        var props = {
+          'Invoice': num,
+          'Type': '50% Lab party deposit',
+          'Event date': (document.getElementById('party-date') || {}).value || '',
+          'Time': (document.getElementById('party-time') || {}).value || '',
+          'Guests': String(guests && guests.value ? guests.value : ''),
+          'Package': pack ? pack.value : '',
+          'Deposit': money(half)
+        };
+        var items = [];
+        if (dollars && dollarId) items.push({ id: dollarId, quantity: dollars, properties: props });
+        if (leftover && centId) items.push({ id: centId, quantity: leftover, properties: props });
+        if (!items.length) return Promise.resolve();
+        return fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify({ items: items })
+        }).then(function (res) {
+          if (!res.ok) throw new Error('cart');
+        });
+      }
+      form.addEventListener('change', function () {
+        refreshTotal();
+        var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
+        if (depositHint && isCardMethod(method)) {
+          depositHint.textContent = 'Card: after you send this request, checkout opens for the ' + (deposit ? deposit.value : '') + ' deposit. Remaining is due 48 hours before.';
+        }
+      });
       form.addEventListener('input', refreshTotal);
-      form.addEventListener('submit', function () {
+      form.addEventListener('submit', function (event) {
         refreshTotal();
         var inv = document.getElementById('party-invoice-no');
         var num = inv && inv.value ? inv.value : makeInvoiceNo();
@@ -305,13 +371,30 @@
           sessionStorage.setItem(pendingKey, num);
           sessionStorage.setItem(sentKey, num);
         } catch (e) {}
-        if (!notes || !total) return;
-        var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
-        var line = 'Estimated total: ' + total.value + ' · deposit now: ' + (deposit ? deposit.value : '') + ' · remaining: ' + (remain ? remain.value : '') + (method ? ' · deposit method: ' + method.value : '');
-        if (notes.value.indexOf('Estimated total:') === -1) {
-          notes.value = notes.value.trim() + '\n' + line;
-        }
+        var method = stampNotes(num);
+        if (form.getAttribute('data-deposit-ready') === '1') return;
+        if (!isCardMethod(method)) return;
+        event.preventDefault();
+        var start = form.querySelector('.suas-party-start');
+        if (start) { start.disabled = true; start.textContent = 'Adding deposit…'; }
+        addDepositToCart(num).then(function () {
+          try { sessionStorage.setItem('suas-party-card-checkout', '1'); } catch (e) {}
+          form.setAttribute('data-deposit-ready', '1');
+          form.submit();
+        }).catch(function () {
+          form.setAttribute('data-deposit-ready', '1');
+          form.submit();
+        });
       });
+      if (flash) {
+        try {
+          if (sessionStorage.getItem('suas-party-card-checkout') === '1') {
+            sessionStorage.removeItem('suas-party-card-checkout');
+            flash.parentNode && (flash.textContent = (flash.textContent || 'Request sent.') + ' Pay the deposit at checkout to hold the date.');
+            window.location.assign('/checkout');
+          }
+        } catch (e) {}
+      }
       refreshTotal();
       var copyBtn = document.getElementById('party-invoice-copy');
       if (copyBtn) {

@@ -1,5 +1,18 @@
 {%- liquid
   assign customer_view = section.settings.customer_view
+  assign suas_deposit_dollar = nil
+  assign suas_deposit_cent = nil
+  assign suas_deposit_product = all_products['lab-party-deposit']
+  if suas_deposit_product
+    for v in suas_deposit_product.variants
+      if v.title contains 'Dollar'
+        assign suas_deposit_dollar = v.id
+      endif
+      if v.title contains 'Cent'
+        assign suas_deposit_cent = v.id
+      endif
+    endfor
+  endif
   assign given = cart.attributes.suas_staff_pin | strip
   assign pin = section.settings.staff_pin | strip
   assign unlocked = false
@@ -256,6 +269,9 @@
   <script>
     (function () {
       var customerView = {{ section.settings.customer_view | json }};
+      var dollarId = {{ suas_deposit_dollar | json }};
+      var centId = {{ suas_deposit_cent | json }};
+      var shopOrigin = {{ request.origin | json }};
       var ids = ['name','email','phone','invoiceNo','issued','due','balanceDue','eventDate','time','guests','occasion','pack','food','cake','notes','payMethod','payHandle','payMemo'];
       var guests = document.getElementById('guests');
       var pack = document.getElementById('pack');
@@ -523,6 +539,16 @@
         var pay = val('payMethod');
         var handle = val('payHandle');
         var isCard = /card|shopify/i.test(pay);
+        var payUrl = (function () {
+          var cents = Math.round(Number(String(deposit.textContent || '0').replace(/[^0-9.]/g, '')) * 100);
+          var dollars = Math.floor(cents / 100);
+          var leftover = cents % 100;
+          var parts = [];
+          if (dollars && dollarId) parts.push(dollarId + ':' + dollars);
+          if (leftover && centId) parts.push(centId + ':' + leftover);
+          if (!parts.length) return '';
+          return (shopOrigin || '') + '/cart/' + parts.join(',');
+        })();
         var when = [longDate(val('eventDate')), val('time')].filter(Boolean).join(' at ');
         var occ = val('occasion');
         var guestsN = val('guests') || '1';
@@ -530,7 +556,9 @@
         var payBlock;
         if (isCard) {
           payBlock = [
-            'You chose card. I will email you a Shopify invoice for the ' + deposit.textContent + ' deposit now. Once that is paid, your date is held. I will send a second Shopify invoice for the remaining ' + remain.textContent + ' when the balance is due.'
+            'You chose card. Pay the ' + deposit.textContent + ' deposit at Shopify checkout to hold your date:',
+            payUrl || 'I will send you a checkout link for the deposit.',
+            'I will email a second Shopify invoice for the remaining ' + remain.textContent + ' when that balance is due (48 hours before the party).'
           ].join('\n');
         } else {
           payBlock = [
