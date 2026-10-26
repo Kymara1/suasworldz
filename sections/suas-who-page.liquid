@@ -23,10 +23,10 @@
     .suas-story-cta{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border:2px solid #101010;border-radius:4px 12px 12px 4px;background:linear-gradient(180deg,#b6ff57,#5bb000);color:#101010;font:900 14px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 2px 0 #101010;width:fit-content}
     .suas-story-hours{display:grid;gap:6px;margin:0;padding:0;list-style:none}
     .suas-story-hours li{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border:2px solid var(--ink);background:#fff;font:800 12px/1.3 Tahoma,Arial,sans-serif}
-    .suas-story-launch{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .suas-story-tile{min-height:72px;display:flex;flex-direction:column;justify-content:center;padding:10px;border:2px solid var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink)}
-    .suas-story-tile strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.2rem;line-height:.9;font-weight:400;text-transform:lowercase}
-    .suas-story-tile span{margin-top:4px;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.62}
+    .suas-story-launch{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .suas-story-tile{min-height:86px;display:flex;flex-direction:column;justify-content:center;padding:12px 14px;border:2px solid #101010;border-radius:28px;background:var(--launch,#fff);box-shadow:none}
+    .suas-story-tile strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.15rem,2vw,1.45rem);line-height:.88;font-weight:400;text-transform:uppercase}
+    .suas-story-tile span{margin-top:5px;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#101010}
     @media(max-width:900px){
       .suas-story-hero,.suas-story-grid{grid-template-columns:1fr}
       .suas-story-mark{width:56px;height:56px;font-size:2rem}
@@ -98,10 +98,10 @@
         <div class="suas-story-bar" style="background:#101010"><b>S 6. quick launch</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-story-body">
           <div class="suas-story-launch">
-            <a class="suas-story-tile" href="/pages/bookings"><strong>book the lab</strong><span>pay to hold a seat</span></a>
-            <a class="suas-story-tile" href="/pages/visit-us"><strong>visit us</strong><span>franklin blvd</span></a>
-            <a class="suas-story-tile" href="/pages/scent-profile"><strong>scent profile</strong><span>shop by smell</span></a>
-            <a class="suas-story-tile" href="/collections/all"><strong>shop</strong><span>grab a jar</span></a>
+            <a class="suas-story-tile" href="/pages/bookings" style="--launch:#f0c4a0"><strong>book the lab</strong><span>reserve</span></a>
+            <a class="suas-story-tile" href="/collections/new-arrivals" style="--launch:#9caf6a"><strong>new arrivals</strong><span>shop</span></a>
+            <a class="suas-story-tile" href="/pages/reviews" style="--launch:#c98990"><strong>reviews</strong><span>read</span></a>
+            <a class="suas-story-tile" href="/pages/account" style="--launch:#c4a36a"><strong>account</strong><span>you</span></a>
           </div>
         </div>
       </article>

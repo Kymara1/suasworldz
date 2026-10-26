@@ -303,10 +303,11 @@ nav *,
   }
 
   .suas-launch {
-    min-height: 74px !important;
-    padding: 12px 14px !important;
+    min-height: 86px !important;
+    padding: 12px 16px !important;
     background: var(--launch) !important;
     border: 2px solid #101010 !important;
+    border-radius: 28px !important;
     box-shadow: none !important;
   }
 
