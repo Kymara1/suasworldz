@@ -386,13 +386,16 @@
   }
 
   .suas-world-home .suas-launch {
-    min-height: 92px !important;
-    padding: 14px 16px !important;
-    border-radius: 22px !important;
+    min-height: 74px !important;
+    padding: 12px 14px !important;
+    border-radius: 18px !important;
+    background: var(--launch) !important;
+    border: 2px solid #101010 !important;
+    box-shadow: none !important;
   }
 
   .suas-world-home .suas-launch strong {
-    font-size: clamp(1.35rem, 2vw, 1.85rem) !important;
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem) !important;
     text-transform: uppercase !important;
   }
 

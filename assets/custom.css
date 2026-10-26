@@ -303,12 +303,15 @@ nav *,
   }
 
   .suas-launch {
-    min-height: 92px !important;
-    padding: 14px 16px !important;
+    min-height: 74px !important;
+    padding: 12px 14px !important;
+    background: var(--launch) !important;
+    border: 2px solid #101010 !important;
+    box-shadow: none !important;
   }
 
   .suas-launch strong {
-    font-size: clamp(1.35rem, 2vw, 1.85rem) !important;
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem) !important;
     text-transform: uppercase !important;
   }
 
@@ -580,7 +583,7 @@ html body .suas-world-home .suas-aisle h3 {
   .suas-bookings-page .suas-book-wrap { width: min(1180px, calc(100vw - 248px)) !important; padding-top: 22px !important; }
   .suas-bookings-page .suas-book-title { font-size: clamp(2.2rem, 5vw, 3.6rem) !important; }
   .suas-bookings-page .suas-book-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-  .suas-bookings-page .suas-book-card, .suas-bookings-page .suas-book-panel, .suas-bookings-page .suas-book-option { padding: 14px 16px !important; }
+  .suas-bookings-page .suas-book-option { padding: 0 !important; }
   .suas-bookings-page .suas-book-option h2 { font-size: clamp(1.35rem, 2.2vw, 2rem) !important; }
 }
 
