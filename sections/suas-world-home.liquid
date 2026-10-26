@@ -77,10 +77,14 @@
     .suas-launch-body{display:flex;flex-direction:column;gap:11px;padding:12px;flex:0 0 auto}
     .suas-launch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .suas-launch-grid .suas-launch:nth-of-type(n+5){display:none!important}
-    .suas-launch{min-height:86px;display:flex;flex-direction:column;justify-content:center;border:2px solid var(--ink);border-radius:28px;padding:12px 16px;color:var(--ink);background:var(--launch);box-shadow:none;text-decoration:none;transition:transform 160ms ease}
-    .suas-launch:hover{color:var(--ink);transform:translateY(1px)}
-    .suas-launch strong{font-size:clamp(1.15rem,1.8vw,1.45rem);font-weight:400!important;line-height:.88;text-transform:uppercase}
-    .suas-launch span{margin-top:5px;font-size:9px;font-weight:900;letter-spacing:.14em}
+    .suas-launch{min-height:88px;display:flex;flex-direction:column;justify-content:center;border:2.5px solid #101010;border-radius:32px;padding:14px 16px;color:#101010;background:var(--launch);box-shadow:none;text-decoration:none}
+    .suas-launch:hover{color:#101010;filter:brightness(.97)}
+    .suas-launch strong{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-size:clamp(1.2rem,2vw,1.55rem);font-weight:400!important;line-height:.86;text-transform:uppercase}
+    .suas-launch span{margin-top:6px;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+    html body .suas-world-home .suas-launch-grid a.suas-launch:nth-child(1){background:#f0c4a0!important}
+    html body .suas-world-home .suas-launch-grid a.suas-launch:nth-child(2){background:#9caf6a!important}
+    html body .suas-world-home .suas-launch-grid a.suas-launch:nth-child(3){background:#c98990!important}
+    html body .suas-world-home .suas-launch-grid a.suas-launch:nth-child(4){background:#c4a36a!important}
     .suas-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:auto}
     .suas-btn{min-height:38px;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--ink);border-radius:999px;padding:9px 14px;color:var(--ink);background:#fff;box-shadow:0 4px 0 var(--ink);text-decoration:none;font-weight:900}
     .suas-btn[data-dark]{color:#fff;background:var(--ink)}
@@ -306,19 +310,19 @@
           </div>
           <div class="suas-launch-body">
             <div class="suas-launch-grid" data-suas-fixed-launch="true">
-              <a class="suas-launch" href="/pages/bookings" style="--launch:#f0c4a0">
+              <a class="suas-launch" href="/pages/bookings" style="background:#f0c4a0;--launch:#f0c4a0">
                 <strong class="suas-font">book the lab</strong>
                 <span class="suas-mono">reserve</span>
               </a>
-              <a class="suas-launch" href="/collections/new-arrivals" style="--launch:#9caf6a">
+              <a class="suas-launch" href="/collections/new-arrivals" style="background:#9caf6a;--launch:#9caf6a">
                 <strong class="suas-font">new arrivals</strong>
                 <span class="suas-mono">shop</span>
               </a>
-              <a class="suas-launch" href="/pages/reviews" style="--launch:#c98990">
+              <a class="suas-launch" href="/pages/reviews" style="background:#c98990;--launch:#c98990">
                 <strong class="suas-font">reviews</strong>
                 <span class="suas-mono">read</span>
               </a>
-              <a class="suas-launch" href="/pages/account" style="--launch:#c4a36a">
+              <a class="suas-launch" href="/pages/account" style="background:#c4a36a;--launch:#c4a36a">
                 <strong class="suas-font">account</strong>
                 <span class="suas-mono">you</span>
               </a>
