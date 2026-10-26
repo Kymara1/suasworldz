@@ -16,12 +16,39 @@
     --suas-xp-btn: linear-gradient(#fff8ee, #e6c9a0);
   }
 
+  html:not(.suas-men):not(.suas-station-page) .suas-side-rail {
+    background: linear-gradient(180deg, #fffdf6 0%, #f4ecd4 72%, #ece4c8 100%) !important;
+    border-right: 2px solid #101010 !important;
+  }
+  html:not(.suas-men):not(.suas-station-page) .suas-side-head {
+    margin: 10px 10px 4px !important;
+    padding: 10px 12px !important;
+    border: 2px solid #101010 !important;
+    background: var(--suas-xp-bar) !important;
+    color: var(--suas-xp-ink) !important;
+    box-shadow: 3px 3px 0 #101010 !important;
+  }
+  html:not(.suas-men):not(.suas-station-page) .suas-side-brand {
+    color: var(--suas-xp-ink) !important;
+    text-shadow: 1px 1px 0 rgba(16, 16, 16, .35);
+  }
+  html:not(.suas-men):not(.suas-station-page) .suas-side-status {
+    border: 2px solid #101010 !important;
+    background: #fff !important;
+    box-shadow: 3px 4px 0 #101010 !important;
+  }
+
   html body .suas-window-bar,
   html body .suas-os-winbar,
   html body .suas-cart-winbar,
   html body .suas-review-window-bar,
   html body .suas-xp-bar,
   html body .suas-lab-bar,
+  html body .suas-lab-titlebar,
+  html body .suas-catalog-head-bar,
+  html body .suas-story-winbar,
+  html body .suas-search-bar,
+  html body .suas-rev-bar,
   html body .suas-window-strip {
     display: flex !important;
     align-items: center !important;
@@ -36,6 +63,9 @@
   html body .suas-cart-win-title,
   html body .suas-xp-title,
   html body .suas-lab-bar-title,
+  html body .suas-catalog-head-bar b,
+  html body .suas-story-win-title,
+  html body .suas-search-bar b,
   html body .suas-window-live,
   html body .suas-os-live,
   html body .suas-lab-live,
@@ -71,6 +101,7 @@
   html body .suas-os-dots,
   html body .suas-cart-dots,
   html body .suas-lab-dots,
+  html body .suas-story-dots,
   html body .suas-xp-btns {
     order: 3 !important;
     margin-left: 0 !important;
@@ -82,6 +113,9 @@
   html body .suas-dot,
   html body .suas-os-dot,
   html body .suas-lab-dot,
+  html body .suas-catalog-dot,
+  html body .suas-story-dot,
+  html body .suas-rev-dot,
   html body .suas-cart-dots i,
   html body .suas-xp-btns i,
   html body .suas-review-window-bar span,
@@ -98,6 +132,9 @@
   html body .suas-dot:nth-child(1),
   html body .suas-os-dot:nth-child(1),
   html body .suas-lab-dot:nth-child(1),
+  html body .suas-catalog-dot:nth-child(1),
+  html body .suas-story-dot:nth-child(1),
+  html body .suas-rev-dot:nth-child(1),
   html body .suas-cart-dots i:nth-child(1),
   html body .suas-review-window-bar span:nth-child(1),
   html body .suas-xp-btns i.x,
@@ -109,6 +146,9 @@
   html body .suas-dot:nth-child(2),
   html body .suas-os-dot:nth-child(2),
   html body .suas-lab-dot:nth-child(2),
+  html body .suas-catalog-dot:nth-child(2),
+  html body .suas-story-dot:nth-child(2),
+  html body .suas-rev-dot:nth-child(2),
   html body .suas-cart-dots i:nth-child(2),
   html body .suas-review-window-bar span:nth-child(2),
   html body .suas-xp-btns i.min {
@@ -117,6 +157,9 @@
   html body .suas-dot:nth-child(3),
   html body .suas-os-dot:nth-child(3),
   html body .suas-lab-dot:nth-child(3),
+  html body .suas-catalog-dot:nth-child(3),
+  html body .suas-story-dot:nth-child(3),
+  html body .suas-rev-dot:nth-child(3),
   html body .suas-cart-dots i:nth-child(3),
   html body .suas-review-window-bar span:nth-child(3),
   html body .suas-xp-btns i.max {
