@@ -107,7 +107,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
   </div></div>
 
   <div class="suas-mobile-bar">
-    <a class="suas-side-head suas-mobile-home" href="{% if suas_men_panel %}/pages/suas-men{% else %}{{ section.settings.home_link | default: routes.root_url }}{% endif %}" aria-label="{% if suas_men_panel %}SUAS Men{% else %}Go to SUAS homepage{% endif %}"><img class="suas-side-mark" src="{{ 'suas-s-mark.png' | asset_url }}" width="45" height="45" alt=""><span class="suas-side-brand">{% if suas_men_panel %}SUAS{% else %}{{ section.settings.brand_text }}{% endif %}</span></a>
+    <a class="suas-side-head suas-mobile-home" href="{% if suas_men_panel %}/pages/suas-men{% else %}{{ section.settings.home_link | default: routes.root_url }}{% endif %}" aria-label="{% if suas_men_panel %}SUAS Men{% else %}Go to SUAS homepage{% endif %}"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{% if suas_men_panel %}SUAS{% else %}{{ section.settings.brand_text }}{% endif %}</span></a>
     <div class="suas-mobile-bar-actions">
       {% render 'suas-os-search' %}
       <button type="button" class="suas-panel-toggle" aria-expanded="false" aria-controls="suas-control-panel">
@@ -119,7 +119,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
   <div class="suas-panel-scrim" hidden></div>
 
   <aside class="suas-side-rail" id="suas-control-panel" aria-label="{% if suas_men_panel %}SUAS Men control panel{% else %}SUAS control panel{% endif %}">
-    <a class="suas-side-head" href="{% if suas_men_panel %}/pages/suas-men{% else %}{{ section.settings.home_link | default: routes.root_url }}{% endif %}" aria-label="{% if suas_men_panel %}SUAS Men{% else %}Go to SUAS homepage{% endif %}"><img class="suas-side-mark" src="{{ 'suas-s-mark.png' | asset_url }}" width="45" height="45" alt=""><span class="suas-side-brand">{% if suas_men_panel %}SUAS{% else %}{{ section.settings.brand_text }}{% endif %}</span></a>
+    <a class="suas-side-head" href="{% if suas_men_panel %}/pages/suas-men{% else %}{{ section.settings.home_link | default: routes.root_url }}{% endif %}" aria-label="{% if suas_men_panel %}SUAS Men{% else %}Go to SUAS homepage{% endif %}"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">{% if suas_men_panel %}SUAS{% else %}{{ section.settings.brand_text }}{% endif %}</span></a>
     <p class="suas-side-kicker">{% if suas_men_panel %}men terminal{% else %}{{ section.settings.control_label }}{% endif %}</p>
     <nav class="suas-side-nav" aria-label="{% if suas_men_panel %}SUAS Men menu{% else %}SUAS menu{% endif %}">
       {% if suas_men_panel %}

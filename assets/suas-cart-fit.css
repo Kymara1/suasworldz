@@ -26,13 +26,7 @@
 .template--cart .layout--main-content {
   min-height: 100vh;
   padding: clamp(22px, 3.4vw, 44px) 16px 40px !important;
-  background:
-    linear-gradient(rgba(16, 16, 16, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, 0.035) 1px, transparent 1px),
-    radial-gradient(circle at 10% 8%, rgba(255, 216, 232, 0.55), transparent 28%),
-    radial-gradient(circle at 92% 18%, rgba(217, 255, 120, 0.32), transparent 26%),
-    var(--cart-paper) !important;
-  background-size: 22px 22px, 22px 22px, auto, auto, auto !important;
+  background: linear-gradient(180deg, #6ec4e8 0%, #9bd6ef 38%, #d7ecc8 68%, #5aa832 100%) !important;
 }
 
 @media (min-width: 1024px) {
@@ -61,17 +55,11 @@
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  background:
-    linear-gradient(rgba(16, 16, 16, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 16, 16, 0.035) 1px, transparent 1px),
-    radial-gradient(circle at 12% 8%, rgba(255, 216, 232, 0.55), transparent 30%),
-    radial-gradient(circle at 92% 18%, rgba(217, 255, 120, 0.28), transparent 26%),
-    var(--cart-paper) !important;
-  background-size: 22px 22px, 22px 22px, auto, auto, auto !important;
+  background: linear-gradient(180deg, #6ec4e8 0%, #9bd6ef 42%, #d7ecc8 100%) !important;
 }
 
 .off-canvas--right-sidebar .off-canvas--container[data-view="cart"] {
-  background: var(--cart-paper, #fbfaf7) !important;
+  background: linear-gradient(180deg, #6ec4e8 0%, #9bd6ef 42%, #d7ecc8 100%) !important;
   border-left: 2px solid #101010 !important;
 }
 
@@ -99,7 +87,8 @@
   min-height: 40px;
   padding: 8px 12px;
   border-bottom: 2px solid var(--cart-ink);
-  background: linear-gradient(180deg, #fff, #e8edf3);
+  background: #101010;
+  color: #d9ff78;
 }
 
 .suas-cart-dots {
@@ -108,15 +97,15 @@
 }
 
 .suas-cart-dots i {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 999px;
-  border: 1px solid var(--cart-ink);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #101010;
 }
-
-.suas-cart-dots i:nth-child(1) { background: #ff9bc4; }
-.suas-cart-dots i:nth-child(2) { background: #fff0a8; }
-.suas-cart-dots i:nth-child(3) { background: #d9ff78; }
+.suas-cart-dots i:nth-child(1) { background: #ff5f57; }
+.suas-cart-dots i:nth-child(2) { background: #febc2e; }
+.suas-cart-dots i:nth-child(3) { background: #28c840; }
 
 .suas-cart-win-title {
   text-align: center;
@@ -124,7 +113,7 @@
   font-weight: 900;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--cart-ink);
+  color: #d9ff78;
 }
 
 .suas-cart-chip {
@@ -728,65 +717,31 @@
   }
 }
 
-/* Seasonal wash only while halloween class is on the html root */
 html.suas-halloween .template--cart {
-  --cart-pink: #f0c4a0;
-  --cart-blue: #c4a36a;
-  --cart-lime: #9caf6a;
-  --cart-sun: #e6c35c;
-  --cart-lav: #c98990;
-  --cart-paper: #efe4d4;
+  --cart-pink: #ffd8e8;
+  --cart-blue: #c9e7ff;
+  --cart-lime: #d9ff78;
+  --cart-sun: #fff0a8;
+  --cart-lav: #ded2ff;
+  --cart-paper: #fbfaf7;
 }
 
 html.suas-halloween .template--cart .layout--main-content {
-  background:
-    linear-gradient(rgba(164, 59, 36, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(164, 59, 36, 0.05) 1px, transparent 1px),
-    radial-gradient(circle at 12% 8%, rgba(224, 122, 61, 0.22), transparent 28%),
-    radial-gradient(circle at 90% 16%, rgba(156, 175, 106, 0.2), transparent 26%),
-    var(--cart-paper) !important;
-  background-size: 22px 22px, 22px 22px, auto, auto, auto !important;
+  background: linear-gradient(180deg, #6ec4e8 0%, #9bd6ef 38%, #d7ecc8 68%, #5aa832 100%) !important;
 }
 
 html.suas-halloween .suas-cart-winbar {
-  background: linear-gradient(180deg, #fff8ee, #f0c4a0);
+  background: #101010 !important;
+  color: #d9ff78 !important;
 }
 
-html.suas-halloween .suas-cart-dots i:nth-child(1) { background: #e07a3d; }
-html.suas-halloween .suas-cart-dots i:nth-child(2) { background: #e6c35c; }
-html.suas-halloween .suas-cart-dots i:nth-child(3) { background: #9caf6a; }
-
-html.suas-halloween .suas-cart-chip {
-  background: #e6c35c;
+html.suas-halloween .suas-cart-win-title {
+  color: #d9ff78 !important;
 }
 
-html.suas-halloween .template--cart .cart--item,
-html.suas-halloween .suas-cart-station .cart--item {
-  background: linear-gradient(135deg, rgba(240, 196, 160, 0.92), rgba(255, 248, 238, 0.88)) !important;
-}
-
-html.suas-halloween .template--cart .cart--item:nth-child(3n + 1),
-html.suas-halloween .suas-cart-station .cart--item:nth-child(3n + 1) {
-  background: linear-gradient(135deg, rgba(230, 195, 92, 0.9), rgba(240, 196, 160, 0.7)) !important;
-}
-
-html.suas-halloween .template--cart .cart--item:nth-child(3n + 2),
-html.suas-halloween .suas-cart-station .cart--item:nth-child(3n + 2) {
-  background: linear-gradient(135deg, rgba(156, 175, 106, 0.55), rgba(201, 137, 144, 0.4)) !important;
-}
-
-html.suas-halloween .template--cart .cart--continue-shopping a,
-html.suas-halloween .suas-cart-station .cart--continue-shopping a {
-  background: #f0c4a0 !important;
-}
-
-html.suas-halloween .suas-cart-empty {
-  background: linear-gradient(135deg, rgba(230, 195, 92, 0.35), rgba(240, 196, 160, 0.4)), #fff8ee !important;
-}
-
-html.suas-halloween .suas-cart-empty-cta {
-  background: #9caf6a !important;
-}
+html.suas-halloween .suas-cart-dots i:nth-child(1) { background: #ff5f57 !important; }
+html.suas-halloween .suas-cart-dots i:nth-child(2) { background: #febc2e !important; }
+html.suas-halloween .suas-cart-dots i:nth-child(3) { background: #28c840 !important; }
 
 /* Drawer bag: fill the sidebar (never 100vw — Maker's panel is 80%/400px and clips overflow) */
 .off-canvas--right-sidebar {
