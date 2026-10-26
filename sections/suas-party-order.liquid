@@ -186,6 +186,8 @@
       <div class="suas-party-task">
         <button class="suas-party-start" type="submit">Start</button>
         <em>party.exe</em>
+        <label for="party-total" style="margin-left:auto;font:800 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em">Est.</label>
+        <input id="party-total" type="text" name="contact[Estimated total]" readonly value="$0.00" aria-live="polite" style="width:7.5rem;min-height:32px;border:2px solid #101010;background:#fff;color:#101010;font:900 14px/1 Tahoma,Arial,sans-serif;padding:4px 8px">
         <b>SUAS.OS</b>
       </div>
     {% endform %}
@@ -195,28 +197,19 @@
       var form = document.getElementById('suas-party-form');
       if (!form) return;
       var guests = document.getElementById('party-guests');
-      function money(n) { return '$' + (Math.max(0, n) || 0).toFixed(2); }
+      var total = document.getElementById('party-total');
+      function money(n) { return '$' + (Math.max(0, Number(n) || 0)).toFixed(2); }
       function rate() {
-        var pack = form.querySelector('input[name="party_pack"]:checked');
+        var pack = form.querySelector('input[name="contact[Package]"]:checked');
         return pack ? Number(pack.getAttribute('data-rate')) || 0 : 0;
       }
-      form.addEventListener('submit', function () {
-        var pack = form.querySelector('input[name="contact[Package]"]:checked');
-        var food = form.querySelector('input[name="contact[Food]"]:checked');
-        var cake = form.querySelector('input[name="contact[Cake]"]:checked');
-        var notes = document.getElementById('party-notes');
-        var guestCount = Number(guests.value) || 0;
-        var summary = [
-          'PARTY BOOKING REQUEST',
-          'Package: ' + (pack ? pack.value : ''),
-          'Guests: ' + guestCount,
-          'Estimated total: ' + money(rate() * guestCount),
-          'Food: ' + (food ? food.value : ''),
-          'Cake: ' + (cake ? cake.value : ''),
-          'Notes: ' + notes.value.trim()
-        ].join('\n');
-        notes.value = summary;
-      });
+      function refreshTotal() {
+        if (!total) return;
+        total.value = money(rate() * (Number(guests.value) || 0));
+      }
+      form.addEventListener('change', refreshTotal);
+      form.addEventListener('input', refreshTotal);
+      refreshTotal();
     })();
   </script>
 </section>
