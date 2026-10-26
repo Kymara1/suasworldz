@@ -132,7 +132,7 @@
   {% else %}
   <div class="toolbar">
     {% unless customer_view %}
-    <button type="button" class="is-mail" id="sendBtn">email pdf</button>
+    <button type="button" class="is-mail" id="sendBtn">email invoice</button>
     <button type="button" class="ghost" id="clearBtn">clear fields</button>
     <form method="post" action="{{ routes.cart_url }}/update" style="margin:0" class="staff-only">
       <input type="hidden" name="attributes[suas_staff_pin]" value="">
@@ -142,7 +142,7 @@
     {% endunless %}
     <button type="button" id="printBtn">save as pdf</button>
     {% unless customer_view %}
-    <em>email pdf saves the full invoice, then opens a short suas.os note to the booking email. attach the pdf and send.</em>
+    <em>email invoice copies a suas.os picture. gmail opens — click the message and press ctrl+v so the window is the email.</em>
     <p class="mail-status" id="mailStatus" hidden></p>
     {% else %}
     <em>your suas.os party invoice. pay the deposit to hold the date.</em>
@@ -303,9 +303,156 @@
         status.textContent = msg;
         status.style.color = ok ? '#07162e' : '#7a1028';
       }
-      function invoiceFileName(){
+      function invoiceFileName(ext){
         var num = pickInvoice(val('invoiceNo')) || 'invoice';
-        return 'SUAS-' + num.replace(/^SUAS-/i, '') + '.pdf';
+        return 'SUAS-' + num.replace(/^SUAS-/i, '') + (ext || '.pdf');
+      }
+      function dash(v){ return v ? String(v) : '—'; }
+      function roundRect(ctx, x, y, w, h, r){
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+      function wrapText(ctx, text, maxW){
+        var words = String(text || '').split(/\s+/);
+        var lines = [];
+        var line = '';
+        words.forEach(function(word){
+          var next = line ? line + ' ' + word : word;
+          if (ctx.measureText(next).width > maxW && line) {
+            lines.push(line);
+            line = word;
+          } else line = next;
+        });
+        if (line) lines.push(line);
+        return lines;
+      }
+      function paintInvoice(){
+        var W = 720, H = 900, dpr = 2;
+        var canvas = document.createElement('canvas');
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        var ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+        var num = pickInvoice(val('invoiceNo')) || '—';
+        var pay = val('payMethod');
+        var handle = val('payHandle');
+        var payLine = pay ? (pay + (handle ? '  ' + handle : '')) : '—';
+        var sky = ctx.createLinearGradient(0, 0, 0, H);
+        sky.addColorStop(0, '#6ec4e8');
+        sky.addColorStop(1, '#9bd6ef');
+        ctx.fillStyle = sky;
+        ctx.fillRect(0, 0, W, H);
+        roundRect(ctx, 22, 22, 676, 856, 24);
+        ctx.fillStyle = '#0b1a36';
+        ctx.fill();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#101010';
+        ctx.stroke();
+        ctx.fillStyle = '#101010';
+        ctx.fillRect(22, 22, 676, 38);
+        ctx.fillStyle = '#d9ff78';
+        ctx.font = '900 13px Tahoma, Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('INVOICE.EXE', W / 2, 47);
+        ctx.textAlign = 'left';
+        ctx.font = '400 40px Tahoma, Arial, sans-serif';
+        ctx.fillText('party invoice.', 42, 102);
+        ctx.fillStyle = '#f4ecd4';
+        ctx.font = '800 13px Tahoma, Arial, sans-serif';
+        ctx.fillText('private 90-minute lab. deposit holds the date.', 42, 124);
+        ctx.beginPath();
+        ctx.arc(652, 100, 26, 0, Math.PI * 2);
+        ctx.fillStyle = '#d9ff78';
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#fff';
+        ctx.stroke();
+        ctx.fillStyle = '#07162e';
+        ctx.font = '700 22px Tahoma, Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('S.', 652, 108);
+        ctx.textAlign = 'left';
+        function panel(x, y, w, h, title, fill, head){
+          ctx.fillStyle = fill;
+          ctx.strokeStyle = '#101010';
+          ctx.lineWidth = 2.5;
+          ctx.fillRect(x, y, w, h);
+          ctx.strokeRect(x, y, w, h);
+          ctx.fillStyle = head;
+          ctx.fillRect(x, y, w, 22);
+          ctx.fillStyle = '#fff';
+          ctx.font = '900 10px Tahoma, Arial, sans-serif';
+          ctx.fillText(title.toUpperCase(), x + 10, y + 15);
+        }
+        function kv(x, y, label, value, maxW){
+          ctx.fillStyle = 'rgba(16,16,16,.55)';
+          ctx.font = '900 9px Tahoma, Arial, sans-serif';
+          ctx.fillText(String(label).toUpperCase(), x, y);
+          ctx.fillStyle = '#101010';
+          ctx.font = '800 14px Tahoma, Arial, sans-serif';
+          var lines = wrapText(ctx, dash(value), maxW);
+          lines.forEach(function(line, i){ ctx.fillText(line, x, y + 16 + i * 16); });
+          return y + 16 + lines.length * 16;
+        }
+        panel(42, 142, 636, 78, 'read this first', '#d9ff78', '#101010');
+        ctx.fillStyle = '#101010';
+        ctx.font = '800 13px Tahoma, Arial, sans-serif';
+        wrapText(ctx, '50% deposit due now holds the date. remaining due 48 hours before start. cancel within 72 hours of this invoice: refundable. after that, no. memo ' + num + '.', 612).forEach(function(line, i){
+          ctx.fillText(line, 54, 186 + i * 16);
+        });
+        panel(42, 232, 308, 128, 'bill to', '#f4ecd4', '#d6c21a');
+        kv(54, 268, 'name', val('name'), 280);
+        kv(54, 304, 'email', val('email'), 280);
+        kv(54, 340, 'phone', val('phone'), 280);
+        panel(362, 232, 316, 128, 'file', '#f4ecd4', '#e23d8a');
+        kv(374, 268, 'invoice #', num, 288);
+        kv(374, 304, 'issued', val('issued'), 288);
+        kv(374, 340, 'deposit / balance', dash(val('due')) + '  /  ' + dash(val('balanceDue')), 288);
+        panel(42, 372, 636, 72, 'how to pay', '#f4ecd4', '#5bb000');
+        kv(54, 408, 'method', payLine, 360);
+        kv(430, 408, 'memo', val('payMemo') || num, 230);
+        panel(42, 456, 636, 352, 'the party', '#f4ecd4', '#1e6ad4');
+        kv(54, 492, 'when', [val('eventDate'), val('time')].filter(Boolean).join('  ·  '), 600);
+        kv(54, 528, 'guests / occasion', dash(val('guests') || '1') + ' guests' + (val('occasion') ? '  ·  ' + val('occasion') : ''), 600);
+        kv(54, 564, 'package', packLabel(), 600);
+        kv(54, 600, 'food / cake', dash(val('food')) + '  /  ' + dash(val('cake')), 600);
+        function tot(x, y, w, label, amount, fill){
+          ctx.fillStyle = fill;
+          ctx.strokeStyle = '#101010';
+          ctx.lineWidth = 2.5;
+          ctx.fillRect(x, y, w, 48);
+          ctx.strokeRect(x, y, w, 48);
+          ctx.fillStyle = '#101010';
+          ctx.font = '900 9px Tahoma, Arial, sans-serif';
+          ctx.fillText(label.toUpperCase(), x + 10, y + 16);
+          ctx.font = '800 16px Tahoma, Arial, sans-serif';
+          ctx.textAlign = 'right';
+          ctx.fillText(dash(amount), x + w - 10, y + 36);
+          ctx.textAlign = 'left';
+        }
+        tot(54, 640, 196, 'deposit due now', deposit.textContent, '#ff9bc4');
+        tot(262, 640, 196, 'remaining', remain.textContent, '#c9e7ff');
+        tot(470, 640, 192, 'booking total', total.textContent, '#d9ff78');
+        ctx.fillStyle = '#d9ff78';
+        ctx.font = '900 11px Tahoma, Arial, sans-serif';
+        ctx.fillText('SUAS.OS', 42, 848);
+        ctx.textAlign = 'right';
+        ctx.fillText('188 W FRANKLIN BLVD · GASTONIA', 678, 848);
+        ctx.textAlign = 'left';
+        return canvas;
+      }
+      function canvasPngBlob(){
+        return new Promise(function(resolve, reject){
+          paintInvoice().toBlob(function(blob){
+            if (!blob) reject(new Error('png'));
+            else resolve(blob);
+          }, 'image/png');
+        });
       }
       function loadJsPdf(){
         return new Promise(function(resolve, reject){
@@ -318,112 +465,14 @@
         });
       }
       function makePdfBlob(){
-        var filename = invoiceFileName();
+        var filename = invoiceFileName('.pdf');
+        var canvas = paintInvoice();
         return loadJsPdf().then(function(){
           var doc = new window.jspdf.jsPDF({ unit: 'pt', format: 'letter' });
-          var W = 612, H = 792;
-          var dash = function(v){ return v ? String(v) : '—'; };
-          var num = pickInvoice(val('invoiceNo')) || '—';
-          var pay = val('payMethod');
-          var handle = val('payHandle');
-          var payLine = pay ? (pay + (handle ? '  ' + handle : '')) : '—';
-          var notes = val('notes');
-          doc.setFillColor(126, 200, 234);
-          doc.rect(0, 0, W, H, 'F');
-          doc.setFillColor(11, 26, 54);
-          doc.setDrawColor(16, 16, 16);
-          doc.setLineWidth(3);
-          doc.roundedRect(28, 28, 556, 736, 14, 14, 'FD');
-          doc.setFillColor(16, 16, 16);
-          doc.rect(28, 28, 556, 32, 'F');
-          doc.setTextColor(217, 255, 120);
-          doc.setFont('helvetica', 'bold');
-          doc.setFontSize(11);
-          doc.text('INVOICE.EXE', W / 2, 48, { align: 'center' });
-          doc.setFontSize(28);
-          doc.text('party invoice.', 44, 98);
-          doc.setFontSize(10);
-          doc.setTextColor(244, 236, 212);
-          doc.text('Private 90-minute Lab. Date is held when the 50% deposit is paid.', 44, 116);
-          doc.setFillColor(217, 255, 120);
-          doc.setDrawColor(255, 255, 255);
-          doc.setLineWidth(2);
-          doc.circle(548, 96, 22, 'FD');
-          doc.setTextColor(7, 22, 46);
-          doc.setFontSize(18);
-          doc.text('S.', 548, 102, { align: 'center' });
-          function panel(x, y, w, h, title, fill, head){
-            doc.setFillColor(fill[0], fill[1], fill[2]);
-            doc.setDrawColor(16, 16, 16);
-            doc.setLineWidth(1.8);
-            doc.rect(x, y, w, h, 'FD');
-            doc.setFillColor(head[0], head[1], head[2]);
-            doc.rect(x, y, w, 18, 'F');
-            doc.setDrawColor(16, 16, 16);
-            doc.rect(x, y, w, h);
-            doc.setTextColor(255, 255, 255);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
-            doc.text(title.toUpperCase(), x + 8, y + 12);
-          }
-          function kv(x, y, label, value, width){
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(7);
-            doc.setTextColor(80, 80, 80);
-            doc.text(String(label).toUpperCase(), x, y);
-            doc.setFontSize(11);
-            doc.setTextColor(16, 16, 16);
-            var lines = doc.splitTextToSize(dash(value), width);
-            doc.text(lines, x, y + 13);
-            return y + 13 + lines.length * 13;
-          }
-          panel(44, 132, 524, 70, 'read this first', [217, 255, 120], [16, 16, 16]);
-          doc.setTextColor(16, 16, 16);
-          doc.setFont('helvetica', 'bold');
-          doc.setFontSize(10);
-          doc.text(doc.splitTextToSize('50% deposit due now holds the date. Remaining due 48 hours before start. Cancel within 72 hours of this invoice: refundable. After that, non-refundable. Put ' + num + ' in the pay memo.', 500), 54, 168);
-          panel(44, 214, 254, 132, 'bill to', [244, 236, 212], [214, 194, 26]);
-          kv(56, 244, 'name', val('name'), 226);
-          kv(56, 276, 'email', val('email'), 226);
-          kv(56, 308, 'phone', val('phone'), 226);
-          panel(314, 214, 254, 132, 'file', [244, 236, 212], [226, 61, 138]);
-          kv(326, 244, 'invoice #', num, 226);
-          kv(326, 276, 'issued', val('issued'), 226);
-          kv(326, 308, 'deposit due / balance', dash(val('due')) + '  /  ' + dash(val('balanceDue')), 226);
-          panel(44, 358, 524, 72, 'how to pay', [244, 236, 212], [91, 176, 0]);
-          kv(56, 388, 'method', payLine, 300);
-          kv(370, 388, 'memo', val('payMemo') || num, 180);
-          var partyH = notes ? 230 : 196;
-          panel(44, 442, 524, partyH, 'the party', [244, 236, 212], [30, 106, 212]);
-          kv(56, 472, 'when', [val('eventDate'), val('time')].filter(Boolean).join('  ·  '), 500);
-          kv(56, 504, 'guests / occasion', dash(val('guests') || '1') + ' guests' + (val('occasion') ? '  ·  ' + val('occasion') : ''), 500);
-          kv(56, 536, 'package', packLabel(), 500);
-          kv(56, 568, 'food / cake', dash(val('food')) + '  /  ' + dash(val('cake')), 500);
-          var totY = 594;
-          if (notes) {
-            kv(56, 600, 'notes', notes, 500);
-            totY = 640;
-          }
-          function tot(x, y, w, label, amount, rgb){
-            doc.setFillColor(rgb[0], rgb[1], rgb[2]);
-            doc.setDrawColor(16, 16, 16);
-            doc.setLineWidth(1.6);
-            doc.rect(x, y, w, 36, 'FD');
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(16, 16, 16);
-            doc.text(label.toUpperCase(), x + 8, y + 14);
-            doc.setFontSize(13);
-            doc.text(dash(amount), x + w - 8, y + 24, { align: 'right' });
-          }
-          tot(56, totY, 164, 'deposit due now', deposit.textContent, [255, 155, 196]);
-          tot(228, totY, 164, 'remaining', remain.textContent, [201, 231, 255]);
-          tot(400, totY, 152, 'booking total', total.textContent, [217, 255, 120]);
-          doc.setTextColor(217, 255, 120);
-          doc.setFont('helvetica', 'bold');
-          doc.setFontSize(9);
-          doc.text('SUAS.OS', 44, 748);
-          doc.text('188 W FRANKLIN BLVD · GASTONIA', 568, 748, { align: 'right' });
+          var img = canvas.toDataURL('image/png');
+          var pageW = 612, margin = 16, w = pageW - margin * 2;
+          var h = w * (canvas.height / canvas.width);
+          doc.addImage(img, 'PNG', margin, margin, w, Math.min(h, 792 - margin * 2));
           var blob = doc.output('blob');
           blob.name = filename;
           return blob;
@@ -464,47 +513,15 @@
         }
         document.getElementById('invoiceNo').value = num;
         var who = (val('name') || 'there').toLowerCase();
-        var occ = val('occasion');
-        var when = [shortDate(val('eventDate')), val('time')].filter(Boolean).join(' · ');
-        var guestsN = val('guests') || '1';
-        var pack = packLabel();
-        var pay = val('payMethod');
-        var handle = val('payHandle');
-        var payLine = pay
-          ? ('pay ' + pay.toLowerCase() + (handle ? ' ' + handle : '') + '. memo ' + num)
-          : ('put ' + num + ' in the memo');
-        var slot = when + ' · ' + guestsN + ' guests' + (occ ? ' · ' + occ.toLowerCase() : '');
         var body = [
           'hey ' + who + ',',
           '',
-          'invoice ' + num + ' is attached.',
-          slot,
-          pack.toLowerCase(),
-          'total ' + total.textContent + ' · deposit now ' + deposit.textContent + ' holds the date',
-          'remaining ' + remain.textContent + ' due ' + shortDate(val('balanceDue')),
-          payLine,
-          'cancel within 72 hours of this invoice: refundable. after that, no.',
+          'click in this email and press ctrl+v — that picture is your suas.os invoice.',
+          'put ' + num + ' in the pay memo. deposit holds the date.',
           '',
-          'suas.os',
-          '188 w franklin blvd, gastonia'
+          'suas.os'
         ].join('\n');
-        var html = '<div style="margin:0;padding:12px;background:#6ec4e8;font-family:Tahoma,Arial,sans-serif">' +
-          '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:440px;margin:0 auto;border:4px solid #101010;background:#0b1a36">' +
-          '<tr><td style="background:#101010;color:#d9ff78;padding:8px 12px;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.16em">INVOICE.EXE</td></tr>' +
-          '<tr><td style="padding:16px 16px 8px;color:#d9ff78;font:400 32px/0.9 Tahoma,Arial,sans-serif;text-transform:uppercase">party invoice.</td></tr>' +
-          '<tr><td style="padding:0 16px 12px;color:#f4ecd4;font:800 13px/1.35 Tahoma,Arial,sans-serif">hey ' + esc(who) + ' — ' + esc(num) + ' is attached.</td></tr>' +
-          '<tr><td style="padding:0 16px 12px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2.5px solid #101010;background:#f4ecd4">' +
-          '<tr><td style="padding:12px;font:800 14px/1.45 Tahoma,Arial,sans-serif;color:#101010">' +
-          esc(slot) + '<br>' + esc(pack.toLowerCase()) + '<br>' +
-          'total ' + esc(total.textContent) + '<br>' +
-          'deposit now ' + esc(deposit.textContent) + ' holds the date<br>' +
-          'remaining ' + esc(remain.textContent) + ' due ' + esc(shortDate(val('balanceDue'))) + '<br>' +
-          esc(payLine) + '</td></tr></table></td></tr>' +
-          '<tr><td style="padding:0 16px 12px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:2.5px solid #101010;background:#d9ff78">' +
-          '<tr><td style="padding:10px 12px;font:800 13px/1.35 Tahoma,Arial,sans-serif;color:#101010">cancel within 72 hours of this invoice: refundable. after that, no.</td></tr></table></td></tr>' +
-          '<tr><td style="padding:0 16px 16px;color:#d9ff78;font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase">suas.os · 188 w franklin blvd · gastonia</td></tr>' +
-          '</table></div>';
-        return { to: to, subject: 'suas party invoice ' + num, body: body, html: html, filename: invoiceFileName() };
+        return { to: to, subject: 'suas party invoice ' + num, body: body, filename: invoiceFileName('.png') };
       }
       function openGmail(mail){
         window.open(
@@ -515,36 +532,27 @@
           'noopener'
         );
       }
-      function copySummary(mail){
-        if (!navigator.clipboard) return Promise.resolve();
-        if (window.ClipboardItem) {
-          try {
-            var item = new ClipboardItem({
-              'text/html': new Blob([mail.html], { type: 'text/html' }),
-              'text/plain': new Blob([mail.body], { type: 'text/plain' })
-            });
-            return navigator.clipboard.write([item]).catch(function(){
-              return navigator.clipboard.writeText(mail.body);
-            });
-          } catch (e) {}
-        }
-        return navigator.clipboard.writeText(mail.body);
+      function copyInvoicePicture(png){
+        if (!navigator.clipboard || !window.ClipboardItem) return Promise.reject();
+        return navigator.clipboard.write([new ClipboardItem({ 'image/png': png })]);
       }
       function sendPdf(){
         var mail = invoiceMail();
         if (!mail) return;
-        say('Making the pdf and a short suas.os note…', true);
-        makePdfBlob().then(function(blob){
-          downloadBlob(blob, mail.filename);
-          return copySummary(mail).then(function(){ return blob; });
-        }).then(function(){
-          openGmail(mail);
-          say('PDF saved. Short suas.os note is in the email to ' + mail.to + '. Attach the pdf, paste if you want the window look, then send.', true);
+        say('Painting the suas.os invoice as a picture…', true);
+        canvasPngBlob().then(function(png){
+          downloadBlob(png, mail.filename);
+          return copyInvoicePicture(png).catch(function(){ return null; }).then(function(copied){
+            openGmail(mail);
+            if (copied === null) {
+              say('Picture saved as ' + mail.filename + '. Drag it into the gmail window if paste is blocked.', true);
+            } else {
+              say('Picture copied. In gmail: click the message, press ctrl+v, then send to ' + mail.to + '.', true);
+            }
+          });
         }).catch(function(){
-          copySummary(mail);
-          window.print();
           openGmail(mail);
-          say('Short note is in the email. Save the printout as pdf, attach it, send.', true);
+          say('Could not build the picture. Use save as pdf and attach that instead.', false);
         });
       }
       function calc(){
