@@ -41,7 +41,7 @@
     .suas-simple-review.is-writing .jdgm-form{display:grid!important}
     .suas-simple-review .jdgm-form-wrapper > *{margin:0!important}
     .suas-simple-review :is(.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn){min-height:34px!important;padding:0 12px!important;border:2px solid #101010!important;border-radius:999px!important;background:#ffd8e8!important;color:#101010!important;box-shadow:0 3px 0 #101010!important;font:900 9px/1 Futura,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important}
-    .suas-simple-review textarea{min-height:52px!important;max-height:64px!important;height:52px!important}
+    .suas-simple-review textarea{min-height:88px!important;max-height:none!important;height:auto!important}
     .suas-simple-review :is(input,textarea,select){min-height:36px!important;border:1.5px solid #101010!important;border-radius:10px!important;background:#fff!important;color:#101010!important;font:800 13px/1.25 Futura,Arial,sans-serif!important}
     .suas-simple-review :is(label,legend,.jdgm-form-label,.jdgm-form__label){font:900 8px/1.2 Futura,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important;margin:0 0 3px!important}
     .suas-simple-review :is(.jdgm-star,.jdgm-star:before){color:#101010!important;font-size:18px!important}
@@ -55,7 +55,7 @@
       .suas-simple-review .jdgm-rev{padding:6px 8px!important;margin:0 0 6px!important;font-size:13px!important}
       .suas-simple-review .jdgm-rev__body,.suas-simple-review .jdgm-rev p{font-size:13px!important;line-height:1.35!important;margin:0!important}
       .suas-simple-review :is(.jdgm-btn,input[type='submit'].jdgm-btn){width:100%!important}
-      .suas-simple-review textarea{min-height:44px!important;max-height:52px!important;height:44px!important}
+      .suas-simple-review textarea{min-height:80px!important;max-height:none!important;height:auto!important}
     }
   </style>
   <div data-suas-judgeme-mount>
@@ -183,32 +183,27 @@
       }
 
       scrub();
-      var n = 0;
-      var t = setInterval(function () { scrub(); if (++n > 40) clearInterval(t); }, 400);
-      document.addEventListener('click', function (event) {
-        var closer = event.target.closest('[data-suas-minimize-review]');
-        if (closer) {
-          event.preventDefault();
-          event.stopPropagation();
-          closeForm();
-          return;
-        }
-        var writer = event.target.closest('[data-suas-write-review], a.suas-product-stars, a[href*="showWriteReviews"]');
-        if (!writer) return;
-        if (writer.matches('[data-suas-minimize-review]')) return;
-        event.preventDefault();
-        event.stopPropagation();
-        var tries = 0;
-        openForm();
-        var open = setInterval(function () {
-          if (openForm() || ++tries > 24) clearInterval(open);
-        }, 200);
-      }, true);
+      var observer = new MutationObserver(function () { scrub(); });
+      observer.observe(root, { childList: true, subtree: true });
+      window.setTimeout(function () { observer.disconnect(); }, 12000);
+
+      var intro = document.querySelector('.suas-product-review-shell');
+      if (intro && intro.dataset.suasReviewClicks !== 'true') {
+        intro.dataset.suasReviewClicks = 'true';
+        intro.addEventListener('click', function (event) {
+          if (event.target.closest('[data-suas-minimize-review]')) {
+            event.preventDefault();
+            closeForm();
+            return;
+          }
+          if (event.target.closest('[data-suas-write-review]')) {
+            event.preventDefault();
+            openForm();
+          }
+        });
+      }
       if (location.search.indexOf('showWriteReviews') !== -1) {
-        var tries = 0;
-        var open = setInterval(function () {
-          if (openForm() || ++tries > 24) clearInterval(open);
-        }, 300);
+        window.setTimeout(function () { openForm(); }, 400);
       }
     })();
   </script>

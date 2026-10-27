@@ -2,31 +2,49 @@
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
-    .suas-reviews{--ink:#101010;--paper:#fbfaf7;--pink:#ffd8e8;--hot:#ff9bc4;--blue:#cdeeff;--lime:#d9ff78;--yellow:#fff1a8;--lav:#e4d5ff;color:var(--ink);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 10% 8%,rgba(255,216,232,.7),transparent 28%),radial-gradient(circle at 92% 18%,rgba(217,255,120,.34),transparent 26%),var(--paper);background-size:22px 22px,22px 22px,auto,auto,auto;font-family:Futura,'Futura PT',Arial,sans-serif;overflow:visible;padding:8px 0 36px}
+    .suas-reviews{--ink:#101010;--paper:#fbfaf7;--pink:#ffd8e8;--hot:#ff9bc4;--blue:#cdeeff;--lime:#d9ff78;--yellow:#fff1a8;color:var(--ink);background:linear-gradient(rgba(16,16,16,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.035) 1px,transparent 1px),radial-gradient(circle at 10% 8%,rgba(255,216,232,.7),transparent 28%),radial-gradient(circle at 92% 18%,rgba(217,255,120,.34),transparent 26%),var(--paper);background-size:22px 22px,22px 22px,auto,auto,auto;font-family:Futura,'Futura PT',Arial,sans-serif;overflow:visible;padding:18px 0 48px}
     .suas-reviews *{box-sizing:border-box}
     .suas-reviews a{color:inherit}
     .suas-reviews-wrap{width:min(1180px,calc(100vw - 24px));margin:0 auto;display:grid;gap:14px}
+    .suas-rev-hero{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:end;padding:6px 4px 2px}
+    .suas-rev-hero h1{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.4rem,7vw,4.4rem);line-height:.88;font-weight:400;text-transform:lowercase}
+    .suas-rev-hero p{margin:8px 0 0;max-width:42ch;font:800 14px/1.35 Futura,Arial,sans-serif}
+    .suas-rev-write{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:2px solid var(--ink);border-radius:999px;background:var(--lime);color:var(--ink);box-shadow:0 4px 0 var(--ink);font:900 11px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+    .suas-rev-write:hover{transform:translateY(1px);box-shadow:0 3px 0 var(--ink)}
     .suas-rev-win{border:2px solid var(--ink);border-radius:26px;background:rgba(255,255,255,.94);box-shadow:6px 7px 0 var(--ink);overflow:hidden}
     .suas-rev-bar{display:flex;align-items:center;gap:7px;min-height:38px;padding:8px 13px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#edf0f5)}
     .suas-rev-dot{width:10px;height:10px;border-radius:999px;background:var(--dot)}
     .suas-rev-chip{margin-left:auto;padding:6px 10px;border:1.5px solid var(--ink);border-radius:999px;background:var(--yellow);box-shadow:0 2px 0 var(--ink);font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
-    .suas-rev-feed{padding:14px;min-height:220px}
+    .suas-rev-feed{position:relative;padding:14px;min-height:240px}
     .suas-rev-empty{padding:28px 16px;border:2px solid var(--ink);border-radius:22px;background:radial-gradient(circle at 16% 18%,rgba(255,216,232,.9),transparent 46%),#fff7fb;box-shadow:4px 5px 0 var(--ink);text-align:center}
     .suas-rev-empty[hidden]{display:none!important}
     .suas-rev-empty h3{margin:0 0 8px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,4.6vw,2.8rem);line-height:.88;font-weight:400;text-transform:lowercase}
-    .suas-rev-empty p{margin:0 auto 14px;max-width:36ch;font-size:13px;font-weight:800;line-height:1.4}
+    .suas-rev-empty p{margin:0 auto;max-width:36ch;font-size:13px;font-weight:800;line-height:1.4}
     .suas-rev-feed .jdgm-widget{width:100%;min-height:0}
     .suas-rev-feed .jdgm-all-reviews-widget,
     .suas-rev-feed .jdgm-all-reviews-widget-v2025{border:0!important;background:transparent!important}
-    .suas-rev-feed .jdgm-rev{border:2px solid var(--ink)!important;border-radius:18px!important;background:#fff1a8!important;box-shadow:3px 4px 0 var(--ink)!important;padding:14px!important;color:var(--ink)!important;margin:0 0 12px!important}
-    .suas-rev-feed :is(.jdgm-write-rev-link,.jdgm-btn--write,.jdgm-histogram,.jdgm-all-reviews__header .jdgm-btn){display:none!important}
+    .suas-rev-feed :is(.jdgm-rev,.jdgm-rev-card,[class*='review-card']){border:2px solid var(--ink)!important;border-radius:18px!important;background:#fff1a8!important;box-shadow:3px 4px 0 var(--ink)!important;padding:14px!important;color:var(--ink)!important;margin:0 0 12px!important}
+    .suas-rev-feed :is(.jdgm-write-rev-link,.jdgm-btn--write,.jdgm-histogram,.jdgm-all-reviews__header .jdgm-btn,.jdgm-form-wrapper,.jdgm-form,form.jdgm-form,.jdgm-widget-actions,.jdgm-all-reviews__tabs,[data-tab],[role='tablist']){display:none!important}
     .suas-rev-feed :is(.jdgm-powered,.jdgm-branding,a[href*='://judge.me'],a[href*='judgeme.com']){display:none!important}
-    @media(max-width:560px){
+    .suas-rev-feed :is(select,.jdgm-sort-dropdown){min-height:40px!important;border:2px solid var(--ink)!important;border-radius:12px!important;background:#fff!important;color:var(--ink)!important;font:800 13px/1.2 Futura,Arial,sans-serif!important;padding:6px 10px!important}
+    .suas-rev-feed :is(.jdgm-paginate,.jdgm-all-reviews__footer) a,
+    .suas-rev-feed :is(.jdgm-paginate,.jdgm-all-reviews__footer) button{min-height:40px!important;padding:0 12px!important;border:2px solid var(--ink)!important;border-radius:999px!important;background:var(--pink)!important;color:var(--ink)!important;box-shadow:0 3px 0 var(--ink)!important;font:900 10px/1 Futura,Arial,sans-serif!important;text-transform:uppercase!important}
+    .suas-review-picker__search{width:100%;min-height:44px;margin:0 0 14px;border:2px solid #101010;border-radius:14px;background:#fff;padding:10px 12px;font:800 16px/1.2 Futura,Arial,sans-serif}
+    @media(max-width:700px){
       .suas-reviews-wrap{width:calc(100vw - 14px)}
+      .suas-rev-hero{grid-template-columns:1fr}
+      .suas-rev-write{width:100%}
       .suas-rev-win{border-radius:18px;box-shadow:4px 5px 0 var(--ink)}
     }
   </style>
   <div class="suas-reviews-wrap">
+    <header class="suas-rev-hero">
+      <div>
+        <h1>{{ section.settings.heading | default: 'reviews from real ones.' }}</h1>
+        <p>Product smell reports only. Pick a jar if you want to leave one.</p>
+      </div>
+      <button class="suas-rev-write" type="button" data-suas-review-open-picker>write a smell report</button>
+    </header>
     <div class="suas-rev-win" id="suas-live-feed">
       <div class="suas-rev-bar">
         <span class="suas-rev-dot" style="--dot:#ff5f57"></span>
@@ -35,7 +53,7 @@
         <span class="suas-rev-chip">live feed</span>
       </div>
       <div class="suas-rev-feed" data-suas-real-feed>
-        <div class="suas-rev-empty" data-suas-feed-empty>
+        <div class="suas-rev-empty" data-suas-feed-empty hidden>
           <h3>waiting on real notes.</h3>
           <p>When a customer review goes live, it shows up here.</p>
         </div>
@@ -65,46 +83,55 @@
       </div>
     </div>
   </div>
+  {% render 'suas-review-product-picker' %}
   <script>
     (function () {
-      var slot = document.querySelector('[data-suas-real-feed]');
-      var empty = document.querySelector('[data-suas-feed-empty]');
+      var root = document.getElementById('suas-reviews');
+      if (!root) return;
+      var slot = root.querySelector('[data-suas-real-feed]');
+      var empty = root.querySelector('[data-suas-feed-empty]');
       if (!slot) return;
+
       function grab() {
-        var node = document.getElementById('judgeme_all_reviews_page') || document.querySelector('.jdgm-all-reviews-widget-v2025, .jdgm-all-reviews-widget');
+        var node = document.getElementById('judgeme_all_reviews_page') || root.querySelector('.jdgm-all-reviews-widget-v2025, .jdgm-all-reviews-widget');
         if (!node || slot.contains(node)) return node;
         slot.appendChild(node);
         return node;
       }
-      function stripStoreChrome(node) {
+
+      function hideNoise(node) {
         if (!node) return;
-        node.querySelectorAll('a,button,span,h2,h3').forEach(function (el) {
+        node.querySelectorAll('button, a, [role="tab"]').forEach(function (el) {
           var text = String(el.textContent || '').replace(/\s+/g, ' ').trim();
-          if (/store review/i.test(text) && !el.querySelector('.jdgm-rev')) {
+          if (/^shop reviews|^store review|^write a review|^leave a review/i.test(text)) {
             el.style.setProperty('display', 'none', 'important');
+            var parent = el.parentElement;
+            if (parent && parent !== node && parent.children.length < 4) parent.style.setProperty('display', 'none', 'important');
           }
         });
-        node.querySelectorAll('[data-tab="store"],[data-review-source="store"],.jdgm-histogram').forEach(function (el) {
+        node.querySelectorAll('[data-tab="store"],[data-review-source="store"],.jdgm-histogram,.jdgm-form-wrapper,form.jdgm-form,.jdgm-form').forEach(function (el) {
           el.style.setProperty('display', 'none', 'important');
         });
       }
+
       function hasReviews(node) {
         if (!node) return false;
-        var text = (node.innerText || '').replace(/\s+/g, ' ').toLowerCase();
-        if (!text || /no reviews yet|be the first to write/.test(text)) return false;
-        return node.querySelectorAll('.jdgm-rev, article, [class*="review-card"]').length > 0 || text.length > 90;
+        return node.querySelectorAll('.jdgm-rev, .jdgm-rev-card, article.jdgm-rev, [class*="review-card"]').length > 0;
       }
+
       function sync() {
         var node = grab();
-        stripStoreChrome(node);
-        if (empty) empty.hidden = hasReviews(node);
+        hideNoise(node);
+        if (!empty) return;
+        if (hasReviews(node)) empty.hidden = true;
       }
+
       sync();
-      var ticks = 0;
-      var timer = setInterval(function () {
-        sync();
-        if (++ticks > 24) clearInterval(timer);
-      }, 500);
+      var observer = new MutationObserver(function () { sync(); });
+      observer.observe(slot, { childList: true, subtree: true });
+      window.setTimeout(function () {
+        if (empty && !hasReviews(grab())) empty.hidden = false;
+      }, 2500);
     })();
   </script>
 </section>
