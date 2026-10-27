@@ -119,6 +119,32 @@ html body .suas-formula-input:focus-visible {
   }
 }
 
+/* Shopify invisible hCaptcha dock. Keep branding, shrink the peek. */
+html body #shop-hcaptcha-badge-container {
+  height: 34px !important;
+  left: calc(100vw - 36px) !important;
+  bottom: 12px !important;
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+  box-shadow: #ccc 0 0 5px !important;
+}
+html body #shop-hcaptcha-badge-container:hover {
+  transform: translateX(calc(-100% + 36px)) !important;
+}
+html body #shop-hcaptcha-badge-container img {
+  width: 24px !important;
+  height: 24px !important;
+  margin: 0 6px !important;
+}
+html body #shop-hcaptcha-badge-container .info {
+  padding: 3px 8px !important;
+  font-size: 10px !important;
+  gap: 2px !important;
+}
+html body #shop-hcaptcha-badge-container a {
+  font-size: 9px !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .suas-frame-marquee-track,
   html.suas-halloween .suas-frame-marquee-track {
