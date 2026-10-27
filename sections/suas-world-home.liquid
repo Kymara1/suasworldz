@@ -49,10 +49,11 @@
     .suas-hours-block{display:grid;gap:5px;min-width:0;padding:7px;border:1.5px solid var(--ink);border-radius:12px;background:#fff}
     .suas-hours-block b{font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
     .suas-hours-list{display:grid;gap:4px;margin:0;padding:0;list-style:none}
-    .suas-hours-list li{display:flex;justify-content:space-between;align-items:baseline;gap:6px;padding:5px 6px;border:1.5px solid var(--ink);border-radius:10px;background:#fbfaf7;font:800 9px/1.2 Futura,Arial,sans-serif}
-    .suas-hours-list span:last-child{text-align:right;opacity:.78;font-size:8px}
+    .suas-hours-list li{display:flex;justify-content:space-between;align-items:baseline;gap:6px;padding:6px 8px;border:1.5px solid var(--ink);border-radius:10px;background:#fbfaf7;font:800 9px/1.2 Futura,Arial,sans-serif}
+    .suas-hours-list span:first-child{font-size:9px;letter-spacing:.02em}
+    .suas-hours-list span:last-child{text-align:right;opacity:1;font-size:13px;font-weight:900;line-height:1.15;letter-spacing:0}
     .suas-hours-note{margin:0;padding:6px 8px;border:1.5px solid var(--ink);border-radius:12px;background:#fff1a8;font:800 9px/1.3 Futura,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
-    @media(max-width:560px){.suas-hours-split{grid-template-columns:1fr 1fr;gap:5px}.suas-hours-block{padding:6px}.suas-hours-list li{padding:4px 5px;font-size:8px}}
+    @media(max-width:560px){.suas-hours-split{grid-template-columns:1fr 1fr;gap:5px}.suas-hours-block{padding:6px}.suas-hours-list li{padding:5px 6px;font-size:9px}.suas-hours-list span:first-child{font-size:9px}.suas-hours-list span:last-child{font-size:12px}}
     .suas-window-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:42px;padding:8px 14px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#e8edf3);overflow:hidden}
     .suas-window-dots{display:flex;gap:7px;min-width:0}
     .suas-dot{width:11px;height:11px;flex:0 0 auto;border-radius:999px;background:var(--dot)}
@@ -153,6 +154,7 @@
       .suas-launch span{display:block;font-size:9px;font-weight:900}
       .suas-boost-rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
       .suas-hours-list li{flex-wrap:wrap;font-size:9px;padding:6px 8px}
+      .suas-hours-list span:last-child{font-size:12px}
       .suas-boost-card{padding:6px;border-radius:14px;gap:5px;overflow:hidden}
       .suas-boost-card b{font-size:.68rem}
       .suas-product-copy .suas-product-stars,
