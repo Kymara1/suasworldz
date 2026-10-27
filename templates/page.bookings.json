@@ -12,7 +12,7 @@
     "bookings": {
       "type": "suas-bookings-page",
       "settings": {
-        "body_oil_product": "",
+        "body_oil_product": "lab-session-body-oil",
         "parfum_product": "lab-session-eau-de-parfum",
         "combo_product": "lab-session-combo-sesh",
         "roll_on_product": "lab-session-roll-on",

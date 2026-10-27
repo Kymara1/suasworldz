@@ -12,6 +12,9 @@
     "suas_lab": {
       "type": "suas-lab-page",
       "settings": {
+        "self_product": "lab-session-eau-de-parfum",
+        "guided_product": "deluxe-lab-session",
+        "deluxe_product": "lab-session-signature-collection",
         "self_price": "$45",
         "guided_price": "starts at $85 per person",
         "deluxe_price": "$150",
@@ -21,19 +24,22 @@
         "cta_label": "choose your session",
         "cta_link": "#lab-sessions",
         "sessions_heading": "choose your session.",
-        "self_title": "Self-Guided Perfume Experiment",
-        "self_copy": "Create a 30 mL eau de parfum at your own pace. Choose your notes, mix, bottle, label, and decorate.",
-        "self_badge": "15 mL add-on: +$15",
+        "self_title": "Self-Guided Lab Experiment",
+        "self_copy": "Perfume 30 mL, roll-on 10 mL, or perfume + body oil combo. Choose your notes, mix, bottle, and decorate at your own pace.",
+        "self_badge": "Thu–Sun walk-in",
         "self_button": "book this session",
+        "self_link": "/pages/bookings#self-guided",
         "guided_title": "Guided Lab Session",
         "guided_copy": "Hands-on guided 30 mL perfume class. Add 1 oz body oil or 4 oz butter creme as class upgrades.",
         "guided_badge": "appointment only",
         "guided_button": "book this session",
-        "deluxe_title": "Deluxe Lab Session",
-        "deluxe_copy": "Create your signature collection: 30 mL perfume, 1 oz body oil, and 4 oz butter creme in one guided experience.",
+        "guided_link": "/pages/bookings#guided-class",
+        "deluxe_title": "Signature Collection",
+        "deluxe_copy": "Guided perfume, 1 oz body oil, and 4 oz butter creme in one class. The full signature set.",
         "deluxe_badge_1": "appointment only",
         "deluxe_badge_2": "all three included",
-        "deluxe_button": "book this session"
+        "deluxe_button": "book this session",
+        "deluxe_link": "/pages/bookings#guided-class"
       }
     },
     "reviews": {
