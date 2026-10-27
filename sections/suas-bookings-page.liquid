@@ -403,10 +403,26 @@
             <div class="suas-type-grid is-charm" data-charm-types>
               {% for variant in charm_product.variants %}
                 {% assign piece_short = variant.title | split: '+' | first | strip %}
+                {% assign piece_l = variant.title | downcase %}
+                {% assign piece_desc = 'Includes 5 charms. Build it at the bar.' %}
+                {% if piece_l contains 'bracelet' %}
+                  {% assign piece_desc = 'Silver only. Includes 5 charms.' %}
+                {% elsif piece_l contains 'necklace' %}
+                  {% assign piece_desc = 'Silver or gold — pick at the bar. Includes 5 charms.' %}
+                {% elsif piece_l contains 'bag tag' %}
+                  {% assign piece_desc = 'Tag for your bag. Includes 5 charms.' %}
+                {% elsif piece_l contains 'bag chain' %}
+                  {% assign piece_desc = 'Chain for your bag. Includes 5 charms.' %}
+                {% elsif piece_l contains 'keychain' %}
+                  {% assign piece_desc = 'Keychain base. Includes 5 charms.' %}
+                {% elsif piece_l contains 'paracord' %}
+                  {% assign piece_desc = 'Custom paracord name chain. No charm pack.' %}
+                {% endif %}
                 <label class="suas-type-card{% if forloop.first %} is-on{% endif %}">
-                  <input type="radio" name="_charm_piece" value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}" {% if forloop.first %}checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                  <input type="radio" name="_charm_piece" value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}" data-copy="{{ piece_desc | escape }}" {% if forloop.first %}checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
                   <em>{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</em>
                   <strong>{{ piece_short }}</strong>
+                  <small>{{ piece_desc }}</small>
                   <b>{{ variant.price | money }}</b>
                 </label>
               {% endfor %}
@@ -1106,7 +1122,7 @@
         if (!input) return;
         if (charmExperience) charmExperience.value = input.value;
         if (charmPrice) charmPrice.textContent = input.dataset.price || '';
-        if (charmDescription) charmDescription.textContent = input.dataset.label || '';
+        if (charmDescription) charmDescription.textContent = input.dataset.copy || input.dataset.label || '';
       }
       if (charmTypes) {
         charmTypes.addEventListener('change', syncCharmType);
