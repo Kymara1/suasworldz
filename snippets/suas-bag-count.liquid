@@ -1,0 +1,15 @@
+{%- comment -%}
+  Party deposits are $1 x amount in Shopify. Count each deposit as 1 bag item.
+{%- endcomment -%}
+{%- assign suas_bag_count = 0 -%}
+{%- assign suas_deposit_in_bag = false -%}
+{%- for item in cart.items -%}
+  {%- if item.product.handle == 'lab-party-deposit' -%}
+    {%- unless suas_deposit_in_bag -%}
+      {%- assign suas_bag_count = suas_bag_count | plus: 1 -%}
+      {%- assign suas_deposit_in_bag = true -%}
+    {%- endunless -%}
+  {%- else -%}
+    {%- assign suas_bag_count = suas_bag_count | plus: item.quantity -%}
+  {%- endif -%}
+{%- endfor -%}

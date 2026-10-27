@@ -124,12 +124,21 @@
   border: 1px solid var(--cart-ink);
   border-radius: 999px;
   background: var(--cart-lime);
+  color: #101010;
   box-shadow: 0 2px 0 var(--cart-ink);
   font-size: 8px;
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+html body .suas-cart-chip,
+html .suas-cart-chip,
+html.suas-halloween .suas-cart-chip {
+  background: #d9ff78 !important;
+  color: #101010 !important;
+  border-color: #101010 !important;
 }
 
 .template--cart .cart--header,
@@ -995,10 +1004,10 @@ html .suas-cart-station .money {
 }
 
 .suas-deposit-locked-qty {
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
   color: #101010;
-  opacity: 0.72;
   padding: 0.35rem 0 0.2rem;
 }

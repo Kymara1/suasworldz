@@ -34,10 +34,13 @@
     assign cart_id = view
   endunless
 
-  assign bag_chip = cart.item_count | append: ' in bag'
-  if cart.item_count == 0
+-%}
+{% include 'suas-bag-count' %}
+{%- liquid
+  assign bag_chip = suas_bag_count | append: ' in bag'
+  if suas_bag_count == 0
     assign bag_chip = 'empty bag'
-  elsif cart.item_count == 1
+  elsif suas_bag_count == 1
     assign bag_chip = '1 in bag'
   endif
 -%}
@@ -210,7 +213,7 @@
         </div>
         {% else %}
         <input type="hidden" name="updates[]" value="{{ item.quantity }}">
-        <div class="suas-deposit-locked-qty" data-item="small-text">deposit locked</div>
+        <div class="suas-deposit-locked-qty" data-item="small-text">1</div>
         {% endunless %}
 
         <div class="cart--item--remove" data-item="block-link">
@@ -383,7 +386,7 @@
           </div>
           {% else %}
           <input type="hidden" name="updates[]" value="{{ item.quantity }}">
-          <div class="suas-deposit-locked-qty" data-item="small-text">deposit locked</div>
+          <div class="suas-deposit-locked-qty" data-item="small-text">1</div>
           {% endunless %}
 
           <div class="cart--item--remove" data-item='block-link'>
@@ -544,6 +547,19 @@
   <script>
     (function () {
       const chips = () => document.querySelectorAll('[data-suas-bag-chip]');
+      const bagCount = (cart) => {
+        if (window.suasBagCount) return window.suasBagCount(cart);
+        let n = 0;
+        let deposit = false;
+        (cart.items || []).forEach((item) => {
+          if (item.handle === 'lab-party-deposit') {
+            if (!deposit) { n += 1; deposit = true; }
+          } else {
+            n += Number(item.quantity) || 0;
+          }
+        });
+        return n;
+      };
       const paint = (count) => {
         const label = count === 1 ? '1 in bag' : (count === 0 ? 'empty bag' : count + ' in bag');
         chips().forEach((chip) => { chip.textContent = label; });
@@ -552,7 +568,7 @@
         fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
           .then((response) => response.ok ? response.json() : null)
           .then((cart) => {
-            if (cart && typeof cart.item_count === 'number') paint(cart.item_count);
+            if (cart) paint(bagCount(cart));
           })
           .catch(() => {});
       };

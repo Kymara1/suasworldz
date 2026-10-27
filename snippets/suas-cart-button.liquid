@@ -1,5 +1,6 @@
 {% unless request.page_type == 'password' %}
-  <a class="suas-floating-cart" href="{{ routes.cart_url }}" aria-label="{% if cart.item_count == 0 %}Open cart, empty{% elsif cart.item_count == 1 %}Open cart, 1 item{% else %}Open cart, {{ cart.item_count }} items{% endif %}" data-suas-cart-button>
+{% include 'suas-bag-count' %}
+  <a class="suas-floating-cart" href="{{ routes.cart_url }}" aria-label="{% if suas_bag_count == 0 %}Open cart, empty{% elsif suas_bag_count == 1 %}Open cart, 1 item{% else %}Open cart, {{ suas_bag_count }} items{% endif %}" data-suas-cart-button>
     <span class="suas-floating-cart__icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" focusable="false">
         <path d="M7 8h13l-1.25 7.25a2 2 0 0 1-1.97 1.66H9.28a2 2 0 0 1-1.97-1.66L5.75 5.8H3" />
@@ -7,7 +8,7 @@
       </svg>
     </span>
     <span class="suas-floating-cart__label">cart</span>
-    <span class="suas-floating-cart__count" data-suas-cart-count>{{ cart.item_count }}</span>
+    <span class="suas-floating-cart__count" data-suas-cart-count>{{ suas_bag_count }}</span>
   </a>
   <p id="suas-commerce-live" class="suas-sr-only" role="status" aria-live="polite"></p>
 
@@ -319,10 +320,30 @@
         fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
           .then((response) => response.ok ? response.json() : null)
           .then((cart) => {
-            if (cart && typeof cart.item_count === 'number') setCartCount(cart.item_count);
+            if (cart) setCartCount(window.suasBagCount(cart));
           })
           .catch(() => {});
-        window.suasSetCartCount = setCartCount;
+        window.suasBagCount = function (cart) {
+          if (!cart) return 0;
+          var n = 0;
+          var deposit = false;
+          (cart.items || []).forEach(function (item) {
+            if (item.handle === 'lab-party-deposit') {
+              if (!deposit) {
+                n += 1;
+                deposit = true;
+              }
+            } else {
+              n += Number(item.quantity) || 0;
+            }
+          });
+          return n;
+        };
+        window.suasSetCartCount = function (countOrCart) {
+          var count = countOrCart;
+          if (countOrCart && typeof countOrCart === 'object') count = window.suasBagCount(countOrCart);
+          setCartCount(count);
+        };
       }
 
       const ready = (callback) => {
