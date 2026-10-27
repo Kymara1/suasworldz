@@ -40,12 +40,13 @@
     .suas-party-os textarea:focus{outline:3px solid var(--ink);outline-offset:2px}
     .suas-party-hint{margin:0;font:700 11px/1.3 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.7)}
     .suas-party-packs{display:grid;gap:8px}
-    .suas-party-pack{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;min-height:44px;padding:8px 10px;border:2px solid transparent;cursor:pointer}
+    .suas-party-pack{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;min-height:44px;padding:8px 10px;border:2px solid transparent;cursor:pointer}
     .suas-party-pack:has(input:checked){border-color:var(--ink);background:#fff;box-shadow:0 3px 0 var(--ink)}
-    .suas-party-pack input{width:18px;height:18px;accent-color:#101010}
+    .suas-party-pack input{width:18px;height:18px;margin-top:6px;accent-color:#101010}
     .suas-party-pack b{font:900 15px/1.1 Tahoma,Arial,sans-serif}
-    .suas-party-pack em{font:900 22px/1 Tahoma,Arial,sans-serif;font-style:normal;white-space:nowrap}
+    .suas-party-pack em{align-self:center;font:900 22px/1 Tahoma,Arial,sans-serif;font-style:normal;white-space:nowrap}
     .suas-party-pack small{display:block;font:800 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+    .suas-party-pack .suas-party-desc{margin-top:3px;max-width:42ch;font:700 11px/1.3 Tahoma,Arial,sans-serif;letter-spacing:0;text-transform:none;color:rgba(16,16,16,.72)}
     .suas-party-note{margin:4px 0 0;padding:8px 10px;border:2px solid var(--ink);background:var(--hot);font:800 13px/1.25 Tahoma,Arial,sans-serif}
     .suas-party-yesno{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
     .suas-party-yesno label{display:inline-flex;align-items:center;gap:8px;min-height:40px;font-weight:900}
@@ -155,33 +156,33 @@
             <div class="suas-party-packs" role="radiogroup" aria-label="Package selection">
               <label class="suas-party-pack">
                 <input class="party-pack" type="radio" name="contact[Package]" value="Self-Guided Party Pack — $65/person" data-rate="65" required>
-                <span><b>Self-Guided Party Pack</b></span>
+                <span><b>Self-Guided Party Pack</b><small class="suas-party-desc">Mix your own 30mL perfume. No class. Lab closed 90 minutes.</small></span>
                 <em>$65 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
                 <input class="party-pack" type="radio" name="contact[Package]" value="Party Session — $115/guest" data-rate="115">
-                <span><b>Party Session</b></span>
+                <span><b>Party Session</b><small class="suas-party-desc">Guided 30mL custom perfume. Lab closed 90 minutes.</small></span>
                 <em>$115 <small>per guest</small></em>
               </label>
               <label class="suas-party-pack">
                 <input class="party-pack" type="radio" name="contact[Package]" value="Deluxe Party — $145/person" data-rate="145">
-                <span><b>Deluxe Party</b></span>
+                <span><b>Deluxe Party</b><small class="suas-party-desc">Guided perfume plus a 1oz body oil or 4oz butter creme. Lab closed 90 minutes.</small></span>
                 <em>$145 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
                 <input class="party-pack" type="radio" name="contact[Package]" value="Signature Collection — $165/person" data-rate="165">
-                <span><b>Signature Collection</b></span>
+                <span><b>Signature Collection</b><small class="suas-party-desc">Guided perfume, 1oz body oil, and 4oz butter creme. Lab closed 90 minutes.</small></span>
                 <em>$165 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
                 <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party — $50/person · 1 hour" data-rate="50" data-charm-only="true">
-                <span><b>Charm Bar Party</b><small>Lab closed 1 hour</small></span>
+                <span><b>Charm Bar Party</b><small class="suas-party-desc">Charm jewelry. Lab closed 1 hour. Same 14-guest max.</small></span>
                 <em>$50 <small>per person</small></em>
               </label>
             </div>
             <label class="suas-party-pack" id="party-charm-addon-row">
               <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes — $45/person">
-              <span><b>Add Charm Bar</b><small>$45 per person on a Lab package</small></span>
+              <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person.</small></span>
               <em>$45 <small>add-on</small></em>
             </label>
             <input type="hidden" id="party-charm-addon-off" name="contact[Charm Bar add-on]" value="No">
