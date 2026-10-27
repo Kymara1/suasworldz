@@ -72,8 +72,19 @@
       .suas-party-grid,.suas-party-field{grid-template-columns:1fr}
       .suas-party-hero{grid-template-columns:1fr;padding-bottom:8px}
       .suas-party-mark,.suas-party-mark-fallback{width:64px;height:64px;font-size:2.2rem}
-      .suas-party-pack{grid-template-columns:28px minmax(0,1fr);align-items:start}
-      .suas-party-pack em{grid-column:2;justify-self:start;text-align:left;margin-top:2px;font-size:18px}
+      .suas-party-s2 .suas-party-body{grid-template-columns:1fr 1fr;gap:8px}
+      .suas-party-s2 .suas-party-hint,
+      .suas-party-s2 .is-stack{grid-column:1 / -1}
+      .suas-party-s2 .suas-party-field label{font-size:11px}
+      .suas-party-s3 .suas-party-packs,
+      .suas-party-s5 .suas-party-packs{grid-template-columns:1fr 1fr;gap:6px}
+      .suas-party-s3 #party-charm-addon-row,
+      .suas-party-s3 .suas-party-note,
+      .suas-party-s5 .suas-party-hint{grid-column:1 / -1}
+      .suas-party-pack{grid-template-columns:22px minmax(0,1fr);align-items:start;padding:8px;min-height:44px;gap:6px}
+      .suas-party-pack b{font-size:12px}
+      .suas-party-pack .suas-party-desc{font-size:11px;line-height:1.25}
+      .suas-party-pack em{grid-column:2;justify-self:start;text-align:left;margin-top:2px;font-size:16px}
       .suas-party-task b,.suas-party-task em{display:none}
       .suas-party-task label{margin-left:0!important}
       #party-total{width:min(100%,8.5rem)}
@@ -133,7 +144,7 @@
           </div>
         </section>
 
-        <section class="suas-party-win">
+        <section class="suas-party-win suas-party-s2">
           <div class="suas-party-bar is-pink"><h2>S 2. Party details</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
             <div class="suas-party-field">
@@ -148,7 +159,7 @@
               <label for="party-guests">Guest Count:</label>
               <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="14" inputmode="numeric" required aria-describedby="party-guest-hint">
             </div>
-            <p class="suas-party-hint" id="party-guest-hint">Max 14. Charm Bar add-on is $45 per person.</p>
+            <p class="suas-party-hint" id="party-guest-hint">Max 14.</p>
             <div class="suas-party-field">
               <label for="party-occasion">Occasion:</label>
               <input id="party-occasion" type="text" name="contact[Occasion]" placeholder="Birthday, Girls' Day, Team Celebration">
@@ -164,7 +175,7 @@
           </div>
         </section>
 
-        <section class="suas-party-win">
+        <section class="suas-party-win suas-party-s3">
           <div class="suas-party-bar is-blue"><h2>S 3. Package selection</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
             <fieldset class="suas-party-packs" aria-describedby="party-duration-note">
@@ -221,7 +232,7 @@
           </div>
         </section>
 
-        <section class="suas-party-win">
+        <section class="suas-party-win suas-party-s5">
           <div class="suas-party-bar is-lime"><h2>S 5. Deposit payment</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
             <p class="suas-party-hint" id="party-pay-hint">How should we invoice the 50% deposit? The date is held when that payment lands.</p>
@@ -336,7 +347,7 @@
             ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
             : 'Lab parties are 90 minutes. The Lab is completely closed off during your reserved time slot. Charm Bar add-on is $45 per person. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
         }
-        if (guestHint) guestHint.textContent = charmOnly ? 'Max 14. Charm Bar party books the Lab for 1 hour.' : 'Max 14. Charm Bar add-on is $45 per person.';
+        if (guestHint) guestHint.textContent = charmOnly ? 'Max 14. Charm Bar party books the Lab for 1 hour.' : 'Max 14.';
       }
       function refreshTotal() {
         syncCharmAddon();
