@@ -395,19 +395,21 @@
 
       @media (max-width: 560px) {
         html.suas-halloween body .suas-world-home .suas-home-logo {
-          width: 176px !important;
-          height: 192px !important;
+          width: min(86vw, 280px) !important;
+          height: 78px !important;
           max-width: none !important;
         }
+        html.suas-halloween body .suas-world-home .suas-home-logo-img--core,
         html.suas-halloween body .suas-world-home .suas-home-logo-img--season {
-          width: 118px !important;
-          height: 118px !important;
-          max-width: 118px !important;
-          max-height: 118px !important;
+          width: min(86vw, 280px) !important;
+          height: 78px !important;
+          max-width: 100% !important;
+          max-height: 78px !important;
+          border-radius: 999px !important;
+          object-fit: cover !important;
         }
         html.suas-halloween body .suas-world-home .suas-home-logo-arc {
-          width: 176px !important;
-          height: 192px !important;
+          display: none !important;
         }
       }
 

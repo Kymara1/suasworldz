@@ -104,7 +104,12 @@
     .suas-sale{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1.5px solid var(--ink);border-radius:999px;background:var(--hot);font-size:8px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
     .suas-boost-card s{opacity:.45;font-size:9px}
     @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
-    @media(max-width:1023px){.suas-world-home{padding-top:12px}}
+    @media(max-width:1023px){
+      .suas-world-home{padding-top:12px}
+      .suas-home-logo{width:min(72vw,280px);height:86px;max-width:none;margin:12px auto 14px}
+      .suas-home-logo-img{width:min(72vw,280px);height:86px;max-width:100%;max-height:86px;border-radius:999px;object-fit:cover;object-position:center}
+      .suas-home-logo-arc{display:none}
+    }
     @media(max-width:990px){
       .suas-aisles{grid-template-columns:1fr 1fr;gap:8px}
       .suas-aisle{padding:16px;border-radius:18px}
@@ -129,10 +134,9 @@
       .suas-aisle h2,.suas-aisle h3{font-size:clamp(1.7rem,8vw,2.25rem)}
       .suas-aisle-chips{gap:6px}
       .suas-aisle-chips a{min-height:34px;padding:6px 7px;font-size:10px;letter-spacing:.04em;box-shadow:0 2px 0 var(--ink)}
-      .suas-home-logo{width:132px;height:132px;max-width:none}
-      .suas-home-logo-img{width:132px;height:132px;max-width:132px;max-height:132px;border-radius:999px}
-      .suas-home-logo-arc{width:176px;height:192px}
-      .suas-home-logo-arc-text{font-size:18px;letter-spacing:.03em}
+      .suas-home-logo{width:min(86vw,280px);height:78px;max-width:none;margin:12px auto 14px}
+      .suas-home-logo-img{width:min(86vw,280px);height:78px;max-width:100%;max-height:78px;border-radius:999px;object-fit:cover;object-position:center}
+      .suas-home-logo-arc{display:none}
       .suas-mid-row{grid-template-columns:1fr;gap:8px}
       .suas-window-live{display:none}
       .suas-product-rotator{padding:12px}
