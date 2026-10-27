@@ -159,7 +159,6 @@
               <label for="party-guests">Guest Count:</label>
               <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="14" inputmode="numeric" required aria-describedby="party-guest-hint">
             </div>
-            <p class="suas-party-hint" id="party-guest-hint">Max 14.</p>
             <div class="suas-party-field">
               <label for="party-occasion">Occasion:</label>
               <input id="party-occasion" type="text" name="contact[Occasion]" placeholder="Birthday, Girls' Day, Team Celebration">
@@ -168,6 +167,7 @@
               <label for="party-ages">Guest Age Range (if relevant):</label>
               <input id="party-ages" type="text" name="contact[Age range]">
             </div>
+            <p class="suas-party-hint" id="party-guest-hint">Max 14.</p>
             <div class="suas-party-field is-stack">
               <label for="party-notes">Notes / Special Requests:</label>
               <textarea id="party-notes" name="contact[body]">Invoice {{ party_invoice_no }}</textarea>
