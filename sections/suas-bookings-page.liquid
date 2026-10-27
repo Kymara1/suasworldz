@@ -24,6 +24,8 @@
     .suas-book-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:16px}
     .suas-book-tab{min-height:48px;border:2px solid #101010;border-radius:10px;background:#fff;color:#101010;cursor:pointer}
     .suas-book-tab.is-on{background:#101010;color:#fff}
+    .suas-book-tab.is-soon,.suas-book-tab[disabled]{opacity:.48;filter:grayscale(.7);cursor:not-allowed;background:#d8d4cc;color:rgba(16,16,16,.72)}
+    .suas-book-tab.is-soon.is-on{background:#9a9590;color:#fff}
     .suas-book-panel{padding:0;display:grid}
     .suas-book-panel h2{margin:0;font-size:1.25rem;line-height:.95}
     .suas-book-hours-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;padding:14px}
@@ -76,14 +78,17 @@
     .suas-book-contact a{display:grid;place-items:center;min-height:40px;border:2px solid var(--ink);background:var(--sun);color:var(--ink);text-decoration:none;font:900 12px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
     .suas-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
     .suas-type-grid.is-charm{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .suas-type-card{position:relative;display:grid;grid-template-columns:1fr auto;gap:2px 8px;min-height:0;align-content:center;padding:10px 12px;border:2px solid var(--ink);background:#fff;cursor:pointer}
+    .suas-type-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;min-height:0;align-content:start;padding:12px;border:2px solid var(--ink);background:#fff;cursor:pointer}
     .suas-type-card input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0}
     .suas-type-card em{grid-column:1;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
     .suas-type-card strong{grid-column:1;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;line-height:.88;font-weight:400;text-transform:uppercase}
-    .suas-type-card small{display:none}
-    .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:center;font:900 13px/1 Tahoma,Arial,sans-serif}
+    .suas-type-card small{grid-column:1/-1;display:block;margin:2px 0 0;font:700 11px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.68);text-transform:none;letter-spacing:0}
+    .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:start;padding-top:2px;font:900 13px/1 Tahoma,Arial,sans-serif}
     .suas-type-card.is-on{border-color:var(--ink);background:var(--sun);box-shadow:0 3px 0 var(--ink)}
     .suas-type-card.is-on em{opacity:1}
+    .suas-book-option.is-soon{opacity:.72;filter:grayscale(.35)}
+    .suas-book-option.is-soon .suas-book-form{pointer-events:none}
+    .suas-book-soon-note{grid-column:1/-1;margin:0 12px 12px;border:2px solid var(--ink);background:#d8d4cc;padding:10px 12px;font:800 13px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.78)}
     .suas-type-card:focus-within{outline:3px solid var(--ink);outline-offset:3px}
     .suas-book-tab:focus-visible,.suas-plus-choice button:focus-visible,.suas-time-chips button:focus-visible,.suas-book-button:focus-visible,.suas-book-input:focus-visible,.suas-book-select:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
     .suas-plus-choice{grid-column:1/-1;display:none;grid-template-columns:1fr 1fr;gap:8px}
@@ -123,7 +128,7 @@
         <div class="suas-book-bar" style="background:#d6c21a"><b>S 1. Choose your session</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-tabs" data-book-tabs role="tablist" aria-label="Booking type">
           <button class="suas-book-tab is-on" type="button" data-kind="self" role="tab" aria-selected="true" aria-controls="self-guided" id="book-tab-self">self-guided</button>
-          <button class="suas-book-tab" type="button" data-kind="guided" role="tab" aria-selected="false" aria-controls="guided-class" id="book-tab-guided">guided class</button>
+          <button class="suas-book-tab is-soon" type="button" data-kind="guided" role="tab" aria-selected="false" aria-controls="guided-class" id="book-tab-guided" aria-disabled="true" title="Guided classes open next year">guided · next year</button>
           <button class="suas-book-tab" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm">charm bar</button>
         </div>
       </div>
@@ -131,10 +136,10 @@
         <div class="suas-book-bar" style="background:#e23d8a"><b>S 2. Lab hours</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-hours-grid">
           <p style="--chip:#ffe8ef;"><b>Self-guided</b><br>Thu–Fri 1:00–5:00 PM<br>Sat–Sun 1:00–4:00 PM</p>
-          <p style="--chip:#d9ff78;"><b>Guided · 75 min · 14 seats</b><br>Thu–Fri 6:00–7:15 PM<br>Sat 4:30–5:45 or 6:00–7:15 PM</p>
+          <p style="--chip:#d8d4cc;"><b>Guided · next year</b><br>Classes return in 2027.<br>Not open for booking.</p>
           <p style="--chip:#fff2a8;"><b>Charm Bar · 4 seats</b><br>Same days as self-guided. Walk-ins if a seat is free.</p>
         </div>
-        <p class="suas-book-hours-note">Bookings open Saturday, November 14. Closed Monday–Wednesday. No guided classes on Sunday. Walk-ins welcome in self-guided hours and at the Charm Bar if a seat is free. Guided cancel under 24 hours is non-refundable.</p>
+        <p class="suas-book-hours-note">Bookings open Saturday, November 14. Closed Monday–Wednesday. Guided classes open next year. Walk-ins welcome in self-guided hours and at the Charm Bar if a seat is free.</p>
       </aside>
     </div>
 
@@ -220,7 +225,7 @@
           <div>
             <span class="suas-book-badge">self-guided</span>
             <h2>Self-Guided Lab Experiment</h2>
-            <p class="suas-book-desc" data-self-description>Perfume, roll-on, or combo sesh (perfume + body oil).</p>
+            <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace — no instructor.</p>
           </div>
           <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
         </div>
@@ -230,28 +235,28 @@
             <div class="suas-type-grid" data-self-types>
               {% if parfum_main_variant != blank %}
               <label class="suas-type-card is-on">
-                <input type="radio" name="_self_type" value="{{ parfum_main_variant.id }}" data-label="Lab Session: Eau De Parfum (30mL)" data-price="{{ parfum_main_variant.price | money }}" data-copy="Create a custom 30mL eau de parfum at your own pace." checked{% unless parfum_main_variant.available %} disabled{% endunless %}>
+                <input type="radio" name="_self_type" value="{{ parfum_main_variant.id }}" data-label="Custom Perfume — 30 mL" data-price="{{ parfum_main_variant.price | money }}" data-copy="Custom 30 mL eau de parfum. Choose notes, mix, bottle, and decorate." checked{% unless parfum_main_variant.available %} disabled{% endunless %}>
                 <em>01</em>
                 <strong>perfume</strong>
-                <small>Just the perfume experiment.</small>
+                <small>Custom 30 mL eau de parfum. Choose your notes, mix, bottle, and take it home.</small>
                 <b>{{ parfum_main_variant.price | money }}</b>
               </label>
               {% endif %}
               {% if roll_on_main_variant != blank %}
               <label class="suas-type-card">
-                <input type="radio" name="_self_type" value="{{ roll_on_main_variant.id }}" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" data-copy="Create a portable 10mL roll-on perfume oil."{% unless roll_on_main_variant.available %} disabled{% endunless %}>
+                <input type="radio" name="_self_type" value="{{ roll_on_main_variant.id }}" data-label="Perfume Roll-On — 10 mL" data-price="{{ roll_on_main_variant.price | money }}" data-copy="Portable 10 mL roll-on perfume oil. Same Lab mix, pocket size."{% unless roll_on_main_variant.available %} disabled{% endunless %}>
                 <em>02</em>
                 <strong>roll-on</strong>
-                <small>The roll-on perfume experiment.</small>
+                <small>Portable 10 mL perfume oil on a roll-on. Same Lab mix, pocket size.</small>
                 <b>{{ roll_on_main_variant.price | money }}</b>
               </label>
               {% endif %}
               {% if combo_main_variant != blank %}
               <label class="suas-type-card">
-                <input type="radio" name="_self_type" value="{{ combo_main_variant.id }}" data-label="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}" data-copy="Combo sesh: a perfume experiment plus a body oil. Body oil is not its own session."{% unless combo_main_variant.available %} disabled{% endunless %}>
+                <input type="radio" name="_self_type" value="{{ combo_main_variant.id }}" data-label="Perfume + Body Oil Combo" data-price="{{ combo_main_variant.price | money }}" data-copy="Perfume experiment plus a 1 oz custom body oil in one visit. Body oil is not booked alone."{% unless combo_main_variant.available %} disabled{% endunless %}>
                 <em>03</em>
                 <strong>combo sesh</strong>
-                <small>Perfume and a body oil together.</small>
+                <small>Perfume experiment plus a 1 oz custom body oil in one visit. Body oil is not booked alone.</small>
                 <b>{{ combo_main_variant.price | money }}</b>
               </label>
               {% endif %}
@@ -286,17 +291,18 @@
         {% endif %}
       </article>
 
-      <article class="suas-book-option" id="guided-class" role="tabpanel" aria-labelledby="book-tab-guided" style="--card:#d9ff78;">
-        <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Guided class details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <article class="suas-book-option is-soon" id="guided-class" role="tabpanel" aria-labelledby="book-tab-guided" style="--card:#d9ff78;" aria-disabled="true">
+        <div class="suas-book-bar" style="background:#9a9590"><b>S 3. Guided class · next year</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
             <span class="suas-book-badge">guided class · 75 min</span>
             <h2>Guided Lab Session</h2>
-            <p class="suas-book-desc" data-guided-description>Perfume, perfume + one, or signature collection.</p>
+            <p class="suas-book-desc" data-guided-description>Hands-on class with an instructor. Not open for booking until next year.</p>
           </div>
-          <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>14 of 14 seats left</strong><span data-suas-seat-hint>pick date + time</span></div>
-          <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-guided-price aria-live="polite">$85.00</strong></div>
+          <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>opens 2027</strong><span data-suas-seat-hint>not booking yet</span></div>
+          <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price" data-guided-price aria-live="polite">$85.00</strong></div>
         </div>
+        <p class="suas-book-soon-note">Guided classes and Signature Collection are paused for now. Book self-guided or Charm Bar, or check back next year.</p>
 
         {% if deluxe_product != blank %}
           {% form 'product', deluxe_product, class:'suas-book-form', data-booking-form:'guided' %}
@@ -308,24 +314,24 @@
             <input type="hidden" name="properties[_Staff calendar]" value="" data-staff-calendar>
             <div class="suas-type-grid" data-guided-types>
               <label class="suas-type-card is-on">
-                <input type="radio" name="_guided_type" value="perfume" data-label="Perfume experiment" data-price="$85.00" data-copy="Create a custom perfume with hands-on guidance from start to finish." checked>
+                <input type="radio" name="_guided_type" value="perfume" data-label="Perfume experiment" data-price="$85.00" data-copy="Custom 30 mL perfume with hands-on guidance from start to finish." checked disabled>
                 <em>01</em>
                 <strong>perfume</strong>
-                <small>Just the perfume experiment.</small>
+                <small>Custom 30 mL perfume with an instructor walking you through every step.</small>
                 <b>$85</b>
               </label>
               <label class="suas-type-card">
-                <input type="radio" name="_guided_type" value="plus" data-label="Perfume + body oil or butter creme" data-price="$115.00" data-copy="Create a guided perfume, then add a body oil or butter creme experiment.">
+                <input type="radio" name="_guided_type" value="plus" data-label="Perfume + body oil or butter creme" data-price="$115.00" data-copy="Guided perfume, then add a 1 oz body oil or 4 oz butter creme." disabled>
                 <em>02</em>
                 <strong>perfume + one</strong>
-                <small>Perfume with a body oil or butter creme experiment.</small>
+                <small>Guided perfume, then add either a 1 oz body oil or a 4 oz butter creme.</small>
                 <b>$115</b>
               </label>
               <label class="suas-type-card">
-                <input type="radio" name="_guided_type" value="signature" data-label="Signature collection" data-price="$150.00" data-copy="Create a perfume, body oil, and butter creme in one guided class.">
+                <input type="radio" name="_guided_type" value="signature" data-label="Signature collection" data-price="$150.00" data-copy="Guided perfume, 1 oz body oil, and 4 oz butter creme in one class." disabled>
                 <em>03</em>
                 <strong>signature</strong>
-                <small>Perfume, body oil, and butter creme.</small>
+                <small>All three: guided perfume, 1 oz body oil, and 4 oz butter creme.</small>
                 <b>$150</b>
               </label>
             </div>
@@ -368,7 +374,7 @@
             </div>
             <p class="suas-book-note">You pay now. Checkout holds the class seat. Cancel under 24 hours is non-refundable.</p>
             <div class="suas-book-task">
-              {% if deluxe_product.available %}<button class="suas-book-button" type="submit" data-guided-submit>pay to hold seat</button>{% else %}<button class="suas-book-button" disabled data-guided-submit>this class is full</button>{% endif %}
+              <button class="suas-book-button" type="button" disabled data-guided-submit>opens next year</button>
             </div>
             <div class="suas-book-contact" data-guided-full>
               <p>This class is full. Send us a note and we will see if we can still fit your party in.</p>
@@ -543,11 +549,12 @@
       }
 
       function showBookKind(kind) {
+        if (kind === 'guided') kind = 'self';
         var selfCard = root.querySelector('#self-guided');
         var guidedCard = root.querySelector('#guided-class');
         var charmCard = root.querySelector('#charm-bar');
         if (selfCard) selfCard.classList.toggle('is-open', kind === 'self');
-        if (guidedCard) guidedCard.classList.toggle('is-open', kind === 'guided');
+        if (guidedCard) guidedCard.classList.toggle('is-open', false);
         if (charmCard) charmCard.classList.toggle('is-open', kind === 'charm');
         root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
           var on = tab.getAttribute('data-kind') === kind;
@@ -560,8 +567,7 @@
           else field.removeAttribute('required');
         });
         root.querySelectorAll('#guided-class [required], #guided-class select[name="id"]').forEach(function (field) {
-          if (kind === 'guided') field.setAttribute('required', 'required');
-          else field.removeAttribute('required');
+          field.removeAttribute('required');
         });
         root.querySelectorAll('#charm-bar [required], #charm-bar select[name="id"]').forEach(function (field) {
           if (kind === 'charm') field.setAttribute('required', 'required');
@@ -569,19 +575,24 @@
         });
       }
       root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
-        tab.addEventListener('click', function () { showBookKind(tab.getAttribute('data-kind')); });
+        tab.addEventListener('click', function () {
+          if (tab.getAttribute('data-kind') === 'guided' || tab.getAttribute('aria-disabled') === 'true') return;
+          showBookKind(tab.getAttribute('data-kind'));
+        });
         tab.addEventListener('keydown', function (event) {
           if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
           event.preventDefault();
-          var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-book-tabs] .suas-book-tab'));
+          var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-book-tabs] .suas-book-tab')).filter(function (t) {
+            return t.getAttribute('data-kind') !== 'guided' && t.getAttribute('aria-disabled') !== 'true';
+          });
           var i = tabs.indexOf(tab);
+          if (i < 0) i = 0;
           var next = event.key === 'ArrowRight' ? tabs[(i + 1) % tabs.length] : tabs[(i - 1 + tabs.length) % tabs.length];
           showBookKind(next.getAttribute('data-kind'));
           next.focus();
         });
       });
       var startKind = 'self';
-      if ((location.hash || '').indexOf('guided') !== -1) startKind = 'guided';
       if ((location.hash || '').indexOf('charm') !== -1) startKind = 'charm';
       showBookKind(startKind);
 

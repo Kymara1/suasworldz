@@ -315,6 +315,36 @@
       transform: translateY(2px);
       box-shadow: 0 2px 0 var(--ink);
     }
+    .suas-session.is-soon {
+      opacity: 0.58;
+      filter: grayscale(0.55);
+    }
+    .suas-session.is-soon .suas-session-link,
+    .suas-session-soon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 48px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: #d8d4cc;
+      color: rgba(17, 17, 17, 0.72);
+      box-shadow: 0 4px 0 var(--ink);
+      font: 900 12px/1 Futura, Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+    .suas-session-desc {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 800;
+      color: rgba(17, 17, 17, 0.58);
+    }
     @media (max-width: 980px) {
       .suas-session-grid { grid-template-columns: 1fr; }
       .suas-lab-taskbar {
@@ -375,56 +405,59 @@
           <div class="suas-session-bar">
             <span class="suas-lab-dots" aria-hidden="true"><i style="--dot:#ff5f57"></i><i style="--dot:#febc2e"></i><i style="--dot:#28c840"></i></span>
             <span class="suas-session-file">SELF.GUIDED</span>
-            <small>WALK-IN</small>
+            <small>OPEN NOW</small>
           </div>
           <div class="suas-session-body">
             <h3>{{ section.settings.self_title }}</h3>
             <p>{{ section.settings.self_copy }}</p>
+            <p class="suas-session-desc">{{ section.settings.self_descriptor }}</p>
             <div class="suas-session-chips">
-              <span>30mL EDP</span>
-              <span>your pace</span>
-              <span>{{ section.settings.self_badge }}</span>
+              <span>perfume $45</span>
+              <span>roll-on $27</span>
+              <span>combo $70</span>
             </div>
-            <strong class="suas-price">{{ self_price_text }}</strong>
+            <strong class="suas-price">from {{ self_price_text }}</strong>
             <a class="suas-session-link" href="{{ self_href }}">{{ section.settings.self_button }}</a>
           </div>
         </article>
 
-        <article class="suas-session" style="--card-bg:#c9e7ff">
+        <article class="suas-session is-soon" style="--card-bg:#c9e7ff" aria-disabled="true">
           <div class="suas-session-bar">
             <span class="suas-lab-dots" aria-hidden="true"><i style="--dot:#ff5f57"></i><i style="--dot:#febc2e"></i><i style="--dot:#28c840"></i></span>
             <span class="suas-session-file">GUIDED.CLASS</span>
-            <small>12 SEATS</small>
+            <small>NEXT YEAR</small>
           </div>
           <div class="suas-session-body">
             <h3>{{ section.settings.guided_title }}</h3>
             <p>{{ section.settings.guided_copy }}</p>
+            <p class="suas-session-desc">{{ section.settings.guided_descriptor }}</p>
             <div class="suas-session-chips">
-              <span>90 min</span>
-              <span>30mL perfume</span>
+              <span>75 min</span>
+              <span>instructor</span>
               <span>{{ section.settings.guided_badge }}</span>
             </div>
             <strong class="suas-price">{{ guided_price_text }}</strong>
-            <a class="suas-session-link" href="{{ guided_href }}">{{ section.settings.guided_button }}</a>
+            <span class="suas-session-soon">opens next year</span>
           </div>
         </article>
 
-        <article class="suas-session" style="--card-bg:#d9ff78">
+        <article class="suas-session is-soon" style="--card-bg:#d9ff78" aria-disabled="true">
           <div class="suas-session-bar">
             <span class="suas-lab-dots" aria-hidden="true"><i style="--dot:#ff5f57"></i><i style="--dot:#febc2e"></i><i style="--dot:#28c840"></i></span>
-            <span class="suas-session-file">DELUXE.SET</span>
-            <small>ALL THREE</small>
+            <span class="suas-session-file">SIGNATURE.SET</span>
+            <small>NEXT YEAR</small>
           </div>
           <div class="suas-session-body">
             <h3>{{ section.settings.deluxe_title }}</h3>
             <p>{{ section.settings.deluxe_copy }}</p>
+            <p class="suas-session-desc">{{ section.settings.deluxe_descriptor }}</p>
             <div class="suas-session-chips">
               <span>perfume</span>
               <span>body oil</span>
               <span>butter creme</span>
             </div>
             <strong class="suas-price">{{ deluxe_price_text }}</strong>
-            <a class="suas-session-link" href="{{ deluxe_href }}">{{ section.settings.deluxe_button }}</a>
+            <span class="suas-session-soon">opens next year</span>
           </div>
         </article>
       </div>
@@ -454,17 +487,20 @@
     {"type":"text","id":"self_title","label":"Title","default":"Self-Guided Perfume Experiment"},
     {"type":"textarea","id":"self_copy","label":"Description","default":"Create a 30 mL eau de parfum at your own pace. Choose your notes, mix, bottle, label, and decorate."},
     {"type":"text","id":"self_badge","label":"Badge","default":"Thu–Sun walk-in"},
+    {"type":"textarea","id":"self_descriptor","label":"Descriptor","default":"Book perfume ($45), roll-on ($27), or perfume + body oil combo ($70). No instructor — you run the station."},
     {"type":"text","id":"self_button","label":"Button text","default":"book this session"},
     {"type":"url","id":"self_link","label":"Button link"},
     {"type":"header","content":"Guided session"},
     {"type":"text","id":"guided_title","label":"Title","default":"Guided Lab Session"},
     {"type":"textarea","id":"guided_copy","label":"Description","default":"Hands-on guided 30 mL perfume class. Add 1 oz body oil or 4 oz butter creme as class upgrades."},
-    {"type":"text","id":"guided_badge","label":"Badge","default":"appointment only"},
+    {"type":"textarea","id":"guided_descriptor","label":"Descriptor","default":"Instructor-led class. Perfume only from $85, or perfume + one from $115. Opens next year."},
+    {"type":"text","id":"guided_badge","label":"Badge","default":"opens 2027"},
     {"type":"text","id":"guided_button","label":"Button text","default":"book this session"},
     {"type":"url","id":"guided_link","label":"Button link"},
     {"type":"header","content":"Deluxe session"},
     {"type":"text","id":"deluxe_title","label":"Title","default":"Signature Collection"},
     {"type":"textarea","id":"deluxe_copy","label":"Description","default":"Guided perfume, 1 oz body oil, and 4 oz butter creme in one class. The full signature set."},
+    {"type":"textarea","id":"deluxe_descriptor","label":"Descriptor","default":"The full guided set for $150. Same class energy as Guided — all three products included. Opens next year."},
     {"type":"text","id":"deluxe_badge_1","label":"Badge 1","default":"appointment only"},
     {"type":"text","id":"deluxe_badge_2","label":"Badge 2","default":"all three included"},
     {"type":"text","id":"deluxe_button","label":"Button text","default":"book this session"},
