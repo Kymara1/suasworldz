@@ -1,5 +1,18 @@
 {% unless request.page_type == 'password' %}
-{% include 'suas-bag-count' %}
+{%- liquid
+  assign suas_bag_count = 0
+  assign suas_deposit_in_bag = false
+  for item in cart.items
+    if item.product.handle == 'lab-party-deposit'
+      unless suas_deposit_in_bag
+        assign suas_bag_count = suas_bag_count | plus: 1
+        assign suas_deposit_in_bag = true
+      endunless
+    else
+      assign suas_bag_count = suas_bag_count | plus: item.quantity
+    endif
+  endfor
+-%}
   <a class="suas-floating-cart" href="{{ routes.cart_url }}" aria-label="{% if suas_bag_count == 0 %}Open cart, empty{% elsif suas_bag_count == 1 %}Open cart, 1 item{% else %}Open cart, {{ suas_bag_count }} items{% endif %}" data-suas-cart-button>
     <span class="suas-floating-cart__icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" focusable="false">

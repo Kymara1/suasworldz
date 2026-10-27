@@ -316,7 +316,7 @@
       }
       function isCharmOnly(){ return Number(pack.value) === 50; }
       function durationLine(){
-        if (isCharmOnly()) return '1 hour Charm Bar. The Lab is closed for that hour. Charm Bar is 4 seats.';
+        if (isCharmOnly()) return '1 hour Charm Bar. The Lab is closed for that hour.';
         return '90 minutes. The Lab is closed to walk-ins for your slot.';
       }
       function decodePayload(raw){
@@ -645,7 +645,7 @@
       }
       function calc(){
         var charmOnly = isCharmOnly();
-        var max = charmOnly ? 4 : 14;
+        var max = 14;
         var n = Math.max(1, Math.min(max, Number(guests.value) || 1));
         guests.value = n;
         guests.max = String(max);

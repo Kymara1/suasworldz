@@ -133,7 +133,7 @@
               <label for="party-guests">Guest Count:</label>
               <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="14" inputmode="numeric" required>
             </div>
-            <p class="suas-party-hint" id="party-guest-hint">Lab parties max 14. Charm Bar only max 4.</p>
+            <p class="suas-party-hint" id="party-guest-hint">Max 14. Charm Bar add-on is $45 per person.</p>
             <div class="suas-party-field">
               <label for="party-occasion">Occasion:</label>
               <input id="party-occasion" type="text" name="contact[Occasion]" placeholder="Birthday, Girls' Day, Team Celebration">
@@ -174,8 +174,8 @@
                 <em>$165 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party — $50/person · 1 hour" data-rate="50" data-charm-only="true" data-max="4">
-                <span><b>Charm Bar Party</b><small>Lab closed 1 hour · 4 seats</small></span>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party — $50/person · 1 hour" data-rate="50" data-charm-only="true">
+                <span><b>Charm Bar Party</b><small>Lab closed 1 hour</small></span>
                 <em>$50 <small>per person</small></em>
               </label>
             </div>
@@ -281,9 +281,7 @@
         return !!(pack && pack.getAttribute('data-charm-only') === 'true');
       }
       function guestMax() {
-        var pack = selectedPack();
-        var max = pack ? Number(pack.getAttribute('data-max')) : 0;
-        return max > 0 ? max : 14;
+        return 14;
       }
       function rate() {
         var pack = selectedPack();
@@ -318,10 +316,10 @@
         if (charmAddonOff) charmAddonOff.disabled = !!(charmAddon && charmAddon.checked);
         if (durationNote) {
           durationNote.textContent = charmOnly
-            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. Charm Bar is 4 seats. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
+            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
             : 'Lab parties are 90 minutes. The Lab is completely closed off during your reserved time slot. Charm Bar add-on is $45 per person. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
         }
-        if (guestHint) guestHint.textContent = charmOnly ? 'Charm Bar only: max 4 seats.' : 'Lab parties max 14. Charm Bar add-on is $45 per person.';
+        if (guestHint) guestHint.textContent = charmOnly ? 'Max 14. Charm Bar party books the Lab for 1 hour.' : 'Max 14. Charm Bar add-on is $45 per person.';
       }
       function refreshTotal() {
         syncCharmAddon();
