@@ -62,7 +62,9 @@
     .suas-invoice-desk .body{display:grid;gap:12px;padding:8px 16px 18px}
     .suas-invoice-desk .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .suas-invoice-desk .win{border:2.5px solid #101010;background:var(--cream);box-shadow:4px 5px 0 #101010}
-    .suas-invoice-desk .bar{display:flex;align-items:center;justify-content:space-between;min-height:28px;padding:5px 8px;color:#fff;font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+    .suas-invoice-desk .bar{display:flex;align-items:center;justify-content:space-between;min-height:28px;padding:5px 8px;color:#101010;font:900 10px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+    .suas-invoice-desk .bar[style*='#101010'],
+    .suas-invoice-desk .bar[style*='#1e6ad4']{color:#fff}
     .suas-invoice-desk .bar span{display:flex;gap:4px}
     .suas-invoice-desk .bar i{width:10px;height:10px;border:1.5px solid #fff;border-radius:999px;background:#fff;font-style:normal}
     .suas-invoice-desk .pad{display:grid;gap:8px;padding:12px}
@@ -85,7 +87,15 @@
     .suas-invoice-desk .note{margin:0;font:800 11px/1.35 Tahoma,Arial,sans-serif}
     .suas-invoice-desk .foot{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 16px 16px;color:#d9ff78;font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
     .suas-invoice-desk .gate-copy{margin:0;color:#f4ecd4;font:800 14px/1.45 Tahoma,Arial,sans-serif}
-    @media(max-width:700px){.suas-invoice-desk .row,.suas-invoice-desk .line,.suas-invoice-desk .hero,.suas-invoice-desk .pay{grid-template-columns:1fr}.suas-invoice-desk .mark{width:56px;height:56px;font-size:2rem}}
+    .suas-invoice-desk input:focus-visible,
+    .suas-invoice-desk select:focus-visible,
+    .suas-invoice-desk textarea:focus-visible,
+    .suas-invoice-desk button:focus-visible{outline:3px solid #101010;outline-offset:2px}
+    @media(max-width:700px){
+      .suas-invoice-desk .row,.suas-invoice-desk .line,.suas-invoice-desk .hero,.suas-invoice-desk .pay{grid-template-columns:1fr}
+      .suas-invoice-desk .mark{width:56px;height:56px;font-size:2rem}
+      .suas-invoice-desk .toolbar{position:sticky;top:8px;z-index:4}
+    }
     @media print{
       .suas-invoice-desk{background:#fff;padding:0}
       .suas-invoice-desk .toolbar,.suas-invoice-desk .mail-status{display:none!important}

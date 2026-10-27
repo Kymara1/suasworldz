@@ -12,14 +12,19 @@
     .suas-party-winbtns i{display:block;width:16px;height:14px;border:1.5px solid #fff;background:#cdeeff;font-style:normal}
     .suas-party-winbtns i:nth-child(3){background:#ff5f57}
     .suas-party-hero{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;padding:10px 16px 14px;color:#fff}
-    .suas-party-hero p{margin:0 0 6px;font:900 13px/1 Tahoma,Arial,sans-serif;letter-spacing:.02em}
-    .suas-party-hero h1{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.4rem,6vw,4.4rem);line-height:.82;color:var(--lime);text-transform:uppercase;font-weight:400}
+    .suas-party-hero p{margin:0 0 6px;font:900 13px/1.3 Tahoma,Arial,sans-serif;letter-spacing:.02em;color:#f4ecd4}
+    .suas-party-hero h1{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.1rem,8vw,4.4rem);line-height:.92;color:var(--lime);text-transform:uppercase;font-weight:400}
     .suas-party-mark{width:92px;height:92px;object-fit:contain;filter:drop-shadow(0 2px 0 #000)}
     .suas-party-mark-fallback{width:88px;height:88px;display:grid;place-items:center;border:3px solid #fff;border-radius:999px;background:var(--lime);color:var(--navy);font-family:'Casual Human',Futura,Arial,sans-serif;font-size:3.2rem;line-height:.8}
     .suas-party-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 12px;background:rgba(7,22,46,.18)}
     .suas-party-grid > .suas-party-win:last-child{grid-column:1 / -1}
     .suas-party-win{border:2.5px solid var(--ink);background:var(--cream);box-shadow:4px 5px 0 #101010;min-width:0}
-    .suas-party-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:30px;padding:5px 8px;color:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+    .suas-party-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:32px;padding:6px 8px;color:#101010;font:900 11px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+    .suas-party-bar h2{margin:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+    .suas-party-bar.is-gold{background:#d6c21a;color:#101010}
+    .suas-party-bar.is-pink{background:#ff9bc4;color:#101010}
+    .suas-party-bar.is-blue{background:#1e6ad4;color:#fff}
+    .suas-party-bar.is-lime{background:#d9ff78;color:#101010}
     .suas-party-bar span{display:flex;gap:3px}
     .suas-party-bar i{width:14px;height:12px;border:1.5px solid #fff;background:rgba(255,255,255,.35);font-style:normal}
     .suas-party-body{display:grid;gap:10px;padding:12px}
@@ -31,28 +36,32 @@
     .suas-party-os input[type='tel'],
     .suas-party-os input[type='date'],
     .suas-party-os input[type='number'],
-    .suas-party-os textarea{width:100%;min-height:40px;border:2px solid var(--ink);background:#fff;padding:8px 10px;font:800 16px/1.2 Tahoma,Arial,sans-serif;color:var(--ink)}
+    .suas-party-os textarea{width:100%;min-height:44px;border:2px solid var(--ink);background:#fff;padding:8px 10px;font:800 16px/1.2 Tahoma,Arial,sans-serif;color:var(--ink)}
     .suas-party-os input[readonly]{background:var(--lime);letter-spacing:.06em}
     .suas-party-inv-row{display:flex;gap:8px;align-items:stretch}
-    .suas-party-copy{min-height:40px;padding:0 12px;border:2px solid var(--ink);background:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+    .suas-party-copy{min-height:44px;padding:0 12px;border:2px solid var(--ink);background:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
     .suas-party-os textarea{min-height:72px;resize:vertical}
-    .suas-party-os input:focus,
-    .suas-party-os textarea:focus{outline:3px solid var(--ink);outline-offset:2px}
-    .suas-party-hint{margin:0;font:700 11px/1.3 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.7)}
-    .suas-party-packs{display:grid;gap:8px}
-    .suas-party-pack{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;min-height:44px;padding:8px 10px;border:2px solid transparent;cursor:pointer}
+    .suas-party-os input:focus-visible,
+    .suas-party-os textarea:focus-visible,
+    .suas-party-os button:focus-visible,
+    .suas-party-pack:focus-within{outline:3px solid var(--ink);outline-offset:2px}
+    .suas-party-hint{margin:0;font:700 13px/1.35 Tahoma,Arial,sans-serif;color:#2a2a2a}
+    .suas-party-packs{display:grid;gap:8px;margin:0;padding:0;border:0;min-width:0}
+    .suas-party-legend{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .suas-party-pack{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px 10px;align-items:start;min-height:48px;padding:10px;border:2px solid transparent;cursor:pointer}
     .suas-party-pack:has(input:checked){border-color:var(--ink);background:#fff;box-shadow:0 3px 0 var(--ink)}
-    .suas-party-pack input{width:18px;height:18px;margin-top:6px;accent-color:#101010}
-    .suas-party-pack b{font:900 15px/1.1 Tahoma,Arial,sans-serif}
-    .suas-party-pack em{align-self:center;font:900 22px/1 Tahoma,Arial,sans-serif;font-style:normal;white-space:nowrap}
-    .suas-party-pack small{display:block;font:800 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
-    .suas-party-pack .suas-party-desc{margin-top:3px;max-width:42ch;font:700 11px/1.3 Tahoma,Arial,sans-serif;letter-spacing:0;text-transform:none;color:rgba(16,16,16,.72)}
-    .suas-party-note{margin:4px 0 0;padding:8px 10px;border:2px solid var(--ink);background:var(--hot);font:800 13px/1.25 Tahoma,Arial,sans-serif}
-    .suas-party-yesno{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
-    .suas-party-yesno label{display:inline-flex;align-items:center;gap:8px;min-height:40px;font-weight:900}
-    .suas-party-yesno input{width:18px;height:18px}
-    .suas-party-task{display:flex;align-items:center;gap:10px;min-height:36px;padding:6px 10px;background:linear-gradient(180deg,#2f7adf,#1a4ea8);color:#fff}
-    .suas-party-start{min-height:40px;padding:0 16px;border:2px solid #101010;border-radius:4px 12px 12px 4px;background:linear-gradient(180deg,#b6ff57,#5bb000);color:#101010;font:900 16px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 0 #101010}
+    .suas-party-pack input{width:22px;height:22px;margin-top:2px;accent-color:#101010;flex-shrink:0}
+    .suas-party-pack b{font:900 15px/1.2 Tahoma,Arial,sans-serif}
+    .suas-party-pack em{align-self:start;font:900 20px/1 Tahoma,Arial,sans-serif;font-style:normal;white-space:nowrap;text-align:right}
+    .suas-party-pack small{display:block;font:800 11px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#101010}
+    .suas-party-pack .suas-party-desc{margin-top:4px;max-width:none;font:700 13px/1.35 Tahoma,Arial,sans-serif;letter-spacing:0;text-transform:none;color:#2a2a2a}
+    .suas-party-note{margin:4px 0 0;padding:10px;border:2px solid var(--ink);background:var(--hot);color:#101010;font:800 14px/1.35 Tahoma,Arial,sans-serif}
+    .suas-party-yesno{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:0;padding:0;border:0}
+    .suas-party-yesno legend{float:left;width:auto;padding:0;margin:0 12px 0 0;font:900 13px/1.2 Tahoma,Arial,sans-serif}
+    .suas-party-yesno label{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:900}
+    .suas-party-yesno input{width:22px;height:22px}
+    .suas-party-task{display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-height:52px;padding:8px 10px;background:linear-gradient(180deg,#2f7adf,#1a4ea8);color:#fff}
+    .suas-party-start{min-height:44px;padding:0 16px;border:2px solid #101010;border-radius:4px 12px 12px 4px;background:linear-gradient(180deg,#b6ff57,#5bb000);color:#101010;font:900 16px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 0 #101010}
     .suas-party-task em{font:800 12px/1 Tahoma,Arial,sans-serif;font-style:normal;opacity:.9}
     .suas-party-task b{margin-left:auto;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.16em}
     .suas-party-flash{grid-column:1/-1;padding:12px;border:2px solid var(--ink);background:var(--lime);font:900 14px/1.35 Tahoma,Arial,sans-serif}
@@ -63,6 +72,11 @@
       .suas-party-grid,.suas-party-field{grid-template-columns:1fr}
       .suas-party-hero{grid-template-columns:1fr;padding-bottom:8px}
       .suas-party-mark,.suas-party-mark-fallback{width:64px;height:64px;font-size:2.2rem}
+      .suas-party-pack{grid-template-columns:28px minmax(0,1fr);align-items:start}
+      .suas-party-pack em{grid-column:2;justify-self:start;text-align:left;margin-top:2px;font-size:18px}
+      .suas-party-task b,.suas-party-task em{display:none}
+      .suas-party-task label{margin-left:0!important}
+      #party-total{width:min(100%,8.5rem)}
     }
   </style>
 
@@ -91,7 +105,7 @@
 
       <div class="suas-party-grid">
         <section class="suas-party-win">
-          <div class="suas-party-bar" style="background:#d6c21a"><b>S 1. Client information</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="suas-party-bar is-gold"><h2>S 1. Client information</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
             <div class="suas-party-field">
               <label for="party-name">Full Name:</label>
@@ -109,7 +123,7 @@
               <label for="party-invoice-no">Invoice #</label>
               <span class="suas-party-inv-row">
                 <input id="party-invoice-no" type="text" name="contact[Invoice number]" value="{{ party_invoice_no }}" readonly required>
-                <button class="suas-party-copy" type="button" id="party-invoice-copy">copy</button>
+                <button class="suas-party-copy" type="button" id="party-invoice-copy" aria-label="Copy invoice number">copy</button>
               </span>
             </div>
             <div class="suas-party-field">
@@ -120,7 +134,7 @@
         </section>
 
         <section class="suas-party-win">
-          <div class="suas-party-bar" style="background:#e23d8a"><b>S 2. Party details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="suas-party-bar is-pink"><h2>S 2. Party details</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
             <div class="suas-party-field">
               <label for="party-date">Event Date:</label>
@@ -132,7 +146,7 @@
             </div>
             <div class="suas-party-field">
               <label for="party-guests">Guest Count:</label>
-              <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="14" inputmode="numeric" required>
+              <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="14" inputmode="numeric" required aria-describedby="party-guest-hint">
             </div>
             <p class="suas-party-hint" id="party-guest-hint">Max 14. Charm Bar add-on is $45 per person.</p>
             <div class="suas-party-field">
@@ -151,9 +165,10 @@
         </section>
 
         <section class="suas-party-win">
-          <div class="suas-party-bar" style="background:#1e6ad4"><b>S 3. Package selection</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="suas-party-bar is-blue"><h2>S 3. Package selection</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
-            <div class="suas-party-packs" role="radiogroup" aria-label="Package selection">
+            <fieldset class="suas-party-packs" aria-describedby="party-duration-note">
+              <legend class="suas-party-legend">Package selection</legend>
               <label class="suas-party-pack">
                 <input class="party-pack" type="radio" name="contact[Package]" value="Self-Guided Party Pack — $65/person" data-rate="65" required>
                 <span><b>Self-Guided Party Pack</b><small class="suas-party-desc">Mix your own 30mL perfume. No class. Lab closed 90 minutes.</small></span>
@@ -179,38 +194,39 @@
                 <span><b>Charm Bar Party</b><small class="suas-party-desc">Charm jewelry. Lab closed 1 hour. Same 14-guest max.</small></span>
                 <em>$50 <small>per person</small></em>
               </label>
-            </div>
+            </fieldset>
             <label class="suas-party-pack" id="party-charm-addon-row">
               <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes — $45/person">
               <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person.</small></span>
               <em>$45 <small>add-on</small></em>
             </label>
             <input type="hidden" id="party-charm-addon-off" name="contact[Charm Bar add-on]" value="No">
-            <p class="suas-party-note" id="party-duration-note">Lab parties are 90 minutes. The Lab is completely closed off during your reserved time slot. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
+            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Lab parties are 90 minutes. The Lab is completely closed off during your reserved time slot. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
           </div>
         </section>
 
         <section class="suas-party-win">
-          <div class="suas-party-bar" style="background:#1e6ad4"><b>S 4. Food + extras</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="suas-party-bar is-blue"><h2>S 4. Food + extras</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
-            <div class="suas-party-yesno">
-              <span>Bringing food?</span>
+            <fieldset class="suas-party-yesno">
+              <legend>Bringing food?</legend>
               <label><input type="radio" name="contact[Food]" value="Yes"> Yes</label>
               <label><input type="radio" name="contact[Food]" value="No" checked> No</label>
-            </div>
-            <div class="suas-party-yesno">
-              <span>Bringing cake?</span>
+            </fieldset>
+            <fieldset class="suas-party-yesno">
+              <legend>Bringing cake?</legend>
               <label><input type="radio" name="contact[Cake]" value="Yes"> Yes</label>
               <label><input type="radio" name="contact[Cake]" value="No" checked> No</label>
-            </div>
+            </fieldset>
           </div>
         </section>
 
         <section class="suas-party-win">
-          <div class="suas-party-bar" style="background:#5bb000"><b>S 5. Deposit payment</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="suas-party-bar is-lime"><h2>S 5. Deposit payment</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
-            <p class="suas-party-hint">How should we invoice the 50% deposit? The date is held when that payment lands.</p>
-            <div class="suas-party-packs" role="radiogroup" aria-label="Deposit payment method">
+            <p class="suas-party-hint" id="party-pay-hint">How should we invoice the 50% deposit? The date is held when that payment lands.</p>
+            <fieldset class="suas-party-packs" aria-describedby="party-pay-hint party-deposit-hint">
+              <legend class="suas-party-legend">Deposit payment method</legend>
               <label class="suas-party-pack">
                 <input type="radio" name="contact[Deposit payment]" value="Venmo" required>
                 <span><b>Venmo</b></span>
@@ -227,8 +243,8 @@
                 <input type="radio" name="contact[Deposit payment]" value="Card / Shopify invoice" data-party-card="true">
                 <span><b>Card</b><small>pay deposit at checkout</small></span>
               </label>
-            </div>
-            <p class="suas-party-hint" id="party-deposit-hint">Deposit due now: $0.00 · remaining 48 hours before: $0.00</p>
+            </fieldset>
+            <p class="suas-party-hint" id="party-deposit-hint" aria-live="polite">Deposit due now: $0.00 · remaining 48 hours before: $0.00</p>
           </div>
         </section>
       </div>
@@ -237,7 +253,7 @@
         <button class="suas-party-start" type="submit">Start</button>
         <em>party.exe</em>
         <label for="party-total" style="margin-left:auto;font:800 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em">Est.</label>
-        <input id="party-total" type="text" name="contact[Estimated total]" value="$0.00" aria-live="polite" style="width:7.5rem;min-height:32px;border:2px solid #101010;background:#fff;color:#101010;font:900 14px/1 Tahoma,Arial,sans-serif;padding:4px 8px">
+        <input id="party-total" type="text" name="contact[Estimated total]" value="$0.00" readonly aria-live="polite" style="width:7.5rem;min-height:44px;border:2px solid #101010;background:#fff;color:#101010;font:900 14px/1 Tahoma,Arial,sans-serif;padding:4px 8px">
         <input type="hidden" id="party-deposit" name="contact[Estimated deposit]" value="$0.00">
         <input type="hidden" id="party-remain" name="contact[Estimated remaining]" value="$0.00">
         <b>SUAS.OS</b>

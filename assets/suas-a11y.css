@@ -1,11 +1,53 @@
 /* SUAS.OS a11y: keep XP chrome, fix names/contrast/motion/targets. Not a conformance claim. */
 html.js body :is(a, button, input, select, textarea, summary, [role='button'], [role='tab'], [tabindex]:not([tabindex='-1'])):focus-visible {
-  outline: 3px solid #101010;
-  outline-offset: 3px;
+  outline: 3px solid #101010 !important;
+  outline-offset: 3px !important;
 }
 html.js body[data-tabbing='false'] :is(a, button, input, select, textarea, summary, [role='button'], [role='tab'], [tabindex]:not([tabindex='-1'])):focus-visible {
-  outline: 3px solid #101010;
-  outline-offset: 3px;
+  outline: 3px solid #101010 !important;
+  outline-offset: 3px !important;
+}
+
+.suas-skip a {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 2147483647;
+  width: auto;
+  min-height: 44px;
+  padding: 10px 14px;
+  background: #d9ff78;
+  color: #101010 !important;
+  border: 2px solid #101010;
+  box-shadow: 3px 3px 0 #101010;
+  font: 900 13px/1 Tahoma, Arial, sans-serif;
+  text-decoration: none;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.suas-skip a:focus,
+.suas-skip a:focus-visible {
+  clip: auto;
+  clip-path: none;
+  overflow: visible;
+}
+
+html body .suas-panel-toggle {
+  min-height: 44px !important;
+}
+html body .suas-panel-submenu a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+html body .suas-book-input:focus-visible,
+html body .suas-book-select:focus-visible,
+html body .suas-charm-input:focus-visible,
+html body .suas-formula-input:focus-visible {
+  outline: 3px solid #101010 !important;
+  outline-offset: 2px !important;
 }
 
 .suas-side-kicker,
@@ -17,17 +59,17 @@ html.js body[data-tabbing='false'] :is(a, button, input, select, textarea, summa
   color: rgba(16, 16, 16, 0.82) !important;
 }
 .suas-panel-submenu a {
-  min-height: 32px;
-  min-width: 32px;
+  min-height: 44px;
+  min-width: 44px;
 }
 
 .suas-world-home .suas-aisle-chips a {
-  min-height: 42px;
+  min-height: 44px;
 }
 .suas-world-home .suas-feed-atc,
 .suas-world-home .suas-feed-btn,
 .suas-world-home .suas-product-price {
-  min-height: 40px;
+  min-height: 44px;
 }
 .suas-world-home .suas-men-jump {
   min-height: 44px;
@@ -65,9 +107,9 @@ html.js body[data-tabbing='false'] :is(a, button, input, select, textarea, summa
 
 @media (max-width: 560px) {
   .suas-world-home .suas-aisle-chips a {
-    min-height: 34px;
-    padding: 8px 6px;
-    font-size: 10px;
+    min-height: 44px;
+    padding: 10px 8px;
+    font-size: 11px;
   }
   .suas-world-home .suas-product-price,
   .suas-world-home .suas-feed-atc,
@@ -85,7 +127,9 @@ html.js body[data-tabbing='false'] :is(a, button, input, select, textarea, summa
   }
   .suas-side-status-dot,
   .suas-window-live b,
-  .suas-os-live b {
+  .suas-os-live b,
+  .suas-password-logo,
+  .suas-password-title {
     animation: none !important;
   }
 }
