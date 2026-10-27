@@ -17,9 +17,14 @@
     .suas-map-box { min-height:88px; display:grid; place-items:center; margin-top:10px; border:2.5px solid #101010; border-radius:18px; background:linear-gradient(rgba(16,16,16,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.045) 1px,transparent 1px),#fff; background-size:18px 18px; color:var(--ink); text-decoration:none; }
     .suas-map-box span { display:inline-flex; align-items:center; justify-content:center; min-height:36px; padding:8px 14px; border:2px solid #101010; border-radius:999px; background:#d9ff78; font:900 10px/1 Tahoma,Arial,sans-serif; letter-spacing:.13em; text-transform:uppercase; }
     .suas-visit-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
-    .suas-visit-button { display:inline-flex; min-height:40px; align-items:center; justify-content:center; padding:10px 16px; border:2px solid #d9ff78; border-radius:999px; color:#d9ff78; background:transparent; font:900 10px/1 Tahoma,Arial,sans-serif; letter-spacing:.08em; text-decoration:none; text-transform:uppercase; }
-    .suas-visit-button:hover { color:#101010; background:#d9ff78; }
-    .suas-visit-button[data-dark] { color:#fff; background:#101010; border-color:#101010; }
+    .suas-visit-page a.suas-visit-button,
+    .suas-visit-button { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:10px 16px; border:2px solid #d9ff78 !important; border-radius:999px; color:#101010 !important; background:#d9ff78 !important; font:900 10px/1 Tahoma,Arial,sans-serif; letter-spacing:.08em; text-decoration:none !important; text-transform:uppercase; box-shadow:0 3px 0 #101010; }
+    .suas-visit-page a.suas-visit-button:hover,
+    .suas-visit-button:hover { color:#101010 !important; background:#fff1a8 !important; border-color:#101010 !important; transform:translateY(1px); box-shadow:0 2px 0 #101010; }
+    .suas-visit-page a.suas-visit-button[data-dark],
+    .suas-visit-button[data-dark] { color:#fff !important; background:#101010 !important; border-color:#101010 !important; }
+    .suas-visit-page a.suas-visit-button[data-dark]:hover,
+    .suas-visit-button[data-dark]:hover { color:#101010 !important; background:#d9ff78 !important; }
     @media (max-width:760px){ .suas-visit-grid{grid-template-columns:1fr;} .suas-visit-card:nth-child(3){grid-column:auto;} .suas-visit-card{min-height:0;} .suas-map-box{min-height:72px;} }
   </style>
   <div class="suas-os-sheet">
