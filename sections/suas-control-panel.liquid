@@ -130,7 +130,7 @@
                               assign grand_down = grandlink.title | downcase
                               assign grand_url = grandlink.url
                               if grand_down contains 'charm'
-                                assign grand_url = '/pages/charm-bar'
+                                assign grand_url = '/pages/bookings#charm-bar'
                               endif
                             -%}
                             {%- unless grand_down contains 'parties' or grand_down contains 'events' -%}<a href="{{ grand_url }}">{{ grandlink.title }}</a>{%- endunless -%}
@@ -140,7 +140,7 @@
                     {%- elsif child_down == 'bookings' -%}
                       <details class="suas-panel-subgroup">
                         <summary>Bookings</summary>
-                        <div class="suas-panel-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div>
+                        <div class="suas-panel-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/bookings#charm-bar">Charm Bar</a></div>
                       </details>
                     {%- else -%}
 {%- unless child_down contains 'parties' or child_down contains 'events' -%}<a href="{{ child_url }}">{{ childlink.title }}</a>{%- endunless -%}
@@ -158,7 +158,7 @@
           <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--yellow);">i</span><span class="suas-panel-label">home</span><span class="suas-panel-number">02</span></summary><div class="suas-panel-submenu"><a href="/collections/candles">Candles</a><a href="/collections/everything-mist">Everything Mist</a><a href="/collections/burnt-oils">Burnt Oils</a></div></details>
           <a class="suas-panel-link" href="/collections/feminine"><span class="suas-panel-icon" style="--icon-bg: var(--pink);">x</span><span class="suas-panel-label">feminine</span><span class="suas-panel-number">03</span></a>
           <a class="suas-panel-link" href="/collections/oddities"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">*</span><span class="suas-panel-label">oddities</span><span class="suas-panel-number">05</span></a>
-          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">?</span><span class="suas-panel-label">about us</span><span class="suas-panel-number">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who Are We</a><details class="suas-panel-subgroup"><summary>Bookings</summary><div class="suas-panel-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/charm-bar">Charm Bar</a></div></details><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact-us">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
+          <details class="suas-panel-dropdown"><summary class="suas-panel-link"><span class="suas-panel-icon" style="--icon-bg: var(--violet);">?</span><span class="suas-panel-label">about us</span><span class="suas-panel-number">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who Are We</a><details class="suas-panel-subgroup"><summary>Bookings</summary><div class="suas-panel-subgroup-links"><a href="/pages/bookings">Book the Lab</a><a href="/pages/bookings#charm-bar">Charm Bar</a></div></details><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact-us">Contact Us</a><a href="/policies/refund-policy">Refund Policy</a></div></details>
         {%- endif -%}
       </nav>
       <div class="suas-panel-status"><span class="suas-panel-status-dot" aria-hidden="true"></span><div><b>lab status</b><span>open + mixing</span></div></div>
