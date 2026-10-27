@@ -35,11 +35,12 @@
     .suas-book-grid{display:grid;gap:14px;grid-template-columns:1fr!important;padding:0 18px 8px}
     .suas-book-option{display:none!important;gap:0;background:var(--cream);padding:0;scroll-margin-top:88px}
     .suas-book-option.is-open{display:grid!important}
-    .suas-book-option-head{display:flex!important;flex-wrap:wrap;align-items:flex-start;justify-content:flex-start;gap:10px 12px;padding:12px}
-    .suas-book-option-head>:first-child{flex:0 1 auto;width:fit-content;max-width:min(36rem,100%)}
+    .suas-book-option-head{display:grid!important;grid-template-columns:minmax(0,1fr) auto;gap:10px 14px;align-items:start;padding:12px}
+    .suas-book-option-head>:first-child{min-width:0;max-width:36rem}
+    .suas-book-side{display:grid;gap:8px;justify-items:stretch;align-content:start;min-width:9.5rem}
     .suas-book-option h2{margin:4px 0 0;font-size:clamp(1.35rem,2.2vw,2rem);line-height:.88;width:fit-content;max-width:100%}
     .suas-book-desc{margin:4px 0 0;font-size:13px;line-height:1.3;font-weight:800;color:rgba(16,16,16,.68)}
-    .suas-book-price-card,.suas-seat-meter{flex:0 0 auto;width:auto!important;max-width:100%}
+    .suas-book-price-card,.suas-seat-meter{width:100%;max-width:100%}
     .suas-book-price-card{border:2px solid var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);padding:8px 12px;text-align:center}
     .suas-book-price-card span{display:block;margin-bottom:4px;font:900 8px/1 Tahoma,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:rgba(16,16,16,.55)}
     .suas-book-price{display:block;font-size:clamp(1.3rem,2vw,1.8rem);line-height:.9}
@@ -108,8 +109,45 @@
     .suas-bookings-page #BookCharmTime{
       position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;opacity:0!important;pointer-events:none!important;border:0!important;padding:0!important;margin:0!important
     }
-    @media(max-width:1023px){.suas-book-top,.suas-book-hours-grid,.suas-type-grid,.suas-book-hero-head{grid-template-columns:minmax(0,1fr)!important}.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important}.suas-book-form{grid-template-columns:1fr 1fr}.suas-book-mark{width:56px;height:56px;font-size:2rem}}
-    @media(max-width:700px){.suas-book-title{font-size:clamp(2rem,11vw,3rem)}.suas-book-form,.suas-plus-choice,.suas-type-grid{grid-template-columns:1fr}.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important}.suas-book-input,.suas-book-select{min-height:48px!important;font-size:16px!important}.suas-book-tabs{grid-template-columns:1fr;gap:6px}.suas-book-tab{min-height:40px;font-size:10px}}
+    @media(max-width:1023px){
+      .suas-book-top,.suas-book-hero-head{grid-template-columns:minmax(0,1fr)!important}
+      .suas-book-hours-grid{grid-template-columns:1fr!important;gap:6px;padding:10px}
+      .suas-book-hours-grid p{padding:8px 10px;font-size:11px}
+      .suas-book-hours-note{padding:0 10px 10px;font-size:10px}
+      .suas-book-option-head{grid-template-columns:minmax(0,1fr) minmax(7.5rem,34%);gap:8px 10px;padding:10px}
+      .suas-book-side{min-width:0;width:100%}
+      .suas-seat-meter{padding:7px 8px}
+      .suas-seat-meter strong{font-size:1rem}
+      .suas-book-price-card{padding:6px 8px}
+      .suas-book-price{font-size:1.2rem}
+      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px}
+      .suas-type-card{padding:8px;gap:2px 6px;min-height:0}
+      .suas-type-card strong{font-size:1rem}
+      .suas-type-card small{margin-top:2px;font-size:10px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+      .suas-type-card b{font-size:12px}
+      .suas-book-form{grid-template-columns:1fr 1fr;gap:6px;padding:0 10px 10px}
+      .suas-book-addons{grid-template-columns:1fr 1fr;gap:6px}
+      .suas-book-addon{min-height:42px;padding:6px 8px;gap:6px}
+      .suas-book-addon strong{font-size:10px;line-height:1.15}
+      .suas-book-addon span{font-size:10px}
+      .suas-book-mark{width:56px;height:56px;font-size:2rem}
+      .suas-book-tabs{grid-template-columns:1fr 1fr 1fr;gap:6px;padding:10px}
+      .suas-book-tab{min-height:42px;font-size:10px}
+      .suas-time-chips{gap:6px}
+      .suas-time-chips button{min-height:36px;padding:0 10px;font-size:10px}
+      .suas-book-note{font-size:11px;padding:8px}
+      .suas-book-task{margin:0 10px 10px}
+    }
+    @media(max-width:700px){
+      .suas-book-title{font-size:clamp(2rem,11vw,3rem)}
+      .suas-book-option-head{grid-template-columns:minmax(0,1.2fr) minmax(6.75rem,38%)}
+      .suas-book-option h2{font-size:clamp(1.05rem,5.5vw,1.45rem)}
+      .suas-book-desc{font-size:11px;line-height:1.25}
+      .suas-book-input,.suas-book-select{min-height:44px!important;font-size:16px!important}
+      .suas-plus-choice{grid-template-columns:1fr 1fr}
+      .suas-type-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+      .suas-type-grid .suas-type-card:last-child:nth-child(odd){grid-column:1/-1}
+    }
   </style>
 
   <div class="suas-os-sheet">
@@ -227,8 +265,10 @@
             <h2>Self-Guided Lab Experiment</h2>
             <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace — no instructor.</p>
           </div>
-          <div class="suas-seat-meter" data-self-seat-meter><strong data-self-seat-text>14 of 14 seats left</strong><span data-self-seat-hint>pick date + hour</span></div>
-          <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
+          <div class="suas-book-side">
+            <div class="suas-seat-meter" data-self-seat-meter><strong data-self-seat-text>14 of 14 seats left</strong><span data-self-seat-hint>pick date + hour</span></div>
+            <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
+          </div>
         </div>
 
         {% if self_form_product != blank %}
@@ -300,8 +340,10 @@
             <h2>Guided Lab Session</h2>
             <p class="suas-book-desc" data-guided-description>Hands-on class with an instructor. Not open for booking yet.</p>
           </div>
-          <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>not open</strong><span data-suas-seat-hint>coming soon</span></div>
-          <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price" data-guided-price aria-live="polite">$85.00</strong></div>
+          <div class="suas-book-side">
+            <div class="suas-seat-meter" data-suas-seat-meter><strong data-suas-seat-text>not open</strong><span data-suas-seat-hint>coming soon</span></div>
+            <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price" data-guided-price aria-live="polite">$85.00</strong></div>
+          </div>
         </div>
         <p class="suas-book-soon-note">Guided classes and Signature Collection are not open yet. Book self-guided or Charm Bar for now.</p>
 
@@ -395,8 +437,10 @@
             <h2>Build your little extra</h2>
             <p class="suas-book-desc" data-charm-description>Pick a piece, add extras, and hold a seat. Same days as self-guided Lab hours.</p>
           </div>
-          <div class="suas-seat-meter" data-charm-seat-meter><strong data-charm-seat-text>4 of 4 seats left</strong><span data-charm-seat-hint>pick date + slot</span></div>
-          <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
+          <div class="suas-book-side">
+            <div class="suas-seat-meter" data-charm-seat-meter><strong data-charm-seat-text>4 of 4 seats left</strong><span data-charm-seat-hint>pick date + slot</span></div>
+            <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
+          </div>
         </div>
         {% if charm_product != blank %}
           <form class="suas-book-form" data-charm-booking-form>
