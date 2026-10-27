@@ -2,16 +2,16 @@
   <style>
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
     @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
-    .suas-world-home{--ink:#101010;--cream:#fbfaf7;--pink:#ffd8e8;--hot:#ff9bc4;--blue:#cdeeff;--lime:#d9ff78;--lav:#e4d5ff;--sun:#fff1a8;color:var(--ink);background:linear-gradient(180deg,#6ec4e8 0%,#9bd6ef 38%,#d7ecc8 68%,#5aa832 100%);font-family:Futura,'Futura PT',Arial,sans-serif;overflow:visible;padding-top:52px}
+    .suas-world-home{--ink:#101010;--cream:#fbfaf7;--pink:#ffd8e8;--hot:#ff9bc4;--blue:#cdeeff;--lime:#d9ff78;--lav:#e4d5ff;--sun:#fff1a8;color:var(--ink);background:#fff;font-family:Futura,'Futura PT',Arial,sans-serif;overflow:visible;padding-top:52px}
     .suas-world-home *{box-sizing:border-box}
     .suas-world-home a{color:inherit}
     .suas-font{font-family:'Casual Human',Futura,Arial,sans-serif!important;font-weight:400!important;letter-spacing:0!important}
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1340px,calc(100vw - 24px));margin:0 auto}
-    .suas-billboard{display:grid;justify-items:center;gap:0;width:100%;margin:0 0 4px;padding:0 0 12px;text-align:center;overflow:visible;border:2px solid var(--ink);border-radius:28px;background:linear-gradient(180deg,#fff 0%,#ffd8e8 48%,#d9ff78 140%);box-shadow:5px 6px 0 var(--ink)}
+    .suas-billboard{display:grid;justify-items:center;gap:0;width:100%;margin:0 0 4px;padding:0 0 12px;text-align:center;overflow:visible;border:2px solid var(--ink);border-radius:28px;background-color:#fff;background-image:linear-gradient(rgba(16,16,16,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.12) 1px,transparent 1px);background-size:22px 22px;box-shadow:5px 6px 0 var(--ink)}
     .suas-billboard .suas-window-bar{width:100%;border-radius:26px 26px 0 0}
     .suas-home-logo{position:relative;display:grid;place-items:center;width:168px;height:168px;max-width:none;margin:14px 0 8px;color:inherit;text-decoration:none;overflow:visible}
-    .suas-home-logo-img{grid-area:1/1;display:block;width:168px;height:168px;max-width:168px;max-height:168px;object-fit:contain;object-position:center;background:#000;border:2px solid var(--ink);border-radius:999px;box-shadow:3px 4px 0 var(--ink);z-index:1}
+    .suas-home-logo-img{grid-area:1/1;display:block;width:168px;height:168px;max-width:168px;max-height:168px;object-fit:contain;object-position:center;background:transparent;border:2px solid var(--ink);border-radius:999px;box-shadow:3px 4px 0 var(--ink);z-index:1}
     .suas-home-logo-img--season{display:none}
     html.suas-halloween .suas-world-home .suas-home-logo-img--core{display:block!important}
     .suas-home-logo .suas-side-orb,.suas-home-logo-orb{width:clamp(56px,9vw,92px)!important;height:clamp(56px,9vw,92px)!important;flex:0 0 auto;border-radius:999px;background:radial-gradient(circle at 32% 20%,#fff 0 10%,transparent 32%),conic-gradient(from 210deg,#ffd8e8,#c9e7ff,#d8e26a,#ffd8e8);box-shadow:inset 0 -6px 12px rgba(0,0,0,.16),inset 0 6px 12px rgba(255,255,255,.85),0 8px 16px -8px rgba(16,16,16,.35)}
@@ -44,11 +44,15 @@
     .suas-now-card,.suas-launch-panel,.suas-boost,.suas-hours-win{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.93);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
     .suas-launch-col{display:grid;gap:12px;align-content:start;min-width:0}
     .suas-hours-win .suas-window-bar{min-height:34px;padding:6px 10px}
-    .suas-hours-body{padding:8px}
-    .suas-hours-list{display:grid;gap:5px;margin:0;padding:0;list-style:none}
-    .suas-hours-list li{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:6px 8px;border:1.5px solid var(--ink);border-radius:12px;background:#fff;font:800 10px/1.25 Futura,Arial,sans-serif}
-    .suas-hours-list span:last-child{text-align:right;opacity:.78;font-size:9px}
-    .suas-hours-note{margin:8px 0 0;padding:6px 8px;border:1.5px solid var(--ink);border-radius:12px;background:#fff1a8;font:800 9px/1.3 Futura,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+    .suas-hours-body{padding:8px;display:grid;gap:8px}
+    .suas-hours-split{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+    .suas-hours-block{display:grid;gap:5px;min-width:0;padding:7px;border:1.5px solid var(--ink);border-radius:12px;background:#fff}
+    .suas-hours-block b{font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .suas-hours-list{display:grid;gap:4px;margin:0;padding:0;list-style:none}
+    .suas-hours-list li{display:flex;justify-content:space-between;align-items:baseline;gap:6px;padding:5px 6px;border:1.5px solid var(--ink);border-radius:10px;background:#fbfaf7;font:800 9px/1.2 Futura,Arial,sans-serif}
+    .suas-hours-list span:last-child{text-align:right;opacity:.78;font-size:8px}
+    .suas-hours-note{margin:0;padding:6px 8px;border:1.5px solid var(--ink);border-radius:12px;background:#fff1a8;font:800 9px/1.3 Futura,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase}
+    @media(max-width:560px){.suas-hours-split{grid-template-columns:1fr 1fr;gap:5px}.suas-hours-block{padding:6px}.suas-hours-list li{padding:4px 5px;font-size:8px}}
     .suas-window-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:42px;padding:8px 14px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fff,#e8edf3);overflow:hidden}
     .suas-window-dots{display:flex;gap:7px;min-width:0}
     .suas-dot{width:11px;height:11px;flex:0 0 auto;border-radius:999px;background:var(--dot)}
@@ -353,16 +357,28 @@
               <span class="suas-dot" style="--dot:#febc2e"></span>
               <span class="suas-dot" style="--dot:#28c840"></span>
             </div>
-            <span class="suas-window-title suas-mono">LAB.HOURS</span>
+            <span class="suas-window-title suas-mono">HOURS</span>
             <span class="suas-window-live suas-mono"><b></b>OPEN</span>
           </div>
           <div class="suas-hours-body">
-            <ul class="suas-hours-list">
-              <li><span>mon&ndash;wed</span><span>closed / make days</span></li>
-              <li><span>thu&ndash;fri</span><span>self-guided 1&ndash;5 &middot; guided 6&ndash;7:15</span></li>
-              <li><span>saturday</span><span>self-guided 1&ndash;4 &middot; guided 4:30 or 6:00</span></li>
-              <li><span>sunday</span><span>self-guided 1&ndash;4 &middot; no guided class</span></li>
-            </ul>
+            <div class="suas-hours-split">
+              <div class="suas-hours-block">
+                <b>store</b>
+                <ul class="suas-hours-list">
+                  <li><span>mon&ndash;wed</span><span>closed</span></li>
+                  <li><span>thu&ndash;sat</span><span>12:30&ndash;7:30 PM</span></li>
+                  <li><span>sunday</span><span>12:00&ndash;5:00 PM</span></li>
+                </ul>
+              </div>
+              <div class="suas-hours-block">
+                <b>lab</b>
+                <ul class="suas-hours-list">
+                  <li><span>thu&ndash;fri</span><span>self 1&ndash;5</span></li>
+                  <li><span>sat&ndash;sun</span><span>self 1&ndash;4</span></li>
+                  <li><span>guided</span><span>soon</span></li>
+                </ul>
+              </div>
+            </div>
             <p class="suas-hours-note">subject to change due to events &amp; parties</p>
           </div>
         </div>

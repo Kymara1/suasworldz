@@ -271,6 +271,20 @@ Refund Policy|/pages/refund-policy{% endcapture %}
         <a class="suas-side-link{% if item_active %} is-active{% endif %}" data-suas-mobile-keep="true" href="{{ section.settings.lab_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.lab_tint }}">{{ section.settings.lab_icon }}</span><span class="suas-side-label">{{ section.settings.lab_label }}</span><span class="suas-side-num">{{ section.settings.lab_number }}</span></a>
       {% endif %}
 
+      {% if section.settings.men_enabled %}
+        {% liquid
+          assign item_active = false
+          assign active_paths = section.settings.men_active_paths | default: '/pages/suas-men,/collections/cologne,/collections/m-body-oil,/collections/m-butter-creme,/collections/exfoliating-body-wash,/collections/beard' | split: ','
+          for active_path in active_paths
+            assign clean_path = active_path | strip
+            if clean_path != blank and request.path contains clean_path
+              assign item_active = true
+            endif
+          endfor
+        %}
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" data-suas-mobile-keep="true" href="{{ section.settings.men_link | default: '/pages/suas-men' }}"><span class="suas-side-icon" style="--tint:{{ section.settings.men_tint }}">{{ section.settings.men_icon }}</span><span class="suas-side-label">{{ section.settings.men_label }}</span><span class="suas-side-num">{{ section.settings.men_number }}</span></a>
+      {% endif %}
+
       {% if section.settings.about_enabled %}
         {% liquid
           assign item_active = false
@@ -530,6 +544,15 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"lab_number","label":"Number","default":"05"},
     {"type":"color","id":"lab_tint","label":"Icon color","default":"#c6f76a"},
     {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/bookings#charm-bar"},
+
+    {"type":"header","content":"SUAS Men item"},
+    {"type":"checkbox","id":"men_enabled","label":"Show SUAS Men","default":true},
+    {"type":"text","id":"men_label","label":"Label","default":"suas men"},
+    {"type":"text","id":"men_link","label":"Link","default":"/pages/suas-men"},
+    {"type":"text","id":"men_icon","label":"Icon","default":"M"},
+    {"type":"text","id":"men_number","label":"Number","default":"08"},
+    {"type":"color","id":"men_tint","label":"Icon color","default":"#101010"},
+    {"type":"text","id":"men_active_paths","label":"Active URL matches, separated by commas","default":"/pages/suas-men,/collections/cologne,/collections/m-body-oil,/collections/m-butter-creme,/collections/exfoliating-body-wash,/collections/beard"},
 
     {"type":"header","content":"About dropdown"},
     {"type":"checkbox","id":"about_enabled","label":"Show About dropdown","default":true},

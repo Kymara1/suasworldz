@@ -6,23 +6,12 @@
 </script>
 <style id="suas-booking-polish">
   html body .suas-bookings-page .suas-book-hours-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
   html body .suas-bookings-page .suas-book-hours-grid p:first-child::after {
-    content: "Walk-ins welcomed when a station is open.";
-    display: inline-flex;
-    margin-top: 8px;
-    padding: 6px 10px;
-    border: 2px solid #101010;
-    border-radius: 999px;
-    background: #fff;
-    box-shadow: none;
-    font: 900 8px/1.15 Tahoma, Arial, sans-serif;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    white-space: normal;
-    max-width: 100%;
+    content: none !important;
+    display: none !important;
   }
 
   html body .suas-bookings-page .suas-book-badge {
@@ -122,9 +111,25 @@
       width: min(100% - 14px, 520px) !important;
     }
 
-    html body .suas-bookings-page .suas-book-top,
-    html body .suas-bookings-page .suas-book-hours-grid {
+    html body .suas-bookings-page .suas-book-top {
       grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    html body .suas-bookings-page .suas-book-hours-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 6px !important;
+      padding: 8px !important;
+    }
+
+    html body .suas-bookings-page .suas-book-hours-grid p {
+      padding: 7px 8px !important;
+      font-size: 10px !important;
+      line-height: 1.25 !important;
+    }
+
+    html body .suas-bookings-page .suas-book-hours-note {
+      padding: 0 8px 8px !important;
+      font-size: 9px !important;
     }
 
     html body .suas-bookings-page .suas-type-grid,
