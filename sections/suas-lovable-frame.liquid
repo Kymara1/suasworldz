@@ -260,7 +260,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% if section.settings.lab_enabled %}
         {% liquid
           assign item_active = false
-          assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/charm-bar' | split: ','
+          assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/bookings#charm-bar' | split: ','
           for active_path in active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
@@ -274,7 +274,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% if section.settings.about_enabled %}
         {% liquid
           assign item_active = false
-          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/bookings,/pages/party-booking,/pages/charm-bar,/pages/contact-us,/pages/refund-policy' | split: ','
+          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/bookings,/pages/party-booking,/pages/bookings#charm-bar,/pages/contact-us,/pages/refund-policy' | split: ','
           for active_path in about_active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
@@ -529,7 +529,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"lab_icon","label":"Icon","default":"/"},
     {"type":"text","id":"lab_number","label":"Number","default":"05"},
     {"type":"color","id":"lab_tint","label":"Icon color","default":"#c6f76a"},
-    {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/charm-bar"},
+    {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/bookings#charm-bar"},
 
     {"type":"header","content":"About dropdown"},
     {"type":"checkbox","id":"about_enabled","label":"Show About dropdown","default":true},
@@ -539,7 +539,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"color","id":"about_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"link_list","id":"about_menu","label":"About dropdown menu","info":"Choose a Shopify Navigation menu. Add page links to that menu instead of typing URLs here."},
     {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu or item blocks are selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nParty booking|/pages/party-booking\nCharm Bar|/pages/bookings#charm-bar\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
-    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/party-booking,/pages/charm-bar,/pages/contact-us,/pages/refund-policy"},
+    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/party-booking,/pages/bookings#charm-bar,/pages/contact-us,/pages/refund-policy"},
 
     {"type":"header","content":"Visit Us item"},
     {"type":"checkbox","id":"visit_enabled","label":"Show Visit Us","default":true},

@@ -468,11 +468,32 @@
     </div>
   </div>
 
+  <script type="application/json" id="suas-lab-seats-data">
+  {%- if shop.metafields.suas.lab_seats.value != blank -%}
+    {{ shop.metafields.suas.lab_seats.value | json }}
+  {%- elsif shop.metafields.suas.lab_seats != blank -%}
+    {{ shop.metafields.suas.lab_seats | json }}
+  {%- else -%}
+    {"slots":{},"labCap":14,"charmCap":4}
+  {%- endif -%}
+  </script>
   <script>
     (function () {
       var root = document.currentScript.closest('.suas-bookings-page');
       if (!root) return;
       var OPENS = '2026-11-14';
+      var soldSeats = { slots: {}, labCap: 14, charmCap: 4 };
+      try {
+        var seatNode = document.getElementById('suas-lab-seats-data');
+        if (seatNode && seatNode.textContent) soldSeats = JSON.parse(seatNode.textContent);
+      } catch (e) {}
+      function soldFor(kind, date, time) {
+        if (!date || !time || !soldSeats || !soldSeats.slots) return 0;
+        var key = kind + '|' + date + '|' + time;
+        var row = soldSeats.slots[key];
+        if (!row) return 0;
+        return Math.max(0, Number(row.seats || 0));
+      }
       function nyStamp() {
         try {
           return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
@@ -675,7 +696,9 @@
           return;
         }
         var cart = await fetchCart();
-        selfRemaining = Math.max(0, TOTAL - seatsTakenInCart(cart.items, 'Preferred date', 'Preferred time', date, time));
+        var sold = soldFor('lab', date, time);
+        var bag = seatsTakenInCart(cart.items, 'Preferred date', 'Preferred time', date, time);
+        selfRemaining = Math.max(0, TOTAL - sold - bag);
         if (selfSeatText) selfSeatText.textContent = selfRemaining + ' of ' + TOTAL + ' seats left';
         if (selfSeatHint) selfSeatHint.textContent = selfRemaining ? ('this hour · ' + time) : 'this hour is full';
         if (selfSeatMeter) {
@@ -1108,7 +1131,9 @@
           return;
         }
         var cart = await fetchCart();
-        charmRemaining = Math.max(0, CHARM_TOTAL - seatsTakenInCart(cart.items, 'Reservation date', 'Estimated arrival', date, time));
+        var sold = soldFor('charm', date, time);
+        var bag = seatsTakenInCart(cart.items, 'Reservation date', 'Estimated arrival', date, time);
+        charmRemaining = Math.max(0, CHARM_TOTAL - sold - bag);
         if (charmSeatText) charmSeatText.textContent = charmRemaining + ' of ' + CHARM_TOTAL + ' seats left';
         if (charmSeatHint) charmSeatHint.textContent = charmRemaining ? ('this 45 min · ' + time) : 'this slot is full';
         if (charmSeatMeter) {
