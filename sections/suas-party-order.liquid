@@ -56,6 +56,11 @@
     .suas-party-pack small{display:block;font:800 11px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#101010}
     .suas-party-pack .suas-party-desc{margin-top:4px;max-width:none;font:700 13px/1.35 Tahoma,Arial,sans-serif;letter-spacing:0;text-transform:none;color:#2a2a2a}
     .suas-party-note{margin:4px 0 0;padding:10px;border:2px solid var(--ink);background:var(--hot);color:#101010;font:800 14px/1.35 Tahoma,Arial,sans-serif}
+    .suas-party-corp{margin:0 12px 12px;padding:12px 14px;border:2.5px solid #fff;background:rgba(244,236,212,.96);box-shadow:4px 5px 0 #101010;color:#101010}
+    .suas-party-corp strong{display:block;margin:0 0 4px;font:900 11px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+    .suas-party-corp p{margin:0;font:700 14px/1.45 Tahoma,Arial,sans-serif;color:#1a1a1a}
+    .suas-party-corp a{color:#07162e;font-weight:900;text-decoration:underline;text-underline-offset:2px}
+    .suas-party-corp a:hover{color:#1e6ad4}
     .suas-party-s4 .suas-party-body{grid-template-columns:1fr 1fr;align-items:start}
     .suas-party-yesno{display:grid;grid-template-columns:auto auto;justify-content:start;gap:6px 12px;margin:0;padding:0;border:0;min-width:0}
     .suas-party-yesno legend{grid-column:1 / -1;float:none;width:auto;padding:0;margin:0;font:900 13px/1.2 Tahoma,Arial,sans-serif}
@@ -105,6 +110,11 @@
         <p>private celebrations at the perfume bar.</p>
       </div>
     </header>
+
+    <aside class="suas-party-corp" aria-label="Corporate and mobile events">
+      <strong>Company &amp; mobile events</strong>
+      <p>Planning a company gathering, brand activation, or any mobile event off-site? This form is for in-Lab private parties only. Please email <a href="mailto:contact@suasco.us">contact@suasco.us</a> or use our <a href="/pages/contact-us">Contact Us</a> page and we will coordinate a custom booking with you.</p>
+    </aside>
 
     {%- capture party_invoice_no -%}SUAS-{{ 'now' | date: '%Y%m%d' }}-{{ 'now' | date: '%H%M' }}{%- endcapture -%}
     {% form 'contact', class: 'suas-party-form', id: 'suas-party-form' %}
