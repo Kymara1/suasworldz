@@ -61,6 +61,8 @@
     .suas-rotator-pause{min-height:28px;justify-self:end;padding:4px 8px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;box-shadow:0 2px 0 var(--ink);font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
     .suas-window-live{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:900;letter-spacing:.16em}
     .suas-window-live b{width:8px;height:8px;border-radius:999px;background:#28c840;box-shadow:0 0 0 4px rgba(40,200,64,.18);animation:suasHomeBlink 1.4s steps(2,end) infinite}
+    .suas-hours-win .suas-window-live[data-open='false'] b{background:#ff5f57;box-shadow:0 0 0 4px rgba(255,95,87,.2);animation:suasHomeBlink 1.8s steps(2,end) infinite}
+    .suas-hours-win .suas-window-live[data-open='true'] b{background:#28c840;box-shadow:0 0 0 4px rgba(40,200,64,.18)}
     @keyframes suasHomeBlink{50%{opacity:.35}}
     .suas-feed-notes-body{display:flex;flex:1;flex-direction:column;gap:6px;padding:10px 12px 12px}
     .suas-product-rotator{position:relative;height:auto;min-height:0;padding:16px;overflow:hidden;isolation:isolate}
@@ -360,7 +362,7 @@
               <span class="suas-dot" style="--dot:#28c840"></span>
             </div>
             <span class="suas-window-title suas-mono">HOURS</span>
-            <span class="suas-window-live suas-mono"><b></b>OPEN</span>
+            <span class="suas-window-live suas-mono" data-suas-hours-live data-open="false" data-first-open="2026-11-14"><b></b><span data-suas-hours-label>CLOSED</span></span>
           </div>
           <div class="suas-hours-body">
             <div class="suas-hours-split">
@@ -381,7 +383,7 @@
                 </ul>
               </div>
             </div>
-            <p class="suas-hours-note">subject to change due to events &amp; parties</p>
+            <p class="suas-hours-note">doors + lab open saturday, november 14. subject to change for events &amp; parties</p>
           </div>
         </div>
         </div>
@@ -429,6 +431,31 @@
       </div>
     </div>
   </div>
-  <script>(()=>{function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{const href=link.getAttribute('href')||'';if(href.charAt(0)!=='#')return;event.preventDefault();const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}})})}wireFeedLinks();function wireFeedCart(){document.querySelectorAll('.suas-world-home [data-suas-atc]').forEach(button=>{if(button.dataset.suasAtcReady==='true')return;button.dataset.suasAtcReady='true';button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(button.disabled)return;const id=Number(button.getAttribute('data-suas-atc'));if(!id)return;const original=button.textContent;button.disabled=true;button.textContent='adding';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},credentials:'same-origin',body:JSON.stringify({id,quantity:1})}).then(response=>{if(!response.ok)throw new Error('cart');return response.json()}).then(()=>fetch('/cart.js',{credentials:'same-origin'})).then(response=>response.json()).then(cart=>{if(typeof window.suasSetCartCount==='function'){window.suasSetCartCount(cart.item_count)}else{document.querySelectorAll('[data-suas-cart-count]').forEach(node=>{node.textContent=cart.item_count})}if(typeof window.suasAnnounceCart==='function'){window.suasAnnounceCart('added to bag. '+cart.item_count+(cart.item_count===1?' item':' items'))}button.textContent='added';setTimeout(()=>{button.disabled=false;button.textContent=original},1200)}).catch(()=>{if(typeof window.suasAnnounceCart==='function'){window.suasAnnounceCart('could not add that. try again')}button.disabled=false;button.textContent='try again';setTimeout(()=>{button.textContent=original},1400)})})})}wireFeedCart();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{if(grid.getAttribute('data-suas-fixed-launch')==='true'){;[...grid.querySelectorAll('a.suas-launch')].slice(4).forEach(link=>link.remove());return}const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=4){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500].forEach(t=>setTimeout(dedupeLaunch,t));document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;const pauseBtn=document.querySelector('[data-suas-rotator-pause]');let active=0;let timer=null;const tick=()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')};const play=()=>{if(reduce||timer)return;timer=setInterval(tick,7600);if(pauseBtn){pauseBtn.setAttribute('aria-pressed','false');pauseBtn.textContent='pause'}};const pause=()=>{if(timer){clearInterval(timer);timer=null}if(pauseBtn){pauseBtn.setAttribute('aria-pressed','true');pauseBtn.textContent='play'}};if(pauseBtn){pauseBtn.addEventListener('click',()=>{if(timer)pause();else play()})}rotator.addEventListener('mouseenter',pause);rotator.addEventListener('focusin',pause);if(!reduce)play()})})();</script>
+  <script>(()=>{function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{const href=link.getAttribute('href')||'';if(href.charAt(0)!=='#')return;event.preventDefault();const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}})})}wireFeedLinks();function wireFeedCart(){document.querySelectorAll('.suas-world-home [data-suas-atc]').forEach(button=>{if(button.dataset.suasAtcReady==='true')return;button.dataset.suasAtcReady='true';button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(button.disabled)return;const id=Number(button.getAttribute('data-suas-atc'));if(!id)return;const original=button.textContent;button.disabled=true;button.textContent='adding';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},credentials:'same-origin',body:JSON.stringify({id,quantity:1})}).then(response=>{if(!response.ok)throw new Error('cart');return response.json()}).then(()=>fetch('/cart.js',{credentials:'same-origin'})).then(response=>response.json()).then(cart=>{if(typeof window.suasSetCartCount==='function'){window.suasSetCartCount(cart.item_count)}else{document.querySelectorAll('[data-suas-cart-count]').forEach(node=>{node.textContent=cart.item_count})}if(typeof window.suasAnnounceCart==='function'){window.suasAnnounceCart('added to bag. '+cart.item_count+(cart.item_count===1?' item':' items'))}button.textContent='added';setTimeout(()=>{button.disabled=false;button.textContent=original},1200)}).catch(()=>{if(typeof window.suasAnnounceCart==='function'){window.suasAnnounceCart('could not add that. try again')}button.disabled=false;button.textContent='try again';setTimeout(()=>{button.textContent=original},1400)})})})}wireFeedCart();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{if(grid.getAttribute('data-suas-fixed-launch')==='true'){;[...grid.querySelectorAll('a.suas-launch')].slice(4).forEach(link=>link.remove());return}const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=4){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500].forEach(t=>setTimeout(dedupeLaunch,t));document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;const pauseBtn=document.querySelector('[data-suas-rotator-pause]');let active=0;let timer=null;const tick=()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')};const play=()=>{if(reduce||timer)return;timer=setInterval(tick,7600);if(pauseBtn){pauseBtn.setAttribute('aria-pressed','false');pauseBtn.textContent='pause'}};const pause=()=>{if(timer){clearInterval(timer);timer=null}if(pauseBtn){pauseBtn.setAttribute('aria-pressed','true');pauseBtn.textContent='play'}};if(pauseBtn){pauseBtn.addEventListener('click',()=>{if(timer)pause();else play()})}rotator.addEventListener('mouseenter',pause);rotator.addEventListener('focusin',pause);if(!reduce)play()});
+function wireHoursLive(){
+  const live=document.querySelector('[data-suas-hours-live]');
+  if(!live)return;
+  const label=live.querySelector('[data-suas-hours-label]');
+  const firstOpen=live.getAttribute('data-first-open')||'2026-11-14';
+  const schedule={0:{start:12*60,end:17*60},4:{start:12*60+30,end:19*60+30},5:{start:12*60+30,end:19*60+30},6:{start:12*60+30,end:19*60+30}};
+  const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+  const get=type=>(parts.find(p=>p.type===type)||{}).value||'';
+  const y=get('year'),m=get('month'),d=get('day');
+  const hour=Number(get('hour')==='24'?'0':get('hour'));
+  const minute=Number(get('minute'));
+  const weekdayMap={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+  const dow=weekdayMap[get('weekday')];
+  const today=`${y}-${m}-${d}`;
+  let open=false;
+  if(today>=firstOpen&&schedule[dow]){
+    const mins=hour*60+minute;
+    open=mins>=schedule[dow].start&&mins<schedule[dow].end;
+  }
+  live.setAttribute('data-open',open?'true':'false');
+  if(label)label.textContent=open?'OPEN':'CLOSED';
+}
+wireHoursLive();
+setInterval(wireHoursLive,60000);
+})();</script>
 </section>
 {% schema %}{"name":"SUAS World Home","settings":[{"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},{"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."}],"presets":[{"name":"SUAS World Home"}]}{% endschema %}
