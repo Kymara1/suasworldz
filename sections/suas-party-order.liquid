@@ -133,6 +133,7 @@
               <label for="party-guests">Guest Count:</label>
               <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="14" inputmode="numeric" required>
             </div>
+            <p class="suas-party-hint" id="party-guest-hint">Lab parties max 14. Charm Bar only max 4.</p>
             <div class="suas-party-field">
               <label for="party-occasion">Occasion:</label>
               <input id="party-occasion" type="text" name="contact[Occasion]" placeholder="Birthday, Girls' Day, Team Celebration">
@@ -172,8 +173,19 @@
                 <span><b>Signature Collection</b></span>
                 <em>$165 <small>per person</small></em>
               </label>
+              <label class="suas-party-pack">
+                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party — $50/person · 1 hour" data-rate="50" data-charm-only="true" data-max="4">
+                <span><b>Charm Bar Party</b><small>Lab closed 1 hour · 4 seats</small></span>
+                <em>$50 <small>per person</small></em>
+              </label>
             </div>
-            <p class="suas-party-note">All parties are 90 minutes. The Lab is completely closed off during your reserved time slot. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
+            <label class="suas-party-pack" id="party-charm-addon-row">
+              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes — $45/person">
+              <span><b>Add Charm Bar</b><small>$45 per person on a Lab package</small></span>
+              <em>$45 <small>add-on</small></em>
+            </label>
+            <input type="hidden" id="party-charm-addon-off" name="contact[Charm Bar add-on]" value="No">
+            <p class="suas-party-note" id="party-duration-note">Lab parties are 90 minutes. The Lab is completely closed off during your reserved time slot. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
           </div>
         </section>
 
@@ -255,20 +267,65 @@
       var guests = document.getElementById('party-guests');
       var total = document.getElementById('party-total');
       var notes = document.getElementById('party-notes');
+      var charmAddon = document.getElementById('party-charm-addon');
+      var charmAddonOff = document.getElementById('party-charm-addon-off');
+      var charmAddonRow = document.getElementById('party-charm-addon-row');
+      var durationNote = document.getElementById('party-duration-note');
+      var guestHint = document.getElementById('party-guest-hint');
       function money(n) { return '$' + (Math.max(0, Number(n) || 0)).toFixed(2); }
+      function selectedPack() {
+        return form.querySelector('.party-pack:checked');
+      }
+      function isCharmOnly() {
+        var pack = selectedPack();
+        return !!(pack && pack.getAttribute('data-charm-only') === 'true');
+      }
+      function guestMax() {
+        var pack = selectedPack();
+        var max = pack ? Number(pack.getAttribute('data-max')) : 0;
+        return max > 0 ? max : 14;
+      }
       function rate() {
-        var pack = form.querySelector('.party-pack:checked');
+        var pack = selectedPack();
         if (!pack) return 0;
         var fromData = Number(pack.getAttribute('data-rate'));
         if (fromData) return fromData;
         var match = String(pack.value).match(/\$(\d+)/);
         return match ? Number(match[1]) : 0;
       }
+      function addonRate() {
+        if (isCharmOnly()) return 0;
+        return charmAddon && charmAddon.checked ? 45 : 0;
+      }
+      function guestCount() {
+        return Number(guests && guests.value) || 0;
+      }
+      function fullTotal() {
+        return (rate() + addonRate()) * guestCount();
+      }
       var deposit = document.getElementById('party-deposit');
       var remain = document.getElementById('party-remain');
       var depositHint = document.getElementById('party-deposit-hint');
+      function syncCharmAddon() {
+        var charmOnly = isCharmOnly();
+        var max = guestMax();
+        if (guests) {
+          guests.max = String(max);
+          if (Number(guests.value) > max) guests.value = String(max);
+        }
+        if (charmAddonRow) charmAddonRow.style.display = charmOnly ? 'none' : '';
+        if (charmOnly && charmAddon) charmAddon.checked = false;
+        if (charmAddonOff) charmAddonOff.disabled = !!(charmAddon && charmAddon.checked);
+        if (durationNote) {
+          durationNote.textContent = charmOnly
+            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. Charm Bar is 4 seats. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
+            : 'Lab parties are 90 minutes. The Lab is completely closed off during your reserved time slot. Charm Bar add-on is $45 per person. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
+        }
+        if (guestHint) guestHint.textContent = charmOnly ? 'Charm Bar only: max 4 seats.' : 'Lab parties max 14. Charm Bar add-on is $45 per person.';
+      }
       function refreshTotal() {
-        var full = rate() * (Number(guests && guests.value) || 0);
+        syncCharmAddon();
+        var full = fullTotal();
         var half = Math.round(full * 50) / 100;
         if (total) total.value = money(full);
         if (deposit) deposit.value = money(half);
@@ -324,13 +381,13 @@
       }
       function addDepositToCart(num) {
         if (!dollarId && !centId) return Promise.resolve();
-        var full = rate() * (Number(guests && guests.value) || 0);
+        var full = fullTotal();
         var half = Math.round(full * 50) / 100;
         var cents = Math.round(half * 100);
         if (cents < 1) return Promise.resolve();
         var dollars = Math.floor(cents / 100);
         var leftover = cents % 100;
-        var pack = form.querySelector('.party-pack:checked');
+        var pack = selectedPack();
         var props = {
           'Invoice': num,
           'Type': '50% Lab party deposit',
@@ -338,6 +395,7 @@
           'Time': (document.getElementById('party-time') || {}).value || '',
           'Guests': String(guests && guests.value ? guests.value : ''),
           'Package': pack ? pack.value : '',
+          'Charm Bar': isCharmOnly() ? 'Charm Bar Party — $50/person · 1 hour' : (addonRate() ? 'Yes — $45/person add-on' : 'No'),
           'Deposit': money(half)
         };
         var items = [];

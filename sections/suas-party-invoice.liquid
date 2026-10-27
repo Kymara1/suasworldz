@@ -244,12 +244,19 @@
                 <option value="115" selected>Party Session — $115/guest</option>
                 <option value="145">Deluxe Party — $145/person</option>
                 <option value="165">Signature Collection — $165/person</option>
+                <option value="50">Charm Bar Party — $50/person · 1 hour · Lab closed</option>
               </select>
             </label>
             <label>rate<input id="rate" readonly></label>
             <label>qty<input id="qty" readonly></label>
             <label>line<input id="line" readonly></label>
           </div>
+          <label>charm bar add-on
+            <select id="charmAddon">
+              <option value="0">None</option>
+              <option value="45">Charm Bar add-on — $45/person</option>
+            </select>
+          </label>
           <div class="row">
             <label>food<select id="food"><option>No</option><option>Yes</option></select></label>
             <label>cake<select id="cake"><option>No</option><option>Yes</option></select></label>
@@ -260,7 +267,7 @@
             <div class="total is-later"><div><b>remaining</b><small>due 48 hours before start</small></div><strong id="remain">$0.00</strong></div>
             <div class="total is-all"><b>booking total</b><strong id="total">$0.00</strong></div>
           </div>
-          <p class="note">90 minutes. The Lab is closed to walk-ins for this slot. Cancellations within 72 hours of this invoice are refundable; after that, the deposit is non-refundable. SUAS · 188 W Franklin Blvd, Gastonia, NC 28052</p>
+          <p class="note" id="durationNote">90 minutes. The Lab is closed to walk-ins for this slot. Cancellations within 72 hours of this invoice are refundable; after that, the deposit is non-refundable. SUAS · 188 W Franklin Blvd, Gastonia, NC 28052</p>
         </div>
       </section>
     </div>
@@ -272,7 +279,7 @@
       var dollarId = {{ suas_deposit_dollar | json }};
       var centId = {{ suas_deposit_cent | json }};
       var shopOrigin = {{ request.origin | json }};
-      var ids = ['name','email','phone','invoiceNo','issued','due','balanceDue','eventDate','time','guests','occasion','pack','food','cake','notes','payMethod','payHandle','payMemo'];
+      var ids = ['name','email','phone','invoiceNo','issued','due','balanceDue','eventDate','time','guests','occasion','pack','charmAddon','food','cake','notes','payMethod','payHandle','payMemo'];
       var guests = document.getElementById('guests');
       var pack = document.getElementById('pack');
       var rate = document.getElementById('rate');
@@ -300,7 +307,17 @@
       }
       function packLabel(){
         var opt = pack.options[pack.selectedIndex];
-        return opt ? opt.text : '';
+        var text = opt ? opt.text : '';
+        var addon = document.getElementById('charmAddon');
+        if (addon && Number(addon.value) > 0 && Number(pack.value) !== 50) {
+          text += ' + Charm Bar add-on $45/person';
+        }
+        return text;
+      }
+      function isCharmOnly(){ return Number(pack.value) === 50; }
+      function durationLine(){
+        if (isCharmOnly()) return '1 hour Charm Bar. The Lab is closed for that hour. Charm Bar is 4 seats.';
+        return '90 minutes. The Lab is closed to walk-ins for your slot.';
       }
       function decodePayload(raw){
         var s = String(raw || '').replace(/-/g,'+').replace(/_/g,'/');
@@ -380,7 +397,7 @@
         ctx.fillText('party invoice.', 42, 102);
         ctx.fillStyle = '#f4ecd4';
         ctx.font = '800 13px Tahoma, Arial, sans-serif';
-        ctx.fillText('private 90-minute lab. deposit holds the date.', 42, 124);
+        ctx.fillText(isCharmOnly() ? 'private 1-hour charm bar. deposit holds the date.' : 'private 90-minute lab. deposit holds the date.', 42, 124);
         ctx.beginPath();
         ctx.arc(652, 100, 26, 0, Math.PI * 2);
         ctx.fillStyle = '#d9ff78';
@@ -573,7 +590,7 @@
           '',
           when + ' · ' + guestsN + ' guests' + (occ ? ' · ' + occ : ''),
           packLabel(),
-          '90 minutes. The Lab is closed to walk-ins for your slot. Bringing: ' + foodCake + '.',
+          durationLine() + ' Bringing: ' + foodCake + '.',
           '',
           'Booking total: ' + total.textContent,
           'Deposit due now (50%, holds your date): ' + deposit.textContent + ' · due ' + longDate(val('due')),
@@ -627,17 +644,28 @@
         });
       }
       function calc(){
-        var n = Math.max(1, Math.min(14, Number(guests.value) || 1));
+        var charmOnly = isCharmOnly();
+        var max = charmOnly ? 4 : 14;
+        var n = Math.max(1, Math.min(max, Number(guests.value) || 1));
         guests.value = n;
+        guests.max = String(max);
+        var addonEl = document.getElementById('charmAddon');
+        if (charmOnly && addonEl) addonEl.value = '0';
+        if (addonEl) addonEl.disabled = charmOnly;
         var r = Number(pack.value) || 0;
-        var full = r * n;
+        var addon = charmOnly ? 0 : (addonEl ? Number(addonEl.value) || 0 : 0);
+        var full = (r + addon) * n;
         var half = Math.round(full * 50) / 100;
-        rate.value = money(r);
+        rate.value = money(r + addon);
         qty.value = n;
         line.value = money(full);
         total.textContent = money(full);
         deposit.textContent = money(half);
         remain.textContent = money(full - half);
+        var durationNote = document.getElementById('durationNote');
+        if (durationNote) {
+          durationNote.textContent = durationLine() + ' Cancellations within 72 hours of this invoice are refundable; after that, the deposit is non-refundable. SUAS · 188 W Franklin Blvd, Gastonia, NC 28052';
+        }
         var event = document.getElementById('eventDate').value;
         if (event) {
           var when = new Date(event + 'T12:00:00');
@@ -713,6 +741,8 @@
         ids.forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
         guests.value = 1;
         pack.value = '115';
+        var addonEl = document.getElementById('charmAddon');
+        if (addonEl) addonEl.value = '0';
         document.getElementById('food').value = 'No';
         document.getElementById('cake').value = 'No';
         stamp();
