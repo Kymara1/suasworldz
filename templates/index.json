@@ -11,7 +11,11 @@
   "sections": {
     "main": {
       "type": "suas-world-home",
-      "settings": {}
+      "settings": {
+        "show_bizarra_announcement": true,
+        "announcement_heading": "halloween bizarra.",
+        "announcement_text": "today 2–7pm. free walkthrough — first look of the store. refreshments, candy, games, prizes. costumes welcome. 188 W Franklin Blvd, Gastonia."
+      }
     }
   },
   "order": [

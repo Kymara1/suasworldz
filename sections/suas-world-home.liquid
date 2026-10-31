@@ -9,6 +9,14 @@
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1340px,calc(100vw - 24px));margin:0 auto}
     .suas-billboard{display:grid;justify-items:center;gap:0;width:100%;margin:0 0 4px;padding:0 0 12px;text-align:center;overflow:visible;border:2px solid var(--ink);border-radius:28px;background-color:#fff;background-image:linear-gradient(rgba(16,16,16,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.12) 1px,transparent 1px);background-size:22px 22px;box-shadow:5px 6px 0 var(--ink)}
+    .suas-bizarra-blast{display:grid;gap:10px;width:100%;margin:0 0 12px;padding:14px 16px;border:2.5px solid var(--ink);border-radius:24px;background:linear-gradient(135deg,#ff9bc4 0%,#fff1a8 48%,#d9ff78 100%);box-shadow:5px 6px 0 var(--ink);color:var(--ink);text-decoration:none}
+    .suas-bizarra-blast:hover{color:var(--ink);transform:translateY(2px);box-shadow:3px 4px 0 var(--ink)}
+    .suas-bizarra-kicker{margin:0;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+    .suas-bizarra-blast h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-weight:400;font-size:clamp(1.85rem,5vw,3rem);line-height:.88;text-transform:lowercase}
+    .suas-bizarra-blast p{margin:0;max-width:46rem;font:800 13px/1.35 Futura,Arial,sans-serif}
+    .suas-bizarra-meta{display:flex;flex-wrap:wrap;gap:6px}
+    .suas-bizarra-meta span{display:inline-flex;align-items:center;min-height:28px;padding:5px 10px;border:1.75px solid var(--ink);border-radius:999px;background:#fff;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+    @media(max-width:560px){.suas-bizarra-blast{padding:12px;border-radius:18px;gap:8px}.suas-bizarra-blast p{font-size:12px}.suas-bizarra-meta span{font-size:9px;min-height:26px;padding:4px 8px}}
     .suas-billboard .suas-window-bar{width:100%;border-radius:26px 26px 0 0}
     .suas-home-logo{position:relative;display:grid;place-items:center;width:168px;height:168px;max-width:none;margin:14px 0 8px;color:inherit;text-decoration:none;overflow:visible}
     .suas-home-logo-img{grid-area:1/1;display:block;width:168px;height:168px;max-width:168px;max-height:168px;object-fit:contain;object-position:center;background:transparent;border:2px solid var(--ink);border-radius:999px;box-shadow:3px 4px 0 var(--ink);z-index:1}
@@ -226,6 +234,19 @@
             >
           </a>
         </header>
+        {% assign suas_today = 'now' | date: '%Y-%m-%d' %}
+        {% if suas_today == '2026-10-31' or section.settings.show_bizarra_announcement %}
+        <a class="suas-bizarra-blast" href="/pages/visit-us" aria-label="SUAS Halloween Bizarra today 2 to 7 pm walkthrough">
+          <p class="suas-bizarra-kicker">today only · halloween bizarra</p>
+          <h2 class="suas-font">walkthrough. first look. show up.</h2>
+          <p>free walkthrough of the store — refreshments, candy, games, and prizes. costumes welcome. not a ticket. just come through.</p>
+          <div class="suas-bizarra-meta">
+            <span>sat 10/31 · 2–7 pm</span>
+            <span>188 w franklin blvd · gastonia</span>
+            <span>walkthrough first</span>
+          </div>
+        </a>
+        {% endif %}
         <div class="suas-aisles">
           <article class="suas-aisle suas-aisle--body">
             <small class="suas-mono">aisle 01</small>
@@ -401,8 +422,13 @@
           </div>
           <div class="suas-boost-body">
             <div class="suas-boost-copy">
+              {% if suas_today == '2026-10-31' or section.settings.show_bizarra_announcement %}
+              <strong class="suas-font">bizarra is today. 2–7. walk through.</strong>
+              <a class="suas-btn suas-mono" data-dark href="/pages/visit-us">188 w franklin · free</a>
+              {% else %}
               <strong class="suas-font">grab it while it lasts.</strong>
               <a class="suas-btn suas-mono" data-dark href="/collections/best-sellers">shop best sellers</a>
+              {% endif %}
             </div>
             <div class="suas-boost-rail">
               {% if boost_collection != blank %}
@@ -458,4 +484,14 @@ wireHoursLive();
 setInterval(wireHoursLive,60000);
 })();</script>
 </section>
-{% schema %}{"name":"SUAS World Home","settings":[{"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},{"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."}],"presets":[{"name":"SUAS World Home"}]}{% endschema %}
+{% schema %}
+{
+  "name": "SUAS World Home",
+  "settings": [
+    {"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},
+    {"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."},
+    {"type":"checkbox","id":"show_bizarra_announcement","label":"Force Bizarra announcement (else auto on 2026-10-31)","default":true}
+  ],
+  "presets": [{"name":"SUAS World Home"}]
+}
+{% endschema %}
