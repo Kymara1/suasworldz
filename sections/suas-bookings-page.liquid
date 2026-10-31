@@ -87,10 +87,14 @@
     .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:start;padding-top:2px;font:900 13px/1 Tahoma,Arial,sans-serif}
     .suas-type-card.is-on{border-color:var(--ink);background:var(--sun);box-shadow:0 3px 0 var(--ink)}
     .suas-type-card.is-on em{opacity:1}
+    .suas-type-card.is-soon{opacity:.48;filter:grayscale(.7);cursor:not-allowed;background:#d8d4cc;pointer-events:none;box-shadow:none}
+    .suas-type-card.is-soon.is-on{background:#9a9590;color:#fff}
+    .suas-type-card.is-soon small,.suas-type-card.is-soon b,.suas-type-card.is-soon strong,.suas-type-card.is-soon em{color:rgba(16,16,16,.72)}
     .suas-book-option.is-soon{opacity:.72;filter:grayscale(.35)}
     .suas-book-option.is-soon .suas-book-form{pointer-events:none}
     .suas-book-soon-note{grid-column:1/-1;margin:0 12px 12px;border:2px solid var(--ink);background:#d8d4cc;padding:10px 12px;font:800 13px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.78)}
     .suas-type-card:focus-within{outline:3px solid var(--ink);outline-offset:3px}
+    .suas-type-card.is-soon:focus-within{outline:none}
     .suas-book-tab:focus-visible,.suas-plus-choice button:focus-visible,.suas-time-chips button:focus-visible,.suas-book-button:focus-visible,.suas-book-input:focus-visible,.suas-book-select:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
     .suas-plus-choice{grid-column:1/-1;display:none;grid-template-columns:1fr 1fr;gap:8px}
     .suas-plus-choice.is-on{display:grid}
@@ -283,20 +287,20 @@
               </label>
               {% endif %}
               {% if roll_on_main_variant != blank %}
-              <label class="suas-type-card">
-                <input type="radio" name="_self_type" value="{{ roll_on_main_variant.id }}" data-label="Perfume Roll-On — 10 mL" data-price="{{ roll_on_main_variant.price | money }}" data-copy="Portable 10 mL perfume oil in a roll-on. Same Lab mix, pocket size."{% unless roll_on_main_variant.available %} disabled{% endunless %}>
+              <label class="suas-type-card is-soon" aria-disabled="true" title="Roll-on bookings open soon">
+                <input type="radio" name="_self_type" value="{{ roll_on_main_variant.id }}" data-label="Perfume Roll-On — 10 mL" data-price="{{ roll_on_main_variant.price | money }}" data-copy="Portable 10 mL perfume oil in a roll-on. Same Lab mix, pocket size." disabled>
                 <em>02</em>
-                <strong>roll-on</strong>
-                <small>Portable 10 mL perfume oil in a roll-on. Same Lab mix, pocket size.</small>
+                <strong>roll-on · soon</strong>
+                <small>Not open for booking yet. Perfume experiment is available now.</small>
                 <b>{{ roll_on_main_variant.price | money }}</b>
               </label>
               {% endif %}
               {% if combo_main_variant != blank %}
-              <label class="suas-type-card">
-                <input type="radio" name="_self_type" value="{{ combo_main_variant.id }}" data-label="Perfume + Body Oil Combo" data-price="{{ combo_main_variant.price | money }}" data-copy="Perfume experiment plus a 1 oz custom body oil in one visit. Body oil is not booked alone."{% unless combo_main_variant.available %} disabled{% endunless %}>
+              <label class="suas-type-card is-soon" aria-disabled="true" title="Combo bookings open soon">
+                <input type="radio" name="_self_type" value="{{ combo_main_variant.id }}" data-label="Perfume + Body Oil Combo" data-price="{{ combo_main_variant.price | money }}" data-copy="Perfume experiment plus a 1 oz custom body oil in one visit. Body oil is not booked alone." disabled>
                 <em>03</em>
-                <strong>combo sesh</strong>
-                <small>Perfume experiment plus a 1 oz custom body oil in one visit. Body oil is not booked alone.</small>
+                <strong>combo sesh · soon</strong>
+                <small>Not open for booking yet. Perfume experiment is available now.</small>
                 <b>{{ combo_main_variant.price | money }}</b>
               </label>
               {% endif %}
@@ -305,8 +309,8 @@
             <select class="suas-book-select suas-visually-hidden" id="SelfExperience" name="id" required>
               <option value="">choose experiment</option>
               {% if parfum_main_variant != blank %}<option value="{{ parfum_main_variant.id }}" data-experience="Lab Session: Eau De Parfum (30mL)" data-price="{{ parfum_main_variant.price | money }}" selected{% unless parfum_main_variant.available %} disabled{% endunless %}>Lab Session: Eau De Parfum (30mL)</option>{% endif %}
-              {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}"{% unless roll_on_main_variant.available %} disabled{% endunless %}>Lab Session: Roll-On Perfume (10mL)</option>{% endif %}
-              {% if combo_main_variant != blank %}<option value="{{ combo_main_variant.id }}" data-experience="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}"{% unless combo_main_variant.available %} disabled{% endunless %}>Lab Session Combo</option>{% endif %}
+              {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" disabled>Lab Session: Roll-On Perfume (10mL) · soon</option>{% endif %}
+              {% if combo_main_variant != blank %}<option value="{{ combo_main_variant.id }}" data-experience="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}" disabled>Lab Session Combo · soon</option>{% endif %}
             </select>
             <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
@@ -861,9 +865,11 @@
       var selfTypes = root.querySelector('[data-self-types]');
       function syncSelfType() {
         if (!selfTypes) return;
-        var input = selfTypes.querySelector('input:checked');
+        var input = selfTypes.querySelector('input:checked:not(:disabled)');
+        if (!input) input = selfTypes.querySelector('.suas-type-card:not(.is-soon) input:not(:disabled)');
+        if (input && !input.checked) input.checked = true;
         selfTypes.querySelectorAll('.suas-type-card').forEach(function (card) {
-          card.classList.toggle('is-on', card.contains(input));
+          card.classList.toggle('is-on', !!(input && card.contains(input)));
         });
         if (!input) return;
         if (selfExperience) selfExperience.value = input.value;
@@ -873,6 +879,10 @@
       }
       if (selfTypes) {
         selfTypes.addEventListener('change', syncSelfType);
+        selfTypes.addEventListener('click', function (event) {
+          var soon = event.target.closest('.suas-type-card.is-soon');
+          if (soon) event.preventDefault();
+        });
         syncSelfType();
       } else if (selfExperience && selfExperienceProperty) {
         selfExperience.addEventListener('change', syncSelfType);

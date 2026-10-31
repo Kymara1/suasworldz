@@ -89,6 +89,23 @@
     opacity: 1 !important;
   }
 
+  html body .suas-bookings-page .suas-type-card.is-soon {
+    opacity: .48 !important;
+    filter: grayscale(.7) !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    background: #d8d4cc !important;
+    color: rgba(16,16,16,.72) !important;
+    box-shadow: none !important;
+  }
+
+  html body .suas-bookings-page .suas-type-card.is-soon em,
+  html body .suas-bookings-page .suas-type-card.is-soon strong,
+  html body .suas-bookings-page .suas-type-card.is-soon small,
+  html body .suas-bookings-page .suas-type-card.is-soon b {
+    color: rgba(16,16,16,.72) !important;
+  }
+
   html body .suas-bookings-page .suas-plus-choice button.is-on,
   html body .suas-bookings-page .suas-time-chips button.is-on {
     background: #101010 !important;
@@ -261,12 +278,46 @@
       option.textContent = 'Lab Session: Roll-On Perfume (10mL)';
       selfSelect.appendChild(option);
 
+      option.disabled = true;
+      option.textContent = 'Lab Session: Roll-On Perfume (10mL) · soon';
       var label = document.createElement('label');
-      label.className = 'suas-type-card';
-      label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil."><em>02</em><strong>roll-on</strong><small>The roll-on perfume experiment.</small><b>' + price + '</b>';
+      label.className = 'suas-type-card is-soon';
+      label.setAttribute('aria-disabled', 'true');
+      label.title = 'Roll-on bookings open soon';
+      label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil." disabled><em>02</em><strong>roll-on · soon</strong><small>Not open for booking yet. Perfume experiment is available now.</small><b>' + price + '</b>';
       var combo = Array.prototype.slice.call(selfTypes.querySelectorAll('.suas-type-card')).find(function (card) { return /combo/i.test(card.textContent); });
       if (combo) selfTypes.insertBefore(label, combo);
       else selfTypes.appendChild(label);
+    }
+
+    function lockSoonSelfTypes(root) {
+      var selfTypes = root.querySelector('[data-self-types]');
+      if (!selfTypes) return;
+      Array.prototype.slice.call(selfTypes.querySelectorAll('.suas-type-card')).forEach(function (card) {
+        var text = String(card.textContent || '').toLowerCase();
+        if (text.indexOf('roll-on') === -1 && text.indexOf('roll on') === -1 && text.indexOf('combo') === -1) return;
+        card.classList.add('is-soon');
+        card.setAttribute('aria-disabled', 'true');
+        var input = card.querySelector('input');
+        if (input) {
+          input.disabled = true;
+          input.checked = false;
+        }
+        var title = card.querySelector('strong');
+        if (title && title.textContent.toLowerCase().indexOf('soon') === -1) {
+          title.textContent = title.textContent.replace(/\s+$/, '') + ' · soon';
+        }
+      });
+      var perfume = selfTypes.querySelector('.suas-type-card:not(.is-soon) input');
+      if (perfume) perfume.checked = true;
+      var select = root.querySelector('#SelfExperience');
+      if (select) {
+        Array.prototype.slice.call(select.options).forEach(function (option) {
+          var t = String(option.textContent || '').toLowerCase();
+          if (t.indexOf('roll-on') !== -1 || t.indexOf('roll on') !== -1 || t.indexOf('combo') !== -1) option.disabled = true;
+        });
+        if (perfume) select.value = perfume.value;
+      }
     }
 
     function ensureRollOn(root) {
@@ -275,7 +326,10 @@
       if (!window.fetch) return;
       window.fetch('/products/lab-session-add-on-10ml-roll-on-perfume-oil.js', { credentials: 'same-origin' })
         .then(function (response) { return response.ok ? response.json() : null; })
-        .then(function (product) { addRollOn(root, product); })
+        .then(function (product) {
+          addRollOn(root, product);
+          lockSoonSelfTypes(root);
+        })
         .catch(function () {});
     }
 
@@ -283,6 +337,7 @@
       var root = document.querySelector('.suas-bookings-page');
       if (!root) return;
       ensureRollOn(root);
+      lockSoonSelfTypes(root);
 
       root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
         tab.setAttribute('aria-pressed', tab.classList.contains('is-on') ? 'true' : 'false');
