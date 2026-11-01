@@ -11,7 +11,11 @@
   "sections": {
     "suas_world_home": {
       "type": "suas-world-home",
-      "settings": {}
+      "settings": {
+        "show_grand_opening": true,
+        "announcement_heading": "grand opening.",
+        "announcement_text": "Saturday, November 14 · 2–7pm. 188 W Franklin Blvd, Gastonia. Doors open. Lab bookings start that weekend."
+      }
     },
     "reviews": {
       "type": "suas-reviews",

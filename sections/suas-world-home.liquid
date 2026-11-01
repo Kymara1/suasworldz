@@ -9,6 +9,16 @@
     .suas-mono{font-family:Futura,'Futura PT',Arial,sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900}
     .suas-home-wrap{width:min(1340px,calc(100vw - 24px));margin:0 auto}
     .suas-billboard{display:grid;justify-items:center;gap:0;width:100%;margin:0 0 4px;padding:0 0 12px;text-align:center;overflow:visible;border:2px solid var(--ink);border-radius:28px;background-color:#fff;background-image:linear-gradient(rgba(16,16,16,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.12) 1px,transparent 1px);background-size:22px 22px;box-shadow:5px 6px 0 var(--ink)}
+    .suas-open-blast{display:grid;gap:10px;width:100%;margin:0 0 12px;padding:14px 16px;border:2.5px solid var(--ink);border-radius:24px;background:linear-gradient(135deg,#d9ff78 0%,#fff 42%,#ff9bc4 100%);box-shadow:5px 6px 0 var(--ink);color:var(--ink);text-decoration:none}
+    .suas-open-blast:hover{color:var(--ink);transform:translateY(2px);box-shadow:3px 4px 0 var(--ink)}
+    .suas-open-kicker{margin:0;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+    .suas-open-blast h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-weight:400;font-size:clamp(1.85rem,5vw,3rem);line-height:.88;text-transform:lowercase}
+    .suas-open-blast p{margin:0;max-width:46rem;font:800 13px/1.35 Futura,Arial,sans-serif}
+    .suas-open-meta{display:flex;flex-wrap:wrap;gap:6px}
+    .suas-open-meta span{display:inline-flex;align-items:center;min-height:28px;padding:5px 10px;border:1.75px solid var(--ink);border-radius:999px;background:#101010;color:#d9ff78;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+    .suas-open-meta span:nth-child(2){background:#fff;color:var(--ink)}
+    .suas-open-meta span:nth-child(3){background:#ff9bc4;color:var(--ink)}
+    @media(max-width:560px){.suas-open-blast{padding:12px;border-radius:18px;gap:8px}.suas-open-blast p{font-size:12px}.suas-open-meta span{font-size:9px;min-height:26px;padding:4px 8px}}
     .suas-billboard .suas-window-bar{width:100%;border-radius:26px 26px 0 0}
     .suas-home-logo{position:relative;display:grid;place-items:center;width:168px;height:168px;max-width:none;margin:14px 0 8px;color:inherit;text-decoration:none;overflow:visible}
     .suas-home-logo-img{grid-area:1/1;display:block;width:168px;height:168px;max-width:168px;max-height:168px;object-fit:contain;object-position:center;background:transparent;border:2px solid var(--ink);border-radius:999px;box-shadow:3px 4px 0 var(--ink);z-index:1}
@@ -224,6 +234,19 @@
             >
           </a>
         </header>
+        {% assign suas_today = 'now' | date: '%Y-%m-%d' %}
+        {% if suas_today <= '2026-11-14' or section.settings.show_grand_opening %}
+        <a class="suas-open-blast" href="/pages/visit-us" aria-label="SUAS grand opening Saturday November 14 from 2 to 7 pm">
+          <p class="suas-open-kicker">grand opening</p>
+          <h2 class="suas-font">doors open nov 14. 2–7pm.</h2>
+          <p>first official day. come smell, shop, and pull up on franklin. lab bookings start the same weekend.</p>
+          <div class="suas-open-meta">
+            <span>sat 11/14 · 2–7 pm</span>
+            <span>188 w franklin blvd · gastonia</span>
+            <span>free to walk in</span>
+          </div>
+        </a>
+        {% endif %}
         <div class="suas-aisles">
           <article class="suas-aisle suas-aisle--body">
             <small class="suas-mono">aisle 01</small>
@@ -381,7 +404,7 @@
                 </ul>
               </div>
             </div>
-            <p class="suas-hours-note">doors + lab open saturday, november 14. subject to change for events &amp; parties</p>
+            <p class="suas-hours-note">grand opening sat nov 14 · 2–7 pm. then regular hours. subject to change for events &amp; parties</p>
           </div>
         </div>
         </div>
@@ -399,8 +422,13 @@
           </div>
           <div class="suas-boost-body">
             <div class="suas-boost-copy">
+              {% if suas_today <= '2026-11-14' or section.settings.show_grand_opening %}
+              <strong class="suas-font">grand opening nov 14. 2–7.</strong>
+              <a class="suas-btn suas-mono" data-dark href="/pages/visit-us">188 w franklin · show up</a>
+              {% else %}
               <strong class="suas-font">grab it while it lasts.</strong>
               <a class="suas-btn suas-mono" data-dark href="/collections/best-sellers">shop best sellers</a>
+              {% endif %}
             </div>
             <div class="suas-boost-rail">
               {% if boost_collection != blank %}
@@ -445,9 +473,11 @@ function wireHoursLive(){
   const dow=weekdayMap[get('weekday')];
   const today=`${y}-${m}-${d}`;
   let open=false;
-  if(today>=firstOpen&&schedule[dow]){
+  if(today>=firstOpen){
     const mins=hour*60+minute;
-    open=mins>=schedule[dow].start&&mins<schedule[dow].end;
+    // Grand opening day: 2:00 PM – 7:00 PM only
+    if(today===firstOpen) open=mins>=14*60&&mins<19*60;
+    else if(schedule[dow]) open=mins>=schedule[dow].start&&mins<schedule[dow].end;
   }
   live.setAttribute('data-open',open?'true':'false');
   if(label)label.textContent=open?'OPEN':'CLOSED';
@@ -461,7 +491,8 @@ setInterval(wireHoursLive,60000);
   "name": "SUAS World Home",
   "settings": [
     {"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},
-    {"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."}
+    {"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."},
+    {"type":"checkbox","id":"show_grand_opening","label":"Force grand opening banner (else auto through 2026-11-14)","default":true}
   ],
   "presets": [{"name":"SUAS World Home"}]
 }
