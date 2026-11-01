@@ -1,10 +1,5 @@
 <!doctype html>
 {%- liquid
-  assign suas_today = 'now' | date: '%Y-%m-%d'
-  assign suas_halloween_liquid = false
-  if suas_today >= '2026-09-01' and suas_today <= '2026-11-01'
-    assign suas_halloween_liquid = true
-  endif
   assign suas_station_page = false
   if template.suffix == 'suas-stations' or template.suffix == 'party-invoice' or template.suffix == 'party-invoice-view'
     assign suas_station_page = true
@@ -18,7 +13,7 @@
     assign suas_men_page = true
   endif
 -%}
-<html class="no-js flexbox-gap{% if suas_halloween_liquid %} suas-halloween{% endif %}{% if suas_station_page %} suas-station-page{% endif %}{% if suas_men_page %} suas-men{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
+<html class="no-js flexbox-gap{% if suas_station_page %} suas-station-page{% endif %}{% if suas_men_page %} suas-men{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
   <head>
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">
@@ -175,7 +170,6 @@
       {% render 'suas-men-chrome' %}
     {% endif %}
     {% render 'suas-booking-polish' %}
-    {% render 'suas-halloween-flare', suas_halloween_slot: 'head' %}
   </head>
 
   <body
@@ -185,7 +179,6 @@
     data-theme-version="7.3.0"
     data-tabbing="false"
   >
-    {% render 'suas-halloween-flare', suas_halloween_slot: 'body' %}
     {% unless suas_station_page %}
       {% render 'suas-laptop-boot', suas_boot_slot: 'body' %}
     {% endunless %}
