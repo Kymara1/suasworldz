@@ -12,7 +12,7 @@
     "main": {
       "type": "suas-party-invoice",
       "settings": {
-        "staff_pin": "0124"
+        "staff_pin": ""
       }
     }
   },
