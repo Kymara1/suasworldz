@@ -12,7 +12,8 @@
     "main": {
       "type": "suas-party-invoice",
       "settings": {
-        "staff_pin": ""
+        "staff_pin": "0124",
+        "customer_view": false
       }
     }
   },
