@@ -662,18 +662,6 @@
         } else {
           say(link, true);
         }
-      }).then(function(copied){
-            openGmail(mail);
-            if (copied === null) {
-              say('Picture saved as ' + mail.filename + '. Drag it into the gmail window if paste is blocked.', true);
-            } else {
-              say('Picture copied. In gmail: click the message, press ctrl+v, then send to ' + mail.to + '.', true);
-            }
-          });
-        }).catch(function(){
-          openGmail(mail);
-          say('Could not build the picture. Use save as pdf and attach that instead.', false);
-        });
       }
       function calc(){
         var charmOnly = isCharmOnly();
