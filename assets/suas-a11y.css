@@ -78,6 +78,10 @@ html body .suas-book-inline-link {
   text-underline-offset: 2px;
   font-weight: 900;
 }
+/* Catalog count pill is cream - ink text, not lime inherited from the title bar */
+html body .suas-catalog-head-bar em {
+  color: #101010 !important;
+}
 .suas-panel-submenu a {
   min-height: 44px;
   min-width: 44px;
