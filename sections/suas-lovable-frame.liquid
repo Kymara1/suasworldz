@@ -59,7 +59,7 @@ Body Jelly|/collections/body-jelly
 Body Oil|/collections/body-oil
 Cleansing Bar|/collections/cleansing-bar
 Body Wash|/collections/body-wash{% endcapture %}
-{% capture home_submenu_default %}Home Products|/collections/home
+{% capture home_submenu_default %}Home|/pages/home
 Candles|/collections/candles
 Everything Mist|/collections/everything-mist
 Burnt Oils|/collections/burnt-oils
@@ -172,7 +172,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% if false %}
         {% liquid
           assign item_active = false
-          assign home_active_paths = section.settings.home_active_paths | default: '/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/incense,/collections/carpet-dust,/collections/all-purpose-cleaner' | split: ','
+          assign home_active_paths = section.settings.home_active_paths | default: '/pages/home,/collections/home,/collections/home-care,/collections/candles,/collections/everything-mist,/collections/burnt-oils,/collections/incense,/collections/carpet-dust,/collections/all-purpose-cleaner' | split: ','
           for active_path in home_active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
@@ -492,7 +492,7 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"color","id":"home_tint","label":"Icon color","default":"#ffe86b"},
     {"type":"collection_list","id":"home_collections","label":"Home dropdown collections","limit":12,"info":"Click Select collections and choose the collections to show in this dropdown. Use blocks below to add more one-by-one."},
     {"type":"link_list","id":"home_menu","label":"Optional Home dropdown menu","info":"Optional fallback if you prefer managing this through Shopify Navigation."},
-    {"type":"textarea","id":"home_submenu","label":"Emergency fallback typed links","info":"Only used if no collections, item blocks, or menu are selected. Format: Label|URL, one per line.","default":"Home Products|/collections/home\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nIncense|/collections/incense\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
+    {"type":"textarea","id":"home_submenu","label":"Emergency fallback typed links","info":"Only used if no collections, item blocks, or menu are selected. Format: Label|URL, one per line.","default":"Home|/pages/home\nCandles|/collections/candles\nEverything Mist|/collections/everything-mist\nBurnt Oils|/collections/burnt-oils\nIncense|/collections/incense\nCarpet Dust|/collections/carpet-dust\nAll Purpose Cleaner|/collections/all-purpose-cleaner"},
     {"type":"text","id":"home_active_paths","label":"Active URL matches, separated by commas","default":"/collections/masculine,/collections/cologne,/collections/exfoliating-body-wash,/collections/beard"},
 
     {"type":"header","content":"Shared dropdown"},
