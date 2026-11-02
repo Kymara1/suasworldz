@@ -70,10 +70,13 @@ html body .suas-book-price-card > span {
   color: #101010 !important;
   opacity: 0.8 !important;
 }
-html body .suas-book-copy a {
-  color: #101010 !important;
+/* Hero copy sits on dark navy - keep lime + underline, not ink */
+html body .suas-book-copy a,
+html body .suas-book-inline-link {
+  color: #d9ff78 !important;
   text-decoration: underline;
   text-underline-offset: 2px;
+  font-weight: 900;
 }
 .suas-panel-submenu a {
   min-height: 44px;

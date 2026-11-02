@@ -13,7 +13,7 @@
     .suas-book-kicker{margin:0 0 6px;color:rgba(255,255,255,.8);letter-spacing:.02em}
     .suas-book-title{margin:0;font-size:clamp(2.2rem,5vw,3.6rem);line-height:.86;color:var(--lime)}
     .suas-book-copy{margin:8px 0 0;font-size:14px;line-height:1.4;font-weight:800;color:rgba(255,255,255,.86)}
-    .suas-book-copy a{color:var(--lime);font-weight:900}
+    .suas-book-copy a,.suas-book-inline-link{color:var(--lime);font-weight:900;text-decoration:underline;text-underline-offset:2px}
     .suas-book-hero-head{display:grid;grid-template-columns:1fr;gap:12px;align-items:end;padding:14px 22px 16px;color:#fff}
     .suas-book-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:34px;padding:6px 12px;color:#101010;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
     .suas-book-option .suas-book-bar{color:#fff}
@@ -173,7 +173,7 @@
           <button class="suas-book-tab" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm" tabindex="-1">charm bar</button>
         </div>
       </div>
-      <aside class="suas-book-panel">
+      <div class="suas-book-panel">
         <div class="suas-book-bar" style="background:#e23d8a"><b>S 2. Hours</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-hours-grid">
           <p style="--chip:#cdeeff;"><b>Store</b>Thu-Sat 12:30-7:30 PM<br>Sun 12:00-5:00 PM<br>Mon-Wed closed</p>
@@ -182,7 +182,7 @@
           <p style="--chip:#fff2a8;"><b>Charm Bar</b>4 seats / 45 min<br>Same days as self-guided</p>
         </div>
         <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 14 seats/hour � Charm 4/slot. Closed Mon-Wed.</p>
-      </aside>
+      </div>
     </div>
 
     <div class="suas-book-grid">
@@ -261,7 +261,7 @@
         assign charm_bead_product = all_products['charm-bar-bead-sticks']
       %}
 
-      <article class="suas-book-option is-open" id="self-guided" role="tabpanel" aria-labelledby="book-tab-self" style="--card:#ffe8ef;">
+      <div class="suas-book-option is-open" id="self-guided" role="tabpanel" aria-labelledby="book-tab-self" style="--card:#ffe8ef;">
         <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Self-guided details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
@@ -334,9 +334,9 @@
         {% else %}
           <button class="suas-book-button" disabled>connect booking products</button>
         {% endif %}
-      </article>
+      </div>
 
-      <article class="suas-book-option is-soon" id="guided-class" role="tabpanel" aria-labelledby="book-tab-guided" style="--card:#d9ff78;" aria-disabled="true" hidden>
+      <div class="suas-book-option is-soon" id="guided-class" role="tabpanel" aria-labelledby="book-tab-guided" aria-disabled="true" hidden style="--card:#d9ff78;">
         <div class="suas-book-bar" style="background:#9a9590"><b>S 3. Guided class � soon</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
@@ -431,9 +431,9 @@
         {% else %}
           <button class="suas-book-button" disabled>connect guided product</button>
         {% endif %}
-      </article>
+      </div>
 
-      <article class="suas-book-option" id="charm-bar" role="tabpanel" aria-labelledby="book-tab-charm" style="--card:#fff2a8;" hidden>
+      <div class="suas-book-option" id="charm-bar" role="tabpanel" aria-labelledby="book-tab-charm" hidden style="--card:#fff2a8;">
         <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Charm bar details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
@@ -528,7 +528,7 @@
         {% else %}
           <p class="suas-book-soon-note">Charm Bar booking product is still connecting. Stay on this tab - do not use a separate page.</p>
         {% endif %}
-      </article>
+      </div>
     </div>
   </div>
 
