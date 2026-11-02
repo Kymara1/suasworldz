@@ -158,7 +158,7 @@
   <div class="suas-book-wrap">
     <header class="suas-book-hero-head">
       <div>
-        <p class="suas-book-kicker">lab booking � paid at checkout</p>
+        <p class="suas-book-kicker">lab booking ? paid at checkout</p>
         <h1 class="suas-book-title">book the lab.</h1>
         <p class="suas-book-copy">Sessions start November 14. Pick a seat, pay now, and the booking lands in our orders. We ping you the day before. Private parties still use the <a class="suas-book-inline-link" href="/pages/party-booking">party order form</a> (request first, invoice later).</p>
       </div>
@@ -177,10 +177,10 @@
         <div class="suas-book-hours-grid">
           <p style="--chip:#cdeeff;"><b>Store</b>Thu-Sat 12:30-7:30 PM<br>Sun 12:00-5:00 PM<br>Mon-Wed closed</p>
           <p style="--chip:#ffe8ef;"><b>Self-guided Lab</b>Thu-Fri 1:00-5:00 PM<br>Sat-Sun 1:00-4:00 PM<br>Walk-ins if a seat's open</p>
-          <p style="--chip:#d8d4cc;"><b>Guided � soon</b>Not open for booking yet. We'll announce when seats drop.</p>
+          <p style="--chip:#d8d4cc;"><b>Guided ? soon</b>Not open for booking yet. We'll announce when seats drop.</p>
           <p style="--chip:#fff2a8;"><b>Charm Bar</b>4 seats / 45 min<br>Same days as self-guided</p>
         </div>
-        <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 14 seats/hour � Charm 4/slot. Closed Mon-Wed.</p>
+        <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 14 seats/hour ? Charm 4/slot. Closed Mon-Wed.</p>
       </div>
     </div>
 
@@ -290,7 +290,7 @@
               <label class="suas-type-card is-soon" aria-disabled="true" title="Roll-on bookings open soon">
                 <input type="radio" name="_self_type" value="{{ roll_on_main_variant.id }}" data-label="Perfume Roll-On - 10 mL" data-price="{{ roll_on_main_variant.price | money }}" data-copy="Portable 10 mL perfume oil in a roll-on. Same Lab mix, pocket size." disabled>
                 <em>02</em>
-                <strong>roll-on � soon</strong>
+                <strong>roll-on ? soon</strong>
                 <small>Not open for booking yet. Perfume experiment is available now.</small>
                 <b>{{ roll_on_main_variant.price | money }}</b>
               </label>
@@ -299,7 +299,7 @@
               <label class="suas-type-card is-soon" aria-disabled="true" title="Combo bookings open soon">
                 <input type="radio" name="_self_type" value="{{ combo_main_variant.id }}" data-label="Perfume + Body Oil Combo" data-price="{{ combo_main_variant.price | money }}" data-copy="Perfume experiment plus a 1 oz custom body oil in one visit. Body oil is not booked alone." disabled>
                 <em>03</em>
-                <strong>combo sesh � soon</strong>
+                <strong>combo sesh ? soon</strong>
                 <small>Not open for booking yet. Perfume experiment is available now.</small>
                 <b>{{ combo_main_variant.price | money }}</b>
               </label>
@@ -309,8 +309,8 @@
             <select class="suas-book-select suas-visually-hidden" id="SelfExperience" name="id" required>
               <option value="">choose experiment</option>
               {% if parfum_main_variant != blank %}<option value="{{ parfum_main_variant.id }}" data-experience="Lab Session: Eau De Parfum (30mL)" data-price="{{ parfum_main_variant.price | money }}" selected{% unless parfum_main_variant.available %} disabled{% endunless %}>Lab Session: Eau De Parfum (30mL)</option>{% endif %}
-              {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" disabled>Lab Session: Roll-On Perfume (10mL) � soon</option>{% endif %}
-              {% if combo_main_variant != blank %}<option value="{{ combo_main_variant.id }}" data-experience="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}" disabled>Lab Session Combo � soon</option>{% endif %}
+              {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" disabled>Lab Session: Roll-On Perfume (10mL) ? soon</option>{% endif %}
+              {% if combo_main_variant != blank %}<option value="{{ combo_main_variant.id }}" data-experience="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}" disabled>Lab Session Combo ? soon</option>{% endif %}
             </select>
             <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
@@ -336,10 +336,10 @@
       </div>
 
       <div class="suas-book-option is-soon" id="guided-class" role="tabpanel" aria-labelledby="book-tab-guided" aria-disabled="true" hidden style="--card:#d9ff78;">
-        <div class="suas-book-bar" style="background:#9a9590"><b>S 3. Guided class � soon</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="suas-book-bar" style="background:#9a9590"><b>S 3. Guided class ? soon</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
-            <span class="suas-book-badge">guided class � 75 min</span>
+            <span class="suas-book-badge">guided class ? 75 min</span>
             <h2>Guided Lab Session</h2>
             <p class="suas-book-desc" data-guided-description>Hands-on class with an instructor. Not open for booking yet.</p>
           </div>
@@ -436,7 +436,7 @@
         <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Charm bar details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
-            <span class="suas-book-badge">charm bar � 4 seats � 45 min</span>
+            <span class="suas-book-badge">charm bar ? 4 seats ? 45 min</span>
             <h2>Build your little extra</h2>
             <p class="suas-book-desc" data-charm-description>Pick a piece, add extras, and hold a seat. Same days as self-guided Lab hours.</p>
           </div>
@@ -663,9 +663,9 @@
           guest ? ('Guest: ' + guest) : '',
           phone ? ('Phone: ' + phone) : '',
           fieldValue(form, 'properties[Email]') ? ('Email: ' + fieldValue(form, 'properties[Email]')) : '',
-          'The Lab at SUAS � 188 W Franklin Blvd, Gastonia, NC 28052'
+          'The Lab at SUAS ? 188 W Franklin Blvd, Gastonia, NC 28052'
         ].filter(Boolean).join('\n');
-        var staffTitle = 'LAB � ' + (guest || 'Guest') + ' � ' + String(title).replace(/^SUAS Lab � /, '');
+        var staffTitle = 'LAB ? ' + (guest || 'Guest') + ' ? ' + String(title).replace(/^SUAS Lab ? /, '');
         if (staff) staff.value = googleCalUrl(staffTitle, date, start, end, details);
       }
 
@@ -770,7 +770,7 @@
         var bag = seatsTakenInCart(cart.items, 'Preferred date', 'Preferred time', date, time);
         selfRemaining = Math.max(0, TOTAL - sold - bag);
         if (selfSeatText) selfSeatText.textContent = selfRemaining + ' of ' + TOTAL + ' seats left';
-        if (selfSeatHint) selfSeatHint.textContent = selfRemaining ? ('this hour � ' + time) : 'this hour is full';
+        if (selfSeatHint) selfSeatHint.textContent = selfRemaining ? ('this hour ? ' + time) : 'this hour is full';
         if (selfSeatMeter) {
           selfSeatMeter.classList.toggle('is-low', selfRemaining > 0 && selfRemaining <= 3);
           selfSeatMeter.classList.toggle('is-full', selfRemaining <= 0);
@@ -861,7 +861,7 @@
             return;
           }
           var title = (selfExperienceProperty && selfExperienceProperty.value) || 'Self-Guided Lab Experiment';
-          stampCalendar(selfForm, 'SUAS Lab � ' + title, selfDate.value, selfTime.value, 60);
+          stampCalendar(selfForm, 'SUAS Lab ? ' + title, selfDate.value, selfTime.value, 60);
         });
       }
 
@@ -898,7 +898,7 @@
       if (selfForm) {
         selfForm.addEventListener('submit', async function (event) {
           if (event.defaultPrevented) return;
-          stampCalendar(selfForm, 'SUAS Lab � ' + ((selfExperienceProperty && selfExperienceProperty.value) || 'Self-Guided Lab Experiment'), (selfForm.querySelector('[name="properties[Preferred date]"]') || {}).value, (selfForm.querySelector('[name="properties[Preferred time]"]') || {}).value, 60);
+          stampCalendar(selfForm, 'SUAS Lab ? ' + ((selfExperienceProperty && selfExperienceProperty.value) || 'Self-Guided Lab Experiment'), (selfForm.querySelector('[name="properties[Preferred date]"]') || {}).value, (selfForm.querySelector('[name="properties[Preferred time]"]') || {}).value, 60);
           var addons = Array.prototype.slice.call(selfForm.querySelectorAll('[data-addon-variant]:checked')).filter(function (box) { return box.dataset.addonVariant; });
           if (!addons.length) return;
           event.preventDefault();
@@ -1105,7 +1105,7 @@
             return;
           }
           var guidedTitle = (typeProperty && typeProperty.value) || 'Guided Lab Session';
-          stampCalendar(guidedForm, 'SUAS Lab � ' + guidedTitle, guidedDate.value, guidedTime.value, 75);
+          stampCalendar(guidedForm, 'SUAS Lab ? ' + guidedTitle, guidedDate.value, guidedTime.value, 75);
           var guests = Math.max(1, Number((guidedForm.querySelector('[name="quantity"]') || {}).value || 1));
           if (remaining <= 0 || guests > remaining) {
             event.preventDefault();
@@ -1211,7 +1211,7 @@
         var bag = seatsTakenInCart(cart.items, 'Reservation date', 'Estimated arrival', date, time);
         charmRemaining = Math.max(0, CHARM_TOTAL - sold - bag);
         if (charmSeatText) charmSeatText.textContent = charmRemaining + ' of ' + CHARM_TOTAL + ' seats left';
-        if (charmSeatHint) charmSeatHint.textContent = charmRemaining ? ('this 45 min � ' + time) : 'this slot is full';
+        if (charmSeatHint) charmSeatHint.textContent = charmRemaining ? ('this 45 min ? ' + time) : 'this slot is full';
         if (charmSeatMeter) {
           charmSeatMeter.classList.toggle('is-low', charmRemaining > 0 && charmRemaining <= 1);
           charmSeatMeter.classList.toggle('is-full', charmRemaining <= 0);
