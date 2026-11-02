@@ -58,6 +58,23 @@ html body .suas-formula-input:focus-visible {
 .suas-side-foot span {
   color: rgba(16, 16, 16, 0.82) !important;
 }
+/* Rail index numbers: no fade opacity - that failed AA on active pink pills */
+html body .suas-side-num {
+  opacity: 1 !important;
+  color: #101010 !important;
+}
+html body .suas-side-link.is-active .suas-side-num {
+  color: #101010 !important;
+}
+html body .suas-book-price-card > span {
+  color: #101010 !important;
+  opacity: 0.8 !important;
+}
+html body .suas-book-copy a {
+  color: #101010 !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .suas-panel-submenu a {
   min-height: 44px;
   min-width: 44px;

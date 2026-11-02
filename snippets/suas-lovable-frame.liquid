@@ -33,7 +33,7 @@
   .suas-side-icon { width:32px; height:32px; display:grid; place-items:center; border:1px solid rgba(16,16,16,.08); border-radius:999px; background:linear-gradient(180deg,#fff 0%,var(--tint) 130%); box-shadow:inset 0 1px 0 rgba(255,255,255,.9); font-size:16px; }
   .suas-side-link.is-active .suas-side-icon { border-color:rgba(255,255,255,.28); background:rgba(255,255,255,.14); }
   .suas-side-label { font-size:1.35rem; font-weight:700; line-height:1; text-transform:uppercase; white-space:nowrap; }
-  .suas-side-num { font-family:Futura,'Futura PT',Arial,sans-serif; font-size:10px; letter-spacing:.2em; opacity:.45; }
+  .suas-side-num { font-family:Futura,'Futura PT',Arial,sans-serif; font-size:10px; letter-spacing:.2em; color:#101010; }
   .suas-panel-submenu { display:grid; gap:7px; margin:2px 0 8px 50px; padding:8px; border:1px solid rgba(16,16,16,.1); border-radius:18px; background:rgba(255,255,255,.86); box-shadow:0 12px 24px -20px rgba(16,16,16,.45); }
   .suas-panel-submenu a { min-height:31px; display:flex; align-items:center; padding:7px 10px; border:1.5px solid #101010; border-radius:999px; color:var(--suas-ink); background:#fff; box-shadow:0 2px 0 #101010; text-decoration:none; font-family:Futura,'Futura PT',Arial,sans-serif; font-size:9px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
   .suas-panel-submenu a:nth-child(6n+1) { background:#ffd8e8; }
@@ -60,7 +60,7 @@
   }
 </style>
 
-<div class="suas-frame" aria-label="SUAS site frame">
+<div class="suas-frame">
   <div class="suas-frame-marquee" aria-hidden="true"><div class="suas-frame-marquee-track">{% for i in (1..2) %}<span>shut up & smell</span><span>suas.os online</span><span>the lab is mixing</span><span>handmade in gastonia</span><span>dopamine on tap</span><span>formula 001</span>{% endfor %}</div></div>
   <div class="suas-mobile-bar">
     <a class="suas-side-head suas-mobile-home" href="/" aria-label="Go to SUAS homepage"><span class="suas-side-orb" aria-hidden="true"></span><span class="suas-side-brand">SUAS</span></a>
