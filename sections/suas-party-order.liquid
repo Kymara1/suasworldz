@@ -119,7 +119,7 @@
     {%- capture party_invoice_no -%}SUAS-{{ 'now' | date: '%Y%m%d' }}-{{ 'now' | date: '%H%M' }}{%- endcapture -%}
     {% form 'contact', class: 'suas-party-form', id: 'suas-party-form' %}
       {% if form.posted_successfully? %}
-        <p class="suas-party-flash" role="status">Party request sent. Invoice <b id="party-invoice-flash">{{ party_invoice_no }}</b>. We will review it and send that invoice if the date is open.</p>
+        <p class="suas-party-flash" role="status">Party request sent. Reference <b id="party-invoice-flash">{{ party_invoice_no }}</b>. Nothing is charged yet — we check the date, then send that invoice if it is open. The date is held when the 50% deposit is paid.</p>
       {% endif %}
       {% if form.errors %}
         <div class="suas-party-flash is-bad" role="alert">{{ form.errors | default_errors }}</div>
@@ -224,7 +224,7 @@
               <em>$45 <small>add-on</small></em>
             </label>
             <input type="hidden" id="party-charm-addon-off" name="contact[Charm Bar add-on]" value="No">
-            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Lab parties are 90 minutes. The Lab is completely closed off during your reserved time slot. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
+            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Lab parties are 90 minutes. The Lab is closed for your slot. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
           </div>
         </section>
 
@@ -245,11 +245,11 @@
         </section>
 
         <section class="suas-party-win suas-party-s5">
-          <div class="suas-party-bar is-lime"><h2>S 5. Deposit payment</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="suas-party-bar is-lime"><h2>S 5. Preferred deposit method</h2><span aria-hidden="true"><i></i><i></i><i></i></span></div>
           <div class="suas-party-body">
-            <p class="suas-party-hint" id="party-pay-hint">How should we invoice the 50% deposit? The date is held when that payment lands.</p>
+            <p class="suas-party-hint" id="party-pay-hint">Tell us how you want to pay the 50% deposit <em>after</em> we confirm the date. No payment on this form. The date is held when that deposit lands.</p>
             <fieldset class="suas-party-packs" aria-describedby="party-pay-hint party-deposit-hint">
-              <legend class="suas-party-legend">Deposit payment method</legend>
+              <legend class="suas-party-legend">Preferred deposit method</legend>
               <label class="suas-party-pack">
                 <input type="radio" name="contact[Deposit payment]" value="Venmo" required>
                 <span><b>Venmo</b></span>
@@ -263,18 +263,18 @@
                 <span><b>Cash App</b></span>
               </label>
               <label class="suas-party-pack">
-                <input type="radio" name="contact[Deposit payment]" value="Card / Shopify invoice" data-party-card="true">
-                <span><b>Card</b><small>pay deposit at checkout</small></span>
+                <input type="radio" name="contact[Deposit payment]" value="Card / Shopify invoice">
+                <span><b>Card</b><small>Shopify invoice after we confirm</small></span>
               </label>
             </fieldset>
-            <p class="suas-party-hint" id="party-deposit-hint" aria-live="polite">Deposit due now: $0.00 · remaining 48 hours before: $0.00</p>
+            <p class="suas-party-hint" id="party-deposit-hint" aria-live="polite">If approved — estimated 50% deposit: $0.00 · remaining 48 hours before: $0.00</p>
           </div>
         </section>
       </div>
 
       <div class="suas-party-task">
-        <button class="suas-party-start" type="submit">Start</button>
-        <em>party.exe</em>
+        <button class="suas-party-start" type="submit">Send request</button>
+        <em>party.exe · no charge yet</em>
         <label for="party-total" style="margin-left:auto;font:800 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em">Est.</label>
         <input id="party-total" type="text" name="contact[Estimated total]" value="$0.00" readonly aria-live="polite" style="width:7.5rem;min-height:44px;border:2px solid #101010;background:#fff;color:#101010;font:900 14px/1 Tahoma,Arial,sans-serif;padding:4px 8px">
         <input type="hidden" id="party-deposit" name="contact[Estimated deposit]" value="$0.00">
@@ -283,27 +283,10 @@
       </div>
     {% endform %}
   </div>
-  {%- liquid
-    assign suas_deposit_dollar = nil
-    assign suas_deposit_cent = nil
-    assign suas_deposit_product = all_products['lab-party-deposit']
-    if suas_deposit_product
-      for v in suas_deposit_product.variants
-        if v.title contains 'Dollar'
-          assign suas_deposit_dollar = v.id
-        endif
-        if v.title contains 'Cent'
-          assign suas_deposit_cent = v.id
-        endif
-      endfor
-    endif
-  -%}
   <script>
     (function () {
       var form = document.getElementById('suas-party-form');
       if (!form) return;
-      var dollarId = {{ suas_deposit_dollar | json }};
-      var centId = {{ suas_deposit_cent | json }};
       var guests = document.getElementById('party-guests');
       var total = document.getElementById('party-total');
       var notes = document.getElementById('party-notes');
@@ -356,8 +339,8 @@
         if (charmAddonOff) charmAddonOff.disabled = !!(charmAddon && charmAddon.checked);
         if (durationNote) {
           durationNote.textContent = charmOnly
-            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
-            : 'Lab parties are 90 minutes. The Lab is completely closed off during your reserved time slot. Charm Bar add-on is $45 per person. A 50% deposit is due at booking to hold the date. The remaining balance is due 48 hours before the party. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
+            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
+            : 'Lab parties are 90 minutes. The Lab is closed for your slot. Charm Bar add-on is $45 per person. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
         }
         if (guestHint) guestHint.textContent = charmOnly ? 'Max 14. Charm Bar party books the Lab for 1 hour.' : 'Max 14.';
       }
@@ -368,7 +351,7 @@
         if (total) total.value = money(full);
         if (deposit) deposit.value = money(half);
         if (remain) remain.value = money(full - half);
-        if (depositHint) depositHint.textContent = 'Deposit due now: ' + money(half) + ' · remaining 48 hours before: ' + money(full - half);
+        if (depositHint) depositHint.textContent = 'If approved — estimated 50% deposit: ' + money(half) + ' · remaining 48 hours before: ' + money(full - half);
       }
       function makeInvoiceNo() {
         var d = new Date();
@@ -380,7 +363,7 @@
         var inv = document.getElementById('party-invoice-no');
         var sub = document.getElementById('party-subject');
         if (inv) inv.value = num;
-        if (sub) sub.value = 'Party booking ' + num;
+        if (sub) sub.value = 'Party request ' + num;
         if (notes && notes.value.replace(/\s/g, '') === '') notes.value = 'Invoice ' + num;
         else if (notes) {
           notes.value = notes.value.replace(/^Invoice\s+SUAS-\d{8}-[A-Z0-9]+\s*/i, '').replace(/^\s+/, '');
@@ -393,7 +376,12 @@
       if (flash) {
         try {
           var sent = sessionStorage.getItem(sentKey) || sessionStorage.getItem(pendingKey);
-          if (sent) flash.textContent = sent;
+          if (sent) {
+            var flashRoot = flash.parentNode;
+            if (flashRoot) {
+              flashRoot.innerHTML = 'Party request sent. Reference <b id="party-invoice-flash">' + sent + '</b>. Nothing is charged yet — we check the date, then send that invoice if it is open. The date is held when the 50% deposit is paid.';
+            }
+          }
           sessionStorage.removeItem(pendingKey);
           sessionStorage.removeItem(sentKey);
         } catch (e) {}
@@ -405,59 +393,17 @@
         try { sessionStorage.setItem(pendingKey, existing); } catch (e) {}
         setInvoiceNo(existing);
       }
-      function isCardMethod(method) {
-        return method && /card|shopify/i.test(method.value);
-      }
-      function stampNotes(num) {
+      function stampNotes() {
         var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
-        if (!notes || !total) return method;
-        var line = 'Estimated total: ' + total.value + ' · deposit now: ' + (deposit ? deposit.value : '') + ' · remaining: ' + (remain ? remain.value : '') + (method ? ' · deposit method: ' + method.value : '');
+        if (!notes || !total) return;
+        var line = 'Estimated total: ' + total.value + ' · estimated deposit if approved: ' + (deposit ? deposit.value : '') + ' · remaining: ' + (remain ? remain.value : '') + (method ? ' · preferred deposit method: ' + method.value : '') + ' · REQUEST ONLY — do not charge until date confirmed';
         if (notes.value.indexOf('Estimated total:') === -1) {
           notes.value = notes.value.trim() + '\n' + line;
         }
-        return method;
       }
-      function addDepositToCart(num) {
-        if (!dollarId && !centId) return Promise.resolve();
-        var full = fullTotal();
-        var half = Math.round(full * 50) / 100;
-        var cents = Math.round(half * 100);
-        if (cents < 1) return Promise.resolve();
-        var dollars = Math.floor(cents / 100);
-        var leftover = cents % 100;
-        var pack = selectedPack();
-        var props = {
-          'Invoice': num,
-          'Type': '50% Lab party deposit',
-          'Event date': (document.getElementById('party-date') || {}).value || '',
-          'Time': (document.getElementById('party-time') || {}).value || '',
-          'Guests': String(guests && guests.value ? guests.value : ''),
-          'Package': pack ? pack.value : '',
-          'Charm Bar': isCharmOnly() ? 'Charm Bar Party — $50/person · 1 hour' : (addonRate() ? 'Yes — $45/person add-on' : 'No'),
-          'Deposit': money(half)
-        };
-        var items = [];
-        if (dollars && dollarId) items.push({ id: dollarId, quantity: dollars, properties: props });
-        if (leftover && centId) items.push({ id: centId, quantity: leftover, properties: props });
-        if (!items.length) return Promise.resolve();
-        return fetch('/cart/add.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          credentials: 'same-origin',
-          body: JSON.stringify({ items: items })
-        }).then(function (res) {
-          if (!res.ok) throw new Error('cart');
-        });
-      }
-      form.addEventListener('change', function () {
-        refreshTotal();
-        var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
-        if (depositHint && isCardMethod(method)) {
-          depositHint.textContent = 'Card: after you send this request, checkout opens for the ' + (deposit ? deposit.value : '') + ' deposit. Remaining is due 48 hours before.';
-        }
-      });
+      form.addEventListener('change', refreshTotal);
       form.addEventListener('input', refreshTotal);
-      form.addEventListener('submit', function (event) {
+      form.addEventListener('submit', function () {
         refreshTotal();
         var inv = document.getElementById('party-invoice-no');
         var num = inv && inv.value ? inv.value : makeInvoiceNo();
@@ -466,30 +412,8 @@
           sessionStorage.setItem(pendingKey, num);
           sessionStorage.setItem(sentKey, num);
         } catch (e) {}
-        var method = stampNotes(num);
-        if (form.getAttribute('data-deposit-ready') === '1') return;
-        if (!isCardMethod(method)) return;
-        event.preventDefault();
-        var start = form.querySelector('.suas-party-start');
-        if (start) { start.disabled = true; start.textContent = 'Adding deposit…'; }
-        addDepositToCart(num).then(function () {
-          try { sessionStorage.setItem('suas-party-card-checkout', '1'); } catch (e) {}
-          form.setAttribute('data-deposit-ready', '1');
-          form.submit();
-        }).catch(function () {
-          form.setAttribute('data-deposit-ready', '1');
-          form.submit();
-        });
+        stampNotes();
       });
-      if (flash) {
-        try {
-          if (sessionStorage.getItem('suas-party-card-checkout') === '1') {
-            sessionStorage.removeItem('suas-party-card-checkout');
-            flash.parentNode && (flash.textContent = (flash.textContent || 'Request sent.') + ' Pay the deposit at checkout to hold the date.');
-            window.location.assign('/checkout');
-          }
-        } catch (e) {}
-      }
       refreshTotal();
       var copyBtn = document.getElementById('party-invoice-copy');
       if (copyBtn) {
