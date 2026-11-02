@@ -155,7 +155,8 @@
   {% else %}
   <div class="toolbar">
     {% unless customer_view %}
-    <button type="button" class="is-mail" id="sendBtn">email invoice</button>
+    <button type="button" class="is-mail" id="sendBtn">open in gmail</button>
+    <button type="button" class="ghost" id="copyLinkBtn">copy invoice link</button>
     <button type="button" class="ghost" id="clearBtn">clear fields</button>
     <form method="post" action="{{ routes.cart_url }}/update" style="margin:0" class="staff-only">
       <input type="hidden" name="attributes[suas_staff_pin]" value="">
@@ -165,7 +166,7 @@
     {% endunless %}
     <button type="button" id="printBtn">save as pdf</button>
     {% unless customer_view %}
-    <em>email invoice copies a suas.os picture. gmail opens — click the message and press ctrl+v so the window is the email.</em>
+    <em>opens gmail with the letter filled + a live invoice link. no paste. pdf is optional attach.</em>
     <p class="mail-status" id="mailStatus" hidden></p>
     {% else %}
     <em>your suas.os party invoice. pay the deposit to hold the date.</em>
@@ -328,6 +329,16 @@
       function durationLine(){
         if (isCharmOnly()) return '1 hour Charm Bar. The Lab is closed for that hour.';
         return '90 minutes. The Lab is closed to walk-ins for your slot.';
+      }
+      function encodePayload(data){
+        var json = JSON.stringify(data || {});
+        var b64 = btoa(unescape(encodeURIComponent(json)));
+        return b64.replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+      }
+      function invoiceLink(){
+        var data = {};
+        ids.forEach(function(id){ var el = document.getElementById(id); if (el) data[id] = el.value; });
+        return (shopOrigin || '') + '/pages/invoice#' + encodePayload(data);
       }
       function decodePayload(raw){
         var s = String(raw || '').replace(/-/g,'+').replace(/_/g,'/');
@@ -608,6 +619,9 @@
           '',
           payBlock,
           '',
+          'View / print your invoice here:',
+          invoiceLink(),
+          '',
           'Cancellations within 72 hours of this invoice are refundable. After that, the deposit is non-refundable.',
           '',
           'SUAS.OS',
@@ -618,6 +632,7 @@
           to: to,
           subject: 'Your SUAS party invoice — ' + num,
           body: body,
+          link: invoiceLink(),
           filename: invoiceFileName('.png')
         };
       }
@@ -630,17 +645,24 @@
           'noopener'
         );
       }
-      function copyInvoicePicture(png){
-        if (!navigator.clipboard || !window.ClipboardItem) return Promise.reject();
-        return navigator.clipboard.write([new ClipboardItem({ 'image/png': png })]);
-      }
-      function sendPdf(){
+      function sendEmail(){
         var mail = invoiceMail();
         if (!mail) return;
-        say('Painting the suas.os invoice as a picture…', true);
-        canvasPngBlob().then(function(png){
-          downloadBlob(png, mail.filename);
-          return copyInvoicePicture(png).catch(function(){ return null; }).then(function(copied){
+        openGmail(mail);
+        say('Gmail opened with the letter + invoice link. Review, then Send.', true);
+      }
+      function copyInvoiceLink(){
+        var mail = invoiceMail();
+        if (!mail) return;
+        var link = mail.link || invoiceLink();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(link).then(function(){
+            say('Invoice link copied.', true);
+          }).catch(function(){ say(link, true); });
+        } else {
+          say(link, true);
+        }
+      }).then(function(copied){
             openGmail(mail);
             if (copied === null) {
               say('Picture saved as ' + mail.filename + '. Drag it into the gmail window if paste is blocked.', true);
@@ -746,7 +768,9 @@
       });
       var sendBtn = document.getElementById('sendBtn');
       var clearBtn = document.getElementById('clearBtn');
-      if (sendBtn) sendBtn.addEventListener('click', sendPdf);
+      if (sendBtn) sendBtn.addEventListener('click', sendEmail);
+      var copyLinkBtn = document.getElementById('copyLinkBtn');
+      if (copyLinkBtn) copyLinkBtn.addEventListener('click', copyInvoiceLink);
       if (clearBtn) clearBtn.addEventListener('click', function(){
         ids.forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
         guests.value = 1;
