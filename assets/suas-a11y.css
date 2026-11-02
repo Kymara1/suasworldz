@@ -165,6 +165,35 @@ html body #shop-hcaptcha-badge-container a {
   font-size: 9px !important;
 }
 
+/* Judge.me preview badges ship at ~20px; WCAG 2.2 AA wants 24px targets */
+html body .jdgm-preview-badge,
+html body .jdgm-prev-badge,
+html body .jdgm-prev-badge__stars,
+html body .jdgm-preview-badge [role='button'],
+html body .jdgm-widget .jdgm-prev-badge__text {
+  min-height: 24px !important;
+  min-width: 24px !important;
+}
+html body .jdgm-prev-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 2px 0 !important;
+}
+html body .jdgm-prev-badge__stars {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 24px !important;
+  line-height: 24px !important;
+}
+html body .jdgm-prev-badge__text,
+html body a.jdgm-write-rev-link,
+html body .jdgm-write-rev-link {
+  min-height: 24px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .suas-frame-marquee-track,
   html.suas-halloween .suas-frame-marquee-track {
