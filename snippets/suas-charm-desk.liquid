@@ -1,0 +1,351 @@
+{%- comment -%}
+  Interactive Charm Bar desk preview (SUAS.OS vibe).
+  Demo tray + piece box + register. Syncs base piece with the booking form below.
+  Sample charms are preview-only — real picks happen in-store (5 included).
+{%- endcomment -%}
+<div class="suas-charm-desk" data-charm-desk aria-label="Charm Bar preview desk">
+  <style>
+    .suas-charm-desk{
+      --ink:#101010;--navy:#000080;--face:#c0c0c0;--cream:#fff6e6;--lime:#d9ff78;--hot:#ff9bc4;--pink:#ffd8e8;--sun:#fff2a8;--butter:#fff1a6;
+      margin:0 12px 14px;border:2.5px solid var(--ink);border-radius:18px;overflow:hidden;background:var(--face);
+      font-family:Tahoma,Futura,Arial,sans-serif;color:var(--ink);
+    }
+    .suas-charm-desk *{box-sizing:border-box}
+    .suas-charm-desk__bar{
+      display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:36px;padding:6px 10px;
+      background:var(--navy);color:#fff;font:900 12px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+    }
+    .suas-charm-desk__bar span{display:flex;gap:3px}
+    .suas-charm-desk__bar i{width:14px;height:12px;border:1.5px solid #fff;background:rgba(255,255,255,.35);font-style:normal}
+    .suas-charm-desk__stage{
+      display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(220px,.85fr);gap:10px;
+      padding:12px;background:linear-gradient(180deg,#7ec8ff 0%,#b8e4ff 42%,var(--lime) 42%,var(--lime) 44%,#f4ecd4 44%);
+    }
+    .suas-charm-desk__win{
+      border:2px solid var(--ink);background:var(--cream);box-shadow:3px 3px 0 var(--ink);display:grid;grid-template-rows:auto 1fr;min-height:0;
+    }
+    .suas-charm-desk__winhead{
+      display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 8px;background:var(--navy);color:#fff;
+      font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+    }
+    .suas-charm-desk__body{padding:10px;min-height:0}
+    .suas-charm-desk__hint{margin:0 0 8px;font:800 11px/1.3 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.72)}
+    .suas-charm-desk__tray{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;
+    }
+    .suas-charm-desk__charm{
+      appearance:none;border:2px solid var(--ink);background:#fff;padding:6px 4px 5px;cursor:pointer;
+      display:grid;gap:2px;justify-items:center;min-height:72px;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;
+    }
+    .suas-charm-desk__charm svg{width:28px;height:28px;display:block}
+    .suas-charm-desk__charm small{font:800 9px/1 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.55);letter-spacing:0;text-transform:none}
+    .suas-charm-desk__charm.is-on{background:var(--lime);box-shadow:0 3px 0 var(--ink)}
+    .suas-charm-desk__charm:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+    .suas-charm-desk__charm:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+    .suas-charm-desk__pieces{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+    .suas-charm-desk__piece{
+      appearance:none;border:2px solid var(--ink);background:#fff;min-height:34px;padding:0 10px;cursor:pointer;
+      font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+    }
+    .suas-charm-desk__piece.is-on{background:var(--hot);box-shadow:0 3px 0 var(--ink)}
+    .suas-charm-desk__piece:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+    .suas-charm-desk__box{
+      position:relative;min-height:220px;border:2px solid var(--ink);background:linear-gradient(180deg,var(--pink),#fff);
+      display:grid;place-items:center;padding:18px 12px 28px;overflow:hidden;
+    }
+    .suas-charm-desk__box::before{
+      content:'';position:absolute;left:10px;right:10px;top:10px;height:18px;border:2px solid var(--ink);background:var(--hot);
+    }
+    .suas-charm-desk__chain{
+      position:relative;width:min(100%,280px);height:120px;margin-top:18px;
+    }
+    .suas-charm-desk__chain-line{
+      position:absolute;left:8%;right:8%;top:42%;height:10px;border-radius:999px;
+      background:linear-gradient(90deg,#b8b8b8,#f2f2f2 40%,#9a9a9a);border:1.5px solid #555;
+    }
+    .suas-charm-desk__chain.is-necklace .suas-charm-desk__chain-line{top:28%;transform:scaleY(1.1)}
+    .suas-charm-desk__chain.is-keychain .suas-charm-desk__chain-line{left:35%;right:35%;top:20%;height:70px;width:12px;border-radius:8px}
+    .suas-charm-desk__chain.is-paracord .suas-charm-desk__chain-line{background:linear-gradient(90deg,#ff9bc4,#d9ff78,#1e6ad4);border-color:var(--ink)}
+    .suas-charm-desk__slots{
+      position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;gap:4px;padding:0 6% 8px;pointer-events:none;
+    }
+    .suas-charm-desk__slot{
+      width:36px;height:36px;border:2px dashed rgba(16,16,16,.28);background:rgba(255,255,255,.55);
+      display:grid;place-items:center;transform:translateY(0);
+    }
+    .suas-charm-desk__slot.is-filled{border-style:solid;background:#fff;box-shadow:2px 2px 0 var(--ink)}
+    .suas-charm-desk__slot svg{width:22px;height:22px}
+    .suas-charm-desk__box-label{
+      position:absolute;left:12px;right:12px;bottom:8px;text-align:center;
+      font:900 10px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(16,16,16,.7);
+    }
+    .suas-charm-desk__register{background:var(--face)}
+    .suas-charm-desk__reg-screen{
+      margin:0 0 10px;padding:12px;border:2px solid var(--ink);background:#101010;color:var(--lime);
+      box-shadow:inset 2px 2px 0 #000;
+    }
+    .suas-charm-desk__reg-screen b{display:block;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--hot);margin-bottom:8px}
+    .suas-charm-desk__reg-screen strong{display:block;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);line-height:.9;font-weight:400}
+    .suas-charm-desk__reg-screen em{display:block;margin-top:8px;font:800 12px/1.3 Tahoma,Arial,sans-serif;font-style:normal;color:#fff}
+    .suas-charm-desk__keys{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+    .suas-charm-desk__key{
+      appearance:none;border:2px solid var(--ink);background:#fff;min-height:40px;padding:0 8px;cursor:pointer;
+      font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+    }
+    .suas-charm-desk__key:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+    .suas-charm-desk__cta{
+      appearance:none;width:100%;min-height:48px;border:2px solid var(--ink);background:var(--lime);
+      box-shadow:3px 3px 0 var(--ink);cursor:pointer;
+      font:900 13px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;
+    }
+    .suas-charm-desk__cta:hover{filter:brightness(.97)}
+    .suas-charm-desk__cta:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+    .suas-charm-desk__foot{
+      margin:10px 12px 0;padding:8px 10px;border:2px solid var(--ink);background:var(--sun);
+      font:800 11px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.78);
+    }
+    @media (max-width:1023px){
+      .suas-charm-desk__stage{grid-template-columns:1fr;background:linear-gradient(180deg,#7ec8ff 0%,#b8e4ff 18%,var(--lime) 18%,var(--lime) 19%,#f4ecd4 19%)}
+      .suas-charm-desk__tray{grid-template-columns:repeat(4,minmax(0,1fr))}
+      .suas-charm-desk__box{min-height:200px}
+    }
+    @media (max-width:700px){
+      .suas-charm-desk{margin:0 10px 12px}
+      .suas-charm-desk__tray{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .suas-charm-desk__charm{min-height:64px;padding:5px 2px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .suas-charm-desk__slot,.suas-charm-desk__charm{transition:none!important}
+    }
+  </style>
+
+  <div class="suas-charm-desk__bar"><b>CHARM.EXE ? pick · build · book</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="suas-charm-desk__stage">
+    <section class="suas-charm-desk__win" aria-labelledby="charm-desk-tray-title">
+      <div class="suas-charm-desk__winhead"><span id="charm-desk-tray-title">tray.exe</span><span>sample</span></div>
+      <div class="suas-charm-desk__body">
+        <p class="suas-charm-desk__hint">Click up to 5 sample charms. Real picks happen at the bar.</p>
+        <div class="suas-charm-desk__tray" data-charm-tray role="group" aria-label="Sample charm tray"></div>
+      </div>
+    </section>
+
+    <section class="suas-charm-desk__win" aria-labelledby="charm-desk-box-title">
+      <div class="suas-charm-desk__winhead"><span id="charm-desk-box-title">jewelry box</span><span>live</span></div>
+      <div class="suas-charm-desk__body">
+        <div class="suas-charm-desk__pieces" data-charm-piece-tabs role="group" aria-label="Base piece"></div>
+        <div class="suas-charm-desk__box">
+          <div class="suas-charm-desk__chain" data-charm-chain>
+            <div class="suas-charm-desk__chain-line" aria-hidden="true"></div>
+            <div class="suas-charm-desk__slots" data-charm-slots aria-hidden="true"></div>
+          </div>
+          <p class="suas-charm-desk__box-label" data-charm-box-label>your piece</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="suas-charm-desk__win suas-charm-desk__register" aria-labelledby="charm-desk-reg-title">
+      <div class="suas-charm-desk__winhead"><span id="charm-desk-reg-title">register.exe</span><span>4 seats</span></div>
+      <div class="suas-charm-desk__body">
+        <div class="suas-charm-desk__reg-screen" aria-live="polite">
+          <b>total</b>
+          <strong data-charm-desk-price>$0</strong>
+          <em data-charm-desk-summary>0 / 5 sample charms</em>
+        </div>
+        <div class="suas-charm-desk__keys">
+          <button class="suas-charm-desk__key" type="button" data-charm-clear>clear tray</button>
+          <button class="suas-charm-desk__key" type="button" data-charm-jump-form>jump to form</button>
+        </div>
+        <button class="suas-charm-desk__cta" type="button" data-charm-book-cta>book a seat</button>
+        <p class="suas-charm-desk__foot">Seat hold is the real checkout below. Sample tray is just the vibe — includes 5 charms in-store.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function () {
+  var desk = document.currentScript && document.currentScript.previousElementSibling;
+  if (!desk || !desk.hasAttribute('data-charm-desk')) {
+    desk = document.querySelector('[data-charm-desk]');
+  }
+  if (!desk || desk.dataset.ready === '1') return;
+  desk.dataset.ready = '1';
+
+  var SAMPLES = [
+    { id: 'heart', label: 'heart', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ff4d8d" stroke="#101010" stroke-width="1.5" d="M16 27S4 19 4 11.5C4 7.9 6.9 5 10.5 5c2.1 0 4 .9 5.5 2.4C17.5 5.9 19.4 5 21.5 5 25.1 5 28 7.9 28 11.5 28 19 16 27 16 27z"/></svg>' },
+    { id: 'star', label: 'star', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#d9ff78" stroke="#101010" stroke-width="1.5" d="m16 4 3.2 7.2H27l-5.8 4.5 2.2 7.3L16 18.8l-7.4 4.2 2.2-7.3L5 11.2h7.8z"/></svg>' },
+    { id: 'bow', label: 'bow', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ff9bc4" stroke="#101010" stroke-width="1.5" d="M16 14c-2-4-7-6-10-3 2 4 6 5 10 5 4 0 8-1 10-5-3-3-8-1-10 3zm-2 2h4v8h-4z"/></svg>' },
+    { id: 'cherry', label: 'cherry', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="none" stroke="#101010" stroke-width="1.6" d="M16 6c2 4 4 6 7 8"/><circle cx="11" cy="21" r="5" fill="#e23d3d" stroke="#101010" stroke-width="1.5"/><circle cx="20" cy="23" r="5" fill="#c62828" stroke="#101010" stroke-width="1.5"/></svg>' },
+    { id: 'flower', label: 'flower', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="10" r="4" fill="#fff" stroke="#101010"/><circle cx="10" cy="16" r="4" fill="#ffd8e8" stroke="#101010"/><circle cx="22" cy="16" r="4" fill="#ffd8e8" stroke="#101010"/><circle cx="16" cy="22" r="4" fill="#fff" stroke="#101010"/><circle cx="16" cy="16" r="3.2" fill="#fff2a8" stroke="#101010"/></svg>' },
+    { id: 'smiley', label: 'smiley', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10" fill="#fff2a8" stroke="#101010" stroke-width="1.5"/><circle cx="12" cy="14" r="1.4" fill="#101010"/><circle cx="20" cy="14" r="1.4" fill="#101010"/><path fill="none" stroke="#101010" stroke-width="1.6" d="M11 19c1.4 2 3.2 3 5 3s3.6-1 5-3"/></svg>' },
+    { id: 'moon', label: 'moon', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#e8ddff" stroke="#101010" stroke-width="1.5" d="M20 6a10 10 0 1 0 6 16A8 8 0 0 1 20 6z"/></svg>' },
+    { id: 'bolt', label: 'bolt', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#d9ff78" stroke="#101010" stroke-width="1.5" d="M18 3 8 18h7l-1 11 12-17h-8z"/></svg>' },
+    { id: 'kiss', label: 'kiss', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#ff9bc4" stroke="#101010" stroke-width="1.5" d="M8 14c2-4 6-4 8-1 2-3 6-3 8 1-2 5-6 9-8 11-2-2-6-6-8-11z"/></svg>' },
+    { id: 'dice', label: 'dice', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="7" width="18" height="18" rx="3" fill="#fff" stroke="#101010" stroke-width="1.5"/><circle cx="12" cy="12" r="1.6" fill="#101010"/><circle cx="20" cy="12" r="1.6" fill="#101010"/><circle cx="16" cy="16" r="1.6" fill="#101010"/><circle cx="12" cy="20" r="1.6" fill="#101010"/><circle cx="20" cy="20" r="1.6" fill="#101010"/></svg>' },
+    { id: 'leaf', label: 'leaf', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#9adf4a" stroke="#101010" stroke-width="1.5" d="M16 5c8 4 10 12 7 18-6 1-12-3-14-10 4-5 7-7 7-8z"/><path fill="none" stroke="#101010" stroke-width="1.3" d="M16 8v16"/></svg>' },
+    { id: 'spark', label: 'spark', svg: '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff2a8" stroke="#101010" stroke-width="1.4" d="M16 3v8M16 21v8M3 16h8M21 16h8M7 7l5.5 5.5M19.5 19.5 25 25M25 7l-5.5 5.5M12.5 19.5 7 25"/></svg>' }
+  ];
+
+  var tray = desk.querySelector('[data-charm-tray]');
+  var slots = desk.querySelector('[data-charm-slots]');
+  var chain = desk.querySelector('[data-charm-chain]');
+  var pieceTabs = desk.querySelector('[data-charm-piece-tabs]');
+  var boxLabel = desk.querySelector('[data-charm-box-label]');
+  var priceEl = desk.querySelector('[data-charm-desk-price]');
+  var summaryEl = desk.querySelector('[data-charm-desk-summary]');
+  var panel = desk.closest('#charm-bar') || document.getElementById('charm-bar');
+  var form = panel ? panel.querySelector('[data-charm-booking-form]') : null;
+  var selected = [];
+  var MAX = 5;
+
+  function pieceKind(label) {
+    var l = String(label || '').toLowerCase();
+    if (l.indexOf('necklace') !== -1) return 'necklace';
+    if (l.indexOf('keychain') !== -1) return 'keychain';
+    if (l.indexOf('paracord') !== -1) return 'paracord';
+    if (l.indexOf('bag') !== -1) return 'keychain';
+    return 'bracelet';
+  }
+
+  function shortLabel(label) {
+    return String(label || 'piece').split('+')[0].trim();
+  }
+
+  function findRadios() {
+    return form ? Array.prototype.slice.call(form.querySelectorAll('input[name="_charm_piece"]')) : [];
+  }
+
+  function activeRadio() {
+    var radios = findRadios();
+    for (var i = 0; i < radios.length; i++) if (radios[i].checked) return radios[i];
+    return radios[0] || null;
+  }
+
+  function paintSlots() {
+    if (!slots) return;
+    slots.innerHTML = '';
+    for (var i = 0; i < MAX; i++) {
+      var slot = document.createElement('div');
+      slot.className = 'suas-charm-desk__slot' + (selected[i] ? ' is-filled' : '');
+      if (selected[i]) slot.innerHTML = selected[i].svg;
+      slots.appendChild(slot);
+    }
+  }
+
+  function paintTrayState() {
+    if (!tray) return;
+    Array.prototype.forEach.call(tray.querySelectorAll('[data-charm-id]'), function (btn) {
+      var on = selected.some(function (c) { return c.id === btn.getAttribute('data-charm-id'); });
+      btn.classList.toggle('is-on', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      var full = selected.length >= MAX && !on;
+      btn.disabled = full;
+    });
+  }
+
+  function paintRegister() {
+    var radio = activeRadio();
+    var price = radio ? (radio.getAttribute('data-price') || '') : '';
+    if (priceEl) priceEl.textContent = price || 'pick a piece';
+    if (summaryEl) {
+      var name = radio ? shortLabel(radio.getAttribute('data-label')) : 'piece';
+      summaryEl.textContent = selected.length + ' / ' + MAX + ' sample charms · ' + name;
+    }
+    if (boxLabel) boxLabel.textContent = radio ? shortLabel(radio.getAttribute('data-label')) : 'your piece';
+    if (chain) {
+      chain.classList.remove('is-necklace', 'is-keychain', 'is-paracord');
+      var kind = pieceKind(radio ? radio.getAttribute('data-label') : '');
+      if (kind !== 'bracelet') chain.classList.add('is-' + kind);
+    }
+  }
+
+  function syncPieceTabs() {
+    if (!pieceTabs) return;
+    var radios = findRadios();
+    pieceTabs.innerHTML = '';
+    radios.forEach(function (radio, idx) {
+      if (radio.disabled) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'suas-charm-desk__piece' + (radio.checked ? ' is-on' : '');
+      btn.textContent = shortLabel(radio.getAttribute('data-label'));
+      btn.setAttribute('aria-pressed', radio.checked ? 'true' : 'false');
+      btn.addEventListener('click', function () {
+        radio.checked = true;
+        findRadios().forEach(function (r) {
+          var lab = r.closest('label');
+          if (lab) lab.classList.toggle('is-on', r === radio);
+        });
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+        Array.prototype.forEach.call(pieceTabs.children, function (el) {
+          el.classList.remove('is-on');
+          el.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('is-on');
+        btn.setAttribute('aria-pressed', 'true');
+        paintRegister();
+      });
+      pieceTabs.appendChild(btn);
+      if (idx === 0 && !activeRadio()) {
+        radio.checked = true;
+      }
+    });
+    paintRegister();
+  }
+
+  function toggleCharm(sample) {
+    var i = selected.findIndex(function (c) { return c.id === sample.id; });
+    if (i !== -1) selected.splice(i, 1);
+    else if (selected.length < MAX) selected.push(sample);
+    paintSlots();
+    paintTrayState();
+    paintRegister();
+  }
+
+  SAMPLES.forEach(function (sample) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'suas-charm-desk__charm';
+    btn.setAttribute('data-charm-id', sample.id);
+    btn.setAttribute('aria-pressed', 'false');
+    btn.innerHTML = sample.svg + '<span>' + sample.label + '</span><small>sample</small>';
+    btn.addEventListener('click', function () { toggleCharm(sample); });
+    tray.appendChild(btn);
+  });
+
+  paintSlots();
+  syncPieceTabs();
+  paintTrayState();
+
+  if (form) {
+    form.addEventListener('change', function (e) {
+      if (e.target && e.target.name === '_charm_piece') syncPieceTabs();
+    });
+  }
+
+  var clearBtn = desk.querySelector('[data-charm-clear]');
+  if (clearBtn) clearBtn.addEventListener('click', function () {
+    selected = [];
+    paintSlots();
+    paintTrayState();
+    paintRegister();
+  });
+
+  function jumpToForm() {
+    var target = form || panel;
+    if (!target) return;
+    if (panel && panel.hasAttribute('hidden')) {
+      var tab = document.getElementById('book-tab-charm');
+      if (tab) tab.click();
+    }
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var date = form ? form.querySelector('#BookCharmDate') : null;
+    if (date) setTimeout(function () { date.focus(); }, 350);
+  }
+
+  var jump = desk.querySelector('[data-charm-jump-form]');
+  var cta = desk.querySelector('[data-charm-book-cta]');
+  if (jump) jump.addEventListener('click', jumpToForm);
+  if (cta) cta.addEventListener('click', jumpToForm);
+})();
+</script>

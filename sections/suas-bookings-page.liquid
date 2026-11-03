@@ -445,6 +445,7 @@
             <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
           </div>
         </div>
+        {% render 'suas-charm-desk' %}
         {% if charm_product != blank %}
           <form class="suas-book-form" data-charm-booking-form>
             <div class="suas-type-grid is-charm" data-charm-types>
