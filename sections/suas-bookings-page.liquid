@@ -91,7 +91,8 @@
     .suas-type-card.is-soon.is-on{background:#9a9590;color:#fff}
     .suas-type-card.is-soon small,.suas-type-card.is-soon b,.suas-type-card.is-soon strong,.suas-type-card.is-soon em{color:rgba(16,16,16,.72)}
     .suas-book-option.is-soon{opacity:.72;filter:grayscale(.35)}
-    .suas-book-option.is-soon .suas-book-form{pointer-events:none}
+    .suas-book-option.is-soon .suas-book-form,
+    .suas-book-option.is-soon .suas-charm-desk{pointer-events:none}
     .suas-book-soon-note{grid-column:1/-1;margin:0 12px 12px;border:2px solid var(--ink);background:#d8d4cc;padding:10px 12px;font:800 13px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.78)}
     .suas-type-card:focus-within{outline:3px solid var(--ink);outline-offset:3px}
     .suas-type-card.is-soon:focus-within{outline:none}
@@ -169,7 +170,7 @@
         <div class="suas-book-tabs" data-book-tabs role="tablist" aria-label="Booking type">
           <button class="suas-book-tab is-on" type="button" data-kind="self" role="tab" aria-selected="true" aria-controls="self-guided" id="book-tab-self" tabindex="0">self-guided</button>
           <button class="suas-book-tab is-soon" type="button" data-kind="guided" role="tab" aria-selected="false" aria-controls="guided-class" id="book-tab-guided" aria-disabled="true" tabindex="-1" title="Guided classes are not open yet">guided</button>
-          <button class="suas-book-tab" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm" tabindex="-1">charm bar</button>
+          <button class="suas-book-tab is-soon" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm" aria-disabled="true" tabindex="-1" title="Charm Bar bookings are not open yet">charm bar</button>
         </div>
       </div>
       <div class="suas-book-panel">
@@ -178,7 +179,7 @@
           <p style="--chip:#cdeeff;"><b>Store</b>Thu-Sat 12:30-7:30 PM<br>Sun 12:00-5:00 PM<br>Mon-Wed closed</p>
           <p style="--chip:#ffe8ef;"><b>Self-guided Lab</b>Thu-Fri 1:00-5:00 PM<br>Sat-Sun 1:00-4:00 PM<br>Walk-ins if a seat's open</p>
           <p style="--chip:#d8d4cc;"><b>Guided ? soon</b>Not open for booking yet. We'll announce when seats drop.</p>
-          <p style="--chip:#fff2a8;"><b>Charm Bar</b>4 seats / 45 min<br>Same days as self-guided</p>
+          <p style="--chip:#d8d4cc;"><b>Charm Bar ? soon</b>4 seats / 45 min<br>Not open for booking yet.</p>
         </div>
         <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 14 seats/hour ? Charm 4/slot. Closed Mon-Wed.</p>
       </div>
@@ -348,7 +349,7 @@
             <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price" data-guided-price aria-live="polite">$85.00</strong></div>
           </div>
         </div>
-        <p class="suas-book-soon-note">Guided classes and Signature Collection are not open yet. Book self-guided or Charm Bar for now.</p>
+        <p class="suas-book-soon-note">Guided classes and Signature Collection are not open yet. Book self-guided for now.</p>
 
         {% if deluxe_product != blank %}
           {% form 'product', deluxe_product, class:'suas-book-form', data-booking-form:'guided' %}
@@ -432,11 +433,11 @@
         {% endif %}
       </div>
 
-      <div class="suas-book-option" id="charm-bar" role="tabpanel" aria-labelledby="book-tab-charm" hidden style="--card:#fff2a8;">
+      <div class="suas-book-option is-soon" id="charm-bar" role="tabpanel" aria-labelledby="book-tab-charm" aria-disabled="true" hidden style="--card:#fff2a8;">
         <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Charm bar details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
-            <span class="suas-book-badge">charm bar ? 4 seats ? 45 min</span>
+            <span class="suas-book-badge">charm bar ? soon</span>
             <h2>Build your little extra</h2>
             <p class="suas-book-desc" data-charm-description>Pick a piece, add extras, and hold a seat. Same days as self-guided Lab hours.</p>
           </div>
@@ -445,6 +446,7 @@
             <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
           </div>
         </div>
+        <p class="suas-book-soon-note">Charm Bar is not open for booking yet. Self-guided Lab seats are live.</p>
         {% render 'suas-charm-desk' %}
         {% if charm_product != blank %}
           <form class="suas-book-form" data-charm-booking-form>
@@ -671,7 +673,7 @@
       }
 
       function showBookKind(kind) {
-        if (kind === 'guided') kind = 'self';
+        if (kind === 'guided' || kind === 'charm') kind = 'self';
         var selfCard = root.querySelector('#self-guided');
         var guidedCard = root.querySelector('#guided-class');
         var charmCard = root.querySelector('#charm-bar');
@@ -683,7 +685,7 @@
         }
         setPanel(selfCard, kind === 'self');
         setPanel(guidedCard, false);
-        setPanel(charmCard, kind === 'charm');
+        setPanel(charmCard, false);
         root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
           var on = tab.getAttribute('data-kind') === kind;
           tab.classList.toggle('is-on', on);
@@ -699,20 +701,19 @@
           field.removeAttribute('required');
         });
         root.querySelectorAll('#charm-bar [required], #charm-bar select[name="id"]').forEach(function (field) {
-          if (kind === 'charm') field.setAttribute('required', 'required');
-          else field.removeAttribute('required');
+          field.removeAttribute('required');
         });
       }
       root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
         tab.addEventListener('click', function () {
-          if (tab.getAttribute('data-kind') === 'guided' || tab.getAttribute('aria-disabled') === 'true') return;
+          if (tab.getAttribute('aria-disabled') === 'true') return;
           showBookKind(tab.getAttribute('data-kind'));
         });
         tab.addEventListener('keydown', function (event) {
           if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
           event.preventDefault();
           var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-book-tabs] .suas-book-tab')).filter(function (t) {
-            return t.getAttribute('data-kind') !== 'guided' && t.getAttribute('aria-disabled') !== 'true';
+            return t.getAttribute('aria-disabled') !== 'true';
           });
           var i = tabs.indexOf(tab);
           if (i < 0) i = 0;
@@ -721,9 +722,7 @@
           next.focus();
         });
       });
-      var startKind = 'self';
-      if ((location.hash || '').indexOf('charm') !== -1) startKind = 'charm';
-      showBookKind(startKind);
+      showBookKind('self');
 
       function dateDay(value) {
         if (!value) return null;
