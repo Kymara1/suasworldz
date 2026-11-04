@@ -177,7 +177,7 @@
         <div class="suas-book-bar" style="background:#e23d8a"><b>S 2. Hours</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-hours-grid">
           <p style="--chip:#cdeeff;"><b>Store</b>Thu-Sat 12:30-7:30 PM<br>Sun 12:00-5:00 PM<br>Mon-Wed closed</p>
-          <p style="--chip:#ffe8ef;"><b>Self-guided Lab</b>Thu-Fri 1:00-5:00 PM<br>Sat-Sun 1:00-4:00 PM<br>Walk-ins if a seat's open</p>
+          <p style="--chip:#ffe8ef;"><b>Self-guided Lab</b>Thu-Sun 1:00-6:00 PM<br>Walk-ins if a seat's open</p>
           <p style="--chip:#d8d4cc;"><b>Guided ? soon</b>Not open for booking yet. We'll announce when seats drop.</p>
           <p style="--chip:#d8d4cc;"><b>Charm Bar ? soon</b>4 seats / 45 min<br>Not open for booking yet.</p>
         </div>
@@ -324,7 +324,7 @@
             <div class="suas-book-field" data-wide>
               <label class="suas-book-label" for="ParfumTime">arrival time</label>
               <div class="suas-time-chips" data-self-chips></div>
-              <select class="suas-book-select suas-time-select suas-visually-hidden" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select>
+              <select class="suas-book-select suas-time-select suas-visually-hidden" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option></select>
             </div>
             <p class="suas-book-note">You pay now. Checkout holds the seat. We get the paid order in our inbox.</p>
             <div class="suas-book-task">
@@ -571,10 +571,10 @@
       var stamp = nyStamp() > OPENS ? nyStamp() : OPENS;
       var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       var selfTimes = {
-        0: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'],
-        4: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'],
-        5: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'],
-        6: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM']
+        0: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'],
+        4: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'],
+        5: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'],
+        6: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM']
       };
       var guidedTimes = {
         4: ['Thursday 6:00 PM - 7:15 PM'],
@@ -850,7 +850,7 @@
           var options = selfTimes[day] || [];
           if (!options.length || options.indexOf(selfTime.value) === -1) {
             event.preventDefault();
-            alert('That self-guided time is outside the Lab window. Thursday and Friday are 1:00 PM - 5:00 PM. Saturday and Sunday are 1:00 PM - 4:00 PM.');
+            alert('That self-guided time is outside the Lab window. Thursday through Sunday arrivals are 1:00 PM - 6:00 PM.');
             return;
           }
           var guests = Math.max(1, Number((selfQty && selfQty.value) || 1));
