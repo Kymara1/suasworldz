@@ -1,14 +1,32 @@
-/* Hide the control-panel native scrollbar */
+/* Keep control-panel scrollbar visible when the menu overflows */
 .suas-side-nav,
 .suas-panel-nav {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+  scrollbar-gutter: stable !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: #101010 rgba(16, 16, 16, 0.12) !important;
 }
 .suas-side-nav::-webkit-scrollbar,
 .suas-panel-nav::-webkit-scrollbar {
-  width: 0 !important;
-  height: 0 !important;
-  display: none !important;
+  width: 10px !important;
+  height: 10px !important;
+  display: block !important;
+}
+.suas-side-nav::-webkit-scrollbar-track,
+.suas-panel-nav::-webkit-scrollbar-track {
+  background: rgba(16, 16, 16, 0.1) !important;
+  border-radius: 999px !important;
+  margin: 6px 0 !important;
+}
+.suas-side-nav::-webkit-scrollbar-thumb,
+.suas-panel-nav::-webkit-scrollbar-thumb {
+  background: #101010 !important;
+  border: 2px solid #f6f7fa !important;
+  border-radius: 999px !important;
+}
+.suas-side-nav::-webkit-scrollbar-thumb:hover,
+.suas-panel-nav::-webkit-scrollbar-thumb:hover {
+  background: #d9ff78 !important;
+  border-color: #101010 !important;
 }
 
 /* 4 bubbles per row on mobile - minimal + safe */
@@ -202,15 +220,33 @@ nav *,
   }
 
   .suas-side-nav {
-    padding: 4px 10px 8px !important;
-    scrollbar-width: none !important;
-    -ms-overflow-style: none !important;
+    padding: 4px 6px 8px 10px !important;
+    scrollbar-gutter: stable !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #101010 rgba(16, 16, 16, 0.12) !important;
   }
 
   .suas-side-nav::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
-    display: none !important;
+    width: 10px !important;
+    height: 10px !important;
+    display: block !important;
+  }
+
+  .suas-side-nav::-webkit-scrollbar-track {
+    background: rgba(16, 16, 16, 0.1) !important;
+    border-radius: 999px !important;
+    margin: 6px 0 !important;
+  }
+
+  .suas-side-nav::-webkit-scrollbar-thumb {
+    background: #101010 !important;
+    border: 2px solid #f6f7fa !important;
+    border-radius: 999px !important;
+  }
+
+  .suas-side-nav::-webkit-scrollbar-thumb:hover {
+    background: #d9ff78 !important;
+    border-color: #101010 !important;
   }
 
   .suas-side-link {
