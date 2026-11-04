@@ -39,12 +39,25 @@
   endif
 
   assign is_lab_experiment = false
+  assign is_clearance = false
   if product.handle contains 'lab-session' or product.handle contains 'deluxe-lab'
     assign is_lab_experiment = true
+  endif
+  if collection.handle == 'clearance'
+    assign is_clearance = true
   endif
   for lab_col in product.collections
     if lab_col.handle == 'the-lab' or lab_col.handle == 'lab'
       assign is_lab_experiment = true
+    endif
+    if lab_col.handle == 'clearance'
+      assign is_clearance = true
+    endif
+  endfor
+  for product_tag in product.tags
+    assign clearance_tag = product_tag | downcase | strip
+    if clearance_tag == 'clearance' or clearance_tag == 'sale'
+      assign is_clearance = true
     endif
   endfor
   if is_lab_experiment
@@ -150,26 +163,35 @@
       <div class="product--label">
         {{ out_of_stock_t }}
       </div>
-
-    {% elsif show_sale_label and compare_price and onboarding == false %}
+    {% elsif onboarding == false %}
       {%- liquid
-        if show_sale_label == 'show-text'
-          assign sale_text = sale_t
-        elsif show_sale_label == 'show-percent'
-          assign price_diff = product.compare_at_price | minus: product.price
-          assign percent_diff = price_diff | times: 100 | divided_by: product.compare_at_price
-          assign sale_text = percent_diff | append: '% ' | append: off_t
+        assign show_sale_badge = false
+        assign sale_text = 'sale'
+        if is_clearance
+          assign show_sale_badge = true
+          assign sale_text = 'sale'
+        endif
+        if compare_price
+          if show_sale_label == 'show-percent'
+            assign price_diff = product.compare_at_price | minus: product.price
+            assign percent_diff = price_diff | times: 100 | divided_by: product.compare_at_price
+            assign sale_text = percent_diff | append: '% ' | append: off_t
+            assign show_sale_badge = true
+          elsif show_sale_label or is_clearance
+            assign sale_text = sale_t | default: 'sale'
+            assign show_sale_badge = true
+          endif
         endif
       -%}
-
-      <div class="product--label">
-        {{ sale_text }}
-      </div>
-
-    {% elsif show_new_label and is_new_product and onboarding == false %}
-      <div class="product--label">
-        {{ new_t }}
-      </div>
+      {% if show_sale_badge %}
+        <div class="product--label is-sale">
+          {{ sale_text }}
+        </div>
+      {% elsif show_new_label and is_new_product %}
+        <div class="product--label">
+          {{ new_t }}
+        </div>
+      {% endif %}
     {% endunless %}
 
     {%- liquid

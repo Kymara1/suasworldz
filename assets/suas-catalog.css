@@ -405,9 +405,19 @@ html body.template--collection .suas-catalog-card .product--label {
   letter-spacing: .08em;
   text-transform: uppercase;
 }
+html body.template--collection .suas-catalog-card .product--label.is-sale,
+html body.template--search .suas-catalog-card .product--label.is-sale {
+  background: #d9ff78;
+  color: #101010;
+  transform: rotate(-8deg);
+}
 html body.template--collection .suas-catalog-card .product--label:not(:empty)::before {
   content: '*';
   margin-right: 2px;
+}
+html body.template--collection .suas-catalog-card .product--label.is-sale:not(:empty)::before,
+html body.template--search .suas-catalog-card .product--label.is-sale:not(:empty)::before {
+  content: '%';
 }
 html body.template--collection .suas-catalog-card .product--quick-add {
   display: none !important;
