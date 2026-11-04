@@ -407,9 +407,14 @@ html body.template--collection .suas-catalog-card .product--label {
 }
 html body.template--collection .suas-catalog-card .product--label.is-sale,
 html body.template--search .suas-catalog-card .product--label.is-sale {
+  min-height: 28px;
+  padding: 5px 12px;
   background: #d9ff78;
   color: #101010;
   transform: rotate(-8deg);
+  font-size: 10px;
+  letter-spacing: .1em;
+  box-shadow: 0 3px 0 #101010;
 }
 html body.template--collection .suas-catalog-card .product--label:not(:empty)::before {
   content: '*';
