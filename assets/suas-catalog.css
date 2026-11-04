@@ -417,7 +417,8 @@ html body.template--collection .suas-catalog-card .product--label:not(:empty)::b
 }
 html body.template--collection .suas-catalog-card .product--label.is-sale:not(:empty)::before,
 html body.template--search .suas-catalog-card .product--label.is-sale:not(:empty)::before {
-  content: '%';
+  content: none;
+  margin: 0;
 }
 html body.template--collection .suas-catalog-card .product--quick-add {
   display: none !important;
