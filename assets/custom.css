@@ -1,32 +1,67 @@
-/* Keep control-panel scrollbar visible when the menu overflows */
+/* Native scrollbar backup + permanent custom track (Windows overlay scrollbars hide) */
 .suas-side-nav,
 .suas-panel-nav {
+  overflow-y: scroll !important;
   scrollbar-gutter: stable !important;
-  scrollbar-width: thin !important;
-  scrollbar-color: #101010 rgba(16, 16, 16, 0.12) !important;
+  scrollbar-width: auto !important;
+  scrollbar-color: #101010 rgba(16, 16, 16, 0.14) !important;
 }
 .suas-side-nav::-webkit-scrollbar,
 .suas-panel-nav::-webkit-scrollbar {
-  width: 10px !important;
-  height: 10px !important;
+  width: 12px !important;
+  height: 12px !important;
   display: block !important;
+  background: rgba(16, 16, 16, 0.08) !important;
 }
 .suas-side-nav::-webkit-scrollbar-track,
 .suas-panel-nav::-webkit-scrollbar-track {
-  background: rgba(16, 16, 16, 0.1) !important;
+  background: rgba(16, 16, 16, 0.12) !important;
   border-radius: 999px !important;
-  margin: 6px 0 !important;
+  margin: 4px 0 !important;
+  border: 1.5px solid #101010 !important;
 }
 .suas-side-nav::-webkit-scrollbar-thumb,
 .suas-panel-nav::-webkit-scrollbar-thumb {
-  background: #101010 !important;
-  border: 2px solid #f6f7fa !important;
+  background: #d9ff78 !important;
+  border: 1.5px solid #101010 !important;
   border-radius: 999px !important;
 }
 .suas-side-nav::-webkit-scrollbar-thumb:hover,
 .suas-panel-nav::-webkit-scrollbar-thumb:hover {
-  background: #d9ff78 !important;
-  border-color: #101010 !important;
+  background: #ff9bc4 !important;
+}
+
+/* Always-on custom rail so scroll is obvious even with overlay scrollbars */
+.suas-side-rail {
+  position: fixed;
+}
+.suas-side-scroller {
+  display: none;
+  position: absolute;
+  right: 5px;
+  width: 10px;
+  box-sizing: border-box;
+  border: 1.5px solid #101010;
+  border-radius: 999px;
+  background: rgba(16, 16, 16, 0.1);
+  z-index: 6;
+  pointer-events: none;
+}
+.suas-side-scroller.is-on {
+  display: block;
+}
+.suas-side-scroller-thumb {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  box-sizing: border-box;
+  border: 1.5px solid #101010;
+  border-radius: 999px;
+  background: #d9ff78;
+  box-shadow: 0 2px 0 #101010;
+}
+.suas-side-nav.is-scrollable {
+  box-shadow: inset 0 -18px 16px -16px rgba(16, 16, 16, 0.22);
 }
 
 /* 4 bubbles per row on mobile - minimal + safe */
@@ -221,32 +256,34 @@ nav *,
 
   .suas-side-nav {
     padding: 4px 6px 8px 10px !important;
+    overflow-y: scroll !important;
     scrollbar-gutter: stable !important;
-    scrollbar-width: thin !important;
-    scrollbar-color: #101010 rgba(16, 16, 16, 0.12) !important;
+    scrollbar-width: auto !important;
+    scrollbar-color: #101010 rgba(16, 16, 16, 0.14) !important;
   }
 
   .suas-side-nav::-webkit-scrollbar {
-    width: 10px !important;
-    height: 10px !important;
+    width: 12px !important;
+    height: 12px !important;
     display: block !important;
+    background: rgba(16, 16, 16, 0.08) !important;
   }
 
   .suas-side-nav::-webkit-scrollbar-track {
-    background: rgba(16, 16, 16, 0.1) !important;
+    background: rgba(16, 16, 16, 0.12) !important;
     border-radius: 999px !important;
-    margin: 6px 0 !important;
+    margin: 4px 0 !important;
+    border: 1.5px solid #101010 !important;
   }
 
   .suas-side-nav::-webkit-scrollbar-thumb {
-    background: #101010 !important;
-    border: 2px solid #f6f7fa !important;
+    background: #d9ff78 !important;
+    border: 1.5px solid #101010 !important;
     border-radius: 999px !important;
   }
 
   .suas-side-nav::-webkit-scrollbar-thumb:hover {
-    background: #d9ff78 !important;
-    border-color: #101010 !important;
+    background: #ff9bc4 !important;
   }
 
   .suas-side-link {
