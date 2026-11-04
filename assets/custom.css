@@ -667,10 +667,15 @@ html body .suas-world-home .suas-aisle h3 {
 }
 
 @media (max-width: 749px) {
-  .suas-bookings-page .suas-book-wrap { width: min(100% - 20px, 520px) !important; }
+  .suas-bookings-page .suas-book-wrap { width: calc(100% - 10px) !important; max-width: none !important; margin-left: auto !important; margin-right: auto !important; }
+  .suas-bookings-page .suas-book-top,
+  .suas-bookings-page .suas-book-grid { padding-left: 8px !important; padding-right: 8px !important; }
+  .suas-bookings-page .suas-book-rules { margin: 0 8px 12px !important; }
+  .suas-bookings-page .suas-book-rules-list { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+  .suas-bookings-page .suas-book-rules-list li { padding: 8px 9px !important; font-size: 12px !important; line-height: 1.3 !important; }
   .suas-bookings-page .suas-book-hero { gap: 10px !important; }
   .suas-bookings-page .suas-book-grid { gap: 12px !important; }
-          .suas-bookings-page .suas-book-option h2 { font-size: clamp(1.15rem, 5.5vw, 1.6rem) !important; }
+  .suas-bookings-page .suas-book-option h2 { font-size: clamp(1.15rem, 5.5vw, 1.6rem) !important; }
 }
 
 .template--product,
