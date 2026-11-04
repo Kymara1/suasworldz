@@ -52,8 +52,8 @@
       "type": "collection--navigation",
       "settings": {
         "show-browse-button": false,
-        "show-sort-button": true,
-        "show-refine-button": true,
+        "show-sort-button": false,
+        "show-refine-button": false,
         "show-layout-buttons": false,
         "show-collections-list": false,
         "custom-list-collections": "",
