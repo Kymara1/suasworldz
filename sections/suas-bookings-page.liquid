@@ -32,6 +32,16 @@
     .suas-book-hours-grid p b{display:block;margin-bottom:4px;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
     .suas-book-walkin{display:none}
     .suas-book-hours-note{grid-column:1/-1;margin:0;padding:0 12px 12px;font:700 11px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.7)}
+    .suas-book-rules{margin:0 18px 14px;padding:0;display:grid}
+    .suas-book-rules-body{display:grid;gap:8px;padding:12px}
+    .suas-book-rules-body h2{margin:0;font-size:clamp(1.35rem,2.4vw,2rem);line-height:.9}
+    .suas-book-rules-list{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+    .suas-book-rules-list li{margin:0;padding:10px 12px;border:2px solid #101010;background:#fff;font:800 13px/1.4 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.82)}
+    .suas-book-rules-list li b{display:inline;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#101010}
+    .suas-book-rules-list li:nth-child(4n+1){background:#ffe8ef}
+    .suas-book-rules-list li:nth-child(4n+2){background:#cdeeff}
+    .suas-book-rules-list li:nth-child(4n+3){background:#d9ff78}
+    .suas-book-rules-list li:nth-child(4n+4){background:#fff1a8}
     .suas-book-grid{display:grid;gap:14px;grid-template-columns:1fr!important;padding:0 18px 8px}
     .suas-book-option{display:none!important;gap:0;background:var(--cream);padding:0;scroll-margin-top:88px}
     .suas-book-option.is-open{display:grid!important}
@@ -184,6 +194,23 @@
         <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 14 seats/hour ? Charm 4/slot. Closed Mon-Wed.</p>
       </div>
     </div>
+
+    <aside class="suas-book-panel suas-book-rules" aria-labelledby="suas-lab-rules-title">
+      <div class="suas-book-bar" style="background:#101010;color:#fff"><b>S 2b. Lab rules</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="suas-book-rules-body">
+        <h2 id="suas-lab-rules-title">read before you book.</h2>
+        <ul class="suas-book-rules-list">
+          <li><b>No food or drinks</b> in The Lab. Water stays outside the mix zone.</li>
+          <li><b>Kids under 10</b> need a parent or guardian with them the whole time for any self-guided experiment.</li>
+          <li><b>Arrival window</b> — show up on your booked hour. Late arrivals may lose the seat if the Lab is full.</li>
+          <li><b>Closed-toe shoes</b> preferred. You’re standing, pouring, and moving around stations.</li>
+          <li><b>Allergies / skin</b> — tell us before you mix if you have fragrance or ingredient sensitivities. Patch-test vibes only; we can’t guarantee a reaction-free formula.</li>
+          <li><b>Hands + hair</b> — keep hands clean, hair tied back if it gets in the way. No tasting oils. Ever.</li>
+          <li><b>Respect the room</b> — leave stations wiped, lids closed, and labels readable for the next guest.</li>
+          <li><b>Photos ok</b> — film your mix, not other guests’ faces or formulas without asking.</li>
+        </ul>
+      </div>
+    </aside>
 
     <div class="suas-book-grid">
       {% liquid
