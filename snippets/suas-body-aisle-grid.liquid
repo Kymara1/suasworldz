@@ -7,7 +7,7 @@
     assign type_order = 'Candles|Everything Mist|Burnt Oils|Incense|Carpet Dust|All Purpose Cleaner|More home'
     assign aisle_tint = 'is-home'
   else
-    assign type_order = 'Butter Creme|Body Wash|Body Oil|Cleansing Bar|Body Scrub|Perfume|Cologne|Skin Jelly|Exfoliating Body Wash|Beard|More body'
+    assign type_order = 'Butter Creme|Body Wash|Body Oil|Cleansing Bar|Butter Scrub|Perfume|Cologne|Skin Jelly|Exfoliating Body Wash|Beard|More body'
     assign aisle_tint = 'is-body'
   endif
   assign type_order_arr = type_order | split: '|'
@@ -54,7 +54,7 @@
           elsif hay contains 'cleansing' or hay contains 'soap bar'
             assign suas_kind = 'Cleansing Bar'
           elsif hay contains 'scrub' or hay contains 'polish'
-            assign suas_kind = 'Body Scrub'
+            assign suas_kind = 'Butter Scrub'
           elsif hay contains 'body wash' or hay contains 'shower'
             assign suas_kind = 'Body Wash'
           elsif hay contains 'hair oil'
