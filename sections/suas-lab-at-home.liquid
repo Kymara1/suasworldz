@@ -73,6 +73,17 @@
         {%- endif -%}
         <h1 class="suas-lah-title">{{ section.settings.heading | escape }}</h1>
         <p class="suas-lah-sub">{{ section.settings.copy | escape }}</p>
+        <div class="suas-lah-includes">
+          <p class="suas-lah-includes-label">each kit includes</p>
+          <ul class="suas-lah-includes-list">
+            <li>mixing beaker</li>
+            <li>mixing stirrer</li>
+            <li>measurement tubes</li>
+            <li>filled vials with your selected scent notes</li>
+            <li>formula card</li>
+            <li>directions</li>
+          </ul>
+        </div>
       </header>
 
       <div class="suas-lah-body">
@@ -164,7 +175,7 @@
   "settings": [
     {"type":"text","id":"kicker","label":"Kicker (optional)","default":""},
     {"type":"text","id":"heading","label":"Heading","default":"the lab @ home"},
-    {"type":"textarea","id":"copy","label":"Copy","default":"Curate your own DIY kit — we ship everything you need so you can mix your formula at home. Pick a kit, pour your notes, name it, check out."},
+    {"type":"textarea","id":"copy","label":"Copy","default":"Curate your DIY kit online — we pack it, you mix at home. Pick a kit, pour your notes, name it, check out."},
     {"type":"header","content":"Products"},
     {"type":"product","id":"perfume_product","label":"Perfume kit product"},
     {"type":"product","id":"oil_product","label":"Body oil kit product"},
