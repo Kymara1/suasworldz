@@ -46,14 +46,15 @@
       label: 'cylinder',
       src: root.getAttribute('data-bottle-cylinder') || '',
       // top / right / bottom / left — cavity inside clear glass body
-      fillInset: '28% 34% 12% 34%',
+      // top / right / bottom / left — glass cavity only (under the blend layer)
+      fillInset: '27% 36% 11% 36%',
       finish: 'silver sprayer'
     },
     round: {
       id: 'round',
       label: 'round',
       src: root.getAttribute('data-bottle-round') || '',
-      fillInset: '30% 22% 14% 22%',
+      fillInset: '29% 24% 13% 24%',
       finish: 'silver sprayer'
     }
   };
@@ -63,14 +64,14 @@
       id: 'oil',
       label: 'airless pump',
       src: root.getAttribute('data-bottle-oil') || '',
-      fillInset: '30% 28% 14% 28%',
+      fillInset: '29% 30% 13% 30%',
       finish: 'white pump · clear cap'
     },
     rollon: {
       id: 'rollon',
       label: 'roll-on',
       src: root.getAttribute('data-bottle-rollon') || '',
-      fillInset: '30% 32% 14% 32%',
+      fillInset: '29% 34% 13% 34%',
       finish: 'white cap · rollerball'
     }
   };
@@ -124,7 +125,6 @@
     photoFill: root.querySelector('[data-lah-photo-fill]'),
     liquid: root.querySelector('[data-lah-liquid]'),
     fillStatus: root.querySelector('[data-lah-fill-status]'),
-    recipe: root.querySelector('[data-lah-recipe]'),
     name: root.querySelector('[data-lah-name]'),
     atc: root.querySelector('[data-lah-atc]'),
     error: root.querySelector('[data-lah-error]'),
@@ -444,29 +444,6 @@
     }
     if (els.fillStatus) {
       els.fillStatus.textContent = filled + ' / ' + vol + ' mL filled';
-    }
-    if (els.recipe) {
-      if (!filled) {
-        els.recipe.innerHTML = '';
-      } else {
-        els.recipe.innerHTML = kit.slots.map(function (slot, index) {
-          if (!state.picks[index]) return '';
-          var note = noteById(state.picks[index]);
-          return '<li><strong>' + escapeHtml(slot.amountMl + ' mL') + '</strong> ' + escapeHtml(note ? note.label : '') +
-            (slot.role === 'base' ? ' <em>(base)</em>' : '') + '</li>';
-        }).join('');
-        els.recipe.innerHTML += '<li><em>bottle:</em> ' + escapeHtml(bottle.label) +
-          (bottle.finish ? ' · ' + escapeHtml(bottle.finish) : '') + '</li>';
-      }
-      if (state.mode === 'trio') {
-        TRIO_ORDER.forEach(function (key) {
-          if (key === state.trioStep) return;
-          var saved = state.trioFormulas[key];
-          if (!saved) return;
-          els.recipe.innerHTML += '<li><em>' + escapeHtml(TRIO_LABELS[key]) + ':</em> ' +
-            escapeHtml(saved.name) + ' · ' + escapeHtml(formulaLine(saved)) + '</li>';
-        });
-      }
     }
 
     if (els.atc) {

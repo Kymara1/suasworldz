@@ -632,17 +632,21 @@ a.suas-lah-winbtn:focus-visible {
   max-height: 240px;
   object-fit: contain;
   position: relative;
-  z-index: 2;
+  z-index: 1;
   filter: drop-shadow(0 10px 12px rgba(17, 17, 17, 0.2));
   pointer-events: none;
 }
 .suas-lah-photo-fill {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   overflow: hidden;
-  border-radius: 42% / 12%;
+  border-radius: 46% / 14%;
   pointer-events: none;
   background: transparent;
+  /* tint glass so liquid reads inside the bottle, not as a plate behind it */
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(#000, #000);
+  mask-image: linear-gradient(#000, #000);
 }
 .suas-lah-photo-liquid {
   position: absolute;
@@ -650,13 +654,12 @@ a.suas-lah-winbtn:focus-visible {
   right: 0;
   bottom: 0;
   height: 0%;
-  border-radius: 40% 40% 8% 8% / 12% 12% 8% 8%;
+  border-radius: 42% 42% 10% 10% / 14% 14% 10% 10%;
   transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease;
   box-shadow:
-    inset 0 8px 12px rgba(255, 255, 255, 0.35),
-    inset 0 -6px 10px rgba(0, 0, 0, 0.18),
-    0 0 22px color-mix(in srgb, var(--liquid, var(--hot)) 55%, transparent);
-  opacity: 0.92;
+    inset 0 10px 14px rgba(255, 255, 255, 0.45),
+    inset 0 -8px 12px rgba(0, 0, 0, 0.22);
+  opacity: 1;
 }
 .suas-lah-photo-stage[data-bottle='round'] { width: min(150px, 84%); }
 .suas-lah-photo-stage[data-bottle='round'] .suas-lah-photo-fill { border-radius: 42% / 16%; }
@@ -668,22 +671,6 @@ a.suas-lah-winbtn:focus-visible {
 .suas-lah-photo-stage[data-shape='rollon'] { width: min(96px, 56%); }
 .suas-lah-photo-stage[data-bottle='rollon'] .suas-lah-photo-fill,
 .suas-lah-photo-stage[data-shape='rollon'] .suas-lah-photo-fill { border-radius: 40% / 10%; }
-
-.suas-lah-recipe {
-  width: 100%;
-  margin: 8px 0 0;
-  padding: 0;
-  list-style: none;
-  text-align: left;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.35;
-  max-height: 100px;
-  overflow: auto;
-}
-.suas-lah-recipe li { margin: 0 0 2px; }
-.suas-lah-recipe strong { font-weight: 900; }
-.suas-lah-recipe em { font-style: normal; color: rgba(17, 17, 17, 0.55); }
 
 .suas-lah-name-row { display: grid; gap: 6px; justify-items: stretch; }
 .suas-lah-name-row label {
@@ -884,12 +871,6 @@ a.suas-lah-winbtn:focus-visible {
   }
   .suas-lah-photo-body,
   .suas-lah-photo-bottle { max-height: 150px; }
-  .suas-lah-recipe {
-    max-height: 72px;
-    margin: 2px 0 0;
-    font-size: 9px;
-    width: 100%;
-  }
   .suas-lah-bottle-pick { width: 100%; }
   .suas-lah-bottle-options { grid-template-columns: 1fr; gap: 3px; }
   .suas-lah-bottle-opt { min-height: 26px; font-size: 9px; }

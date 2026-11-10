@@ -68,12 +68,13 @@
     .suas-seat-meter span{font:900 9px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.65;text-align:right}
     .suas-seat-meter.is-full{background:var(--pink)}
     .suas-seat-meter.is-low{background:var(--sun)}
-    .suas-book-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0 12px 12px}
-    .suas-book-field{display:grid;gap:4px}
+    .suas-book-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:4px 12px 14px}
+    .suas-book-field{display:grid;gap:5px;padding:8px;border:2px solid var(--ink);border-radius:14px;background:linear-gradient(180deg,#fff 0%,#fff7fb 100%);box-shadow:2px 2px 0 rgba(16,16,16,.18)}
     .suas-book-field[data-wide],.suas-book-button,.suas-book-note,.suas-book-addons,.suas-book-contact,.suas-type-grid,.suas-plus-choice,.suas-time-chips,.suas-book-task{grid-column:1/-1}
-    .suas-book-label{color:rgba(16,16,16,.7)}
-    .suas-book-input,.suas-book-select,.suas-bookings-page select.suas-book-select,.suas-bookings-page select.suas-time-select{position:static!important;width:100%!important;height:auto!important;min-height:40px!important;opacity:1!important;pointer-events:auto!important;appearance:auto!important;border:2px solid var(--ink);border-radius:0;padding:8px 10px;background:#fff;color:var(--ink);font:800 16px/1.2 Tahoma,Arial,sans-serif;outline:none}
-    .suas-book-input:focus,.suas-book-select:focus{outline:3px solid var(--ink);outline-offset:2px}
+    .suas-book-field[data-wide]{background:linear-gradient(180deg,#fff 0%,#f3ffe0 100%)}
+    .suas-book-label{color:rgba(16,16,16,.72);font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .suas-book-input,.suas-book-select,.suas-bookings-page select.suas-book-select,.suas-bookings-page select.suas-time-select{position:static!important;width:100%!important;height:auto!important;min-height:42px!important;opacity:1!important;pointer-events:auto!important;appearance:auto!important;border:2px solid var(--ink);border-radius:999px;padding:8px 12px;background:#fff;color:var(--ink);font:800 16px/1.2 Tahoma,Arial,sans-serif;outline:none;box-shadow:inset 0 1px 0 #fff}
+    .suas-book-input:focus,.suas-book-select:focus{outline:3px solid var(--ink);outline-offset:2px;background:#fffaf0}
     .suas-book-addons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .suas-book-addon{min-height:48px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:2px solid var(--ink);padding:8px 10px;background:#fff;cursor:pointer}
     .suas-book-addon input{width:18px;height:18px;accent-color:#101010}
@@ -81,13 +82,13 @@
     .suas-book-addon span{font-size:12px;font-weight:900;white-space:nowrap}
     .suas-book-addon:has(input:checked){background:var(--sun);box-shadow:0 3px 0 var(--ink)}
     .suas-book-addon:has(input:disabled){opacity:.48;cursor:not-allowed}
-    .suas-book-button{min-height:48px;border:0;border-radius:10px;padding:0 16px;color:#101010;background:linear-gradient(180deg,#f0b07a,#e07a3d);cursor:pointer;text-align:center;font:900 13px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
-    .suas-book-button:hover{filter:brightness(.97)}
-    .suas-book-button[disabled]{cursor:not-allowed;opacity:.58;background:#fff;border:2px solid #101010}
+    .suas-book-button{min-height:50px;border:2px solid var(--ink);border-radius:999px;padding:0 18px;color:#fff;background:linear-gradient(180deg,#ff7ec8,#ff5ab4 55%,#e83d9a);cursor:pointer;text-align:center;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;font-weight:400;letter-spacing:.02em;text-transform:lowercase;box-shadow:0 0 16px rgba(255,90,180,.35),0 3px 0 var(--ink)}
+    .suas-book-button:hover{filter:brightness(.97);transform:translateY(1px);box-shadow:0 0 14px rgba(255,90,180,.3),0 2px 0 var(--ink)}
+    .suas-book-button[disabled]{cursor:not-allowed;opacity:.58;background:#fff;color:var(--ink);box-shadow:0 2px 0 var(--ink)}
     .suas-book-task{display:grid;gap:0;margin:0 12px 12px;padding:0;background:transparent;color:#101010}
     .suas-book-task em,.suas-book-task b{display:none}
     .suas-book-task .suas-book-button{width:100%}
-    .suas-book-note{margin:0;border:2px solid var(--ink);background:var(--hot);padding:8px 10px;font-size:12px;line-height:1.35;font-weight:800;color:var(--ink)}
+    .suas-book-note{margin:0;border:2px solid var(--ink);border-radius:14px;background:linear-gradient(135deg,#ffd8e8,#d9ff78);padding:10px 12px;font-size:12px;line-height:1.4;font-weight:800;color:var(--ink);box-shadow:2px 2px 0 rgba(16,16,16,.16)}
     .suas-book-policy{padding:11px 12px;border:2px solid var(--ink);background:#fff}
     .suas-book-policy strong{display:block;margin-bottom:4px;font:900 10px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
     .suas-book-policy p{margin:0;font:700 12px/1.4 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.68)}
@@ -97,13 +98,13 @@
     .suas-book-contact a{display:grid;place-items:center;min-height:40px;border:2px solid var(--ink);background:var(--sun);color:var(--ink);text-decoration:none;font:900 12px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
     .suas-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
     .suas-type-grid.is-charm{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .suas-type-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;min-height:0;align-content:start;padding:12px;border:2px solid var(--ink);background:#fff;cursor:pointer}
+    .suas-type-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;min-height:0;align-content:start;padding:12px;border:2px solid var(--ink);border-radius:16px;background:linear-gradient(180deg,#fff,#fffaf5);cursor:pointer;box-shadow:2px 2px 0 rgba(16,16,16,.14)}
     .suas-type-card input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0}
     .suas-type-card em{grid-column:1;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
-    .suas-type-card strong{grid-column:1;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;line-height:.88;font-weight:400;text-transform:uppercase}
+    .suas-type-card strong{grid-column:1;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;line-height:.88;font-weight:400;text-transform:lowercase}
     .suas-type-card small{grid-column:1/-1;display:block;margin:2px 0 0;font:700 11px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.68);text-transform:none;letter-spacing:0}
     .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:start;padding-top:2px;font:900 13px/1 Tahoma,Arial,sans-serif}
-    .suas-type-card.is-on{border-color:var(--ink);background:var(--sun);box-shadow:0 3px 0 var(--ink)}
+    .suas-type-card.is-on{border-color:var(--ink);background:linear-gradient(180deg,#fff1a8,#ffe8ef);box-shadow:0 0 14px rgba(255,90,180,.22),0 3px 0 var(--ink)}
     .suas-type-card.is-on em{opacity:1}
     .suas-type-card.is-soon{opacity:.48;filter:grayscale(.7);cursor:not-allowed;background:#d8d4cc;pointer-events:none;box-shadow:none}
     .suas-type-card.is-soon.is-on{background:#9a9590;color:#fff}
@@ -119,9 +120,9 @@
     .suas-plus-choice.is-on{display:grid}
     .suas-plus-choice button{min-height:42px;border:2px solid var(--ink);background:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
     .suas-plus-choice button.is-on{background:#cdeeff;box-shadow:0 3px 0 var(--ink)}
-    .suas-time-chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
-    .suas-time-chips button{min-height:40px;padding:0 14px;border:2px solid var(--ink);background:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
-    .suas-time-chips button.is-on{background:var(--lime);box-shadow:0 3px 0 var(--ink)}
+    .suas-time-chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;padding-top:2px}
+    .suas-time-chips button{min-height:40px;padding:0 14px;border:2px solid var(--ink);border-radius:999px;background:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 0 rgba(16,16,16,.16)}
+    .suas-time-chips button.is-on{background:var(--lime);box-shadow:0 0 12px rgba(217,255,120,.45),0 3px 0 var(--ink)}
     .suas-time-chips button:disabled{opacity:.4;cursor:not-allowed}
     .suas-bookings-page .suas-visually-hidden,
     .suas-bookings-page #GuidedVariant,
@@ -159,7 +160,7 @@
       .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px}
       .suas-type-card{padding:8px;gap:2px 6px;min-height:0}
       .suas-type-card strong{font-size:1rem}
-      .suas-type-card small{margin-top:2px;font-size:10px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+      .suas-type-card small{margin-top:2px;font-size:10px;line-height:1.3;display:block;overflow:visible;-webkit-line-clamp:unset}
       .suas-type-card b{font-size:12px}
       .suas-book-form{grid-template-columns:1fr 1fr;gap:6px;padding:0 10px 10px}
       .suas-book-addons{grid-template-columns:1fr 1fr;gap:6px}
@@ -339,7 +340,7 @@
           <div>
             <span class="suas-book-badge">shipped diy kit</span>
             <h2>The Lab @ Home</h2>
-            <p class="suas-book-desc">Build online with the same protocol — 15 mL base + supports, or 4+4+2 for roll-on. Pick your 30 mL bottle, pour notes, name it, check out.</p>
+            <p class="suas-book-desc">DIY kit shipped to you — bottles, notes, everything to mix at home. Curate online, we pack it, you pour.</p>
           </div>
           <div class="suas-book-side">
             <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price">$24</strong></div>
@@ -356,7 +357,7 @@
           <div>
             <span class="suas-book-badge">self-guided</span>
             <h2>Self-Guided Lab Experiment</h2>
-            <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace - no instructor.</p>
+            <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace — no instructor. Seat holds when you pay.</p>
           </div>
           <div class="suas-book-side">
             <div class="suas-seat-meter" data-self-seat-meter><strong data-self-seat-text>14 of 14 seats left</strong><span data-self-seat-hint>pick date + hour</span></div>
@@ -369,10 +370,10 @@
             <div class="suas-type-grid" data-self-types>
               {% if parfum_main_variant != blank %}
               <label class="suas-type-card is-on">
-                <input type="radio" name="_self_type" value="{{ parfum_main_variant.id }}" data-label="Custom Perfume - 30 mL" data-price="{{ parfum_main_variant.price | money }}" data-copy="Custom 30 mL eau de parfum. Choose notes, mix, bottle, and decorate." checked{% unless parfum_main_variant.available %} disabled{% endunless %}>
+                <input type="radio" name="_self_type" value="{{ parfum_main_variant.id }}" data-label="Custom Perfume - 30 mL" data-price="{{ parfum_main_variant.price | money }}" data-copy="30 mL eau de parfum — pick notes, mix at the station, bottle it, take it home." checked{% unless parfum_main_variant.available %} disabled{% endunless %}>
                 <em>01</em>
                 <strong>perfume</strong>
-                <small>Custom 30 mL eau de parfum. Choose your notes, mix, bottle, and take it home.</small>
+                <small>30 mL eau de parfum — pick your notes, mix at the station, bottle it, take it home.</small>
                 <b>{{ parfum_main_variant.price | money }}</b>
               </label>
               {% endif %}
@@ -415,7 +416,7 @@
               <div class="suas-time-chips" data-self-chips></div>
               <select class="suas-book-select suas-time-select suas-visually-hidden" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option></select>
             </div>
-            <p class="suas-book-note">You pay now. Checkout holds the seat. We get the paid order in our inbox.</p>
+            <p class="suas-book-note">pay now → seat locked. we ping you the day before. show up ready to mix.</p>
             <div class="suas-book-task">
               <button class="suas-book-button" type="submit">pay to hold seat</button>
             </div>

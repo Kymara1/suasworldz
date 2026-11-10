@@ -12,9 +12,9 @@
     "lab_at_home": {
       "type": "suas-lab-at-home",
       "settings": {
-        "kicker": "SUAS.OS / LAB.HOME.EXE",
+        "kicker": "",
         "heading": "the lab @ home",
-        "copy": "pick a kit, pour your notes, watch the bottle fill. fairy chemistry, xp chrome.",
+        "copy": "Curate your own DIY kit — we ship everything you need so you can mix your formula at home. Pick a kit, pour your notes, name it, check out.",
         "perfume_product": "lab-at-home-perfume",
         "oil_product": "lab-at-home-body-oil",
         "rollon_product": "lab-at-home-roll-on",
