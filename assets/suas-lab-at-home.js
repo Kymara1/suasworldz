@@ -45,13 +45,13 @@
       id: 'cylinder',
       label: 'cylinder',
       src: root.getAttribute('data-bottle-cylinder') || '',
-      fillInset: '18% 28% 8% 28%'
+      fillInset: '32% 41% 12% 41%'
     },
     round: {
       id: 'round',
       label: 'round shoulders',
       src: root.getAttribute('data-bottle-round') || '',
-      fillInset: '22% 24% 10% 24%'
+      fillInset: '42% 30% 12% 30%'
     }
   };
 
@@ -73,8 +73,6 @@
     rollon: root.getAttribute('data-title-rollon') || 'The Lab @ Home — 10 mL Custom Roll-On',
     trio: root.getAttribute('data-title-trio') || 'The Lab @ Home Trio'
   };
-  var sprayerSrc = root.getAttribute('data-sprayer-silver') || '';
-
   var state = {
     mode: 'perfume',
     trioStep: 'perfume',
@@ -98,7 +96,6 @@
     photoBottle: root.querySelector('[data-lah-photo-bottle]'),
     photoFill: root.querySelector('[data-lah-photo-fill]'),
     liquid: root.querySelector('[data-lah-liquid]'),
-    sprayer: root.querySelector('[data-lah-sprayer]'),
     fillStatus: root.querySelector('[data-lah-fill-status]'),
     recipe: root.querySelector('[data-lah-recipe]'),
     name: root.querySelector('[data-lah-name]'),
@@ -216,9 +213,9 @@
       var on = state.bottle === key;
       return (
         '<button type="button" class="suas-lah-bottle-opt' + (on ? ' is-selected' : '') + '" data-bottle="' + key + '" aria-pressed="' + on + '">' +
-          '<img src="' + escapeHtml(bottle.src) + '" alt="" width="90" height="140">' +
+          '<img src="' + escapeHtml(bottle.src) + '" alt="" width="70" height="120">' +
           '<strong>' + escapeHtml(bottle.label) + '</strong>' +
-          '<small>silver sprayer</small>' +
+          '<small>silver sprayer on</small>' +
         '</button>'
       );
     }).join('');
@@ -318,8 +315,8 @@
       els.bottle.setAttribute('data-bottle', state.bottle);
     }
     if (els.photoBottle) {
-      els.photoBottle.src = needsPerfumeBottle() ? bottle.src : bottle.src;
-      els.photoBottle.style.opacity = needsPerfumeBottle() ? '1' : '0.92';
+      els.photoBottle.src = bottle.src;
+      els.photoBottle.style.opacity = '1';
     }
     if (els.photoFill) {
       els.photoFill.style.inset = bottle.fillInset;
@@ -328,10 +325,6 @@
       els.liquid.style.height = pct + '%';
       els.liquid.style.background =
         'linear-gradient(180deg, ' + blendHex(mixed, '#ffffff', 0.35) + ' 0%, ' + mixed + ' 38%, ' + blendHex(mixed, '#000000', 0.18) + ' 100%)';
-    }
-    if (els.sprayer) {
-      if (sprayerSrc) els.sprayer.src = sprayerSrc;
-      els.sprayer.style.display = needsPerfumeBottle() ? 'block' : 'none';
     }
     if (els.fillStatus) {
       els.fillStatus.textContent = filled + ' / ' + vol + ' mL filled';
