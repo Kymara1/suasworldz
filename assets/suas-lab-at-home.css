@@ -1,0 +1,577 @@
+/* The Lab @ Home — interactive scent builder */
+.suas-lah {
+  --ink: #111;
+  --cream: #fffaf5;
+  --blush: #ffe8ef;
+  --pink: #ff9fc2;
+  --hot: #ff5ab4;
+  --lime: #d9ff78;
+  --blue: #c9e7ff;
+  --glass: rgba(255, 255, 255, 0.35);
+  color: var(--ink);
+  background:
+    linear-gradient(rgba(17, 17, 17, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 17, 17, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at 18% 12%, rgba(255, 90, 180, 0.18), transparent 28%),
+    radial-gradient(circle at 86% 8%, rgba(217, 255, 120, 0.28), transparent 26%),
+    linear-gradient(180deg, #fff 0%, var(--cream) 100%);
+  background-size: 28px 28px, 28px 28px, auto, auto, auto;
+  padding: 28px 0 64px;
+  font-family: Futura, 'Futura PT', Arial, sans-serif;
+}
+.suas-lah * { box-sizing: border-box; }
+.suas-lah-wrap { width: min(1100px, calc(100vw - 32px)); margin: 0 auto; }
+
+.suas-lah-window {
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 8px 9px 0 var(--ink);
+  overflow: hidden;
+}
+.suas-lah-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+  padding: 8px 14px;
+  border-bottom: 2px solid var(--ink);
+  background: linear-gradient(180deg, #fff, #e8edf3);
+}
+.suas-lah-dots { display: flex; gap: 7px; }
+.suas-lah-dots i {
+  width: 11px; height: 11px; border-radius: 999px; background: var(--dot);
+}
+.suas-lah-app {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+.suas-lah-head {
+  padding: clamp(20px, 3vw, 36px) clamp(18px, 3vw, 32px) 8px;
+  text-align: center;
+}
+.suas-lah-kicker {
+  margin: 0 0 8px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.5);
+}
+.suas-lah-title {
+  margin: 0;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 0.9;
+  text-transform: lowercase;
+}
+.suas-lah-sub {
+  width: min(560px, 100%);
+  margin: 12px auto 0;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  font-weight: 800;
+  color: rgba(17, 17, 17, 0.66);
+}
+
+.suas-lah-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.75fr);
+  gap: 18px;
+  padding: 12px clamp(16px, 2.5vw, 28px) 28px;
+  align-items: start;
+}
+
+.suas-lah-panel {
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 5px 6px 0 var(--ink);
+  padding: 16px;
+}
+.suas-lah-panel h3 {
+  margin: 0 0 12px;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-weight: 400;
+  line-height: 0.92;
+  text-transform: lowercase;
+}
+.suas-lah-step-label {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.suas-lah-kits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.suas-lah-kit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: 88px;
+  padding: 12px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  background: var(--kit-bg, #fff);
+  box-shadow: 0 3px 0 var(--ink);
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+  font: inherit;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.suas-lah-kit:hover {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+.suas-lah-kit[aria-pressed='true'] {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  background: var(--lime);
+}
+.suas-lah-kit strong {
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 0.95;
+  text-transform: lowercase;
+}
+.suas-lah-kit span {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(17, 17, 17, 0.62);
+}
+.suas-lah-kit em {
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.suas-lah-protocol {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border: 2px dashed var(--ink);
+  border-radius: 14px;
+  background: var(--blush);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+.suas-lah-protocol b {
+  display: block;
+  margin-bottom: 4px;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+.suas-lah-slotbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 12px;
+}
+.suas-lah-slot {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 0 var(--ink);
+  font-size: 12px;
+  font-weight: 900;
+}
+.suas-lah-slot.is-active {
+  background: var(--lime);
+}
+.suas-lah-slot.is-filled {
+  background: var(--slot-color, var(--pink));
+}
+.suas-lah-slot i {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--slot-color, #ddd);
+  border: 1px solid var(--ink);
+}
+
+.suas-lah-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.suas-lah-filter {
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 0 var(--ink);
+  font: 900 10px/1 Futura, Arial, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--ink);
+}
+.suas-lah-filter[aria-pressed='true'] {
+  background: var(--hot);
+  color: #fff;
+}
+
+.suas-lah-notes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  max-height: 340px;
+  overflow: auto;
+  padding-right: 4px;
+}
+.suas-lah-note {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 3px 4px 0 var(--ink);
+  overflow: hidden;
+  cursor: pointer;
+  color: var(--ink);
+  text-align: left;
+  font: inherit;
+  transition: transform 0.12s ease;
+}
+.suas-lah-note:hover { transform: translateY(1px); }
+.suas-lah-note[aria-pressed='true'] {
+  outline: 3px solid var(--ink);
+  outline-offset: 1px;
+  background: var(--lime);
+}
+.suas-lah-note[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.suas-lah-note-swatch {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.2 / 1;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.55), transparent 42%),
+    linear-gradient(160deg, var(--n1), var(--n2));
+  position: relative;
+  overflow: hidden;
+}
+.suas-lah-note-swatch img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+.suas-lah-note b {
+  display: block;
+  padding: 8px 9px 10px;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 400;
+  line-height: 0.95;
+  text-transform: lowercase;
+}
+.suas-lah-note small {
+  display: block;
+  margin-top: 3px;
+  font-family: Futura, Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.suas-lah-stage {
+  position: sticky;
+  top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.suas-lah-bottle-card {
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.7), transparent 40%),
+    linear-gradient(180deg, #f4f7fb 0%, #e8edf3 100%);
+  box-shadow: 5px 6px 0 var(--ink);
+  padding: 18px 16px 16px;
+  text-align: center;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.suas-lah-fill-status {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.55);
+}
+
+/* Glass bottle */
+.suas-lah-bottle {
+  position: relative;
+  width: 132px;
+  height: 280px;
+  margin: 0 auto 8px;
+  filter: drop-shadow(0 10px 14px rgba(17, 17, 17, 0.18));
+}
+.suas-lah-bottle[data-shape='oil'] { width: 118px; height: 260px; }
+.suas-lah-bottle[data-shape='rollon'] { width: 72px; height: 240px; }
+
+.suas-lah-neck {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 34px;
+  height: 42px;
+  transform: translateX(-50%);
+  border: 2px solid rgba(17, 17, 17, 0.35);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.55), rgba(220, 230, 240, 0.35), rgba(255, 255, 255, 0.5));
+  z-index: 3;
+}
+.suas-lah-bottle[data-shape='oil'] .suas-lah-neck { width: 42px; height: 28px; border-radius: 6px 6px 0 0; }
+.suas-lah-bottle[data-shape='rollon'] .suas-lah-neck {
+  width: 28px;
+  height: 36px;
+  border-radius: 999px 999px 4px 4px;
+  top: 8px;
+}
+.suas-lah-cap {
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  width: 40px;
+  height: 18px;
+  transform: translateX(-50%);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #222, #111);
+  z-index: 4;
+}
+.suas-lah-bottle[data-shape='rollon'] .suas-lah-cap {
+  width: 34px;
+  height: 34px;
+  top: -4px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #666, #111 70%);
+}
+.suas-lah-body-glass {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40px;
+  bottom: 0;
+  border: 2px solid rgba(17, 17, 17, 0.4);
+  border-radius: 18px 18px 28px 28px;
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.08) 28%, transparent 45%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(200, 210, 220, 0.12));
+  overflow: hidden;
+  backdrop-filter: blur(1px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+.suas-lah-bottle[data-shape='oil'] .suas-lah-body-glass {
+  top: 26px;
+  border-radius: 10px 10px 16px 16px;
+}
+.suas-lah-bottle[data-shape='rollon'] .suas-lah-body-glass {
+  top: 48px;
+  border-radius: 999px;
+}
+
+.suas-lah-liquid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0%;
+  transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  background: linear-gradient(180deg, var(--liq-top, #ff9fc2), var(--liq-bot, #ff5ab4));
+  box-shadow: inset 0 8px 16px rgba(255, 255, 255, 0.25);
+}
+.suas-lah-liquid::before {
+  content: '';
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: -3px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  filter: blur(1px);
+}
+.suas-lah-layers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.suas-lah-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--from, 0%);
+  height: var(--h, 0%);
+  background: linear-gradient(180deg, var(--c1), var(--c2));
+  opacity: 0.92;
+  transition: height 0.65s cubic-bezier(0.22, 1, 0.36, 1), bottom 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.suas-lah-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0.45) 0%, transparent 32%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.suas-lah-recipe {
+  width: 100%;
+  margin-top: 8px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+.suas-lah-recipe li { margin: 0 0 4px; }
+.suas-lah-recipe strong { font-weight: 900; }
+
+.suas-lah-name-row {
+  display: grid;
+  gap: 8px;
+}
+.suas-lah-name-row label {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.suas-lah-name-row input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 0 var(--ink);
+  font: 800 15px/1.2 Futura, Arial, sans-serif;
+  color: var(--ink);
+}
+.suas-lah-actions {
+  display: grid;
+  gap: 8px;
+}
+.suas-lah-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--ink);
+  box-shadow: 0 4px 0 var(--ink);
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: 1.25rem;
+  text-transform: lowercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.suas-lah-btn[data-pink] { background: var(--hot); color: #fff; }
+.suas-lah-btn:hover:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+.suas-lah-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+.suas-lah-btn-ghost {
+  background: #fff;
+  font-family: Futura, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.suas-lah-error {
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 13px;
+  font-weight: 800;
+  color: #b00020;
+}
+.suas-lah-trio-progress {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.6);
+}
+
+@media (max-width: 900px) {
+  .suas-lah-body { grid-template-columns: 1fr; }
+  .suas-lah-stage { position: static; }
+  .suas-lah-bottle-card { min-height: 360px; }
+}
+@media (max-width: 620px) {
+  .suas-lah-wrap { width: min(100% - 16px, 520px); }
+  .suas-lah-kits { grid-template-columns: 1fr; }
+  .suas-lah-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 280px; }
+}
+.suas-lah .suas-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .suas-lah-kit,
+  .suas-lah-note,
+  .suas-lah-btn,
+  .suas-lah-liquid,
+  .suas-lah-layer {
+    transition: none !important;
+  }
+}

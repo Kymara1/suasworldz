@@ -45,7 +45,11 @@ html body .suas-panel-submenu a {
 html body .suas-book-input:focus-visible,
 html body .suas-book-select:focus-visible,
 html body .suas-charm-input:focus-visible,
-html body .suas-formula-input:focus-visible {
+html body .suas-formula-input:focus-visible,
+html body .suas-lah-kit:focus-visible,
+html body .suas-lah-note:focus-visible,
+html body .suas-lah-filter:focus-visible,
+html body .suas-lah-btn:focus-visible {
   outline: 3px solid #101010 !important;
   outline-offset: 2px !important;
 }

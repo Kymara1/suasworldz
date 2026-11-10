@@ -45,6 +45,18 @@
         "deluxe_link": "/pages/bookings#self-guided"
       }
     },
+    "lab_at_home": {
+      "type": "suas-lab-at-home",
+      "settings": {
+        "kicker": "SUAS.OS / THE LAB @ HOME",
+        "heading": "build your signature scent at home.",
+        "copy": "Same protocol as The Lab. Pick your kit, pour your notes, watch the bottle fill, name it, and check out.",
+        "perfume_product": "lab-at-home-perfume",
+        "oil_product": "lab-at-home-body-oil",
+        "rollon_product": "lab-at-home-roll-on",
+        "trio_product": "lab-at-home-trio"
+      }
+    },
     "reviews": {
       "type": "suas-reviews",
       "settings": {
@@ -54,6 +66,7 @@
   },
   "order": [
     "suas_lab",
+    "lab_at_home",
     "reviews"
   ]
 }
