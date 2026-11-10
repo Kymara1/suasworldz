@@ -3,7 +3,8 @@
     "main": {
       "type": "suas-staff-seats",
       "settings": {
-        "staff_pin": "0124"
+        "staff_pin": "0124",
+        "seat_api_url": "https://attacks-somerset-tom-thermal.trycloudflare.com"
       }
     }
   },
