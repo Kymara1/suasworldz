@@ -118,6 +118,7 @@
     filters: root.querySelector('[data-lah-filters]'),
     notes: root.querySelector('[data-lah-notes]'),
     bottle: root.querySelector('[data-lah-bottle]'),
+    bottleCard: root.querySelector('.suas-lah-bottle-card'),
     photoBottle: root.querySelector('[data-lah-photo-bottle]'),
     photoFill: root.querySelector('[data-lah-photo-fill]'),
     liquid: root.querySelector('[data-lah-liquid]'),
@@ -427,9 +428,15 @@
       els.photoFill.style.inset = bottle.fillInset;
     }
     if (els.liquid) {
+      els.liquid.style.setProperty('--liquid', mixed);
       els.liquid.style.height = pct + '%';
       els.liquid.style.background =
         'linear-gradient(180deg, ' + blendHex(mixed, '#ffffff', 0.35) + ' 0%, ' + mixed + ' 38%, ' + blendHex(mixed, '#000000', 0.18) + ' 100%)';
+    }
+    if (els.bottleCard) {
+      els.bottleCard.style.setProperty('--liquid', mixed);
+      if (filled) els.bottleCard.classList.add('is-filling');
+      else els.bottleCard.classList.remove('is-filling');
     }
     if (els.fillStatus) {
       els.fillStatus.textContent = filled + ' / ' + vol + ' mL filled';

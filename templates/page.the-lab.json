@@ -9,48 +9,12 @@
  */
 {
   "sections": {
-    "suas_lab": {
-      "type": "suas-lab-page",
-      "settings": {
-        "self_product": "lab-session-eau-de-parfum",
-        "guided_product": "deluxe-lab-session",
-        "deluxe_product": "lab-session-signature-collection",
-        "self_price": "$45",
-        "guided_price": "starts at $85 per person",
-        "deluxe_price": "$150",
-        "kicker": "the lab",
-        "heading": "Create your Signature Scent",
-        "copy": "Pick a session, add your notes, name it, save the idea, then bottle the good one in-store.",
-        "cta_label": "choose your session",
-        "cta_link": "#lab-sessions",
-        "sessions_heading": "choose your session.",
-        "self_title": "Self-Guided Lab Experiment",
-        "self_copy": "You run the station. Pick perfume, roll-on, or combo, choose your notes, mix, bottle, and decorate.",
-        "self_descriptor": "Book perfume ($45), roll-on ($27), or perfume + body oil combo ($70). No instructor — your pace.",
-        "self_badge": "Thu–Sun walk-in",
-        "self_button": "book this session",
-        "self_link": "/pages/bookings#self-guided",
-        "guided_title": "Guided Lab Session",
-        "guided_copy": "Instructor-led 30 mL perfume class. Add a body oil or butter creme if you want the upgrade.",
-        "guided_descriptor": "Perfume from $85, or perfume + one for $115. Not open for booking yet — we’ll announce.",
-        "guided_badge": "coming soon",
-        "guided_button": "coming soon",
-        "guided_link": "/pages/bookings#self-guided",
-        "deluxe_title": "Signature Collection",
-        "deluxe_copy": "Guided perfume, 1 oz body oil, and 4 oz butter creme in one class.",
-        "deluxe_descriptor": "The full guided set for $150. Not open for booking yet — we’ll announce.",
-        "deluxe_badge_1": "coming soon",
-        "deluxe_badge_2": "all three included",
-        "deluxe_button": "coming soon",
-        "deluxe_link": "/pages/bookings#self-guided"
-      }
-    },
     "lab_at_home": {
       "type": "suas-lab-at-home",
       "settings": {
-        "kicker": "SUAS.OS / THE LAB @ HOME",
-        "heading": "build your signature scent at home.",
-        "copy": "Same protocol as The Lab. Pick your kit, pour your notes, watch the bottle fill, name it, and check out.",
+        "kicker": "SUAS.OS / LAB.HOME.EXE",
+        "heading": "the lab @ home",
+        "copy": "pick a kit, pour your notes, watch the bottle fill. fairy chemistry, xp chrome.",
         "perfume_product": "lab-at-home-perfume",
         "oil_product": "lab-at-home-body-oil",
         "rollon_product": "lab-at-home-roll-on",
@@ -59,7 +23,6 @@
     }
   },
   "order": [
-    "suas_lab",
     "lab_at_home"
   ]
 }

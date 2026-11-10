@@ -1,24 +1,19 @@
 {
   "sections": {
-    "suas_lab": {
-      "type": "suas-lab-page",
+    "lab_at_home": {
+      "type": "suas-lab-at-home",
       "settings": {
-        "kicker": "the lab / experiment 001",
-        "heading": "mix your own signature scent.",
-        "copy": "Pick a session, add your notes, name it, save the idea, then bottle the good one in-store.",
-        "cta_label": "book a session",
-        "cta_link": "/pages/bookings"
-      }
-    },
-    "reviews": {
-      "type": "suas-reviews",
-      "settings": {
-        "heading": "lab love notes."
+        "kicker": "SUAS.OS / LAB.HOME.EXE",
+        "heading": "the lab @ home",
+        "copy": "pick a kit, pour your notes, watch the bottle fill. fairy chemistry, xp chrome.",
+        "perfume_product": "lab-at-home-perfume",
+        "oil_product": "lab-at-home-body-oil",
+        "rollon_product": "lab-at-home-roll-on",
+        "trio_product": "lab-at-home-trio"
       }
     }
   },
   "order": [
-    "suas_lab",
-    "reviews"
+    "lab_at_home"
   ]
 }
