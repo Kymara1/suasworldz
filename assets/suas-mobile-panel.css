@@ -132,12 +132,12 @@
     z-index: 100070 !important;
     display: flex !important;
     flex-direction: column !important;
-    width: min(62vw, 210px) !important;
-    max-width: 210px !important;
+    width: min(58vw, 190px) !important;
+    max-width: 190px !important;
     height: 100svh !important;
     min-height: 100% !important;
     margin: 0 !important;
-    padding: 78px 0 8px !important;
+    padding: 72px 0 6px !important;
     background: linear-gradient(180deg, #fff 0%, #f6f7fa 60%, #eef0f5 100%) !important;
     border: 0 !important;
     border-right: 1px solid rgba(16, 16, 16, 0.12) !important;
@@ -164,13 +164,13 @@
   }
 
   html body .suas-side-status {
-    margin: 6px 8px 8px !important;
-    min-height: 44px !important;
-    padding: 8px 12px !important;
+    margin: 2px 8px 4px !important;
+    min-height: 0 !important;
+    padding: 5px 8px !important;
   }
 
   html body .suas-side-status span {
-    font-size: 0.92rem !important;
+    font-size: 0.78rem !important;
   }
 
   html body .suas-side-foot {
@@ -217,37 +217,19 @@
   }
 
   html body .suas-frame .suas-side-nav,
-  html body.template--product .suas-frame .suas-side-nav {
-    gap: 2px !important;
-    padding: 2px 4px 8px 6px !important;
-  }
-
-  html body .suas-frame .suas-panel-submenu,
-  html body .suas-side-dropdown .suas-panel-submenu {
-    gap: 4px !important;
-    margin: 0 0 6px 4px !important;
-    padding: 2px 2px 6px 8px !important;
-  }
-
-  html body .suas-panel-submenu a {
-    padding: 5px 8px !important;
-    font-size: 8px !important;
-  }
-
-  html body .suas-frame .suas-side-nav,
   html body.template--product .suas-frame .suas-side-nav,
   html body.template--product .suas-side-nav {
     display: flex !important;
     flex-direction: column !important;
     flex-wrap: nowrap !important;
     flex: 1 1 auto !important;
-    gap: 4px !important;
+    gap: 2px !important;
     width: 100% !important;
     height: auto !important;
     max-height: none !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    padding: 4px 6px 10px 8px !important;
+    padding: 2px 4px 8px 6px !important;
     scrollbar-gutter: stable !important;
     scrollbar-width: thin !important;
     scrollbar-color: #101010 rgba(16, 16, 16, 0.08) !important;
@@ -361,9 +343,9 @@
     position: static !important;
     display: none !important;
     grid-template-columns: minmax(0, 1fr) !important;
-    gap: 6px !important;
-    margin: 2px 0 10px 8px !important;
-    padding: 4px 4px 8px 12px !important;
+    gap: 3px !important;
+    margin: 0 0 6px 4px !important;
+    padding: 2px 2px 6px 8px !important;
     max-height: none !important;
     border: 0 !important;
     border-radius: 0 !important;
@@ -376,6 +358,8 @@
   }
 
   html body .suas-panel-submenu a {
+    padding: 5px 8px !important;
+    font-size: 8px !important;
     width: fit-content !important;
     max-width: 100% !important;
     min-height: 32px !important;
