@@ -8,6 +8,14 @@
     .suas-book-card,.suas-book-panel,.suas-book-option{border:2.5px solid #101010;background:#f4ecd4;border-radius:22px;overflow:hidden}
     .suas-book-top{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:14px;padding:0 18px 14px;align-items:stretch}
     .suas-book-hero{padding:0;display:grid;align-content:start;background:transparent;border:0;box-shadow:none}
+    .suas-book-fold{border:2.5px solid #101010;border-radius:22px;background:#f4ecd4;overflow:hidden}
+    .suas-book-fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:40px;padding:8px 12px;background:#e23d8a;color:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+    .suas-book-fold.suas-book-rules>summary{background:#101010}
+    .suas-book-fold>summary::-webkit-details-marker{display:none}
+    .suas-book-fold>summary::after{content:'+';font-size:16px;line-height:1}
+    .suas-book-fold[open]>summary::after{content:'–'}
+    .suas-book-fold .suas-book-bar{display:none}
+    .suas-book-fold-body{display:grid}
     .suas-book-kicker,.suas-book-label,.suas-book-button,.suas-book-badge,.suas-book-tab{font-family:Tahoma,Futura,Arial,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:900}
     .suas-book-title,.suas-book-option h2,.suas-book-panel h2,.suas-book-price,.suas-seat-meter strong{font-family:'Casual Human',Futura,Arial,sans-serif;font-weight:400;letter-spacing:0;text-transform:uppercase}
     .suas-book-kicker{margin:0 0 6px;color:rgba(255,255,255,.8);letter-spacing:.02em}
@@ -124,6 +132,15 @@
     .suas-bookings-page #BookCharmTime{
       position:absolute!important;width:1px!important;height:1px!important;min-height:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;opacity:0!important;pointer-events:none!important;border:0!important;padding:0!important;margin:0!important
     }
+    @media(min-width:901px){
+      .suas-book-fold{border:0;border-radius:0;background:transparent;overflow:visible}
+      .suas-book-fold>summary{display:none}
+      .suas-book-fold .suas-book-bar{display:flex}
+      .suas-book-fold.suas-book-panel,.suas-book-fold.suas-book-rules{
+        border:2.5px solid #101010;border-radius:22px;background:#f4ecd4;overflow:hidden
+      }
+      .suas-book-fold.suas-book-rules{margin:0 18px 14px}
+    }
     @media(max-width:1023px){
       .suas-book-top,.suas-book-hero-head{grid-template-columns:minmax(0,1fr)!important}
       .suas-book-hours-grid{grid-template-columns:1fr 1fr!important;gap:6px;padding:8px}
@@ -156,15 +173,36 @@
       .suas-book-note{font-size:11px;padding:8px}
       .suas-book-task{margin:0 10px 10px}
     }
+    @media(max-width:900px){
+      .suas-book-top{padding:0 8px 8px;gap:8px}
+      .suas-book-hero-head{padding:10px 12px 8px}
+      .suas-book-copy{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px;line-height:1.3;margin-top:4px}
+      .suas-book-fold{margin:0 8px 8px}
+      .suas-book-fold.suas-book-panel{margin:0}
+      .suas-book-rules{margin:0 8px 8px}
+      .suas-book-rules-list{grid-template-columns:1fr}
+      .suas-book-rules-body h2{font-size:1.15rem}
+      .suas-book-desc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+      .suas-book-option.is-open .suas-book-task{
+        position:sticky;bottom:8px;z-index:5;margin:0;padding:8px 10px 10px;
+        background:linear-gradient(180deg,rgba(244,236,212,0),#f4ecd4 28%);
+      }
+      .suas-book-option.is-open .suas-book-task .suas-book-button{box-shadow:0 3px 0 #101010}
+      .suas-book-grid{padding:0 8px 8px;gap:8px}
+      .suas-book-badge{padding:4px 8px 3px;font-size:9px}
+      .suas-book-form{padding-bottom:4px}
+    }
     @media(max-width:700px){
-      .suas-book-title{font-size:clamp(2rem,11vw,3rem)}
-      .suas-book-option-head{grid-template-columns:minmax(0,1.2fr) minmax(6.75rem,38%)}
-      .suas-book-option h2{font-size:clamp(1.05rem,5.5vw,1.45rem)}
+      .suas-book-title{font-size:clamp(1.7rem,9vw,2.4rem)}
+      .suas-book-option-head{grid-template-columns:minmax(0,1.2fr) minmax(6.75rem,38%);padding:8px}
+      .suas-book-option h2{font-size:clamp(1.05rem,5.5vw,1.35rem)}
       .suas-book-desc{font-size:11px;line-height:1.25}
       .suas-book-input,.suas-book-select{min-height:44px!important;font-size:16px!important}
       .suas-plus-choice{grid-template-columns:1fr 1fr}
       .suas-type-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
       .suas-type-grid .suas-type-card:last-child:nth-child(odd){grid-column:1/-1}
+      .suas-book-policy{padding:8px 10px}
+      .suas-book-policy p{-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
     }
   </style>
 
@@ -188,21 +226,25 @@
           <button class="suas-book-tab is-soon" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm" aria-disabled="true" tabindex="-1" title="Charm Bar bookings are not open yet">charm bar</button>
         </div>
       </div>
-      <div class="suas-book-panel">
+      <details class="suas-book-panel suas-book-fold" data-book-fold>
+        <summary>Hours · Thu–Sun</summary>
         <div class="suas-book-bar" style="background:#e23d8a"><b>S 2. Hours</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
-        <div class="suas-book-hours-grid">
-          <p style="--chip:#cdeeff;"><b>Store</b>Thu-Sat 12:30-7:30 PM<br>Sun 12:00-5:00 PM<br>Mon-Wed closed</p>
-          <p style="--chip:#ffe8ef;"><b>Self-guided Lab</b>Thu-Sun 1:00-6:00 PM<br>Walk-ins if a seat's open</p>
-          <p style="--chip:#d8d4cc;"><b>Guided ? soon</b>Not open for booking yet. We'll announce when seats drop.</p>
-          <p style="--chip:#d8d4cc;"><b>Charm Bar ? soon</b>4 seats / 45 min<br>Not open for booking yet.</p>
+        <div class="suas-book-fold-body">
+          <div class="suas-book-hours-grid">
+            <p style="--chip:#cdeeff;"><b>Store</b>Thu-Sat 12:30-7:30 PM<br>Sun 12:00-5:00 PM<br>Mon-Wed closed</p>
+            <p style="--chip:#ffe8ef;"><b>Self-guided Lab</b>Thu-Sun 1:00-6:00 PM<br>Walk-ins if a seat's open</p>
+            <p style="--chip:#d8d4cc;"><b>Guided ? soon</b>Not open for booking yet. We'll announce when seats drop.</p>
+            <p style="--chip:#d8d4cc;"><b>Charm Bar ? soon</b>4 seats / 45 min<br>Not open for booking yet.</p>
+          </div>
+          <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 14 seats/hour ? Charm 4/slot. Closed Mon-Wed.</p>
         </div>
-        <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 14 seats/hour ? Charm 4/slot. Closed Mon-Wed.</p>
-      </div>
+      </details>
     </div>
 
-    <aside class="suas-book-panel suas-book-rules" aria-labelledby="suas-lab-rules-title">
+    <details class="suas-book-panel suas-book-rules suas-book-fold" data-book-fold aria-labelledby="suas-lab-rules-title">
+      <summary>Lab rules · tap to read</summary>
       <div class="suas-book-bar" style="background:#101010;color:#fff"><b>S 2b. Lab rules</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
-      <div class="suas-book-rules-body">
+      <div class="suas-book-rules-body suas-book-fold-body">
         <h2 id="suas-lab-rules-title">read before you book.</h2>
         <ul class="suas-book-rules-list">
           <li><b>No food or drinks</b> in The Lab. Water stays outside the mix zone.</li>
@@ -213,7 +255,7 @@
           <li><b>Photos ok</b> — film your mix, not other guests’ faces or formulas without asking.</li>
         </ul>
       </div>
-    </aside>
+    </details>
 
     <div class="suas-book-grid">
       {% liquid
@@ -304,7 +346,7 @@
           </div>
         </div>
         <div class="suas-book-task" style="padding:0 12px 16px">
-          <a class="suas-book-button" href="#lab-at-home" data-lah-scroll>build yours below</a>
+          <a class="suas-book-button" href="/pages/the-lab#lab-at-home">open lab @ home builder</a>
         </div>
       </div>
 
@@ -752,15 +794,15 @@
         root.querySelectorAll('#charm-bar [required], #charm-bar select[name="id"]').forEach(function (field) {
           field.removeAttribute('required');
         });
-        if (kind === 'home') {
-          var builder = document.getElementById('lab-at-home');
-          if (builder) {
-            window.setTimeout(function () {
-              builder.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 40);
-          }
-        }
       }
+      function syncBookFolds() {
+        var desktop = window.matchMedia('(min-width: 901px)').matches;
+        root.querySelectorAll('[data-book-fold]').forEach(function (fold) {
+          fold.open = desktop;
+        });
+      }
+      syncBookFolds();
+      window.matchMedia('(min-width: 901px)').addEventListener('change', syncBookFolds);
       root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
         tab.addEventListener('click', function () {
           if (tab.getAttribute('aria-disabled') === 'true') return;
@@ -782,15 +824,6 @@
       var startKind = 'self';
       if (window.location.hash === '#lab-at-home' || window.location.hash === '#lab-at-home-book') startKind = 'home';
       showBookKind(startKind);
-      root.querySelectorAll('[data-lah-scroll]').forEach(function (link) {
-        link.addEventListener('click', function (event) {
-          var target = document.getElementById('lab-at-home');
-          if (!target) return;
-          event.preventDefault();
-          showBookKind('home');
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-      });
 
       function dateDay(value) {
         if (!value) return null;
