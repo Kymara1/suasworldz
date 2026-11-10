@@ -80,10 +80,16 @@
 .suas-lah-body {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(168px, 0.52fr);
+  grid-template-areas:
+    "kit stage"
+    "notes stage";
   gap: 8px;
   padding: 6px 10px 10px;
   align-items: start;
 }
+.suas-lah-panel-kit { grid-area: kit; }
+.suas-lah-panel-notes { grid-area: notes; }
+.suas-lah-stage { grid-area: stage; }
 
 .suas-lah-panel {
   border: 2px solid var(--ink);
@@ -406,6 +412,13 @@
   flex-direction: column;
   gap: 7px;
   min-width: 0;
+  align-self: start;
+}
+.suas-lah-optional {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: rgba(17, 17, 17, 0.45);
 }
 .suas-lah-bottle-card {
   border: 2px solid var(--ink);
@@ -585,11 +598,15 @@
   border: 0 !important;
 }
 
-/* Tablet */
+/* Tablet + phone: kit → bottle → notes */
 @media (max-width: 900px) {
   .suas-lah-wrap { width: min(100% - 12px, 720px); }
   .suas-lah-body {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "kit"
+      "stage"
+      "notes";
     gap: 8px;
   }
   .suas-lah-stage {

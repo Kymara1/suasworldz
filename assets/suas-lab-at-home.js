@@ -177,7 +177,7 @@
     // stash current work if partially filled
     if (state.trioStep !== key) {
       var currentComplete = activeKit().slots.every(function (_s, i) { return !!state.picks[i]; });
-      if (currentComplete && els.name && els.name.value.trim()) {
+      if (currentComplete) {
         state.trioFormulas[state.trioStep] = snapshotFormula();
       }
     }
@@ -460,8 +460,7 @@
 
     if (els.atc) {
       var complete = kit.slots.every(function (_slot, index) { return !!state.picks[index]; });
-      var named = !!(els.name && els.name.value.trim());
-      var ready = complete && named;
+      var ready = complete;
       if (state.mode === 'trio' && state.trioStep !== 'rollon') {
         var nextKey = TRIO_ORDER[trioStepIndex() + 1];
         els.atc.textContent = 'save ' + (TRIO_LABELS[state.trioStep] || '') + ' · next: ' + (TRIO_LABELS[nextKey] || 'next');
@@ -544,12 +543,23 @@
     announce((note ? note.label : id) + ' set on ' + kit.slots[slotIndex].amountMl + ' mL tube');
     setError('');
 
-    if (state.picks[slotIndex] && !state.picks.every(Boolean)) {
-      for (var i = 1; i <= kit.slots.length; i++) {
-        var idx = (slotIndex + i) % kit.slots.length;
-        if (!state.picks[idx]) {
+    // Always jump to the next empty tube so picking feels like a pour sequence.
+    if (!state.picks.every(Boolean)) {
+      var advanced = false;
+      for (var i = 1; i < kit.slots.length; i++) {
+        var idx = slotIndex + i;
+        if (idx < kit.slots.length && !state.picks[idx]) {
           state.activeSlot = idx;
+          advanced = true;
           break;
+        }
+      }
+      if (!advanced) {
+        for (var j = 0; j < slotIndex; j++) {
+          if (!state.picks[j]) {
+            state.activeSlot = j;
+            break;
+          }
         }
       }
     }
@@ -572,10 +582,6 @@
     var complete = kit.slots.every(function (_s, i) { return !!state.picks[i]; });
     if (!complete) {
       setError('Fill every tube — reuse a note if you only want 2–3 scents.');
-      return;
-    }
-    if (!els.name || !els.name.value.trim()) {
-      setError('Name your formula.');
       return;
     }
 

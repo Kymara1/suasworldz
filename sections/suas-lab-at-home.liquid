@@ -74,7 +74,7 @@
       </header>
 
       <div class="suas-lah-body">
-        <div class="suas-lah-panel">
+        <div class="suas-lah-panel suas-lah-panel-kit">
           <p class="suas-lah-step-label">01 · kit</p>
           <p class="suas-visually-hidden" data-lah-selected aria-live="polite"></p>
           <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
@@ -82,13 +82,6 @@
           <div class="suas-lah-trio-track" data-lah-trio-track hidden>
             <div class="suas-lah-trio-steps" data-lah-trio-steps role="tablist" aria-label="Trio product steps"></div>
           </div>
-
-          <p class="suas-lah-step-label" data-lah-notes-label>02 · notes</p>
-          <p class="suas-lah-slot-hint" data-lah-slot-hint>Tap a tube. Same note can fill more than one.</p>
-          <div class="suas-lah-slotbar" data-lah-slots aria-live="polite"></div>
-
-          <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Filter scent families"></div>
-          <div class="suas-lah-notes" data-lah-notes role="listbox" aria-label="Scent notes" aria-multiselectable="true"></div>
         </div>
 
         <aside class="suas-lah-stage">
@@ -109,7 +102,7 @@
           </div>
 
           <div class="suas-lah-name-row">
-            <label for="LahFormulaName">name your formula</label>
+            <label for="LahFormulaName">name your formula <span class="suas-lah-optional">(optional)</span></label>
             <input id="LahFormulaName" class="suas-formula-input" type="text" maxlength="48" placeholder="ex: peachy glow" data-lah-name autocomplete="off">
           </div>
 
@@ -119,6 +112,15 @@
             <p class="suas-lah-error" data-lah-error role="alert"></p>
           </div>
         </aside>
+
+        <div class="suas-lah-panel suas-lah-panel-notes">
+          <p class="suas-lah-step-label" data-lah-notes-label>02 · notes</p>
+          <p class="suas-lah-slot-hint" data-lah-slot-hint>Tap a tube. Same note can fill more than one.</p>
+          <div class="suas-lah-slotbar" data-lah-slots aria-live="polite"></div>
+
+          <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Filter scent families"></div>
+          <div class="suas-lah-notes" data-lah-notes role="listbox" aria-label="Scent notes" aria-multiselectable="true"></div>
+        </div>
       </div>
     </div>
   </div>
