@@ -85,7 +85,7 @@
   var money = {
     perfume: root.getAttribute('data-money-perfume') || '$49.00',
     oil: root.getAttribute('data-money-oil') || '$35.00',
-    rollon: root.getAttribute('data-money-rollon') || '$24.00',
+      rollon: root.getAttribute('data-money-rollon') || '$28.00',
     trio: root.getAttribute('data-money-trio') || '$99.00'
   };
   var titles = {
