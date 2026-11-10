@@ -45,13 +45,13 @@
       id: 'cylinder',
       label: 'cylinder',
       src: root.getAttribute('data-bottle-cylinder') || '',
-      fillInset: '32% 41% 12% 41%'
+      fillInset: '36% 39% 15% 39%'
     },
     round: {
       id: 'round',
-      label: 'round shoulders',
+      label: 'round',
       src: root.getAttribute('data-bottle-round') || '',
-      fillInset: '42% 30% 12% 30%'
+      fillInset: '36% 24% 15% 24%'
     }
   };
 
@@ -213,9 +213,7 @@
       var on = state.bottle === key;
       return (
         '<button type="button" class="suas-lah-bottle-opt' + (on ? ' is-selected' : '') + '" data-bottle="' + key + '" aria-pressed="' + on + '">' +
-          '<img src="' + escapeHtml(bottle.src) + '" alt="" width="70" height="120">' +
-          '<strong>' + escapeHtml(bottle.label) + '</strong>' +
-          '<small>silver sprayer on</small>' +
+          escapeHtml(bottle.label) +
         '</button>'
       );
     }).join('');
