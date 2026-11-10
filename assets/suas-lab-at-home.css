@@ -170,8 +170,19 @@
 .suas-lah-build {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+  grid-template-areas:
+    "notes stage"
+    "checkout stage";
   gap: 10px;
   align-items: start;
+}
+.suas-lah-panel-notes { grid-area: notes; }
+.suas-lah-stage { grid-area: stage; }
+.suas-lah-checkout {
+  grid-area: checkout;
+  display: grid;
+  gap: 8px;
+  align-content: start;
 }
 
 .suas-lah-panel {
@@ -610,13 +621,15 @@
   position: relative;
   z-index: 2;
   filter: drop-shadow(0 10px 12px rgba(17, 17, 17, 0.2));
+  pointer-events: none;
 }
 .suas-lah-photo-fill {
   position: absolute;
   z-index: 1;
   overflow: hidden;
-  border-radius: 40% / 10%;
+  border-radius: 42% / 12%;
   pointer-events: none;
+  background: transparent;
 }
 .suas-lah-photo-liquid {
   position: absolute;
@@ -624,10 +637,13 @@
   right: 0;
   bottom: 0;
   height: 0%;
+  border-radius: 40% 40% 8% 8% / 12% 12% 8% 8%;
   transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease;
   box-shadow:
-    inset 0 6px 10px rgba(255, 255, 255, 0.28),
-    0 0 18px color-mix(in srgb, var(--liquid, var(--hot)) 45%, transparent);
+    inset 0 8px 12px rgba(255, 255, 255, 0.35),
+    inset 0 -6px 10px rgba(0, 0, 0, 0.18),
+    0 0 22px color-mix(in srgb, var(--liquid, var(--hot)) 55%, transparent);
+  opacity: 0.92;
 }
 .suas-lah-photo-stage[data-bottle='round'] { width: min(150px, 84%); }
 .suas-lah-photo-stage[data-bottle='round'] .suas-lah-photo-fill { border-radius: 42% / 16%; }
@@ -691,13 +707,19 @@
     0 0 14px color-mix(in srgb, var(--lime) 45%, transparent),
     0 3px 0 var(--ink);
   font-family: 'Casual Human', Futura, Arial, sans-serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: lowercase;
   cursor: pointer;
+  -webkit-text-stroke: 0.35px currentColor;
 }
 .suas-lah-btn[data-pink] {
   background: var(--hot);
   color: #fff;
+  font-weight: 800;
+  -webkit-text-stroke: 0.4px #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
   box-shadow:
     0 0 18px color-mix(in srgb, var(--hot) 55%, transparent),
     0 3px 0 var(--ink);
@@ -744,14 +766,17 @@
   border: 0 !important;
 }
 
-/* Tablet / large phone: notes beside bottle */
+/* Tablet + phone: notes beside bottle, checkout under */
 @media (max-width: 900px) {
   .suas-lah { padding: 6px 0 16px; }
   .suas-lah-wrap { width: min(100% - 12px, 720px); }
   .suas-lah-head { padding: 8px 10px 0; }
   .suas-lah-body { padding: 6px 8px 10px; gap: 8px; }
   .suas-lah-build {
-    grid-template-columns: minmax(0, 1.15fr) minmax(168px, 0.85fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(150px, 0.8fr);
+    grid-template-areas:
+      "notes stage"
+      "checkout checkout";
     gap: 8px;
     align-items: start;
   }
@@ -767,9 +792,15 @@
   .suas-lah-photo-bottle { max-height: 200px; }
   .suas-lah-photo-stage { width: min(120px, 86%); }
   .suas-lah-notes { max-height: min(48vh, 340px); }
+  .suas-lah-checkout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 8px;
+    align-items: end;
+  }
+  .suas-lah-checkout .suas-lah-actions { gap: 5px; }
 }
 
-/* Phone: bottle + recipe row, notes under — still builder-only */
 @media (max-width: 620px) {
   .suas-lah { padding: 4px 0 14px; }
   .suas-lah-wrap { width: calc(100% - 8px); }
@@ -788,69 +819,75 @@
   .suas-lah-panel { padding: 6px; border-radius: 7px; }
   .suas-lah-step-label { margin-bottom: 4px; font-size: 9px; }
 
+  /* notes | bottle side by side on phone */
   .suas-lah-build {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(108px, 36%);
+    grid-template-areas:
+      "notes stage"
+      "checkout checkout";
     gap: 6px;
   }
 
   .suas-lah-stage {
-    position: static;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 6px;
+    position: sticky;
+    top: 6px;
+    align-self: start;
   }
 
   .suas-lah-bottle-card {
-    display: grid;
-    grid-template-columns: 96px minmax(0, 1fr);
-    grid-template-areas:
-      "status status"
-      "bottle meta"
-      "pick pick";
-    gap: 4px 8px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    text-align: left;
-    padding: 8px;
+    text-align: center;
+    padding: 6px 4px;
+    gap: 4px;
   }
-  .suas-lah-fill-status { grid-area: status; margin: 0; }
-  .suas-lah-photo-stage {
-    grid-area: bottle;
-    width: 84px !important;
-    max-height: 148px;
+  .suas-lah-fill-status {
     margin: 0;
+    font-size: 8px;
+    letter-spacing: 0.04em;
+  }
+  .suas-lah-photo-stage {
+    width: 78px !important;
+    max-height: 150px;
+    margin: 0 auto;
   }
   .suas-lah-photo-body,
-  .suas-lah-photo-bottle { max-height: 148px; }
+  .suas-lah-photo-bottle { max-height: 150px; }
   .suas-lah-recipe {
-    grid-area: meta;
-    max-height: 112px;
-    margin: 0;
+    max-height: 72px;
+    margin: 2px 0 0;
+    font-size: 9px;
+    width: 100%;
   }
-  .suas-lah-bottle-pick { grid-area: pick; }
+  .suas-lah-bottle-pick { width: 100%; }
+  .suas-lah-bottle-options { grid-template-columns: 1fr; gap: 3px; }
+  .suas-lah-bottle-opt { min-height: 26px; font-size: 9px; }
 
   .suas-lah-kits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
   .suas-lah-kit { min-height: 44px; padding: 6px; }
   .suas-lah-kit.is-trio { grid-column: 1 / -1; }
   .suas-lah-kit-thumb { width: 48px; height: 30px; }
 
-  .suas-lah-panel-notes {
-    /* notes stay immediately under bottle so fill stays in view */
-  }
+  .suas-lah-slot-hint { display: none; }
   .suas-lah-slotbar { margin-bottom: 5px; }
+  .suas-lah-slot { min-height: 30px; padding: 3px 6px; font-size: 9px; }
   .suas-lah-notes {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-height: min(46vh, 280px);
-    gap: 5px;
+    grid-template-columns: 1fr;
+    max-height: min(52vh, 320px);
+    gap: 4px;
   }
   .suas-lah-note {
-    min-height: 40px;
+    min-height: 38px;
     padding: 5px 6px;
   }
-  .suas-lah-note b { font-size: 0.82rem; }
+  .suas-lah-note b { font-size: 0.8rem; }
 
-  .suas-lah-name-row,
-  .suas-lah-actions { grid-column: auto; }
-  .suas-lah-btn { min-height: 44px; font-size: 0.95rem; }
+  .suas-lah-checkout {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .suas-lah-btn { min-height: 46px; font-size: 1.05rem; font-weight: 800; }
   .suas-lah-name-row input { min-height: 42px; font-size: 16px; }
 }
 

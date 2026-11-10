@@ -45,14 +45,15 @@
       id: 'cylinder',
       label: 'cylinder',
       src: root.getAttribute('data-bottle-cylinder') || '',
-      fillInset: '36% 39% 15% 39%',
+      // top / right / bottom / left — cavity inside clear glass body
+      fillInset: '28% 34% 12% 34%',
       finish: 'silver sprayer'
     },
     round: {
       id: 'round',
       label: 'round',
       src: root.getAttribute('data-bottle-round') || '',
-      fillInset: '36% 24% 15% 24%',
+      fillInset: '30% 22% 14% 22%',
       finish: 'silver sprayer'
     }
   };
@@ -62,14 +63,14 @@
       id: 'oil',
       label: 'airless pump',
       src: root.getAttribute('data-bottle-oil') || '',
-      fillInset: '35% 31% 15% 31%',
+      fillInset: '30% 28% 14% 28%',
       finish: 'white pump · clear cap'
     },
     rollon: {
       id: 'rollon',
       label: 'roll-on',
       src: root.getAttribute('data-bottle-rollon') || '',
-      fillInset: '35% 36% 15% 36%',
+      fillInset: '30% 32% 14% 32%',
       finish: 'white cap · rollerball'
     }
   };
@@ -398,7 +399,8 @@
     var bottle = activeBottle();
     var vol = totalMl(kit);
     var filled = filledMl();
-    var pct = Math.min(100, (filled / vol) * 100);
+    // Keep a tiny empty headspace so full never looks clipped into the neck.
+    var pct = filled <= 0 ? 0 : Math.min(96, Math.max(8, (filled / vol) * 96));
 
     var mixed = '#f4c4d8';
     if (state.picks.length) {

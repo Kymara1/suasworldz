@@ -99,10 +99,10 @@
               <p class="suas-lah-fill-status" data-lah-fill-status>0 / 30 mL filled</p>
               <div class="suas-lah-photo-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
                 <div class="suas-lah-photo-body">
-                  <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="210" height="320">
                   <div class="suas-lah-photo-fill" data-lah-photo-fill>
                     <span class="suas-lah-photo-liquid" data-lah-liquid></span>
                   </div>
+                  <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="210" height="320">
                 </div>
               </div>
               <div class="suas-lah-bottle-pick" data-lah-bottle-pick hidden>
@@ -110,7 +110,9 @@
               </div>
               <ul class="suas-lah-recipe" data-lah-recipe></ul>
             </div>
+          </aside>
 
+          <div class="suas-lah-checkout">
             <div class="suas-lah-name-row">
               <label for="LahFormulaName">name your formula <span class="suas-lah-optional">(optional)</span></label>
               <input id="LahFormulaName" class="suas-formula-input" type="text" maxlength="48" placeholder="ex: peachy glow" data-lah-name autocomplete="off">
@@ -121,7 +123,7 @@
               <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-reset>start over</button>
               <p class="suas-lah-error" data-lah-error role="alert"></p>
             </div>
-          </aside>
+          </div>
         </div>
       </div>
     </div>
