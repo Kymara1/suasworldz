@@ -56,17 +56,10 @@
         "rollon_product": "lab-at-home-roll-on",
         "trio_product": "lab-at-home-trio"
       }
-    },
-    "reviews": {
-      "type": "suas-reviews",
-      "settings": {
-        "heading": "lab love notes."
-      }
     }
   },
   "order": [
     "suas_lab",
-    "lab_at_home",
-    "reviews"
+    "lab_at_home"
   ]
 }

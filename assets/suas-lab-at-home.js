@@ -10,7 +10,6 @@
       key: 'perfume',
       label: '30 mL Custom Perfume',
       shape: 'perfume',
-      priceKey: 'perfume',
       slots: [
         { role: 'base', amountMl: 15, label: '15 mL base' },
         { role: 'support', amountMl: 5, label: '5 mL support' },
@@ -22,7 +21,6 @@
       key: 'oil',
       label: '30 mL Custom Body Oil',
       shape: 'oil',
-      priceKey: 'oil',
       slots: [
         { role: 'base', amountMl: 15, label: '15 mL base' },
         { role: 'support', amountMl: 5, label: '5 mL support' },
@@ -34,7 +32,6 @@
       key: 'rollon',
       label: '10 mL Custom Roll-On',
       shape: 'rollon',
-      priceKey: 'rollon',
       slots: [
         { role: 'base', amountMl: 4, label: '4 mL base' },
         { role: 'support', amountMl: 4, label: '4 mL support' },
@@ -49,24 +46,31 @@
     rollon: Number(root.getAttribute('data-variant-rollon') || 0),
     trio: Number(root.getAttribute('data-variant-trio') || 0)
   };
-  var noteAssets = {};
-  try {
-    noteAssets = JSON.parse(root.getAttribute('data-note-assets') || '{}');
-  } catch (e) {
-    noteAssets = {};
-  }
+  var money = {
+    perfume: root.getAttribute('data-money-perfume') || '$49.00',
+    oil: root.getAttribute('data-money-oil') || '$35.00',
+    rollon: root.getAttribute('data-money-rollon') || '$24.00',
+    trio: root.getAttribute('data-money-trio') || '$99.00'
+  };
+  var titles = {
+    perfume: root.getAttribute('data-title-perfume') || 'The Lab @ Home — 30 mL Custom Perfume',
+    oil: root.getAttribute('data-title-oil') || 'The Lab @ Home — 30 mL Custom Body Oil',
+    rollon: root.getAttribute('data-title-rollon') || 'The Lab @ Home — 10 mL Custom Roll-On',
+    trio: root.getAttribute('data-title-trio') || 'The Lab @ Home Trio'
+  };
 
   var state = {
-    mode: 'perfume', // perfume | oil | rollon | trio
-    trioStep: 'perfume', // perfume | oil | rollon
+    mode: 'perfume',
+    trioStep: 'perfume',
     filter: 'all',
     picks: [],
-    formulaName: '',
+    activeSlot: 0,
     trioFormulas: { perfume: null, oil: null, rollon: null }
   };
 
   var els = {
     kits: root.querySelector('[data-lah-kits]'),
+    selected: root.querySelector('[data-lah-selected]'),
     protocol: root.querySelector('[data-lah-protocol]'),
     slots: root.querySelector('[data-lah-slots]'),
     filters: root.querySelector('[data-lah-filters]'),
@@ -74,13 +78,13 @@
     bottle: root.querySelector('[data-lah-bottle]'),
     layers: root.querySelector('[data-lah-layers]'),
     liquid: root.querySelector('[data-lah-liquid]'),
+    meniscus: root.querySelector('[data-lah-meniscus]'),
     fillStatus: root.querySelector('[data-lah-fill-status]'),
     recipe: root.querySelector('[data-lah-recipe]'),
     name: root.querySelector('[data-lah-name]'),
     atc: root.querySelector('[data-lah-atc]'),
     reset: root.querySelector('[data-lah-reset]'),
     error: root.querySelector('[data-lah-error]'),
-    trioProgress: root.querySelector('[data-lah-trio-progress]'),
     live: root.querySelector('[data-lah-live]')
   };
 
@@ -93,8 +97,7 @@
   }
 
   function activeKitKey() {
-    if (state.mode === 'trio') return state.trioStep;
-    return state.mode;
+    return state.mode === 'trio' ? state.trioStep : state.mode;
   }
 
   function activeKit() {
@@ -108,10 +111,18 @@
   function filledMl() {
     var kit = activeKit();
     var sum = 0;
-    for (var i = 0; i < state.picks.length; i++) {
-      sum += kit.slots[i].amountMl;
+    for (var i = 0; i < kit.slots.length; i++) {
+      if (state.picks[i]) sum += kit.slots[i].amountMl;
     }
     return sum;
+  }
+
+  function firstEmptySlot() {
+    var kit = activeKit();
+    for (var i = 0; i < kit.slots.length; i++) {
+      if (!state.picks[i]) return i;
+    }
+    return Math.max(0, kit.slots.length - 1);
   }
 
   function announce(msg) {
@@ -129,43 +140,61 @@
     return null;
   }
 
+  function blendHex(a, b, t) {
+    function parse(h) {
+      h = String(h || '#888888').replace('#', '');
+      if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+      return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+    }
+    var A = parse(a);
+    var B = parse(b);
+    var r = Math.round(A[0] + (B[0] - A[0]) * t);
+    var g = Math.round(A[1] + (B[1] - A[1]) * t);
+    var bl = Math.round(A[2] + (B[2] - A[2]) * t);
+    return 'rgb(' + r + ',' + g + ',' + bl + ')';
+  }
+
   function renderKits() {
     if (!els.kits) return;
     var options = [
-      { id: 'perfume', label: 'perfume', meta: '30 mL · 15 + 5 + 5 + 5', price: '$49', bg: '#ffe8ef' },
-      { id: 'oil', label: 'body oil', meta: '30 mL · 15 + 5 + 5 + 5', price: '$35', bg: '#c9e7ff' },
-      { id: 'rollon', label: 'roll-on', meta: '10 mL · 4 + 4 + 2', price: '$24', bg: '#fff1a8' },
-      { id: 'trio', label: 'the trio', meta: 'all three kits · save $9', price: '$99', bg: '#d9ff78' }
+      { id: 'perfume', label: 'perfume', meta: '30 mL DIY kit · 15 + 5 + 5 + 5', price: money.perfume, bg: '#ffe8ef' },
+      { id: 'oil', label: 'body oil', meta: '30 mL DIY kit · 15 + 5 + 5 + 5', price: money.oil, bg: '#c9e7ff' },
+      { id: 'rollon', label: 'roll-on', meta: '10 mL DIY kit · 4 + 4 + 2', price: money.rollon, bg: '#fff1a8' },
+      { id: 'trio', label: 'the trio', meta: 'perfume + oil + roll-on · save $9', price: money.trio, bg: '#d9ff78' }
     ];
     els.kits.innerHTML = options.map(function (opt) {
       var pressed = state.mode === opt.id;
       return (
-        '<button type="button" class="suas-lah-kit" style="--kit-bg:' + opt.bg + '" data-kit="' + opt.id + '" aria-pressed="' + pressed + '">' +
+        '<button type="button" class="suas-lah-kit' + (pressed ? ' is-selected' : '') + '" style="--kit-bg:' + opt.bg + '" data-kit="' + opt.id + '" aria-pressed="' + pressed + '">' +
+          '<span class="suas-lah-kit-check" aria-hidden="true">' + (pressed ? '✓' : '') + '</span>' +
           '<strong>' + escapeHtml(opt.label) + '</strong>' +
           '<span>' + escapeHtml(opt.meta) + '</span>' +
           '<em>' + escapeHtml(opt.price) + '</em>' +
         '</button>'
       );
     }).join('');
+
+    if (els.selected) {
+      var kit = activeKit();
+      var priceKey = state.mode === 'trio' ? 'trio' : state.mode;
+      els.selected.innerHTML =
+        'Building: <strong>' + escapeHtml(kit.label) + '</strong> · <strong>' + escapeHtml(money[priceKey]) + '</strong>' +
+        (state.mode === 'trio' ? ' <span>(trio step ' + escapeHtml(state.trioStep) + ')</span>' : '');
+    }
   }
 
   function renderProtocol() {
     if (!els.protocol) return;
     var kit = activeKit();
-    var trioBit = '';
-    if (state.mode === 'trio') {
-      trioBit = '<p class="suas-lah-trio-progress" data-lah-trio-progress>trio step: ' + escapeHtml(state.trioStep) + ' · 3 formulas for $99</p>';
-    }
-    var nextSlot = kit.slots[state.picks.length];
-    var tip = nextSlot
-      ? (nextSlot.role === 'base'
-        ? 'Pick your favorite scent first — that is your ' + nextSlot.amountMl + ' mL base.'
-        : 'Add a supporting note (' + nextSlot.amountMl + ' mL). Same protocol as in The Lab.')
-      : 'All tubes filled. Name it and add to cart.';
+    var slot = kit.slots[state.activeSlot] || kit.slots[0];
+    var tip = state.picks[state.activeSlot]
+      ? 'Editing the ' + slot.amountMl + ' mL tube — pick a different note to replace it.'
+      : (slot.role === 'base'
+        ? 'Choose your ' + slot.amountMl + ' mL base note (your favorite).'
+        : 'Choose a ' + slot.amountMl + ' mL supporting note.');
     els.protocol.innerHTML =
       '<b>' + escapeHtml(kit.label) + '</b>' +
-      '<span>' + escapeHtml(tip) + '</span>' +
-      trioBit;
+      '<span>' + escapeHtml(tip) + '</span>';
   }
 
   function renderSlots() {
@@ -175,16 +204,16 @@
       var pick = state.picks[index];
       var note = pick ? noteById(pick) : null;
       var classes = 'suas-lah-slot';
-      if (index === state.picks.length) classes += ' is-active';
+      if (index === state.activeSlot) classes += ' is-active';
       if (note) classes += ' is-filled';
       var color = note ? note.hex : '#ddd';
       var text = note
         ? slot.amountMl + ' mL · ' + note.label
         : slot.label;
       return (
-        '<span class="' + classes + '" style="--slot-color:' + color + '">' +
-          '<i aria-hidden="true"></i>' + escapeHtml(text) +
-        '</span>'
+        '<button type="button" class="' + classes + '" style="--slot-color:' + color + '" data-slot="' + index + '" aria-pressed="' + (index === state.activeSlot) + '">' +
+          '<i aria-hidden="true"></i><span>' + escapeHtml(text) + '</span>' +
+        '</button>'
       );
     }).join('');
   }
@@ -203,25 +232,20 @@
 
   function renderNotes() {
     if (!els.notes) return;
-    var kit = activeKit();
-    var full = state.picks.length >= kit.slots.length;
     var list = NOTES.filter(function (note) {
-      if (state.filter !== 'all' && note.family !== state.filter) return false;
-      return true;
+      return state.filter === 'all' || note.family === state.filter;
     });
     els.notes.innerHTML = list.map(function (note) {
-      var selected = state.picks.indexOf(note.id) !== -1;
-      var disabled = full && !selected;
-      var photo = note.photo && noteAssets[note.photo] ? noteAssets[note.photo] : '';
-      var img = photo
-        ? '<img src="' + escapeHtml(photo) + '" alt="" loading="lazy" width="120" height="100">'
-        : '';
+      var selectedIn = state.picks.indexOf(note.id);
+      var isActivePick = state.picks[state.activeSlot] === note.id;
+      var classes = 'suas-lah-note';
+      if (isActivePick) classes += ' is-current';
+      else if (selectedIn !== -1) classes += ' is-used';
       return (
-        '<button type="button" class="suas-lah-note" data-note="' + escapeHtml(note.id) + '" aria-pressed="' + selected + '"' +
-          (disabled ? ' disabled' : '') +
-          ' style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
-          '<span class="suas-lah-note-swatch" aria-hidden="true">' + img + '</span>' +
-          '<b>' + escapeHtml(note.label) + '<small>' + escapeHtml(note.family) + '</small></b>' +
+        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" aria-pressed="' + (selectedIn !== -1) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
+          '<span class="suas-lah-note-drop" aria-hidden="true"></span>' +
+          '<span class="suas-lah-note-copy"><b>' + escapeHtml(note.label) + '</b><small>' + escapeHtml(note.family) + '</small></span>' +
+          (selectedIn !== -1 ? '<em>' + (selectedIn === 0 ? 'base' : 's' + selectedIn) + '</em>' : '') +
         '</button>'
       );
     }).join('');
@@ -233,31 +257,51 @@
 
     var vol = totalMl(kit);
     var filled = filledMl();
-    var pct = Math.min(100, Math.round((filled / vol) * 100));
+    var pct = Math.min(100, (filled / vol) * 100);
+    var bodyTop = 66;
+    var bodyBottom = 286;
+    var bodyH = bodyBottom - bodyTop;
+    var fillH = (pct / 100) * bodyH;
+    var fillY = bodyBottom - fillH;
+
+    var mixed = '#f4c4d8';
+    if (state.picks.length) {
+      mixed = noteById(state.picks[0]).hex;
+      for (var i = 1; i < state.picks.length; i++) {
+        if (!state.picks[i]) continue;
+        var n = noteById(state.picks[i]);
+        if (n) mixed = blendHex(mixed, n.hex, 0.35);
+      }
+    }
 
     if (els.liquid) {
-      els.liquid.style.height = pct + '%';
-      if (state.picks.length) {
-        var first = noteById(state.picks[0]);
-        var last = noteById(state.picks[state.picks.length - 1]);
-        els.liquid.style.setProperty('--liq-top', first ? first.hex2 : '#ff9fc2');
-        els.liquid.style.setProperty('--liq-bot', last ? last.hex : '#ff5ab4');
-      }
+      els.liquid.setAttribute('y', String(fillY));
+      els.liquid.setAttribute('height', String(fillH));
+      els.liquid.setAttribute('fill', mixed);
+    }
+    if (els.meniscus) {
+      els.meniscus.setAttribute('cy', String(fillY));
+      els.meniscus.setAttribute('opacity', fillH > 2 ? '1' : '0');
+      els.meniscus.setAttribute('fill', blendHex(mixed, '#ffffff', 0.45));
     }
 
     if (els.layers) {
       var cursor = 0;
-      els.layers.innerHTML = state.picks.map(function (id, index) {
-        var note = noteById(id);
-        var slot = kit.slots[index];
-        var h = (slot.amountMl / vol) * 100;
-        var from = cursor;
+      var parts = [];
+      for (var s = 0; s < kit.slots.length; s++) {
+        if (!state.picks[s]) continue;
+        var note = noteById(state.picks[s]);
+        var h = (kit.slots[s].amountMl / vol) * bodyH;
+        var y = bodyBottom - cursor - h;
         cursor += h;
-        return (
-          '<span class="suas-lah-layer" style="--from:' + from + '%;--h:' + h + '%;--c1:' +
-          (note ? note.hex2 : '#fff') + ';--c2:' + (note ? note.hex : '#ccc') + '"></span>'
+        parts.push(
+          '<rect x="48" y="' + y + '" width="64" height="' + h + '" fill="' + (note ? note.hex : mixed) + '" opacity="0.92">' +
+          '<animate attributeName="height" dur="0.45s" fill="freeze"/>' +
+          '</rect>' +
+          '<rect x="48" y="' + y + '" width="64" height="' + Math.min(10, h) + '" fill="' + (note ? note.hex2 : '#fff') + '" opacity="0.35"/>'
         );
-      }).join('');
+      }
+      els.layers.innerHTML = parts.join('');
     }
 
     if (els.fillStatus) {
@@ -265,29 +309,30 @@
     }
 
     if (els.recipe) {
-      if (!state.picks.length) {
-        els.recipe.innerHTML = '<li>empty bottle — pick your base scent</li>';
+      if (!filled) {
+        els.recipe.innerHTML = '<li>empty bottle — choose your base scent</li>';
       } else {
-        els.recipe.innerHTML = state.picks.map(function (id, index) {
-          var note = noteById(id);
-          var slot = kit.slots[index];
-          return '<li><strong>' + escapeHtml(slot.amountMl + ' mL') + '</strong> ' + escapeHtml(note ? note.label : id) +
+        els.recipe.innerHTML = kit.slots.map(function (slot, index) {
+          if (!state.picks[index]) return '';
+          var note = noteById(state.picks[index]);
+          return '<li><strong>' + escapeHtml(slot.amountMl + ' mL') + '</strong> ' + escapeHtml(note ? note.label : '') +
             (slot.role === 'base' ? ' <em>(base)</em>' : '') + '</li>';
         }).join('');
       }
     }
 
     if (els.atc) {
-      var ready = state.picks.length === kit.slots.length && (els.name && els.name.value.trim().length > 0);
+      var complete = kit.slots.every(function (_slot, index) { return !!state.picks[index]; });
+      var named = !!(els.name && els.name.value.trim());
+      var ready = complete && named;
       if (state.mode === 'trio' && state.trioStep !== 'rollon') {
-        els.atc.textContent = 'save formula · next kit';
-        els.atc.disabled = state.picks.length !== kit.slots.length || !(els.name && els.name.value.trim());
-      } else if (state.mode === 'trio') {
-        els.atc.textContent = 'add trio to cart · $99';
+        els.atc.textContent = 'save · next kit';
         els.atc.disabled = !ready;
+      } else if (state.mode === 'trio') {
+        els.atc.textContent = 'add trio to cart · ' + money.trio;
+        els.atc.disabled = !ready || !variants.trio;
       } else {
-        var prices = { perfume: '$49', oil: '$35', rollon: '$24' };
-        els.atc.textContent = 'add to cart · ' + (prices[state.mode] || '');
+        els.atc.textContent = 'add to cart · ' + money[state.mode];
         els.atc.disabled = !ready || !variants[state.mode];
       }
     }
@@ -318,17 +363,16 @@
     }).join(' + ');
   }
 
-  function propertiesForFormula(formula, kitLabel) {
+  function propertiesForFormula(formula) {
     var props = {
-      Kit: kitLabel || formula.label,
+      Kit: formula.label,
       'Formula name': formula.name,
       'Base note': formula.slots[0] ? formula.slots[0].noteLabel : '',
       'Base amount': formula.slots[0] ? (formula.slots[0].amountMl + ' mL') : ''
     };
     for (var i = 1; i < formula.slots.length; i++) {
-      var n = i;
-      props['Support ' + n] = formula.slots[i].noteLabel;
-      props['Support ' + n + ' amount'] = formula.slots[i].amountMl + ' mL';
+      props['Support ' + i] = formula.slots[i].noteLabel;
+      props['Support ' + i + ' amount'] = formula.slots[i].amountMl + ' mL';
     }
     props.Protocol = formulaLine(formula);
     return props;
@@ -345,29 +389,45 @@
 
   function pickNote(id) {
     var kit = activeKit();
-    var idx = state.picks.indexOf(id);
-    if (idx !== -1) {
-      // allow unpicking only the last pick to keep pour order sane
-      if (idx === state.picks.length - 1) {
-        state.picks.pop();
-        announce('Removed note. Bottle drained one pour.');
-      } else {
-        setError('Undo from the last pour only — keep the layer order.');
-        return;
-      }
+    var slotIndex = state.activeSlot;
+    if (slotIndex < 0 || slotIndex >= kit.slots.length) slotIndex = firstEmptySlot();
+
+    // if this note is already in another slot, swap/move it to active
+    var existing = state.picks.indexOf(id);
+    if (existing !== -1 && existing !== slotIndex) {
+      var displaced = state.picks[slotIndex] || null;
+      state.picks[slotIndex] = id;
+      state.picks[existing] = displaced;
     } else {
-      if (state.picks.length >= kit.slots.length) return;
-      state.picks.push(id);
-      var note = noteById(id);
-      var slot = kit.slots[state.picks.length - 1];
-      announce((note ? note.label : id) + ' poured · ' + slot.amountMl + ' mL');
-      setError('');
+      state.picks[slotIndex] = id;
+    }
+
+    // compact? no — keep sparse until filled in order for amounts; but amounts are per slot index so sparse is OK
+    // ensure array length
+    state.picks.length = kit.slots.length;
+
+    var note = noteById(id);
+    announce((note ? note.label : id) + ' set on ' + kit.slots[slotIndex].amountMl + ' mL tube');
+    setError('');
+
+    // advance to next empty slot if current filled
+    var next = firstEmptySlot();
+    if (state.picks[slotIndex] && !state.picks.every(Boolean)) {
+      // prefer next empty after current
+      next = slotIndex;
+      for (var i = 1; i <= kit.slots.length; i++) {
+        var idx = (slotIndex + i) % kit.slots.length;
+        if (!state.picks[idx]) { next = idx; break; }
+      }
+      state.activeSlot = next;
     }
     paint();
   }
 
   function resetPicks() {
-    state.picks = [];
+    var kit = activeKit();
+    state.picks = new Array(kit.slots.length);
+    state.activeSlot = 0;
     if (els.name) els.name.value = '';
     setError('');
     paint();
@@ -377,8 +437,9 @@
   async function addToCart() {
     setError('');
     var kit = activeKit();
-    if (state.picks.length !== kit.slots.length) {
-      setError('Finish filling every tube first.');
+    var complete = kit.slots.every(function (_s, i) { return !!state.picks[i]; });
+    if (!complete) {
+      setError('Fill every tube first — tap an empty tube, then a note.');
       return;
     }
     if (!els.name || !els.name.value.trim()) {
@@ -389,12 +450,12 @@
     if (state.mode === 'trio' && state.trioStep !== 'rollon') {
       state.trioFormulas[state.trioStep] = snapshotFormula();
       var order = ['perfume', 'oil', 'rollon'];
-      var next = order[order.indexOf(state.trioStep) + 1];
-      state.trioStep = next;
-      state.picks = [];
+      state.trioStep = order[order.indexOf(state.trioStep) + 1];
+      state.picks = new Array(KITS[state.trioStep].slots.length);
+      state.activeSlot = 0;
       if (els.name) els.name.value = '';
       paint();
-      announce('Saved. Now build your ' + next + ' formula.');
+      announce('Saved. Now build your ' + state.trioStep + ' formula.');
       root.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
@@ -415,23 +476,27 @@
           id: variants.trio,
           quantity: 1,
           properties: {
-            Kit: 'The Lab @ Home Trio',
+            Kit: titles.trio,
             'Formula name': rollF.name,
             'Perfume formula': perfumeF.name + ' — ' + formulaLine(perfumeF),
             'Body oil formula': oilF.name + ' — ' + formulaLine(oilF),
             'Roll-on formula': rollF.name + ' — ' + formulaLine(rollF),
             'Perfume base': perfumeF.slots[0].noteLabel,
             'Body oil base': oilF.slots[0].noteLabel,
-            'Roll-on base': rollF.slots[0].noteLabel
+            'Roll-on base': rollF.slots[0].noteLabel,
+            Price: money.trio
           }
         });
       } else {
-        if (!variants[state.mode]) throw new Error('missing variant');
+        if (!variants[state.mode]) throw new Error('missing variant ' + state.mode);
         var formula = snapshotFormula();
+        var props = propertiesForFormula(formula);
+        props.Price = money[state.mode];
+        props.Product = titles[state.mode];
         items.push({
           id: variants[state.mode],
           quantity: 1,
-          properties: propertiesForFormula(formula)
+          properties: props
         });
       }
 
@@ -441,7 +506,10 @@
         credentials: 'same-origin',
         body: JSON.stringify({ items: items })
       });
-      if (!response.ok) throw new Error('cart');
+      if (!response.ok) {
+        var errText = await response.text();
+        throw new Error(errText || 'cart');
+      }
       window.location.assign('/cart');
     } catch (err) {
       els.atc.disabled = false;
@@ -456,11 +524,22 @@
       state.mode = kitBtn.getAttribute('data-kit');
       state.trioStep = 'perfume';
       state.trioFormulas = { perfume: null, oil: null, rollon: null };
-      state.picks = [];
+      var kit = activeKit();
+      state.picks = new Array(kit.slots.length);
+      state.activeSlot = 0;
       if (els.name) els.name.value = '';
       setError('');
       paint();
-      announce('Selected ' + state.mode);
+      announce('Selected ' + kit.label + ' · ' + money[state.mode === 'trio' ? 'trio' : state.mode]);
+      return;
+    }
+
+    var slotBtn = event.target.closest('[data-slot]');
+    if (slotBtn && root.contains(slotBtn)) {
+      state.activeSlot = Number(slotBtn.getAttribute('data-slot'));
+      setError('');
+      paint();
+      announce('Editing tube ' + (state.activeSlot + 1));
       return;
     }
 
@@ -472,7 +551,7 @@
     }
 
     var noteBtn = event.target.closest('[data-note]');
-    if (noteBtn && root.contains(noteBtn) && !noteBtn.disabled) {
+    if (noteBtn && root.contains(noteBtn)) {
       pickNote(noteBtn.getAttribute('data-note'));
       return;
     }
@@ -491,10 +570,9 @@
   });
 
   if (els.name) {
-    els.name.addEventListener('input', function () {
-      renderBottle();
-    });
+    els.name.addEventListener('input', function () { renderBottle(); });
   }
 
+  state.picks = new Array(activeKit().slots.length);
   paint();
 })();

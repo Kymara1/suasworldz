@@ -1,20 +1,24 @@
 {%- liquid
-  assign perfume_product = section.settings.perfume_product
-  assign oil_product = section.settings.oil_product
-  assign rollon_product = section.settings.rollon_product
-  assign trio_product = section.settings.trio_product
+  comment
+    Prefer all_products by handle so kit prices stay locked to Lab @ Home SKUs
+    even if theme-editor product settings are empty or stale.
+  endcomment
+  assign perfume_product = all_products['lab-at-home-perfume']
+  assign oil_product = all_products['lab-at-home-body-oil']
+  assign rollon_product = all_products['lab-at-home-roll-on']
+  assign trio_product = all_products['lab-at-home-trio']
 
-  if perfume_product == blank
-    assign perfume_product = all_products['lab-at-home-perfume']
+  if section.settings.perfume_product != blank and section.settings.perfume_product.selected_or_first_available_variant != blank
+    assign perfume_product = section.settings.perfume_product
   endif
-  if oil_product == blank
-    assign oil_product = all_products['lab-at-home-body-oil']
+  if section.settings.oil_product != blank and section.settings.oil_product.selected_or_first_available_variant != blank
+    assign oil_product = section.settings.oil_product
   endif
-  if rollon_product == blank
-    assign rollon_product = all_products['lab-at-home-roll-on']
+  if section.settings.rollon_product != blank and section.settings.rollon_product.selected_or_first_available_variant != blank
+    assign rollon_product = section.settings.rollon_product
   endif
-  if trio_product == blank
-    assign trio_product = all_products['lab-at-home-trio']
+  if section.settings.trio_product != blank and section.settings.trio_product.selected_or_first_available_variant != blank
+    assign trio_product = section.settings.trio_product
   endif
 
   assign perfume_variant = perfume_product.selected_or_first_available_variant
@@ -34,7 +38,18 @@
   data-variant-oil="{{ oil_variant.id | default: 0 }}"
   data-variant-rollon="{{ rollon_variant.id | default: 0 }}"
   data-variant-trio="{{ trio_variant.id | default: 0 }}"
-  data-note-assets='{"note-station-strawberry.png":{{ "note-station-strawberry.png" | asset_url | json }},"note-pineapple.png":{{ "note-pineapple.png" | asset_url | json }},"note-blackberry.png":{{ "note-blackberry.png" | asset_url | json }},"note-station-caramel.png":{{ "note-station-caramel.png" | asset_url | json }},"note-station-vanilla.png":{{ "note-station-vanilla.png" | asset_url | json }},"note-coconut.png":{{ "note-coconut.png" | asset_url | json }},"note-station-sandalwood.png":{{ "note-station-sandalwood.png" | asset_url | json }}}'
+  data-price-perfume="{{ perfume_variant.price | default: 4900 }}"
+  data-price-oil="{{ oil_variant.price | default: 3500 }}"
+  data-price-rollon="{{ rollon_variant.price | default: 2400 }}"
+  data-price-trio="{{ trio_variant.price | default: 9900 }}"
+  data-money-perfume="{{ perfume_variant.price | default: 4900 | money }}"
+  data-money-oil="{{ oil_variant.price | default: 3500 | money }}"
+  data-money-rollon="{{ rollon_variant.price | default: 2400 | money }}"
+  data-money-trio="{{ trio_variant.price | default: 9900 | money }}"
+  data-title-perfume="{{ perfume_product.title | default: 'The Lab @ Home — 30 mL Custom Perfume' | escape }}"
+  data-title-oil="{{ oil_product.title | default: 'The Lab @ Home — 30 mL Custom Body Oil' | escape }}"
+  data-title-rollon="{{ rollon_product.title | default: 'The Lab @ Home — 10 mL Custom Roll-On' | escape }}"
+  data-title-trio="{{ trio_product.title | default: 'The Lab @ Home Trio' | escape }}"
 >
   <div class="suas-lah-wrap">
     <div class="suas-lah-window">
@@ -56,11 +71,13 @@
       <div class="suas-lah-body">
         <div class="suas-lah-panel">
           <p class="suas-lah-step-label">01 · choose your kit</p>
+          <p class="suas-lah-selected" data-lah-selected aria-live="polite"></p>
           <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
 
           <div class="suas-lah-protocol" data-lah-protocol></div>
 
-          <p class="suas-lah-step-label" style="margin-top:16px">02 · pour your notes</p>
+          <p class="suas-lah-step-label" style="margin-top:16px">02 · choose notes</p>
+          <p class="suas-lah-slot-hint">Tap a tube to edit that pour.</p>
           <div class="suas-lah-slotbar" data-lah-slots aria-live="polite"></div>
 
           <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Filter scent families"></div>
@@ -70,14 +87,38 @@
         <aside class="suas-lah-stage">
           <div class="suas-lah-bottle-card">
             <p class="suas-lah-fill-status" data-lah-fill-status>0 / 30 mL filled</p>
-            <div class="suas-lah-bottle" data-lah-bottle data-shape="perfume" aria-hidden="true">
-              <span class="suas-lah-cap"></span>
-              <span class="suas-lah-neck"></span>
-              <span class="suas-lah-body-glass">
-                <span class="suas-lah-liquid" data-lah-liquid></span>
-                <span class="suas-lah-layers" data-lah-layers></span>
-                <span class="suas-lah-shine"></span>
-              </span>
+            <div class="suas-lah-bottle-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
+              <svg class="suas-lah-svg" viewBox="0 0 160 320" role="img" focusable="false">
+                <defs>
+                  <linearGradient id="lahGlass" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.55)"/>
+                    <stop offset="35%" stop-color="rgba(255,255,255,0.08)"/>
+                    <stop offset="70%" stop-color="rgba(180,200,220,0.12)"/>
+                    <stop offset="100%" stop-color="rgba(255,255,255,0.28)"/>
+                  </linearGradient>
+                  <linearGradient id="lahCap" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3a3a3a"/>
+                    <stop offset="100%" stop-color="#111"/>
+                  </linearGradient>
+                  <clipPath id="lahBodyClip">
+                    <path d="M48 78 C48 70 52 66 60 66 H100 C108 66 112 70 112 78 V250 C112 270 98 286 80 286 C62 286 48 270 48 250 Z"/>
+                  </clipPath>
+                  <filter id="lahSoft" x="-20%" y="-10%" width="140%" height="130%">
+                    <feGaussianBlur stdDeviation="1.2"/>
+                  </filter>
+                </defs>
+                <ellipse cx="80" cy="298" rx="42" ry="8" fill="rgba(17,17,17,0.12)"/>
+                <rect class="suas-lah-cap-svg" x="62" y="18" width="36" height="22" rx="5" fill="url(#lahCap)" stroke="#111" stroke-width="2"/>
+                <rect x="70" y="38" width="20" height="28" rx="3" fill="url(#lahGlass)" stroke="rgba(17,17,17,0.35)" stroke-width="1.5"/>
+                <path d="M48 78 C48 70 52 66 60 66 H100 C108 66 112 70 112 78 V250 C112 270 98 286 80 286 C62 286 48 270 48 250 Z" fill="url(#lahGlass)" stroke="rgba(17,17,17,0.4)" stroke-width="2"/>
+                <g clip-path="url(#lahBodyClip)">
+                  <rect class="suas-lah-liquid-svg" data-lah-liquid x="48" y="286" width="64" height="0" fill="#ff5ab4"/>
+                  <g data-lah-layers></g>
+                  <ellipse class="suas-lah-meniscus" data-lah-meniscus cx="80" cy="286" rx="30" ry="5" fill="rgba(255,255,255,0.28)" opacity="0"/>
+                </g>
+                <path d="M54 84 C58 100 58 200 56 250" stroke="rgba(255,255,255,0.45)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <path d="M48 78 C48 70 52 66 60 66 H100 C108 66 112 70 112 78 V250 C112 270 98 286 80 286 C62 286 48 270 48 250 Z" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+              </svg>
             </div>
             <ul class="suas-lah-recipe" data-lah-recipe></ul>
           </div>
@@ -102,24 +143,24 @@
 
 <script>
   window.SUAS_LAB_HOME_NOTES = [
-    { id: 'cherry', label: 'Cherry', family: 'fruit', hex: '#c41e3a', hex2: '#ff6b8a', photo: null },
-    { id: 'strawberry', label: 'Strawberry', family: 'fruit', hex: '#e63946', hex2: '#ffb3c1', photo: 'note-station-strawberry.png' },
-    { id: 'pineapple', label: 'Pineapple', family: 'fruit', hex: '#f4c430', hex2: '#fff1a8', photo: 'note-pineapple.png' },
-    { id: 'apple', label: 'Apple', family: 'fruit', hex: '#7cb342', hex2: '#d9ff78', photo: null },
-    { id: 'watermelon', label: 'Watermelon', family: 'fruit', hex: '#ff4d6d', hex2: '#c8f7c5', photo: null },
-    { id: 'black-currant', label: 'Black Currant', family: 'fruit', hex: '#4a1942', hex2: '#c77dbb', photo: 'note-blackberry.png' },
-    { id: 'fig', label: 'Fig', family: 'fruit', hex: '#6b3a5a', hex2: '#d4a5c9', photo: null },
-    { id: 'honey', label: 'Honey', family: 'gourmand', hex: '#d4a017', hex2: '#ffe08a', photo: null },
-    { id: 'bergamot', label: 'Bergamot', family: 'green', hex: '#a9dd59', hex2: '#ffe071', photo: null },
-    { id: 'caramel', label: 'Caramel', family: 'gourmand', hex: '#b85d19', hex2: '#ffc45f', photo: 'note-station-caramel.png' },
-    { id: 'coffee', label: 'Coffee', family: 'gourmand', hex: '#3e2723', hex2: '#a1887f', photo: null },
-    { id: 'heavy-cream', label: 'Heavy Cream (Phlur Type)', family: 'gourmand', hex: '#fff5e6', hex2: '#f5d9b8', photo: 'note-station-vanilla.png' },
-    { id: 'coconut', label: 'Coconut', family: 'gourmand', hex: '#fff7df', hex2: '#d0a36a', photo: 'note-coconut.png' },
-    { id: 'baby-powder', label: 'Baby Powder', family: 'sparkle', hex: '#f7f1e9', hex2: '#e8dff5', photo: null },
-    { id: 'ocean-scent', label: 'Ocean Scent', family: 'green', hex: '#4fc3f7', hex2: '#b3e5fc', photo: null },
-    { id: 'white-musk', label: 'White Musk', family: 'sparkle', hex: '#f5f5f5', hex2: '#d8e2ff', photo: null },
-    { id: 'black-oud', label: 'Black Oud', family: 'sparkle', hex: '#1a1210', hex2: '#5c4033', photo: null },
-    { id: 'cedar', label: 'Cedar', family: 'green', hex: '#74401f', hex2: '#c98445', photo: 'note-station-sandalwood.png' }
+    { id: 'cherry', label: 'Cherry', family: 'fruit', hex: '#c41e3a', hex2: '#ff6b8a' },
+    { id: 'strawberry', label: 'Strawberry', family: 'fruit', hex: '#e63946', hex2: '#ffb3c1' },
+    { id: 'pineapple', label: 'Pineapple', family: 'fruit', hex: '#f4c430', hex2: '#fff1a8' },
+    { id: 'apple', label: 'Apple', family: 'fruit', hex: '#7cb342', hex2: '#d9ff78' },
+    { id: 'watermelon', label: 'Watermelon', family: 'fruit', hex: '#ff4d6d', hex2: '#c8f7c5' },
+    { id: 'black-currant', label: 'Black Currant', family: 'fruit', hex: '#4a1942', hex2: '#c77dbb' },
+    { id: 'fig', label: 'Fig', family: 'fruit', hex: '#6b3a5a', hex2: '#d4a5c9' },
+    { id: 'honey', label: 'Honey', family: 'gourmand', hex: '#d4a017', hex2: '#ffe08a' },
+    { id: 'bergamot', label: 'Bergamot', family: 'green', hex: '#a9dd59', hex2: '#ffe071' },
+    { id: 'caramel', label: 'Caramel', family: 'gourmand', hex: '#b85d19', hex2: '#ffc45f' },
+    { id: 'coffee', label: 'Coffee', family: 'gourmand', hex: '#3e2723', hex2: '#a1887f' },
+    { id: 'heavy-cream', label: 'Heavy Cream', family: 'gourmand', hex: '#fff5e6', hex2: '#f5d9b8' },
+    { id: 'coconut', label: 'Coconut', family: 'gourmand', hex: '#fff7df', hex2: '#d0a36a' },
+    { id: 'baby-powder', label: 'Baby Powder', family: 'sparkle', hex: '#f7f1e9', hex2: '#e8dff5' },
+    { id: 'ocean-scent', label: 'Ocean Scent', family: 'green', hex: '#4fc3f7', hex2: '#b3e5fc' },
+    { id: 'white-musk', label: 'White Musk', family: 'sparkle', hex: '#f5f5f5', hex2: '#d8e2ff' },
+    { id: 'black-oud', label: 'Black Oud', family: 'sparkle', hex: '#1a1210', hex2: '#5c4033' },
+    { id: 'cedar', label: 'Cedar', family: 'green', hex: '#74401f', hex2: '#c98445' }
   ];
 </script>
 <script src="{{ 'suas-lab-at-home.js' | asset_url }}" defer></script>
