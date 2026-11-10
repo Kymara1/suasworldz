@@ -75,20 +75,16 @@
 
       <div class="suas-lah-body">
         <div class="suas-lah-panel">
-          <p class="suas-lah-step-label">01 · choose your kit</p>
-          <p class="suas-lah-selected" data-lah-selected aria-live="polite"></p>
+          <p class="suas-lah-step-label">01 · kit</p>
+          <p class="suas-visually-hidden" data-lah-selected aria-live="polite"></p>
           <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
 
           <div class="suas-lah-trio-track" data-lah-trio-track hidden>
-            <p class="suas-lah-step-label">trio path · build each formula</p>
-            <p class="suas-lah-slot-hint">Pick notes for perfume, then body oil, then roll-on. Each product gets its own blend.</p>
             <div class="suas-lah-trio-steps" data-lah-trio-steps role="tablist" aria-label="Trio product steps"></div>
           </div>
 
-          <div class="suas-lah-protocol" data-lah-protocol></div>
-
-          <p class="suas-lah-step-label" data-lah-notes-label>02 · choose notes</p>
-          <p class="suas-lah-slot-hint">Tap a tube to edit. Same note can fill more than one tube.</p>
+          <p class="suas-lah-step-label" data-lah-notes-label>02 · notes</p>
+          <p class="suas-lah-slot-hint" data-lah-slot-hint>Tap a tube. Same note can fill more than one.</p>
           <div class="suas-lah-slotbar" data-lah-slots aria-live="polite"></div>
 
           <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Filter scent families"></div>
@@ -98,9 +94,6 @@
         <aside class="suas-lah-stage">
           <div class="suas-lah-bottle-card">
             <p class="suas-lah-fill-status" data-lah-fill-status>0 / 30 mL filled</p>
-            <div class="suas-lah-trio-hero" data-lah-trio-hero hidden>
-              <img src="{{ 'lah-pack-trio.png' | asset_url }}" alt="Perfume, body oil, and roll-on trio bottles" width="360" height="240" data-lah-trio-img>
-            </div>
             <div class="suas-lah-photo-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
               <div class="suas-lah-photo-body">
                 <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="210" height="320">
@@ -110,7 +103,6 @@
               </div>
             </div>
             <div class="suas-lah-bottle-pick" data-lah-bottle-pick hidden>
-              <p class="suas-lah-bottle-pick-label">bottle shape · silver sprayer</p>
               <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="30 mL perfume bottle"></div>
             </div>
             <ul class="suas-lah-recipe" data-lah-recipe></ul>
