@@ -301,9 +301,11 @@
     }
     var nameLabel = root.querySelector('label[for="LahFormulaName"]');
     if (nameLabel) {
-      nameLabel.textContent = show
+      var labelCore = show
         ? ('name this ' + (TRIO_LABELS[state.trioStep] || 'formula'))
         : 'name your formula';
+      nameLabel.innerHTML = escapeHtml(labelCore) +
+        (show ? '' : ' <span class="suas-lah-optional">(optional)</span>');
     }
 
     if (!show || !els.trioSteps) return;
