@@ -102,10 +102,17 @@
     trioFormulas: { perfume: null, oil: null, rollon: null }
   };
 
+  var TRIO_ORDER = ['perfume', 'oil', 'rollon'];
+  var TRIO_LABELS = { perfume: 'perfume', oil: 'body oil', rollon: 'roll-on' };
+
   var els = {
     kits: root.querySelector('[data-lah-kits]'),
     selected: root.querySelector('[data-lah-selected]'),
     protocol: root.querySelector('[data-lah-protocol]'),
+    trioTrack: root.querySelector('[data-lah-trio-track]'),
+    trioSteps: root.querySelector('[data-lah-trio-steps]'),
+    trioHero: root.querySelector('[data-lah-trio-hero]'),
+    notesLabel: root.querySelector('[data-lah-notes-label]'),
     bottlePick: root.querySelector('[data-lah-bottle-pick]'),
     bottleOptions: root.querySelector('[data-lah-bottle-options]'),
     slots: root.querySelector('[data-lah-slots]'),
@@ -148,6 +155,49 @@
     if (key === 'oil') return FIXED_PACKS.oil;
     if (key === 'rollon') return FIXED_PACKS.rollon;
     return BOTTLES[state.bottle] || BOTTLES.cylinder;
+  }
+
+  function trioStepIndex() {
+    return TRIO_ORDER.indexOf(state.trioStep);
+  }
+
+  function trioStepUnlocked(key) {
+    var idx = TRIO_ORDER.indexOf(key);
+    if (idx <= 0) return true;
+    // unlock if previous saved, or this/after is current
+    for (var i = 0; i < idx; i++) {
+      if (!state.trioFormulas[TRIO_ORDER[i]]) return key === state.trioStep;
+    }
+    return true;
+  }
+
+  function loadTrioStep(key) {
+    if (!trioStepUnlocked(key)) return;
+    // stash current work if partially filled
+    if (state.trioStep !== key) {
+      var currentComplete = activeKit().slots.every(function (_s, i) { return !!state.picks[i]; });
+      if (currentComplete && els.name && els.name.value.trim()) {
+        state.trioFormulas[state.trioStep] = snapshotFormula();
+      }
+    }
+    state.trioStep = key;
+    var saved = state.trioFormulas[key];
+    var kit = KITS[key];
+    if (saved) {
+      state.picks = saved.picks.slice();
+      state.picks.length = kit.slots.length;
+      if (els.name) els.name.value = saved.name || '';
+      if (saved.bottle === 'round') state.bottle = 'round';
+      if (saved.bottle === 'cylinder') state.bottle = 'cylinder';
+    } else {
+      state.picks = new Array(kit.slots.length);
+      state.activeSlot = 0;
+      if (els.name) els.name.value = '';
+    }
+    state.activeSlot = 0;
+    setError('');
+    paint();
+    announce('Trio step: ' + (TRIO_LABELS[key] || key));
   }
 
   function totalMl(kit) {
@@ -206,7 +256,7 @@
       { id: 'perfume', label: 'perfume', meta: '30 mL · 15+5+5+5', price: money.perfume, bg: '#ffe8ef' },
       { id: 'oil', label: 'body oil', meta: '30 mL · 15+5+5+5', price: money.oil, bg: '#c9e7ff' },
       { id: 'rollon', label: 'roll-on', meta: '10 mL · 4+4+2', price: money.rollon, bg: '#fff1a8' },
-      { id: 'trio', label: 'the trio', meta: 'all three · save $9', price: money.trio, bg: '#d9ff78' }
+      { id: 'trio', label: 'the trio', meta: 'perfume + oil + roll-on', price: money.trio, bg: '#d9ff78' }
     ];
     els.kits.innerHTML = options.map(function (opt) {
       var pressed = state.mode === opt.id;
@@ -223,10 +273,55 @@
     if (els.selected) {
       var kit = activeKit();
       var priceKey = state.mode === 'trio' ? 'trio' : state.mode;
-      els.selected.innerHTML =
-        'Building: <strong>' + escapeHtml(kit.label) + '</strong> · <strong>' + escapeHtml(money[priceKey]) + '</strong>' +
-        (state.mode === 'trio' ? ' <span>(trio · ' + escapeHtml(state.trioStep) + ')</span>' : '');
+      if (state.mode === 'trio') {
+        els.selected.innerHTML =
+          'Trio <strong>' + escapeHtml(money.trio) + '</strong> · building <strong>' +
+          escapeHtml(TRIO_LABELS[state.trioStep] || kit.label) + '</strong> <span>(' +
+          (trioStepIndex() + 1) + ' of 3)</span>';
+      } else {
+        els.selected.innerHTML =
+          'Building: <strong>' + escapeHtml(kit.label) + '</strong> · <strong>' + escapeHtml(money[priceKey]) + '</strong>';
+      }
     }
+  }
+
+  function renderTrioTrack() {
+    var show = state.mode === 'trio';
+    if (els.trioTrack) els.trioTrack.hidden = !show;
+    if (els.trioHero) els.trioHero.hidden = !show;
+    if (els.bottle) els.bottle.hidden = false;
+
+    if (els.notesLabel) {
+      els.notesLabel.textContent = show
+        ? ('02 · ' + (TRIO_LABELS[state.trioStep] || 'notes') + ' notes')
+        : '02 · choose notes';
+    }
+    var nameLabel = root.querySelector('label[for="LahFormulaName"]');
+    if (nameLabel) {
+      nameLabel.textContent = show
+        ? ('name your ' + (TRIO_LABELS[state.trioStep] || 'formula'))
+        : 'name your formula';
+    }
+
+    if (!show || !els.trioSteps) return;
+
+    els.trioSteps.innerHTML = TRIO_ORDER.map(function (key, index) {
+      var saved = !!state.trioFormulas[key];
+      var current = state.trioStep === key;
+      var unlocked = trioStepUnlocked(key);
+      var classes = 'suas-lah-trio-step';
+      if (current) classes += ' is-current';
+      if (saved) classes += ' is-saved';
+      if (!unlocked) classes += ' is-locked';
+      return (
+        '<button type="button" class="' + classes + '" data-trio-step="' + key + '" role="tab" aria-selected="' + current + '" ' +
+          (unlocked ? '' : 'disabled ') + '>' +
+          '<em>' + (index + 1) + '</em>' +
+          '<strong>' + escapeHtml(TRIO_LABELS[key]) + '</strong>' +
+          '<small>' + (saved ? 'saved' : (current ? 'now' : 'next')) + '</small>' +
+        '</button>'
+      );
+    }).join('');
   }
 
   function renderBottlePick() {
@@ -254,8 +349,17 @@
       : (slot.role === 'base'
         ? 'Choose your ' + slot.amountMl + ' mL base. Only want 2–3 notes? Reuse favorites on the other tubes.'
         : 'Choose a ' + slot.amountMl + ' mL support note — same note can be used again.');
+    var title = kit.label;
+    if (state.mode === 'trio') {
+      title = 'trio · ' + (TRIO_LABELS[state.trioStep] || kit.label);
+      var nextKey = TRIO_ORDER[trioStepIndex() + 1];
+      if (!state.picks[state.activeSlot] && slot.role === 'base') {
+        tip = 'Build this ' + (TRIO_LABELS[state.trioStep] || '') + ' formula first' +
+          (nextKey ? ', then ' + TRIO_LABELS[nextKey] : '') + '. Notes can differ on every bottle.';
+      }
+    }
     els.protocol.innerHTML =
-      '<b>' + escapeHtml(kit.label) + '</b>' +
+      '<b>' + escapeHtml(title) + '</b>' +
       '<span>' + escapeHtml(tip) + '</span>';
   }
 
@@ -366,6 +470,15 @@
         els.recipe.innerHTML += '<li><em>bottle:</em> ' + escapeHtml(bottle.label) +
           (bottle.finish ? ' · ' + escapeHtml(bottle.finish) : '') + '</li>';
       }
+      if (state.mode === 'trio') {
+        TRIO_ORDER.forEach(function (key) {
+          if (key === state.trioStep) return;
+          var saved = state.trioFormulas[key];
+          if (!saved) return;
+          els.recipe.innerHTML += '<li><em>' + escapeHtml(TRIO_LABELS[key]) + ':</em> ' +
+            escapeHtml(saved.name) + ' · ' + escapeHtml(formulaLine(saved)) + '</li>';
+        });
+      }
     }
 
     if (els.atc) {
@@ -373,7 +486,8 @@
       var named = !!(els.name && els.name.value.trim());
       var ready = complete && named;
       if (state.mode === 'trio' && state.trioStep !== 'rollon') {
-        els.atc.textContent = 'save · next kit';
+        var nextKey = TRIO_ORDER[trioStepIndex() + 1];
+        els.atc.textContent = 'save ' + (TRIO_LABELS[state.trioStep] || '') + ' · next: ' + (TRIO_LABELS[nextKey] || 'next');
         els.atc.disabled = !ready;
       } else if (state.mode === 'trio') {
         els.atc.textContent = 'add trio · ' + money.trio;
@@ -432,6 +546,7 @@
 
   function paint() {
     renderKits();
+    renderTrioTrack();
     renderBottlePick();
     renderProtocol();
     renderSlots();
@@ -490,13 +605,20 @@
 
     if (state.mode === 'trio' && state.trioStep !== 'rollon') {
       state.trioFormulas[state.trioStep] = snapshotFormula();
-      var order = ['perfume', 'oil', 'rollon'];
-      state.trioStep = order[order.indexOf(state.trioStep) + 1];
-      state.picks = new Array(KITS[state.trioStep].slots.length);
+      var next = TRIO_ORDER[trioStepIndex() + 1];
+      state.trioStep = next;
+      var savedNext = state.trioFormulas[next];
+      if (savedNext) {
+        state.picks = savedNext.picks.slice();
+        state.picks.length = KITS[next].slots.length;
+        if (els.name) els.name.value = savedNext.name || '';
+      } else {
+        state.picks = new Array(KITS[next].slots.length);
+        if (els.name) els.name.value = '';
+      }
       state.activeSlot = 0;
-      if (els.name) els.name.value = '';
       paint();
-      announce('Saved. Now build your ' + state.trioStep + ' formula.');
+      announce('Saved. Now build your ' + (TRIO_LABELS[next] || next) + ' formula.');
       root.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
@@ -523,7 +645,9 @@
             'Body oil formula': oilF.name + ' — ' + formulaLine(oilF),
             'Roll-on formula': rollF.name + ' — ' + formulaLine(rollF),
             'Perfume bottle': perfumeF.bottle || '',
-            Sprayer: 'Silver',
+            'Perfume finish': perfumeF.finish || 'silver sprayer',
+            'Body oil bottle': oilF.bottle || '',
+            'Roll-on bottle': rollF.bottle || '',
             Price: money.trio
           }
         });
@@ -563,7 +687,15 @@
       if (els.name) els.name.value = '';
       setError('');
       paint();
-      announce('Selected ' + kit.label);
+      announce(state.mode === 'trio'
+        ? 'Trio selected — build perfume, then oil, then roll-on.'
+        : ('Selected ' + kit.label));
+      return;
+    }
+
+    var trioStepBtn = event.target.closest('[data-trio-step]');
+    if (trioStepBtn && root.contains(trioStepBtn) && state.mode === 'trio') {
+      loadTrioStep(trioStepBtn.getAttribute('data-trio-step'));
       return;
     }
 
@@ -610,7 +742,9 @@
   });
 
   if (els.name) {
-    els.name.addEventListener('input', function () { renderBottle(); });
+    els.name.addEventListener('input', function () {
+      renderBottle();
+    });
   }
 
   state.picks = new Array(activeKit().slots.length);

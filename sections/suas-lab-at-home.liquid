@@ -54,6 +54,7 @@
   data-bottle-round="{{ 'lah-pack-round.png' | asset_url }}"
   data-bottle-oil="{{ 'lah-pack-oil.png' | asset_url }}"
   data-bottle-rollon="{{ 'lah-pack-rollon.png' | asset_url }}"
+  data-bottle-trio="{{ 'lah-pack-trio.png' | asset_url }}"
 >
   <div class="suas-lah-wrap">
     <div class="suas-lah-window">
@@ -78,9 +79,15 @@
           <p class="suas-lah-selected" data-lah-selected aria-live="polite"></p>
           <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
 
+          <div class="suas-lah-trio-track" data-lah-trio-track hidden>
+            <p class="suas-lah-step-label">trio path · build each formula</p>
+            <p class="suas-lah-slot-hint">Pick notes for perfume, then body oil, then roll-on. Each product gets its own blend.</p>
+            <div class="suas-lah-trio-steps" data-lah-trio-steps role="tablist" aria-label="Trio product steps"></div>
+          </div>
+
           <div class="suas-lah-protocol" data-lah-protocol></div>
 
-          <p class="suas-lah-step-label">02 · choose notes</p>
+          <p class="suas-lah-step-label" data-lah-notes-label>02 · choose notes</p>
           <p class="suas-lah-slot-hint">Tap a tube to edit. Same note can fill more than one tube.</p>
           <div class="suas-lah-slotbar" data-lah-slots aria-live="polite"></div>
 
@@ -91,6 +98,9 @@
         <aside class="suas-lah-stage">
           <div class="suas-lah-bottle-card">
             <p class="suas-lah-fill-status" data-lah-fill-status>0 / 30 mL filled</p>
+            <div class="suas-lah-trio-hero" data-lah-trio-hero hidden>
+              <img src="{{ 'lah-pack-trio.png' | asset_url }}" alt="Perfume, body oil, and roll-on trio bottles" width="360" height="240" data-lah-trio-img>
+            </div>
             <div class="suas-lah-photo-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
               <div class="suas-lah-photo-body">
                 <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="210" height="320">
