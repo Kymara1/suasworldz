@@ -74,11 +74,13 @@ Cologne|/collections/cologne
 Perfume|/collections/eau-de-parfum
 Skin Jelly|/collections/body-jelly{% endcapture %}
 {% capture about_submenu_default %}Who are we|/pages/who-are-we
-Book the Lab|/pages/bookings
-Party booking|/pages/party-booking
-Charm Bar|/pages/bookings#charm-bar
+Visit Us|/pages/visit-us
 Contact Us|{{ suas_contact_url }}
 Refund Policy|/pages/refund-policy{% endcapture %}
+{% capture bookings_submenu_default %}The Lab Bookings|/pages/bookings
+The Lab @ Home|/pages/the-lab
+The Charm Bar Bookings|/pages/bookings#charm-bar
+Parties & Events|/pages/parties-events{% endcapture %}
 {% liquid
   assign suas_men_panel = false
   assign suas_sfx = template.suffix | default: ''
@@ -128,8 +130,9 @@ Refund Policy|/pages/refund-policy{% endcapture %}
         <a class="suas-side-link{% if request.path contains '/collections/m-butter-creme' %} is-active{% endif %}" href="/collections/m-butter-creme"><span class="suas-side-icon" style="--tint:#fff">03</span><span class="suas-side-label">butter</span><span class="suas-side-num">03</span></a>
         <a class="suas-side-link{% if request.path contains '/collections/exfoliating-body-wash' %} is-active{% endif %}" href="/collections/exfoliating-body-wash"><span class="suas-side-icon" style="--tint:#fff">04</span><span class="suas-side-label">wash</span><span class="suas-side-num">04</span></a>
         <a class="suas-side-link{% if request.path contains '/collections/beard' %} is-active{% endif %}" href="/collections/beard"><span class="suas-side-icon" style="--tint:#fff">05</span><span class="suas-side-label">beard</span><span class="suas-side-num">05</span></a>
-        <details class="suas-side-dropdown"{% if request.path contains '/pages/visit-us' or request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' %} open{% endif %}><summary class="suas-side-link{% if request.path contains '/pages/visit-us' or request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#fff">06</span><span class="suas-side-label">visit us</span><span class="suas-side-num">06</span></summary><div class="suas-panel-submenu"><a href="/pages/visit-us">Visit Us</a><a href="/pages/bookings">The Lab</a></div></details>
-        <a class="suas-side-link" href="/"><span class="suas-side-icon" style="--tint:#fff">07</span><span class="suas-side-label">exit</span><span class="suas-side-num">07</span></a>
+        <details class="suas-side-dropdown"{% if request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' or request.path contains '/pages/parties-events' or request.path contains '/pages/party-booking' %} open{% endif %}><summary class="suas-side-link{% if request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' or request.path contains '/pages/parties-events' or request.path contains '/pages/party-booking' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#fff">06</span><span class="suas-side-label">bookings</span><span class="suas-side-num">06</span></summary><div class="suas-panel-submenu"><a href="/pages/bookings">The Lab Bookings</a><a href="/pages/the-lab">The Lab @ Home</a><a href="/pages/bookings#charm-bar">The Charm Bar Bookings</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>
+        <details class="suas-side-dropdown"{% if request.path contains '/pages/who-are-we' or request.path contains '/pages/visit-us' or request.path contains '/pages/contact' %} open{% endif %}><summary class="suas-side-link{% if request.path contains '/pages/who-are-we' or request.path contains '/pages/visit-us' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#fff">07</span><span class="suas-side-label">about us</span><span class="suas-side-num">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who are we</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact-us">Contact Us</a></div></details>
+        <a class="suas-side-link" href="/"><span class="suas-side-icon" style="--tint:#fff">08</span><span class="suas-side-label">exit</span><span class="suas-side-num">08</span></a>
       {% else %}
       {% if section.settings.body_enabled %}
         {% liquid
@@ -274,21 +277,24 @@ Refund Policy|/pages/refund-policy{% endcapture %}
       {% if section.settings.lab_enabled %}
         {% liquid
           assign item_active = false
-          assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/bookings#charm-bar' | split: ','
+          assign active_paths = section.settings.lab_active_paths | default: '/pages/the-lab,/pages/bookings,/pages/parties-events,/pages/party-booking' | split: ','
           for active_path in active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
               assign item_active = true
             endif
           endfor
+          assign bookings_menu = linklists[section.settings.lab_menu]
+          assign bookings_submenu = section.settings.lab_submenu | default: bookings_submenu_default
+          assign bookings_rows = bookings_submenu | newline_to_br | split: '<br />'
         %}
-        <a class="suas-side-link{% if item_active %} is-active{% endif %}" data-suas-mobile-keep="true" href="{{ section.settings.lab_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.lab_tint }}">{{ section.settings.lab_icon }}</span><span class="suas-side-label">{{ section.settings.lab_label }}</span><span class="suas-side-num">{{ section.settings.lab_number }}</span></a>
+        <details class="suas-side-dropdown" data-suas-mobile-keep="true"{% if item_active %} open{% endif %}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.lab_tint }}">{{ section.settings.lab_icon }}</span><span class="suas-side-label">{{ section.settings.lab_label }}</span><span class="suas-side-num">{{ section.settings.lab_number }}</span></summary><div class="suas-panel-submenu">{% if bookings_menu.links.size > 0 %}{% for link in bookings_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in bookings_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
       {% if section.settings.about_enabled %}
         {% liquid
           assign item_active = false
-          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/bookings,/pages/party-booking,/pages/bookings#charm-bar,/pages/contact-us,/pages/refund-policy' | split: ','
+          assign about_active_paths = section.settings.about_active_paths | default: '/pages/about,/pages/who-are-we,/pages/visit-us,/pages/contact-us,/pages/refund-policy' | split: ','
           for active_path in about_active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
@@ -305,20 +311,39 @@ Refund Policy|/pages/refund-policy{% endcapture %}
             endif
           endfor
         %}
-        <details class="suas-side-dropdown" data-suas-mobile-keep="true"><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">{% if about_menu.links.size > 0 %}{% for link in about_menu.links %}{% assign link_down = link.title | downcase %}{% unless link_down contains 'parties' or link_down contains 'event' or link_down contains 'visit' %}{% assign about_link_url = link.url %}{% if about_link_url == '/pages/contact' %}{% assign about_link_url = '/pages/contact-us' %}{% endif %}<a href="{{ about_link_url }}">{{ link.title }}</a>{% endunless %}{% endfor %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}{% assign item_down = item_title | downcase %}{% unless item_down contains 'parties' or item_down contains 'event' %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endunless %}{% endif %}{% endfor %}{% elsif has_about_block_collections %}{% for dropdown_block in section.blocks %}{% if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank %}{% assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title %}{% assign item_down = item_title | downcase %}{% unless item_down contains 'parties' or item_down contains 'event' %}<a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>{% endunless %}{% endif %}{% endfor %}{% else %}{% for row in about_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% assign link_down = link_label | downcase %}{% if link_url == '/pages/contact' %}{% assign link_url = '/pages/contact-us' %}{% endif %}{% if link_label != blank and link_url != blank %}{% unless link_down contains 'parties' or link_down contains 'event' or link_down contains 'visit' %}<a href="{{ link_url }}">{{ link_label }}</a>{% endunless %}{% endif %}{% endfor %}{% endif %}</div></details>
-      {% endif %}
-      {% if section.settings.visit_enabled %}
-        {% liquid
-          assign item_active = false
-          assign active_paths = section.settings.visit_active_paths | default: '/pages/visit-us' | split: ','
-          for active_path in active_paths
-            assign clean_path = active_path | strip
-            if clean_path != blank and request.path contains clean_path
-              assign item_active = true
-            endif
-          endfor
-        %}
-        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.visit_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.visit_tint }}">{{ section.settings.visit_icon }}</span><span class="suas-side-label">{{ section.settings.visit_label }}</span><span class="suas-side-num">{{ section.settings.visit_number }}</span></a>
+        <details class="suas-side-dropdown" data-suas-mobile-keep="true"{% if item_active %} open{% endif %}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">
+          {%- if about_menu.links.size > 0 -%}
+            {%- assign has_visit_link = false -%}
+            {%- for link in about_menu.links -%}
+              {%- assign link_down = link.title | downcase -%}
+              {%- if link_down contains 'visit' -%}{%- assign has_visit_link = true -%}{%- endif -%}
+              {%- unless link_down contains 'parties' or link_down contains 'event' or link_down contains 'book the lab' or link_down contains 'charm' or link_down contains 'party booking' -%}
+                {%- assign about_link_url = link.url -%}
+                {%- if about_link_url == '/pages/contact' -%}{%- assign about_link_url = '/pages/contact-us' -%}{%- endif -%}
+                <a href="{{ about_link_url }}">{{ link.title }}</a>
+              {%- endunless -%}
+            {%- endfor -%}
+            {%- unless has_visit_link -%}<a href="/pages/visit-us">Visit Us</a>{%- endunless -%}
+          {%- elsif has_about_block_collections -%}
+            {%- for dropdown_block in section.blocks -%}
+              {%- if dropdown_block.type == 'dropdown_collection_item' and dropdown_block.settings.dropdown == 'about' and dropdown_block.settings.collection != blank -%}
+                {%- assign item_title = dropdown_block.settings.label | default: dropdown_block.settings.collection.title -%}
+                <a href="{{ dropdown_block.settings.collection.url }}" {{ dropdown_block.shopify_attributes }}>{{ item_title }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+            <a href="/pages/visit-us">Visit Us</a>
+          {%- else -%}
+            {%- for row in about_rows -%}
+              {%- assign parts = row | strip | split: '|' -%}
+              {%- assign link_label = parts[0] | strip -%}
+              {%- assign link_url = parts[1] | strip -%}
+              {%- if link_url == '/pages/contact' -%}{%- assign link_url = '/pages/contact-us' -%}{%- endif -%}
+              {%- if link_label != blank and link_url != blank -%}
+                <a href="{{ link_url }}">{{ link_label }}</a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div></details>
       {% endif %}
 
       {% for block in section.blocks %}
@@ -542,14 +567,16 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"color","id":"oddities_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"text","id":"oddities_active_paths","label":"Active URL matches, separated by commas","default":"/collections/oddities"},
 
-    {"type":"header","content":"The Lab item"},
-    {"type":"checkbox","id":"lab_enabled","label":"Show The Lab","default":true},
-    {"type":"text","id":"lab_label","label":"Label","default":"the lab"},
-    {"type":"text","id":"lab_link","label":"Link","default":"/pages/the-lab"},
+    {"type":"header","content":"Bookings dropdown"},
+    {"type":"checkbox","id":"lab_enabled","label":"Show Bookings","default":true},
+    {"type":"text","id":"lab_label","label":"Label","default":"bookings"},
+    {"type":"text","id":"lab_link","label":"Fallback link","default":"/pages/bookings"},
     {"type":"text","id":"lab_icon","label":"Icon","default":"/"},
-    {"type":"text","id":"lab_number","label":"Number","default":"05"},
+    {"type":"text","id":"lab_number","label":"Number","default":"07"},
     {"type":"color","id":"lab_tint","label":"Icon color","default":"#c6f76a"},
-    {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/bookings#charm-bar"},
+    {"type":"link_list","id":"lab_menu","label":"Bookings dropdown menu"},
+    {"type":"textarea","id":"lab_submenu","label":"Fallback typed links","info":"Format: Label|URL, one per line.","default":"The Lab Bookings|/pages/bookings\nThe Lab @ Home|/pages/the-lab\nThe Charm Bar Bookings|/pages/bookings#charm-bar\nParties & Events|/pages/parties-events"},
+    {"type":"text","id":"lab_active_paths","label":"Active URL matches, separated by commas","default":"/pages/the-lab,/pages/bookings,/pages/parties-events,/pages/party-booking"},
 
     {"type":"header","content":"SUAS Men item"},
     {"type":"checkbox","id":"men_enabled","label":"Show SUAS Men","default":true},
@@ -567,15 +594,15 @@ Refund Policy|/pages/refund-policy{% endcapture %}
     {"type":"text","id":"about_number","label":"Number","default":"06"},
     {"type":"color","id":"about_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"link_list","id":"about_menu","label":"About dropdown menu","info":"Choose a Shopify Navigation menu. Add page links to that menu instead of typing URLs here."},
-    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu or item blocks are selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nBook the Lab|/pages/bookings\nParty booking|/pages/party-booking\nCharm Bar|/pages/bookings#charm-bar\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
-    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/bookings,/pages/party-booking,/pages/bookings#charm-bar,/pages/contact-us,/pages/refund-policy"},
+    {"type":"textarea","id":"about_submenu","label":"Fallback typed links","info":"Used only if no menu or item blocks are selected. Format: Label|URL, one per line.","default":"Who are we|/pages/who-are-we\nVisit Us|/pages/visit-us\nContact Us|/pages/contact-us\nRefund Policy|/pages/refund-policy"},
+    {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/visit-us,/pages/contact-us,/pages/refund-policy"},
 
-    {"type":"header","content":"Visit Us item"},
-    {"type":"checkbox","id":"visit_enabled","label":"Show Visit Us","default":true},
+    {"type":"header","content":"Visit Us item (legacy standalone)"},
+    {"type":"checkbox","id":"visit_enabled","label":"Show Visit Us as its own panel item","default":false,"info":"Keep off — Visit Us now lives under About Us."},
     {"type":"text","id":"visit_label","label":"Label","default":"visit us"},
     {"type":"text","id":"visit_link","label":"Link","default":"/pages/visit-us"},
     {"type":"text","id":"visit_icon","label":"Icon","default":"!"},
-    {"type":"text","id":"visit_number","label":"Number","default":"07"},
+    {"type":"text","id":"visit_number","label":"Number","default":"09"},
     {"type":"color","id":"visit_tint","label":"Icon color","default":"#9dd7ff"},
     {"type":"text","id":"visit_active_paths","label":"Active URL matches, separated by commas","default":"/pages/visit-us"},
 
