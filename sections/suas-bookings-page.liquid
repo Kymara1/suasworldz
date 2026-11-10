@@ -20,7 +20,7 @@
     .suas-book-bar span{display:flex;gap:3px}
     .suas-book-bar i{width:14px;height:12px;border:1.5px solid #fff;background:rgba(255,255,255,.35);font-style:normal}
     .suas-book-hero,.suas-book-panel,.suas-book-option{min-width:0;overflow:hidden}
-    .suas-book-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:16px}
+    .suas-book-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:16px}
     .suas-book-tab{min-height:48px;border:2px solid #101010;border-radius:10px;background:#fff;color:#101010;cursor:pointer}
     .suas-book-tab.is-on{background:#101010;color:#fff}
     .suas-book-tab.is-soon,.suas-book-tab[disabled]{opacity:.48;filter:grayscale(.7);cursor:not-allowed;background:#d8d4cc;color:rgba(16,16,16,.72)}
@@ -149,7 +149,7 @@
       .suas-book-addon{min-height:42px;padding:6px 8px;gap:6px}
       .suas-book-addon strong{font-size:10px;line-height:1.15}
       .suas-book-addon span{font-size:10px}
-      .suas-book-tabs{grid-template-columns:1fr 1fr 1fr;gap:6px;padding:10px}
+      .suas-book-tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:10px}
       .suas-book-tab{min-height:42px;font-size:10px}
       .suas-time-chips{gap:6px}
       .suas-time-chips button{min-height:36px;padding:0 10px;font-size:10px}
@@ -183,6 +183,7 @@
         <div class="suas-book-bar" style="background:#d6c21a"><b>S 1. Choose your session</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-tabs" data-book-tabs role="tablist" aria-label="Booking type">
           <button class="suas-book-tab is-on" type="button" data-kind="self" role="tab" aria-selected="true" aria-controls="self-guided" id="book-tab-self" tabindex="0">self-guided</button>
+          <button class="suas-book-tab" type="button" data-kind="home" role="tab" aria-selected="false" aria-controls="lab-at-home-book" id="book-tab-home" tabindex="-1">lab @ home</button>
           <button class="suas-book-tab is-soon" type="button" data-kind="guided" role="tab" aria-selected="false" aria-controls="guided-class" id="book-tab-guided" aria-disabled="true" tabindex="-1" title="Guided classes are not open yet">guided</button>
           <button class="suas-book-tab is-soon" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm" aria-disabled="true" tabindex="-1" title="Charm Bar bookings are not open yet">charm bar</button>
         </div>
@@ -289,6 +290,24 @@
         assign charm_plushie_product = all_products['charm-bar-plushie']
         assign charm_bead_product = all_products['charm-bar-bead-sticks']
       %}
+
+      <div class="suas-book-option" id="lab-at-home-book" role="tabpanel" aria-labelledby="book-tab-home" hidden style="--card:#d9ff78;">
+        <div class="suas-book-bar" style="background:#101010;color:#fff"><b>S 3. The Lab @ Home</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="suas-book-option-head">
+          <div>
+            <span class="suas-book-badge">shipped diy kit</span>
+            <h2>The Lab @ Home</h2>
+            <p class="suas-book-desc">Build online with the same protocol — 15 mL base + supports, or 4+4+2 for roll-on. Pick your 30 mL bottle, pour notes, name it, check out.</p>
+          </div>
+          <div class="suas-book-side">
+            <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price">$24</strong></div>
+          </div>
+        </div>
+        <div class="suas-book-task" style="padding:0 12px 16px">
+          <a class="suas-book-button" href="/pages/the-lab#lab-at-home">open lab @ home builder</a>
+          <a class="suas-book-button" href="#lab-at-home" data-lah-scroll style="background:#fff;color:#101010;margin-top:8px">jump to builder below</a>
+        </div>
+      </div>
 
       <div class="suas-book-option is-open" id="self-guided" role="tabpanel" aria-labelledby="book-tab-self" style="--card:#ffe8ef;">
         <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Self-guided details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
@@ -704,6 +723,7 @@
       function showBookKind(kind) {
         if (kind === 'guided' || kind === 'charm') kind = 'self';
         var selfCard = root.querySelector('#self-guided');
+        var homeCard = root.querySelector('#lab-at-home-book');
         var guidedCard = root.querySelector('#guided-class');
         var charmCard = root.querySelector('#charm-bar');
         function setPanel(card, open) {
@@ -713,6 +733,7 @@
           else card.setAttribute('hidden', '');
         }
         setPanel(selfCard, kind === 'self');
+        setPanel(homeCard, kind === 'home');
         setPanel(guidedCard, false);
         setPanel(charmCard, false);
         root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
@@ -732,6 +753,14 @@
         root.querySelectorAll('#charm-bar [required], #charm-bar select[name="id"]').forEach(function (field) {
           field.removeAttribute('required');
         });
+        if (kind === 'home') {
+          var builder = document.getElementById('lab-at-home');
+          if (builder) {
+            window.setTimeout(function () {
+              builder.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 40);
+          }
+        }
       }
       root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
         tab.addEventListener('click', function () {
@@ -751,7 +780,18 @@
           next.focus();
         });
       });
-      showBookKind('self');
+      var startKind = 'self';
+      if (window.location.hash === '#lab-at-home' || window.location.hash === '#lab-at-home-book') startKind = 'home';
+      showBookKind(startKind);
+      root.querySelectorAll('[data-lah-scroll]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          var target = document.getElementById('lab-at-home');
+          if (!target) return;
+          event.preventDefault();
+          showBookKind('home');
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
 
       function dateDay(value) {
         if (!value) return null;

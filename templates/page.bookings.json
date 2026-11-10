@@ -21,9 +21,22 @@
         "deluxe_product": "deluxe-lab-session",
         "deluxe_product_handle": "deluxe-lab-session"
       }
+    },
+    "lab_at_home": {
+      "type": "suas-lab-at-home",
+      "settings": {
+        "kicker": "SUAS.OS / THE LAB @ HOME",
+        "heading": "build your signature scent at home.",
+        "copy": "Same protocol as The Lab. Pick your bottle, pour notes (repeats ok), name it, check out.",
+        "perfume_product": "lab-at-home-perfume",
+        "oil_product": "lab-at-home-body-oil",
+        "rollon_product": "lab-at-home-roll-on",
+        "trio_product": "lab-at-home-trio"
+      }
     }
   },
   "order": [
-    "bookings"
+    "bookings",
+    "lab_at_home"
   ]
 }

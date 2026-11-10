@@ -15,7 +15,7 @@
     radial-gradient(circle at 86% 8%, rgba(217, 255, 120, 0.28), transparent 26%),
     linear-gradient(180deg, #fff 0%, var(--cream) 100%);
   background-size: 28px 28px, 28px 28px, auto, auto, auto;
-  padding: 28px 0 64px;
+  padding: 16px 0 40px;
   font-family: Futura, 'Futura PT', Arial, sans-serif;
 }
 .suas-lah * { box-sizing: border-box; }
@@ -48,7 +48,7 @@
   letter-spacing: 0.18em;
 }
 .suas-lah-head {
-  padding: clamp(20px, 3vw, 36px) clamp(18px, 3vw, 32px) 8px;
+  padding: clamp(14px, 2vw, 24px) clamp(14px, 2.5vw, 24px) 4px;
   text-align: center;
 }
 .suas-lah-kicker {
@@ -62,34 +62,34 @@
 .suas-lah-title {
   margin: 0;
   font-family: 'Casual Human', Futura, Arial, sans-serif;
-  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 400;
   line-height: 0.9;
   text-transform: lowercase;
 }
 .suas-lah-sub {
-  width: min(560px, 100%);
-  margin: 12px auto 0;
-  font-size: 0.98rem;
-  line-height: 1.45;
+  width: min(520px, 100%);
+  margin: 8px auto 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
   font-weight: 800;
   color: rgba(17, 17, 17, 0.66);
 }
 
 .suas-lah-body {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.75fr);
-  gap: 18px;
-  padding: 12px clamp(16px, 2.5vw, 28px) 28px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.7fr);
+  gap: 12px;
+  padding: 8px clamp(12px, 2vw, 20px) 18px;
   align-items: start;
 }
 
 .suas-lah-panel {
   border: 2px solid var(--ink);
-  border-radius: 20px;
+  border-radius: 18px;
   background: #fff;
-  box-shadow: 5px 6px 0 var(--ink);
-  padding: 16px;
+  box-shadow: 4px 5px 0 var(--ink);
+  padding: 12px;
 }
 .suas-lah-step-label {
   margin: 0 0 10px;
@@ -141,9 +141,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
-  min-height: 96px;
-  padding: 14px 14px 12px 36px;
+  gap: 2px;
+  min-height: 78px;
+  padding: 10px 10px 10px 34px;
   border: 2px solid var(--ink);
   border-radius: 16px;
   background: var(--kit-bg, #fff);
@@ -291,11 +291,56 @@
   color: #fff;
 }
 
-.suas-lah-notes {
+.suas-lah-bottle-pick { margin: 12px 0 8px; }
+.suas-lah-bottle-options {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  max-height: 360px;
+}
+.suas-lah-bottle-opt {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 0 var(--ink);
+  cursor: pointer;
+  color: var(--ink);
+  font: inherit;
+}
+.suas-lah-bottle-opt img {
+  display: block;
+  width: 72px;
+  height: 110px;
+  object-fit: contain;
+}
+.suas-lah-bottle-opt strong {
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: lowercase;
+  line-height: 1;
+}
+.suas-lah-bottle-opt small {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.55);
+}
+.suas-lah-bottle-opt.is-selected {
+  outline: 3px solid var(--ink);
+  outline-offset: 1px;
+  background: var(--lime);
+}
+
+.suas-lah-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  max-height: 260px;
   overflow: auto;
   padding-right: 4px;
 }
@@ -374,43 +419,80 @@
 }
 .suas-lah-bottle-card {
   border: 2px solid var(--ink);
-  border-radius: 20px;
+  border-radius: 18px;
   background:
-    radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.85), transparent 42%),
-    linear-gradient(180deg, #eef3f8 0%, #d9e2ec 55%, #cfd8e3 100%);
-  box-shadow: 5px 6px 0 var(--ink);
-  padding: 18px 16px 16px;
+    radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.9), transparent 42%),
+    linear-gradient(180deg, #f3f5f7 0%, #e4e9ef 100%);
+  box-shadow: 4px 5px 0 var(--ink);
+  padding: 12px 12px 10px;
   text-align: center;
-  min-height: 440px;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
 }
 .suas-lah-fill-status {
-  margin: 0 0 8px;
-  font-size: 12px;
+  margin: 0 0 6px;
+  font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(17, 17, 17, 0.55);
 }
-.suas-lah-bottle-stage {
-  width: min(180px, 100%);
-  margin: 0 auto;
+.suas-lah-photo-stage {
+  position: relative;
+  width: min(150px, 100%);
+  margin: 0 auto 4px;
+  padding-top: 42px;
 }
-.suas-lah-svg {
+.suas-lah-sprayer {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 46px;
+  height: auto;
+  transform: translateX(-50%);
+  z-index: 3;
+  filter: drop-shadow(0 4px 6px rgba(17, 17, 17, 0.2));
+  pointer-events: none;
+}
+.suas-lah-photo-body {
+  position: relative;
+  width: 100%;
+}
+.suas-lah-photo-bottle {
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 14px 18px rgba(17, 17, 17, 0.18));
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 10px 14px rgba(17, 17, 17, 0.16));
 }
-.suas-lah-liquid-svg,
-.suas-lah-meniscus {
-  transition: y 0.55s cubic-bezier(0.22, 1, 0.36, 1), height 0.55s cubic-bezier(0.22, 1, 0.36, 1), cy 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+.suas-lah-photo-fill {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 40% / 12%;
+  pointer-events: none;
 }
-.suas-lah-bottle-stage[data-shape='oil'] .suas-lah-svg { transform: scaleX(0.92); }
-.suas-lah-bottle-stage[data-shape='rollon'] .suas-lah-svg { transform: scale(0.78); transform-origin: center bottom; }
+.suas-lah-photo-liquid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0%;
+  transition: height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: inset 0 8px 14px rgba(255, 255, 255, 0.28);
+}
+.suas-lah-photo-stage[data-bottle='round'] .suas-lah-photo-fill {
+  border-radius: 42% / 18%;
+}
+.suas-lah-photo-stage[data-shape='rollon'] {
+  width: min(110px, 100%);
+  padding-top: 24px;
+}
+.suas-lah-photo-stage[data-shape='rollon'] .suas-lah-sprayer { display: none !important; }
 
 .suas-lah-recipe {
   width: 100%;
@@ -516,8 +598,7 @@
   .suas-lah-kit,
   .suas-lah-note,
   .suas-lah-btn,
-  .suas-lah-liquid-svg,
-  .suas-lah-meniscus {
+  .suas-lah-photo-liquid {
     transition: none !important;
   }
 }

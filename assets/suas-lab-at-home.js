@@ -40,6 +40,21 @@
     }
   };
 
+  var BOTTLES = {
+    cylinder: {
+      id: 'cylinder',
+      label: 'cylinder',
+      src: root.getAttribute('data-bottle-cylinder') || '',
+      fillInset: '18% 28% 8% 28%'
+    },
+    round: {
+      id: 'round',
+      label: 'round shoulders',
+      src: root.getAttribute('data-bottle-round') || '',
+      fillInset: '22% 24% 10% 24%'
+    }
+  };
+
   var variants = {
     perfume: Number(root.getAttribute('data-variant-perfume') || 0),
     oil: Number(root.getAttribute('data-variant-oil') || 0),
@@ -58,6 +73,7 @@
     rollon: root.getAttribute('data-title-rollon') || 'The Lab @ Home — 10 mL Custom Roll-On',
     trio: root.getAttribute('data-title-trio') || 'The Lab @ Home Trio'
   };
+  var sprayerSrc = root.getAttribute('data-sprayer-silver') || '';
 
   var state = {
     mode: 'perfume',
@@ -65,6 +81,7 @@
     filter: 'all',
     picks: [],
     activeSlot: 0,
+    bottle: 'cylinder',
     trioFormulas: { perfume: null, oil: null, rollon: null }
   };
 
@@ -72,18 +89,20 @@
     kits: root.querySelector('[data-lah-kits]'),
     selected: root.querySelector('[data-lah-selected]'),
     protocol: root.querySelector('[data-lah-protocol]'),
+    bottlePick: root.querySelector('[data-lah-bottle-pick]'),
+    bottleOptions: root.querySelector('[data-lah-bottle-options]'),
     slots: root.querySelector('[data-lah-slots]'),
     filters: root.querySelector('[data-lah-filters]'),
     notes: root.querySelector('[data-lah-notes]'),
     bottle: root.querySelector('[data-lah-bottle]'),
-    layers: root.querySelector('[data-lah-layers]'),
+    photoBottle: root.querySelector('[data-lah-photo-bottle]'),
+    photoFill: root.querySelector('[data-lah-photo-fill]'),
     liquid: root.querySelector('[data-lah-liquid]'),
-    meniscus: root.querySelector('[data-lah-meniscus]'),
+    sprayer: root.querySelector('[data-lah-sprayer]'),
     fillStatus: root.querySelector('[data-lah-fill-status]'),
     recipe: root.querySelector('[data-lah-recipe]'),
     name: root.querySelector('[data-lah-name]'),
     atc: root.querySelector('[data-lah-atc]'),
-    reset: root.querySelector('[data-lah-reset]'),
     error: root.querySelector('[data-lah-error]'),
     live: root.querySelector('[data-lah-live]')
   };
@@ -102,6 +121,10 @@
 
   function activeKit() {
     return KITS[activeKitKey()];
+  }
+
+  function needsPerfumeBottle() {
+    return activeKitKey() === 'perfume';
   }
 
   function totalMl(kit) {
@@ -148,19 +171,19 @@
     }
     var A = parse(a);
     var B = parse(b);
-    var r = Math.round(A[0] + (B[0] - A[0]) * t);
-    var g = Math.round(A[1] + (B[1] - A[1]) * t);
-    var bl = Math.round(A[2] + (B[2] - A[2]) * t);
-    return 'rgb(' + r + ',' + g + ',' + bl + ')';
+    return 'rgb(' +
+      Math.round(A[0] + (B[0] - A[0]) * t) + ',' +
+      Math.round(A[1] + (B[1] - A[1]) * t) + ',' +
+      Math.round(A[2] + (B[2] - A[2]) * t) + ')';
   }
 
   function renderKits() {
     if (!els.kits) return;
     var options = [
-      { id: 'perfume', label: 'perfume', meta: '30 mL DIY kit · 15 + 5 + 5 + 5', price: money.perfume, bg: '#ffe8ef' },
-      { id: 'oil', label: 'body oil', meta: '30 mL DIY kit · 15 + 5 + 5 + 5', price: money.oil, bg: '#c9e7ff' },
-      { id: 'rollon', label: 'roll-on', meta: '10 mL DIY kit · 4 + 4 + 2', price: money.rollon, bg: '#fff1a8' },
-      { id: 'trio', label: 'the trio', meta: 'perfume + oil + roll-on · save $9', price: money.trio, bg: '#d9ff78' }
+      { id: 'perfume', label: 'perfume', meta: '30 mL · 15+5+5+5', price: money.perfume, bg: '#ffe8ef' },
+      { id: 'oil', label: 'body oil', meta: '30 mL · 15+5+5+5', price: money.oil, bg: '#c9e7ff' },
+      { id: 'rollon', label: 'roll-on', meta: '10 mL · 4+4+2', price: money.rollon, bg: '#fff1a8' },
+      { id: 'trio', label: 'the trio', meta: 'all three · save $9', price: money.trio, bg: '#d9ff78' }
     ];
     els.kits.innerHTML = options.map(function (opt) {
       var pressed = state.mode === opt.id;
@@ -179,8 +202,26 @@
       var priceKey = state.mode === 'trio' ? 'trio' : state.mode;
       els.selected.innerHTML =
         'Building: <strong>' + escapeHtml(kit.label) + '</strong> · <strong>' + escapeHtml(money[priceKey]) + '</strong>' +
-        (state.mode === 'trio' ? ' <span>(trio step ' + escapeHtml(state.trioStep) + ')</span>' : '');
+        (state.mode === 'trio' ? ' <span>(trio · ' + escapeHtml(state.trioStep) + ')</span>' : '');
     }
+  }
+
+  function renderBottlePick() {
+    if (!els.bottlePick || !els.bottleOptions) return;
+    var show = needsPerfumeBottle();
+    els.bottlePick.hidden = !show;
+    if (!show) return;
+    els.bottleOptions.innerHTML = Object.keys(BOTTLES).map(function (key) {
+      var bottle = BOTTLES[key];
+      var on = state.bottle === key;
+      return (
+        '<button type="button" class="suas-lah-bottle-opt' + (on ? ' is-selected' : '') + '" data-bottle="' + key + '" aria-pressed="' + on + '">' +
+          '<img src="' + escapeHtml(bottle.src) + '" alt="" width="90" height="140">' +
+          '<strong>' + escapeHtml(bottle.label) + '</strong>' +
+          '<small>silver sprayer</small>' +
+        '</button>'
+      );
+    }).join('');
   }
 
   function renderProtocol() {
@@ -188,10 +229,10 @@
     var kit = activeKit();
     var slot = kit.slots[state.activeSlot] || kit.slots[0];
     var tip = state.picks[state.activeSlot]
-      ? 'Editing the ' + slot.amountMl + ' mL tube — pick a different note to replace it.'
+      ? 'Editing the ' + slot.amountMl + ' mL tube — pick any note (repeats ok).'
       : (slot.role === 'base'
-        ? 'Choose your ' + slot.amountMl + ' mL base note (your favorite).'
-        : 'Choose a ' + slot.amountMl + ' mL supporting note.');
+        ? 'Choose your ' + slot.amountMl + ' mL base. Only want 2–3 notes? Reuse favorites on the other tubes.'
+        : 'Choose a ' + slot.amountMl + ' mL support note — same note can be used again.');
     els.protocol.innerHTML =
       '<b>' + escapeHtml(kit.label) + '</b>' +
       '<span>' + escapeHtml(tip) + '</span>';
@@ -207,9 +248,7 @@
       if (index === state.activeSlot) classes += ' is-active';
       if (note) classes += ' is-filled';
       var color = note ? note.hex : '#ddd';
-      var text = note
-        ? slot.amountMl + ' mL · ' + note.label
-        : slot.label;
+      var text = note ? slot.amountMl + ' mL · ' + note.label : slot.label;
       return (
         '<button type="button" class="' + classes + '" style="--slot-color:' + color + '" data-slot="' + index + '" aria-pressed="' + (index === state.activeSlot) + '">' +
           '<i aria-hidden="true"></i><span>' + escapeHtml(text) + '</span>' +
@@ -236,16 +275,16 @@
       return state.filter === 'all' || note.family === state.filter;
     });
     els.notes.innerHTML = list.map(function (note) {
-      var selectedIn = state.picks.indexOf(note.id);
-      var isActivePick = state.picks[state.activeSlot] === note.id;
+      var usedCount = state.picks.filter(function (id) { return id === note.id; }).length;
+      var isCurrent = state.picks[state.activeSlot] === note.id;
       var classes = 'suas-lah-note';
-      if (isActivePick) classes += ' is-current';
-      else if (selectedIn !== -1) classes += ' is-used';
+      if (isCurrent) classes += ' is-current';
+      else if (usedCount) classes += ' is-used';
       return (
-        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" aria-pressed="' + (selectedIn !== -1) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
+        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
           '<span class="suas-lah-note-drop" aria-hidden="true"></span>' +
           '<span class="suas-lah-note-copy"><b>' + escapeHtml(note.label) + '</b><small>' + escapeHtml(note.family) + '</small></span>' +
-          (selectedIn !== -1 ? '<em>' + (selectedIn === 0 ? 'base' : 's' + selectedIn) + '</em>' : '') +
+          (usedCount ? '<em>×' + usedCount + '</em>' : '') +
         '</button>'
       );
     }).join('');
@@ -253,61 +292,50 @@
 
   function renderBottle() {
     var kit = activeKit();
-    if (els.bottle) els.bottle.setAttribute('data-shape', kit.shape);
-
+    var bottle = BOTTLES[state.bottle] || BOTTLES.cylinder;
     var vol = totalMl(kit);
     var filled = filledMl();
     var pct = Math.min(100, (filled / vol) * 100);
-    var bodyTop = 66;
-    var bodyBottom = 286;
-    var bodyH = bodyBottom - bodyTop;
-    var fillH = (pct / 100) * bodyH;
-    var fillY = bodyBottom - fillH;
 
     var mixed = '#f4c4d8';
     if (state.picks.length) {
-      mixed = noteById(state.picks[0]).hex;
-      for (var i = 1; i < state.picks.length; i++) {
+      var first = null;
+      for (var i = 0; i < state.picks.length; i++) {
         if (!state.picks[i]) continue;
         var n = noteById(state.picks[i]);
-        if (n) mixed = blendHex(mixed, n.hex, 0.35);
+        if (!n) continue;
+        if (!first) {
+          first = n.hex;
+          mixed = n.hex;
+        } else {
+          mixed = blendHex(mixed, n.hex, 0.35);
+        }
       }
     }
 
+    if (els.bottle) {
+      els.bottle.setAttribute('data-shape', kit.shape);
+      els.bottle.setAttribute('data-bottle', state.bottle);
+    }
+    if (els.photoBottle) {
+      els.photoBottle.src = needsPerfumeBottle() ? bottle.src : bottle.src;
+      els.photoBottle.style.opacity = needsPerfumeBottle() ? '1' : '0.92';
+    }
+    if (els.photoFill) {
+      els.photoFill.style.inset = bottle.fillInset;
+    }
     if (els.liquid) {
-      els.liquid.setAttribute('y', String(fillY));
-      els.liquid.setAttribute('height', String(fillH));
-      els.liquid.setAttribute('fill', mixed);
+      els.liquid.style.height = pct + '%';
+      els.liquid.style.background =
+        'linear-gradient(180deg, ' + blendHex(mixed, '#ffffff', 0.35) + ' 0%, ' + mixed + ' 38%, ' + blendHex(mixed, '#000000', 0.18) + ' 100%)';
     }
-    if (els.meniscus) {
-      els.meniscus.setAttribute('cy', String(fillY));
-      els.meniscus.setAttribute('opacity', fillH > 2 ? '1' : '0');
-      els.meniscus.setAttribute('fill', blendHex(mixed, '#ffffff', 0.45));
+    if (els.sprayer) {
+      if (sprayerSrc) els.sprayer.src = sprayerSrc;
+      els.sprayer.style.display = needsPerfumeBottle() ? 'block' : 'none';
     }
-
-    if (els.layers) {
-      var cursor = 0;
-      var parts = [];
-      for (var s = 0; s < kit.slots.length; s++) {
-        if (!state.picks[s]) continue;
-        var note = noteById(state.picks[s]);
-        var h = (kit.slots[s].amountMl / vol) * bodyH;
-        var y = bodyBottom - cursor - h;
-        cursor += h;
-        parts.push(
-          '<rect x="48" y="' + y + '" width="64" height="' + h + '" fill="' + (note ? note.hex : mixed) + '" opacity="0.92">' +
-          '<animate attributeName="height" dur="0.45s" fill="freeze"/>' +
-          '</rect>' +
-          '<rect x="48" y="' + y + '" width="64" height="' + Math.min(10, h) + '" fill="' + (note ? note.hex2 : '#fff') + '" opacity="0.35"/>'
-        );
-      }
-      els.layers.innerHTML = parts.join('');
-    }
-
     if (els.fillStatus) {
       els.fillStatus.textContent = filled + ' / ' + vol + ' mL filled';
     }
-
     if (els.recipe) {
       if (!filled) {
         els.recipe.innerHTML = '<li>empty bottle — choose your base scent</li>';
@@ -318,6 +346,9 @@
           return '<li><strong>' + escapeHtml(slot.amountMl + ' mL') + '</strong> ' + escapeHtml(note ? note.label : '') +
             (slot.role === 'base' ? ' <em>(base)</em>' : '') + '</li>';
         }).join('');
+        if (needsPerfumeBottle()) {
+          els.recipe.innerHTML += '<li><em>bottle:</em> ' + escapeHtml(bottle.label) + ' · silver sprayer</li>';
+        }
       }
     }
 
@@ -329,7 +360,7 @@
         els.atc.textContent = 'save · next kit';
         els.atc.disabled = !ready;
       } else if (state.mode === 'trio') {
-        els.atc.textContent = 'add trio to cart · ' + money.trio;
+        els.atc.textContent = 'add trio · ' + money.trio;
         els.atc.disabled = !ready || !variants.trio;
       } else {
         els.atc.textContent = 'add to cart · ' + money[state.mode];
@@ -340,10 +371,13 @@
 
   function snapshotFormula() {
     var kit = activeKit();
+    var bottle = BOTTLES[state.bottle] || BOTTLES.cylinder;
     return {
       kit: kit.key,
       label: kit.label,
       name: (els.name && els.name.value.trim()) || 'untitled formula',
+      bottle: needsPerfumeBottle() ? bottle.label : '',
+      sprayer: needsPerfumeBottle() ? 'Silver' : '',
       picks: state.picks.slice(),
       slots: kit.slots.map(function (slot, index) {
         var note = noteById(state.picks[index]);
@@ -375,11 +409,16 @@
       props['Support ' + i + ' amount'] = formula.slots[i].amountMl + ' mL';
     }
     props.Protocol = formulaLine(formula);
+    if (formula.bottle) {
+      props['Bottle shape'] = formula.bottle;
+      props.Sprayer = formula.sprayer || 'Silver';
+    }
     return props;
   }
 
   function paint() {
     renderKits();
+    renderBottlePick();
     renderProtocol();
     renderSlots();
     renderFilters();
@@ -392,34 +431,22 @@
     var slotIndex = state.activeSlot;
     if (slotIndex < 0 || slotIndex >= kit.slots.length) slotIndex = firstEmptySlot();
 
-    // if this note is already in another slot, swap/move it to active
-    var existing = state.picks.indexOf(id);
-    if (existing !== -1 && existing !== slotIndex) {
-      var displaced = state.picks[slotIndex] || null;
-      state.picks[slotIndex] = id;
-      state.picks[existing] = displaced;
-    } else {
-      state.picks[slotIndex] = id;
-    }
-
-    // compact? no — keep sparse until filled in order for amounts; but amounts are per slot index so sparse is OK
-    // ensure array length
+    // Same note can fill multiple tubes (2–3 note formulas).
+    state.picks[slotIndex] = id;
     state.picks.length = kit.slots.length;
 
     var note = noteById(id);
     announce((note ? note.label : id) + ' set on ' + kit.slots[slotIndex].amountMl + ' mL tube');
     setError('');
 
-    // advance to next empty slot if current filled
-    var next = firstEmptySlot();
     if (state.picks[slotIndex] && !state.picks.every(Boolean)) {
-      // prefer next empty after current
-      next = slotIndex;
       for (var i = 1; i <= kit.slots.length; i++) {
         var idx = (slotIndex + i) % kit.slots.length;
-        if (!state.picks[idx]) { next = idx; break; }
+        if (!state.picks[idx]) {
+          state.activeSlot = idx;
+          break;
+        }
       }
-      state.activeSlot = next;
     }
     paint();
   }
@@ -439,7 +466,7 @@
     var kit = activeKit();
     var complete = kit.slots.every(function (_s, i) { return !!state.picks[i]; });
     if (!complete) {
-      setError('Fill every tube first — tap an empty tube, then a note.');
+      setError('Fill every tube — reuse a note if you only want 2–3 scents.');
       return;
     }
     if (!els.name || !els.name.value.trim()) {
@@ -481,9 +508,8 @@
             'Perfume formula': perfumeF.name + ' — ' + formulaLine(perfumeF),
             'Body oil formula': oilF.name + ' — ' + formulaLine(oilF),
             'Roll-on formula': rollF.name + ' — ' + formulaLine(rollF),
-            'Perfume base': perfumeF.slots[0].noteLabel,
-            'Body oil base': oilF.slots[0].noteLabel,
-            'Roll-on base': rollF.slots[0].noteLabel,
+            'Perfume bottle': perfumeF.bottle || '',
+            Sprayer: 'Silver',
             Price: money.trio
           }
         });
@@ -493,11 +519,7 @@
         var props = propertiesForFormula(formula);
         props.Price = money[state.mode];
         props.Product = titles[state.mode];
-        items.push({
-          id: variants[state.mode],
-          quantity: 1,
-          properties: props
-        });
+        items.push({ id: variants[state.mode], quantity: 1, properties: props });
       }
 
       var response = await fetch('/cart/add.js', {
@@ -506,10 +528,7 @@
         credentials: 'same-origin',
         body: JSON.stringify({ items: items })
       });
-      if (!response.ok) {
-        var errText = await response.text();
-        throw new Error(errText || 'cart');
-      }
+      if (!response.ok) throw new Error('cart');
       window.location.assign('/cart');
     } catch (err) {
       els.atc.disabled = false;
@@ -530,7 +549,15 @@
       if (els.name) els.name.value = '';
       setError('');
       paint();
-      announce('Selected ' + kit.label + ' · ' + money[state.mode === 'trio' ? 'trio' : state.mode]);
+      announce('Selected ' + kit.label);
+      return;
+    }
+
+    var bottleBtn = event.target.closest('[data-bottle]');
+    if (bottleBtn && root.contains(bottleBtn)) {
+      state.bottle = bottleBtn.getAttribute('data-bottle');
+      paint();
+      announce('Bottle: ' + (BOTTLES[state.bottle] || {}).label);
       return;
     }
 
@@ -539,7 +566,6 @@
       state.activeSlot = Number(slotBtn.getAttribute('data-slot'));
       setError('');
       paint();
-      announce('Editing tube ' + (state.activeSlot + 1));
       return;
     }
 

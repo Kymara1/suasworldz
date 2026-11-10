@@ -50,6 +50,9 @@
   data-title-oil="{{ oil_product.title | default: 'The Lab @ Home — 30 mL Custom Body Oil' | escape }}"
   data-title-rollon="{{ rollon_product.title | default: 'The Lab @ Home — 10 mL Custom Roll-On' | escape }}"
   data-title-trio="{{ trio_product.title | default: 'The Lab @ Home Trio' | escape }}"
+  data-bottle-cylinder="{{ 'lah-bottle-cylinder.png' | asset_url }}"
+  data-bottle-round="{{ 'lah-bottle-round.png' | asset_url }}"
+  data-sprayer-silver="{{ 'lah-sprayer-silver.png' | asset_url }}"
 >
   <div class="suas-lah-wrap">
     <div class="suas-lah-window">
@@ -76,8 +79,13 @@
 
           <div class="suas-lah-protocol" data-lah-protocol></div>
 
-          <p class="suas-lah-step-label" style="margin-top:16px">02 · choose notes</p>
-          <p class="suas-lah-slot-hint">Tap a tube to edit that pour.</p>
+          <div class="suas-lah-bottle-pick" data-lah-bottle-pick hidden>
+            <p class="suas-lah-step-label">bottle · silver sprayer included</p>
+            <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="30 mL perfume bottle"></div>
+          </div>
+
+          <p class="suas-lah-step-label">02 · choose notes</p>
+          <p class="suas-lah-slot-hint">Tap a tube to edit. Same note can fill more than one tube.</p>
           <div class="suas-lah-slotbar" data-lah-slots aria-live="polite"></div>
 
           <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Filter scent families"></div>
@@ -87,38 +95,14 @@
         <aside class="suas-lah-stage">
           <div class="suas-lah-bottle-card">
             <p class="suas-lah-fill-status" data-lah-fill-status>0 / 30 mL filled</p>
-            <div class="suas-lah-bottle-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
-              <svg class="suas-lah-svg" viewBox="0 0 160 320" role="img" focusable="false">
-                <defs>
-                  <linearGradient id="lahGlass" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="rgba(255,255,255,0.55)"/>
-                    <stop offset="35%" stop-color="rgba(255,255,255,0.08)"/>
-                    <stop offset="70%" stop-color="rgba(180,200,220,0.12)"/>
-                    <stop offset="100%" stop-color="rgba(255,255,255,0.28)"/>
-                  </linearGradient>
-                  <linearGradient id="lahCap" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#3a3a3a"/>
-                    <stop offset="100%" stop-color="#111"/>
-                  </linearGradient>
-                  <clipPath id="lahBodyClip">
-                    <path d="M48 78 C48 70 52 66 60 66 H100 C108 66 112 70 112 78 V250 C112 270 98 286 80 286 C62 286 48 270 48 250 Z"/>
-                  </clipPath>
-                  <filter id="lahSoft" x="-20%" y="-10%" width="140%" height="130%">
-                    <feGaussianBlur stdDeviation="1.2"/>
-                  </filter>
-                </defs>
-                <ellipse cx="80" cy="298" rx="42" ry="8" fill="rgba(17,17,17,0.12)"/>
-                <rect class="suas-lah-cap-svg" x="62" y="18" width="36" height="22" rx="5" fill="url(#lahCap)" stroke="#111" stroke-width="2"/>
-                <rect x="70" y="38" width="20" height="28" rx="3" fill="url(#lahGlass)" stroke="rgba(17,17,17,0.35)" stroke-width="1.5"/>
-                <path d="M48 78 C48 70 52 66 60 66 H100 C108 66 112 70 112 78 V250 C112 270 98 286 80 286 C62 286 48 270 48 250 Z" fill="url(#lahGlass)" stroke="rgba(17,17,17,0.4)" stroke-width="2"/>
-                <g clip-path="url(#lahBodyClip)">
-                  <rect class="suas-lah-liquid-svg" data-lah-liquid x="48" y="286" width="64" height="0" fill="#ff5ab4"/>
-                  <g data-lah-layers></g>
-                  <ellipse class="suas-lah-meniscus" data-lah-meniscus cx="80" cy="286" rx="30" ry="5" fill="rgba(255,255,255,0.28)" opacity="0"/>
-                </g>
-                <path d="M54 84 C58 100 58 200 56 250" stroke="rgba(255,255,255,0.45)" stroke-width="3" stroke-linecap="round" fill="none"/>
-                <path d="M48 78 C48 70 52 66 60 66 H100 C108 66 112 70 112 78 V250 C112 270 98 286 80 286 C62 286 48 270 48 250 Z" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-              </svg>
+            <div class="suas-lah-photo-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
+              <img class="suas-lah-sprayer" data-lah-sprayer src="{{ 'lah-sprayer-silver.png' | asset_url }}" alt="" width="80" height="120">
+              <div class="suas-lah-photo-body">
+                <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-bottle-cylinder.png' | asset_url }}" alt="" width="200" height="320">
+                <div class="suas-lah-photo-fill" data-lah-photo-fill>
+                  <span class="suas-lah-photo-liquid" data-lah-liquid></span>
+                </div>
+              </div>
             </div>
             <ul class="suas-lah-recipe" data-lah-recipe></ul>
           </div>
