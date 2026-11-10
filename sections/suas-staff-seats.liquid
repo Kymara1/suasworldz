@@ -1,0 +1,249 @@
+{%- liquid
+  assign given = cart.attributes.suas_staff_pin | strip
+  assign pin = section.settings.staff_pin | strip
+  assign unlocked = false
+  assign pin_wrong = false
+  if customer and customer.tags contains 'suas-staff'
+    assign unlocked = true
+  endif
+  if pin != blank and given != blank and given == pin
+    assign unlocked = true
+  endif
+  if pin != blank and given != blank and given != pin
+    assign pin_wrong = true
+  endif
+-%}
+<section class="suas-staff-seats" aria-label="Staff lab seats">
+  <style>
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
+    .suas-staff-seats{--ink:#101010;--lime:#d9ff78;--hot:#ff9bc4;--pink:#ffd8e8;--blue:#c9e7ff;--cream:#f4ecd4;color:var(--ink);font-family:Tahoma,Futura,Arial,sans-serif;min-height:100vh;padding:24px 14px 48px;background:linear-gradient(180deg,#ffe8ef 0%,#e8f0ff 45%,var(--cream) 100%)}
+    .suas-staff-seats *{box-sizing:border-box}
+    .suas-staff-seats .sheet{width:min(720px,100%);margin:0 auto;border:4px solid #101010;border-radius:28px;background:#fff;box-shadow:8px 10px 0 #101010;overflow:hidden}
+    .suas-staff-seats .titlebar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;min-height:38px;padding:7px 12px;background:#101010;color:var(--lime)}
+    .suas-staff-seats .orb{width:16px;height:16px;border:2px solid #fff;border-radius:999px;background:radial-gradient(circle at 32% 28%,#fff 0 28%,#d9ff78 42%,#7adf3a 100%)}
+    .suas-staff-seats .titlebar b{font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.18em;text-align:center}
+    .suas-staff-seats .winbtns{display:flex;gap:6px}
+    .suas-staff-seats .winbtns i{display:block;width:12px;height:12px;border:2px solid #fff;border-radius:999px;background:#ff5f57;font-style:normal}
+    .suas-staff-seats .winbtns i:nth-child(2){background:#febc2e}
+    .suas-staff-seats .winbtns i:nth-child(3){background:#28c840}
+    .suas-staff-seats .hero{padding:18px 20px 8px}
+    .suas-staff-seats h1{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2rem,7vw,3.2rem);line-height:.88;font-weight:400;text-transform:uppercase}
+    .suas-staff-seats .hero p{margin:8px 0 0;font:800 13px/1.4 Tahoma,Arial,sans-serif;max-width:46ch}
+    .suas-staff-seats .body{display:grid;gap:12px;padding:8px 16px 18px}
+    .suas-staff-seats .win{border:2.5px solid #101010;background:var(--cream);box-shadow:4px 5px 0 #101010}
+    .suas-staff-seats .bar{display:flex;align-items:center;justify-content:space-between;min-height:28px;padding:5px 8px;background:#101010;color:#fff;font:900 10px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+    .suas-staff-seats .pad{display:grid;gap:10px;padding:12px}
+    .suas-staff-seats label{display:grid;gap:4px;font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+    .suas-staff-seats input,.suas-staff-seats select,.suas-staff-seats textarea{width:100%;min-height:44px;border:2px solid #101010;background:#fff;padding:10px 12px;font:800 15px/1.2 Tahoma,Arial,sans-serif}
+    .suas-staff-seats .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .suas-staff-seats .gate-go,.suas-staff-seats .act{min-height:46px;border:2px solid #101010;border-radius:999px;background:var(--lime);color:#101010;font:900 12px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #101010}
+    .suas-staff-seats .act.is-free{background:var(--blue)}
+    .suas-staff-seats .act.is-hold{background:var(--hot)}
+    .suas-staff-seats .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .suas-staff-seats .note{margin:0;font:800 12px/1.35 Tahoma,Arial,sans-serif}
+    .suas-staff-seats .cmd{margin:0;padding:10px 12px;border:2px solid #101010;background:#fff;font:800 12px/1.4 Consolas,monospace;word-break:break-word}
+    .suas-staff-seats .slot{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px 12px;border:2px solid #101010;background:#fff}
+    .suas-staff-seats .slot b{font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;font-weight:400;line-height:.95;text-transform:lowercase}
+    .suas-staff-seats .slot span{font:800 12px/1.3 Tahoma,Arial,sans-serif}
+    .suas-staff-seats .slot em{font:900 11px/1 Tahoma,Arial,sans-serif;font-style:normal;letter-spacing:.08em;text-transform:uppercase}
+    .suas-staff-seats .slot.is-low{background:#fff1a8}
+    .suas-staff-seats .slot.is-full{background:var(--pink)}
+    .suas-staff-seats .foot{display:flex;justify-content:space-between;gap:10px;padding:8px 16px 16px;font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+    .suas-staff-seats .copy{min-height:40px;border:2px solid #101010;background:#fff;font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+    @media(max-width:700px){
+      .suas-staff-seats .row,.suas-staff-seats .actions{grid-template-columns:1fr}
+    }
+  </style>
+
+  {% unless unlocked %}
+    <article class="sheet">
+      <div class="titlebar"><span class="orb" aria-hidden="true"></span><b>SEATS.LOCK</b><span class="winbtns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <header class="hero">
+        <h1>staff seats.</h1>
+        {% if pin == blank %}
+          <p>Set a Staff PIN on this section in the theme editor, then come back.</p>
+        {% else %}
+          <p>PIN unlocks the live seat board. Same PIN family as the party invoice page. Not in the menu.</p>
+        {% endif %}
+      </header>
+      <div class="body">
+        <section class="win">
+          <div class="bar">unlock</div>
+          <div class="pad">
+            {% if pin != blank %}
+              {% if pin_wrong %}<p class="note">That PIN did not match. Try again.</p>{% endif %}
+              <form id="suas-seats-gate" method="post" action="{{ routes.cart_url }}/update">
+                <label>staff pin<input type="password" name="attributes[suas_staff_pin]" autocomplete="current-password" required></label>
+                <input type="hidden" name="return_to" value="{{ page.url }}">
+                <p style="margin:10px 0 0"><button class="gate-go" type="submit">open seats</button></p>
+              </form>
+              <script>
+                (function () {
+                  var form = document.getElementById('suas-seats-gate');
+                  if (!form) return;
+                  form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    var pin = form.querySelector('input[type="password"]').value;
+                    fetch('/cart/update.js', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ attributes: { suas_staff_pin: pin } })
+                    }).then(function () { window.location = {{ page.url | json }}; });
+                  });
+                })();
+              </script>
+            {% endif %}
+          </div>
+        </section>
+      </div>
+      <div class="foot"><span>suas.os</span><span>not for customers</span></div>
+    </article>
+  {% else %}
+    <article class="sheet">
+      <div class="titlebar"><span class="orb" aria-hidden="true"></span><b>SEATS.EXE</b><span class="winbtns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <header class="hero">
+        <h1>lab seats.</h1>
+        <p>Live board from the bookings page. Cancels + last-minute holds need a seat override (script / Cursor) — the form below builds the command for you.</p>
+      </header>
+      <div class="body">
+        <section class="win">
+          <div class="bar">live board</div>
+          <div class="pad" id="suasSeatBoard" data-empty="no occupied slots — everything open"></div>
+        </section>
+
+        <section class="win">
+          <div class="bar">adjust seats</div>
+          <div class="pad">
+            <p class="note">Cancellation → free. Walk-in / verbal hold → hold. Then run the command in Cursor or PowerShell so the bookings meter updates.</p>
+            <div class="row">
+              <label>kind
+                <select id="seatKind">
+                  <option value="lab">lab</option>
+                  <option value="charm">charm</option>
+                </select>
+              </label>
+              <label>seats
+                <input id="seatCount" type="number" min="1" max="14" value="1">
+              </label>
+            </div>
+            <div class="row">
+              <label>date
+                <input id="seatDate" type="date" required>
+              </label>
+              <label>time
+                <select id="seatTime">
+                  <option>1:00 PM</option>
+                  <option>2:00 PM</option>
+                  <option>3:00 PM</option>
+                  <option>4:00 PM</option>
+                  <option>5:00 PM</option>
+                  <option>6:00 PM</option>
+                </select>
+              </label>
+            </div>
+            <label>note
+              <input id="seatNote" type="text" maxlength="80" placeholder="Jordan cancelled / walk-in Maya">
+            </label>
+            <div class="actions">
+              <button class="act is-free" type="button" data-act="free">free seat(s)</button>
+              <button class="act is-hold" type="button" data-act="hold">hold seat(s)</button>
+            </div>
+            <p class="cmd" id="seatCmd" hidden></p>
+            <button class="copy" type="button" id="seatCopy" hidden>copy command</button>
+            <p class="note">Or tell Cursor: <em>free 1 lab seat 2026-11-14 2:00 PM — Jordan cancelled</em></p>
+          </div>
+        </section>
+      </div>
+      <div class="foot"><span>/pages/staff-seats</span><span>cap 14 lab / 4 charm</span></div>
+    </article>
+
+    <script type="application/json" id="suas-lab-seats-data">
+    {%- if shop.metafields.suas.lab_seats.value != blank -%}
+      {{ shop.metafields.suas.lab_seats.value | json }}
+    {%- elsif shop.metafields.suas.lab_seats != blank -%}
+      {{ shop.metafields.suas.lab_seats | json }}
+    {%- else -%}
+      {"slots":{},"labCap":14,"charmCap":4}
+    {%- endif -%}
+    </script>
+    <script>
+      (function () {
+        var boardEl = document.getElementById('suasSeatBoard');
+        var data = { slots: {}, labCap: 14, charmCap: 4 };
+        try {
+          var node = document.getElementById('suas-lab-seats-data');
+          if (node && node.textContent) data = JSON.parse(node.textContent);
+        } catch (e) {}
+
+        var keys = Object.keys(data.slots || {}).sort();
+        if (!keys.length) {
+          boardEl.innerHTML = '<p class="note">' + boardEl.getAttribute('data-empty') + '</p>';
+        } else {
+          boardEl.innerHTML = keys.map(function (key) {
+            var row = data.slots[key];
+            var left = Number(row.remaining != null ? row.remaining : ((row.cap || 14) - (row.seats || 0)));
+            var cls = left <= 0 ? ' is-full' : (left <= 3 ? ' is-low' : '');
+            var note = row.note ? '<span>' + String(row.note).replace(/[<>&]/g, '') + '</span>' : '';
+            return '<div class="slot' + cls + '"><div><b>' + key + '</b>' + note + '</div><em>' + left + ' left · ' + row.seats + '/' + row.cap + ' taken</em></div>';
+          }).join('');
+        }
+
+        var dateInput = document.getElementById('seatDate');
+        if (dateInput && !dateInput.value) {
+          var d = new Date();
+          dateInput.value = d.toISOString().slice(0, 10);
+        }
+
+        function buildCmd(act) {
+          var kind = document.getElementById('seatKind').value;
+          var count = Math.max(1, parseInt(document.getElementById('seatCount').value, 10) || 1);
+          var date = document.getElementById('seatDate').value;
+          var time = document.getElementById('seatTime').value;
+          var note = (document.getElementById('seatNote').value || '').replace(/"/g, "'");
+          if (!date) return '';
+          return '.\\scripts\\edit-lab-seats.ps1 ' + act +
+            ' -Kind ' + kind +
+            ' -Date ' + date +
+            ' -Time "' + time + '"' +
+            ' -Count ' + count +
+            (note ? ' -Note "' + note + '"' : '');
+        }
+
+        var cmdEl = document.getElementById('seatCmd');
+        var copyBtn = document.getElementById('seatCopy');
+        document.querySelectorAll('[data-act]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var cmd = buildCmd(btn.getAttribute('data-act'));
+            if (!cmd) return;
+            cmdEl.hidden = false;
+            copyBtn.hidden = false;
+            cmdEl.textContent = cmd;
+          });
+        });
+        copyBtn.addEventListener('click', function () {
+          if (!cmdEl.textContent) return;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(cmdEl.textContent);
+            copyBtn.textContent = 'copied';
+            setTimeout(function () { copyBtn.textContent = 'copy command'; }, 1200);
+          }
+        });
+      })();
+    </script>
+  {% endunless %}
+</section>
+
+{% schema %}
+{
+  "name": "SUAS Staff Seats",
+  "settings": [
+    {
+      "type": "text",
+      "id": "staff_pin",
+      "label": "Staff PIN",
+      "info": "Same idea as /pages/staff-invoice. Not listed in the menu."
+    }
+  ],
+  "presets": [{ "name": "SUAS Staff Seats" }]
+}
+{% endschema %}

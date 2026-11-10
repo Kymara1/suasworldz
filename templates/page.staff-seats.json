@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "suas-staff-seats",
+      "settings": {
+        "staff_pin": "0124"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
