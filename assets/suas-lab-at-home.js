@@ -45,13 +45,32 @@
       id: 'cylinder',
       label: 'cylinder',
       src: root.getAttribute('data-bottle-cylinder') || '',
-      fillInset: '36% 39% 15% 39%'
+      fillInset: '36% 39% 15% 39%',
+      finish: 'silver sprayer'
     },
     round: {
       id: 'round',
       label: 'round',
       src: root.getAttribute('data-bottle-round') || '',
-      fillInset: '36% 24% 15% 24%'
+      fillInset: '36% 24% 15% 24%',
+      finish: 'silver sprayer'
+    }
+  };
+
+  var FIXED_PACKS = {
+    oil: {
+      id: 'oil',
+      label: 'airless pump',
+      src: root.getAttribute('data-bottle-oil') || '',
+      fillInset: '35% 31% 15% 31%',
+      finish: 'white pump · clear cap'
+    },
+    rollon: {
+      id: 'rollon',
+      label: 'roll-on',
+      src: root.getAttribute('data-bottle-rollon') || '',
+      fillInset: '35% 36% 15% 36%',
+      finish: 'white cap · rollerball'
     }
   };
 
@@ -122,6 +141,13 @@
 
   function needsPerfumeBottle() {
     return activeKitKey() === 'perfume';
+  }
+
+  function activeBottle() {
+    var key = activeKitKey();
+    if (key === 'oil') return FIXED_PACKS.oil;
+    if (key === 'rollon') return FIXED_PACKS.rollon;
+    return BOTTLES[state.bottle] || BOTTLES.cylinder;
   }
 
   function totalMl(kit) {
@@ -287,7 +313,7 @@
 
   function renderBottle() {
     var kit = activeKit();
-    var bottle = BOTTLES[state.bottle] || BOTTLES.cylinder;
+    var bottle = activeBottle();
     var vol = totalMl(kit);
     var filled = filledMl();
     var pct = Math.min(100, (filled / vol) * 100);
@@ -310,7 +336,7 @@
 
     if (els.bottle) {
       els.bottle.setAttribute('data-shape', kit.shape);
-      els.bottle.setAttribute('data-bottle', state.bottle);
+      els.bottle.setAttribute('data-bottle', bottle.id);
     }
     if (els.photoBottle) {
       els.photoBottle.src = bottle.src;
@@ -337,9 +363,8 @@
           return '<li><strong>' + escapeHtml(slot.amountMl + ' mL') + '</strong> ' + escapeHtml(note ? note.label : '') +
             (slot.role === 'base' ? ' <em>(base)</em>' : '') + '</li>';
         }).join('');
-        if (needsPerfumeBottle()) {
-          els.recipe.innerHTML += '<li><em>bottle:</em> ' + escapeHtml(bottle.label) + ' · silver sprayer</li>';
-        }
+        els.recipe.innerHTML += '<li><em>bottle:</em> ' + escapeHtml(bottle.label) +
+          (bottle.finish ? ' · ' + escapeHtml(bottle.finish) : '') + '</li>';
       }
     }
 
@@ -362,13 +387,13 @@
 
   function snapshotFormula() {
     var kit = activeKit();
-    var bottle = BOTTLES[state.bottle] || BOTTLES.cylinder;
+    var bottle = activeBottle();
     return {
       kit: kit.key,
       label: kit.label,
       name: (els.name && els.name.value.trim()) || 'untitled formula',
-      bottle: needsPerfumeBottle() ? bottle.label : '',
-      sprayer: needsPerfumeBottle() ? 'Silver' : '',
+      bottle: bottle.label,
+      finish: bottle.finish || '',
       picks: state.picks.slice(),
       slots: kit.slots.map(function (slot, index) {
         var note = noteById(state.picks[index]);
@@ -400,10 +425,8 @@
       props['Support ' + i + ' amount'] = formula.slots[i].amountMl + ' mL';
     }
     props.Protocol = formulaLine(formula);
-    if (formula.bottle) {
-      props['Bottle shape'] = formula.bottle;
-      props.Sprayer = formula.sprayer || 'Silver';
-    }
+    if (formula.bottle) props.Bottle = formula.bottle;
+    if (formula.finish) props.Finish = formula.finish;
     return props;
   }
 

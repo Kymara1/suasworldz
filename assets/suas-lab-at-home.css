@@ -472,11 +472,21 @@
 .suas-lah-photo-stage[data-bottle='round'] .suas-lah-photo-fill {
   border-radius: 42% / 16%;
 }
-.suas-lah-photo-stage[data-shape='rollon'] {
-  width: min(112px, 70%);
-}
+.suas-lah-photo-stage[data-bottle='oil'],
 .suas-lah-photo-stage[data-shape='oil'] {
-  width: min(150px, 78%);
+  width: min(128px, 72%);
+}
+.suas-lah-photo-stage[data-bottle='oil'] .suas-lah-photo-fill,
+.suas-lah-photo-stage[data-shape='oil'] .suas-lah-photo-fill {
+  border-radius: 18% / 8%;
+}
+.suas-lah-photo-stage[data-bottle='rollon'],
+.suas-lah-photo-stage[data-shape='rollon'] {
+  width: min(96px, 58%);
+}
+.suas-lah-photo-stage[data-bottle='rollon'] .suas-lah-photo-fill,
+.suas-lah-photo-stage[data-shape='rollon'] .suas-lah-photo-fill {
+  border-radius: 40% / 10%;
 }
 
 .suas-lah-recipe {
