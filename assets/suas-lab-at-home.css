@@ -80,6 +80,19 @@
     linear-gradient(180deg, #fff 0%, #c5d6ea 45%, #8fb0d4 100%);
   position: relative;
   box-shadow: inset 0 0 0 1px rgba(10, 36, 106, 0.25);
+  display: inline-block;
+  text-decoration: none;
+  flex: 0 0 auto;
+  cursor: default;
+}
+a.suas-lah-winbtn {
+  cursor: pointer;
+}
+a.suas-lah-winbtn:hover,
+a.suas-lah-winbtn:focus-visible {
+  filter: brightness(1.08);
+  outline: 2px solid #fff;
+  outline-offset: 1px;
 }
 .suas-lah-winbtn[data-kind='close'] {
   background: linear-gradient(180deg, #ff9a8a 0%, #e0442e 55%, #b01e10 100%);
@@ -672,13 +685,27 @@
 .suas-lah-recipe strong { font-weight: 900; }
 .suas-lah-recipe em { font-style: normal; color: rgba(17, 17, 17, 0.55); }
 
-.suas-lah-name-row { display: grid; gap: 4px; }
+.suas-lah-name-row { display: grid; gap: 6px; justify-items: stretch; }
 .suas-lah-name-row label {
-  font-size: 9px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: 'Casual Human', Futura, Arial, sans-serif;
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-transform: lowercase;
+  color: var(--ink);
+}
+.suas-lah-name-row label .suas-lah-optional {
+  display: inline;
+  margin-left: 0.25em;
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 0.55em;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(10, 36, 106, 0.75);
+  letter-spacing: 0.06em;
+  vertical-align: middle;
 }
 .suas-lah-name-row input {
   width: 100%;
@@ -690,6 +717,7 @@
   box-shadow: inset 1px 1px 0 #fff, 0 2px 0 rgba(10, 36, 106, 0.25);
   font: 700 13px/1.2 Tahoma, Arial, sans-serif;
   color: var(--ink);
+  text-align: center;
 }
 .suas-lah-actions { display: grid; gap: 5px; }
 .suas-lah-btn {
@@ -794,11 +822,13 @@
   .suas-lah-notes { max-height: min(48vh, 340px); }
   .suas-lah-checkout {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    grid-template-columns: 1fr;
     gap: 8px;
-    align-items: end;
+    align-items: start;
   }
   .suas-lah-checkout .suas-lah-actions { gap: 5px; }
+  .suas-lah-name-row label { font-size: clamp(1.15rem, 4.2vw, 1.45rem); }
+  .suas-lah-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 620px) {
@@ -873,7 +903,7 @@
   .suas-lah-slotbar { margin-bottom: 5px; }
   .suas-lah-slot { min-height: 30px; padding: 3px 6px; font-size: 9px; }
   .suas-lah-notes {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     max-height: min(52vh, 320px);
     gap: 4px;
   }
@@ -887,13 +917,15 @@
     grid-template-columns: 1fr;
     gap: 6px;
   }
+  .suas-lah-name-row label { font-size: clamp(1.2rem, 5.5vw, 1.55rem); }
   .suas-lah-btn { min-height: 46px; font-size: 1.05rem; font-weight: 800; }
   .suas-lah-name-row input { min-height: 42px; font-size: 16px; }
 }
 
 @media (max-width: 380px) {
-  .suas-lah-notes { grid-template-columns: 1fr; }
+  .suas-lah-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .suas-lah-kit span { font-size: 8px; }
+  .suas-lah-note b { font-size: 0.72rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
