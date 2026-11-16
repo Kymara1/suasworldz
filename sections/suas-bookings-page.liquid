@@ -143,9 +143,10 @@
       .suas-book-fold.suas-book-rules{margin:0 18px 14px}
     }
     @media(max-width:1023px){
+      .suas-bookings-page{overflow-x:clip}
       .suas-book-top,.suas-book-hero-head{grid-template-columns:minmax(0,1fr)!important}
       .suas-book-hours-grid{grid-template-columns:1fr 1fr!important;gap:6px;padding:8px}
-      .suas-book-hours-grid p{padding:7px 8px;font-size:12px;line-height:1.3}
+      .suas-book-hours-grid p{padding:7px 8px;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
       .suas-book-hours-note{padding:0 8px 8px;font-size:9px;line-height:1.25}
       .suas-book-rules{margin:0 8px 12px}
       .suas-book-rules-body{padding:10px;gap:6px}
@@ -157,34 +158,41 @@
       .suas-seat-meter strong{font-size:1rem}
       .suas-book-price-card{padding:6px 8px}
       .suas-book-price{font-size:1.2rem}
-      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}
-      .suas-type-card{padding:12px;gap:4px 8px;min-height:0}
-      .suas-type-card strong{font-size:1.05rem}
-      .suas-type-card small{margin-top:4px;font-size:11px;line-height:1.35;display:block;overflow:visible;-webkit-line-clamp:unset}
+      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:minmax(0,1fr)!important;gap:8px}
+      .suas-type-card{padding:12px;gap:4px 8px;min-height:0;overflow:visible}
+      .suas-type-card strong{font-size:1.1rem;overflow-wrap:anywhere}
+      .suas-type-card small{margin-top:4px;font-size:12px;line-height:1.35;display:block;overflow:visible;-webkit-line-clamp:unset;overflow-wrap:anywhere}
       .suas-type-card b{font-size:12px}
-      .suas-book-form{grid-template-columns:1fr 1fr;gap:12px;padding:4px 12px 14px}
-      .suas-book-field{gap:8px;padding:12px}
-      .suas-book-addons{grid-template-columns:1fr 1fr;gap:10px}
+      .suas-book-form{grid-template-columns:minmax(0,1fr)!important;gap:10px;padding:4px 10px 14px}
+      .suas-book-field{gap:6px;padding:10px 12px;min-width:0;align-content:start}
+      .suas-book-input,.suas-book-select{width:100%!important;max-width:100%!important;min-width:0!important;min-height:48px!important;padding:12px 14px!important;font-size:16px!important}
+      .suas-book-addons{grid-template-columns:minmax(0,1fr);gap:8px}
       .suas-book-addon{min-height:48px;padding:10px 12px;gap:8px}
       .suas-book-addon strong{font-size:11px;line-height:1.2}
       .suas-book-addon span{font-size:11px}
       .suas-book-tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px}
-      .suas-book-tab{min-height:46px;font-size:10px}
+      .suas-book-tab{min-height:44px;font-size:10px;white-space:normal;line-height:1.15}
       .suas-time-chips{gap:8px}
-      .suas-time-chips button{min-height:42px;padding:0 12px;font-size:11px}
+      .suas-time-chips button{min-height:44px;padding:0 12px;font-size:11px}
       .suas-book-note{font-size:12px;padding:12px}
       .suas-book-task{margin:0 12px 12px}
+      .suas-book-option{overflow:visible}
+    }
+    @media(min-width:701px) and (max-width:1023px){
+      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+      .suas-type-grid .suas-type-card:last-child:nth-child(odd){grid-column:1/-1}
+      .suas-book-addons{grid-template-columns:1fr 1fr}
     }
     @media(max-width:900px){
       .suas-book-top{padding:0 8px 8px;gap:8px}
       .suas-book-hero-head{padding:10px 12px 8px}
-      .suas-book-copy{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px;line-height:1.3;margin-top:4px}
+      .suas-book-copy{font-size:13px;line-height:1.35;margin-top:4px}
       .suas-book-fold{margin:0 8px 8px}
       .suas-book-fold.suas-book-panel{margin:0}
       .suas-book-rules{margin:0 8px 8px}
       .suas-book-rules-list{grid-template-columns:1fr}
       .suas-book-rules-body h2{font-size:1.15rem}
-      .suas-book-desc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+      .suas-book-desc{font-size:13px;line-height:1.35}
       .suas-book-option.is-open .suas-book-task{
         position:sticky;bottom:8px;z-index:5;margin:0;padding:8px 10px 10px;
         background:linear-gradient(180deg,rgba(244,236,212,0),#f4ecd4 28%);
@@ -196,17 +204,18 @@
     }
     @media(max-width:700px){
       .suas-book-title{font-size:clamp(1.7rem,9vw,2.4rem)}
-      .suas-book-option-head{grid-template-columns:minmax(0,1.2fr) minmax(6.75rem,38%);padding:10px}
+      .suas-book-option-head{grid-template-columns:minmax(0,1fr);padding:10px}
+      .suas-book-side{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
       .suas-book-option h2{font-size:clamp(1.05rem,5.5vw,1.35rem)}
-      .suas-book-desc{font-size:11px;line-height:1.25}
-      .suas-book-form{grid-template-columns:1fr;gap:12px}
-      .suas-book-field{padding:12px 12px}
-      .suas-book-input,.suas-book-select{min-height:48px!important;padding:12px 14px!important;font-size:16px!important}
+      .suas-book-desc{font-size:12px;line-height:1.3}
+      .suas-book-form{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}
+      .suas-book-form>.suas-book-field[data-pair]{grid-column:auto}
+      .suas-book-form>:not(.suas-book-field[data-pair]){grid-column:1/-1}
+      .suas-book-field{padding:10px 12px}
+      .suas-book-input,.suas-book-select{min-height:48px!important;padding:12px 14px!important;font-size:16px!important;min-width:0!important;max-width:100%!important}
       .suas-plus-choice{grid-template-columns:1fr 1fr}
-      .suas-type-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-      .suas-type-grid .suas-type-card:last-child:nth-child(odd){grid-column:1/-1}
+      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:minmax(0,1fr)!important}
       .suas-book-policy{padding:8px 10px}
-      .suas-book-policy p{-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
     }
   </style>
 
@@ -409,8 +418,8 @@
             <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
             <input type="hidden" name="properties[_Staff calendar]" value="" data-staff-calendar>
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" min="2026-11-14" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" max="14" value="1" data-self-qty></div>
+            <div class="suas-book-field" data-pair><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" min="2026-11-14" required></div>
+            <div class="suas-book-field" data-pair><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" max="14" value="1" data-self-qty></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumName">name</label><input class="suas-book-input" id="ParfumName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumEmail">email</label><input class="suas-book-input" id="ParfumEmail" type="email" name="properties[Email]" autocomplete="email" required></div>
@@ -502,8 +511,8 @@
                 {% endfor %}
               </select>
             {% endif %}
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedDate">class date</label><input class="suas-book-input" id="GuidedDate" type="date" name="properties[Class date]" min="2026-11-14" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="14" value="1"></div>
+            <div class="suas-book-field" data-pair><label class="suas-book-label" for="GuidedDate">class date</label><input class="suas-book-input" id="GuidedDate" type="date" name="properties[Class date]" min="2026-11-14" required></div>
+            <div class="suas-book-field" data-pair><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="14" value="1"></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedPhone">phone</label><input class="suas-book-input" id="GuidedPhone" type="tel" name="properties[Phone number]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedName">name</label><input class="suas-book-input" id="GuidedName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedEmail">email</label><input class="suas-book-input" id="GuidedEmail" type="email" name="properties[Email]" autocomplete="email" required></div>
@@ -576,8 +585,8 @@
                 <option value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}"{% if forloop.first %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
               {% endfor %}
             </select>
-            <div class="suas-book-field"><label class="suas-book-label" for="BookCharmDate">date</label><input class="suas-book-input" id="BookCharmDate" type="date" min="2026-11-14" required></div>
-            <div class="suas-book-field"><label class="suas-book-label" for="BookCharmGuests">seats</label><input class="suas-book-input" id="BookCharmGuests" type="number" min="1" max="4" value="1" required data-charm-qty></div>
+            <div class="suas-book-field" data-pair><label class="suas-book-label" for="BookCharmDate">date</label><input class="suas-book-input" id="BookCharmDate" type="date" min="2026-11-14" required></div>
+            <div class="suas-book-field" data-pair><label class="suas-book-label" for="BookCharmGuests">seats</label><input class="suas-book-input" id="BookCharmGuests" type="number" min="1" max="4" value="1" required data-charm-qty></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmPhone">phone</label><input class="suas-book-input" id="BookCharmPhone" type="tel" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmName">name</label><input class="suas-book-input" id="BookCharmName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="BookCharmEmail">email</label><input class="suas-book-input" id="BookCharmEmail" type="email" name="properties[Email]" autocomplete="email" required></div>
