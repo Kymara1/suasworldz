@@ -1,4 +1,4 @@
-/* SUAS PDP product palette — label colors from real jar/label art.
+/* SUAS PDP product palette - label colors from real jar/label art.
    Body gets data-suas-handle from layout; windows + smell.exe inherit these vars. */
 
 html body.template--product {
@@ -19,7 +19,7 @@ html body.template--product {
   --pdp-blob: var(--wash);
 }
 
-/* —— handle → palette (label hex sampled from ops/ref-images labels) —— */
+/* -- handle ? palette (label hex sampled from ops/ref-images labels) -- */
 html body.template--product[data-suas-handle*='shocking-ice'] {
   --hot: #004aad;
   --wash: #b8cce8;
@@ -128,12 +128,12 @@ html body.template--product[data-suas-handle*='crimson'] {
   --on-accent: #ffffff;
 }
 
-/* Review shell aliases pink → wash; children inherit body --hot/--wash/--mid */
+/* Review shell aliases pink ? wash; children inherit body --hot/--wash/--mid */
 html body.template--product .suas-product-review-shell {
   --pink: var(--wash);
 }
 
-/* —— product windows —— */
+/* -- product windows -- */
 html body.template--product .suas-pdp .suas-window-bar {
   background: linear-gradient(180deg, color-mix(in srgb, var(--wash) 40%, #fff), var(--wash)) !important;
   color: var(--ink);
@@ -169,7 +169,7 @@ html body.template--product .suas-pdp-ticket .product-buy-buttons--cta {
   box-shadow: 0 6px 0 var(--mid) !important;
 }
 
-/* —— smell.exe / reviews widget —— */
+/* -- smell.exe / reviews widget -- */
 html body.template--product .suas-product-review-shell {
   --pink: var(--wash);
   --hot: var(--hot);

@@ -26,7 +26,7 @@
     .suas-simple-review .jdgm-form__fieldset:has(input[type='file']),
     .suas-simple-review label.jdgm-always-visible{display:none!important}
 
-    /* Live review cards — product-tinted stickers */
+    /* Live review cards - product-tinted stickers */
     .suas-simple-review .jdgm-rev{margin:0 0 10px!important;padding:12px 14px!important;border:2.5px solid #101010!important;border-radius:18px!important;background:var(--sun,#fff1a8)!important;box-shadow:3px 4px 0 #101010!important}
     .suas-simple-review .jdgm-rev:nth-child(3n+1){background:var(--wash,#ffd8e8)!important}
     .suas-simple-review .jdgm-rev:nth-child(3n+2){background:color-mix(in srgb,var(--mid,#cdeeff) 42%,#fff)!important}
@@ -137,7 +137,7 @@
             window.jdgm.openForm(jq(widget || '.jdgm-rev-widg'));
           }
         } catch (err) {}
-        // Prefer Judge.me API above. Do not synthetic-click write link — it re-enters and can lock the page.
+        // Prefer Judge.me API above. Do not synthetic-click write link - it re-enters and can lock the page.
         var shown = revealForms();
         if (!shown) {
           var btn = root.querySelector('.jdgm-write-rev-link') || document.querySelector('.jdgm-write-rev-link');

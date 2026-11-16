@@ -1,4 +1,4 @@
-/* SUAS OS selling station — product detail page */
+/* SUAS OS selling station - product detail page */
 html body.template--product {
   --ink: #101010;
   --pink: #ffd8e8;
@@ -327,7 +327,7 @@ html body.template--product .suas-note-grid { padding-bottom: clamp(16px, 3vw, 3
   }
 }
 
-/* Unique SUAS product page — not a boxed store template */
+/* Unique SUAS product page - not a boxed store template */
 html body.template--product .suas-station-desk {
   position: relative;
   align-items: center;
