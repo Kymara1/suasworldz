@@ -14,13 +14,17 @@
     .suas-simple-review :is(.jdgm-rev-widg__title,.jdgm-form-wrapper h2,.jdgm-form__title,.jdgm-histogram,.jdgm-histogram-wrapper,.jdgm-rev-widg__summary,.jdgm-write-rev-link,.jdgm-cancel-rev,.jdgm-sort-dropdown,.jdgm-form__terms,.jdgm-notification,.jdgm-powered,.jdgm-branding){display:none!important}
     .suas-simple-review .jdgm-rev-widg__header{display:block!important}
     .suas-simple-review .jdgm-rev-widg__header > :not(.jdgm-form-wrapper):not(form):not(.jdgm-form){display:none!important}
-    .suas-simple-review :is([class*='picture'],[class*='Picture'],[class*='media-upload'],[class*='media-uploader'],[class*='video-upload'],.jdgm-tooltip){display:none!important}
+    .suas-simple-review :is([class*='picture'],[class*='Picture'],[class*='media-upload'],[class*='media-uploader'],[class*='media-fieldset'],[class*='video-upload'],.jdgm-tooltip){display:none!important}
     .suas-simple-review :is(.jdgm-rev-widg__reviews,.jdgm-rev,.jdgm-rev-widg__body){display:block!important;visibility:visible!important;max-height:none!important;overflow:visible!important}
     .suas-simple-review .jdgm-legacy-widget-content{display:block!important}
     .suas-simple-review iframe[src*='judge.me'],.suas-simple-review iframe[id*='jdgm'],.suas-simple-review iframe[class*='jdgm']{display:block!important;width:100%!important;max-height:52vh!important}
     .suas-simple-review input[name*='title' i],
     .suas-simple-review [class*='review-title'],
-    .suas-simple-review [class*='review_title']{display:none!important}
+    .suas-simple-review [class*='review_title'],
+    .suas-simple-review .jdgm-form__fieldset:has(input[name*='title' i]),
+    .suas-simple-review .jdgm-form__fieldset:has([class*='media']),
+    .suas-simple-review .jdgm-form__fieldset:has(input[type='file']),
+    .suas-simple-review label.jdgm-always-visible{display:none!important}
 
     /* Live review cards = sticker notes */
     .suas-simple-review .jdgm-rev{margin:0 0 10px!important;padding:12px 14px!important;border:2.5px solid #101010!important;border-radius:18px!important;background:#fff1a8!important;box-shadow:3px 4px 0 #101010!important}
@@ -135,6 +139,9 @@
           } catch (err) {}
         }
         var shown = revealForms();
+        compactForm();
+        window.setTimeout(compactForm, 200);
+        window.setTimeout(compactForm, 800);
         if (shown) {
           var form = formNodes()[0];
           if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -175,27 +182,30 @@
       }
 
       function softLabels() {
-        root.querySelectorAll('label, legend, .jdgm-form-label, .jdgm-form__label').forEach(function (el) {
+        root.querySelectorAll('label, legend, .jdgm-form-label, .jdgm-form__label, .jdgm-form__inline-label').forEach(function (el) {
           if (el.closest('.jdgm-rev')) return;
           var t = String(el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
           if (!t) return;
-          if (/^rating/.test(t)) el.textContent = 'how loud was it';
+          if (/displayed publicly|john smith|picture|video|review title|title/.test(t)) {
+            el.style.setProperty('display', 'none', 'important');
+            return;
+          }
+          if (/rating|score|star/.test(t)) el.textContent = 'how loud was it';
           else if (/review content|your review|review body|^body$/.test(t)) el.textContent = 'what did it smell like';
-          else if (/display name|name/.test(t) && !/email/.test(t)) el.textContent = 'name';
+          else if (/display name|^name$/.test(t) && !/email/.test(t)) el.textContent = 'name';
           else if (/email/.test(t)) el.textContent = 'email';
-          else if (/title|headline/.test(t)) el.style.setProperty('display', 'none', 'important');
         });
         root.querySelectorAll('textarea').forEach(function (el) {
           el.setAttribute('placeholder', 'sticky. permanent. tell us.');
         });
-        root.querySelectorAll('input[type="text"], input:not([type])').forEach(function (el) {
-          var n = String(el.getAttribute('name') || el.getAttribute('placeholder') || '').toLowerCase();
-          if (/name|display/.test(n)) el.setAttribute('placeholder', 'your name');
+        root.querySelectorAll('input[name*="name" i], input[placeholder*="name" i], input[placeholder*="Display" i]').forEach(function (el) {
+          if (el.type === 'hidden' || /title|email/i.test(el.name || '')) return;
+          el.setAttribute('placeholder', 'your name');
         });
-        root.querySelectorAll('input[type="email"]').forEach(function (el) {
+        root.querySelectorAll('input[type="email"], input[name*="email" i]').forEach(function (el) {
           el.setAttribute('placeholder', 'email (private)');
         });
-        root.querySelectorAll('button.jdgm-btn, input[type="submit"].jdgm-btn, .jdgm-btn').forEach(function (el) {
+        root.querySelectorAll('button.jdgm-btn, input[type="submit"].jdgm-btn, .jdgm-btn, input[type="submit"]').forEach(function (el) {
           if (el.tagName === 'INPUT') el.value = 'post smell report';
           else if (!/close|cancel|minimize/i.test(el.textContent || '')) el.textContent = 'post smell report';
         });
@@ -203,15 +213,16 @@
 
       function compactForm() {
         if (!root.classList.contains('is-writing')) return;
-        root.querySelectorAll('[class*="picture"],[class*="Picture"],[class*="upload"],[class*="media-uploader"]').forEach(function (el) {
+        root.querySelectorAll('[class*="picture"],[class*="Picture"],[class*="upload"],[class*="media-uploader"],[class*="media-fieldset"],input[type="file"]').forEach(function (el) {
           el.style.setProperty('display', 'none', 'important');
+          var wrap = el.closest('.jdgm-form__fieldset') || el.parentElement;
+          if (wrap) wrap.style.setProperty('display', 'none', 'important');
         });
-        root.querySelectorAll('span,small,em,p,label,div,li').forEach(function (el) {
+        root.querySelectorAll('.jdgm-form__fieldset, label, .jdgm-form__inline-label').forEach(function (el) {
           if (el.closest('.jdgm-rev')) return;
-          if (el.querySelector('input,textarea,button,select,.jdgm-rev,.jdgm-star')) return;
           var t = String(el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-          if (!t || t.length > 900) return;
-          if (/displayed publicly|john smith|picture|video \(optional\)|uses (your )?data|how we use|collect(s)? (and process|your)|personal data|privacy policy|gdpr|legitimate interest|judge\.me uses|review title/.test(t)) {
+          if (!t || t.length > 200) return;
+          if (/picture|video \(optional\)|displayed publicly|john smith|review title|give your review a title/.test(t)) {
             el.style.setProperty('display', 'none', 'important');
           }
         });
@@ -219,10 +230,8 @@
         if (title) {
           if (!title.value) title.value = 'smell report';
           title.style.setProperty('display', 'none', 'important');
-          var lab = title.closest('label') || title.closest('.jdgm-form__fieldset') || title.parentElement;
-          if (lab && !lab.querySelector('textarea,.jdgm-star,input[type="email"],input[type="radio"]')) {
-            lab.style.setProperty('display', 'none', 'important');
-          }
+          var lab = title.closest('.jdgm-form__fieldset') || title.parentElement;
+          if (lab) lab.style.setProperty('display', 'none', 'important');
         }
         softLabels();
       }
