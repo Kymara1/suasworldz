@@ -164,7 +164,7 @@
           </div>
         </section>
       </div>
-      <div class="foot"><span>/pages/staff-seats</span><span>cap 14 lab / 4 charm</span></div>
+      <div class="foot"><span>/pages/staff-seats</span><span>cap 16 lab / 4 charm</span></div>
     </article>
 
     <script type="application/json" id="suas-lab-seats-data">
@@ -206,7 +206,7 @@
           }
           boardEl.innerHTML = keys.map(function (key) {
             var row = board.slots[key];
-            var left = Number(row.remaining != null ? row.remaining : ((row.cap || 14) - (row.seats || 0)));
+            var left = Number(row.remaining != null ? row.remaining : ((row.cap || 16) - (row.seats || 0)));
             var cls = left <= 0 ? ' is-full' : (left <= 3 ? ' is-low' : '');
             var note = row.note ? '<span>' + escapeHtml(String(row.note)) + '</span>' : '';
             var parts = key.split('|');
