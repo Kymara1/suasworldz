@@ -26,24 +26,22 @@
     .suas-simple-review .jdgm-form__fieldset:has(input[type='file']),
     .suas-simple-review label.jdgm-always-visible{display:none!important}
 
-    /* Live review cards = sticker notes */
-    .suas-simple-review .jdgm-rev{margin:0 0 10px!important;padding:12px 14px!important;border:2.5px solid #101010!important;border-radius:18px!important;background:#fff1a8!important;box-shadow:3px 4px 0 #101010!important}
-    .suas-simple-review .jdgm-rev:nth-child(3n+1){background:#ffd8e8!important}
-    .suas-simple-review .jdgm-rev:nth-child(3n+2){background:#cdeeff!important}
-    .suas-simple-review .jdgm-rev:nth-child(3n){background:#d9ff78!important}
+    /* Live review cards — product-tinted stickers */
+    .suas-simple-review .jdgm-rev{margin:0 0 10px!important;padding:12px 14px!important;border:2.5px solid #101010!important;border-radius:18px!important;background:var(--sun,#fff1a8)!important;box-shadow:3px 4px 0 #101010!important}
+    .suas-simple-review .jdgm-rev:nth-child(3n+1){background:var(--wash,#ffd8e8)!important}
+    .suas-simple-review .jdgm-rev:nth-child(3n+2){background:color-mix(in srgb,var(--mid,#cdeeff) 42%,#fff)!important}
+    .suas-simple-review .jdgm-rev:nth-child(3n){background:color-mix(in srgb,var(--hot,#d9ff78) 22%,#fff)!important}
     .suas-simple-review .jdgm-rev__author,.suas-simple-review .jdgm-rev__buyer-badge{font:900 11px/1.2 Tahoma,Arial,sans-serif!important;letter-spacing:.06em!important;text-transform:uppercase!important}
     .suas-simple-review .jdgm-rev__body,.suas-simple-review .jdgm-rev p{font:800 14px/1.4 Tahoma,Arial,sans-serif!important;color:#101010!important}
 
-    /* Write form = quiet lined notepad (not a loud survey) */
+    /* Write form = clean product-tinted card (no lined notepad) */
     .suas-simple-review .jdgm-form-wrapper,
     .suas-simple-review form.jdgm-form,
     .suas-simple-review .jdgm-form{
-      display:none!important;margin:0!important;padding:18px 16px 16px!important;gap:14px!important;
+      display:none!important;margin:0!important;padding:16px 14px!important;gap:12px!important;
       border:2px solid #101010!important;border-radius:18px!important;
-      background:
-        repeating-linear-gradient(transparent,transparent 27px,rgba(255,155,196,.22) 27px,rgba(255,155,196,.22) 28px),
-        linear-gradient(180deg,#fffdf8 0%,#fff7fb 100%)!important;
-      box-shadow:3px 4px 0 rgba(16,16,16,.18)!important
+      background:color-mix(in srgb,var(--wash,#ffd8e8) 42%,#fff)!important;
+      box-shadow:3px 4px 0 rgba(16,16,16,.14)!important
     }
     .suas-simple-review.is-writing .jdgm-form-wrapper,
     .suas-simple-review.is-writing form.jdgm-form,
@@ -55,24 +53,23 @@
       font:900 10px/1.2 Tahoma,Arial,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase!important;color:rgba(16,16,16,.55)!important
     }
     .suas-simple-review :is(input,textarea,select){
-      width:100%!important;min-height:44px!important;border:0!important;border-bottom:2px solid rgba(16,16,16,.18)!important;border-radius:0!important;
-      background:transparent!important;color:#101010!important;padding:8px 2px!important;
+      width:100%!important;min-height:44px!important;border:2px solid rgba(16,16,16,.14)!important;border-radius:12px!important;
+      background:#fff!important;color:#101010!important;padding:10px 12px!important;
       font:800 15px/1.35 Tahoma,Arial,sans-serif!important;box-shadow:none!important
     }
     .suas-simple-review :is(input,textarea,select):focus{
-      outline:none!important;border-bottom-color:#101010!important;background:rgba(255,255,255,.55)!important
+      outline:3px solid color-mix(in srgb,var(--hot,#ff9bc4) 35%,transparent)!important;outline-offset:1px!important;
+      border-color:var(--hot,#101010)!important;background:#fff!important
     }
     .suas-simple-review textarea{
       min-height:140px!important;max-height:none!important;height:auto!important;resize:vertical!important;
-      border:2px solid rgba(16,16,16,.14)!important;border-radius:14px!important;padding:12px 14px!important;
-      background:rgba(255,255,255,.72)!important;line-height:1.45!important
+      line-height:1.45!important
     }
-    .suas-simple-review textarea:focus{border-color:#101010!important;background:#fff!important}
     .suas-simple-review .jdgm-form__rating{display:flex!important;justify-content:center!important;gap:6px!important;align-items:center!important;padding:2px 0 4px!important}
-    .suas-simple-review :is(.jdgm-star,.jdgm-star:before,.jdgm-star.jdgm--on,.jdgm-star.jdgm--on:before){color:#ff6fb5!important;font-size:30px!important;text-shadow:none!important}
+    .suas-simple-review :is(.jdgm-star,.jdgm-star:before,.jdgm-star.jdgm--on,.jdgm-star.jdgm--on:before){color:var(--hot,#ff6fb5)!important;font-size:30px!important;text-shadow:none!important}
     .suas-simple-review :is(.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn){
       justify-self:center!important;min-height:46px!important;min-width:min(100%,220px)!important;padding:0 22px!important;
-      border:2px solid #101010!important;border-radius:999px!important;background:#d9ff78!important;color:#101010!important;
+      border:2px solid #101010!important;border-radius:999px!important;background:var(--wash,#d9ff78)!important;color:#101010!important;
       box-shadow:0 3px 0 #101010!important;font:900 11px/1 Tahoma,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important;cursor:pointer!important
     }
     .suas-simple-review :is(.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn):hover{transform:translateY(1px)!important;box-shadow:0 2px 0 #101010!important}

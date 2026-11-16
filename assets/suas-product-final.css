@@ -368,11 +368,7 @@ html body.template--product .suas-station-stage:before {
   background: var(--pdp-blob, #ffd8e8);
   transform: rotate(-8deg);
 }
-html body.template--product .suas-station[data-handle*='tonic'] { --pdp-blob: #d7c8ff; }
-html body.template--product .suas-station[data-handle*='haze'] { --pdp-blob: #ffe58a; }
-html body.template--product .suas-station[data-handle*='poppy'] { --pdp-blob: #ffc1d8; }
-html body.template--product .suas-station[data-handle*='good'] { --pdp-blob: #d4f07a; }
-html body.template--product .suas-station[data-handle*='butter'] { --pdp-blob: #ffd8e8; }
+html body.template--product .suas-station { --pdp-blob: var(--wash, #ffd8e8); }
 html body.template--product .suas-station-photo {
   filter: drop-shadow(0 22px 28px rgba(16, 16, 16, 0.16));
   border-radius: 0;

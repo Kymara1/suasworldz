@@ -1,0 +1,261 @@
+/* SUAS PDP product palette — label colors from real jar/label art.
+   Body gets data-suas-handle from layout; windows + smell.exe inherit these vars. */
+
+html body.template--product {
+  --ink: #101010;
+  --suas-ink: #101010;
+  --hot: #ff9bc4;
+  --wash: #ffd8e8;
+  --mid: #ff7ec8;
+  --on-accent: #101010;
+  --lime: #d9ff78;
+  --blue: #cdeeff;
+  --sun: #fff1a8;
+  --pink: var(--wash);
+  --suas-pink: var(--wash);
+  --suas-blue: var(--blue);
+  --suas-yellow: var(--sun);
+  --suas-green: var(--lime);
+  --pdp-blob: var(--wash);
+}
+
+/* —— handle → palette (label hex sampled from ops/ref-images labels) —— */
+html body.template--product[data-suas-handle*='shocking-ice'] {
+  --hot: #004aad;
+  --wash: #b8cce8;
+  --mid: #3d7fd1;
+  --on-accent: #ffffff;
+  --blue: #9ec4f0;
+}
+html body.template--product[data-suas-handle*='nectar'] {
+  --hot: #eebe15;
+  --wash: #faedbd;
+  --mid: #f4d567;
+  --on-accent: #101010;
+  --sun: #fff1a8;
+}
+html body.template--product[data-suas-handle*='good-girl'] {
+  --hot: #98e23c;
+  --wash: #e2f7c8;
+  --mid: #bcec80;
+  --on-accent: #101010;
+  --lime: #c6f76a;
+}
+html body.template--product[data-suas-handle*='pyro-pistachio'],
+html body.template--product[data-suas-handle*='pyro'] {
+  --hot: #566419;
+  --wash: #d0d4bf;
+  --mid: #7a8640;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='bare'] {
+  --hot: #6a73ae;
+  --wash: #d5d8e8;
+  --mid: #8e96c2;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='temptress'] {
+  --hot: #aa1845;
+  --wash: #e7becb;
+  --mid: #c86986;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='devotion'] {
+  --hot: #352041;
+  --wash: #c6c1ca;
+  --mid: #6a5478;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='after-dark'] {
+  --hot: #373e48;
+  --wash: #c7c9cc;
+  --mid: #5c6570;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='summit'] {
+  --hot: #8db2c5;
+  --wash: #dfe9ef;
+  --mid: #b5cdd9;
+  --on-accent: #101010;
+}
+html body.template--product[data-suas-handle*='sovereign'] {
+  --hot: #3e4a32;
+  --wash: #c9ccc6;
+  --mid: #6a755c;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='renegade'] {
+  --hot: #a8c87d;
+  --wash: #e7f0db;
+  --mid: #c6dbaa;
+  --on-accent: #101010;
+}
+html body.template--product[data-suas-handle*='caspian'] {
+  --hot: #b70005;
+  --wash: #ebb8b9;
+  --mid: #d0595c;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='haze'] {
+  --hot: #ebf094;
+  --wash: #f9fbe1;
+  --mid: #f2f5b9;
+  --on-accent: #101010;
+  --sun: #ebf094;
+}
+html body.template--product[data-suas-handle*='poppy'] {
+  --hot: #ff3395;
+  --wash: #ffc6e1;
+  --mid: #ff7aba;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='tonic'] {
+  --hot: #382763;
+  --wash: #c7c3d3;
+  --mid: #7e739a;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='ember'] {
+  --hot: #5d3d29;
+  --wash: #d2c9c3;
+  --mid: #968174;
+  --on-accent: #ffffff;
+}
+html body.template--product[data-suas-handle*='crimson'] {
+  --hot: #de0f3f;
+  --wash: #f6bcc9;
+  --mid: #ea6382;
+  --on-accent: #ffffff;
+}
+
+/* Review shell aliases pink → wash; children inherit body --hot/--wash/--mid */
+html body.template--product .suas-product-review-shell {
+  --pink: var(--wash);
+}
+
+/* —— product windows —— */
+html body.template--product .suas-pdp .suas-window-bar {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--wash) 40%, #fff), var(--wash)) !important;
+  color: var(--ink);
+}
+html body.template--product .suas-pdp-ticket .suas-window-bar {
+  background: linear-gradient(180deg, var(--mid), var(--hot)) !important;
+  color: var(--on-accent) !important;
+  border-bottom-color: var(--ink) !important;
+}
+html body.template--product .suas-pdp-ticket .suas-window-title,
+html body.template--product .suas-pdp-ticket .suas-window-live {
+  color: var(--on-accent) !important;
+}
+html body.template--product .suas-pdp-ticket {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(255, 255, 255, .5), transparent 28%),
+    var(--wash) !important;
+}
+html body.template--product .suas-pdp-note[data-note='1'] { background: var(--wash) !important; }
+html body.template--product .suas-pdp-note[data-note='2'] { background: color-mix(in srgb, var(--mid) 55%, #fff) !important; }
+html body.template--product .suas-pdp-note[data-note='3'] { background: color-mix(in srgb, var(--hot) 28%, #fff) !important; }
+html body.template--product .suas-pdp-fold:nth-of-type(1) {
+  background: linear-gradient(135deg, #fff, var(--wash) 80%) !important;
+}
+html body.template--product .suas-pdp-fold:nth-of-type(2) {
+  background: linear-gradient(135deg, #fff, color-mix(in srgb, var(--mid) 45%, #fff) 80%) !important;
+}
+html body.template--product .suas-pdp-fold:nth-of-type(3) {
+  background: linear-gradient(135deg, #fff, color-mix(in srgb, var(--hot) 22%, #fff) 80%) !important;
+}
+html body.template--product .product-buy-buttons--cta,
+html body.template--product .suas-pdp-ticket .product-buy-buttons--cta {
+  box-shadow: 0 6px 0 var(--mid) !important;
+}
+
+/* —— smell.exe / reviews widget —— */
+html body.template--product .suas-product-review-shell {
+  --pink: var(--wash);
+  --hot: var(--hot);
+  --lime: var(--lime);
+  --blue: var(--blue);
+  --sun: var(--sun);
+}
+html body.template--product .suas-smell-winbar,
+html body.template--product .suas-review-window-bar {
+  background: linear-gradient(180deg, var(--mid), var(--hot)) !important;
+  color: var(--on-accent) !important;
+}
+html body.template--product .suas-smell-winbar b,
+html body.template--product .suas-review-window-bar strong {
+  color: var(--on-accent) !important;
+}
+html body.template--product .suas-smell-winbar i,
+html body.template--product .suas-review-window-bar span {
+  border-color: color-mix(in srgb, var(--on-accent) 55%, transparent) !important;
+}
+html body.template--product .suas-smell-winbar i:nth-child(1),
+html body.template--product .suas-review-window-bar span:nth-child(1) {
+  background: var(--wash) !important;
+}
+html body.template--product .suas-smell-winbar i:nth-child(2),
+html body.template--product .suas-review-window-bar span:nth-child(2) {
+  background: var(--sun) !important;
+}
+html body.template--product .suas-smell-winbar i:nth-child(3),
+html body.template--product .suas-review-window-bar span:nth-child(3) {
+  background: var(--lime) !important;
+}
+html body.template--product .suas-review-shell-window,
+html body.template--product .suas-product-review-shell .apps--wrapper {
+  background:
+    linear-gradient(rgba(16, 16, 16, .04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 16, 16, .04) 1px, transparent 1px),
+    radial-gradient(circle at 12% 10%, color-mix(in srgb, var(--wash) 85%, transparent), transparent 34%),
+    radial-gradient(circle at 92% 88%, color-mix(in srgb, var(--mid) 55%, transparent), transparent 32%),
+    #fff !important;
+  background-size: 18px 18px, 18px 18px, auto, auto, auto !important;
+}
+html body.template--product .suas-review-action {
+  background: var(--wash) !important;
+  color: var(--ink) !important;
+}
+html body.template--product .suas-review-intro [data-suas-minimize-review] {
+  background: var(--mid) !important;
+  color: var(--on-accent) !important;
+}
+html body.template--product .suas-review-shell-label {
+  background: var(--wash) !important;
+}
+
+/* Quiet product-tinted review form (no lined notepad) */
+html body.template--product .suas-simple-review .jdgm-form-wrapper,
+html body.template--product .suas-simple-review form.jdgm-form,
+html body.template--product .suas-simple-review .jdgm-form {
+  border: 2px solid var(--ink) !important;
+  border-radius: 18px !important;
+  background: color-mix(in srgb, var(--wash) 42%, #fff) !important;
+  box-shadow: 3px 4px 0 rgba(16, 16, 16, .14) !important;
+  padding: 16px 14px !important;
+  gap: 12px !important;
+}
+html body.template--product .suas-simple-review :is(input, textarea, select) {
+  border: 2px solid rgba(16, 16, 16, .14) !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  border-bottom: 2px solid rgba(16, 16, 16, .14) !important;
+  padding: 10px 12px !important;
+}
+html body.template--product .suas-simple-review :is(input, textarea, select):focus {
+  border-color: var(--hot) !important;
+  outline: 3px solid color-mix(in srgb, var(--hot) 35%, transparent) !important;
+  outline-offset: 1px !important;
+  background: #fff !important;
+}
+html body.template--product .suas-simple-review :is(.jdgm-star, .jdgm-star:before, .jdgm-star.jdgm--on, .jdgm-star.jdgm--on:before) {
+  color: var(--hot) !important;
+}
+html body.template--product .suas-simple-review :is(.jdgm-btn, button.jdgm-btn, input[type='submit'].jdgm-btn) {
+  background: var(--wash) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 3px 0 var(--ink) !important;
+}
+html body.template--product .suas-simple-review .jdgm-rev:nth-child(3n+1) { background: var(--wash) !important; }
+html body.template--product .suas-simple-review .jdgm-rev:nth-child(3n+2) { background: color-mix(in srgb, var(--mid) 40%, #fff) !important; }
+html body.template--product .suas-simple-review .jdgm-rev:nth-child(3n) { background: color-mix(in srgb, var(--hot) 22%, #fff) !important; }

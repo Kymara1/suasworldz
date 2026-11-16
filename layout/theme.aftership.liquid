@@ -181,6 +181,7 @@
     {{ 'suas-product-final.css' | asset_url | stylesheet_tag }}
     {{ 'suas-product-live-fix.css' | asset_url | stylesheet_tag }}
     {{ 'suas-pdp-unique.css' | asset_url | stylesheet_tag }}
+    {{ 'suas-pdp-palette.css' | asset_url | stylesheet_tag }}
     {{ 'suas-catalog.css' | asset_url | stylesheet_tag }}
     {{ 'suas-mobile-panel.css' | asset_url | stylesheet_tag }}
     {{ 'suas-a11y.css' | asset_url | stylesheet_tag }}
@@ -197,5 +198,6 @@
     data-theme-name="Maker"
     data-theme-version="7.3.0"
     data-tabbing="false"
+    {% if request.page_type == 'product' and product %}data-suas-handle="{{ product.handle | escape }}"{% endif %}
   ><div class="page-builder-container">{{ content_for_layout }}</div></body>
 </html>
