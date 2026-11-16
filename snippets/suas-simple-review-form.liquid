@@ -218,11 +218,19 @@
           var wrap = el.closest('.jdgm-form__fieldset') || el.parentElement;
           if (wrap) wrap.style.setProperty('display', 'none', 'important');
         });
-        root.querySelectorAll('.jdgm-form__fieldset, label, .jdgm-form__inline-label').forEach(function (el) {
+        root.querySelectorAll('label, .jdgm-form__inline-label, span, small, em, p').forEach(function (el) {
           if (el.closest('.jdgm-rev')) return;
+          if (el.querySelector('input,textarea,button,select,.jdgm-star')) return;
           var t = String(el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
-          if (!t || t.length > 200) return;
-          if (/picture|video \(optional\)|displayed publicly|john smith|review title|give your review a title/.test(t)) {
+          if (!t || t.length > 160) return;
+          if (/picture\/video|video \(optional\)|displayed publicly|john smith|review title|give your review a title|uses (your )?data|privacy policy|gdpr|legitimate interest|judge\.me uses/.test(t)) {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        });
+        root.querySelectorAll('.jdgm-form__fieldset').forEach(function (el) {
+          if (el.querySelector('textarea, input[type="email"], input[name*="name" i], .jdgm-star, input[type="radio"], input[type="submit"], .jdgm-btn')) return;
+          var t = String(el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+          if (/picture|video|review title|give your review a title/.test(t) || el.querySelector('input[type="file"], [class*="media"]')) {
             el.style.setProperty('display', 'none', 'important');
           }
         });
