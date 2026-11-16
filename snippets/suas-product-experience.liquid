@@ -54,12 +54,18 @@
     assign scent_line = desc_text | split: 'scent profile:' | last | split: 'For:' | first | strip
   endif
   if scent_line != blank
-    assign scent_line = scent_line | split: 'Ingredients' | first | split: 'ingredients' | first | strip
+    assign scent_line = scent_line | split: 'Size:' | first | split: 'size:' | first | split: 'Ingredients' | first | split: 'ingredients' | first | strip
   endif
 
   assign for_line = ''
   if desc_text contains 'For:'
     assign for_line = desc_text | split: 'For:' | last | split: 'Ingredients' | first | split: 'ingredients' | first | strip
+  endif
+%}
+{% include 'suas-fragrance-notes' %}
+{%- liquid
+  if suas_all_notes != blank
+    assign scent_line = suas_all_notes
   endif
 
   if is_body_oil
@@ -202,7 +208,7 @@
         <aside class="suas-pdp-side">
           {% if scent_line != blank %}
             <div class="suas-pdp-chip">
-              <b>scent profile</b>
+              <b>scent notes</b>
               <p>{{ scent_line }}</p>
             </div>
           {% endif %}
@@ -214,7 +220,7 @@
           {% endif %}
           <div class="suas-pdp-chip">
             <b>the feel</b>
-            <p>{% if pdp_home %}Room-filling scent for the house, the car, the after-hours.{% elsif is_perfume %}Spray-loud. Pulse points. A trail, not a lotion.{% else %}Soothes. Moisturizes. Layers. Cushiony handmade formula for skin that wants to smell like something, not like a lecture.{% endif %}</p>
+            <p>{% if suas_feel != blank %}{{ suas_feel }}{% elsif pdp_home %}Room-filling scent for the house, the car, the after-hours.{% elsif is_perfume %}Spray-loud. Pulse points. A trail, not a lotion.{% else %}Soothes. Moisturizes. Layers. Cushiony handmade formula for skin that wants to smell like something, not like a lecture.{% endif %}</p>
           </div>
         </aside>
       </div>

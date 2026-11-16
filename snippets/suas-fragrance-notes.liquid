@@ -1,0 +1,144 @@
+{%- comment -%}
+Generated from ops/config/retail-fragrance-notes.json. Do not hand-edit.
+Sets mix_1/2/3 (hero notes), suas_all_notes, suas_feel for the current product.
+Use {% include "suas-fragrance-notes" %} so assigns leak into the parent.
+{%- endcomment -%}
+{%- liquid
+  assign suas_all_notes = blank
+  assign suas_feel = blank
+  assign suas_has_notes = false
+-%}
+{%- case product.handle -%}
+  {%- when 'summit-cologne' -%}
+    {%- liquid
+      assign mix_1 = 'lemon'
+      assign mix_2 = 'mandarin'
+      assign mix_3 = 'bergamot'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'lemon x mandarin x bergamot x juniper berries x pepper x lavender x sandalwood x vetiver x cedarwood'
+      assign suas_feel = 'fresh, citrusy, woody'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'sovereign-cologne' -%}
+    {%- liquid
+      assign mix_1 = 'bergamot'
+      assign mix_2 = 'ginger'
+      assign mix_3 = 'grapefruit'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'bergamot x ginger x grapefruit x cardamom x cinnamon x pineapple x labdanum x vetiver x patchouli'
+      assign suas_feel = 'fruity, spicy, woody'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'renegade-cologne' -%}
+    {%- liquid
+      assign mix_1 = 'calabrian bergamot'
+      assign mix_2 = 'bourbon geranium'
+      assign mix_3 = 'ambery woods'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'calabrian bergamot x bourbon geranium x ambery woods'
+      assign suas_feel = 'fresh, aromatic, warm'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'bare-eau-de-parfum' -%}
+    {%- liquid
+      assign mix_1 = 'musk'
+      assign mix_2 = 'aldehydes'
+      assign mix_3 = 'ambergris'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'musk x aldehydes x ambergris x lily-of-the-valley x rose x patchouli x cedar x vetiver'
+      assign suas_feel = 'clean, musky, powdery'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'temptress-eau-de-parfum' -%}
+    {%- liquid
+      assign mix_1 = 'coriander'
+      assign mix_2 = 'tuberose'
+      assign mix_3 = 'opoponax'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'coriander x tuberose x opoponax x honey x musk'
+      assign suas_feel = 'rich, spicy, floral'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'after-dark-cologne' -%}
+    {%- liquid
+      assign mix_1 = 'vanilla bourbon'
+      assign mix_2 = 'ginger'
+      assign mix_3 = 'lavandin'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'vanilla bourbon x ginger x lavandin x nutmeg x smoked vetiver'
+      assign suas_feel = 'warm, spicy, sensual'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'devotion-eau-de-parfum' -%}
+    {%- liquid
+      assign mix_1 = 'vanilla'
+      assign mix_2 = 'lavender'
+      assign mix_3 = 'cacao'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'vanilla x lavender x cacao x ginger x vanilla caviar x vanilla absolute'
+      assign suas_feel = 'sweet, creamy, aromatic'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'shocking-ice-eau-de-parfum' -%}
+    {%- liquid
+      assign mix_1 = 'cool'
+      assign mix_2 = 'icy'
+      assign mix_3 = 'refreshing'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'cool, fresh aromatic notes'
+      assign suas_feel = 'icy, refreshing'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'pyro-pistachio-eau-de-parfum' -%}
+    {%- liquid
+      assign mix_1 = 'pistachio'
+      assign mix_2 = 'sweet'
+      assign mix_3 = 'nutty'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'pistachio'
+      assign suas_feel = 'sweet, nutty, creamy'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'good-girl-eau-de-parfum' -%}
+    {%- liquid
+      assign mix_1 = 'vanilla'
+      assign mix_2 = 'caramel'
+      assign mix_3 = 'coconut'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'vanilla x caramel x coconut x amber'
+      assign suas_feel = 'warm, sweet, tropical'
+      assign suas_has_notes = true
+    -%}
+  {%- when 'nectar-eau-de-parfum' -%}
+    {%- liquid
+      assign mix_1 = 'pineapple'
+      assign mix_2 = 'passionfruit'
+      assign mix_3 = 'juicy'
+      assign mix_1_note = 'top'
+      assign mix_2_note = 'heart'
+      assign mix_3_note = 'base'
+      assign suas_all_notes = 'pineapple x passionfruit'
+      assign suas_feel = 'juicy, fruity, tropical'
+      assign suas_has_notes = true
+    -%}
+{%- endcase -%}

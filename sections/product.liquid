@@ -115,6 +115,9 @@
     assign mix_3 = 'woods'
     assign mix_3_note = 'the trail'
   endif
+-%}
+{% include 'suas-fragrance-notes' %}
+{%- liquid
 
   capture variant_media_ids
     for variant in product.variants
@@ -414,15 +417,21 @@
         <span class="suas-window-live"><b></b>mix</span>
       </div>
       <div class="suas-pdp-diagram-body">
+        {%- if mix_1 != blank -%}
         <article class="suas-pdp-note" data-note="1">
           <strong>{{ mix_1 }}</strong>
         </article>
+        {%- endif -%}
+        {%- if mix_2 != blank -%}
         <article class="suas-pdp-note" data-note="2">
           <strong>{{ mix_2 }}</strong>
         </article>
+        {%- endif -%}
+        {%- if mix_3 != blank -%}
         <article class="suas-pdp-note" data-note="3">
           <strong>{{ mix_3 }}</strong>
         </article>
+        {%- endif -%}
       </div>
       <div class="suas-station-gravity-media" aria-hidden="true">
         {%- if featured_media -%}
