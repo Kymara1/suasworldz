@@ -174,7 +174,7 @@
             </div>
             <div class="suas-party-field">
               <label for="party-guests">Guest Count:</label>
-              <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="14" inputmode="numeric" required aria-describedby="party-guest-hint">
+              <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="16" inputmode="numeric" required aria-describedby="party-guest-hint">
             </div>
             <div class="suas-party-field">
               <label for="party-occasion">Occasion:</label>
@@ -184,7 +184,7 @@
               <label for="party-ages">Guest Age Range (if relevant):</label>
               <input id="party-ages" type="text" name="contact[Age range]">
             </div>
-            <p class="suas-party-hint" id="party-guest-hint">Max 14.</p>
+            <p class="suas-party-hint" id="party-guest-hint">Max 16.</p>
             <div class="suas-party-field is-stack">
               <label for="party-notes">Notes / Special Requests:</label>
               <textarea id="party-notes" name="contact[body]">Invoice {{ party_invoice_no }}</textarea>
@@ -219,7 +219,7 @@
               </label>
               <label class="suas-party-pack">
                 <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party — $50/person · 1 hour" data-rate="50" data-charm-only="true">
-                <span><b>Charm Bar Party</b><small class="suas-party-desc">Charm jewelry. Lab closed 1 hour. Same 14-guest max.</small></span>
+                <span><b>Charm Bar Party</b><small class="suas-party-desc">Charm jewelry. Lab closed 1 hour. Same 16-guest max.</small></span>
                 <em>$50 <small>per person</small></em>
               </label>
             </fieldset>
@@ -309,7 +309,7 @@
         return !!(pack && pack.getAttribute('data-charm-only') === 'true');
       }
       function guestMax() {
-        return 14;
+        return 16;
       }
       function rate() {
         var pack = selectedPack();
@@ -347,7 +347,7 @@
             ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. Guided sessions are coming soon. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
             : 'Self-guided Lab parties are 90 minutes. The Lab is closed for your slot. Charm Bar add-on is $45 per person. Guided sessions are coming soon. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
         }
-        if (guestHint) guestHint.textContent = charmOnly ? 'Max 14. Charm Bar party books the Lab for 1 hour.' : 'Max 14.';
+        if (guestHint) guestHint.textContent = charmOnly ? 'Max 16. Charm Bar party books the Lab for 1 hour.' : 'Max 16.';
       }
       function refreshTotal() {
         syncCharmAddon();

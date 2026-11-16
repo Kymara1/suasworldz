@@ -249,7 +249,7 @@
             <p style="--chip:#d8d4cc;"><b>Guided ? soon</b>Not open for booking yet. We'll announce when seats drop.</p>
             <p style="--chip:#d8d4cc;"><b>Charm Bar ? soon</b>4 seats / 45 min<br>Not open for booking yet.</p>
           </div>
-          <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 14 seats/hour ? Charm 4/slot. Closed Mon-Wed.</p>
+          <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 16 seats/hour ? Charm 4/slot. Closed Mon-Wed.</p>
         </div>
       </details>
     </div>
@@ -372,7 +372,7 @@
             <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace — no instructor. Seat holds when you pay.</p>
           </div>
           <div class="suas-book-side">
-            <div class="suas-seat-meter" data-self-seat-meter><strong data-self-seat-text>14 of 14 seats left</strong><span data-self-seat-hint>pick date + hour</span></div>
+            <div class="suas-seat-meter" data-self-seat-meter><strong data-self-seat-text>16 of 16 seats left</strong><span data-self-seat-hint>pick date + hour</span></div>
             <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
           </div>
         </div>
@@ -419,7 +419,7 @@
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
             <input type="hidden" name="properties[_Staff calendar]" value="" data-staff-calendar>
             <div class="suas-book-field" data-pair><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" min="2026-11-14" required></div>
-            <div class="suas-book-field" data-pair><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" max="14" value="1" data-self-qty></div>
+            <div class="suas-book-field" data-pair><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" max="16" value="1" data-self-qty></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumName">name</label><input class="suas-book-input" id="ParfumName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumEmail">email</label><input class="suas-book-input" id="ParfumEmail" type="email" name="properties[Email]" autocomplete="email" required></div>
@@ -498,7 +498,7 @@
                   {% if variant.inventory_management != blank and variant.inventory_quantity > 0 %}
                     {% assign guided_seats = variant.inventory_quantity %}
                   {% else %}
-                    {% assign guided_seats = 14 %}
+                    {% assign guided_seats = 16 %}
                   {% endif %}
                   {% assign guided_kind = 'perfume' %}
                   {% assign guided_title_l = variant.title | downcase %}
@@ -512,7 +512,7 @@
               </select>
             {% endif %}
             <div class="suas-book-field" data-pair><label class="suas-book-label" for="GuidedDate">class date</label><input class="suas-book-input" id="GuidedDate" type="date" name="properties[Class date]" min="2026-11-14" required></div>
-            <div class="suas-book-field" data-pair><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="14" value="1"></div>
+            <div class="suas-book-field" data-pair><label class="suas-book-label" for="GuidedGuests">guests</label><input class="suas-book-input" id="GuidedGuests" type="number" name="quantity" min="1" max="16" value="1"></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedPhone">phone</label><input class="suas-book-input" id="GuidedPhone" type="tel" name="properties[Phone number]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedName">name</label><input class="suas-book-input" id="GuidedName" type="text" name="properties[Guest name]" required></div>
             <div class="suas-book-field"><label class="suas-book-label" for="GuidedEmail">email</label><input class="suas-book-input" id="GuidedEmail" type="email" name="properties[Email]" autocomplete="email" required></div>
@@ -642,7 +642,7 @@
   {%- elsif shop.metafields.suas.lab_seats != blank -%}
     {{ shop.metafields.suas.lab_seats | json }}
   {%- else -%}
-    {"slots":{},"labCap":14,"charmCap":4}
+    {"slots":{},"labCap":16,"charmCap":4}
   {%- endif -%}
   </script>
   <script>
@@ -650,7 +650,7 @@
       var root = document.currentScript.closest('.suas-bookings-page');
       if (!root) return;
       var OPENS = '2026-11-14';
-      var soldSeats = { slots: {}, labCap: 14, charmCap: 4 };
+      var soldSeats = { slots: {}, labCap: 16, charmCap: 4 };
       try {
         var seatNode = document.getElementById('suas-lab-seats-data');
         if (seatNode && seatNode.textContent) soldSeats = JSON.parse(seatNode.textContent);
@@ -683,7 +683,7 @@
         5: ['Friday 6:00 PM - 7:15 PM'],
         6: ['Saturday 4:30 PM - 5:45 PM', 'Saturday 6:00 PM - 7:15 PM']
       };
-      var TOTAL = 14;
+      var TOTAL = 16;
       var CHARM_TOTAL = 4;
       var remaining = TOTAL;
       var selfRemaining = TOTAL;

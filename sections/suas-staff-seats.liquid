@@ -136,7 +136,7 @@
                 </select>
               </label>
               <label>how many
-                <input id="seatCount" type="number" min="1" max="14" value="1">
+                <input id="seatCount" type="number" min="1" max="16" value="1">
               </label>
             </div>
             <div class="row">
@@ -173,7 +173,7 @@
     {%- elsif shop.metafields.suas.lab_seats != blank -%}
       {{ shop.metafields.suas.lab_seats | json }}
     {%- else -%}
-      {"slots":{},"labCap":14,"charmCap":4,"adjustments":{}}
+      {"slots":{},"labCap":16,"charmCap":4,"adjustments":{}}
     {%- endif -%}
     </script>
     <script>
@@ -183,7 +183,7 @@
         var pin = root.getAttribute('data-pin') || '';
         var statusEl = document.getElementById('seatStatus');
         var boardEl = document.getElementById('suasSeatBoard');
-        var board = { slots: {}, labCap: 14, charmCap: 4, adjustments: {} };
+        var board = { slots: {}, labCap: 16, charmCap: 4, adjustments: {} };
         try {
           var node = document.getElementById('suas-lab-seats-data');
           if (node && node.textContent) board = JSON.parse(node.textContent);
