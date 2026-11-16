@@ -23,7 +23,7 @@
     html body.template--product .suas-product-review-shell{--ink:#101010;--pink:#ffd8e8;--hot:#ff9bc4;--lime:#d9ff78;--cream:#f4ecd4;--sun:#fff1a8;--blue:#cdeeff;width:min(680px,calc(100vw - 20px));margin:20px auto 28px;padding:0;color:var(--ink);font-family:Tahoma,Futura,Arial,sans-serif;background:transparent}
     html body.template--product .suas-product-review-shell .apps--wrapper,
     html body.template--product .suas-review-shell-window{
-      border:2.5px solid var(--ink)!important;border-radius:22px!important;overflow:hidden!important;
+      border:2.5px solid var(--ink)!important;border-radius:22px!important;overflow:visible!important;
       background:linear-gradient(rgba(16,16,16,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.04) 1px,transparent 1px),radial-gradient(circle at 12% 10%,rgba(255,155,196,.55),transparent 34%),radial-gradient(circle at 92% 88%,rgba(217,255,120,.45),transparent 32%),#fff7fb!important;
       background-size:18px 18px,18px 18px,auto,auto,auto!important;
       box-shadow:6px 7px 0 var(--ink)!important
@@ -50,6 +50,11 @@
     html body.template--product .suas-review-app-stage iframe[src*='judge.me'],
     html body.template--product .suas-review-app-stage iframe[id*='jdgm']{display:block!important;width:100%!important;max-height:52vh!important;border:0!important}
     html body.template--product .suas-review-app-stage :is(.jdgm-form__terms,.jdgm-notification,.jdgm-powered,.jdgm-branding,.jdgm-histogram){display:none!important}
+    html body.template--product.suas-reviewing,
+    html body.template--product.suas-reviewing body{overflow:auto!important;position:static!important;height:auto!important;touch-action:manipulation!important}
+    html body.template--product .jdgm-form__overlay,
+    html body.template--product .jdgm-backdrop,
+    html body.template--product .jdgm-revs-tab{display:none!important;pointer-events:none!important}
   </style>
 {% endif %}
 

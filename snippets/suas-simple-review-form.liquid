@@ -123,22 +123,34 @@
       }
 
       function openForm() {
+        if (root.classList.contains('is-writing') && formNodes().length && revealForms()) {
+          compactForm();
+          return true;
+        }
         root.classList.add('is-writing');
+        document.documentElement.classList.add('suas-reviewing');
+        document.body.classList.add('suas-reviewing');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.body.style.position = '';
         var jq = window.jdgm && (window.jdgm.jQuery || window.jdgm.$);
-        var widget = document.querySelector('.jdgm-review-widget .jdgm-rev-widg, .jdgm-rev-widg');
+        var widget = root.querySelector('.jdgm-review-widget .jdgm-rev-widg, .jdgm-rev-widg') || document.querySelector('.jdgm-rev-widg');
         try {
           if (jq && typeof window.jdgm.openForm === 'function') {
             window.jdgm.openForm(jq(widget || '.jdgm-rev-widg'));
           }
         } catch (err) {}
-        var btn = document.querySelector('.jdgm-write-rev-link');
-        if (btn) {
-          try {
-            if (jq) jq(btn).trigger('click');
-            else btn.click();
-          } catch (err) {}
-        }
+        // Prefer Judge.me API above. Do not synthetic-click write link — it re-enters and can lock the page.
         var shown = revealForms();
+        if (!shown) {
+          var btn = root.querySelector('.jdgm-write-rev-link') || document.querySelector('.jdgm-write-rev-link');
+          if (btn && !btn.dataset.suasOpened) {
+            btn.dataset.suasOpened = '1';
+            try { btn.click(); } catch (err) {}
+            window.setTimeout(function () { btn.dataset.suasOpened = ''; }, 1500);
+          }
+          shown = revealForms();
+        }
         compactForm();
         window.setTimeout(compactForm, 200);
         window.setTimeout(compactForm, 800);
@@ -147,7 +159,9 @@
           if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
           var field = root.querySelector('.jdgm-form-wrapper textarea, form.jdgm-form textarea, .jdgm-form textarea');
           if (field) {
-            try { field.focus(); } catch (err) {}
+            try { field.focus({ preventScroll: true }); } catch (err) {
+              try { field.focus(); } catch (err2) {}
+            }
           }
         }
         return shown;
@@ -155,6 +169,8 @@
 
       function closeForm() {
         root.classList.remove('is-writing');
+        document.documentElement.classList.remove('suas-reviewing');
+        document.body.classList.remove('suas-reviewing');
         formNodes().forEach(function (form) {
           form.style.setProperty('display', 'none', 'important');
         });
@@ -244,21 +260,31 @@
         softLabels();
       }
 
+      var scrubbing = false;
       function scrub() {
-        compactForm();
-        nameJudgeFields();
-        document.querySelectorAll('.suas-product-review-shell p, .suas-review-app-stage p, .suas-simple-review p').forEach(function (el) {
-          if (el.closest('.jdgm-rev')) return;
-          if (el.querySelector('input,textarea,button,.jdgm-rev')) return;
-          var t = String(el.textContent || '').replace(/\s+/g, ' ').trim();
-          if (/judge\.?\s*me/i.test(t) && /data|privacy|collect|gdpr|logging into/i.test(t)) {
-            el.style.setProperty('display', 'none', 'important');
-          }
-        });
+        if (scrubbing) return;
+        scrubbing = true;
+        try {
+          compactForm();
+          nameJudgeFields();
+          document.querySelectorAll('.suas-product-review-shell p, .suas-review-app-stage p, .suas-simple-review p').forEach(function (el) {
+            if (el.closest('.jdgm-rev')) return;
+            if (el.querySelector('input,textarea,button,.jdgm-rev')) return;
+            var t = String(el.textContent || '').replace(/\s+/g, ' ').trim();
+            if (/judge\.?\s*me/i.test(t) && /data|privacy|collect|gdpr|logging into/i.test(t)) {
+              el.style.setProperty('display', 'none', 'important');
+            }
+          });
+        } finally {
+          window.setTimeout(function () { scrubbing = false; }, 0);
+        }
       }
 
       scrub();
-      var observer = new MutationObserver(function () { scrub(); });
+      var observer = new MutationObserver(function () {
+        if (scrubbing) return;
+        window.requestAnimationFrame(scrub);
+      });
       observer.observe(root, { childList: true, subtree: true });
       window.setTimeout(function () { observer.disconnect(); }, 12000);
 
