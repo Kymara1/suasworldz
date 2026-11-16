@@ -30,42 +30,48 @@
     .suas-simple-review .jdgm-rev__author,.suas-simple-review .jdgm-rev__buyer-badge{font:900 11px/1.2 Tahoma,Arial,sans-serif!important;letter-spacing:.06em!important;text-transform:uppercase!important}
     .suas-simple-review .jdgm-rev__body,.suas-simple-review .jdgm-rev p{font:800 14px/1.4 Tahoma,Arial,sans-serif!important;color:#101010!important}
 
-    /* Write form = cute smell report desk */
+    /* Write form = quiet lined notepad (not a loud survey) */
     .suas-simple-review .jdgm-form-wrapper,
     .suas-simple-review form.jdgm-form,
     .suas-simple-review .jdgm-form{
-      display:none!important;margin:0!important;padding:14px!important;gap:10px!important;
-      border:2.5px solid #101010!important;border-radius:20px!important;
-      background:linear-gradient(180deg,#fff 0%,#ffe8ef 55%,#fff1a8 140%)!important;
-      box-shadow:4px 5px 0 #101010!important
+      display:none!important;margin:0!important;padding:18px 16px 16px!important;gap:14px!important;
+      border:2px solid #101010!important;border-radius:18px!important;
+      background:
+        repeating-linear-gradient(transparent,transparent 27px,rgba(255,155,196,.22) 27px,rgba(255,155,196,.22) 28px),
+        linear-gradient(180deg,#fffdf8 0%,#fff7fb 100%)!important;
+      box-shadow:3px 4px 0 rgba(16,16,16,.18)!important
     }
     .suas-simple-review.is-writing .jdgm-form-wrapper,
     .suas-simple-review.is-writing form.jdgm-form,
     .suas-simple-review.is-writing .jdgm-form{display:grid!important}
     .suas-simple-review .jdgm-form-wrapper > *{margin:0!important}
     .suas-simple-review :is(label,legend,.jdgm-form-label,.jdgm-form__label){
-      display:inline-flex!important;align-items:center!important;width:fit-content!important;
-      margin:0 0 6px!important;padding:5px 10px!important;
-      border:2px solid #101010!important;border-radius:999px!important;background:#ff9bc4!important;
-      font:900 10px/1 Tahoma,Arial,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase!important;color:#101010!important
+      display:block!important;width:auto!important;margin:0 0 6px!important;padding:0!important;
+      border:0!important;background:transparent!important;border-radius:0!important;
+      font:900 10px/1.2 Tahoma,Arial,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase!important;color:rgba(16,16,16,.55)!important
     }
     .suas-simple-review :is(input,textarea,select){
-      width:100%!important;min-height:46px!important;border:2.5px solid #101010!important;border-radius:16px!important;
-      background:#fff!important;color:#101010!important;padding:12px 14px!important;
-      font:800 15px/1.3 Tahoma,Arial,sans-serif!important;box-shadow:inset 0 1px 0 #fff!important
+      width:100%!important;min-height:44px!important;border:0!important;border-bottom:2px solid rgba(16,16,16,.18)!important;border-radius:0!important;
+      background:transparent!important;color:#101010!important;padding:8px 2px!important;
+      font:800 15px/1.35 Tahoma,Arial,sans-serif!important;box-shadow:none!important
     }
     .suas-simple-review :is(input,textarea,select):focus{
-      outline:3px solid #101010!important;outline-offset:2px!important;background:#fffaf0!important
+      outline:none!important;border-bottom-color:#101010!important;background:rgba(255,255,255,.55)!important
     }
-    .suas-simple-review textarea{min-height:120px!important;max-height:none!important;height:auto!important;resize:vertical!important}
-    .suas-simple-review :is(.jdgm-star,.jdgm-star:before,.jdgm-star.jdgm--on,.jdgm-star.jdgm--on:before){color:#ff4fa3!important;font-size:28px!important;text-shadow:1px 1px 0 #101010!important}
-    .suas-simple-review .jdgm-form__rating{display:flex!important;gap:4px!important;align-items:center!important;padding:4px 0 6px!important}
+    .suas-simple-review textarea{
+      min-height:140px!important;max-height:none!important;height:auto!important;resize:vertical!important;
+      border:2px solid rgba(16,16,16,.14)!important;border-radius:14px!important;padding:12px 14px!important;
+      background:rgba(255,255,255,.72)!important;line-height:1.45!important
+    }
+    .suas-simple-review textarea:focus{border-color:#101010!important;background:#fff!important}
+    .suas-simple-review .jdgm-form__rating{display:flex!important;justify-content:center!important;gap:6px!important;align-items:center!important;padding:2px 0 4px!important}
+    .suas-simple-review :is(.jdgm-star,.jdgm-star:before,.jdgm-star.jdgm--on,.jdgm-star.jdgm--on:before){color:#ff6fb5!important;font-size:30px!important;text-shadow:none!important}
     .suas-simple-review :is(.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn){
-      min-height:48px!important;padding:0 18px!important;border:2.5px solid #101010!important;border-radius:999px!important;
-      background:linear-gradient(180deg,#e8ff9a,#d9ff78 55%,#b6ef3a)!important;color:#101010!important;
-      box-shadow:0 4px 0 #101010!important;font:900 12px/1 Tahoma,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important;cursor:pointer!important
+      justify-self:center!important;min-height:46px!important;min-width:min(100%,220px)!important;padding:0 22px!important;
+      border:2px solid #101010!important;border-radius:999px!important;background:#d9ff78!important;color:#101010!important;
+      box-shadow:0 3px 0 #101010!important;font:900 11px/1 Tahoma,Arial,sans-serif!important;letter-spacing:.1em!important;text-transform:uppercase!important;cursor:pointer!important
     }
-    .suas-simple-review :is(.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn):hover{transform:translateY(1px)!important;box-shadow:0 3px 0 #101010!important}
+    .suas-simple-review :is(.jdgm-btn,button.jdgm-btn,input[type='submit'].jdgm-btn):hover{transform:translateY(1px)!important;box-shadow:0 2px 0 #101010!important}
     .suas-simple-review :is(.jdgm-powered,.jdgm-branding,a[href*='://judge.me'],a[href*='judgeme.com']){display:none!important}
     html body.template--product :is(#aftership_reviews_carousel_v2_production,#aftership_reviews_all_reviews_widget_production){display:none!important}
     @media(max-width:749px){
@@ -76,8 +82,8 @@
       .suas-simple-review .jdgm-rev{padding:10px 12px!important;margin:0 0 8px!important}
       .suas-simple-review .jdgm-rev__body,.suas-simple-review .jdgm-rev p{font-size:13px!important;line-height:1.35!important;margin:0!important}
       .suas-simple-review :is(.jdgm-btn,input[type='submit'].jdgm-btn){width:100%!important}
-      .suas-simple-review textarea{min-height:110px!important}
-      .suas-simple-review :is(.jdgm-star,.jdgm-star:before){font-size:26px!important}
+      .suas-simple-review textarea{min-height:120px!important}
+      .suas-simple-review :is(.jdgm-star,.jdgm-star:before){font-size:28px!important}
     }
   </style>
   <div data-suas-judgeme-mount>
@@ -168,6 +174,33 @@
         });
       }
 
+      function softLabels() {
+        root.querySelectorAll('label, legend, .jdgm-form-label, .jdgm-form__label').forEach(function (el) {
+          if (el.closest('.jdgm-rev')) return;
+          var t = String(el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+          if (!t) return;
+          if (/^rating/.test(t)) el.textContent = 'how loud was it';
+          else if (/review content|your review|review body|^body$/.test(t)) el.textContent = 'what did it smell like';
+          else if (/display name|name/.test(t) && !/email/.test(t)) el.textContent = 'name';
+          else if (/email/.test(t)) el.textContent = 'email';
+          else if (/title|headline/.test(t)) el.style.setProperty('display', 'none', 'important');
+        });
+        root.querySelectorAll('textarea').forEach(function (el) {
+          el.setAttribute('placeholder', 'sticky. permanent. tell us.');
+        });
+        root.querySelectorAll('input[type="text"], input:not([type])').forEach(function (el) {
+          var n = String(el.getAttribute('name') || el.getAttribute('placeholder') || '').toLowerCase();
+          if (/name|display/.test(n)) el.setAttribute('placeholder', 'your name');
+        });
+        root.querySelectorAll('input[type="email"]').forEach(function (el) {
+          el.setAttribute('placeholder', 'email (private)');
+        });
+        root.querySelectorAll('button.jdgm-btn, input[type="submit"].jdgm-btn, .jdgm-btn').forEach(function (el) {
+          if (el.tagName === 'INPUT') el.value = 'post smell report';
+          else if (!/close|cancel|minimize/i.test(el.textContent || '')) el.textContent = 'post smell report';
+        });
+      }
+
       function compactForm() {
         if (!root.classList.contains('is-writing')) return;
         root.querySelectorAll('[class*="picture"],[class*="Picture"],[class*="upload"],[class*="media-uploader"]').forEach(function (el) {
@@ -175,20 +208,23 @@
         });
         root.querySelectorAll('span,small,em,p,label,div,li').forEach(function (el) {
           if (el.closest('.jdgm-rev')) return;
-          if (el.querySelector('input,textarea,button,select,.jdgm-rev')) return;
+          if (el.querySelector('input,textarea,button,select,.jdgm-rev,.jdgm-star')) return;
           var t = String(el.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
           if (!t || t.length > 900) return;
-          if (/displayed publicly|john smith|picture|video \(optional\)|uses (your )?data|how we use|collect(s)? (and process|your)|personal data|privacy policy|gdpr|legitimate interest|judge\.me uses/.test(t)) {
+          if (/displayed publicly|john smith|picture|video \(optional\)|uses (your )?data|how we use|collect(s)? (and process|your)|personal data|privacy policy|gdpr|legitimate interest|judge\.me uses|review title/.test(t)) {
             el.style.setProperty('display', 'none', 'important');
           }
         });
         var title = root.querySelector('input[name*="title" i], input[id*="title" i], input[placeholder*="title" i]');
         if (title) {
-          if (!title.value) title.value = 'Review';
+          if (!title.value) title.value = 'smell report';
           title.style.setProperty('display', 'none', 'important');
-          var lab = title.closest('label');
-          if (lab) lab.style.setProperty('display', 'none', 'important');
+          var lab = title.closest('label') || title.closest('.jdgm-form__fieldset') || title.parentElement;
+          if (lab && !lab.querySelector('textarea,.jdgm-star,input[type="email"],input[type="radio"]')) {
+            lab.style.setProperty('display', 'none', 'important');
+          }
         }
+        softLabels();
       }
 
       function scrub() {
