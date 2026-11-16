@@ -368,16 +368,16 @@
                 <b>store</b>
                 <ul class="suas-hours-list">
                   <li><span>mon&ndash;wed</span><span>closed</span></li>
-                  <li><span>thu&ndash;sat</span><span>12:30&ndash;7:30 PM</span></li>
-                  <li><span>sunday</span><span>12:00&ndash;5:00 PM</span></li>
+                  <li><span>thu&ndash;sat</span><span>12:30&ndash;7 PM</span></li>
+                  <li><span>sunday</span><span>12:30&ndash;5 PM</span></li>
                 </ul>
               </div>
               <div class="suas-hours-block">
                 <b>lab</b>
                 <ul class="suas-hours-list">
-                  <li><span>thu&ndash;fri</span><span>self 1&ndash;5</span></li>
-                  <li><span>sat&ndash;sun</span><span>self 1&ndash;4</span></li>
-                  <li><span>guided</span><span>soon</span></li>
+                  <li><span>thu&ndash;sun</span><span>1&ndash;6 PM</span></li>
+                  <li><span>guided</span><span>thu&ndash;sat</span></li>
+                  <li><span>sunday</span><span>self only</span></li>
                 </ul>
               </div>
             </div>
@@ -435,7 +435,7 @@ function wireHoursLive(){
   if(!live)return;
   const label=live.querySelector('[data-suas-hours-label]');
   const firstOpen=live.getAttribute('data-first-open')||'2026-11-14';
-  const schedule={0:{start:12*60,end:17*60},4:{start:12*60+30,end:19*60+30},5:{start:12*60+30,end:19*60+30},6:{start:12*60+30,end:19*60+30}};
+  const schedule={0:{start:12*60+30,end:17*60},4:{start:12*60+30,end:19*60},5:{start:12*60+30,end:19*60},6:{start:12*60+30,end:19*60}};
   const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
   const get=type=>(parts.find(p=>p.type===type)||{}).value||'';
   const y=get('year'),m=get('month'),d=get('day');
