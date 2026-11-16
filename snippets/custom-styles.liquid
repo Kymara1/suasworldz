@@ -558,7 +558,7 @@
       var meter = document.createElement('div');
       meter.className = 'suas-seat-meter';
       meter.setAttribute('data-suas-seat-meter', '');
-      meter.innerHTML = '<strong data-suas-seat-text>14 of 14 seats left</strong><span data-suas-seat-hint>pick a date on a form</span>';
+      meter.innerHTML = '<strong data-suas-seat-text>16 of 16 seats left</strong><span data-suas-seat-hint>pick a date on a form</span>';
       if (copy && copy.parentNode) copy.insertAdjacentElement('afterend', meter);
       else root.insertAdjacentElement('afterbegin', meter);
     }
@@ -577,7 +577,7 @@
       var hint = root.querySelector('[data-suas-seat-hint],[data-seat-hint]');
       var meter = root.querySelector('[data-suas-seat-meter],.suas-seat-meter');
       if (!date) {
-        if (text) text.textContent = '14 of 14 seats left';
+        if (text) text.textContent = '16 of 16 seats left';
         if (hint) hint.textContent = 'pick a date on a form';
         return;
       }
@@ -589,7 +589,7 @@
           if (d === date) remaining -= Number(item.quantity || 0);
         });
         remaining = Math.max(0, remaining);
-        if (text) text.textContent = remaining + ' of 14 seats left';
+        if (text) text.textContent = remaining + ' of 16 seats left';
         if (hint) hint.textContent = remaining ? 'live for this date' : 'sold out';
         if (meter) { meter.classList.toggle('is-low', remaining > 0 && remaining <= 3); meter.classList.toggle('is-full', remaining <= 0); }
         root.querySelectorAll('button[type="submit"]').forEach(function(btn){
