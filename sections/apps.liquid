@@ -19,26 +19,32 @@
 
 {% if is_product_review_shell %}
   <style>
-    html body.template--product .suas-product-review-shell{width:min(640px,calc(100vw - 24px));margin:16px auto 20px;padding:0;color:#101010;font-family:Futura,Arial,sans-serif;background:transparent}
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
+    html body.template--product .suas-product-review-shell{--ink:#101010;--pink:#ffd8e8;--hot:#ff9bc4;--lime:#d9ff78;--cream:#f4ecd4;--sun:#fff1a8;--blue:#cdeeff;width:min(680px,calc(100vw - 20px));margin:20px auto 28px;padding:0;color:var(--ink);font-family:Tahoma,Futura,Arial,sans-serif;background:transparent}
     html body.template--product .suas-product-review-shell .apps--wrapper,
-    html body.template--product .suas-review-shell-window{border:2px solid #101010!important;border-radius:16px!important;background:#fff!important;box-shadow:3px 4px 0 #101010!important;overflow:visible!important}
-    html body.template--product .suas-smell-winbar{display:flex;align-items:center;gap:6px;min-height:28px;padding:4px 10px;border-bottom:2px solid #101010;background:linear-gradient(180deg,#fff,#ece7f3)}
-    html body.template--product .suas-smell-winbar i{width:8px;height:8px;border-radius:999px;display:block;background:#ff5f57}
-    html body.template--product .suas-smell-winbar i:nth-child(2){background:#febc2e}
-    html body.template--product .suas-smell-winbar i:nth-child(3){background:#28c840}
-    html body.template--product .suas-smell-winbar b{margin-left:auto;font:900 8px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-    html body.template--product .suas-review-intro{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px 0}
-    html body.template--product .suas-review-intro h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.35rem;line-height:1;text-transform:lowercase;font-weight:400}
+    html body.template--product .suas-review-shell-window{
+      border:2.5px solid var(--ink)!important;border-radius:22px!important;overflow:hidden!important;
+      background:linear-gradient(rgba(16,16,16,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(16,16,16,.04) 1px,transparent 1px),radial-gradient(circle at 12% 10%,rgba(255,155,196,.55),transparent 34%),radial-gradient(circle at 92% 88%,rgba(217,255,120,.45),transparent 32%),#fff7fb!important;
+      background-size:18px 18px,18px 18px,auto,auto,auto!important;
+      box-shadow:6px 7px 0 var(--ink)!important
+    }
+    html body.template--product .suas-smell-winbar{display:flex;align-items:center;gap:7px;min-height:34px;padding:6px 12px;border-bottom:2.5px solid var(--ink);background:linear-gradient(180deg,#ff7ec8,#e83d9a);color:#fff}
+    html body.template--product .suas-smell-winbar i{width:12px;height:12px;border:1.5px solid #fff;border-radius:999px;display:block;background:#ffd8e8;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+    html body.template--product .suas-smell-winbar i:nth-child(2){background:#fff1a8}
+    html body.template--product .suas-smell-winbar i:nth-child(3){background:#d9ff78}
+    html body.template--product .suas-smell-winbar b{margin-left:auto;font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#fff}
+    html body.template--product .suas-review-intro{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:14px 14px 8px}
+    html body.template--product .suas-review-intro h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2rem,6vw,2.8rem);line-height:.86;text-transform:lowercase;font-weight:400;color:var(--ink)}
     html body.template--product .suas-review-intro p,
     html body.template--product .suas-review-empty{display:none!important}
-    html body.template--product .suas-review-action{display:inline-flex!important;align-items:center;justify-content:center;min-height:36px;padding:0 14px;border:2px solid #101010;border-radius:999px;background:#ffd8e8;color:#101010;box-shadow:0 3px 0 #101010;text-decoration:none;font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
-    html body.template--product .suas-review-action:hover{color:#101010;transform:translateY(1px);box-shadow:0 2px 0 #101010}
-    html body.template--product .suas-review-intro [data-suas-minimize-review]{display:none!important;background:#d9ff78}
+    html body.template--product .suas-review-action{display:inline-flex!important;align-items:center;justify-content:center;min-height:42px;padding:0 16px;border:2px solid var(--ink);border-radius:999px;background:var(--lime);color:var(--ink);box-shadow:0 4px 0 var(--ink);text-decoration:none;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+    html body.template--product .suas-review-action:hover{color:var(--ink);transform:translateY(1px);box-shadow:0 3px 0 var(--ink)}
+    html body.template--product .suas-review-intro [data-suas-minimize-review]{display:none!important;background:var(--hot)}
     html body.template--product .suas-product-review-shell:has(.suas-simple-review.is-writing) .suas-review-intro [data-suas-write-review]{display:none!important}
     html body.template--product .suas-product-review-shell:has(.suas-simple-review.is-writing) .suas-review-intro [data-suas-minimize-review]{display:inline-flex!important}
     html body.template--product .suas-review-form-bar,
     html body.template--product .suas-review-minimize{display:none!important}
-    html body.template--product .suas-review-app-stage{padding:0 10px 10px;min-height:0}
+    html body.template--product .suas-review-app-stage{padding:0 12px 14px;min-height:0}
     html body.template--product .suas-review-app-stage iframe[src*='aftership'],
     html body.template--product .suas-review-app-stage iframe[id*='aftership']{display:none!important}
     html body.template--product .suas-review-app-stage iframe[src*='judge.me'],
@@ -50,11 +56,11 @@
 <div class="apps--root{% if is_product_review_shell %} suas-product-review-shell{% endif %}" data-section-id="{{ section.id }}" data-background-color="{{ bg_color }}" data-container-width="{{ container_width }}" data-light-text="{{ light_text }}" data-spacing-above="{{ spacing_above }}" data-spacing-below="{{ spacing_below }}">
   <div class="apps--wrapper{% if is_product_review_shell %} suas-review-shell-window{% endif %}">
     {% if is_product_review_shell %}
-      <div class="suas-smell-winbar" aria-hidden="true"><i></i><i></i><i></i><b>reviews</b></div>
+      <div class="suas-smell-winbar" aria-hidden="true"><i></i><i></i><i></i><b>smell.exe</b></div>
       <div class="suas-review-intro">
-        <h2>reviews</h2>
-        <button class="suas-review-action" type="button" data-suas-write-review>write a review</button>
-        <button class="suas-review-action" type="button" data-suas-minimize-review>minimize</button>
+        <h2>smell reports.</h2>
+        <button class="suas-review-action" type="button" data-suas-write-review>spill it</button>
+        <button class="suas-review-action" type="button" data-suas-minimize-review>close</button>
       </div>
       {% render 'suas-simple-review-form', product: product %}
     {% endif %}
