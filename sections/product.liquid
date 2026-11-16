@@ -116,7 +116,19 @@
     assign mix_3_note = 'the trail'
   endif
 -%}
-{% include 'suas-fragrance-notes' %}
+{%- capture suas_fn_pack -%}{% render 'suas-fragrance-notes', product: product %}{%- endcapture -%}
+{%- assign suas_fn_pack = suas_fn_pack | strip -%}
+{%- if suas_fn_pack != blank -%}
+  {%- assign suas_fn_parts = suas_fn_pack | split: '^^^' -%}
+  {%- if suas_fn_parts.size >= 3 -%}
+    {%- assign mix_1 = suas_fn_parts[0] -%}
+    {%- assign mix_2 = suas_fn_parts[1] -%}
+    {%- assign mix_3 = suas_fn_parts[2] -%}
+    {%- assign mix_1_note = 'top' -%}
+    {%- assign mix_2_note = 'heart' -%}
+    {%- assign mix_3_note = 'base' -%}
+  {%- endif -%}
+{%- endif -%}
 {%- liquid
 
   capture variant_media_ids

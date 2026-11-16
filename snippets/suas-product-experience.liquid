@@ -62,7 +62,19 @@
     assign for_line = desc_text | split: 'For:' | last | split: 'Ingredients' | first | split: 'ingredients' | first | strip
   endif
 %}
-{% include 'suas-fragrance-notes' %}
+{%- capture suas_fn_pack -%}{% render 'suas-fragrance-notes', product: product %}{%- endcapture -%}
+{%- assign suas_fn_pack = suas_fn_pack | strip -%}
+{%- assign suas_all_notes = blank -%}
+{%- assign suas_feel = blank -%}
+{%- if suas_fn_pack != blank -%}
+  {%- assign suas_fn_parts = suas_fn_pack | split: '^^^' -%}
+  {%- if suas_fn_parts.size >= 5 -%}
+    {%- assign suas_all_notes = suas_fn_parts[3] -%}
+    {%- assign suas_feel = suas_fn_parts[4] -%}
+  {%- elsif suas_fn_parts.size >= 4 -%}
+    {%- assign suas_all_notes = suas_fn_parts[3] -%}
+  {%- endif -%}
+{%- endif -%}
 {%- liquid
   if suas_all_notes != blank
     assign scent_line = suas_all_notes
