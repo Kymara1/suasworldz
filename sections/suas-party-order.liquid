@@ -223,13 +223,13 @@
                 <em>$50 <small>per person</small></em>
               </label>
             </fieldset>
-            <label class="suas-party-pack is-soon" id="party-charm-addon-row" aria-disabled="true" title="Charm Bar add-on opens soon">
-              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes — $45/person" disabled>
-              <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person.</small><span class="suas-party-soon">coming soon</span></span>
+            <label class="suas-party-pack" id="party-charm-addon-row">
+              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes — $45/person">
+              <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person.</small></span>
               <em>$45 <small>add-on</small></em>
             </label>
             <input type="hidden" id="party-charm-addon-off" name="contact[Charm Bar add-on]" value="No">
-            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Self-guided Lab parties are 90 minutes. Charm Bar parties are 1 hour. Guided sessions and Charm Bar add-ons are coming soon. The Lab is closed for your slot. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
+            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Self-guided Lab parties are 90 minutes. Charm Bar parties are 1 hour. Guided sessions are coming soon. The Lab is closed for your slot. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
           </div>
         </section>
 
@@ -321,8 +321,7 @@
       }
       function addonRate() {
         if (isCharmOnly()) return 0;
-        if (!charmAddon || charmAddon.disabled || !charmAddon.checked) return 0;
-        return 45;
+        return charmAddon && charmAddon.checked ? 45 : 0;
       }
       function guestCount() {
         return Number(guests && guests.value) || 0;
@@ -340,17 +339,13 @@
           guests.max = String(max);
           if (Number(guests.value) > max) guests.value = String(max);
         }
-        // Charm Bar add-on stays visible but greyed (coming soon) on Lab packs; hide on Charm-only.
         if (charmAddonRow) charmAddonRow.style.display = charmOnly ? 'none' : '';
-        if (charmAddon) {
-          charmAddon.checked = false;
-          charmAddon.disabled = true;
-        }
-        if (charmAddonOff) charmAddonOff.disabled = false;
+        if (charmOnly && charmAddon) charmAddon.checked = false;
+        if (charmAddonOff) charmAddonOff.disabled = !!(charmAddon && charmAddon.checked);
         if (durationNote) {
           durationNote.textContent = charmOnly
-            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. Guided sessions and Charm Bar add-ons are coming soon. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
-            : 'Self-guided Lab parties are 90 minutes. The Lab is closed for your slot. Guided sessions and Charm Bar add-ons are coming soon. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
+            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. Guided sessions are coming soon. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
+            : 'Self-guided Lab parties are 90 minutes. The Lab is closed for your slot. Charm Bar add-on is $45 per person. Guided sessions are coming soon. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
         }
         if (guestHint) guestHint.textContent = charmOnly ? 'Max 14. Charm Bar party books the Lab for 1 hour.' : 'Max 14.';
       }
