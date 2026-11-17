@@ -279,18 +279,19 @@ html body.template--product .suas-pdp-stamp {
 }
 html body.template--product .suas-pdp-name {
   margin: 0 0 6px;
+  max-width: 100%;
   font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-  font-size: clamp(2.6rem, 5.4vw, 4rem) !important;
+  font-size: clamp(1.55rem, 2.8vw, 2.2rem) !important;
   font-weight: 700 !important;
-  line-height: .8;
+  line-height: .88;
   text-transform: lowercase;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 html body.template--product .suas-pdp-name.is-compact,
 html body.template--product .suas-pdp[data-charm-bar] .suas-pdp-name {
-  font-size: clamp(1.45rem, 3vw, 2.05rem) !important;
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem) !important;
   line-height: .92 !important;
-  max-width: 100%;
-  overflow-wrap: anywhere;
 }
 html body.template--product .suas-pdp-hook {
   margin: 0 0 8px;
@@ -351,6 +352,12 @@ html body.template--product .shopify-payment-button,
 html body.template--product .additional-checkout-buttons {
   margin-top: 0 !important;
 }
+html body.template--product .suas-pdp-ticket .radios--container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
 html body.template--product .suas-pdp-ticket .radios--main {
   position: relative !important;
   display: inline-flex !important;
@@ -361,7 +368,7 @@ html body.template--product .suas-pdp-ticket .radios--main {
   box-shadow: none !important;
   padding: 0 !important;
   margin: 0 !important;
-  overflow: hidden !important;
+  overflow: visible !important;
 }
 html body.template--product .suas-pdp-ticket .radios--input,
 html body.template--product .suas-pdp-ticket input.radios--input,
@@ -391,18 +398,27 @@ html body.template--product .suas-pdp-ticket .radios--main::after {
 }
 html body.template--product .suas-pdp-ticket .radios--value-button {
   inline-size: auto !important;
-  min-inline-size: 58px;
+  width: auto !important;
+  min-inline-size: 58px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
   block-size: 34px !important;
   padding: 0 14px !important;
+  border: 2px solid var(--ink) !important;
   border-radius: 999px !important;
   background: #fff !important;
   background-image: none !important;
   color: var(--ink) !important;
+  box-shadow: none !important;
   font-size: 11px !important;
   font-weight: 900 !important;
   letter-spacing: .04em;
   white-space: nowrap;
   overflow: hidden !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 html body.template--product .suas-pdp-ticket .radios--value-button div {
   font-size: 11px !important;
@@ -412,7 +428,7 @@ html body.template--product .suas-pdp-ticket .radios--value-button div {
 html body.template--product .radios--input:checked + .radios--value-button {
   background: var(--ink) !important;
   color: #fff !important;
-  box-shadow: 0 3px 0 #d9ff78;
+  box-shadow: 0 3px 0 #d9ff78 !important;
 }
 html body.template--product .radios--main:focus-within .radios--value-button,
 html body.template--product .radios--main:focus-within .radios--swatch-button {
@@ -635,10 +651,15 @@ html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-g
   html body.template--product .suas-pdp-note strong {
     font-size: clamp(1.15rem, 5.4vw, 1.55rem) !important;
   }
-  html body.template--product .suas-pdp-name { font-size: clamp(1.7rem, 7.5vw, 2.3rem) !important; font-weight: 700 !important; margin-bottom: 4px; }
+  html body.template--product .suas-pdp-name {
+    font-size: clamp(1.35rem, 5.2vw, 1.75rem) !important;
+    font-weight: 700 !important;
+    margin-bottom: 4px;
+    line-height: .9 !important;
+  }
   html body.template--product .suas-pdp-name.is-compact,
   html body.template--product .suas-pdp[data-charm-bar] .suas-pdp-name {
-    font-size: clamp(1.25rem, 6.2vw, 1.7rem) !important;
+    font-size: clamp(1.15rem, 4.6vw, 1.45rem) !important;
     line-height: .95 !important;
   }
   html body.template--product .suas-pdp-stamp { font-size: 8px; letter-spacing: .12em; margin: 0 0 6px; }
