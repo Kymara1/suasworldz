@@ -94,8 +94,22 @@ Parties & Events|/pages/parties-events{% endcapture %}
   assign suas_col = collection.handle | default: ''
   if suas_sfx contains 'women' or suas_col == 'body-oil' or suas_col == 'butter-creme' or suas_col == 'body-wash' or suas_col == 'body-scrub' or suas_col == 'body-jelly' or suas_col == 'cleansing-bar' or suas_col == 'eau-de-parfum' or suas_col == 'feminine' or suas_col == 'body'
     assign suas_men_panel = false
-  elsif suas_sfx == 'suas-men' or suas_sfx == 'suas-men-inner' or suas_sfx == 'cologne' or suas_sfx == 'exfoliating-body-wash' or suas_sfx contains 'men-s-' or suas_sfx contains 'masculine' or suas_sfx contains 'beard' or suas_sfx contains 'm-body' or suas_sfx contains 'm-butter' or suas_sfx contains 'm-eau' or suas_sfx contains 'm-skin'
+  elsif suas_sfx == 'suas-men' or suas_sfx == 'suas-men-inner' or suas_sfx == 'cologne' or suas_sfx == 'exfoliating-body-wash' or suas_sfx contains 'men-s-' or suas_sfx contains 'masculine' or suas_sfx contains 'beard' or suas_sfx contains 'm-body' or suas_sfx contains 'm-butter' or suas_sfx contains 'm-eau' or suas_sfx contains 'm-skin' or suas_col == 'cologne' or suas_col == 'masculine' or suas_col == 'beard'
     assign suas_men_panel = true
+  endif
+  if request.page_type == 'product' and product
+    assign _mt = product.type | downcase
+    assign _mh = product.handle | downcase
+    assign _mtags = product.tags | join: ',' | downcase
+    if _mt == 'cologne' or _mh contains '-cologne' or _mtags contains 'suas-men' or _mtags contains 'mens' or _mtags contains 'masculine'
+      assign suas_men_panel = true
+    endif
+    for _mc in product.collections
+      assign _mch = _mc.handle | downcase
+      if _mch == 'cologne' or _mch == 'masculine' or _mch == 'beard'
+        assign suas_men_panel = true
+      endif
+    endfor
   endif
 %}
 
@@ -593,7 +607,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
     {"type":"checkbox","id":"men_enabled","label":"Show SUAS Men dropdown","default":true},
     {"type":"text","id":"men_label","label":"Label","default":"suas men"},
     {"type":"text","id":"men_link","label":"Shop Men's link","default":"/pages/suas-men"},
-    {"type":"text","id":"men_icon","label":"Icon (unused — stick figure is fixed)","default":"M"},
+    {"type":"text","id":"men_icon","label":"Icon (unused - stick figure is fixed)","default":"M"},
     {"type":"text","id":"men_number","label":"Number","default":"02"},
     {"type":"color","id":"men_tint","label":"Icon color","default":"#101010"},
     {"type":"link_list","id":"men_menu","label":"Men dropdown menu"},
@@ -611,7 +625,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
     {"type":"text","id":"about_active_paths","label":"Active URL matches, separated by commas","default":"/pages/about,/pages/who-are-we,/pages/visit-us,/pages/contact-us,/pages/refund-policy"},
 
     {"type":"header","content":"Visit Us item (legacy standalone)"},
-    {"type":"checkbox","id":"visit_enabled","label":"Show Visit Us as its own panel item","default":false,"info":"Keep off — Visit Us now lives under About Us."},
+    {"type":"checkbox","id":"visit_enabled","label":"Show Visit Us as its own panel item","default":false,"info":"Keep off - Visit Us now lives under About Us."},
     {"type":"text","id":"visit_label","label":"Label","default":"visit us"},
     {"type":"text","id":"visit_link","label":"Link","default":"/pages/visit-us"},
     {"type":"text","id":"visit_icon","label":"Icon","default":"!"},

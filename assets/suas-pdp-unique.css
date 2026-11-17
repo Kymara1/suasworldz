@@ -5,7 +5,7 @@ html body.template--product .layout--main-content {
 }
 html body.template--product .suas-pdp,
 html body.template--product .product-page--root.suas-station {
-  /* Do NOT redefine --hot/--wash/--mid here — inherit from body[data-suas-handle] in suas-pdp-palette.css */
+  /* Do NOT redefine --hot/--wash/--mid here - inherit from body[data-suas-handle] in suas-pdp-palette.css */
   width: min(860px, 100%) !important;
   max-width: 860px !important;
   margin: 0 auto 22px !important;
@@ -178,8 +178,8 @@ html body.template--product .suas-pdp-diagram {
   background:
     linear-gradient(rgba(16, 16, 16, .045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(16, 16, 16, .045) 1px, transparent 1px),
-    radial-gradient(circle at 14% 18%, rgba(255, 216, 232, .7), transparent 36%),
-    radial-gradient(circle at 88% 80%, rgba(217, 255, 120, .45), transparent 32%),
+    radial-gradient(circle at 14% 18%, color-mix(in srgb, var(--wash, #ffd8e8) 70%, transparent), transparent 36%),
+    radial-gradient(circle at 88% 80%, color-mix(in srgb, var(--mid, #ff7ec8) 40%, transparent), transparent 32%),
     #fffdf8 !important;
   background-size: 18px 18px, 18px 18px, auto, auto, auto !important;
 }

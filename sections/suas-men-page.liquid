@@ -81,7 +81,7 @@
                 {% for product in shelf.products limit: 8 %}
                   {% include 'suas-men-hide-women' %}
                   {% unless suas_men_hide %}
-                    <a class="suas-men-tile" href="{{ product.url }}">
+                    <a class="suas-men-tile" href="{{ product.url }}?world=men">
                       {% if product.featured_image %}
                         {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
                       {% else %}
@@ -101,7 +101,7 @@
           {% for product in mapped_collection.products limit: 24 %}
             {% include 'suas-men-hide-women' %}
             {% unless suas_men_hide %}
-              <a class="suas-men-tile" href="{{ product.url }}">
+              <a class="suas-men-tile" href="{{ product.url }}?world=men">
                 {% if product.featured_image %}
                   {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
                 {% else %}

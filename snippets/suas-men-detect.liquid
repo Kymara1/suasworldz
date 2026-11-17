@@ -1,0 +1,34 @@
+{%- comment -%}
+  Sets suas_men_product = true for cologne / masculine / suas-men tagged SKUs.
+  Used by layout so PDPs stay inside the suas-men universe.
+{%- endcomment -%}
+{%- liquid
+  assign suas_men_product = false
+  if request.page_type == 'product' and product
+    assign _type = product.type | downcase
+    assign _handle = product.handle | downcase
+    assign _tags = product.tags | join: ',' | downcase
+    if _type == 'cologne' or _handle contains '-cologne' or _handle contains 'cologne'
+      assign suas_men_product = true
+    endif
+    if _tags contains 'suas-men' or _tags contains 'mens' or _tags contains 'masculine'
+      assign suas_men_product = true
+    endif
+    for col in product.collections
+      assign _ch = col.handle | downcase
+      if _ch == 'cologne' or _ch == 'masculine' or _ch == 'beard' or _ch == 'exfoliating-body-wash' or _ch contains 'm-body' or _ch contains 'm-butter'
+        assign suas_men_product = true
+      endif
+      if _ch == 'feminine' or _ch == 'eau-de-parfum'
+        comment
+          cologne can also sit in body; feminine means women's world
+        endcomment
+      endif
+    endfor
+    if _tags contains 'womens' or _tags contains 'feminine'
+      unless _type == 'cologne' or _handle contains '-cologne' or _tags contains 'suas-men' or _tags contains 'mens'
+        assign suas_men_product = false
+      endunless
+    endif
+  endif
+-%}

@@ -57,7 +57,7 @@
           {% include 'suas-men-hide-women' %}
           {% unless suas_men_hide %}
             {% assign suas_men_shown = suas_men_shown | plus: 1 %}
-            <a class="suas-men-tile" href="{{ product.url }}">
+            <a class="suas-men-tile" href="{{ product.url }}?world=men">
               {% if product.featured_image %}
                 {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
               {% else %}
