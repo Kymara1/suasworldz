@@ -216,3 +216,20 @@ html body .jdgm-write-rev-link {
     animation: none !important;
   }
 }
+
+/* suas men rack pills: black in the main-world control panel */
+.suas-panel-submenu.suas-men-links a,
+.suas-side-dropdown[data-suas-menu='men'] .suas-panel-submenu a,
+.suas-panel-submenu.suas-men-links a:nth-child(n),
+.suas-side-dropdown[data-suas-menu='men'] .suas-panel-submenu a:nth-child(n) {
+  background: #000 !important;
+  color: #fff !important;
+  border-color: #000 !important;
+  box-shadow: 0 2px 0 #101010 !important;
+}
+.suas-panel-submenu.suas-men-links a:hover,
+.suas-side-dropdown[data-suas-menu='men'] .suas-panel-submenu a:hover {
+  filter: none !important;
+  background: #111 !important;
+  color: #fff !important;
+}
