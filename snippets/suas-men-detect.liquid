@@ -1,34 +1,82 @@
 {%- comment -%}
-  Sets suas_men_product = true for cologne / masculine / suas-men tagged SKUs.
-  Used by layout so PDPs stay inside the suas-men universe.
+  World gate for product PDPs. Sets suas_men_product / suas_women_product.
+  MUST use {% include 'suas-men-detect' %} (render cannot export assigns).
+
+  Never substring-match "mens" on joined tags - "womens" contains "mens".
 {%- endcomment -%}
 {%- liquid
   assign suas_men_product = false
+  assign suas_women_product = false
+
   if request.page_type == 'product' and product
-    assign _type = product.type | downcase
+    assign _type = product.type | downcase | strip
     assign _handle = product.handle | downcase
-    assign _tags = product.tags | join: ',' | downcase
-    if _type == 'cologne' or _handle contains '-cologne' or _handle contains 'cologne'
-      assign suas_men_product = true
-    endif
-    if _tags contains 'suas-men' or _tags contains 'mens' or _tags contains 'masculine'
-      assign suas_men_product = true
-    endif
+
+    assign _in_women_col = false
+    assign _in_men_col = false
     for col in product.collections
       assign _ch = col.handle | downcase
-      if _ch == 'cologne' or _ch == 'masculine' or _ch == 'beard' or _ch == 'exfoliating-body-wash' or _ch contains 'm-body' or _ch contains 'm-butter'
-        assign suas_men_product = true
+      if _ch == 'eau-de-parfum' or _ch == 'feminine' or _ch == 'body' or _ch == 'body-oil' or _ch == 'butter-creme' or _ch == 'body-wash' or _ch == 'body-scrub' or _ch == 'body-jelly' or _ch == 'cleansing-bar'
+        assign _in_women_col = true
       endif
-      if _ch == 'feminine' or _ch == 'eau-de-parfum'
-        comment
-          cologne can also sit in body; feminine means women's world
-        endcomment
+      if _ch == 'cologne' or _ch == 'masculine' or _ch == 'beard' or _ch == 'exfoliating-body-wash' or _ch == 'm-body-oil' or _ch == 'm-butter-creme' or _ch contains 'm-body' or _ch contains 'm-butter' or _ch contains 'm-eau' or _ch contains 'm-skin'
+        assign _in_men_col = true
       endif
     endfor
-    if _tags contains 'womens' or _tags contains 'feminine'
-      unless _type == 'cologne' or _handle contains '-cologne' or _tags contains 'suas-men' or _tags contains 'mens'
-        assign suas_men_product = false
-      endunless
+
+    assign _tag_womens = false
+    assign _tag_mens = false
+    assign _tag_suas_men = false
+    assign _tag_masculine = false
+    assign _tag_feminine = false
+    for t in product.tags
+      assign _td = t | downcase | strip
+      if _td == 'womens' or _td == 'women' or _td == "women's" or _td == 'woman'
+        assign _tag_womens = true
+      endif
+      if _td == 'feminine'
+        assign _tag_feminine = true
+      endif
+      if _td == 'mens' or _td == 'men' or _td == "men's" or _td == 'man'
+        assign _tag_mens = true
+      endif
+      if _td == 'suas-men' or _td == 'suas men'
+        assign _tag_suas_men = true
+      endif
+      if _td == 'masculine'
+        assign _tag_masculine = true
+      endif
+    endfor
+
+    assign _is_edp = false
+    if _type == 'eau de parfum' or _type == 'perfume' or _type == 'edp' or _handle contains 'eau-de-parfum' or _handle contains '-edp'
+      assign _is_edp = true
+    endif
+
+    assign _is_cologne = false
+    if _type == 'cologne' or _handle contains '-cologne'
+      assign _is_cologne = true
+    endif
+
+    if _is_edp or _in_women_col or _tag_womens or _tag_feminine
+      assign suas_women_product = true
+    endif
+
+    if _is_cologne or _tag_suas_men or _tag_mens or _tag_masculine or _in_men_col
+      assign suas_men_product = true
+    endif
+
+    comment
+      Women fragrance / feminine body always wins over accidental men tags/collections.
+      Cologne always wins over accidental women body collections.
+    endcomment
+    if _is_edp or _tag_womens or _tag_feminine
+      assign suas_men_product = false
+      assign suas_women_product = true
+    endif
+    if _is_cologne
+      assign suas_men_product = true
+      assign suas_women_product = false
     endif
   endif
 -%}

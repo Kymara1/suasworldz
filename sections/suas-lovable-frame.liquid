@@ -97,19 +97,13 @@ Parties & Events|/pages/parties-events{% endcapture %}
   elsif suas_sfx == 'suas-men' or suas_sfx == 'suas-men-inner' or suas_sfx == 'cologne' or suas_sfx == 'exfoliating-body-wash' or suas_sfx contains 'men-s-' or suas_sfx contains 'masculine' or suas_sfx contains 'beard' or suas_sfx contains 'm-body' or suas_sfx contains 'm-butter' or suas_sfx contains 'm-eau' or suas_sfx contains 'm-skin' or suas_col == 'cologne' or suas_col == 'masculine' or suas_col == 'beard'
     assign suas_men_panel = true
   endif
-  if request.page_type == 'product' and product
-    assign _mt = product.type | downcase
-    assign _mh = product.handle | downcase
-    assign _mtags = product.tags | join: ',' | downcase
-    if _mt == 'cologne' or _mh contains '-cologne' or _mtags contains 'suas-men' or _mtags contains 'mens' or _mtags contains 'masculine'
-      assign suas_men_panel = true
-    endif
-    for _mc in product.collections
-      assign _mch = _mc.handle | downcase
-      if _mch == 'cologne' or _mch == 'masculine' or _mch == 'beard'
-        assign suas_men_panel = true
-      endif
-    endfor
+%}
+{% include 'suas-men-detect' %}
+{% liquid
+  if suas_men_product
+    assign suas_men_panel = true
+  elsif suas_women_product
+    assign suas_men_panel = false
   endif
 %}
 
