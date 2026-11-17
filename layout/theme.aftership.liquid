@@ -24,11 +24,20 @@
   assign suas_col = collection.handle | default: ''
   if suas_sfx contains 'women' or suas_col == 'body-oil' or suas_col == 'butter-creme' or suas_col == 'body-wash' or suas_col == 'body-scrub' or suas_col == 'body-jelly' or suas_col == 'cleansing-bar' or suas_col == 'eau-de-parfum' or suas_col == 'feminine' or suas_col == 'body'
     assign suas_men_page = false
-  elsif suas_sfx == 'suas-men' or suas_sfx == 'suas-men-inner' or suas_sfx == 'cologne' or suas_sfx == 'exfoliating-body-wash' or suas_sfx contains 'men-s-' or suas_sfx contains 'masculine' or suas_sfx contains 'beard' or suas_sfx contains 'm-body' or suas_sfx contains 'm-butter' or suas_sfx contains 'm-eau' or suas_sfx contains 'm-skin'
+  elsif suas_sfx == 'suas-men' or suas_sfx == 'suas-men-inner' or suas_sfx == 'cologne' or suas_sfx == 'exfoliating-body-wash' or suas_sfx contains 'men-s-' or suas_sfx contains 'masculine' or suas_sfx contains 'beard' or suas_sfx contains 'm-body' or suas_sfx contains 'm-butter' or suas_sfx contains 'm-eau' or suas_sfx contains 'm-skin' or suas_col == 'cologne' or suas_col == 'masculine' or suas_col == 'beard'
     assign suas_men_page = true
   endif
+  assign suas_men_product = false
 -%}
-<html class="no-js flexbox-gap{% if suas_station_page %} suas-station-page{% endif %}{% if suas_men_page %} suas-men{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
+{% include 'suas-men-detect' %}
+{%- liquid
+  if suas_men_product
+    assign suas_men_page = true
+  elsif suas_women_product
+    assign suas_men_page = false
+  endif
+-%}
+<html class="no-js flexbox-gap{% if suas_station_page %} suas-station-page{% endif %}{% if suas_men_page %} suas-men{% endif %}{% if suas_men_product %} suas-men-pdp{% endif %}" lang="{{ request.locale.iso_code }}" dir="ltr">
   <head>
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">
@@ -199,5 +208,6 @@
     data-theme-version="7.3.0"
     data-tabbing="false"
     {% if request.page_type == 'product' and product %}data-suas-handle="{{ product.handle | escape }}"{% endif %}
+    {% if suas_men_page %}data-suas-world="men"{% endif %}
   ><div class="page-builder-container">{{ content_for_layout }}</div></body>
 </html>
