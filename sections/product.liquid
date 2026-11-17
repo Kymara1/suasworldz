@@ -20,7 +20,24 @@
   if pdp_name == blank
     assign pdp_name = product.title | split: '???' | first | split: '?' | first | strip
   endif
-  assign pdp_hook = product.description | strip_html | split: '.' | first | strip
+  comment
+    First marketing line only - not "Name." before the first period.
+    Descriptions lead with a witty line, then "This SUAS .".
+  endcomment
+  assign pdp_hook = product.description | strip_html | strip
+  if pdp_hook contains 'This SUAS'
+    assign pdp_hook = pdp_hook | split: 'This SUAS' | first | strip
+  endif
+  if pdp_hook contains 'Scent profile:'
+    assign pdp_hook = pdp_hook | split: 'Scent profile:' | first | strip
+  endif
+  if pdp_hook contains 'Size:'
+    assign pdp_hook = pdp_hook | split: 'Size:' | first | strip
+  endif
+  if pdp_hook contains 'Ingredients:'
+    assign pdp_hook = pdp_hook | split: 'Ingredients:' | first | strip
+  endif
+  assign pdp_hook = pdp_hook | remove_last: '.'
   assign pdp_handle = product.handle | downcase
   assign is_lab_experiment = false
   if pdp_handle contains 'lab-session' or pdp_handle contains 'deluxe-lab'
