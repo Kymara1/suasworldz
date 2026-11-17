@@ -171,7 +171,14 @@ html body.template--product .suas-station-thumb {
   cursor: pointer;
 }
 html body.template--product .suas-station-thumb.is-active { background: var(--wash); box-shadow: 0 3px 0 var(--ink); }
-html body.template--product .suas-station-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+html body.template--product .suas-station-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: #fff;
+}
 
 html body.template--product .suas-pdp-diagram {
   overflow: hidden !important;
