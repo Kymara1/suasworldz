@@ -16,7 +16,7 @@
     assign _in_men_col = false
     for col in product.collections
       assign _ch = col.handle | downcase
-      if _ch == 'eau-de-parfum' or _ch == 'feminine' or _ch == 'body' or _ch == 'body-oil' or _ch == 'butter-creme' or _ch == 'body-wash' or _ch == 'body-scrub' or _ch == 'body-jelly' or _ch == 'cleansing-bar'
+      if _ch == 'eau-de-parfum' or _ch == 'feminine' or _ch == 'body-oil' or _ch == 'butter-creme' or _ch == 'body-wash' or _ch == 'body-scrub' or _ch == 'body-jelly' or _ch == 'cleansing-bar'
         assign _in_women_col = true
       endif
       if _ch == 'cologne' or _ch == 'masculine' or _ch == 'beard' or _ch == 'exfoliating-body-wash' or _ch == 'm-body-oil' or _ch == 'm-butter-creme' or _ch contains 'm-body' or _ch contains 'm-butter' or _ch contains 'm-eau' or _ch contains 'm-skin'

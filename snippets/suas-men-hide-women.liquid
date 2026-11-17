@@ -1,30 +1,49 @@
 {% liquid
+  comment
+    Keep women's fragrance / body off the men rack.
+    Never hide cologne / suas-men - those SKUs also sit in the shared "body" collection.
+  endcomment
   assign suas_men_hide = false
   assign suas_type = product.type | downcase
   assign suas_title = product.title | downcase
   assign suas_handle = product.handle | downcase
+
+  assign suas_is_cologne = false
+  if suas_type == 'cologne' or suas_handle contains '-cologne'
+    assign suas_is_cologne = true
+  endif
+  for t in product.tags
+    assign td = t | downcase | strip
+    if td == 'suas-men' or td == 'mens' or td == 'men' or td == "men's"
+      assign suas_is_cologne = true
+    endif
+  endfor
+
   if suas_handle contains 'lab-session' or suas_handle contains 'charm-bar'
     assign suas_men_hide = true
   endif
-  if suas_type == 'eau de parfum' or suas_type == 'perfume' or suas_type == 'edp' or suas_handle contains 'eau-de-parfum' or suas_handle contains '-edp'
-    assign suas_men_hide = true
-  endif
-  if suas_title contains 'poppy' or suas_title contains 'haze' or suas_title contains 'nectar' or suas_title contains 'tonic' or suas_title contains 'good girl' or suas_title contains 'gelato' or suas_handle contains 'poppy' or suas_handle contains 'haze' or suas_handle contains 'nectar' or suas_handle contains 'tonic' or suas_handle contains 'good-girl' or suas_handle contains 'gelato'
-    assign suas_men_hide = true
-  endif
-  for col in product.collections
-    assign col_handle = col.handle | downcase
-    if col_handle == 'feminine' or col_handle == 'eau-de-parfum' or col_handle == 'butter-creme' or col_handle == 'body-scrub' or col_handle == 'body-oil' or col_handle == 'body-wash' or col_handle == 'body-jelly' or col_handle == 'cleansing-bar' or col_handle == 'body'
+
+  unless suas_is_cologne
+    if suas_type == 'eau de parfum' or suas_type == 'perfume' or suas_type == 'edp' or suas_handle contains 'eau-de-parfum' or suas_handle contains '-edp'
       assign suas_men_hide = true
     endif
-  endfor
-  for t in product.tags
-    assign td = t | downcase | strip
-    if td == 'womens' or td == 'women' or td == "women's" or td == 'feminine' or td == 'perfume' or td == 'eau-de-parfum'
+    if suas_title contains 'poppy' or suas_title contains 'haze' or suas_title contains 'nectar' or suas_title contains 'tonic' or suas_title contains 'good girl' or suas_title contains 'gelato' or suas_handle contains 'poppy' or suas_handle contains 'haze' or suas_handle contains 'nectar' or suas_handle contains 'tonic' or suas_handle contains 'good-girl' or suas_handle contains 'gelato'
       assign suas_men_hide = true
     endif
-  endfor
-  if suas_type == 'butter creme' or suas_type == 'butter scrub'
-    assign suas_men_hide = true
-  endif
+    for col in product.collections
+      assign col_handle = col.handle | downcase
+      if col_handle == 'feminine' or col_handle == 'eau-de-parfum' or col_handle == 'butter-creme' or col_handle == 'body-scrub' or col_handle == 'body-oil' or col_handle == 'body-wash' or col_handle == 'body-jelly' or col_handle == 'cleansing-bar'
+        assign suas_men_hide = true
+      endif
+    endfor
+    for t in product.tags
+      assign td = t | downcase | strip
+      if td == 'womens' or td == 'women' or td == "women's" or td == 'feminine' or td == 'perfume' or td == 'eau-de-parfum'
+        assign suas_men_hide = true
+      endif
+    endfor
+    if suas_type == 'butter creme' or suas_type == 'butter scrub'
+      assign suas_men_hide = true
+    endif
+  endunless
 %}
