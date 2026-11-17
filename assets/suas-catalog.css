@@ -298,6 +298,17 @@ html body.template--search .product--root.is-lab-experiment .product--image img 
   background: #000 !important;
   transform: translate(-50%, -50%) !important;
 }
+/* Scrub jars fill the PNG tighter than bottles - shrink them to match the rack */
+html body.template--collection .product--root.is-butter-scrub .product--image img,
+html body.template--search .product--root.is-butter-scrub .product--image img {
+  padding: 18% !important;
+}
+html body.template--collection .product--root[data-handle="lab-party-deposit"],
+html body.template--search .product--root[data-handle="lab-party-deposit"],
+html body.template--collection .product--root[data-handle="9-oz-butter-scrub"],
+html body.template--search .product--root[data-handle="9-oz-butter-scrub"] {
+  display: none !important;
+}
 html body.template--collection .suas-catalog-card .product--details-container,
 html body.template--search .suas-catalog-card .product--details-container {
   order: 2;
@@ -514,6 +525,10 @@ html body.template--collection .suas-catalog-soon-title {
     object-fit: contain !important;
     object-position: center center !important;
     transform: none !important;
+  }
+  html body.template--collection .product--root.is-butter-scrub .product--image img,
+  html body.template--search .product--root.is-butter-scrub .product--image img {
+    padding: 16% !important;
   }
   html body.template--collection .suas-catalog-card .product--details-container,
   html body.template--search .suas-catalog-card .product--details-container {

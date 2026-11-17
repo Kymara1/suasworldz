@@ -1,4 +1,18 @@
 {%- liquid
+  assign suas_hide_from_catalog = false
+  if product.handle == 'lab-party-deposit' or product.handle == '9-oz-butter-scrub' or product.handle == '50-ml-eau-de-parfum' or product.handle == 'body-oil-1' or product.handle == 'eau-de-parfum' or product.handle == 'eau-de-parfum-sale' or product.handle == 'burnt-oils'
+    assign suas_hide_from_catalog = true
+  endif
+  for hide_tag in product.tags
+    assign hide_tag_l = hide_tag | downcase | strip
+    if hide_tag_l == 'hidden' or hide_tag_l == 'suas-party-deposit' or hide_tag_l == 'hidden-from-catalog' or hide_tag_l == 'booking-only'
+      assign suas_hide_from_catalog = true
+      break
+    endif
+  endfor
+-%}
+{%- unless suas_hide_from_catalog -%}
+{%- liquid
   assign color_t = 'products.color' | t
   assign compare_price_t = 'sections.onboarding.compare_price' | t
   assign from_t = 'products.from' | t
@@ -40,6 +54,18 @@
 
   assign is_lab_experiment = false
   assign is_clearance = false
+  assign is_butter_scrub = false
+  assign suas_type_l = product.type | downcase | strip
+  if suas_type_l contains 'scrub' or product.handle contains 'body-scrub' or product.handle contains 'butter-scrub'
+    assign is_butter_scrub = true
+  endif
+  for scrub_tag in product.tags
+    assign scrub_tag_l = scrub_tag | downcase | strip
+    if scrub_tag_l == 'butter-scrub'
+      assign is_butter_scrub = true
+      break
+    endif
+  endfor
   if product.handle contains 'lab-session' or product.handle contains 'deluxe-lab'
     assign is_lab_experiment = true
   endif
@@ -132,10 +158,10 @@
     endcapture
 
     assign title = product.title
-    assign catalog_name = title | split: '?�?' | first | split: '?' | first | strip
+    assign catalog_name = title | split: '???' | first | split: '?' | first | strip
     assign catalog_kind = ''
-    if title contains '?�?'
-      assign catalog_kind = title | split: '?�?' | last | strip
+    if title contains '???'
+      assign catalog_kind = title | split: '???' | last | strip
     elsif product.type != blank
       assign catalog_kind = product.type
     endif
@@ -264,7 +290,7 @@
 {% endcapture %}
 
 <div
-  class="product--root suas-catalog-card{% if is_lab_experiment %} is-lab-experiment{% endif %}{% if product.handle contains 'nectar' %} suas-wash-nectar{% endif %}{% if product.handle contains 'tonic' %} suas-wash-tonic{% endif %}"
+  class="product--root suas-catalog-card{% if is_lab_experiment %} is-lab-experiment{% endif %}{% if is_butter_scrub %} is-butter-scrub{% endif %}{% if product.handle contains 'nectar' %} suas-wash-nectar{% endif %}{% if product.handle contains 'tonic' %} suas-wash-tonic{% endif %}"
   data-handle="{{ product.handle }}"
   data-product-view="{{ view }}"
   data-label-color="{{ label_color }}"
@@ -399,3 +425,4 @@
     </div>
   {% endif %}
 </div>
+{%- endunless -%}
