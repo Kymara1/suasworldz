@@ -13,12 +13,12 @@
   assign product_id = product.id | append: '-' | append: section.id
   assign video_looping_enabled = section.settings.loop-enabled
   assign pdp_name = product.title | split: '?' | first | strip
-  assign pdp_name = pdp_name | split: '?�?' | first | split: '*' | first | strip
+  assign pdp_name = pdp_name | split: '???' | first | split: '*' | first | strip
   if product.type != blank
     assign pdp_name = pdp_name | replace: product.type, '' | strip
   endif
   if pdp_name == blank
-    assign pdp_name = product.title | split: '?�?' | first | split: '?' | first | strip
+    assign pdp_name = product.title | split: '???' | first | split: '?' | first | strip
   endif
   assign pdp_hook = product.description | strip_html | split: '.' | first | strip
   assign pdp_handle = product.handle | downcase
@@ -379,7 +379,21 @@
     if pdp_type contains 'body scrub' or pdp_type contains 'butter scrub' or pdp_handle contains 'body-scrub'
       assign is_body_scrub = true
     endif
+    assign pdp_men = false
+    assign pdp_tags = product.tags | join: ',' | downcase
+    if pdp_type == 'cologne' or product.handle contains '-cologne' or pdp_tags contains 'suas-men' or pdp_tags contains 'mens' or pdp_tags contains 'masculine'
+      assign pdp_men = true
+    endif
+    for _pmc in product.collections
+      assign _pmch = _pmc.handle | downcase
+      if _pmch == 'cologne' or _pmch == 'masculine' or _pmch == 'beard'
+        assign pdp_men = true
+      endif
+    endfor
   -%}
+  {% if pdp_men %}
+    <a class="suas-men-pdp-back" href="/pages/suas-men">suas men � back to rack</a>
+  {% endif %}
   <div class="suas-pdp-world suas-station-desk product-page--top-panel">
     <section class="suas-pdp-life" aria-label="{{ product.title | escape }} photos">
       <div class="suas-window-bar">

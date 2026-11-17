@@ -203,16 +203,3 @@
     box-shadow:3px 3px 0 #fff;
   }
 </style>
-<script>
-(function(){
-  if(!document.documentElement.classList.contains('suas-men-pdp')) return;
-  if(document.querySelector('a.suas-men-pdp-back')) return;
-  var pdp=document.querySelector('.suas-pdp') || document.querySelector('.product-page--root');
-  if(!pdp) return;
-  var a=document.createElement('a');
-  a.href='/pages/suas-men';
-  a.className='suas-men-pdp-back';
-  a.textContent='suas men � back to rack';
-  pdp.insertBefore(a,pdp.firstChild);
-})();
-</script>
