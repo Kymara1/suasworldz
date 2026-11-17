@@ -281,7 +281,7 @@ html body.template--product .suas-pdp-name {
   margin: 0 0 6px;
   max-width: 100%;
   font-family: 'Casual Human', Futura, Arial, sans-serif !important;
-  font-size: clamp(1.55rem, 2.8vw, 2.2rem) !important;
+  font-size: clamp(1.35rem, 2.3vw, 1.85rem) !important;
   font-weight: 700 !important;
   line-height: .88;
   text-transform: lowercase;
