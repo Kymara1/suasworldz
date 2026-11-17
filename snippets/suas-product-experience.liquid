@@ -239,34 +239,18 @@
     </div>
   </details>
 
+  {% if is_body_scrub %}
   <details class="suas-pdp-fold">
     <summary>how it works</summary>
     <div class="suas-pdp-fold-body">
       <div class="suas-pdp-steps">
-        {% if pdp_home %}
-          <div class="suas-pdp-step"><em>01 / set</em><p>Light it, mist it, or warm it.</p></div>
-          <div class="suas-pdp-step"><em>02 / wait</em><p>Give the room a minute to catch it.</p></div>
-          <div class="suas-pdp-step"><em>03 / live in it</em><p>The scent blooms, then sits pretty.</p></div>
-        {% elsif is_perfume %}
-          <div class="suas-pdp-step"><em>01 / mist</em><p>Pulse points. Neck, wrists, wherever you want remembered.</p></div>
-          <div class="suas-pdp-step"><em>02 / don't rub</em><p>Let it sit. Mashing it kills the top notes.</p></div>
-          <div class="suas-pdp-step"><em>03 / trail</em><p>Walk out. That's the whole point.</p></div>
-        {% elsif is_body_oil %}
-          <div class="suas-pdp-step"><em>01 / pump</em><p>One pump. That's a mood, not a ration.</p></div>
-          <div class="suas-pdp-step"><em>02 / warm</em><p>Rub it in your palms like you mean it.</p></div>
-          <div class="suas-pdp-step"><em>03 / glow</em><p>Slide it on still-damp skin. Shine stays. You leave.</p></div>
-        {% elsif is_body_scrub %}
-          <div class="suas-pdp-step"><em>01 / damp</em><p>Wet skin. Not a ceremony. Just water.</p></div>
-          <div class="suas-pdp-step"><em>02 / grind</em><p>Circular. Gentle. Sugar does the talking.</p></div>
-          <div class="suas-pdp-step"><em>03 / rinse</em><p>Warm water, pat dry. Scent stays. Grit goes.</p></div>
-        {% else %}
-          <div class="suas-pdp-step"><em>01 / warm</em><p>Warm a little in your hands.</p></div>
-          <div class="suas-pdp-step"><em>02 / press</em><p>Press it into still-damp skin.</p></div>
-          <div class="suas-pdp-step"><em>03 / melt</em><p>Let it melt. That's the whole spell.</p></div>
-        {% endif %}
+        <div class="suas-pdp-step"><em>01 / damp</em><p>Wet skin. Not a ceremony. Just water.</p></div>
+        <div class="suas-pdp-step"><em>02 / grind</em><p>Circular. Gentle. Sugar does the talking.</p></div>
+        <div class="suas-pdp-step"><em>03 / rinse</em><p>Warm water, pat dry. Scent stays. Grit goes.</p></div>
       </div>
     </div>
   </details>
+  {% endif %}
 
   <details class="suas-pdp-fold">
     <summary>ingredients</summary>
