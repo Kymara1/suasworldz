@@ -127,6 +127,12 @@ html body.template--product[data-suas-handle*='crimson'] {
   --mid: #ea6382;
   --on-accent: #ffffff;
 }
+html body.template--product[data-suas-handle*='gelato'] {
+  --hot: #f4a0d4;
+  --wash: #fbdff1;
+  --mid: #f7bfe3;
+  --on-accent: #101010;
+}
 
 /* Review shell aliases pink ? wash; children inherit body --hot/--wash/--mid */
 html body.template--product .suas-product-review-shell {
@@ -136,7 +142,14 @@ html body.template--product .suas-product-review-shell {
 /* -- product windows -- */
 html body.template--product .suas-pdp .suas-window-bar {
   background: linear-gradient(180deg, color-mix(in srgb, var(--wash) 40%, #fff), var(--wash)) !important;
-  color: var(--ink);
+  color: var(--ink) !important;
+}
+/* Beat xp-chrome lime titles on soft wash bars (LIVE.LOOK / WHAT'S.INSIDE) */
+html body.template--product .suas-pdp .suas-window-title,
+html body.template--product .suas-pdp .suas-window-live,
+html body.template--product .suas-pdp .suas-window-live * {
+  color: var(--ink) !important;
+  text-shadow: none !important;
 }
 html body.template--product .suas-pdp-ticket .suas-window-bar {
   background: linear-gradient(180deg, var(--mid), var(--hot)) !important;
@@ -144,7 +157,8 @@ html body.template--product .suas-pdp-ticket .suas-window-bar {
   border-bottom-color: var(--ink) !important;
 }
 html body.template--product .suas-pdp-ticket .suas-window-title,
-html body.template--product .suas-pdp-ticket .suas-window-live {
+html body.template--product .suas-pdp-ticket .suas-window-live,
+html body.template--product .suas-pdp-ticket .suas-window-live * {
   color: var(--on-accent) !important;
 }
 html body.template--product .suas-pdp-ticket {

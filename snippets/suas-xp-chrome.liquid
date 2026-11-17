@@ -36,6 +36,18 @@
     text-shadow: none;
   }
 
+  /* Product PDP wash bars: lime-on-pink fails contrast — ink titles instead */
+  html body.template--product .suas-pdp .suas-window-title,
+  html body.template--product .suas-pdp .suas-window-live,
+  html body.template--product .suas-pdp .suas-window-live * {
+    color: #101010 !important;
+  }
+  html body.template--product .suas-pdp-ticket .suas-window-title,
+  html body.template--product .suas-pdp-ticket .suas-window-live,
+  html body.template--product .suas-pdp-ticket .suas-window-live * {
+    color: var(--on-accent, #fff) !important;
+  }
+
   html body .suas-cart-chip {
     background: #d9ff78 !important;
     color: #101010 !important;
