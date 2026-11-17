@@ -18,31 +18,30 @@
     .suas-men-chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
     .suas-men-chips a{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border:2px solid #fff;border-radius:999px;background:#000;color:#fff;box-shadow:0 3px 0 #fff;text-decoration:none;text-align:center;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
     .suas-men-chips a.is-on{background:#fff;color:#000}
-    .suas-men-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-    .suas-men-tile{display:flex;flex-direction:column;gap:12px;padding:16px;border:2px solid #fff;border-radius:18px;text-decoration:none}
-    .suas-men-shot{display:block;width:100%;aspect-ratio:1/1;overflow:hidden;border:1.5px solid #fff;border-radius:14px;background:#111}
-    .suas-men-shot img,.suas-men-blank{display:block;width:100%;height:100%!important;aspect-ratio:1/1;object-fit:contain;object-position:center;border:0;border-radius:0;background:#111;transform:scale(1.22);transform-origin:center center}
-    .suas-men-tile b{font-size:clamp(1.35rem,2.2vw,1.85rem);line-height:.95;text-transform:lowercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .suas-men-tile .suas-men-mono{font-size:13px}
+    .suas-men-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .suas-men-tile{display:flex;flex-direction:column;gap:10px;padding:12px;border:2px solid #fff;border-radius:16px;text-decoration:none;min-width:0}
+    .suas-men-shot{display:block;width:100%;aspect-ratio:1/1;overflow:hidden;border:1.5px solid #fff;border-radius:12px;background:#111}
+    .suas-men-shot img,.suas-men-blank{display:block;width:100%;height:100%!important;aspect-ratio:1/1;object-fit:contain;object-position:center;border:0;border-radius:0;background:#111;transform:scale(1.48);transform-origin:center center}
+    .suas-men-tile b{font-size:clamp(1.15rem,1.8vw,1.55rem);line-height:.95;text-transform:lowercase;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .suas-men-tile .suas-men-mono{font-size:12px}
     .suas-men-empty{margin:0;text-align:center;font-size:15px;font-weight:800;opacity:.7}
     .suas-men-pages{display:flex;justify-content:center;gap:10px}
     .suas-men-pages a,.suas-men-pages span{min-height:38px;display:inline-flex;align-items:center;padding:0 14px;border:1.5px solid #fff;border-radius:999px;text-decoration:none;font-size:12px;font-weight:900}
-    @media(max-width:1100px){
-      .suas-men-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    @media(max-width:900px){
       .suas-men-chips{grid-template-columns:repeat(3,minmax(0,1fr))}
     }
     @media(max-width:700px){
-      .suas-men-collection{padding:12px 6px 28px}
-      .suas-men-chips{grid-template-columns:1fr 1fr;gap:8px}
-      .suas-men-chips a{min-height:40px;font-size:11px;padding:6px 8px}
-      .suas-men-grid{grid-template-columns:1fr;gap:12px}
-      .suas-men-win{border-radius:18px}
-      .suas-men-body{padding:12px;gap:12px}
-      .suas-men-tile{padding:12px;gap:10px;border-radius:16px}
-      .suas-men-shot{border-radius:12px}
-      .suas-men-shot img,.suas-men-blank{transform:scale(1.42)}
-      .suas-men-tile b{font-size:1.7rem}
-      .suas-men-tile .suas-men-mono{font-size:15px}
+      .suas-men-collection{padding:10px 4px 24px}
+      .suas-men-chips{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+      .suas-men-chips a{min-height:36px;font-size:9px;padding:5px 4px;letter-spacing:.04em}
+      .suas-men-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+      .suas-men-win{border-radius:16px}
+      .suas-men-body{padding:10px;gap:10px}
+      .suas-men-tile{padding:6px;gap:6px;border-radius:12px;border-width:1.5px}
+      .suas-men-shot{border-radius:10px;border-width:1px}
+      .suas-men-shot img,.suas-men-blank{transform:scale(1.55)}
+      .suas-men-tile b{font-size:.95rem;line-height:1;-webkit-line-clamp:2}
+      .suas-men-tile .suas-men-mono{font-size:10px;letter-spacing:.1em}
     }
   </style>
   {% paginate collection.products by 24 %}
