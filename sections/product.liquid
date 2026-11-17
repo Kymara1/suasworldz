@@ -425,7 +425,13 @@
       {%- endif -%}
     </section>
 
-    {%- unless is_lab_experiment or is_charm_bar -%}
+    {%- liquid
+      assign suas_has_scent_notes = false
+      if mix_1 != blank and mix_1 != 'handmade'
+        assign suas_has_scent_notes = true
+      endif
+    -%}
+    {%- unless is_lab_experiment or is_charm_bar or suas_has_scent_notes == false -%}
     <section class="suas-pdp-diagram" aria-label="what's inside">
       <div class="suas-window-bar">
         <div class="suas-window-dots"><span class="suas-dot" style="--dot:#ff5f57"></span><span class="suas-dot" style="--dot:#febc2e"></span><span class="suas-dot" style="--dot:#28c840"></span></div>
