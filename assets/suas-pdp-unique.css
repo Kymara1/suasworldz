@@ -5,19 +5,14 @@ html body.template--product .layout--main-content {
 }
 html body.template--product .suas-pdp,
 html body.template--product .product-page--root.suas-station {
-  --ink: #101010;
-  --hot: #ff9bc4;
-  --wash: #ffd8e8;
-  --lime: #d9ff78;
-  --blue: #cdeeff;
-  --sun: #fff1a8;
+  /* Do NOT redefine --hot/--wash/--mid here — inherit from body[data-suas-handle] in suas-pdp-palette.css */
   width: min(860px, 100%) !important;
   max-width: 860px !important;
   margin: 0 auto 22px !important;
   padding: 0 !important;
   background: transparent !important;
   font-family: Futura, 'Futura PT', Arial, sans-serif;
-  color: var(--ink);
+  color: var(--ink, #101010);
 }
 /* Product accent map lives in suas-pdp-palette.css (body[data-suas-handle]). */
 
@@ -208,8 +203,8 @@ html body.template--product .suas-pdp-note {
   text-align: center;
 }
 html body.template--product .suas-pdp-note[data-note='1'] { background: var(--wash, #ffd8e8); }
-html body.template--product .suas-pdp-note[data-note='2'] { background: var(--lime, #d9ff78); }
-html body.template--product .suas-pdp-note[data-note='3'] { background: var(--blue, #cdeeff); }
+html body.template--product .suas-pdp-note[data-note='2'] { background: color-mix(in srgb, var(--mid, #ff7ec8) 55%, #fff); }
+html body.template--product .suas-pdp-note[data-note='3'] { background: color-mix(in srgb, var(--hot, #ff9bc4) 28%, #fff); }
 html body.template--product .suas-pdp-note strong {
   font-family: 'Casual Human', Futura, Arial, sans-serif !important;
   font-size: clamp(1.6rem, 3.4vw, 2.4rem) !important;
@@ -462,8 +457,8 @@ html body.template--product [data-add-to-cart] {
 }
 
 html body.template--product .suas-pdp-fold:nth-of-type(1) { background: linear-gradient(135deg, #fff, var(--wash, #ffd8e8) 80%); }
-html body.template--product .suas-pdp-fold:nth-of-type(2) { background: linear-gradient(135deg, #fff, var(--blue, #cdeeff) 80%); }
-html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-gradient(135deg, #fff, var(--lime, #d9ff78) 80%); }
+html body.template--product .suas-pdp-fold:nth-of-type(2) { background: linear-gradient(135deg, #fff, color-mix(in srgb, var(--mid, #ff7ec8) 45%, #fff) 80%); }
+html body.template--product .suas-pdp-fold:nth-of-type(3) { background: linear-gradient(135deg, #fff, color-mix(in srgb, var(--hot, #ff9bc4) 22%, #fff) 80%); }
 
 @media (prefers-reduced-motion: reduce) {
   html body.template--product .suas-pdp-jar .suas-station-photo { animation: none !important; }
