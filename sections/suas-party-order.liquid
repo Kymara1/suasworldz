@@ -184,7 +184,7 @@
               <label for="party-ages">Guest Age Range (if relevant):</label>
               <input id="party-ages" type="text" name="contact[Age range]">
             </div>
-            <p class="suas-party-hint" id="party-guest-hint">Min 6 � max 16 for all party packages.</p>
+            <p class="suas-party-hint" id="party-guest-hint">Min 6 - max 16 for all party packages.</p>
             <div class="suas-party-field is-stack">
               <label for="party-notes">Notes / Special Requests:</label>
               <textarea id="party-notes" name="contact[body]">Invoice {{ party_invoice_no }}</textarea>
@@ -218,14 +218,14 @@
                 <em>$165 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party - $65/person � 1 hour" data-rate="65" data-min="6" data-charm-only="true">
+                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party - $65/person - 1 hour" data-rate="65" data-min="6" data-charm-only="true">
                 <span><b>Charm Bar Party</b><small class="suas-party-desc">Charm jewelry. Lab closed 1 hour. 6 guest minimum.</small></span>
                 <em>$65 <small>per person</small></em>
               </label>
             </fieldset>
             <label class="suas-party-pack" id="party-charm-addon-row">
-              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes - $45/person � +30 min">
-              <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person. Adds 30 minutes (90 ? 120).</small></span>
+              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes - $45/person - +30 min">
+              <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person. Adds 30 minutes (90 -> 120).</small></span>
               <em>$45 <small>add-on</small></em>
             </label>
             <input type="hidden" id="party-charm-addon-off" name="contact[Charm Bar add-on]" value="No">
@@ -272,14 +272,14 @@
                 <span><b>Card</b><small>Shopify invoice after we confirm</small></span>
               </label>
             </fieldset>
-            <p class="suas-party-hint" id="party-deposit-hint" aria-live="polite">If approved - estimated 50% deposit: $0.00 � remaining 48 hours before: $0.00</p>
+            <p class="suas-party-hint" id="party-deposit-hint" aria-live="polite">If approved - estimated 50% deposit: $0.00 - remaining 48 hours before: $0.00</p>
           </div>
         </section>
       </div>
 
       <div class="suas-party-task">
         <button class="suas-party-start" type="submit">Send request</button>
-        <em>party.exe � no charge yet</em>
+        <em>party.exe - no charge yet</em>
         <label for="party-total" style="margin-left:auto;font:800 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em">Est.</label>
         <input id="party-total" type="text" name="contact[Estimated total]" value="$0.00" readonly aria-live="polite" style="width:7.5rem;min-height:44px;border:2px solid #101010;background:#fff;color:#101010;font:900 14px/1 Tahoma,Arial,sans-serif;padding:4px 8px">
         <input type="hidden" id="party-deposit" name="contact[Estimated deposit]" value="$0.00">
@@ -365,8 +365,8 @@
         if (durationNote) durationNote.textContent = durationCopy();
         if (guestHint) {
           guestHint.textContent = charmOnly
-            ? ('Min ' + min + ' � max ' + max + '. Charm Bar party books the Lab for 1 hour.')
-            : ('Min ' + min + ' � max ' + max + '.');
+            ? ('Min ' + min + ' - max ' + max + '. Charm Bar party books the Lab for 1 hour.')
+            : ('Min ' + min + ' - max ' + max + '.');
         }
       }
       function refreshTotal() {
@@ -376,7 +376,7 @@
         if (total) total.value = money(full);
         if (deposit) deposit.value = money(half);
         if (remain) remain.value = money(full - half);
-        if (depositHint) depositHint.textContent = 'If approved - estimated 50% deposit: ' + money(half) + ' � remaining 48 hours before: ' + money(full - half);
+        if (depositHint) depositHint.textContent = 'If approved - estimated 50% deposit: ' + money(half) + ' - remaining 48 hours before: ' + money(full - half);
       }
       function makeInvoiceNo() {
         var d = new Date();
@@ -421,7 +421,7 @@
       function stampNotes() {
         var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
         if (!notes || !total) return;
-        var line = 'Estimated total: ' + total.value + ' � estimated deposit if approved: ' + (deposit ? deposit.value : '') + ' � remaining: ' + (remain ? remain.value : '') + (method ? ' � preferred deposit method: ' + method.value : '') + ' � REQUEST ONLY - do not charge until date confirmed';
+        var line = 'Estimated total: ' + total.value + ' - estimated deposit if approved: ' + (deposit ? deposit.value : '') + ' - remaining: ' + (remain ? remain.value : '') + (method ? ' - preferred deposit method: ' + method.value : '') + ' - REQUEST ONLY - do not charge until date confirmed';
         if (notes.value.indexOf('Estimated total:') === -1) {
           notes.value = notes.value.trim() + '\n' + line;
         }
