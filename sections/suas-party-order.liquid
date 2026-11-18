@@ -184,7 +184,7 @@
               <label for="party-ages">Guest Age Range (if relevant):</label>
               <input id="party-ages" type="text" name="contact[Age range]">
             </div>
-            <p class="suas-party-hint" id="party-guest-hint">Self-guided min 6 � max 16.</p>
+            <p class="suas-party-hint" id="party-guest-hint">Min 6 � max 16 for all party packages.</p>
             <div class="suas-party-field is-stack">
               <label for="party-notes">Notes / Special Requests:</label>
               <textarea id="party-notes" name="contact[body]">Invoice {{ party_invoice_no }}</textarea>
@@ -203,33 +203,33 @@
                 <em>$70 <small>per guest</small></em>
               </label>
               <label class="suas-party-pack is-soon" aria-disabled="true" title="Guided party sessions open soon">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Party Session - $115/guest" data-rate="115" disabled>
-                <span><b>Party Session</b><small class="suas-party-desc">Guided 30mL custom perfume. Lab closed 90 minutes.</small><span class="suas-party-soon">coming soon</span></span>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Party Session - $115/guest" data-rate="115" data-min="6" disabled>
+                <span><b>Party Session</b><small class="suas-party-desc">Guided 30mL custom perfume. Lab closed 90 minutes. 6 guest minimum.</small><span class="suas-party-soon">coming soon</span></span>
                 <em>$115 <small>per guest</small></em>
               </label>
               <label class="suas-party-pack is-soon" aria-disabled="true" title="Guided deluxe parties open soon">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Deluxe Party - $145/person" data-rate="145" disabled>
-                <span><b>Deluxe Party</b><small class="suas-party-desc">Guided perfume plus a 1oz body oil or 4oz butter creme. Lab closed 90 minutes.</small><span class="suas-party-soon">coming soon</span></span>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Deluxe Party - $145/person" data-rate="145" data-min="6" disabled>
+                <span><b>Deluxe Party</b><small class="suas-party-desc">Guided perfume plus a 1oz body oil or 4oz butter creme. Lab closed 90 minutes. 6 guest minimum.</small><span class="suas-party-soon">coming soon</span></span>
                 <em>$145 <small>per person</small></em>
               </label>
               <label class="suas-party-pack is-soon" aria-disabled="true" title="Guided signature parties open soon">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Signature Collection - $165/person" data-rate="165" disabled>
-                <span><b>Signature Collection</b><small class="suas-party-desc">Guided perfume, 1oz body oil, and 4oz butter creme. Lab closed 90 minutes.</small><span class="suas-party-soon">coming soon</span></span>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Signature Collection - $165/person" data-rate="165" data-min="6" disabled>
+                <span><b>Signature Collection</b><small class="suas-party-desc">Guided perfume, 1oz body oil, and 4oz butter creme. Lab closed 90 minutes. 6 guest minimum.</small><span class="suas-party-soon">coming soon</span></span>
                 <em>$165 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party - $65/person � 1 hour" data-rate="65" data-charm-only="true">
-                <span><b>Charm Bar Party</b><small class="suas-party-desc">Charm jewelry. Lab closed 1 hour. Same 16-guest max.</small></span>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party - $65/person � 1 hour" data-rate="65" data-min="6" data-charm-only="true">
+                <span><b>Charm Bar Party</b><small class="suas-party-desc">Charm jewelry. Lab closed 1 hour. 6 guest minimum.</small></span>
                 <em>$65 <small>per person</small></em>
               </label>
             </fieldset>
             <label class="suas-party-pack" id="party-charm-addon-row">
-              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes - $45/person">
-              <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person.</small></span>
+              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes - $45/person � +30 min">
+              <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person. Adds 30 minutes (90 ? 120).</small></span>
               <em>$45 <small>add-on</small></em>
             </label>
             <input type="hidden" id="party-charm-addon-off" name="contact[Charm Bar add-on]" value="No">
-            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Self-guided Lab parties are 90 minutes. Charm Bar parties are 1 hour. Guided sessions are coming soon. The Lab is closed for your slot. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
+            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Self-guided Lab parties are 90 minutes. Charm Bar parties are 1 hour. All party packages: 6 guest minimum. The Lab is closed for your slot. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
           </div>
         </section>
 
@@ -314,7 +314,19 @@
       function guestMin() {
         var pack = selectedPack();
         var fromData = Number(pack && pack.getAttribute('data-min'));
-        return fromData > 0 ? fromData : 1;
+        return fromData > 0 ? fromData : 6;
+      }
+      function hasCharmAddon() {
+        return !isCharmOnly() && !!(charmAddon && charmAddon.checked);
+      }
+      function durationCopy() {
+        if (isCharmOnly()) {
+          return 'Charm Bar parties are 1 hour. 6 guest minimum. The Lab is closed for that hour. Guided sessions are coming soon. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
+        }
+        if (hasCharmAddon()) {
+          return 'Lab party + Charm Bar add-on: 120 minutes (90 + 30). 6 guest minimum. Charm Bar add-on is $45 per person. The Lab is closed for your slot. Guided sessions are coming soon. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
+        }
+        return 'Self-guided Lab parties are 90 minutes. 6 guest minimum. Add Charm Bar (+$45/person) for +30 minutes (120 total). The Lab is closed for your slot. Guided sessions are coming soon. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
       }
       function rate() {
         var pack = selectedPack();
@@ -350,14 +362,10 @@
         if (charmAddonRow) charmAddonRow.style.display = charmOnly ? 'none' : '';
         if (charmOnly && charmAddon) charmAddon.checked = false;
         if (charmAddonOff) charmAddonOff.disabled = !!(charmAddon && charmAddon.checked);
-        if (durationNote) {
-          durationNote.textContent = charmOnly
-            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. Guided sessions are coming soon. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
-            : 'Self-guided Lab parties are 90 minutes. 6 guest minimum at $70/guest. The Lab is closed for your slot. Charm Bar add-on is $45 per person. Guided sessions are coming soon. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
-        }
+        if (durationNote) durationNote.textContent = durationCopy();
         if (guestHint) {
           guestHint.textContent = charmOnly
-            ? 'Max 16. Charm Bar party books the Lab for 1 hour.'
+            ? ('Min ' + min + ' � max ' + max + '. Charm Bar party books the Lab for 1 hour.')
             : ('Min ' + min + ' � max ' + max + '.');
         }
       }

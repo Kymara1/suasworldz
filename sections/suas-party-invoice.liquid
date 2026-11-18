@@ -177,7 +177,7 @@
     <header class="hero">
       <div>
         <h1>party invoice.</h1>
-        <p>Private 90-minute Lab. The date is held when the 50% deposit is paid.</p>
+        <p>Private Lab party � 6 guest min. The date is held when the 50% deposit is paid.</p>
       </div>
       <span class="mark" aria-hidden="true">S.</span>
     </header>
@@ -252,10 +252,10 @@
             <label>package
               <select id="pack">
                 <option value="70" data-min="6" selected>Self-Guided Party Pack - $70/guest � min 6</option>
-                <option value="115">Party Session - $115/guest</option>
-                <option value="145">Deluxe Party - $145/person</option>
-                <option value="165">Signature Collection - $165/person</option>
-                <option value="65">Charm Bar Party - $65/person � 1 hour � Lab closed</option>
+                <option value="115" data-min="6">Party Session - $115/guest � min 6</option>
+                <option value="145" data-min="6">Deluxe Party - $145/person � min 6</option>
+                <option value="165" data-min="6">Signature Collection - $165/person � min 6</option>
+                <option value="65" data-min="6" data-charm-only="true">Charm Bar Party - $65/person � 1 hour � min 6</option>
               </select>
             </label>
             <label>rate<input id="rate" readonly></label>
@@ -265,7 +265,7 @@
           <label>charm bar add-on
             <select id="charmAddon">
               <option value="0">None</option>
-              <option value="45">Charm Bar add-on - $45/person</option>
+              <option value="45">Charm Bar add-on - $45/person � +30 min</option>
             </select>
           </label>
           <div class="row">
@@ -320,15 +320,24 @@
         var opt = pack.options[pack.selectedIndex];
         var text = opt ? opt.text : '';
         var addon = document.getElementById('charmAddon');
-        if (addon && Number(addon.value) > 0 && Number(pack.value) !== 50) {
-          text += ' + Charm Bar add-on $45/person';
+        if (addon && Number(addon.value) > 0 && !isCharmOnly()) {
+          text += ' + Charm Bar add-on $45/person (+30 min)';
         }
         return text;
       }
-      function isCharmOnly(){ return Number(pack.value) === 50; }
+      function isCharmOnly(){
+        var opt = pack && pack.options[pack.selectedIndex];
+        if (opt && opt.getAttribute('data-charm-only') === 'true') return true;
+        return Number(pack.value) === 65 && /charm bar party/i.test(opt ? opt.text : '');
+      }
+      function hasCharmAddon(){
+        var addon = document.getElementById('charmAddon');
+        return !isCharmOnly() && !!(addon && Number(addon.value) > 0);
+      }
       function durationLine(){
-        if (isCharmOnly()) return '1 hour Charm Bar. The Lab is closed for that hour.';
-        return '90 minutes. The Lab is closed to walk-ins for your slot.';
+        if (isCharmOnly()) return '1 hour Charm Bar. 6 guest minimum. The Lab is closed for that hour.';
+        if (hasCharmAddon()) return '120 minutes (90 Lab + 30 Charm Bar add-on). 6 guest minimum. The Lab is closed to walk-ins for your slot.';
+        return '90 minutes. 6 guest minimum. Add Charm Bar for +30 minutes (120 total). The Lab is closed to walk-ins for your slot.';
       }
       function encodePayload(data){
         var json = JSON.stringify(data || {});
@@ -418,7 +427,7 @@
         ctx.fillText('party invoice.', 42, 102);
         ctx.fillStyle = '#f4ecd4';
         ctx.font = '800 13px Tahoma, Arial, sans-serif';
-        ctx.fillText(isCharmOnly() ? 'private 1-hour charm bar. deposit holds the date.' : 'private 90-minute lab. deposit holds the date.', 42, 124);
+        ctx.fillText(isCharmOnly() ? 'private 1-hour charm bar. deposit holds the date.' : (hasCharmAddon() ? 'private 120-minute lab + charm. deposit holds the date.' : 'private 90-minute lab. deposit holds the date.'), 42, 124);
         ctx.beginPath();
         ctx.arc(652, 100, 26, 0, Math.PI * 2);
         ctx.fillStyle = '#d9ff78';
@@ -666,7 +675,7 @@
       function packMin(){
         var opt = pack && pack.options[pack.selectedIndex];
         var fromData = Number(opt && opt.getAttribute('data-min'));
-        return fromData > 0 ? fromData : 1;
+        return fromData > 0 ? fromData : 6;
       }
       function calc(){
         var charmOnly = isCharmOnly();
