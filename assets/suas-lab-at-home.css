@@ -1,4 +1,4 @@
-/* The Lab @ Home — XP chrome × Winx fairy chemistry */
+/* The Lab @ Home - XP chrome � Winx fairy chemistry */
 .suas-lah {
   --ink: #111;
   --cream: #fffaf5;
@@ -129,7 +129,7 @@ a.suas-lah-winbtn:focus-visible {
 }
 .suas-lah-head::before,
 .suas-lah-head::after {
-  content: '✦';
+  content: '?';
   position: absolute;
   top: 12px;
   font-size: 12px;
@@ -175,32 +175,50 @@ a.suas-lah-winbtn:focus-visible {
 }
 
 .suas-lah-includes {
-  width: min(560px, 100%);
-  margin: 10px auto 8px;
-  padding: 8px 10px 10px;
+  width: min(420px, 100%);
+  margin: 8px auto 4px;
+  padding: 6px 10px;
   border: 2px solid var(--ink);
   border-radius: 12px;
   background:
-    linear-gradient(135deg, rgba(217, 255, 120, 0.55), rgba(255, 232, 239, 0.9) 55%, rgba(201, 231, 255, 0.7));
-  box-shadow: 3px 3px 0 rgba(10, 36, 106, 0.25);
+    linear-gradient(135deg, rgba(217, 255, 120, 0.45), rgba(255, 232, 239, 0.85) 55%, rgba(201, 231, 255, 0.6));
+  box-shadow: 2px 2px 0 rgba(10, 36, 106, 0.2);
   text-align: left;
 }
 .suas-lah-includes-label {
-  margin: 0 0 6px;
+  margin: 0;
   font-family: 'Casual Human', Futura, Arial, sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
   text-transform: lowercase;
   letter-spacing: 0.02em;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
+.suas-lah-includes-label::-webkit-details-marker { display: none; }
+.suas-lah-includes-label::after {
+  content: '+';
+  font-family: Tahoma, Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.suas-lah-includes[open] .suas-lah-includes-label {
+  margin-bottom: 6px;
+}
+.suas-lah-includes[open] .suas-lah-includes-label::after { content: '-'; }
 .suas-lah-includes-list {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 5px 8px;
+  gap: 4px 6px;
 }
 .suas-lah-includes-list li {
   position: relative;
@@ -233,7 +251,7 @@ a.suas-lah-winbtn:focus-visible {
 }
 .suas-lah-build {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(200px, 0.7fr);
   grid-template-areas:
     "notes stage"
     "checkout stage";
@@ -269,10 +287,16 @@ a.suas-lah-winbtn:focus-visible {
   color: rgba(10, 36, 106, 0.7);
 }
 .suas-lah-slot-hint {
-  margin: 0 0 5px;
-  font-size: 10px;
-  font-weight: 700;
-  color: rgba(17, 17, 17, 0.55);
+  margin: 0 0 8px;
+  padding: 7px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(217, 255, 120, 0.75), rgba(255, 232, 239, 0.9));
+  box-shadow: 2px 2px 0 rgba(10, 36, 106, 0.2);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ink);
 }
 
 .suas-lah-kits {
@@ -410,45 +434,75 @@ a.suas-lah-winbtn:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
 }
 .suas-lah-slot {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 34px;
+  min-height: 36px;
   max-width: 100%;
-  padding: 4px 8px;
-  border: 2px solid var(--ink);
+  padding: 4px 9px;
+  border: 2px solid rgba(17, 17, 17, 0.45);
   border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 2px 0 var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 1px 0 rgba(17, 17, 17, 0.35);
   font: inherit;
   font-size: 10px;
   font-weight: 700;
-  color: var(--ink);
+  color: rgba(17, 17, 17, 0.72);
   cursor: pointer;
   text-align: left;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 .suas-lah-slot span {
   overflow-wrap: anywhere;
   line-height: 1.15;
 }
+.suas-lah-slot em {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  background: #fff;
+  font: 800 9px/1 Tahoma, Arial, sans-serif;
+  font-style: normal;
+  color: var(--ink);
+}
 .suas-lah-slot.is-active {
+  border-color: var(--ink);
   background: var(--lime);
+  color: var(--ink);
   box-shadow:
     0 0 0 2px var(--ink),
     0 0 14px color-mix(in srgb, var(--slot-color, var(--lime)) 70%, transparent),
     0 2px 0 var(--ink);
 }
+.suas-lah-slot.is-next {
+  border-color: var(--ink);
+  background: linear-gradient(180deg, #fff 0%, var(--lime) 100%);
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 3px var(--hot),
+    0 0 0 5px rgba(255, 90, 180, 0.35),
+    0 3px 0 var(--ink);
+  animation: suas-lah-slot-pulse 1.4s ease-in-out infinite;
+}
 .suas-lah-slot.is-filled {
+  border-color: var(--ink);
   background: color-mix(in srgb, var(--slot-color, var(--pink)) 55%, #fff);
+  color: var(--ink);
   box-shadow:
     0 0 12px color-mix(in srgb, var(--slot-color, var(--pink)) 65%, transparent),
     0 2px 0 var(--ink);
+  opacity: 0.92;
 }
 .suas-lah-slot.is-filled.is-active {
+  opacity: 1;
   box-shadow:
     0 0 0 2px var(--ink),
     0 0 18px color-mix(in srgb, var(--slot-color, var(--hot)) 80%, transparent),
@@ -464,6 +518,57 @@ a.suas-lah-winbtn:focus-visible {
   border: 1px solid var(--ink);
 }
 
+@keyframes suas-lah-slot-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 3px var(--hot),
+      0 0 0 5px rgba(255, 90, 180, 0.28),
+      0 3px 0 var(--ink);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px var(--hot),
+      0 0 0 8px rgba(255, 90, 180, 0.12),
+      0 3px 0 var(--ink);
+  }
+}
+
+.suas-lah-search-label {
+  display: block;
+  margin: 0 0 4px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(10, 36, 106, 0.72);
+}
+.suas-lah-search {
+  width: 100%;
+  min-height: 38px;
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 2px 2px 0 rgba(10, 36, 106, 0.18);
+  font: 700 14px/1.2 Tahoma, Arial, sans-serif;
+  color: var(--ink);
+}
+.suas-lah-search:focus {
+  outline: 3px solid var(--hot);
+  outline-offset: 1px;
+}
+.suas-lah-notes-empty {
+  margin: 0;
+  padding: 14px 10px;
+  border: 2px dashed rgba(17, 17, 17, 0.35);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(17, 17, 17, 0.55);
+}
+
 .suas-lah-filters {
   display: flex;
   flex-wrap: wrap;
@@ -473,20 +578,22 @@ a.suas-lah-winbtn:focus-visible {
 .suas-lah-filter {
   min-height: 30px;
   padding: 4px 9px;
-  border: 2px solid var(--ink);
+  border: 2px solid rgba(17, 17, 17, 0.55);
   border-radius: 999px;
   background: #fff;
-  box-shadow: 0 2px 0 var(--ink);
+  box-shadow: 0 1px 0 rgba(17, 17, 17, 0.35);
   font: 700 9px/1 Tahoma, Arial, sans-serif;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  color: var(--ink);
+  color: rgba(17, 17, 17, 0.72);
   transition: box-shadow 0.2s ease;
 }
 .suas-lah-filter[aria-pressed='true'] {
+  border-color: var(--ink);
   background: var(--hot);
   color: #fff;
+  padding: 5px 11px;
   box-shadow:
     0 0 0 2px color-mix(in srgb, var(--hot) 50%, #fff),
     0 0 16px color-mix(in srgb, var(--hot) 75%, transparent),
@@ -832,14 +939,25 @@ a.suas-lah-winbtn:focus-visible {
   border: 0 !important;
 }
 
-/* Tablet + phone: notes beside bottle, checkout under */
+.suas-lah-sticky {
+  display: none;
+}
+.suas-lah-btn.is-ready,
+.suas-lah-sticky-atc.is-ready {
+  box-shadow:
+    0 0 0 2px var(--ink),
+    0 0 18px color-mix(in srgb, var(--hot) 70%, transparent),
+    0 3px 0 var(--ink);
+}
+
+/* Tablet: keep notes | stage, raise notes priority */
 @media (max-width: 900px) {
   .suas-lah { padding: 6px 0 16px; }
   .suas-lah-wrap { width: min(100% - 12px, 720px); }
   .suas-lah-head { padding: 8px 10px 0; }
   .suas-lah-body { padding: 6px 8px 10px; gap: 8px; }
   .suas-lah-build {
-    grid-template-columns: minmax(0, 1.2fr) minmax(150px, 0.8fr);
+    grid-template-columns: minmax(0, 1.35fr) minmax(140px, 0.65fr);
     grid-template-areas:
       "notes stage"
       "checkout checkout";
@@ -857,7 +975,7 @@ a.suas-lah-winbtn:focus-visible {
   .suas-lah-photo-body,
   .suas-lah-photo-bottle { max-height: 200px; }
   .suas-lah-photo-stage { width: min(120px, 86%); }
-  .suas-lah-notes { max-height: min(48vh, 340px); }
+  .suas-lah-notes { max-height: min(52vh, 380px); }
   .suas-lah-checkout {
     display: grid;
     grid-template-columns: 1fr;
@@ -870,7 +988,7 @@ a.suas-lah-winbtn:focus-visible {
 }
 
 @media (max-width: 620px) {
-  .suas-lah { padding: 4px 0 14px; }
+  .suas-lah { padding: 4px 0 88px; }
   .suas-lah-wrap { width: calc(100% - 8px); }
   .suas-lah-window {
     border-radius: 8px;
@@ -883,85 +1001,155 @@ a.suas-lah-winbtn:focus-visible {
   .suas-lah-head::after { display: none; }
   .suas-lah-title { font-size: 1.15rem; }
   .suas-lah-sub { font-size: 0.7rem; margin-top: 4px; }
-  .suas-lah-includes { margin: 8px auto 6px; padding: 7px 8px 8px; }
-  .suas-lah-includes-label { font-size: 0.85rem; }
+  .suas-lah-includes { margin: 6px auto 4px; padding: 5px 8px; }
+  .suas-lah-includes-label { font-size: 0.78rem; }
   .suas-lah-includes-list { grid-template-columns: 1fr; gap: 4px; }
   .suas-lah-includes-list li { font-size: 0.65rem; padding: 5px 8px 5px 16px; }
   .suas-lah-body { padding: 6px 5px 8px; gap: 6px; }
   .suas-lah-panel { padding: 6px; border-radius: 7px; }
   .suas-lah-step-label { margin-bottom: 4px; font-size: 9px; }
 
-  /* notes | bottle side by side on phone */
+  /* stack: coach/slots/notes first; bottle thumb lives in sticky tray */
   .suas-lah-build {
-    grid-template-columns: minmax(0, 1fr) minmax(108px, 36%);
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "notes stage"
-      "checkout checkout";
-    gap: 6px;
+      "notes"
+      "stage"
+      "checkout";
+    gap: 8px;
   }
 
   .suas-lah-stage {
-    position: sticky;
-    top: 6px;
-    align-self: start;
+    position: static;
+    display: block;
   }
-
   .suas-lah-bottle-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 6px 4px;
-    gap: 4px;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
   }
-  .suas-lah-fill-status {
+  .suas-lah-fill-status,
+  .suas-lah-photo-stage { display: none; }
+  .suas-lah-bottle-pick {
     margin: 0;
-    font-size: 8px;
-    letter-spacing: 0.04em;
+    padding: 0;
   }
-  .suas-lah-photo-stage {
-    width: 78px !important;
-    max-height: 150px;
-    margin: 0 auto;
+  .suas-lah-bottle-pick[hidden] { display: none !important; }
+  .suas-lah-stage:has(.suas-lah-bottle-pick[hidden]) { display: none; }
+  .suas-lah-bottle-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
   }
-  .suas-lah-photo-body,
-  .suas-lah-photo-bottle { max-height: 150px; }
-  .suas-lah-bottle-pick { width: 100%; }
-  .suas-lah-bottle-options { grid-template-columns: 1fr; gap: 3px; }
-  .suas-lah-bottle-opt { min-height: 26px; font-size: 9px; }
 
   .suas-lah-kits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
   .suas-lah-kit { min-height: 44px; padding: 6px; }
   .suas-lah-kit.is-trio { grid-column: 1 / -1; }
   .suas-lah-kit-thumb { width: 48px; height: 30px; }
 
-  .suas-lah-slot-hint { display: none; }
-  .suas-lah-slotbar { margin-bottom: 5px; }
-  .suas-lah-slot { min-height: 30px; padding: 3px 6px; font-size: 9px; }
+  .suas-lah-slot-hint { font-size: 11px; padding: 8px 10px; }
+  .suas-lah-slotbar { margin-bottom: 6px; }
+  .suas-lah-slot { min-height: 34px; padding: 4px 8px; font-size: 10px; }
+  .suas-lah-search { min-height: 42px; font-size: 16px; }
   .suas-lah-notes {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-height: min(52vh, 320px);
-    gap: 4px;
+    max-height: min(58vh, 420px);
+    gap: 5px;
   }
   .suas-lah-note {
-    min-height: 38px;
-    padding: 5px 6px;
+    min-height: 42px;
+    padding: 6px 7px;
   }
-  .suas-lah-note b { font-size: 0.8rem; }
+  .suas-lah-note b { font-size: 0.84rem; }
 
   .suas-lah-checkout {
     grid-template-columns: 1fr;
     gap: 6px;
   }
+  .suas-lah-checkout .suas-lah-actions [data-lah-atc] { display: none; }
   .suas-lah-name-row label { font-size: clamp(1.2rem, 5.5vw, 1.55rem); }
   .suas-lah-btn { min-height: 46px; font-size: 1.05rem; font-weight: 800; }
   .suas-lah-name-row input { min-height: 42px; font-size: 16px; }
+
+  .suas-lah-sticky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+    border-top: 2px solid var(--ink);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 232, 239, 0.96));
+    box-shadow: 0 -4px 18px rgba(10, 36, 106, 0.18);
+  }
+  .suas-lah-sticky.is-ready {
+    background:
+      linear-gradient(180deg, rgba(217, 255, 120, 0.95), rgba(255, 232, 239, 0.98));
+  }
+  .suas-lah-sticky-thumb {
+    position: relative;
+    width: 40px;
+    height: 56px;
+    flex: 0 0 auto;
+  }
+  .suas-lah-sticky-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .suas-lah-sticky-liquid {
+    position: absolute;
+    left: 28%;
+    right: 28%;
+    bottom: 18%;
+    height: 0;
+    border-radius: 2px 2px 4px 4px;
+    pointer-events: none;
+    transition: height 0.25s ease;
+  }
+  .suas-lah-sticky-copy {
+    min-width: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .suas-lah-sticky-copy strong {
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .suas-lah-sticky-copy span {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: rgba(17, 17, 17, 0.72);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .suas-lah-sticky-atc {
+    min-height: 44px;
+    min-width: 118px;
+    max-width: 42vw;
+    padding: 6px 10px;
+    font-size: 0.78rem !important;
+    line-height: 1.1;
+    white-space: normal;
+  }
 }
 
 @media (max-width: 380px) {
   .suas-lah-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .suas-lah-kit span { font-size: 8px; }
   .suas-lah-note b { font-size: 0.72rem; }
+  .suas-lah-sticky-atc { min-width: 104px; font-size: 0.72rem !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -969,6 +1157,7 @@ a.suas-lah-winbtn:focus-visible {
   .suas-lah-note,
   .suas-lah-btn,
   .suas-lah-photo-liquid,
+  .suas-lah-slot.is-next,
   .suas-lah-head::before,
   .suas-lah-head::after {
     transition: none !important;

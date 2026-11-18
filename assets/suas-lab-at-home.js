@@ -45,8 +45,8 @@
       id: 'cylinder',
       label: 'cylinder',
       src: root.getAttribute('data-bottle-cylinder') || '',
-      // top / right / bottom / left — cavity inside clear glass body
-      // top / right / bottom / left — glass cavity only (under the blend layer)
+      // top / right / bottom / left - cavity inside clear glass body
+      // top / right / bottom / left - glass cavity only (under the blend layer)
       fillInset: '27% 36% 11% 36%',
       finish: 'silver sprayer'
     },
@@ -65,14 +65,14 @@
       label: 'airless pump',
       src: root.getAttribute('data-bottle-oil') || '',
       fillInset: '29% 30% 13% 30%',
-      finish: 'white pump · clear cap'
+      finish: 'white pump � clear cap'
     },
     rollon: {
       id: 'rollon',
       label: 'roll-on',
       src: root.getAttribute('data-bottle-rollon') || '',
       fillInset: '29% 34% 13% 34%',
-      finish: 'white cap · rollerball'
+      finish: 'white cap � rollerball'
     }
   };
 
@@ -89,15 +89,16 @@
     trio: root.getAttribute('data-money-trio') || '$99.00'
   };
   var titles = {
-    perfume: root.getAttribute('data-title-perfume') || 'The Lab @ Home — 30 mL Custom Perfume',
-    oil: root.getAttribute('data-title-oil') || 'The Lab @ Home — 30 mL Custom Body Oil',
-    rollon: root.getAttribute('data-title-rollon') || 'The Lab @ Home — 10 mL Custom Roll-On',
+    perfume: root.getAttribute('data-title-perfume') || 'The Lab @ Home - 30 mL Custom Perfume',
+    oil: root.getAttribute('data-title-oil') || 'The Lab @ Home - 30 mL Custom Body Oil',
+    rollon: root.getAttribute('data-title-rollon') || 'The Lab @ Home - 10 mL Custom Roll-On',
     trio: root.getAttribute('data-title-trio') || 'The Lab @ Home Trio'
   };
   var state = {
     mode: 'perfume',
     trioStep: 'perfume',
     filter: 'all',
+    query: '',
     picks: [],
     activeSlot: 0,
     bottle: 'cylinder',
@@ -117,6 +118,7 @@
     bottlePick: root.querySelector('[data-lah-bottle-pick]'),
     bottleOptions: root.querySelector('[data-lah-bottle-options]'),
     slots: root.querySelector('[data-lah-slots]'),
+    search: root.querySelector('[data-lah-search]'),
     filters: root.querySelector('[data-lah-filters]'),
     notes: root.querySelector('[data-lah-notes]'),
     bottle: root.querySelector('[data-lah-bottle]'),
@@ -127,6 +129,12 @@
     fillStatus: root.querySelector('[data-lah-fill-status]'),
     name: root.querySelector('[data-lah-name]'),
     atc: root.querySelector('[data-lah-atc]'),
+    sticky: document.querySelector('[data-lah-sticky]'),
+    stickyBottle: document.querySelector('[data-lah-sticky-bottle]'),
+    stickyLiquid: document.querySelector('[data-lah-sticky-liquid]'),
+    stickyStatus: document.querySelector('[data-lah-sticky-status]'),
+    stickyCoach: document.querySelector('[data-lah-sticky-coach]'),
+    stickyAtc: document.querySelector('[data-lah-sticky-atc]'),
     error: root.querySelector('[data-lah-error]'),
     live: root.querySelector('[data-lah-live]')
   };
@@ -224,6 +232,65 @@
     return Math.max(0, kit.slots.length - 1);
   }
 
+  function tubesLeft() {
+    var kit = activeKit();
+    var left = 0;
+    for (var i = 0; i < kit.slots.length; i++) {
+      if (!state.picks[i]) left += 1;
+    }
+    return left;
+  }
+
+  function kitComplete() {
+    var kit = activeKit();
+    return kit.slots.every(function (_slot, index) { return !!state.picks[index]; });
+  }
+
+  function coachLine() {
+    var kit = activeKit();
+    var total = kit.slots.length;
+    var left = tubesLeft();
+    var trioPrefix = state.mode === 'trio'
+      ? ((TRIO_LABELS[state.trioStep] || 'bottle') + ' ' + (trioStepIndex() + 1) + '/3 - ')
+      : '';
+
+    if (left === 0) {
+      if (state.mode === 'trio' && state.trioStep !== 'rollon') {
+        return trioPrefix + 'All tubes filled - save and go to the next bottle';
+      }
+      return trioPrefix + 'All tubes filled - ready to add to cart';
+    }
+
+    var idx = state.activeSlot;
+    if (idx < 0 || idx >= total || state.picks[idx]) idx = firstEmptySlot();
+    var slot = kit.slots[idx];
+    var role = slot.role === 'base' ? 'base' : 'support';
+    var article = role === 'base' ? 'your' : 'a';
+    return trioPrefix + 'Tube ' + (idx + 1) + ' of ' + total + ' - pick ' + article + ' ' + slot.amountMl + ' mL ' + role;
+  }
+
+  function fillStatusText() {
+    var kit = activeKit();
+    var vol = totalMl(kit);
+    var filled = filledMl();
+    var left = tubesLeft();
+    if (left === 0) return filled + ' / ' + vol + ' mL - ready';
+    return filled + ' / ' + vol + ' mL - ' + left + ' tube' + (left === 1 ? '' : 's') + ' left';
+  }
+
+  function atcLabel(ready) {
+    var left = tubesLeft();
+    if (!ready) {
+      return 'fill ' + left + ' more tube' + (left === 1 ? '' : 's');
+    }
+    if (state.mode === 'trio' && state.trioStep !== 'rollon') {
+      var nextKey = TRIO_ORDER[trioStepIndex() + 1];
+      return 'save ' + (TRIO_LABELS[state.trioStep] || '') + ' - next: ' + (TRIO_LABELS[nextKey] || 'next');
+    }
+    if (state.mode === 'trio') return 'add trio - ' + money.trio;
+    return 'add to cart - ' + money[state.mode];
+  }
+
   function announce(msg) {
     if (els.live) els.live.textContent = msg;
   }
@@ -270,7 +337,7 @@
         '<button type="button" class="suas-lah-kit' + (pressed ? ' is-selected' : '') + (opt.id === 'trio' ? ' is-trio' : '') + '" style="--kit-bg:' + opt.bg + '" data-kit="' + opt.id + '" aria-pressed="' + pressed + '">' +
           thumb +
           '<strong>' + escapeHtml(opt.label) + '</strong>' +
-          '<span>' + escapeHtml(opt.meta) + ' · ' + escapeHtml(opt.price) + '</span>' +
+          '<span>' + escapeHtml(opt.meta) + ' � ' + escapeHtml(opt.price) + '</span>' +
         '</button>'
       );
     }).join('');
@@ -279,8 +346,8 @@
       var kit = activeKit();
       var priceKey = state.mode === 'trio' ? 'trio' : state.mode;
       els.selected.textContent = state.mode === 'trio'
-        ? ('Trio ' + money.trio + ' · ' + (TRIO_LABELS[state.trioStep] || '') + ' ' + (trioStepIndex() + 1) + '/3')
-        : ('Building ' + kit.label + ' · ' + money[priceKey]);
+        ? ('Trio ' + money.trio + ' � ' + (TRIO_LABELS[state.trioStep] || '') + ' ' + (trioStepIndex() + 1) + '/3')
+        : ('Building ' + kit.label + ' � ' + money[priceKey]);
     }
   }
 
@@ -291,13 +358,8 @@
 
     if (els.notesLabel) {
       els.notesLabel.textContent = show
-        ? ('02 · ' + (TRIO_LABELS[state.trioStep] || 'notes'))
-        : '02 · notes';
-    }
-    if (els.slotHint) {
-      els.slotHint.textContent = show
-        ? ('Notes for this ' + (TRIO_LABELS[state.trioStep] || 'bottle') + ' only. Next bottle can be different.')
-        : 'Tap a tube. Same note can fill more than one.';
+        ? ('02 - ' + (TRIO_LABELS[state.trioStep] || 'notes'))
+        : '02 - notes';
     }
     var nameLabel = root.querySelector('label[for="LahFormulaName"]');
     if (nameLabel) {
@@ -347,16 +409,26 @@
   function renderSlots() {
     if (!els.slots) return;
     var kit = activeKit();
+    var coach = coachLine();
+    if (els.slotHint) els.slotHint.textContent = coach;
+    if (els.stickyCoach) els.stickyCoach.textContent = coach;
+
     els.slots.innerHTML = kit.slots.map(function (slot, index) {
       var pick = state.picks[index];
       var note = pick ? noteById(pick) : null;
+      var active = index === state.activeSlot;
       var classes = 'suas-lah-slot';
-      if (index === state.activeSlot) classes += ' is-active';
+      if (active) classes += ' is-active';
       if (note) classes += ' is-filled';
+      if (active && !note) classes += ' is-next';
       var color = note ? note.hex : '#ddd';
-      var text = note ? slot.amountMl + ' mL · ' + note.label : slot.label;
+      var role = slot.role === 'base' ? 'base' : 'support';
+      var text = note
+        ? (slot.amountMl + ' mL - ' + note.label)
+        : ((active ? 'tap here - ' : '') + slot.amountMl + ' mL ' + role);
       return (
-        '<button type="button" class="' + classes + '" style="--slot-color:' + color + '" data-slot="' + index + '" aria-pressed="' + (index === state.activeSlot) + '">' +
+        '<button type="button" class="' + classes + '" style="--slot-color:' + color + '" data-slot="' + index + '" aria-pressed="' + active + '">' +
+          '<em aria-hidden="true">' + (index + 1) + '</em>' +
           '<i aria-hidden="true"></i><span>' + escapeHtml(text) + '</span>' +
         '</button>'
       );
@@ -377,9 +449,16 @@
 
   function renderNotes() {
     if (!els.notes) return;
+    var q = String(state.query || '').trim().toLowerCase();
     var list = NOTES.filter(function (note) {
-      return state.filter === 'all' || note.family === state.filter;
+      if (state.filter !== 'all' && note.family !== state.filter) return false;
+      if (!q) return true;
+      return note.label.toLowerCase().indexOf(q) !== -1 || note.family.toLowerCase().indexOf(q) !== -1;
     });
+    if (!list.length) {
+      els.notes.innerHTML = '<p class="suas-lah-notes-empty">No notes match that filter.</p>';
+      return;
+    }
     els.notes.innerHTML = list.map(function (note) {
       var usedCount = state.picks.filter(function (id) { return id === note.id; }).length;
       var isCurrent = state.picks[state.activeSlot] === note.id;
@@ -390,7 +469,7 @@
         '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
           '<span class="suas-lah-note-drop" aria-hidden="true"></span>' +
           '<span class="suas-lah-note-copy"><b>' + escapeHtml(note.label) + '</b><small>' + escapeHtml(note.family) + '</small></span>' +
-          (usedCount ? '<em>×' + usedCount + '</em>' : '') +
+          (usedCount ? '<em>x' + usedCount + '</em>' : '') +
         '</button>'
       );
     }).join('');
@@ -442,24 +521,37 @@
       if (filled) els.bottleCard.classList.add('is-filling');
       else els.bottleCard.classList.remove('is-filling');
     }
-    if (els.fillStatus) {
-      els.fillStatus.textContent = filled + ' / ' + vol + ' mL filled';
-    }
+    var status = fillStatusText();
+    if (els.fillStatus) els.fillStatus.textContent = status;
+    if (els.stickyStatus) els.stickyStatus.textContent = status;
 
+    var complete = kitComplete();
+    var ready = complete;
+    if (state.mode === 'trio') {
+      if (state.trioStep === 'rollon') ready = complete && !!variants.trio;
+    } else {
+      ready = complete && !!variants[state.mode];
+    }
+    var label = atcLabel(complete);
     if (els.atc) {
-      var complete = kit.slots.every(function (_slot, index) { return !!state.picks[index]; });
-      var ready = complete;
-      if (state.mode === 'trio' && state.trioStep !== 'rollon') {
-        var nextKey = TRIO_ORDER[trioStepIndex() + 1];
-        els.atc.textContent = 'save ' + (TRIO_LABELS[state.trioStep] || '') + ' · next: ' + (TRIO_LABELS[nextKey] || 'next');
-        els.atc.disabled = !ready;
-      } else if (state.mode === 'trio') {
-        els.atc.textContent = 'add trio · ' + money.trio;
-        els.atc.disabled = !ready || !variants.trio;
-      } else {
-        els.atc.textContent = 'add to cart · ' + money[state.mode];
-        els.atc.disabled = !ready || !variants[state.mode];
-      }
+      els.atc.textContent = label;
+      els.atc.disabled = !ready;
+      els.atc.classList.toggle('is-ready', ready);
+    }
+    if (els.stickyAtc) {
+      els.stickyAtc.textContent = label;
+      els.stickyAtc.disabled = !ready;
+      els.stickyAtc.classList.toggle('is-ready', ready);
+    }
+    if (els.sticky) {
+      els.sticky.classList.toggle('is-ready', ready);
+      els.sticky.classList.toggle('is-filling', filled > 0);
+    }
+    if (els.stickyBottle && bottle.src) els.stickyBottle.src = bottle.src;
+    if (els.stickyLiquid) {
+      els.stickyLiquid.style.height = pct + '%';
+      els.stickyLiquid.style.background =
+        'linear-gradient(180deg, ' + blendHex(mixed, '#ffffff', 0.35) + ' 0%, ' + mixed + ' 38%, ' + blendHex(mixed, '#000000', 0.18) + ' 100%)';
     }
   }
 
@@ -523,12 +615,11 @@
     var slotIndex = state.activeSlot;
     if (slotIndex < 0 || slotIndex >= kit.slots.length) slotIndex = firstEmptySlot();
 
-    // Same note can fill multiple tubes (2–3 note formulas).
+    // Same note can fill multiple tubes (2-3 note formulas).
     state.picks[slotIndex] = id;
     state.picks.length = kit.slots.length;
 
     var note = noteById(id);
-    announce((note ? note.label : id) + ' set on ' + kit.slots[slotIndex].amountMl + ' mL tube');
     setError('');
 
     // Always jump to the next empty tube so picking feels like a pour sequence.
@@ -552,6 +643,11 @@
       }
     }
     paint();
+    announce((note ? note.label : id) + ' set. ' + coachLine());
+    if (kitComplete() && els.sticky && window.matchMedia('(max-width: 620px)').matches) {
+      try { els.sticky.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
+      if (els.stickyAtc) els.stickyAtc.focus();
+    }
   }
 
   function resetPicks() {
@@ -569,7 +665,7 @@
     var kit = activeKit();
     var complete = kit.slots.every(function (_s, i) { return !!state.picks[i]; });
     if (!complete) {
-      setError('Fill every tube — reuse a note if you only want 2–3 scents.');
+      setError('Fill every tube - reuse a note if you only want 2-3 scents.');
       return;
     }
 
@@ -595,7 +691,7 @@
 
     els.atc.disabled = true;
     var original = els.atc.textContent;
-    els.atc.textContent = 'adding…';
+    els.atc.textContent = 'adding.';
 
     try {
       var items = [];
@@ -611,9 +707,9 @@
           properties: {
             Kit: titles.trio,
             'Formula name': rollF.name,
-            'Perfume formula': perfumeF.name + ' — ' + formulaLine(perfumeF),
-            'Body oil formula': oilF.name + ' — ' + formulaLine(oilF),
-            'Roll-on formula': rollF.name + ' — ' + formulaLine(rollF),
+            'Perfume formula': perfumeF.name + ' - ' + formulaLine(perfumeF),
+            'Body oil formula': oilF.name + ' - ' + formulaLine(oilF),
+            'Roll-on formula': rollF.name + ' - ' + formulaLine(rollF),
             'Perfume bottle': perfumeF.bottle || '',
             'Perfume finish': perfumeF.finish || 'silver sprayer',
             'Body oil bottle': oilF.bottle || '',
@@ -658,7 +754,7 @@
       setError('');
       paint();
       announce(state.mode === 'trio'
-        ? 'Trio selected — build perfume, then oil, then roll-on.'
+        ? 'Trio selected - build perfume, then oil, then roll-on.'
         : ('Selected ' + kit.label));
       return;
     }
@@ -698,7 +794,7 @@
       return;
     }
 
-    if (event.target.closest('[data-lah-atc]')) {
+    if (event.target.closest('[data-lah-atc]') || event.target.closest('[data-lah-sticky-atc]')) {
       addToCart();
       return;
     }
@@ -710,6 +806,13 @@
       resetPicks();
     }
   });
+
+  if (els.search) {
+    els.search.addEventListener('input', function () {
+      state.query = els.search.value || '';
+      renderNotes();
+    });
+  }
 
   if (els.name) {
     els.name.addEventListener('input', function () {

@@ -46,9 +46,9 @@
   data-money-oil="{{ oil_variant.price | default: 3500 | money }}"
   data-money-rollon="{{ rollon_variant.price | default: 2800 | money }}"
   data-money-trio="{{ trio_variant.price | default: 9900 | money }}"
-  data-title-perfume="{{ perfume_product.title | default: 'The Lab @ Home — 30 mL Custom Perfume' | escape }}"
-  data-title-oil="{{ oil_product.title | default: 'The Lab @ Home — 30 mL Custom Body Oil' | escape }}"
-  data-title-rollon="{{ rollon_product.title | default: 'The Lab @ Home — 10 mL Custom Roll-On' | escape }}"
+  data-title-perfume="{{ perfume_product.title | default: 'The Lab @ Home - 30 mL Custom Perfume' | escape }}"
+  data-title-oil="{{ oil_product.title | default: 'The Lab @ Home - 30 mL Custom Body Oil' | escape }}"
+  data-title-rollon="{{ rollon_product.title | default: 'The Lab @ Home - 10 mL Custom Roll-On' | escape }}"
   data-title-trio="{{ trio_product.title | default: 'The Lab @ Home Trio' | escape }}"
   data-bottle-cylinder="{{ 'lah-pack-cylinder.png' | asset_url }}"
   data-bottle-round="{{ 'lah-pack-round.png' | asset_url }}"
@@ -73,8 +73,8 @@
         {%- endif -%}
         <h1 class="suas-lah-title">{{ section.settings.heading | escape }}</h1>
         <p class="suas-lah-sub">{{ section.settings.copy | escape }}</p>
-        <div class="suas-lah-includes">
-          <p class="suas-lah-includes-label">each kit includes</p>
+        <details class="suas-lah-includes">
+          <summary class="suas-lah-includes-label">each kit includes</summary>
           <ul class="suas-lah-includes-list">
             <li>mixing beaker</li>
             <li>mixing stirrer</li>
@@ -83,12 +83,12 @@
             <li>formula card</li>
             <li>directions</li>
           </ul>
-        </div>
+        </details>
       </header>
 
       <div class="suas-lah-body">
         <div class="suas-lah-panel suas-lah-panel-kit">
-          <p class="suas-lah-step-label">01 · kit</p>
+          <p class="suas-lah-step-label">01 - kit</p>
           <p class="suas-visually-hidden" data-lah-selected aria-live="polite"></p>
           <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
 
@@ -99,17 +99,20 @@
 
         <div class="suas-lah-build">
           <div class="suas-lah-panel suas-lah-panel-notes">
-            <p class="suas-lah-step-label" data-lah-notes-label>02 · notes</p>
-            <p class="suas-lah-slot-hint" data-lah-slot-hint>Tap a note to fill each tube. Watch it pour into the bottle.</p>
-            <div class="suas-lah-slotbar" data-lah-slots aria-live="polite"></div>
+            <p class="suas-lah-step-label" data-lah-notes-label>02 - notes</p>
+            <p class="suas-lah-slot-hint" data-lah-slot-hint role="status" aria-live="polite">Tube 1 of 4 - pick your 15 mL base</p>
+            <div class="suas-lah-slotbar" data-lah-slots></div>
+
+            <label class="suas-lah-search-label" for="LahNoteSearch">filter notes</label>
+            <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="search notes" data-lah-search autocomplete="off" enterkeyhint="search">
 
             <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Filter scent families"></div>
             <div class="suas-lah-notes" data-lah-notes role="listbox" aria-label="Scent notes" aria-multiselectable="true"></div>
           </div>
 
-          <aside class="suas-lah-stage">
+          <aside class="suas-lah-stage" data-lah-stage>
             <div class="suas-lah-bottle-card">
-              <p class="suas-lah-fill-status" data-lah-fill-status>0 / 30 mL filled</p>
+              <p class="suas-lah-fill-status" data-lah-fill-status>0 / 30 mL - 4 tubes left</p>
               <div class="suas-lah-photo-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
                 <div class="suas-lah-photo-body">
                   <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="210" height="320">
@@ -124,14 +127,14 @@
             </div>
           </aside>
 
-          <div class="suas-lah-checkout">
+          <div class="suas-lah-checkout" data-lah-checkout>
             <div class="suas-lah-name-row">
               <label for="LahFormulaName">name your formula <span class="suas-lah-optional">(optional)</span></label>
               <input id="LahFormulaName" class="suas-formula-input" type="text" maxlength="48" placeholder="ex: peachy glow" data-lah-name autocomplete="off">
             </div>
 
             <div class="suas-lah-actions">
-              <button class="suas-lah-btn" type="button" data-lah-atc data-pink disabled>add to cart</button>
+              <button class="suas-lah-btn" type="button" data-lah-atc data-pink disabled>fill 4 more tubes</button>
               <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-reset>start over</button>
               <p class="suas-lah-error" data-lah-error role="alert"></p>
             </div>
@@ -139,6 +142,18 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="suas-lah-sticky" data-lah-sticky aria-label="Lab at Home progress">
+    <div class="suas-lah-sticky-thumb" aria-hidden="true">
+      <img data-lah-sticky-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="48" height="72">
+      <span class="suas-lah-sticky-liquid" data-lah-sticky-liquid></span>
+    </div>
+    <div class="suas-lah-sticky-copy">
+      <strong data-lah-sticky-status>0 / 30 mL - 4 tubes left</strong>
+      <span data-lah-sticky-coach>Tube 1 of 4 - pick your 15 mL base</span>
+    </div>
+    <button class="suas-lah-btn suas-lah-sticky-atc" type="button" data-lah-sticky-atc data-pink disabled>fill 4 more tubes</button>
   </div>
 
   <p class="suas-visually-hidden" data-lah-live aria-live="polite"></p>
@@ -173,9 +188,9 @@
   "name": "SUAS Lab @ Home",
   "tag": "section",
   "settings": [
-    {"type":"text","id":"kicker","label":"Kicker (optional)","default":""},
+    {"type":"text","id":"kicker","label":"Kicker (optional)"},
     {"type":"text","id":"heading","label":"Heading","default":"the lab @ home"},
-    {"type":"textarea","id":"copy","label":"Copy","default":"Curate your DIY kit online — we pack it and ship nationwide. Pick a kit, pour your notes, name it, check out."},
+    {"type":"textarea","id":"copy","label":"Copy","default":"Curate your DIY kit online - we pack it and ship nationwide. Pick a kit, pour your notes, name it, check out."},
     {"type":"header","content":"Products"},
     {"type":"product","id":"perfume_product","label":"Perfume kit product"},
     {"type":"product","id":"oil_product","label":"Body oil kit product"},
