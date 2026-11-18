@@ -63,9 +63,9 @@
     .suas-book-price-card span{display:block;margin-bottom:2px;font:900 8px/1 Tahoma,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#101010}
     .suas-book-price{display:block;font-family:Tahoma,Futura,Arial,sans-serif;font-size:clamp(1.45rem,2.4vw,1.95rem);font-weight:900;line-height:.9;letter-spacing:-.02em}
     .suas-book-badge{display:inline-flex;width:fit-content;border:2px solid var(--ink);padding:6px 10px 5px;background:#fff}
-    .suas-seat-meter{display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0;padding:6px 10px;border:2px solid var(--ink);background:var(--lime);box-shadow:3px 3px 0 var(--ink)}
-    .suas-seat-meter strong{font-family:Tahoma,Futura,Arial,sans-serif;font-size:1.05rem;font-weight:900;line-height:.95}
-    .suas-seat-meter span{font:900 9px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.7;text-align:left}
+    .suas-seat-meter{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;min-width:0;padding:6px 10px;border:2px solid var(--ink);background:var(--lime);box-shadow:3px 3px 0 var(--ink);text-align:left}
+    .suas-seat-meter strong{display:block;width:100%;font-family:Tahoma,Futura,Arial,sans-serif;font-size:1.05rem;font-weight:900;line-height:.95;text-align:left}
+    .suas-seat-meter span{display:block;width:100%;font:900 9px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;opacity:.7;text-align:left}
     .suas-seat-meter.is-full{background:var(--pink)}
     .suas-seat-meter.is-low{background:var(--sun)}
     .suas-book-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:8px 14px 18px}
@@ -102,7 +102,7 @@
     .suas-type-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;min-height:0;align-content:start;padding:12px;border:2px solid var(--ink);border-radius:0;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
     .suas-type-card input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0}
     .suas-type-card em{grid-column:1;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
-    .suas-type-card strong{grid-column:1/-1;font-family:Tahoma,Futura,Arial,sans-serif;font-size:clamp(.72rem,2.4vw,.92rem);line-height:1;font-weight:900;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+    .suas-type-card strong{grid-column:1/-1;font-family:Tahoma,Futura,Arial,sans-serif;font-size:clamp(.72rem,2.4vw,.92rem);line-height:1.05;font-weight:900;text-transform:uppercase;letter-spacing:.01em;white-space:normal;overflow:visible;text-overflow:clip;min-width:0;overflow-wrap:anywhere}
     .suas-type-card small{grid-column:1/-1;display:block;margin:2px 0 0;font:700 11px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.68);text-transform:none;letter-spacing:0}
     .suas-type-card b{grid-column:2;grid-row:1;align-self:start;padding-top:0;font:900 1.05rem/1 Tahoma,Arial,sans-serif;letter-spacing:-.02em;white-space:nowrap}
     .suas-type-card.is-on{border-color:var(--ink);background:#101010;color:#fff;box-shadow:3px 3px 0 var(--lime)}
@@ -244,7 +244,7 @@
           <button class="suas-book-tab is-on" type="button" data-kind="self" role="tab" aria-selected="true" aria-controls="self-guided" id="book-tab-self" tabindex="0">self-guided</button>
           <button class="suas-book-tab" type="button" data-kind="home" role="tab" aria-selected="false" aria-controls="lab-at-home-book" id="book-tab-home" tabindex="-1">lab @ home</button>
           <button class="suas-book-tab is-soon" type="button" data-kind="guided" role="tab" aria-selected="false" aria-controls="guided-class" id="book-tab-guided" aria-disabled="true" tabindex="-1" title="Guided classes are not open yet">guided</button>
-          <button class="suas-book-tab is-soon" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm" aria-disabled="true" tabindex="-1" title="Charm Bar bookings are not open yet">charm bar</button>
+          <button class="suas-book-tab" type="button" data-kind="charm" role="tab" aria-selected="false" aria-controls="charm-bar" id="book-tab-charm" tabindex="-1">charm bar</button>
         </div>
       </div>
       <details class="suas-book-panel suas-book-fold" data-book-fold>
@@ -255,7 +255,7 @@
             <p style="--chip:#cdeeff;"><b>Store</b>Thu-Sat 12:30-7 PM<br>Sun 12:30-5 PM<br>Mon-Wed closed</p>
             <p style="--chip:#ffe8ef;"><b>Self-guided Lab</b>Thu-Sun 1:00-6:00 PM<br>Walk-ins if a seat's open</p>
             <p style="--chip:#d8d4cc;"><b>Guided ? soon</b>Not open for booking yet. We'll announce when seats drop.</p>
-            <p style="--chip:#d8d4cc;"><b>Charm Bar ? soon</b>4 seats / 45 min<br>Not open for booking yet.</p>
+            <p style="--chip:#fff2a8;"><b>Charm Bar</b>Thu-Sun � 4 seats / 45 min<br>Bracelet $28 � Necklace $38 � Keychain $25<br>5 charms included � extras $3 each</p>
           </div>
           <p class="suas-book-hours-note">Bookings open Sat Nov 14. Lab 16 seats/hour ? Charm 4/slot. Closed Mon-Wed.</p>
         </div>
@@ -553,20 +553,19 @@
         {% endif %}
       </div>
 
-      <div class="suas-book-option is-soon" id="charm-bar" role="tabpanel" aria-labelledby="book-tab-charm" aria-disabled="true" hidden style="--card:#fff2a8;">
+      <div class="suas-book-option" id="charm-bar" role="tabpanel" aria-labelledby="book-tab-charm" hidden style="--card:#fff2a8;">
         <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Charm bar details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
-            <span class="suas-book-badge">charm bar ? soon</span>
+            <span class="suas-book-badge">4 seats / 45 min</span>
             <h2>Build your little extra</h2>
-            <p class="suas-book-desc" data-charm-description>Pick a piece, add extras, and hold a seat. Same days as self-guided Lab hours.</p>
+            <p class="suas-book-desc" data-charm-description>Bracelet $28 � Necklace $38 � Keychain $25. Every package includes 5 charms. Extra charms $3 each. Same days as self-guided Lab hours.</p>
           </div>
           <div class="suas-book-side">
             <div class="suas-seat-meter" data-charm-seat-meter><strong data-charm-seat-text>4 of 4 seats left</strong><span data-charm-seat-hint>pick date + slot</span></div>
-            <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
+            <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}$28{% endif %}</strong></div>
           </div>
         </div>
-        <p class="suas-book-soon-note">Charm Bar is not open for booking yet. Self-guided Lab seats are live.</p>
         {% render 'suas-charm-desk' %}
         {% if charm_product != blank %}
           <form class="suas-book-form" data-charm-booking-form>
@@ -642,7 +641,7 @@
                 {% endfor %}
               {% endif %}
             </div>
-            <p class="suas-book-note" data-charm-status>Four seats per 45-minute slot. Closed Monday through Wednesday. Opens November 14. You pay now to hold the seat.</p>
+            <p class="suas-book-note" data-charm-status>4 seats per 45-min slot. Bracelet $28 � Necklace $38 � Keychain $25. 5 charms included, extras $3 each. Closed Mon-Wed. Pay now to hold the seat.</p>
               <div class="suas-book-task">
               <button class="suas-book-button" type="submit" data-charm-submit>pay to hold seat</button>
             </div>
@@ -793,7 +792,7 @@
       }
 
       function showBookKind(kind) {
-        if (kind === 'guided' || kind === 'charm') kind = 'self';
+        if (kind === 'guided') kind = 'self';
         var selfCard = root.querySelector('#self-guided');
         var homeCard = root.querySelector('#lab-at-home-book');
         var guidedCard = root.querySelector('#guided-class');
@@ -807,7 +806,7 @@
         setPanel(selfCard, kind === 'self');
         setPanel(homeCard, kind === 'home');
         setPanel(guidedCard, false);
-        setPanel(charmCard, false);
+        setPanel(charmCard, kind === 'charm');
         root.querySelectorAll('[data-book-tabs] .suas-book-tab').forEach(function (tab) {
           var on = tab.getAttribute('data-kind') === kind;
           tab.classList.toggle('is-on', on);
@@ -823,7 +822,8 @@
           field.removeAttribute('required');
         });
         root.querySelectorAll('#charm-bar [required], #charm-bar select[name="id"]').forEach(function (field) {
-          field.removeAttribute('required');
+          if (kind === 'charm') field.setAttribute('required', 'required');
+          else field.removeAttribute('required');
         });
       }
       function syncBookFolds() {

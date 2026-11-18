@@ -94,12 +94,25 @@
     font-family: Tahoma, Futura, Arial, sans-serif !important;
     font-weight: 900 !important;
     text-transform: uppercase !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    line-height: 1 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    line-height: 1.05 !important;
     font-size: clamp(.72rem, 2.4vw, .92rem) !important;
     min-width: 0 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  html body .suas-bookings-page .suas-seat-meter {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  html body .suas-bookings-page .suas-seat-meter strong,
+  html body .suas-bookings-page .suas-seat-meter span {
+    display: block !important;
+    width: 100% !important;
+    text-align: left !important;
   }
 
   html body .suas-bookings-page .suas-type-card b {
@@ -326,17 +339,18 @@
       padding: 10px !important;
       grid-template-columns: minmax(0, 1fr) auto !important;
       align-content: start !important;
-      overflow: hidden !important;
+      overflow: visible !important;
       border-radius: 0 !important;
     }
 
     html body .suas-bookings-page .suas-type-card strong {
-      font-size: clamp(.78rem, 2.6vw, .95rem) !important;
-      line-height: 1 !important;
+      font-size: clamp(.72rem, 2.4vw, .92rem) !important;
+      line-height: 1.05 !important;
       font-weight: 900 !important;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      overflow-wrap: anywhere !important;
     }
 
     html body .suas-bookings-page .suas-type-card small {
