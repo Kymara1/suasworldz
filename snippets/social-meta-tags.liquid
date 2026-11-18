@@ -64,7 +64,9 @@
 
 {% endif %}
 
-{% if request.page_type == 'article' %}
+{% if request.page_type == 'index' %}
+  {% assign share_description = 'SUAS (Shut Up and Smell) - handmade perfume shop and DIY fragrance lab in Gastonia, NC. Shop scent, book The Lab, Charm Bar at 188 W Franklin Blvd.' %}
+{% elsif request.page_type == 'article' %}
   {% assign share_description = article.excerpt_or_content | strip_html %}
 {% elsif page_description %}
   {% assign share_description = page_description | escape %}
