@@ -350,8 +350,6 @@
 
         assign charm_product = all_products['charm-bar-reservation']
         assign charm_extra_product = all_products['charm-bar-extra-charms']
-        assign charm_plushie_product = all_products['charm-bar-plushie']
-        assign charm_bead_product = all_products['charm-bar-bead-sticks']
       %}
 
       <div class="suas-book-option" id="lab-at-home-book" role="tabpanel" aria-labelledby="book-tab-home" hidden style="--card:#d9ff78;">
@@ -566,31 +564,37 @@
             <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price" data-charm-price aria-live="polite">{% if charm_product != blank %}{{ charm_product.selected_or_first_available_variant.price | money }}{% else %}$28{% endif %}</strong></div>
           </div>
         </div>
-        {% render 'suas-charm-desk' %}
+        {% comment %} Charm build desk / book preview hidden for now. {% endcomment %}
         {% if charm_product != blank %}
           <form class="suas-book-form" data-charm-booking-form>
             <div class="suas-type-grid is-charm" data-charm-types>
+              {% assign charm_open_index = 0 %}
               {% for variant in charm_product.variants %}
                 {% assign piece_short = variant.title | split: '+' | first | strip %}
                 {% assign piece_l = variant.title | downcase %}
                 {% assign piece_desc = 'Includes 5 charms. Build it at the bar.' %}
+                {% assign piece_soon = false %}
                 {% if piece_l contains 'bracelet' %}
                   {% assign piece_desc = 'Silver only. Includes 5 charms.' %}
                 {% elsif piece_l contains 'necklace' %}
                   {% assign piece_desc = 'Silver or gold - pick at the bar. Includes 5 charms.' %}
                 {% elsif piece_l contains 'bag tag' %}
-                  {% assign piece_desc = 'Tag for your bag. Includes 5 charms.' %}
+                  {% assign piece_desc = 'Coming soon.' %}
+                  {% assign piece_soon = true %}
                 {% elsif piece_l contains 'bag chain' %}
-                  {% assign piece_desc = 'Chain for your bag. Includes 5 charms.' %}
+                  {% assign piece_desc = 'Coming soon.' %}
+                  {% assign piece_soon = true %}
                 {% elsif piece_l contains 'keychain' %}
                   {% assign piece_desc = 'Keychain base. Includes 5 charms.' %}
                 {% elsif piece_l contains 'paracord' %}
-                  {% assign piece_desc = 'Custom paracord name chain. No charm pack.' %}
+                  {% assign piece_desc = 'Coming soon.' %}
+                  {% assign piece_soon = true %}
                 {% endif %}
-                <label class="suas-type-card{% if forloop.first %} is-on{% endif %}">
-                  <input type="radio" name="_charm_piece" value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}" data-copy="{{ piece_desc | escape }}" {% if forloop.first %}checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                {% unless piece_soon %}{% assign charm_open_index = charm_open_index | plus: 1 %}{% endunless %}
+                <label class="suas-type-card{% if piece_soon %} is-soon{% elsif charm_open_index == 1 %} is-on{% endif %}"{% if piece_soon %} aria-disabled="true" title="Not open for booking yet"{% endif %}>
+                  <input type="radio" name="_charm_piece" value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}" data-copy="{{ piece_desc | escape }}" {% if piece_soon or variant.available == false %}disabled{% elsif charm_open_index == 1 %}checked{% endif %}>
                   <em>{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</em>
-                  <strong>{{ piece_short }}</strong>
+                  <strong>{{ piece_short }}{% if piece_soon %} - soon{% endif %}</strong>
                   <small>{{ piece_desc }}</small>
                   <b>{{ variant.price | money }}</b>
                 </label>
@@ -598,8 +602,13 @@
             </div>
             <label class="suas-book-label suas-visually-hidden" for="BookCharmExperience">choose your piece</label>
             <select class="suas-book-select suas-visually-hidden" id="BookCharmExperience" name="id" required>
+              {% assign charm_select_open = 0 %}
               {% for variant in charm_product.variants %}
-                <option value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}"{% if forloop.first %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}</option>
+                {% assign piece_l = variant.title | downcase %}
+                {% assign piece_soon = false %}
+                {% if piece_l contains 'bag tag' or piece_l contains 'bag chain' or piece_l contains 'paracord' %}{% assign piece_soon = true %}{% endif %}
+                {% unless piece_soon %}{% assign charm_select_open = charm_select_open | plus: 1 %}{% endunless %}
+                <option value="{{ variant.id }}" data-label="{{ variant.title | escape }}" data-price="{{ variant.price | money }}"{% if piece_soon or variant.available == false %} disabled{% elsif charm_select_open == 1 %} selected{% endif %}>{{ variant.title }}{% if piece_soon %} - soon{% endif %}</option>
               {% endfor %}
             </select>
             <div class="suas-book-field" data-pair><label class="suas-book-label" for="BookCharmDate">date</label><input class="suas-book-input" id="BookCharmDate" type="date" min="2026-11-14" required></div>
@@ -612,8 +621,8 @@
               <div class="suas-time-chips" data-charm-chips></div>
               <select class="suas-book-select suas-time-select suas-visually-hidden" id="BookCharmTime" required><option value="">choose time</option></select>
             </div>
+            {% if charm_extra_product != blank %}
             <div class="suas-book-addons">
-              {% if charm_extra_product != blank %}
                 {% for variant in charm_extra_product.variants %}
                   <label class="suas-book-addon">
                     <input type="checkbox" data-addon-variant="{{ variant.id }}">
@@ -621,27 +630,9 @@
                     <span>{{ variant.price | money }}</span>
                   </label>
                 {% endfor %}
-              {% endif %}
-              {% if charm_plushie_product != blank %}
-                {% for variant in charm_plushie_product.variants %}
-                  <label class="suas-book-addon">
-                    <input type="checkbox" data-addon-variant="{{ variant.id }}">
-                    <strong>{{ variant.title }}</strong>
-                    <span>{{ variant.price | money }}</span>
-                  </label>
-                {% endfor %}
-              {% endif %}
-              {% if charm_bead_product != blank %}
-                {% for variant in charm_bead_product.variants %}
-                  <label class="suas-book-addon">
-                    <input type="checkbox" data-addon-variant="{{ variant.id }}">
-                    <strong>{{ variant.title }}</strong>
-                    <span>{{ variant.price | money }}</span>
-                  </label>
-                {% endfor %}
-              {% endif %}
             </div>
-            <p class="suas-book-note" data-charm-status>4 seats per 45-min slot. Bracelet $28 � Necklace $38 � Keychain $25. 5 charms included, extras $3 each. Closed Mon-Wed. Pay now to hold the seat.</p>
+            {% endif %}
+            <p class="suas-book-note" data-charm-status>4 seats / 45 min. Closed Mon-Wed. Pay now to hold the seat.</p>
               <div class="suas-book-task">
               <button class="suas-book-button" type="submit" data-charm-submit>pay to hold seat</button>
             </div>
