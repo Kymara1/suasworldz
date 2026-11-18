@@ -76,7 +76,7 @@
       <link rel="apple-touch-icon" href="{{ settings.favicon | img_url: '180x' }}">
     {% endif %}
 
-    {% if request.page_type == 'index' %}
+    {% if request.page_type == 'index' or page_title contains shop.name %}
       <title>{{ page_title }}</title>
     {% else %}
       <title>{{ page_title }} | {{ shop.name }}</title>
