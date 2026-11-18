@@ -202,7 +202,7 @@
       border-radius: 0 !important;
       border: 2.5px solid #101010 !important;
       background: #101010 !important;
-      box-shadow: 4px 4px 0 #ff9bc4 !important;
+      box-shadow: none !important;
     }
 
     html body .suas-bookings-page .suas-book-label {
@@ -442,9 +442,10 @@
     function lockSoonSelfTypes(root) {
       var selfTypes = root.querySelector('[data-self-types]');
       if (!selfTypes) return;
+      // Roll-on stays locked. Combo sesh is open (perfume + body oil).
       Array.prototype.slice.call(selfTypes.querySelectorAll('.suas-type-card')).forEach(function (card) {
         var text = String(card.textContent || '').toLowerCase();
-        if (text.indexOf('roll-on') === -1 && text.indexOf('roll on') === -1 && text.indexOf('combo') === -1) return;
+        if (text.indexOf('roll-on') === -1 && text.indexOf('roll on') === -1) return;
         card.classList.add('is-soon');
         card.setAttribute('aria-disabled', 'true');
         var input = card.querySelector('input');
@@ -454,18 +455,15 @@
         }
         var title = card.querySelector('strong');
         if (title && title.textContent.toLowerCase().indexOf('soon') === -1) {
-          title.textContent = title.textContent.replace(/\s+$/, '') + ' ? soon';
+          title.textContent = title.textContent.replace(/\s+$/, '') + ' � soon';
         }
       });
-      var perfume = selfTypes.querySelector('.suas-type-card:not(.is-soon) input');
-      if (perfume) perfume.checked = true;
       var select = root.querySelector('#SelfExperience');
       if (select) {
         Array.prototype.slice.call(select.options).forEach(function (option) {
           var t = String(option.textContent || '').toLowerCase();
-          if (t.indexOf('roll-on') !== -1 || t.indexOf('roll on') !== -1 || t.indexOf('combo') !== -1) option.disabled = true;
+          if (t.indexOf('roll-on') !== -1 || t.indexOf('roll on') !== -1) option.disabled = true;
         });
-        if (perfume) select.value = perfume.value;
       }
     }
 
