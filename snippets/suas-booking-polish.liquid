@@ -90,6 +90,7 @@
   }
 
   html body .suas-bookings-page .suas-type-card strong {
+    grid-column: 1 / -1 !important;
     font-family: Tahoma, Futura, Arial, sans-serif !important;
     font-weight: 900 !important;
     text-transform: uppercase !important;
@@ -97,7 +98,13 @@
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     line-height: 1 !important;
-    font-size: clamp(.78rem, 2.6vw, .95rem) !important;
+    font-size: clamp(.72rem, 2.4vw, .92rem) !important;
+    min-width: 0 !important;
+  }
+
+  html body .suas-bookings-page .suas-type-card b {
+    grid-row: 1 !important;
+    white-space: nowrap !important;
   }
 
   html body .suas-bookings-page .suas-type-card b,
@@ -126,6 +133,7 @@
     font-family: Tahoma, Futura, Arial, sans-serif !important;
     font-weight: 900 !important;
     letter-spacing: .08em !important;
+    text-indent: .08em !important;
     text-transform: uppercase !important;
     line-height: 1.1 !important;
   }
@@ -495,15 +503,13 @@
       selfSelect.appendChild(option);
 
       option.disabled = true;
-      option.textContent = 'Lab Session: Roll-On Perfume (10mL) ? soon';
+      option.textContent = 'Lab Session: Roll-On Perfume (10mL) - soon';
       var label = document.createElement('label');
       label.className = 'suas-type-card is-soon';
       label.setAttribute('aria-disabled', 'true');
       label.title = 'Roll-on bookings open soon';
-      label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil." disabled><em>02</em><strong>roll-on ? soon</strong><small>Not open for booking yet. Perfume experiment is available now.</small><b>' + price + '</b>';
-      var combo = Array.prototype.slice.call(selfTypes.querySelectorAll('.suas-type-card')).find(function (card) { return /combo/i.test(card.textContent); });
-      if (combo) selfTypes.insertBefore(label, combo);
-      else selfTypes.appendChild(label);
+      label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil." disabled><em>04</em><strong>roll-on - soon</strong><small>Not open for booking yet.</small><b>' + price + '</b>';
+      selfTypes.appendChild(label);
     }
 
     function lockSoonSelfTypes(root) {
@@ -522,7 +528,7 @@
         }
         var title = card.querySelector('strong');
         if (title && title.textContent.toLowerCase().indexOf('soon') === -1) {
-          title.textContent = title.textContent.replace(/\s+$/, '') + ' � soon';
+          title.textContent = title.textContent.replace(/\s+$/, '') + ' - soon';
         }
       });
       var select = root.querySelector('#SelfExperience');

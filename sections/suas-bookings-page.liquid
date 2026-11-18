@@ -83,7 +83,7 @@
     .suas-book-addon span{font-size:12px;font-weight:900;white-space:nowrap}
     .suas-book-addon:has(input:checked){background:var(--sun);box-shadow:0 3px 0 var(--ink)}
     .suas-book-addon:has(input:disabled){opacity:.48;cursor:not-allowed}
-    .suas-book-button{display:flex!important;align-items:center!important;justify-content:center!important;min-height:50px;width:100%;border:2px solid var(--ink);border-radius:999px;padding:0 18px;color:#fff;background:linear-gradient(180deg,#ff7ec8,#ff5ab4 55%,#e83d9a);cursor:pointer;text-align:center!important;font-family:Tahoma,Futura,Arial,sans-serif!important;font-size:1.05rem;font-weight:900!important;letter-spacing:.06em;text-transform:uppercase;line-height:1.1;box-shadow:0 3px 0 var(--ink)}
+    .suas-book-button{display:flex!important;align-items:center!important;justify-content:center!important;min-height:50px;width:100%;border:2px solid var(--ink);border-radius:999px;padding:0 18px;color:#fff;background:linear-gradient(180deg,#ff7ec8,#ff5ab4 55%,#e83d9a);cursor:pointer;text-align:center!important;font-family:Tahoma,Futura,Arial,sans-serif!important;font-size:1.05rem;font-weight:900!important;letter-spacing:.06em;text-indent:.06em;text-transform:uppercase;line-height:1.1;box-shadow:0 3px 0 var(--ink)}
     .suas-book-button:hover{filter:brightness(.97);transform:translateY(1px);box-shadow:0 2px 0 var(--ink)}
     .suas-book-button[disabled]{cursor:not-allowed;opacity:.58;background:#fff;color:var(--ink);box-shadow:0 2px 0 var(--ink)}
     .suas-book-task{display:grid;gap:0;margin:0 12px 12px;padding:0;background:transparent;color:#101010}
@@ -102,9 +102,9 @@
     .suas-type-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;min-height:0;align-content:start;padding:12px;border:2px solid var(--ink);border-radius:0;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
     .suas-type-card input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0}
     .suas-type-card em{grid-column:1;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
-    .suas-type-card strong{grid-column:1;font-family:Tahoma,Futura,Arial,sans-serif;font-size:clamp(.78rem,2.6vw,.95rem);line-height:1;font-weight:900;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .suas-type-card strong{grid-column:1/-1;font-family:Tahoma,Futura,Arial,sans-serif;font-size:clamp(.72rem,2.4vw,.92rem);line-height:1;font-weight:900;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
     .suas-type-card small{grid-column:1/-1;display:block;margin:2px 0 0;font:700 11px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.68);text-transform:none;letter-spacing:0}
-    .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:start;padding-top:2px;font:900 1.05rem/1 Tahoma,Arial,sans-serif;letter-spacing:-.02em}
+    .suas-type-card b{grid-column:2;grid-row:1;align-self:start;padding-top:0;font:900 1.05rem/1 Tahoma,Arial,sans-serif;letter-spacing:-.02em;white-space:nowrap}
     .suas-type-card.is-on{border-color:var(--ink);background:#101010;color:#fff;box-shadow:3px 3px 0 var(--lime)}
     .suas-type-card.is-on strong,.suas-type-card.is-on b{color:var(--lime)}
     .suas-type-card.is-on small{color:rgba(255,255,255,.78)}
@@ -431,7 +431,7 @@
               {% if parfum_main_variant != blank %}<option value="{{ parfum_main_variant.id }}" data-experience="Lab Session: Eau De Parfum (30mL)" data-price="{{ parfum_main_variant.price | money }}" selected{% unless parfum_main_variant.available %} disabled{% endunless %}>Lab Session: Eau De Parfum (30mL)</option>{% endif %}
               {% if body_oil_main_variant != blank %}<option value="{{ body_oil_main_variant.id }}" data-experience="Lab Session: Body Oil (1 oz)" data-price="{{ body_oil_main_variant.price | money }}"{% unless body_oil_main_variant.available %} disabled{% endunless %}>Lab Session: Body Oil (1 oz)</option>{% endif %}
               {% if combo_main_variant != blank %}<option value="{{ combo_main_variant.id }}" data-experience="Lab Session Combo" data-price="{{ combo_main_variant.price | money }}"{% unless combo_main_variant.available %} disabled{% endunless %}>Lab Session Combo</option>{% endif %}
-              {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" disabled>Lab Session: Roll-On Perfume (10mL) � soon</option>{% endif %}
+              {% if roll_on_main_variant != blank %}<option value="{{ roll_on_main_variant.id }}" data-experience="Lab Session: Roll-On Perfume (10mL)" data-price="{{ roll_on_main_variant.price | money }}" disabled>Lab Session: Roll-On Perfume (10mL) - soon</option>{% endif %}
             </select>
             <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
@@ -446,7 +446,7 @@
               <div class="suas-time-chips" data-self-chips></div>
               <select class="suas-book-select suas-time-select suas-visually-hidden" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option></select>
             </div>
-            <p class="suas-book-note">pay now ? seat locked. we ping you the day before. show up ready to mix.</p>
+            <p class="suas-book-note">pay now -&gt; seat locked. we ping you the day before. show up ready to mix.</p>
             <div class="suas-book-task">
               <button class="suas-book-button" type="submit">pay to hold seat</button>
             </div>
