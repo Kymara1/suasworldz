@@ -245,17 +245,17 @@
             <label>time<input id="time" placeholder="2:00 PM"></label>
           </div>
           <div class="row">
-            <label>guests (max 16)<input id="guests" type="number" min="1" max="16" value="1"></label>
+            <label>guests (min 6 � max 16)<input id="guests" type="number" min="6" max="16" value="6"></label>
             <label>occasion<input id="occasion" placeholder="birthday / girls day"></label>
           </div>
           <div class="line">
             <label>package
               <select id="pack">
-                <option value="65">Self-Guided Party Pack — $65/person</option>
-                <option value="115" selected>Party Session — $115/guest</option>
-                <option value="145">Deluxe Party — $145/person</option>
-                <option value="165">Signature Collection — $165/person</option>
-                <option value="50">Charm Bar Party — $50/person · 1 hour · Lab closed</option>
+                <option value="70" data-min="6" selected>Self-Guided Party Pack - $70/guest � min 6</option>
+                <option value="115">Party Session - $115/guest</option>
+                <option value="145">Deluxe Party - $145/person</option>
+                <option value="165">Signature Collection - $165/person</option>
+                <option value="50">Charm Bar Party - $50/person � 1 hour � Lab closed</option>
               </select>
             </label>
             <label>rate<input id="rate" readonly></label>
@@ -265,7 +265,7 @@
           <label>charm bar add-on
             <select id="charmAddon">
               <option value="0">None</option>
-              <option value="45">Charm Bar add-on — $45/person</option>
+              <option value="45">Charm Bar add-on - $45/person</option>
             </select>
           </label>
           <div class="row">
@@ -274,11 +274,11 @@
           </div>
           <label>notes<textarea id="notes" placeholder="allergies, playlist, extra time, whatever they asked."></textarea></label>
           <div class="pay">
-            <div class="total is-now"><div><b>deposit due now</b><small>50% · holds the date</small></div><strong id="deposit">$0.00</strong></div>
+            <div class="total is-now"><div><b>deposit due now</b><small>50% � holds the date</small></div><strong id="deposit">$0.00</strong></div>
             <div class="total is-later"><div><b>remaining</b><small>due 48 hours before start</small></div><strong id="remain">$0.00</strong></div>
             <div class="total is-all"><b>booking total</b><strong id="total">$0.00</strong></div>
           </div>
-          <p class="note" id="durationNote">90 minutes. The Lab is closed to walk-ins for this slot. Cancellations within 72 hours of this invoice are refundable; after that, the deposit is non-refundable. SUAS · 188 W Franklin Blvd, Gastonia, NC 28052</p>
+          <p class="note" id="durationNote">90 minutes. The Lab is closed to walk-ins for this slot. Cancellations within 72 hours of this invoice are refundable; after that, the deposit is non-refundable. SUAS � 188 W Franklin Blvd, Gastonia, NC 28052</p>
         </div>
       </section>
     </div>
@@ -361,7 +361,7 @@
         var num = pickInvoice(val('invoiceNo')) || 'invoice';
         return 'SUAS-' + num.replace(/^SUAS-/i, '') + (ext || '.pdf');
       }
-      function dash(v){ return v ? String(v) : '—'; }
+      function dash(v){ return v ? String(v) : '-'; }
       function roundRect(ctx, x, y, w, h, r){
         ctx.beginPath();
         ctx.moveTo(x + r, y);
@@ -392,10 +392,10 @@
         canvas.height = H * dpr;
         var ctx = canvas.getContext('2d');
         ctx.scale(dpr, dpr);
-        var num = pickInvoice(val('invoiceNo')) || '—';
+        var num = pickInvoice(val('invoiceNo')) || '-';
         var pay = val('payMethod');
         var handle = val('payHandle');
-        var payLine = pay ? (pay + (handle ? '  ' + handle : '')) : '—';
+        var payLine = pay ? (pay + (handle ? '  ' + handle : '')) : '-';
         var sky = ctx.createLinearGradient(0, 0, 0, H);
         sky.addColorStop(0, '#6ec4e8');
         sky.addColorStop(1, '#9bd6ef');
@@ -471,8 +471,8 @@
         kv(54, 408, 'method', payLine, 360);
         kv(430, 408, 'memo', val('payMemo') || num, 230);
         panel(42, 456, 636, 352, 'the party', '#f4ecd4', '#1e6ad4');
-        kv(54, 492, 'when', [val('eventDate'), val('time')].filter(Boolean).join('  ·  '), 600);
-        kv(54, 528, 'guests / occasion', dash(val('guests') || '1') + ' guests' + (val('occasion') ? '  ·  ' + val('occasion') : ''), 600);
+        kv(54, 492, 'when', [val('eventDate'), val('time')].filter(Boolean).join('  �  '), 600);
+        kv(54, 528, 'guests / occasion', dash(val('guests') || '1') + ' guests' + (val('occasion') ? '  �  ' + val('occasion') : ''), 600);
         kv(54, 564, 'package', packLabel(), 600);
         kv(54, 600, 'food / cake', dash(val('food')) + '  /  ' + dash(val('cake')), 600);
         function tot(x, y, w, label, amount, fill){
@@ -496,7 +496,7 @@
         ctx.font = '900 11px Tahoma, Arial, sans-serif';
         ctx.fillText('SUAS.OS', 42, 848);
         ctx.textAlign = 'right';
-        ctx.fillText('188 W FRANKLIN BLVD · GASTONIA', 678, 848);
+        ctx.fillText('188 W FRANKLIN BLVD � GASTONIA', 678, 848);
         ctx.textAlign = 'left';
         return canvas;
       }
@@ -609,13 +609,13 @@
           '',
           'Thank you for booking a private Lab party with SUAS. Here is invoice ' + num + '.',
           '',
-          when + ' · ' + guestsN + ' guests' + (occ ? ' · ' + occ : ''),
+          when + ' � ' + guestsN + ' guests' + (occ ? ' � ' + occ : ''),
           packLabel(),
           durationLine() + ' Bringing: ' + foodCake + '.',
           '',
           'Booking total: ' + total.textContent,
-          'Deposit due now (50%, holds your date): ' + deposit.textContent + ' · due ' + longDate(val('due')),
-          'Remaining balance: ' + remain.textContent + ' · due 48 hours before the party (' + longDate(val('balanceDue')) + ')',
+          'Deposit due now (50%, holds your date): ' + deposit.textContent + ' � due ' + longDate(val('due')),
+          'Remaining balance: ' + remain.textContent + ' � due 48 hours before the party (' + longDate(val('balanceDue')) + ')',
           '',
           payBlock,
           '',
@@ -630,7 +630,7 @@
         ].join('\n');
         return {
           to: to,
-          subject: 'Your SUAS party invoice — ' + num,
+          subject: 'Your SUAS party invoice - ' + num,
           body: body,
           link: invoiceLink(),
           filename: invoiceFileName('.png')
@@ -663,11 +663,18 @@
           say(link, true);
         }
       }
+      function packMin(){
+        var opt = pack && pack.options[pack.selectedIndex];
+        var fromData = Number(opt && opt.getAttribute('data-min'));
+        return fromData > 0 ? fromData : 1;
+      }
       function calc(){
         var charmOnly = isCharmOnly();
         var max = 16;
-        var n = Math.max(1, Math.min(max, Number(guests.value) || 1));
+        var min = packMin();
+        var n = Math.max(min, Math.min(max, Number(guests.value) || min));
         guests.value = n;
+        guests.min = String(min);
         guests.max = String(max);
         var addonEl = document.getElementById('charmAddon');
         if (charmOnly && addonEl) addonEl.value = '0';
@@ -684,7 +691,7 @@
         remain.textContent = money(full - half);
         var durationNote = document.getElementById('durationNote');
         if (durationNote) {
-          durationNote.textContent = durationLine() + ' Cancellations within 72 hours of this invoice are refundable; after that, the deposit is non-refundable. SUAS · 188 W Franklin Blvd, Gastonia, NC 28052';
+          durationNote.textContent = durationLine() + ' Cancellations within 72 hours of this invoice are refundable; after that, the deposit is non-refundable. SUAS � 188 W Franklin Blvd, Gastonia, NC 28052';
         }
         var event = document.getElementById('eventDate').value;
         if (event) {
@@ -748,7 +755,7 @@
         });
       }
       document.getElementById('printBtn').addEventListener('click', function(){
-        say('Putting the invoice together as a pdf…', true);
+        say('Putting the invoice together as a pdf.', true);
         makePdfBlob().then(function(blob){
           downloadBlob(blob, invoiceFileName());
           say('PDF saved. That file is the whole invoice.', true);
@@ -761,8 +768,9 @@
       if (copyLinkBtn) copyLinkBtn.addEventListener('click', copyInvoiceLink);
       if (clearBtn) clearBtn.addEventListener('click', function(){
         ids.forEach(function(id){ var el = document.getElementById(id); if (el) el.value = ''; });
-        guests.value = 1;
-        pack.value = '115';
+        pack.value = '70';
+        guests.value = '6';
+        guests.min = '6';
         var addonEl = document.getElementById('charmAddon');
         if (addonEl) addonEl.value = '0';
         document.getElementById('food').value = 'No';

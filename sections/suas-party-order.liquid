@@ -124,7 +124,7 @@
     {%- capture party_invoice_no -%}SUAS-{{ 'now' | date: '%Y%m%d' }}-{{ 'now' | date: '%H%M' }}{%- endcapture -%}
     {% form 'contact', class: 'suas-party-form', id: 'suas-party-form' %}
       {% if form.posted_successfully? %}
-        <p class="suas-party-flash" role="status">Party request sent. Reference <b id="party-invoice-flash">{{ party_invoice_no }}</b>. Nothing is charged yet — we check the date, then send that invoice if it is open. The date is held when the 50% deposit is paid.</p>
+        <p class="suas-party-flash" role="status">Party request sent. Reference <b id="party-invoice-flash">{{ party_invoice_no }}</b>. Nothing is charged yet - we check the date, then send that invoice if it is open. The date is held when the 50% deposit is paid.</p>
       {% endif %}
       {% if form.errors %}
         <div class="suas-party-flash is-bad" role="alert">{{ form.errors | default_errors }}</div>
@@ -174,7 +174,7 @@
             </div>
             <div class="suas-party-field">
               <label for="party-guests">Guest Count:</label>
-              <input id="party-guests" type="number" name="contact[Guest count]" min="1" max="16" inputmode="numeric" required aria-describedby="party-guest-hint">
+              <input id="party-guests" type="number" name="contact[Guest count]" min="6" max="16" value="6" inputmode="numeric" required aria-describedby="party-guest-hint">
             </div>
             <div class="suas-party-field">
               <label for="party-occasion">Occasion:</label>
@@ -184,7 +184,7 @@
               <label for="party-ages">Guest Age Range (if relevant):</label>
               <input id="party-ages" type="text" name="contact[Age range]">
             </div>
-            <p class="suas-party-hint" id="party-guest-hint">Max 16.</p>
+            <p class="suas-party-hint" id="party-guest-hint">Self-guided min 6 � max 16.</p>
             <div class="suas-party-field is-stack">
               <label for="party-notes">Notes / Special Requests:</label>
               <textarea id="party-notes" name="contact[body]">Invoice {{ party_invoice_no }}</textarea>
@@ -198,38 +198,38 @@
             <fieldset class="suas-party-packs" aria-describedby="party-duration-note">
               <legend class="suas-party-legend">Package selection</legend>
               <label class="suas-party-pack">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Self-Guided Party Pack — $65/person" data-rate="65" required checked>
-                <span><b>Self-Guided Party Pack</b><small class="suas-party-desc">Mix your own 30mL perfume. No class. Lab closed 90 minutes.</small></span>
-                <em>$65 <small>per person</small></em>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Self-Guided Party Pack - $70/guest" data-rate="70" data-min="6" required checked>
+                <span><b>Self-Guided Party Pack</b><small class="suas-party-desc">Mix your own 30mL perfume. No class. Lab closed 90 minutes. 6 guest minimum.</small></span>
+                <em>$70 <small>per guest</small></em>
               </label>
               <label class="suas-party-pack is-soon" aria-disabled="true" title="Guided party sessions open soon">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Party Session — $115/guest" data-rate="115" disabled>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Party Session - $115/guest" data-rate="115" disabled>
                 <span><b>Party Session</b><small class="suas-party-desc">Guided 30mL custom perfume. Lab closed 90 minutes.</small><span class="suas-party-soon">coming soon</span></span>
                 <em>$115 <small>per guest</small></em>
               </label>
               <label class="suas-party-pack is-soon" aria-disabled="true" title="Guided deluxe parties open soon">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Deluxe Party — $145/person" data-rate="145" disabled>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Deluxe Party - $145/person" data-rate="145" disabled>
                 <span><b>Deluxe Party</b><small class="suas-party-desc">Guided perfume plus a 1oz body oil or 4oz butter creme. Lab closed 90 minutes.</small><span class="suas-party-soon">coming soon</span></span>
                 <em>$145 <small>per person</small></em>
               </label>
               <label class="suas-party-pack is-soon" aria-disabled="true" title="Guided signature parties open soon">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Signature Collection — $165/person" data-rate="165" disabled>
+                <input class="party-pack" type="radio" name="contact[Package]" value="Signature Collection - $165/person" data-rate="165" disabled>
                 <span><b>Signature Collection</b><small class="suas-party-desc">Guided perfume, 1oz body oil, and 4oz butter creme. Lab closed 90 minutes.</small><span class="suas-party-soon">coming soon</span></span>
                 <em>$165 <small>per person</small></em>
               </label>
               <label class="suas-party-pack">
-                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party — $50/person · 1 hour" data-rate="50" data-charm-only="true">
+                <input class="party-pack" type="radio" name="contact[Package]" value="Charm Bar Party - $50/person � 1 hour" data-rate="50" data-charm-only="true">
                 <span><b>Charm Bar Party</b><small class="suas-party-desc">Charm jewelry. Lab closed 1 hour. Same 16-guest max.</small></span>
                 <em>$50 <small>per person</small></em>
               </label>
             </fieldset>
             <label class="suas-party-pack" id="party-charm-addon-row">
-              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes — $45/person">
+              <input id="party-charm-addon" type="checkbox" name="contact[Charm Bar add-on]" value="Yes - $45/person">
               <span><b>Add Charm Bar</b><small class="suas-party-desc">Charm jewelry stacked on a Lab package. +$45 per person.</small></span>
               <em>$45 <small>add-on</small></em>
             </label>
             <input type="hidden" id="party-charm-addon-off" name="contact[Charm Bar add-on]" value="No">
-            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Self-guided Lab parties are 90 minutes. Charm Bar parties are 1 hour. Guided sessions are coming soon. The Lab is closed for your slot. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
+            <p class="suas-party-note" id="party-duration-note" aria-live="polite">Self-guided Lab parties are 90 minutes. Charm Bar parties are 1 hour. Guided sessions are coming soon. The Lab is closed for your slot. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.</p>
           </div>
         </section>
 
@@ -272,14 +272,14 @@
                 <span><b>Card</b><small>Shopify invoice after we confirm</small></span>
               </label>
             </fieldset>
-            <p class="suas-party-hint" id="party-deposit-hint" aria-live="polite">If approved — estimated 50% deposit: $0.00 · remaining 48 hours before: $0.00</p>
+            <p class="suas-party-hint" id="party-deposit-hint" aria-live="polite">If approved - estimated 50% deposit: $0.00 � remaining 48 hours before: $0.00</p>
           </div>
         </section>
       </div>
 
       <div class="suas-party-task">
         <button class="suas-party-start" type="submit">Send request</button>
-        <em>party.exe · no charge yet</em>
+        <em>party.exe � no charge yet</em>
         <label for="party-total" style="margin-left:auto;font:800 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.04em">Est.</label>
         <input id="party-total" type="text" name="contact[Estimated total]" value="$0.00" readonly aria-live="polite" style="width:7.5rem;min-height:44px;border:2px solid #101010;background:#fff;color:#101010;font:900 14px/1 Tahoma,Arial,sans-serif;padding:4px 8px">
         <input type="hidden" id="party-deposit" name="contact[Estimated deposit]" value="$0.00">
@@ -311,6 +311,11 @@
       function guestMax() {
         return 16;
       }
+      function guestMin() {
+        var pack = selectedPack();
+        var fromData = Number(pack && pack.getAttribute('data-min'));
+        return fromData > 0 ? fromData : 1;
+      }
       function rate() {
         var pack = selectedPack();
         if (!pack) return 0;
@@ -335,8 +340,11 @@
       function syncCharmAddon() {
         var charmOnly = isCharmOnly();
         var max = guestMax();
+        var min = guestMin();
         if (guests) {
+          guests.min = String(min);
           guests.max = String(max);
+          if (!guests.value || Number(guests.value) < min) guests.value = String(min);
           if (Number(guests.value) > max) guests.value = String(max);
         }
         if (charmAddonRow) charmAddonRow.style.display = charmOnly ? 'none' : '';
@@ -344,10 +352,14 @@
         if (charmAddonOff) charmAddonOff.disabled = !!(charmAddon && charmAddon.checked);
         if (durationNote) {
           durationNote.textContent = charmOnly
-            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. Guided sessions are coming soon. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
-            : 'Self-guided Lab parties are 90 minutes. The Lab is closed for your slot. Charm Bar add-on is $45 per person. Guided sessions are coming soon. This form is a request — we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
+            ? 'Charm Bar parties are 1 hour. The Lab is closed for that hour. Guided sessions are coming soon. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.'
+            : 'Self-guided Lab parties are 90 minutes. 6 guest minimum at $70/guest. The Lab is closed for your slot. Charm Bar add-on is $45 per person. Guided sessions are coming soon. This form is a request - we confirm the date is open, then send an invoice. A 50% deposit holds the date once you pay it. Balance due 48 hours before. Cancellations within 72 hours of the invoice are refundable; after that the deposit is non-refundable.';
         }
-        if (guestHint) guestHint.textContent = charmOnly ? 'Max 16. Charm Bar party books the Lab for 1 hour.' : 'Max 16.';
+        if (guestHint) {
+          guestHint.textContent = charmOnly
+            ? 'Max 16. Charm Bar party books the Lab for 1 hour.'
+            : ('Min ' + min + ' � max ' + max + '.');
+        }
       }
       function refreshTotal() {
         syncCharmAddon();
@@ -356,7 +368,7 @@
         if (total) total.value = money(full);
         if (deposit) deposit.value = money(half);
         if (remain) remain.value = money(full - half);
-        if (depositHint) depositHint.textContent = 'If approved — estimated 50% deposit: ' + money(half) + ' · remaining 48 hours before: ' + money(full - half);
+        if (depositHint) depositHint.textContent = 'If approved - estimated 50% deposit: ' + money(half) + ' � remaining 48 hours before: ' + money(full - half);
       }
       function makeInvoiceNo() {
         var d = new Date();
@@ -384,7 +396,7 @@
           if (sent) {
             var flashRoot = flash.parentNode;
             if (flashRoot) {
-              flashRoot.innerHTML = 'Party request sent. Reference <b id="party-invoice-flash">' + sent + '</b>. Nothing is charged yet — we check the date, then send that invoice if it is open. The date is held when the 50% deposit is paid.';
+              flashRoot.innerHTML = 'Party request sent. Reference <b id="party-invoice-flash">' + sent + '</b>. Nothing is charged yet - we check the date, then send that invoice if it is open. The date is held when the 50% deposit is paid.';
             }
           }
           sessionStorage.removeItem(pendingKey);
@@ -401,7 +413,7 @@
       function stampNotes() {
         var method = form.querySelector('input[name="contact[Deposit payment]"]:checked');
         if (!notes || !total) return;
-        var line = 'Estimated total: ' + total.value + ' · estimated deposit if approved: ' + (deposit ? deposit.value : '') + ' · remaining: ' + (remain ? remain.value : '') + (method ? ' · preferred deposit method: ' + method.value : '') + ' · REQUEST ONLY — do not charge until date confirmed';
+        var line = 'Estimated total: ' + total.value + ' � estimated deposit if approved: ' + (deposit ? deposit.value : '') + ' � remaining: ' + (remain ? remain.value : '') + (method ? ' � preferred deposit method: ' + method.value : '') + ' � REQUEST ONLY - do not charge until date confirmed';
         if (notes.value.indexOf('Estimated total:') === -1) {
           notes.value = notes.value.trim() + '\n' + line;
         }
