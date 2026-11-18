@@ -86,12 +86,12 @@
     <header class="suas-charm-hero">
       <span class="suas-charm-kicker">bookings / charm bar</span>
       <h1 class="suas-charm-title">build your little extra.</h1>
-      <p class="suas-charm-intro">Pick a piece, add extras, and hold a seat. Four seats per slot. Same days as the Lab: Thursday through Sunday, starting November 14.</p>
+      <p class="suas-charm-intro">Pick a piece, add extras, and hold a seat. Four seats per slot. Same days as the Lab: Thursday through Sunday.</p>
     </header>
     <article class="suas-charm-option">
       <div class="suas-charm-option-head">
         <div>
-          <span class="suas-charm-badge">charm bar · 4 seats</span>
+          <span class="suas-charm-badge">charm bar � 4 seats</span>
           <h2>Build your little extra</h2>
           <p class="suas-charm-desc" data-charm-description>Pick a piece, add extras, and hold a seat. Same days as self-guided Lab hours.</p>
         </div>
@@ -143,13 +143,13 @@
               {% endfor %}
             {% endif %}
           </div>
-          <p class="suas-charm-note" data-charm-status>Four seats per slot. Closed Monday through Wednesday. Opens November 14.</p>
+          <p class="suas-charm-note" data-charm-status>Four seats per slot. Closed Monday through Wednesday.</p>
           <button class="suas-charm-button" type="submit">add booking to cart</button>
         </form>
       {% else %}
         <p class="suas-charm-note">Charm Bar reservations are warming up. Text us or walk in during Lab hours.</p>
       {% endif %}
-      <div class="suas-charm-policy"><strong>Reservation note</strong>Bookings open Saturday, November 14. Closed Monday&ndash;Wednesday. Four seats per slot. Walk-ins welcome if a seat is free. Booking online holds seats for your party.</div>
+      <div class="suas-charm-policy"><strong>Reservation note</strong>Closed Monday&ndash;Wednesday. Four seats per slot. Walk-ins welcome if a seat is free. Booking online holds seats for your party.</div>
     </article>
   </div>
   <script>
@@ -194,7 +194,7 @@
           const empty = document.createElement('button');
           empty.type = 'button';
           empty.disabled = true;
-          empty.textContent = 'pick Thursday–Sunday';
+          empty.textContent = 'pick Thursday-Sunday';
           chips.appendChild(empty);
           return;
         }
@@ -217,7 +217,7 @@
           return;
         }
         if (date.value < OPENS) {
-          status.textContent = 'Charm Bar bookings open November 14.';
+          status.textContent = 'Pick a Charm Bar day from today on (Thu-Sun).';
           renderChips([], '');
           return;
         }
@@ -229,7 +229,7 @@
           renderChips([], '');
           return;
         }
-        status.textContent = 'Four seats per slot. Closed Monday through Wednesday. Opens November 14.';
+        status.textContent = 'Four seats per slot. Closed Monday through Wednesday.';
         slots.forEach((slot) => {
           const opt = document.createElement('option');
           opt.value = slot;
@@ -257,7 +257,7 @@
           return;
         }
         if (!date.value || date.value < OPENS) {
-          status.textContent = 'Charm Bar bookings open November 14.';
+          status.textContent = 'Pick a Charm Bar day from today on (Thu-Sun).';
           return;
         }
         if (!slots.length || slots.indexOf(time.value) === -1) {
