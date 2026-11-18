@@ -1,5 +1,7 @@
 {%- comment -%}
-Sitewide JSON-LD for Google (Organization + WebSite). Product review schema lives in product-schema.
+Sitewide JSON-LD: Organization + PerfumeStore (LocalBusiness) + WebSite.
+Product review schema lives in product-schema. Keep NAP ASCII-safe for Asset API.
+Hours match ops/config/hours.json store hours (Thu-Sat 12:30-7, Sun 12:30-5).
 {%- endcomment -%}
 {%- liquid
   assign org_url = shop.url
@@ -18,6 +20,35 @@ Sitewide JSON-LD for Google (Organization + WebSite). Product review schema live
       assign org_logo = org_logo | prepend: 'https:'
     endunless
   endif
+
+  assign same_as = ''
+  if settings.social--instagram--url != blank
+    assign same_as = same_as | append: settings.social--instagram--url | append: '|'
+  endif
+  if settings.social--tiktok--url != blank
+    assign same_as = same_as | append: settings.social--tiktok--url | append: '|'
+  endif
+  if settings.social--facebook--url != blank
+    assign same_as = same_as | append: settings.social--facebook--url | append: '|'
+  endif
+  if settings.social--youtube--url != blank
+    assign same_as = same_as | append: settings.social--youtube--url | append: '|'
+  endif
+  if settings.social--pinterest--url != blank
+    assign same_as = same_as | append: settings.social--pinterest--url | append: '|'
+  endif
+  assign same_as_list = same_as | split: '|'
+
+  assign store_phone = '+17044601691'
+  assign street = '188 W Franklin Blvd'
+  assign locality = 'Gastonia'
+  assign region = 'NC'
+  assign postal = '28052'
+  assign country = 'US'
+  assign geo_lat = '35.2620'
+  assign geo_lng = '-81.1830'
+  assign maps_url = 'https://www.google.com/maps/search/?api=1&query=188%20W%20Franklin%20Blvd%2C%20Gastonia%20NC%2028052'
+  assign org_desc = 'SUAS (Shut Up and Smell) is a handmade perfume shop and fragrance lab in Gastonia, NC. Shop scent, book DIY perfume making at The Lab, or grab a Charm Bar seat.'
 -%}
 <script type="application/ld+json">
 {
@@ -27,19 +58,161 @@ Sitewide JSON-LD for Google (Organization + WebSite). Product review schema live
       "@type": "Organization",
       "@id": {{ org_url | append: '#organization' | json }},
       "name": {{ shop.name | json }},
-      "url": {{ org_url | json }}{% if org_logo != blank %},
+      "alternateName": ["SUAS", "Shut Up and Smell", "Shut Up & Smell"],
+      "url": {{ org_url | json }},
+      "description": {{ org_desc | json }},
+      "telephone": {{ store_phone | json }},
+      "email": "hello@suasco.us",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ street | json }},
+        "addressLocality": {{ locality | json }},
+        "addressRegion": {{ region | json }},
+        "postalCode": {{ postal | json }},
+        "addressCountry": {{ country | json }}
+      }{% if org_logo != blank %},
       "logo": {
         "@type": "ImageObject",
         "url": {{ org_logo | json }}
-      }{% endif %}
+      }{% endif %}{% if same_as_list.size > 0 %},
+      "sameAs": [
+        {%- assign same_first = true -%}
+        {%- for url in same_as_list -%}
+          {%- if url != blank -%}
+            {%- unless same_first -%},{%- endunless -%}
+            {{ url | json }}
+            {%- assign same_first = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]{% endif %}
+    },
+    {
+      "@type": ["PerfumeStore", "Store", "LocalBusiness"],
+      "@id": {{ org_url | append: '#localbusiness' | json }},
+      "name": {{ shop.name | json }},
+      "alternateName": ["SUAS", "Shut Up and Smell", "The Lab at SUAS"],
+      "url": {{ org_url | json }},
+      "description": {{ org_desc | json }},
+      "image": {% if org_logo != blank %}{{ org_logo | json }}{% else %}{{ org_url | append: '/cdn/shop/files/F25BC9C4-5678-4ACB-8EA4-A728E0AD0BEA.png' | json }}{% endif %},
+      "telephone": {{ store_phone | json }},
+      "priceRange": "$$",
+      "currenciesAccepted": "USD",
+      "paymentAccepted": "Cash, Credit Card, Debit Card",
+      "parentOrganization": { "@id": {{ org_url | append: '#organization' | json }} },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": {{ street | json }},
+        "addressLocality": {{ locality | json }},
+        "addressRegion": {{ region | json }},
+        "postalCode": {{ postal | json }},
+        "addressCountry": {{ country | json }}
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": {{ geo_lat | json }},
+        "longitude": {{ geo_lng | json }}
+      },
+      "hasMap": {{ maps_url | json }},
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Gastonia",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "North Carolina"
+          }
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Charlotte metro"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Gaston County"
+        }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Thursday", "Friday", "Saturday"],
+          "opens": "12:30",
+          "closes": "19:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "12:30",
+          "closes": "17:00"
+        }
+      ],
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "The Lab - DIY perfume making",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Charm Bar",
+          "value": true
+        }
+      ],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "name": "Self-guided Lab perfume making",
+          "url": {{ org_url | append: '/pages/bookings' | json }},
+          "description": "Book a seat at The Lab in Gastonia to mix custom perfume, body oil, or a combo. Open Thursday through Sunday.",
+          "areaServed": {
+            "@type": "City",
+            "name": "Gastonia"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Charm Bar",
+          "url": {{ org_url | append: '/pages/bookings#charm-bar' | json }},
+          "description": "Build a bracelet, necklace, or keychain at the Charm Bar. Four seats per slot, same days as The Lab."
+        }
+      ]{% if same_as_list.size > 0 %},
+      "sameAs": [
+        {%- assign same_first = true -%}
+        {%- for url in same_as_list -%}
+          {%- if url != blank -%}
+            {%- unless same_first -%},{%- endunless -%}
+            {{ url | json }}
+            {%- assign same_first = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]{% endif %}
     },
     {
       "@type": "WebSite",
       "@id": {{ org_url | append: '#website' | json }},
       "url": {{ org_url | json }},
       "name": {{ shop.name | json }},
-      "publisher": { "@id": {{ org_url | append: '#organization' | json }} }
+      "publisher": { "@id": {{ org_url | append: '#organization' | json }} },
+      "about": { "@id": {{ org_url | append: '#localbusiness' | json }} }
     }
   ]
 }
 </script>
+{%- comment -%} Page hints for local intent pages (non-spammy WebPage nodes). {%- endcomment -%}
+{%- if request.page_type == 'page' -%}
+  {%- assign page_handle = page.handle | default: '' -%}
+  {%- if page_handle == 'bookings' or page_handle == 'visit-us' or page_handle == 'the-lab' or page_handle == 'parties-events' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": {{ canonical_url | append: '#webpage' | json }},
+  "url": {{ canonical_url | json }},
+  "name": {{ page_title | json }},
+  "description": {{ page_description | default: org_desc | json }},
+  "isPartOf": { "@id": {{ org_url | append: '#website' | json }} },
+  "about": { "@id": {{ org_url | append: '#localbusiness' | json }} },
+  "mainEntity": { "@id": {{ org_url | append: '#localbusiness' | json }} }
+}
+</script>
+  {%- endif -%}
+{%- endif -%}
