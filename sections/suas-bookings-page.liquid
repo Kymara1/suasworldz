@@ -63,6 +63,23 @@
     .suas-book-price-card span{display:block;margin-bottom:2px;font:900 8px/1 Tahoma,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#101010}
     .suas-book-price{display:block;font-family:Tahoma,Futura,Arial,sans-serif;font-size:clamp(1.45rem,2.4vw,1.95rem);font-weight:900;line-height:.9;letter-spacing:-.02em}
     .suas-book-badge{display:inline-flex;width:fit-content;border:2px solid var(--ink);padding:6px 10px 5px;background:#fff}
+    .suas-book-self-facts{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(7.5rem,.7fr) minmax(0,1fr);gap:8px;margin:0 12px 10px}
+    .suas-book-fact{margin:0;border:2.5px solid var(--ink);padding:10px 12px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+    .suas-book-fact strong{display:block;margin:0 0 4px;font:900 10px/1.1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+    .suas-book-fact p{margin:0;font:800 12px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.78)}
+    .suas-book-fact.is-alert{background:#101010;color:var(--lime);box-shadow:3px 3px 0 var(--hot)}
+    .suas-book-fact.is-alert strong{color:var(--lime)}
+    .suas-book-fact.is-alert p{color:rgba(217,255,120,.92)}
+    .suas-book-fact.is-soonish{background:var(--sun)}
+    .suas-diff{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px}
+    .suas-diff-bars{display:inline-flex;gap:3px;align-items:flex-end}
+    .suas-diff-bars i{display:block;width:11px;border:2px solid var(--ink);background:#fff;box-sizing:border-box}
+    .suas-diff-bars i:nth-child(1){height:10px}
+    .suas-diff-bars i:nth-child(2){height:14px}
+    .suas-diff-bars i:nth-child(3){height:18px}
+    .suas-diff-bars i:nth-child(4){height:22px}
+    .suas-diff-bars i.is-on{background:var(--lime)}
+    .suas-diff b{font:900 13px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
     .suas-seat-meter{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:4px;min-width:0;padding:6px 10px;border:2px solid var(--ink);background:var(--lime);box-shadow:3px 3px 0 var(--ink);text-align:left}
     .suas-seat-meter strong{display:block;width:100%;font-family:Tahoma,Futura,Arial,sans-serif;font-size:1.05rem;font-weight:900;line-height:.95;text-align:left}
     .suas-seat-meter span{display:block;width:100%;font:900 9px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;opacity:.7;text-align:left}
@@ -205,6 +222,9 @@
       .suas-book-option.is-open .suas-book-task .suas-book-button{box-shadow:0 3px 0 #101010}
       .suas-book-grid{padding:0 8px 8px;gap:8px}
       .suas-book-badge{padding:4px 8px 3px;font-size:9px}
+      .suas-book-self-facts{grid-template-columns:1fr;margin:0 10px 8px;gap:6px}
+      .suas-book-fact{padding:8px 10px}
+      .suas-book-fact p{font-size:11px;line-height:1.3}
       .suas-book-form{padding:6px 10px 14px}
     }
     @media(max-width:700px){
@@ -224,6 +244,7 @@
       .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important}
       .suas-book-policy{padding:8px 10px}
       .suas-book-note{padding:8px 10px;font-size:11px}
+      .suas-book-self-facts{margin:0 8px 8px}
     }
   </style>
 
@@ -373,13 +394,30 @@
         <div class="suas-book-bar" style="background:#1e6ad4"><b>S 3. Self-guided details</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-option-head">
           <div>
-            <span class="suas-book-badge">self-guided</span>
+            <span class="suas-book-badge">self-guided only</span>
             <h2>Self-Guided Lab Experiment</h2>
-            <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace - no instructor. Seat holds when you pay.</p>
+            <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace. Seat holds when you pay.</p>
           </div>
           <div class="suas-book-side">
             <div class="suas-seat-meter" data-self-seat-meter><strong data-self-seat-text>16 of 16 seats left</strong><span data-self-seat-hint>pick date + hour</span></div>
             <div class="suas-book-price-card"><span>price</span><strong class="suas-book-price" data-self-price aria-live="polite">{% if parfum_main_variant != blank %}{{ parfum_main_variant.price | money }}{% else %}pick one{% endif %}</strong></div>
+          </div>
+        </div>
+        <div class="suas-book-self-facts" aria-label="How self-guided works">
+          <div class="suas-book-fact is-alert">
+            <strong>self-guided only</strong>
+            <p>No assigned instructor. You run the station yourself and use the lab books the whole time.</p>
+          </div>
+          <div class="suas-book-fact">
+            <strong>difficulty</strong>
+            <div class="suas-diff" role="img" aria-label="Difficulty: easy">
+              <span class="suas-diff-bars" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></span>
+              <b>easy</b>
+            </div>
+          </div>
+          <div class="suas-book-fact is-soonish">
+            <strong>instructor?</strong>
+            <p>Guided sessions are coming soon.</p>
           </div>
         </div>
 
