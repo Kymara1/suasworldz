@@ -59,13 +59,13 @@
     .suas-book-option h2{margin:4px 0 0;font-size:clamp(1.35rem,2.2vw,2rem);line-height:.88;width:fit-content;max-width:100%}
     .suas-book-desc{margin:4px 0 0;font-size:13px;line-height:1.3;font-weight:800;color:rgba(16,16,16,.68)}
     .suas-book-price-card,.suas-seat-meter{width:100%;max-width:100%}
-    .suas-book-price-card{border:2px solid var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);padding:8px 12px;text-align:center}
-    .suas-book-price-card span{display:block;margin-bottom:4px;font:900 8px/1 Tahoma,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#101010}
-    .suas-book-price{display:block;font-size:clamp(1.3rem,2vw,1.8rem);line-height:.9}
+    .suas-book-price-card{border:2px solid var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);padding:6px 10px;text-align:center;display:grid;align-content:center;justify-items:center}
+    .suas-book-price-card span{display:block;margin-bottom:2px;font:900 8px/1 Tahoma,Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#101010}
+    .suas-book-price{display:block;font-family:Tahoma,Futura,Arial,sans-serif;font-size:clamp(1.45rem,2.4vw,1.95rem);font-weight:900;line-height:.9;letter-spacing:-.02em}
     .suas-book-badge{display:inline-flex;width:fit-content;border:2px solid var(--ink);padding:6px 10px 5px;background:#fff}
-    .suas-seat-meter{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:8px 10px;border:2px solid var(--ink);background:var(--lime);box-shadow:3px 3px 0 var(--ink)}
-    .suas-seat-meter strong{font-size:1.15rem;line-height:.9}
-    .suas-seat-meter span{font:900 9px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.65;text-align:right}
+    .suas-seat-meter{display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:0;padding:6px 10px;border:2px solid var(--ink);background:var(--lime);box-shadow:3px 3px 0 var(--ink)}
+    .suas-seat-meter strong{font-family:Tahoma,Futura,Arial,sans-serif;font-size:1.05rem;font-weight:900;line-height:.95}
+    .suas-seat-meter span{font:900 9px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:.7;text-align:left}
     .suas-seat-meter.is-full{background:var(--pink)}
     .suas-seat-meter.is-low{background:var(--sun)}
     .suas-book-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:8px 14px 18px}
@@ -83,8 +83,8 @@
     .suas-book-addon span{font-size:12px;font-weight:900;white-space:nowrap}
     .suas-book-addon:has(input:checked){background:var(--sun);box-shadow:0 3px 0 var(--ink)}
     .suas-book-addon:has(input:disabled){opacity:.48;cursor:not-allowed}
-    .suas-book-button{min-height:50px;border:2px solid var(--ink);border-radius:999px;padding:0 18px;color:#fff;background:linear-gradient(180deg,#ff7ec8,#ff5ab4 55%,#e83d9a);cursor:pointer;text-align:center;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;font-weight:400;letter-spacing:.02em;text-transform:lowercase;box-shadow:0 0 16px rgba(255,90,180,.35),0 3px 0 var(--ink)}
-    .suas-book-button:hover{filter:brightness(.97);transform:translateY(1px);box-shadow:0 0 14px rgba(255,90,180,.3),0 2px 0 var(--ink)}
+    .suas-book-button{display:grid;place-items:center;min-height:50px;width:100%;border:2px solid var(--ink);border-radius:999px;padding:0 18px;color:#fff;background:linear-gradient(180deg,#ff7ec8,#ff5ab4 55%,#e83d9a);cursor:pointer;text-align:center;font-family:Tahoma,Futura,Arial,sans-serif;font-size:1.05rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 3px 0 var(--ink)}
+    .suas-book-button:hover{filter:brightness(.97);transform:translateY(1px);box-shadow:0 2px 0 var(--ink)}
     .suas-book-button[disabled]{cursor:not-allowed;opacity:.58;background:#fff;color:var(--ink);box-shadow:0 2px 0 var(--ink)}
     .suas-book-task{display:grid;gap:0;margin:0 12px 12px;padding:0;background:transparent;color:#101010}
     .suas-book-task em,.suas-book-task b{display:none}
@@ -99,13 +99,15 @@
     .suas-book-contact a{display:grid;place-items:center;min-height:40px;border:2px solid var(--ink);background:var(--sun);color:var(--ink);text-decoration:none;font:900 12px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
     .suas-type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
     .suas-type-grid.is-charm{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .suas-type-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;min-height:0;align-content:start;padding:12px;border:2px solid var(--ink);border-radius:16px;background:linear-gradient(180deg,#fff,#fffaf5);cursor:pointer;box-shadow:2px 2px 0 rgba(16,16,16,.14)}
+    .suas-type-card{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 10px;min-height:0;align-content:start;padding:12px;border:2px solid var(--ink);border-radius:0;background:#fff;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
     .suas-type-card input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;opacity:0}
     .suas-type-card em{grid-column:1;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;font-style:normal;opacity:.5}
-    .suas-type-card strong{grid-column:1;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:1.15rem;line-height:.88;font-weight:400;text-transform:lowercase}
+    .suas-type-card strong{grid-column:1;font-family:Tahoma,Futura,Arial,sans-serif;font-size:1.05rem;line-height:.95;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
     .suas-type-card small{grid-column:1/-1;display:block;margin:2px 0 0;font:700 11px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.68);text-transform:none;letter-spacing:0}
-    .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:start;padding-top:2px;font:900 13px/1 Tahoma,Arial,sans-serif}
-    .suas-type-card.is-on{border-color:var(--ink);background:linear-gradient(180deg,#fff1a8,#ffe8ef);box-shadow:0 0 14px rgba(255,90,180,.22),0 3px 0 var(--ink)}
+    .suas-type-card b{grid-column:2;grid-row:1/span 2;align-self:start;padding-top:2px;font:900 1.05rem/1 Tahoma,Arial,sans-serif;letter-spacing:-.02em}
+    .suas-type-card.is-on{border-color:var(--ink);background:#101010;color:#fff;box-shadow:3px 3px 0 var(--lime)}
+    .suas-type-card.is-on strong,.suas-type-card.is-on b{color:var(--lime)}
+    .suas-type-card.is-on small{color:rgba(255,255,255,.78)}
     .suas-type-card.is-on em{opacity:1}
     .suas-type-card.is-soon{opacity:.48;filter:grayscale(.7);cursor:not-allowed;background:#d8d4cc;pointer-events:none;box-shadow:none}
     .suas-type-card.is-soon.is-on{background:#9a9590;color:#fff}
@@ -153,20 +155,22 @@
       .suas-book-rules-body{padding:10px;gap:6px}
       .suas-book-rules-list{grid-template-columns:1fr 1fr;gap:6px}
       .suas-book-rules-list li{padding:8px 9px;font-size:12px;line-height:1.3}
-      .suas-book-option-head{grid-template-columns:minmax(0,1fr) minmax(7.5rem,34%);gap:8px 10px;padding:10px}
-      .suas-book-side{min-width:0;width:100%}
-      .suas-seat-meter{padding:7px 8px}
+      .suas-book-option-head{grid-template-columns:minmax(0,1fr) minmax(7.5rem,34%);gap:8px 10px;padding:10px;align-items:stretch}
+      .suas-book-side{min-width:0;width:100%;align-self:stretch;align-content:stretch}
+      .suas-seat-meter,.suas-book-price-card{min-height:100%;padding:8px}
       .suas-seat-meter strong{font-size:1rem}
-      .suas-book-price-card{padding:6px 8px}
-      .suas-book-price{font-size:1.2rem}
-      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:minmax(0,1fr)!important;gap:8px}
-      .suas-type-card{padding:12px;gap:4px 8px;min-height:0;overflow:visible}
-      .suas-type-card strong{font-size:1.1rem;overflow-wrap:anywhere}
-      .suas-type-card small{margin-top:4px;font-size:12px;line-height:1.35;display:block;overflow:visible;-webkit-line-clamp:unset;overflow-wrap:anywhere}
-      .suas-type-card b{font-size:12px}
-      .suas-book-form{grid-template-columns:minmax(0,1fr)!important;gap:10px;padding:4px 10px 14px}
-      .suas-book-field{gap:6px;padding:10px 12px;min-width:0;align-content:start}
-      .suas-book-input,.suas-book-select{width:100%!important;max-width:100%!important;min-width:0!important;min-height:48px!important;padding:12px 14px!important;font-size:16px!important}
+      .suas-book-price{font-size:1.45rem;font-weight:900}
+      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}
+      .suas-type-card{padding:10px;gap:3px 6px;min-height:0;overflow:hidden}
+      .suas-type-card strong{font-size:.95rem;font-weight:900;overflow-wrap:anywhere}
+      .suas-type-card small{margin-top:2px;font-size:10px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+      .suas-type-card b{font-size:1rem;font-weight:900}
+      .suas-book-form{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px;padding:4px 10px 12px}
+      .suas-book-form>.suas-book-field[data-pair]{grid-column:auto}
+      .suas-book-form>:not(.suas-book-field[data-pair]){grid-column:1/-1}
+      .suas-book-field{gap:4px;padding:8px;min-width:0;align-content:start}
+      .suas-book-input,.suas-book-select{width:100%!important;max-width:100%!important;min-width:0!important;min-height:44px!important;padding:10px 12px!important;font-size:16px!important}
+      .suas-book-button{min-height:48px;font-size:1rem;font-weight:900;letter-spacing:.08em}
       .suas-book-addons{grid-template-columns:minmax(0,1fr);gap:8px}
       .suas-book-addon{min-height:48px;padding:10px 12px;gap:8px}
       .suas-book-addon strong{font-size:11px;line-height:1.2}
@@ -205,18 +209,21 @@
     }
     @media(max-width:700px){
       .suas-book-title{font-size:clamp(1.7rem,9vw,2.4rem)}
-      .suas-book-option-head{grid-template-columns:minmax(0,1fr);padding:10px}
-      .suas-book-side{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+      .suas-book-option-head{grid-template-columns:minmax(0,1fr);padding:8px;gap:8px}
+      .suas-book-side{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:stretch}
+      .suas-seat-meter,.suas-book-price-card{min-height:72px}
+      .suas-book-price{font-size:1.55rem}
       .suas-book-option h2{font-size:clamp(1.05rem,5.5vw,1.35rem)}
       .suas-book-desc{font-size:12px;line-height:1.3}
-      .suas-book-form{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}
+      .suas-book-form{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}
       .suas-book-form>.suas-book-field[data-pair]{grid-column:auto}
       .suas-book-form>:not(.suas-book-field[data-pair]){grid-column:1/-1}
-      .suas-book-field{padding:10px 12px}
-      .suas-book-input,.suas-book-select{min-height:48px!important;padding:12px 14px!important;font-size:16px!important;min-width:0!important;max-width:100%!important}
+      .suas-book-field{padding:8px;gap:4px}
+      .suas-book-input,.suas-book-select{min-height:44px!important;padding:10px 12px!important;font-size:16px!important;min-width:0!important;max-width:100%!important}
       .suas-plus-choice{grid-template-columns:1fr 1fr}
-      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:minmax(0,1fr)!important}
+      .suas-type-grid,.suas-type-grid.is-charm{grid-template-columns:repeat(2,minmax(0,1fr))!important}
       .suas-book-policy{padding:8px 10px}
+      .suas-book-note{padding:8px 10px;font-size:11px}
     }
   </style>
 

@@ -74,19 +74,41 @@
     border-color: #101010 !important;
     background: #101010 !important;
     color: #fff !important;
-    box-shadow: 0 5px 0 #ff9fc2 !important;
+    box-shadow: 3px 3px 0 #d9ff78 !important;
     transform: none;
   }
 
-  html body .suas-bookings-page .suas-type-card.is-on b {
+  html body .suas-bookings-page .suas-type-card.is-on b,
+  html body .suas-bookings-page .suas-type-card.is-on strong {
     color: #d9ff78 !important;
   }
 
   html body .suas-bookings-page .suas-type-card.is-on em,
-  html body .suas-bookings-page .suas-type-card.is-on strong,
   html body .suas-bookings-page .suas-type-card.is-on small {
-    color: #fff !important;
+    color: rgba(255,255,255,.78) !important;
     opacity: 1 !important;
+  }
+
+  html body .suas-bookings-page .suas-type-card strong {
+    font-family: Tahoma, Futura, Arial, sans-serif !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+  }
+
+  html body .suas-bookings-page .suas-type-card b,
+  html body .suas-bookings-page .suas-book-price {
+    font-family: Tahoma, Futura, Arial, sans-serif !important;
+    font-weight: 900 !important;
+  }
+
+  html body .suas-bookings-page .suas-book-button {
+    display: grid !important;
+    place-items: center !important;
+    text-align: center !important;
+    font-family: Tahoma, Futura, Arial, sans-serif !important;
+    font-weight: 900 !important;
+    letter-spacing: .08em !important;
+    text-transform: uppercase !important;
   }
 
   html body .suas-bookings-page .suas-type-card.is-soon {
@@ -172,16 +194,24 @@
       font-size: 9px !important;
     }
 
-    /* Phone/tablet: stack booking fields. Do NOT force 2-col form (clips date/guests). */
+    /* Mobile: compact form + 2 session cards per row */
     html body .suas-bookings-page .suas-book-form {
-      grid-template-columns: minmax(0, 1fr) !important;
-      gap: 10px !important;
-      padding: 4px 10px 14px !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 8px !important;
+      padding: 4px 10px 12px !important;
+    }
+
+    html body .suas-bookings-page .suas-book-form > .suas-book-field[data-pair] {
+      grid-column: auto !important;
+    }
+
+    html body .suas-bookings-page .suas-book-form > :not(.suas-book-field[data-pair]) {
+      grid-column: 1 / -1 !important;
     }
 
     html body .suas-bookings-page .suas-type-grid,
     html body .suas-bookings-page #charm-bar .suas-type-grid {
-      grid-template-columns: minmax(0, 1fr) !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
       gap: 8px !important;
     }
 
@@ -196,8 +226,8 @@
     }
 
     html body .suas-bookings-page .suas-book-field {
-      gap: 6px !important;
-      padding: 10px 12px !important;
+      gap: 4px !important;
+      padding: 8px !important;
       align-content: start !important;
       border-radius: 0 !important;
       border: 2.5px solid #101010 !important;
@@ -207,6 +237,7 @@
 
     html body .suas-bookings-page .suas-book-label {
       color: #d9ff78 !important;
+      font-size: 10px !important;
     }
 
     html body .suas-bookings-page .suas-book-input,
@@ -214,8 +245,8 @@
       width: 100% !important;
       max-width: 100% !important;
       min-width: 0 !important;
-      min-height: 48px !important;
-      padding: 12px 14px !important;
+      min-height: 44px !important;
+      padding: 10px 12px !important;
       font-size: 16px !important;
       line-height: 1.25 !important;
       border-radius: 0 !important;
@@ -256,34 +287,59 @@
     html body .suas-bookings-page .suas-book-button {
       min-height: 48px !important;
       width: 100% !important;
+      display: grid !important;
+      place-items: center !important;
+      font-weight: 900 !important;
+      text-align: center !important;
     }
 
     html body .suas-bookings-page .suas-type-card {
       min-height: 0 !important;
-      padding: 12px !important;
+      padding: 10px !important;
       grid-template-columns: minmax(0, 1fr) auto !important;
       align-content: start !important;
-      overflow: visible !important;
+      overflow: hidden !important;
+      border-radius: 0 !important;
     }
 
     html body .suas-bookings-page .suas-type-card strong {
-      font-size: 1.15rem !important;
-      line-height: .9 !important;
+      font-size: .95rem !important;
+      line-height: .95 !important;
+      font-weight: 900 !important;
       overflow-wrap: anywhere !important;
     }
 
     html body .suas-bookings-page .suas-type-card small {
-      display: block !important;
-      -webkit-line-clamp: unset !important;
-      overflow: visible !important;
-      font-size: 12px !important;
-      line-height: 1.35 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 3 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      font-size: 10px !important;
+      line-height: 1.25 !important;
       overflow-wrap: anywhere !important;
     }
 
     html body .suas-bookings-page .suas-type-card b {
-      font-size: 13px !important;
+      font-size: 1rem !important;
+      font-weight: 900 !important;
       white-space: nowrap !important;
+    }
+
+    html body .suas-bookings-page .suas-book-price {
+      font-size: 1.5rem !important;
+      font-weight: 900 !important;
+    }
+
+    html body .suas-bookings-page .suas-book-price-card {
+      padding: 8px !important;
+    }
+
+    html body .suas-bookings-page .suas-seat-meter {
+      padding: 8px !important;
+    }
+
+    html body .suas-bookings-page .suas-seat-meter span {
+      text-align: left !important;
     }
 
     html body .suas-bookings-page .suas-time-chips {
@@ -356,6 +412,7 @@
       display: grid !important;
       grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
       gap: 8px !important;
+      align-items: stretch !important;
     }
 
     html body .suas-bookings-page .suas-book-copy {
@@ -366,20 +423,8 @@
       line-height: 1.35 !important;
     }
 
-    html body .suas-bookings-page .suas-book-form {
-      grid-template-columns: minmax(0, 1fr) !important;
-    }
-
-    html body .suas-bookings-page .suas-book-form > .suas-book-field[data-pair] {
-      grid-column: auto !important;
-    }
-
-    html body .suas-bookings-page .suas-book-form:has(> .suas-book-field[data-pair]) {
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-
-    html body .suas-bookings-page .suas-book-form:has(> .suas-book-field[data-pair]) > :not(.suas-book-field[data-pair]) {
-      grid-column: 1 / -1 !important;
+    html body .suas-bookings-page .suas-book-price {
+      font-size: 1.55rem !important;
     }
   }
 </style>
