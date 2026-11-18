@@ -623,7 +623,8 @@
     setError('');
 
     // Always jump to the next empty tube so picking feels like a pour sequence.
-    if (!state.picks.every(Boolean)) {
+    // Do not use Array#every on sparse picks - empty holes are skipped and look "complete".
+    if (!kitComplete()) {
       var advanced = false;
       for (var i = 1; i < kit.slots.length; i++) {
         var idx = slotIndex + i;
