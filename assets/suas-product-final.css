@@ -263,6 +263,17 @@ html body.template--product .product-page--social:empty {
   padding: 0 !important;
 }
 
+/* Bundler FBT / "Get a discount!" - hide on Shocking Ice */
+html body.template--product[data-suas-handle='shocking-ice-eau-de-parfum'] .bundler-target-element,
+html body.template--product[data-suas-handle='shocking-ice-eau-de-parfum'] .bndlr-container,
+html body.template--product[data-suas-handle='shocking-ice-eau-de-parfum'] .bndlr-automatic {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
 html body.template--product .apps--root,
 html body.template--product .apps--root[data-spacing-above='true'],
 html body.template--product .apps--root[data-spacing-below='true'] {
