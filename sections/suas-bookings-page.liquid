@@ -13,7 +13,7 @@
     .suas-book-fold.suas-book-rules>summary{background:#101010}
     .suas-book-fold>summary::-webkit-details-marker{display:none}
     .suas-book-fold>summary::after{content:'+';font-size:16px;line-height:1}
-    .suas-book-fold[open]>summary::after{content:'–'}
+    .suas-book-fold[open]>summary::after{content:'-'}
     .suas-book-fold .suas-book-bar{display:none}
     .suas-book-fold-body{display:grid}
     .suas-book-kicker,.suas-book-label,.suas-book-button,.suas-book-badge,.suas-book-tab{font-family:Tahoma,Futura,Arial,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:900}
@@ -69,12 +69,16 @@
     .suas-seat-meter.is-full{background:var(--pink)}
     .suas-seat-meter.is-low{background:var(--sun)}
     .suas-book-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:8px 14px 18px}
-    .suas-book-field{display:grid;gap:8px;padding:12px 14px;border:2px solid var(--ink);border-radius:16px;background:linear-gradient(180deg,#fff 0%,#fff7fb 100%);box-shadow:2px 2px 0 rgba(16,16,16,.18)}
+    .suas-book-field{display:grid;gap:8px;padding:10px 12px 12px;border:2.5px solid var(--ink);border-radius:0;background:#fff;box-shadow:4px 4px 0 var(--ink)}
+    .suas-book-field:nth-child(4n+1){background:#ffe8ef}
+    .suas-book-field:nth-child(4n+2){background:#d9ff78}
+    .suas-book-field:nth-child(4n+3){background:#cdeeff}
+    .suas-book-field:nth-child(4n+4){background:#fff1a8}
     .suas-book-field[data-wide],.suas-book-button,.suas-book-note,.suas-book-addons,.suas-book-contact,.suas-type-grid,.suas-plus-choice,.suas-time-chips,.suas-book-task{grid-column:1/-1}
-    .suas-book-field[data-wide]{background:linear-gradient(180deg,#fff 0%,#f3ffe0 100%)}
-    .suas-book-label{color:rgba(16,16,16,.72);font:900 11px/1.15 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-    .suas-book-input,.suas-book-select,.suas-bookings-page select.suas-book-select,.suas-bookings-page select.suas-time-select{position:static!important;width:100%!important;height:auto!important;min-height:48px!important;opacity:1!important;pointer-events:auto!important;appearance:auto!important;border:2px solid var(--ink);border-radius:999px;padding:12px 16px;background:#fff;color:var(--ink);font:800 16px/1.25 Tahoma,Arial,sans-serif;outline:none;box-shadow:inset 0 1px 0 #fff}
-    .suas-book-input:focus,.suas-book-select:focus{outline:3px solid var(--ink);outline-offset:2px;background:#fffaf0}
+    .suas-book-field[data-wide]{background:#f4ecd4}
+    .suas-book-label{color:var(--ink);font:900 11px/1.15 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+    .suas-book-input,.suas-book-select,.suas-bookings-page select.suas-book-select,.suas-bookings-page select.suas-time-select{position:static!important;width:100%!important;height:auto!important;min-height:48px!important;opacity:1!important;pointer-events:auto!important;appearance:auto!important;border:2.5px solid var(--ink);border-radius:0;padding:12px 14px;background:#fff;color:var(--ink);font:800 16px/1.25 Tahoma,Arial,sans-serif;outline:none;box-shadow:inset 2px 2px 0 rgba(16,16,16,.08)}
+    .suas-book-input:focus,.suas-book-select:focus{outline:3px solid var(--ink);outline-offset:2px;background:var(--lime);box-shadow:0 0 0 2px var(--hot)}
     .suas-book-addons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .suas-book-addon{min-height:48px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:2px solid var(--ink);padding:8px 10px;background:#fff;cursor:pointer}
     .suas-book-addon input{width:18px;height:18px;accent-color:#101010}
@@ -240,7 +244,7 @@
         </div>
       </div>
       <details class="suas-book-panel suas-book-fold" data-book-fold>
-        <summary>Hours · Thu–Sun</summary>
+        <summary>Hours � Thu-Sun</summary>
         <div class="suas-book-bar" style="background:#e23d8a"><b>S 2. Hours</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="suas-book-fold-body">
           <div class="suas-book-hours-grid">
@@ -255,17 +259,17 @@
     </div>
 
     <details class="suas-book-panel suas-book-rules suas-book-fold" data-book-fold aria-labelledby="suas-lab-rules-title">
-      <summary>Lab rules · tap to read</summary>
+      <summary>Lab rules � tap to read</summary>
       <div class="suas-book-bar" style="background:#101010;color:#fff"><b>S 2b. Lab rules</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
       <div class="suas-book-rules-body suas-book-fold-body">
         <h2 id="suas-lab-rules-title">read before you book.</h2>
         <ul class="suas-book-rules-list">
           <li><b>No food or drinks</b> in The Lab. Water stays outside the mix zone.</li>
           <li><b>Kids under 10</b> need a parent or guardian with them the whole time for any self-guided experiment.</li>
-          <li><b>Arrival window</b> — show up on your booked hour. Late arrivals may lose the seat if the Lab is full.</li>
-          <li><b>Allergies / skin</b> — tell us before you mix if you have fragrance or ingredient sensitivities. Patch-test vibes only; we can’t guarantee a reaction-free formula.</li>
-          <li><b>Hands + hair</b> — keep hands clean, hair tied back if it gets in the way. No tasting oils. Ever.</li>
-          <li><b>Photos ok</b> — film your mix, not other guests’ faces or formulas without asking.</li>
+          <li><b>Arrival window</b> - show up on your booked hour. Late arrivals may lose the seat if the Lab is full.</li>
+          <li><b>Allergies / skin</b> - tell us before you mix if you have fragrance or ingredient sensitivities. Patch-test vibes only; we can't guarantee a reaction-free formula.</li>
+          <li><b>Hands + hair</b> - keep hands clean, hair tied back if it gets in the way. No tasting oils. Ever.</li>
+          <li><b>Photos ok</b> - film your mix, not other guests' faces or formulas without asking.</li>
         </ul>
       </div>
     </details>
@@ -352,7 +356,7 @@
           <div>
             <span class="suas-book-badge">shipped diy kit</span>
             <h2>The Lab @ Home</h2>
-            <p class="suas-book-desc">DIY kit ships nationwide — mixing beaker, stirrer, measurement tubes, filled vials with your scent notes, formula card, and directions. Curate online, we pack it, you pour.</p>
+            <p class="suas-book-desc">DIY kit ships nationwide - mixing beaker, stirrer, measurement tubes, filled vials with your scent notes, formula card, and directions. Curate online, we pack it, you pour.</p>
           </div>
           <div class="suas-book-side">
             <div class="suas-book-price-card"><span>from</span><strong class="suas-book-price">$28</strong></div>
@@ -369,7 +373,7 @@
           <div>
             <span class="suas-book-badge">self-guided</span>
             <h2>Self-Guided Lab Experiment</h2>
-            <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace — no instructor. Seat holds when you pay.</p>
+            <p class="suas-book-desc" data-self-description>Pick one experiment. You mix at your own pace - no instructor. Seat holds when you pay.</p>
           </div>
           <div class="suas-book-side">
             <div class="suas-seat-meter" data-self-seat-meter><strong data-self-seat-text>16 of 16 seats left</strong><span data-self-seat-hint>pick date + hour</span></div>
@@ -382,10 +386,10 @@
             <div class="suas-type-grid" data-self-types>
               {% if parfum_main_variant != blank %}
               <label class="suas-type-card is-on">
-                <input type="radio" name="_self_type" value="{{ parfum_main_variant.id }}" data-label="Custom Perfume - 30 mL" data-price="{{ parfum_main_variant.price | money }}" data-copy="30 mL eau de parfum — pick notes, mix at the station, bottle it, take it home." checked{% unless parfum_main_variant.available %} disabled{% endunless %}>
+                <input type="radio" name="_self_type" value="{{ parfum_main_variant.id }}" data-label="Custom Perfume - 30 mL" data-price="{{ parfum_main_variant.price | money }}" data-copy="30 mL eau de parfum - pick notes, mix at the station, bottle it, take it home." checked{% unless parfum_main_variant.available %} disabled{% endunless %}>
                 <em>01</em>
                 <strong>perfume</strong>
-                <small>30 mL eau de parfum — pick your notes, mix at the station, bottle it, take it home.</small>
+                <small>30 mL eau de parfum - pick your notes, mix at the station, bottle it, take it home.</small>
                 <b>{{ parfum_main_variant.price | money }}</b>
               </label>
               {% endif %}
@@ -428,7 +432,7 @@
               <div class="suas-time-chips" data-self-chips></div>
               <select class="suas-book-select suas-time-select suas-visually-hidden" id="ParfumTime" name="properties[Preferred time]" required><option value="">choose time</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option></select>
             </div>
-            <p class="suas-book-note">pay now → seat locked. we ping you the day before. show up ready to mix.</p>
+            <p class="suas-book-note">pay now ? seat locked. we ping you the day before. show up ready to mix.</p>
             <div class="suas-book-task">
               <button class="suas-book-button" type="submit">pay to hold seat</button>
             </div>

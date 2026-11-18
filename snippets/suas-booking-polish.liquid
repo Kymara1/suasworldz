@@ -199,6 +199,9 @@
       gap: 6px !important;
       padding: 10px 12px !important;
       align-content: start !important;
+      border-radius: 0 !important;
+      border: 2.5px solid #101010 !important;
+      box-shadow: 4px 4px 0 #101010 !important;
     }
 
     html body .suas-bookings-page .suas-book-input,
@@ -210,6 +213,9 @@
       padding: 12px 14px !important;
       font-size: 16px !important;
       line-height: 1.25 !important;
+      border-radius: 0 !important;
+      border: 2.5px solid #101010 !important;
+      background: #fff !important;
     }
 
     html body .suas-bookings-page input[type="date"].suas-book-input {
@@ -417,12 +423,12 @@
       selfSelect.appendChild(option);
 
       option.disabled = true;
-      option.textContent = 'Lab Session: Roll-On Perfume (10mL) � soon';
+      option.textContent = 'Lab Session: Roll-On Perfume (10mL) ? soon';
       var label = document.createElement('label');
       label.className = 'suas-type-card is-soon';
       label.setAttribute('aria-disabled', 'true');
       label.title = 'Roll-on bookings open soon';
-      label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil." disabled><em>02</em><strong>roll-on � soon</strong><small>Not open for booking yet. Perfume experiment is available now.</small><b>' + price + '</b>';
+      label.innerHTML = '<input type="radio" name="_self_type" value="' + variant.id + '" data-label="Lab Session: Roll-On Perfume (10mL)" data-price="' + price + '" data-copy="Create a portable 10mL roll-on perfume oil." disabled><em>02</em><strong>roll-on ? soon</strong><small>Not open for booking yet. Perfume experiment is available now.</small><b>' + price + '</b>';
       var combo = Array.prototype.slice.call(selfTypes.querySelectorAll('.suas-type-card')).find(function (card) { return /combo/i.test(card.textContent); });
       if (combo) selfTypes.insertBefore(label, combo);
       else selfTypes.appendChild(label);
@@ -443,7 +449,7 @@
         }
         var title = card.querySelector('strong');
         if (title && title.textContent.toLowerCase().indexOf('soon') === -1) {
-          title.textContent = title.textContent.replace(/\s+$/, '') + ' � soon';
+          title.textContent = title.textContent.replace(/\s+$/, '') + ' ? soon';
         }
       });
       var perfume = selfTypes.querySelector('.suas-type-card:not(.is-soon) input');
