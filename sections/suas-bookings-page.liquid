@@ -69,16 +69,13 @@
     .suas-seat-meter.is-full{background:var(--pink)}
     .suas-seat-meter.is-low{background:var(--sun)}
     .suas-book-form{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:8px 14px 18px}
-    .suas-book-field{display:grid;gap:8px;padding:10px 12px 12px;border:2.5px solid var(--ink);border-radius:0;background:#fff;box-shadow:4px 4px 0 var(--ink)}
-    .suas-book-field:nth-child(4n+1){background:#ffe8ef}
-    .suas-book-field:nth-child(4n+2){background:#d9ff78}
-    .suas-book-field:nth-child(4n+3){background:#cdeeff}
-    .suas-book-field:nth-child(4n+4){background:#fff1a8}
+    .suas-book-field{display:grid;gap:8px;padding:10px 12px 12px;border:2.5px solid var(--ink);border-radius:0;background:#101010;box-shadow:4px 4px 0 var(--hot)}
     .suas-book-field[data-wide],.suas-book-button,.suas-book-note,.suas-book-addons,.suas-book-contact,.suas-type-grid,.suas-plus-choice,.suas-time-chips,.suas-book-task{grid-column:1/-1}
-    .suas-book-field[data-wide]{background:#f4ecd4}
-    .suas-book-label{color:var(--ink);font:900 11px/1.15 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+    .suas-book-field[data-wide]{background:#101010}
+    .suas-book-label{color:var(--lime);font:900 11px/1.15 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
     .suas-book-input,.suas-book-select,.suas-bookings-page select.suas-book-select,.suas-bookings-page select.suas-time-select{position:static!important;width:100%!important;height:auto!important;min-height:48px!important;opacity:1!important;pointer-events:auto!important;appearance:auto!important;border:2.5px solid var(--ink);border-radius:0;padding:12px 14px;background:#fff;color:var(--ink);font:800 16px/1.25 Tahoma,Arial,sans-serif;outline:none;box-shadow:inset 2px 2px 0 rgba(16,16,16,.08)}
-    .suas-book-input:focus,.suas-book-select:focus{outline:3px solid var(--ink);outline-offset:2px;background:var(--lime);box-shadow:0 0 0 2px var(--hot)}
+    .suas-book-input:focus,.suas-book-select:focus{outline:3px solid var(--lime);outline-offset:2px;background:#fff;box-shadow:0 0 0 2px var(--hot)}
+    .suas-book-input::placeholder{color:rgba(16,16,16,.45)}
     .suas-book-addons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .suas-book-addon{min-height:48px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border:2px solid var(--ink);padding:8px 10px;background:#fff;cursor:pointer}
     .suas-book-addon input{width:18px;height:18px;accent-color:#101010}
