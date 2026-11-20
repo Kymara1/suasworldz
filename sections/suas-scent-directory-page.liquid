@@ -45,7 +45,16 @@
     .suas-sd-dialog::backdrop{background:rgba(7,22,46,.72)}
     .suas-sd-panel{border:3px solid var(--ink);border-radius:18px;background:var(--cream);box-shadow:8px 10px 0 #101010;overflow:hidden}
     .suas-sd-panel-bar{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;min-height:38px;padding:8px 10px;background:#101010;color:var(--lime);font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
-    .suas-sd-close{min-width:44px;min-height:44px;display:inline-grid;place-items:center;border:2px solid #fff;background:#ff5f57;color:#fff;font:900 18px/1 Tahoma,Arial,sans-serif;letter-spacing:0;cursor:pointer}
+    .suas-scent-dir .suas-sd-close{
+      box-sizing:border-box;
+      width:36px;height:36px;min-width:36px;min-height:36px;padding:0;margin:0;
+      display:inline-flex;align-items:center;justify-content:center;
+      border:2px solid #fff;border-radius:0;background:#ff5f57!important;color:#fff!important;
+      font:900 15px/1 Tahoma,Arial,sans-serif!important;letter-spacing:0;text-indent:0;
+      text-transform:none!important;box-shadow:0 0 0 1px #101010;cursor:pointer;-webkit-appearance:none;appearance:none
+    }
+    .suas-scent-dir .suas-sd-close:hover{filter:brightness(.95)}
+    .suas-scent-dir .suas-sd-close:focus-visible{outline:3px solid #d9ff78;outline-offset:2px}
     .suas-sd-panel-body{display:grid;gap:12px;padding:14px}
     .suas-sd-panel-body h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);line-height:.88;font-weight:400;text-transform:lowercase}
     .suas-sd-panel-body h3{margin:0 0 4px;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
