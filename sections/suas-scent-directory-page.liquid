@@ -45,7 +45,7 @@
     .suas-sd-dialog::backdrop{background:rgba(7,22,46,.72)}
     .suas-sd-panel{border:3px solid var(--ink);border-radius:18px;background:var(--cream);box-shadow:8px 10px 0 #101010;overflow:hidden}
     .suas-sd-panel-bar{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;min-height:38px;padding:8px 10px;background:#101010;color:var(--lime);font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
-    .suas-sd-close{min-width:44px;min-height:44px;border:2px solid #fff;background:#ff5f57;color:#fff;font:900 16px/1 Tahoma,Arial,sans-serif;cursor:pointer}
+    .suas-sd-close{min-width:44px;min-height:44px;display:inline-grid;place-items:center;border:2px solid #fff;background:#ff5f57;color:#fff;font:900 18px/1 Tahoma,Arial,sans-serif;letter-spacing:0;cursor:pointer}
     .suas-sd-panel-body{display:grid;gap:12px;padding:14px}
     .suas-sd-panel-body h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);line-height:.88;font-weight:400;text-transform:lowercase}
     .suas-sd-panel-body h3{margin:0 0 4px;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
@@ -86,7 +86,7 @@
     <div class="suas-sd-tools">
       <div class="suas-sd-search">
         <label for="suas-sd-q">Search scents</label>
-        <input id="suas-sd-q" type="search" name="q" autocomplete="off" placeholder="name, notes, vanilla, woody, floral." enterkeyhint="search">
+        <input id="suas-sd-q" type="search" name="q" autocomplete="off" placeholder="name, notes, vanilla, woody, floral..." enterkeyhint="search">
       </div>
       <div class="suas-sd-filters" role="group" aria-label="Category filters">
         <button type="button" class="suas-sd-filter" data-filter="all" aria-pressed="true">All Scents</button>
@@ -114,7 +114,7 @@
     <div class="suas-sd-panel">
       <div class="suas-sd-panel-bar">
         <span>SCENT DETAILS</span>
-        <button type="button" class="suas-sd-close" data-suas-sd-close aria-label="Close scent details">�</button>
+        <button type="button" class="suas-sd-close" data-suas-sd-close aria-label="Close scent details">X</button>
       </div>
       <div class="suas-sd-panel-body" data-suas-sd-panel></div>
     </div>
@@ -154,7 +154,7 @@
       var base = cats[f.category] || f.category;
       var extras = (f.alsoAppeals || []).map(function (id) { return cats[id] || id; });
       if (!extras.length) return base;
-      return base + ' � also ' + extras.join(', ').toLowerCase();
+      return base + ' / also ' + extras.join(', ').toLowerCase();
     }
 
     function haystack(f) {
