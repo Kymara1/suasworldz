@@ -25,6 +25,12 @@
     .suas-sd-card-bar[data-cat="unisex"]{background:#1e6ad4}
     .suas-sd-card-bar[data-cat="feminine"]{background:#e23d8a}
     .suas-sd-card-bar[data-cat="masculine"]{background:#5bb000}
+    .suas-sd-card-bar[data-cat="inspired"]{background:#7a4fd4}
+    .suas-sd-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .suas-sd-shop{display:inline-flex;align-items:center;justify-content:center;min-height:44px;width:fit-content;padding:0 16px;border:2px solid #101010;border-radius:4px 12px 12px 4px;background:linear-gradient(180deg,#fff,#ffd8e8);color:#101010;font:900 13px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 2px 0 #101010;cursor:pointer;text-decoration:none}
+    .suas-sd-shop:hover{filter:brightness(.97);transform:translateY(1px)}
+    .suas-sd-inspire-inline{margin:0;font:800 12px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.78)}
+    .suas-sd-inspire-inline strong{font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:3px}
     .suas-sd-card-bar span{display:flex;gap:3px}
     .suas-sd-card-bar i{width:14px;height:12px;border:1.5px solid #fff;background:rgba(255,255,255,.35);font-style:normal}
     .suas-sd-card-body{display:grid;gap:10px;padding:12px}
@@ -102,6 +108,7 @@
         <button type="button" class="suas-sd-filter" data-filter="unisex" aria-pressed="false">Unisex</button>
         <button type="button" class="suas-sd-filter" data-filter="feminine" aria-pressed="false">Feminine-leaning</button>
         <button type="button" class="suas-sd-filter" data-filter="masculine" aria-pressed="false">Masculine-leaning</button>
+        <button type="button" class="suas-sd-filter" data-filter="inspired" aria-pressed="false">Inspired by's</button>
         <p class="suas-sd-count" aria-live="polite"><span data-suas-sd-count>0</span> scents</p>
       </div>
     </div>
@@ -181,9 +188,24 @@
     }
 
     function matches(f) {
-      if (filter !== 'all' && f.category !== filter) return false;
+      if (filter === 'inspired') {
+        if (!f.inspiredBy) return false;
+      } else if (filter !== 'all' && f.category !== filter) {
+        return false;
+      }
       if (!query) return true;
       return haystack(f).indexOf(query) !== -1;
+    }
+
+    function productUrl(f) {
+      if (!f.productHandle) return '';
+      return '/products/' + encodeURIComponent(String(f.productHandle));
+    }
+
+    function shopButton(f, className) {
+      var href = productUrl(f);
+      if (!href) return '';
+      return '<a class="' + className + '" href="' + escapeAttr(href) + '">Open scent</a>';
     }
 
     function keyNotes(f) {
@@ -206,14 +228,23 @@
         var notes = keyNotes(f).map(function (n) {
           return '<li>' + escapeHtml(n) + '</li>';
         }).join('');
+        var barCat = filter === 'inspired' ? 'inspired' : f.category;
+        var barLabel = filter === 'inspired' ? "Inspired by's" : (cats[f.category] || f.category);
+        var inspireLine = f.inspiredBy
+          ? '<p class="suas-sd-inspire-inline"><strong>Inspired by</strong>' + escapeHtml(f.inspiredBy) + '</p>'
+          : '';
         card.innerHTML =
-          '<div class="suas-sd-card-bar" data-cat="' + escapeAttr(f.category) + '"><b>' + escapeHtml(cats[f.category] || f.category) + '</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>' +
+          '<div class="suas-sd-card-bar" data-cat="' + escapeAttr(barCat) + '"><b>' + escapeHtml(barLabel) + '</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>' +
           '<div class="suas-sd-card-body">' +
             '<h2>' + escapeHtml(f.name) + '</h2>' +
             '<p class="suas-sd-meta">' + escapeHtml(categoryLabel(f)) + '</p>' +
             '<p>' + escapeHtml(f.personality || '') + '</p>' +
+            inspireLine +
             (notes ? '<ul class="suas-sd-notes" aria-label="Key notes">' + notes + '</ul>' : '') +
-            '<button type="button" class="suas-sd-open" data-open="' + escapeAttr(f.id) + '">View Scent Details</button>' +
+            '<div class="suas-sd-actions">' +
+              '<button type="button" class="suas-sd-open" data-open="' + escapeAttr(f.id) + '">View Scent Details</button>' +
+              shopButton(f, 'suas-sd-shop') +
+            '</div>' +
           '</div>';
         listEl.appendChild(card);
       });
@@ -235,11 +266,25 @@
         '<div><h3>Scent Notes</h3><ul>' + (notes || '<li>Notes coming soon</li>') + '</ul>' + pending + '</div>' +
         '<div><h3>Scent Personality</h3><p>' + escapeHtml(f.personality || '') + '</p></div>' +
         '<div><h3>Best For</h3><p>' + escapeHtml(f.bestFor || '') + '</p></div>' +
-        inspire;
+        inspire +
+        '<div class="suas-sd-actions">' + shopButton(f, 'suas-sd-shop') + '</div>';
       if (typeof dialog.showModal === 'function') dialog.showModal();
       else dialog.setAttribute('open', '');
+      try {
+        history.replaceState(null, '', '#' + encodeURIComponent(f.id));
+      } catch (e) {}
       var closeBtn = dialog.querySelector('[data-suas-sd-close]');
       if (closeBtn) closeBtn.focus();
+    }
+
+    function openFromHash() {
+      var id = '';
+      if (location.hash && location.hash.length > 1) {
+        id = decodeURIComponent(location.hash.slice(1));
+      }
+      var params = new URLSearchParams(location.search || '');
+      if (!id && params.get('scent')) id = params.get('scent');
+      if (id) openDetails(id);
     }
 
     function escapeHtml(s) {
@@ -293,6 +338,8 @@
     }
 
     renderList();
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
   })();
   </script>
 </section>
