@@ -3,13 +3,13 @@
   "source": "SUAS.OS Fragrance Directory (public)",
   "policy": "No designer inspiration. No full staff keyNotes. publicNotes only.",
   "counts": {
-    "total": 20,
-    "active": 20,
+    "total": 21,
+    "active": 21,
     "upcoming": 0,
     "archived": 0,
     "unisex": 5,
     "feminine-leaning": 8,
-    "masculine-leaning": 7
+    "masculine-leaning": 8
   },
   "categories": [
     "unisex",
@@ -241,6 +241,22 @@
         "To be confirmed"
       ],
       "handle": null,
+      "aka": []
+    },
+    {
+      "id": "caspian",
+      "name": "Caspian",
+      "category": "masculine-leaning",
+      "status": "active",
+      "personality": "Fresh, marine, citrus, woody",
+      "bestFor": "Lovers of bright citrus-marine colognes with woody depth",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "grapefruit",
+        "marine",
+        "woods"
+      ],
+      "handle": "caspian-cologne",
       "aka": []
     },
     {
