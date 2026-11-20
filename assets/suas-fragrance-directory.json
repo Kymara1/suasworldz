@@ -1,0 +1,327 @@
+{
+  "updated": "2026-11-20",
+  "source": "SUAS.OS Fragrance Directory (public)",
+  "policy": "No designer inspiration. No full staff keyNotes. publicNotes only.",
+  "counts": {
+    "total": 20,
+    "active": 20,
+    "upcoming": 0,
+    "archived": 0,
+    "unisex": 5,
+    "feminine-leaning": 8,
+    "masculine-leaning": 7
+  },
+  "categories": [
+    "unisex",
+    "feminine-leaning",
+    "masculine-leaning"
+  ],
+  "fragrances": [
+    {
+      "id": "bare",
+      "name": "Bare",
+      "category": "unisex",
+      "status": "active",
+      "personality": "Clean, subtle, skin-like, fresh",
+      "bestFor": "Lovers of fresh-out-of-the-shower and understated scents",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "clean musk",
+        "soft skin",
+        "powder"
+      ],
+      "handle": "bare-eau-de-parfum",
+      "aka": []
+    },
+    {
+      "id": "night-shift",
+      "name": "Night Shift",
+      "category": "unisex",
+      "status": "active",
+      "personality": "Sweet, floral, creamy, sophisticated",
+      "bestFor": "Nightlife lovers who enjoy gourmand fragrances with floral complexity",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "To be confirmed"
+      ],
+      "handle": null,
+      "aka": []
+    },
+    {
+      "id": "pyro-pistachio",
+      "name": "Pyro Pistachio",
+      "category": "unisex",
+      "status": "active",
+      "personality": "Nutty, creamy, playful gourmand",
+      "bestFor": "Lovers of sweet, dessert-like fragrances",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "pistachio",
+        "marshmallow smoke",
+        "cacao"
+      ],
+      "handle": "pyro-pistachio-eau-de-parfum",
+      "aka": []
+    },
+    {
+      "id": "satin-secrets",
+      "name": "Satin Secrets",
+      "category": "unisex",
+      "status": "active",
+      "personality": "Velvety, floral, woody, sensual",
+      "bestFor": "Lovers of rich oud, rose, and elegant evening fragrances",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "To be confirmed"
+      ],
+      "handle": null,
+      "aka": []
+    },
+    {
+      "id": "smoke-vanilla",
+      "name": "Smoke Vanilla",
+      "category": "unisex",
+      "status": "active",
+      "personality": "Smoky, sweet, spicy, luxurious",
+      "bestFor": "Lovers of deep, rich vanilla and cozy evening fragrances",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "To be confirmed"
+      ],
+      "handle": null,
+      "aka": []
+    },
+    {
+      "id": "candy-land",
+      "name": "Candy Land",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Powdery, fruity, creamy, romantic",
+      "bestFor": "Lovers of flirty berries and dessert-like sweetness",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "To be confirmed"
+      ],
+      "handle": null,
+      "aka": []
+    },
+    {
+      "id": "devotion",
+      "name": "Devotion",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Cozy, sophisticated, warm vanilla",
+      "bestFor": "Lovers of vanilla with depth rather than simple sweetness",
+      "broaderAppeal": "Also unisex",
+      "publicNotes": [
+        "vanilla",
+        "cacao",
+        "lavender"
+      ],
+      "handle": "devotion-eau-de-parfum",
+      "aka": []
+    },
+    {
+      "id": "gelato-exe",
+      "name": "Gelato.exe",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Sweet, creamy, floral",
+      "bestFor": "Lovers of pistachio cream, soft florals, and dessert-like sweetness",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "pistachio cream",
+        "hazelnut",
+        "soft florals"
+      ],
+      "handle": "gelato-eau-de-parfum",
+      "aka": []
+    },
+    {
+      "id": "good-girl",
+      "name": "Good Girl",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Tropical, sun-kissed, softly sweet",
+      "bestFor": "Lovers of warm, beach-inspired fragrances",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "vanilla",
+        "caramel",
+        "coconut"
+      ],
+      "handle": "good-girl-eau-de-parfum",
+      "aka": []
+    },
+    {
+      "id": "lush",
+      "name": "Lush",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Exotic, fruity, floral, radiant",
+      "bestFor": "Confident fragrance lovers seeking vibrant statement scents",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "To be confirmed"
+      ],
+      "handle": null,
+      "aka": []
+    },
+    {
+      "id": "nectar",
+      "name": "Nectar",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Juicy, bright, cheerful, tropical",
+      "bestFor": "Lovers of sweet, fruity everyday fragrances",
+      "broaderAppeal": "Also unisex",
+      "publicNotes": [
+        "pineapple",
+        "passionfruit",
+        "tropical juice"
+      ],
+      "handle": "nectar-eau-de-parfum",
+      "aka": []
+    },
+    {
+      "id": "socialite",
+      "name": "Socialite",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Fresh, sweet, polished, effortlessly pretty",
+      "bestFor": "Lovers of clean, sophisticated fruity florals",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "To be confirmed"
+      ],
+      "handle": null,
+      "aka": []
+    },
+    {
+      "id": "temptress",
+      "name": "Temptress",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Dramatic, sensual, rich, statement-making",
+      "bestFor": "Lovers of powerful, expressive fragrances",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "tuberose",
+        "honey",
+        "spice"
+      ],
+      "handle": "temptress-eau-de-parfum",
+      "aka": []
+    },
+    {
+      "id": "after-dark",
+      "name": "After Dark",
+      "category": "masculine-leaning",
+      "status": "active",
+      "personality": "Warm, seductive, spicy, aromatic",
+      "bestFor": "Lovers of evening fragrances with woody warmth",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "vanilla",
+        "ginger",
+        "smoke"
+      ],
+      "handle": "after-dark-cologne",
+      "aka": []
+    },
+    {
+      "id": "big-deal",
+      "name": "Big Deal",
+      "category": "masculine-leaning",
+      "status": "active",
+      "personality": "Fresh, spicy, sweet, leathery",
+      "bestFor": "Lovers of noticeable scents suitable for day and night",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "To be confirmed"
+      ],
+      "handle": null,
+      "aka": []
+    },
+    {
+      "id": "gold-rush",
+      "name": "Gold Rush",
+      "category": "masculine-leaning",
+      "status": "active",
+      "personality": "Spicy, rich, woody, refined",
+      "bestFor": "Lovers of bold, distinctive scents with rich spice",
+      "broaderAppeal": "Also unisex",
+      "publicNotes": [
+        "To be confirmed"
+      ],
+      "handle": null,
+      "aka": []
+    },
+    {
+      "id": "renegade",
+      "name": "Renegade",
+      "category": "masculine-leaning",
+      "status": "active",
+      "personality": "Aromatic, modern, minimalist, confident",
+      "bestFor": "Lovers of freshness with a warm finish",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "bergamot",
+        "geranium",
+        "warm woods"
+      ],
+      "handle": "renegade-cologne",
+      "aka": []
+    },
+    {
+      "id": "sovereign",
+      "name": "Sovereign",
+      "category": "masculine-leaning",
+      "status": "active",
+      "personality": "Powerful, fresh, bold, refined",
+      "bestFor": "Lovers of energetic citrus, spices, and woods",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "citrus",
+        "spice",
+        "woods"
+      ],
+      "handle": "sovereign-cologne",
+      "aka": []
+    },
+    {
+      "id": "summit",
+      "name": "Summit",
+      "category": "masculine-leaning",
+      "status": "active",
+      "personality": "Crisp citrus, outdoorsy, clean woods",
+      "bestFor": "Lovers of fresh, polished, outdoors-inspired fragrances",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "lemon",
+        "cedar",
+        "clean air"
+      ],
+      "handle": "summit-cologne",
+      "aka": []
+    },
+    {
+      "id": "surge",
+      "name": "Shocking Ice",
+      "category": "masculine-leaning",
+      "status": "active",
+      "personality": "Energetic, cooling, sporty",
+      "bestFor": "Lovers of fresh, crisp, invigorating fragrances",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "cool citrus",
+        "clean woods",
+        "soft musk"
+      ],
+      "handle": "shocking-ice-eau-de-parfum",
+      "aka": [
+        "Surge"
+      ]
+    }
+  ]
+}
