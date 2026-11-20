@@ -169,6 +169,7 @@
     function haystack(f) {
       return [
         f.name,
+        (f.aka || []).join(' '),
         cats[f.category],
         (f.alsoAppeals || []).join(' '),
         f.personality,
