@@ -187,9 +187,13 @@
       ].join(' ').toLowerCase();
     }
 
+    function isDupeInspired(f) {
+      return !!(f.isDupeInspired || f.inspiredBy);
+    }
+
     function matches(f) {
       if (filter === 'inspired') {
-        if (!f.inspiredBy) return false;
+        if (!isDupeInspired(f)) return false;
       } else if (filter !== 'all' && f.category !== filter) {
         return false;
       }
@@ -230,7 +234,7 @@
         }).join('');
         var barCat = filter === 'inspired' ? 'inspired' : f.category;
         var barLabel = filter === 'inspired' ? "Inspired by's" : (cats[f.category] || f.category);
-        var inspireLine = f.inspiredBy
+        var inspireLine = isDupeInspired(f) && f.inspiredBy
           ? '<p class="suas-sd-inspire-inline"><strong>Inspired by</strong>' + escapeHtml(f.inspiredBy) + '</p>'
           : '';
         card.innerHTML =
@@ -254,7 +258,7 @@
       var f = activeRows().find(function (row) { return row.id === id; });
       if (!f || !dialog || !panel) return;
       var notes = (f.notes || []).map(function (n) { return '<li>' + escapeHtml(n) + '</li>'; }).join('');
-      var inspire = f.inspiredBy
+      var inspire = isDupeInspired(f) && f.inspiredBy
         ? '<div class="suas-sd-inspire"><strong>Inspired by</strong><br>' + escapeHtml(f.inspiredBy) + '<small>Inspiration only - not an official affiliation or licensed product.</small></div>'
         : '';
       var pending = f.notesPending
