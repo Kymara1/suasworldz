@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "suas-scent-directory-page",
+      "settings": {
+        "kicker": "Find your next favorite scent.",
+        "title": "SUAS Scent Directory",
+        "lede": "Explore our fragrances, discover scent notes, and find a fragrance that matches your vibe. Built for the Gastonia scent studio - perfume, cologne, and custom Lab sessions.",
+        "lab_title": "Want to create your own scent?",
+        "lab_copy": "Visit The Lab by SUAS and create a personalized fragrance.",
+        "lab_link": "/pages/bookings",
+        "lab_cta": "Book The Lab",
+        "profile_link": "/pages/scent-profile",
+        "profile_cta": "Scent families"
+      }
+    }
+  },
+  "order": ["main"]
+}

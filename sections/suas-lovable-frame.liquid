@@ -294,7 +294,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
       {% if section.settings.scent_enabled %}
         {% liquid
           assign item_active = false
-          assign active_paths = section.settings.scent_active_paths | default: '/pages/scent-profile' | split: ','
+          assign active_paths = section.settings.scent_active_paths | default: '/pages/scent-directory,/pages/scent-profile' | split: ','
           for active_path in active_paths
             assign clean_path = active_path | strip
             if clean_path != blank and request.path contains clean_path
@@ -578,12 +578,12 @@ Parties & Events|/pages/parties-events{% endcapture %}
 
     {"type":"header","content":"Scent Profile item"},
     {"type":"checkbox","id":"scent_enabled","label":"Show Scent Profile","default":true},
-    {"type":"text","id":"scent_label","label":"Label","default":"Scent Profile"},
-    {"type":"text","id":"scent_link","label":"Link","default":"/pages/scent-profile"},
+    {"type":"text","id":"scent_label","label":"Label","default":"Scent Directory"},
+    {"type":"text","id":"scent_link","label":"Link","default":"/pages/scent-directory"},
     {"type":"text","id":"scent_icon","label":"Icon","default":"?"},
     {"type":"text","id":"scent_number","label":"Number","default":"03"},
     {"type":"color","id":"scent_tint","label":"Icon color","default":"#b9ff39"},
-    {"type":"text","id":"scent_active_paths","label":"Active URL matches, separated by commas","default":"/pages/scent-profile"},
+    {"type":"text","id":"scent_active_paths","label":"Active URL matches, separated by commas","default":"/pages/scent-directory,/pages/scent-profile"},
 
     {"type":"header","content":"Oddities item"},
     {"type":"checkbox","id":"oddities_enabled","label":"Show Oddities","default":true},

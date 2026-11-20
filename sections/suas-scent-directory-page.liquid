@@ -1,0 +1,351 @@
+<section class="suas-scent-dir suas-os-page" aria-label="SUAS Scent Directory" data-suas-scent-dir>
+  {% render 'suas-os-page-chrome' %}
+  {% render 'suas-fragrance-directory-data' %}
+  <style>
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
+    @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
+    .suas-scent-dir.suas-os-page{--ink:#101010;--navy:#07162e;--cream:#f4ecd4;--pink:#ffd8e8;--hot:#ff9bc4;--lime:#d9ff78;--blue:#1e6ad4;--sun:#fff2a8;--lav:#e8ddff;color:var(--ink);font-family:Tahoma,Futura,Arial,sans-serif}
+    .suas-scent-dir a{color:inherit}
+    .suas-sd-hero{display:grid;gap:10px;padding:12px 16px 14px;color:#fff}
+    .suas-sd-kicker{margin:0;font:900 12px/1.2 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+    .suas-sd-title{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(2.1rem,5vw,3.5rem);line-height:.86;color:var(--lime);text-transform:uppercase;font-weight:400}
+    .suas-sd-lede{margin:0;max-width:62ch;font:800 15px/1.45 Tahoma,Arial,sans-serif;color:#f4ecd4}
+    .suas-sd-tools{display:grid;gap:10px;padding:0 12px 12px;background:rgba(7,22,46,.18)}
+    .suas-sd-search{display:grid;gap:6px}
+    .suas-sd-search label{color:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .suas-sd-search input{width:100%;min-height:48px;border:2.5px solid var(--ink);border-radius:0;padding:12px 14px;background:#fff;color:var(--ink);font:800 16px/1.25 Tahoma,Arial,sans-serif;box-shadow:inset 2px 2px 0 rgba(16,16,16,.08)}
+    .suas-sd-search input:focus{outline:3px solid var(--lime);outline-offset:2px}
+    .suas-sd-filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .suas-sd-filter{min-height:44px;padding:0 14px;border:2px solid var(--ink);background:#fff;color:var(--ink);font:900 12px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;box-shadow:2px 2px 0 var(--ink)}
+    .suas-sd-filter[aria-pressed="true"]{background:var(--lime);box-shadow:2px 2px 0 var(--hot)}
+    .suas-sd-count{margin-left:auto;font:900 12px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+    .suas-sd-list{display:grid;gap:10px;padding:0 12px 14px;background:rgba(7,22,46,.18)}
+    .suas-sd-card{border:2.5px solid var(--ink);background:var(--cream);box-shadow:4px 5px 0 #101010;min-width:0}
+    .suas-sd-card-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:30px;padding:5px 8px;color:#fff;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+    .suas-sd-card-bar[data-cat="unisex"]{background:#1e6ad4}
+    .suas-sd-card-bar[data-cat="feminine"]{background:#e23d8a}
+    .suas-sd-card-bar[data-cat="masculine"]{background:#5bb000}
+    .suas-sd-card-bar span{display:flex;gap:3px}
+    .suas-sd-card-bar i{width:14px;height:12px;border:1.5px solid #fff;background:rgba(255,255,255,.35);font-style:normal}
+    .suas-sd-card-body{display:grid;gap:10px;padding:12px}
+    .suas-sd-card-body h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.45rem,3vw,2rem);line-height:.9;font-weight:400;text-transform:lowercase}
+    .suas-sd-meta{margin:0;font:900 11px/1.3 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(16,16,16,.72)}
+    .suas-sd-card-body p{margin:0;font:800 13px/1.45 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.82)}
+    .suas-sd-notes{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+    .suas-sd-notes li{display:inline-flex;align-items:center;min-height:28px;padding:4px 8px;border:2px solid var(--ink);background:#fff;font:900 10px/1 Tahoma,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+    .suas-sd-open{display:inline-flex;align-items:center;justify-content:center;min-height:44px;width:fit-content;padding:0 16px;border:2px solid #101010;border-radius:4px 12px 12px 4px;background:linear-gradient(180deg,#b6ff57,#5bb000);color:#101010;font:900 13px/1 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 2px 0 #101010;cursor:pointer;text-decoration:none}
+    .suas-sd-open:hover{filter:brightness(.97);transform:translateY(1px)}
+    .suas-sd-empty{display:none;padding:18px;border:2.5px solid var(--ink);background:#fff;box-shadow:3px 3px 0 var(--ink);font:800 14px/1.4 Tahoma,Arial,sans-serif}
+    .suas-sd-empty.is-on{display:block}
+    .suas-sd-lab{margin:0 12px 14px;padding:14px;border:2.5px solid var(--ink);background:var(--sun);box-shadow:4px 5px 0 #101010}
+    .suas-sd-lab h2{margin:0 0 6px;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.4rem,3vw,1.9rem);line-height:.9;font-weight:400;text-transform:lowercase}
+    .suas-sd-lab p{margin:0 0 10px;font:800 13px/1.45 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.82)}
+    .suas-sd-lab-links{display:flex;flex-wrap:wrap;gap:8px}
+    .suas-sd-dialog{border:none;padding:0;background:transparent;max-width:min(560px,calc(100vw - 24px))}
+    .suas-sd-dialog::backdrop{background:rgba(7,22,46,.72)}
+    .suas-sd-panel{border:3px solid var(--ink);border-radius:18px;background:var(--cream);box-shadow:8px 10px 0 #101010;overflow:hidden}
+    .suas-sd-panel-bar{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;min-height:38px;padding:8px 10px;background:#101010;color:var(--lime);font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+    .suas-sd-close{min-width:44px;min-height:44px;border:2px solid #fff;background:#ff5f57;color:#fff;font:900 16px/1 Tahoma,Arial,sans-serif;cursor:pointer}
+    .suas-sd-panel-body{display:grid;gap:12px;padding:14px}
+    .suas-sd-panel-body h2{margin:0;font-family:'Casual Human',Futura,Arial,sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);line-height:.88;font-weight:400;text-transform:lowercase}
+    .suas-sd-panel-body h3{margin:0 0 4px;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+    .suas-sd-panel-body p,.suas-sd-panel-body li{margin:0;font:800 14px/1.45 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.86)}
+    .suas-sd-panel-body ul{margin:0;padding-left:1.1em}
+    .suas-sd-inspire{padding:10px 12px;border:2px solid var(--ink);background:#fff;font:800 13px/1.4 Tahoma,Arial,sans-serif}
+    .suas-sd-inspire small{display:block;margin-top:4px;font:900 10px/1.3 Tahoma,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(16,16,16,.62)}
+    .suas-sd-note{margin:0;font:800 12px/1.4 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.7)}
+    @media(min-width:760px){
+      .suas-sd-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(min-width:1024px){
+      .template--page--scent-directory .off-canvas--main-content{margin-left:252px!important;width:calc(100% - 252px)!important}
+      .suas-sd-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(max-width:560px){
+      .suas-sd-count{margin-left:0;width:100%}
+      .suas-sd-open{width:100%}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .suas-sd-open:hover{transform:none}
+    }
+  </style>
+
+  <div class="suas-os-sheet">
+    <div class="suas-os-titlebar">
+      <span class="suas-os-orb" aria-hidden="true"></span>
+      <b>SCENT.DIR</b>
+      <span class="suas-os-winbtns" aria-hidden="true"><i></i><i></i><i></i></span>
+    </div>
+
+    <header class="suas-sd-hero">
+      <p class="suas-sd-kicker">{{ section.settings.kicker }}</p>
+      <h1 class="suas-sd-title">{{ section.settings.title }}</h1>
+      <p class="suas-sd-lede">{{ section.settings.lede }}</p>
+    </header>
+
+    <div class="suas-sd-tools">
+      <div class="suas-sd-search">
+        <label for="suas-sd-q">Search scents</label>
+        <input id="suas-sd-q" type="search" name="q" autocomplete="off" placeholder="name, notes, vanilla, woody, floral." enterkeyhint="search">
+      </div>
+      <div class="suas-sd-filters" role="group" aria-label="Category filters">
+        <button type="button" class="suas-sd-filter" data-filter="all" aria-pressed="true">All Scents</button>
+        <button type="button" class="suas-sd-filter" data-filter="unisex" aria-pressed="false">Unisex</button>
+        <button type="button" class="suas-sd-filter" data-filter="feminine" aria-pressed="false">Feminine-leaning</button>
+        <button type="button" class="suas-sd-filter" data-filter="masculine" aria-pressed="false">Masculine-leaning</button>
+        <p class="suas-sd-count" aria-live="polite"><span data-suas-sd-count>0</span> scents</p>
+      </div>
+    </div>
+
+    <div class="suas-sd-list" data-suas-sd-list></div>
+    <p class="suas-sd-empty" data-suas-sd-empty>No scents match that search. Try a note, a vibe, or clear the filter.</p>
+
+    <aside class="suas-sd-lab" aria-label="The Lab">
+      <h2>{{ section.settings.lab_title }}</h2>
+      <p>{{ section.settings.lab_copy }}</p>
+      <div class="suas-sd-lab-links">
+        <a class="suas-sd-open" href="{{ section.settings.lab_link }}">{{ section.settings.lab_cta }}</a>
+        <a class="suas-sd-open" href="{{ section.settings.profile_link }}" style="background:linear-gradient(180deg,#fff,#e8edf3)">{{ section.settings.profile_cta }}</a>
+      </div>
+    </aside>
+  </div>
+
+  <dialog class="suas-sd-dialog" data-suas-sd-dialog aria-labelledby="suas-sd-dialog-title">
+    <div class="suas-sd-panel">
+      <div class="suas-sd-panel-bar">
+        <span>SCENT DETAILS</span>
+        <button type="button" class="suas-sd-close" data-suas-sd-close aria-label="Close scent details">�</button>
+      </div>
+      <div class="suas-sd-panel-body" data-suas-sd-panel></div>
+    </div>
+  </dialog>
+
+  <script>
+  (function () {
+    var root = document.querySelector('[data-suas-scent-dir]');
+    if (!root) return;
+    var raw = document.getElementById('suas-fragrance-directory-json');
+    if (!raw) return;
+    var data;
+    try { data = JSON.parse(raw.textContent); } catch (e) { return; }
+
+    var cats = {
+      unisex: 'Unisex',
+      feminine: 'Feminine-leaning',
+      masculine: 'Masculine-leaning'
+    };
+
+    var listEl = root.querySelector('[data-suas-sd-list]');
+    var emptyEl = root.querySelector('[data-suas-sd-empty]');
+    var countEl = root.querySelector('[data-suas-sd-count]');
+    var qEl = root.querySelector('#suas-sd-q');
+    var dialog = root.querySelector('[data-suas-sd-dialog]');
+    var panel = root.querySelector('[data-suas-sd-panel]');
+    var filter = 'all';
+    var query = '';
+
+    function activeRows() {
+      return (data.fragrances || []).filter(function (f) {
+        return String(f.status || 'active').toLowerCase() !== 'archived';
+      });
+    }
+
+    function categoryLabel(f) {
+      var base = cats[f.category] || f.category;
+      var extras = (f.alsoAppeals || []).map(function (id) { return cats[id] || id; });
+      if (!extras.length) return base;
+      return base + ' � also ' + extras.join(', ').toLowerCase();
+    }
+
+    function haystack(f) {
+      return [
+        f.name,
+        cats[f.category],
+        (f.alsoAppeals || []).join(' '),
+        f.personality,
+        f.bestFor,
+        (f.notes || []).join(' '),
+        (f.tags || []).join(' '),
+        f.inspiredBy || ''
+      ].join(' ').toLowerCase();
+    }
+
+    function matches(f) {
+      if (filter !== 'all' && f.category !== filter) return false;
+      if (!query) return true;
+      return haystack(f).indexOf(query) !== -1;
+    }
+
+    function keyNotes(f) {
+      return (f.notes || []).slice(0, 4);
+    }
+
+    function sortName(a, b) {
+      return String(a.name).localeCompare(String(b.name), undefined, { sensitivity: 'base' });
+    }
+
+    function renderList() {
+      var rows = activeRows().filter(matches).sort(sortName);
+      countEl.textContent = String(rows.length);
+      listEl.innerHTML = '';
+      emptyEl.classList.toggle('is-on', rows.length === 0);
+      rows.forEach(function (f) {
+        var card = document.createElement('article');
+        card.className = 'suas-sd-card';
+        card.setAttribute('data-id', f.id);
+        var notes = keyNotes(f).map(function (n) {
+          return '<li>' + escapeHtml(n) + '</li>';
+        }).join('');
+        card.innerHTML =
+          '<div class="suas-sd-card-bar" data-cat="' + escapeAttr(f.category) + '"><b>' + escapeHtml(cats[f.category] || f.category) + '</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>' +
+          '<div class="suas-sd-card-body">' +
+            '<h2>' + escapeHtml(f.name) + '</h2>' +
+            '<p class="suas-sd-meta">' + escapeHtml(categoryLabel(f)) + '</p>' +
+            '<p>' + escapeHtml(f.personality || '') + '</p>' +
+            (notes ? '<ul class="suas-sd-notes" aria-label="Key notes">' + notes + '</ul>' : '') +
+            '<button type="button" class="suas-sd-open" data-open="' + escapeAttr(f.id) + '">View Scent Details</button>' +
+          '</div>';
+        listEl.appendChild(card);
+      });
+    }
+
+    function openDetails(id) {
+      var f = activeRows().find(function (row) { return row.id === id; });
+      if (!f || !dialog || !panel) return;
+      var notes = (f.notes || []).map(function (n) { return '<li>' + escapeHtml(n) + '</li>'; }).join('');
+      var inspire = f.inspiredBy
+        ? '<div class="suas-sd-inspire"><strong>Inspired by</strong><br>' + escapeHtml(f.inspiredBy) + '<small>Inspiration only - not an official affiliation or licensed product.</small></div>'
+        : '';
+      var pending = f.notesPending
+        ? '<p class="suas-sd-note">Exact individual notes pending confirmation.</p>'
+        : '';
+      panel.innerHTML =
+        '<h2 id="suas-sd-dialog-title">' + escapeHtml(f.name) + '</h2>' +
+        '<p class="suas-sd-meta">Category: ' + escapeHtml(categoryLabel(f)) + '</p>' +
+        '<div><h3>Scent Notes</h3><ul>' + (notes || '<li>Notes coming soon</li>') + '</ul>' + pending + '</div>' +
+        '<div><h3>Scent Personality</h3><p>' + escapeHtml(f.personality || '') + '</p></div>' +
+        '<div><h3>Best For</h3><p>' + escapeHtml(f.bestFor || '') + '</p></div>' +
+        inspire;
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+      else dialog.setAttribute('open', '');
+      var closeBtn = dialog.querySelector('[data-suas-sd-close]');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function escapeHtml(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+    function escapeAttr(s) {
+      return escapeHtml(s).replace(/'/g, '&#39;');
+    }
+
+    root.querySelectorAll('.suas-sd-filter').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        filter = btn.getAttribute('data-filter') || 'all';
+        root.querySelectorAll('.suas-sd-filter').forEach(function (b) {
+          b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+        });
+        renderList();
+      });
+    });
+
+    if (qEl) {
+      qEl.addEventListener('input', function () {
+        query = String(qEl.value || '').trim().toLowerCase();
+        renderList();
+      });
+    }
+
+    listEl.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-open]');
+      if (!btn) return;
+      openDetails(btn.getAttribute('data-open'));
+    });
+
+    var close = root.querySelector('[data-suas-sd-close]');
+    if (close) {
+      close.addEventListener('click', function () {
+        if (typeof dialog.close === 'function') dialog.close();
+        else dialog.removeAttribute('open');
+      });
+    }
+    if (dialog) {
+      dialog.addEventListener('click', function (e) {
+        if (e.target === dialog) {
+          if (typeof dialog.close === 'function') dialog.close();
+          else dialog.removeAttribute('open');
+        }
+      });
+    }
+
+    renderList();
+  })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "SUAS Scent Directory",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Find your next favorite scent."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "SUAS Scent Directory"
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "Description",
+      "default": "Explore our fragrances, discover scent notes, and find a fragrance that matches your vibe. Built for the Gastonia scent studio - perfume, cologne, and custom Lab sessions."
+    },
+    {
+      "type": "text",
+      "id": "lab_title",
+      "label": "Lab CTA title",
+      "default": "Want to create your own scent?"
+    },
+    {
+      "type": "textarea",
+      "id": "lab_copy",
+      "label": "Lab CTA copy",
+      "default": "Visit The Lab by SUAS and create a personalized fragrance."
+    },
+    {
+      "type": "text",
+      "id": "lab_link",
+      "label": "Lab / bookings link",
+      "default": "/pages/bookings"
+    },
+    {
+      "type": "text",
+      "id": "lab_cta",
+      "label": "Lab CTA button",
+      "default": "Book The Lab"
+    },
+    {
+      "type": "text",
+      "id": "profile_link",
+      "label": "Scent profile link",
+      "default": "/pages/scent-profile"
+    },
+    {
+      "type": "text",
+      "id": "profile_cta",
+      "label": "Scent profile button",
+      "default": "Scent families"
+    }
+  ],
+  "presets": [{ "name": "SUAS Scent Directory" }]
+}
+{% endschema %}
