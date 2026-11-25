@@ -134,8 +134,11 @@
     appTitle: root.querySelector('[data-lah-app-title]'),
     pourToast: root.querySelector('[data-lah-pour-toast]'),
     sparkles: root.querySelector('[data-lah-sparkles]'),
+    fly: root.querySelector('[data-lah-fly]'),
     vialsWrap: root.querySelector('[data-lah-vials-wrap]'),
     noteCount: root.querySelector('[data-lah-note-count]'),
+    deskbar: root.querySelector('[data-lah-deskbar]'),
+    crtPrice: root.querySelector('[data-lah-crt-price]'),
     bottle: root.querySelector('[data-lah-bottle]'),
     bottleCard: root.querySelector('.suas-lah-bottle-card'),
     photoBottle: root.querySelector('[data-lah-photo-bottle]'),
@@ -297,9 +300,9 @@
     if (idx < 0 || idx >= total || state.picks[idx]) idx = firstEmptySlot();
     var slot = kit.slots[idx];
     if (slot.role === 'base') {
-      return trioPrefix + 'tap a note to fill tube 1 � ' + slot.amountMl + ' mL base';
+      return trioPrefix + 'tap a note - pours into tube 1 � ' + slot.amountMl + ' mL base';
     }
-    return trioPrefix + 'tap a note to fill tube ' + (idx + 1) + ' � ' + slot.amountMl + ' mL';
+    return trioPrefix + 'tap a note - pours into tube ' + (idx + 1) + ' � ' + slot.amountMl + ' mL';
   }
 
   function statusBarText() {
@@ -316,7 +319,37 @@
     return 'Base locked � ' + filledSupports + '/' + supports + ' scent notes';
   }
 
-  function celebratePour(note, slotIndex) {
+  function flyNoteToVial(fromEl, note, slotIndex) {
+    if (!els.fly || !fromEl || !note) return;
+    var vialEl = els.vials && els.vials.querySelector('[data-vial-slot="' + slotIndex + '"] .suas-lah-vial-glass');
+    if (!vialEl) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var from = fromEl.getBoundingClientRect();
+    var to = vialEl.getBoundingClientRect();
+    var startX = from.left + from.width / 2 - 14;
+    var startY = from.top + from.height / 2 - 17;
+    var endX = to.left + to.width / 2 - 14;
+    var endY = to.top + to.height / 2 - 17;
+
+    els.fly.style.setProperty('--n1', note.hex);
+    els.fly.style.setProperty('--n2', note.hex2 || note.hex);
+    els.fly.style.left = '0px';
+    els.fly.style.top = '0px';
+    els.fly.style.transform = 'translate(' + startX + 'px,' + startY + 'px) scale(1)';
+    els.fly.classList.add('is-fly');
+    void els.fly.offsetWidth;
+    els.fly.style.transform = 'translate(' + endX + 'px,' + endY + 'px) scale(.55)';
+    clearTimeout(flyNoteToVial._t);
+    flyNoteToVial._t = setTimeout(function () {
+      if (els.fly) {
+        els.fly.classList.remove('is-fly');
+        els.fly.style.transform = '';
+      }
+    }, 480);
+  }
+
+  function celebratePour(note, slotIndex, fromEl) {
     var kit = activeKit();
     var slot = kit.slots[slotIndex];
     var label = (note && note.label) || 'note';
@@ -325,6 +358,8 @@
     var msg = isBase
       ? ('? ' + label + ' ' + amount + ' mL BASE')
       : ('? ' + label + ' � ' + amount + ' mL');
+
+    if (fromEl) flyNoteToVial(fromEl, note, slotIndex);
 
     if (els.pourToast) {
       els.pourToast.hidden = false;
@@ -460,31 +495,31 @@
   function renderKits() {
     if (!els.kits) return;
     var options = [
-      { id: 'perfume', label: 'perfume', meta: '30 mL', price: money.perfume, bg: '#ffe8ef' },
-      { id: 'oil', label: 'body oil', meta: '30 mL', price: money.oil, bg: '#c9e7ff' },
-      { id: 'rollon', label: 'roll-on', meta: '10 mL', price: money.rollon, bg: '#fff1a8' },
-      { id: 'trio', label: 'the trio', meta: 'all 3', price: money.trio, bg: '#d9ff78' }
+      { id: 'perfume', label: 'perfume', meta: money.perfume },
+      { id: 'oil', label: 'body oil', meta: money.oil },
+      { id: 'rollon', label: 'roll-on', meta: money.rollon },
+      { id: 'trio', label: 'trio', meta: money.trio }
     ];
     els.kits.innerHTML = options.map(function (opt) {
       var pressed = state.mode === opt.id;
       var thumb = opt.id === 'trio' && trioPackSrc
-        ? '<img class="suas-lah-kit-thumb" src="' + escapeHtml(trioPackSrc) + '" alt="" width="54" height="36">'
+        ? '<img class="suas-lah-kit-thumb" src="' + escapeHtml(trioPackSrc) + '" alt="" width="22" height="14">'
         : '';
       return (
-        '<button type="button" class="suas-lah-kit' + (pressed ? ' is-selected' : '') + (opt.id === 'trio' ? ' is-trio' : '') + '" style="--kit-bg:' + opt.bg + '" data-kit="' + opt.id + '" aria-pressed="' + pressed + '">' +
+        '<button type="button" class="suas-lah-kit' + (pressed ? ' is-selected' : '') + (opt.id === 'trio' ? ' is-trio' : '') + '" data-kit="' + opt.id + '" aria-pressed="' + pressed + '">' +
           thumb +
           '<strong>' + escapeHtml(opt.label) + '</strong>' +
-          '<span>' + escapeHtml(opt.meta) + ' � ' + escapeHtml(opt.price) + '</span>' +
+          '<span>' + escapeHtml(opt.meta) + '</span>' +
         '</button>'
       );
     }).join('');
 
+    var priceKey = state.mode === 'trio' ? 'trio' : state.mode;
+    if (els.crtPrice) els.crtPrice.textContent = money[priceKey] || '';
     if (els.selected) {
-      var kit = activeKit();
-      var priceKey = state.mode === 'trio' ? 'trio' : state.mode;
       els.selected.textContent = state.mode === 'trio'
-        ? ('Trio ' + money.trio + ' � ' + (TRIO_LABELS[state.trioStep] || '') + ' ' + (trioStepIndex() + 1) + '/3')
-        : ('Building ' + kit.label + ' � ' + money[priceKey]);
+        ? ('trio � ' + (TRIO_LABELS[state.trioStep] || '') + ' ' + (trioStepIndex() + 1) + '/3')
+        : (activeKit().label);
     }
   }
 
@@ -494,13 +529,10 @@
     if (els.bottle) els.bottle.hidden = false;
     if (els.recipe) els.recipe.textContent = recipeLine();
 
-    var nameLabel = root.querySelector('label[for="LahFormulaName"]');
-    if (nameLabel) {
-      var labelCore = show
-        ? ('3) name this ' + (TRIO_LABELS[state.trioStep] || 'formula'))
-        : '3) name your formula';
-      nameLabel.innerHTML = escapeHtml(labelCore) +
-        ' <span class="suas-lah-optional">(optional)</span>';
+    if (els.name) {
+      els.name.placeholder = show
+        ? ('name this ' + (TRIO_LABELS[state.trioStep] || 'formula') + '.')
+        : 'name it.';
     }
 
     if (!show || !els.trioSteps) return;
@@ -606,8 +638,8 @@
       if (isCurrent) classes += ' is-current';
       else if (usedCount) classes += ' is-used';
       var meta = note.family;
-      if (isBase) meta += ' � BASE';
-      else if (supportIdx >= 0) meta += ' � NOTE ' + supportIdx;
+      if (isBase) meta = 'BASE';
+      else if (supportIdx >= 0) meta = 'NOTE ' + supportIdx;
       return (
         '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" data-family="' + escapeHtml(note.family) + '" aria-pressed="' + (usedCount > 0) + '" aria-label="' + escapeHtml(note.label + ' � ' + meta) + '" style="--n1:' + note.hex + ';--n2:' + (note.hex2 || note.hex) + '">' +
           '<span class="suas-lah-note-blob" aria-hidden="true"></span>' +
@@ -712,6 +744,7 @@
       els.statusbar.textContent = statusBarText();
       els.statusbar.classList.toggle('is-ready', kitComplete());
     }
+    if (els.deskbar) els.deskbar.textContent = coachLine();
 
     var complete = kitComplete();
     var ready = complete;
@@ -814,6 +847,7 @@
     state.activeSlot = slotIndex;
 
     var note = noteById(id);
+    var fromEl = opts.fromEl || null;
     setError('');
 
     if (!kitComplete()) {
@@ -836,7 +870,8 @@
       }
     }
     paint();
-    celebratePour(note, slotIndex);
+    celebratePour(note, slotIndex, fromEl);
+    if (els.deskbar) els.deskbar.textContent = coachLine();
     announce((note ? note.label : id) + ' selected. ' + coachLine());
     if (kitComplete() && els.sticky && window.matchMedia('(max-width: 620px)').matches) {
       try { els.sticky.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
@@ -1007,7 +1042,7 @@
 
     var noteBtn = event.target.closest('[data-note]');
     if (noteBtn && root.contains(noteBtn)) {
-      pickNote(noteBtn.getAttribute('data-note'), { preferEmpty: true });
+      pickNote(noteBtn.getAttribute('data-note'), { preferEmpty: true, fromEl: noteBtn });
       return;
     }
 
