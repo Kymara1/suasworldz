@@ -283,7 +283,12 @@ a.suas-lah-winbtn:focus-visible {
 
 /* Builder shell */
 .suas-lah-build-shell {
-  background: linear-gradient(180deg, #ffe8f6 0%, #e8f0ff 42%, var(--cream) 100%);
+  background:
+    radial-gradient(1.4px 1.4px at 10% 16%, rgba(255, 90, 180, 0.7), transparent 55%),
+    radial-gradient(1.4px 1.4px at 78% 12%, rgba(217, 255, 120, 0.85), transparent 55%),
+    radial-gradient(1.4px 1.4px at 92% 48%, rgba(255, 255, 255, 0.9), transparent 55%),
+    radial-gradient(1.4px 1.4px at 24% 70%, rgba(255, 90, 180, 0.55), transparent 55%),
+    linear-gradient(180deg, #ffe8f6 0%, #e8f0ff 42%, var(--cream) 100%);
 }
 .suas-lah-head {
   padding: 10px 12px 0;
@@ -376,8 +381,8 @@ a.suas-lah-winbtn:focus-visible {
   margin: 0 0 8px;
   padding: 8px 10px;
   border: 2px solid var(--ink);
-  border-radius: 8px;
-  background: linear-gradient(90deg, rgba(217, 255, 120, 0.9), rgba(255, 232, 239, 0.95));
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(217, 255, 120, 0.95), rgba(255, 232, 239, 0.98) 55%, rgba(201, 231, 255, 0.9));
   box-shadow: 2px 2px 0 rgba(10, 36, 106, 0.2);
   font-size: clamp(0.82rem, 2vw, 0.95rem);
   font-weight: 800;
@@ -618,19 +623,26 @@ a.suas-lah-winbtn:focus-visible {
   min-height: 44px;
   padding: 6px 8px;
   border: 2px solid var(--ink);
-  border-radius: 8px;
+  border-radius: 14px;
   background: #fff;
   box-shadow: 2px 2px 0 rgba(10, 36, 106, 0.2);
   cursor: pointer;
   color: var(--ink);
   text-align: left;
   font: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+.suas-lah-note:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--n1, var(--hot)) 45%, #fff), 3px 3px 0 var(--ink);
+}
+.suas-lah-note:active { transform: translateY(1px) scale(0.98); }
 .suas-lah-note.is-current {
-  outline: 3px dotted var(--ink);
+  outline: 2px dotted var(--ink);
   outline-offset: 2px;
   background: color-mix(in srgb, var(--n2, var(--lime)) 55%, #fff);
   box-shadow: 0 0 0 2px var(--n1, var(--hot)), 3px 3px 0 var(--ink);
+  animation: suas-lah-note-bob 0.9s ease-in-out 1;
 }
 .suas-lah-note.is-used:not(.is-current) {
   background: color-mix(in srgb, var(--n2, #f7f4ef) 40%, #fff);
@@ -643,6 +655,19 @@ a.suas-lah-winbtn:focus-visible {
     radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.7), transparent 42%),
     linear-gradient(180deg, var(--n2), var(--n1));
   border: 1.5px solid rgba(17, 17, 17, 0.4);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--n1) 35%, transparent);
+}
+.suas-lah-note:hover .suas-lah-note-drop {
+  animation: suas-lah-note-bob 0.7s ease-in-out infinite;
+}
+.suas-lah-note-pour {
+  opacity: 0.45 !important;
+  font-size: 9px !important;
+}
+.suas-lah-note.is-current .suas-lah-note-pour,
+.suas-lah-note.is-used .suas-lah-note-pour { display: none; }
+.suas-lah-kits.is-pop .suas-lah-kit.is-selected {
+  animation: suas-lah-kit-pop 0.35s ease;
 }
 .suas-lah-note-copy { min-width: 0; }
 .suas-lah-note b {
@@ -764,13 +789,26 @@ a.suas-lah-winbtn:focus-visible {
   box-shadow: 0 0 0 2px var(--ink), 0 2px 0 var(--ink);
 }
 
-/* Formula vials - video centerpiece */
+/* Formula vials - interactive + cute */
 .suas-lah-vials-wrap {
+  position: relative;
   border: 2px solid var(--xp-blue);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255, 90, 180, 0.14), transparent 40%),
+    radial-gradient(circle at 88% 18%, rgba(217, 255, 120, 0.22), transparent 36%),
+    rgba(255, 255, 255, 0.96);
   padding: 8px;
   box-shadow: 2px 2px 0 rgba(10, 36, 106, 0.18);
+  overflow: hidden;
+}
+.suas-lah-tap-hint {
+  margin-left: 6px;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(10, 36, 106, 0.55);
+  font-weight: 800;
 }
 .suas-lah-vials {
   display: grid;
@@ -784,6 +822,12 @@ a.suas-lah-winbtn:focus-visible {
   justify-items: center;
   text-align: center;
   min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
 }
 .suas-lah-vial-glass {
   position: relative;
@@ -791,29 +835,62 @@ a.suas-lah-winbtn:focus-visible {
   max-width: 42px;
   aspect-ratio: 1 / 1.55;
   border: 2px solid var(--ink);
-  border-radius: 8px 8px 10px 10px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(232, 240, 255, 0.9));
+  border-radius: 40% 40% 12px 12px / 18% 18% 12px 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(232, 240, 255, 0.92));
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 2px 2px 0 rgba(10, 36, 106, 0.18);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .suas-lah-vial.is-base .suas-lah-vial-glass {
   max-width: 52px;
   aspect-ratio: 1 / 1.45;
 }
+.suas-lah-vial:hover .suas-lah-vial-glass,
+.suas-lah-vial:focus-visible .suas-lah-vial-glass {
+  transform: translateY(-2px) scale(1.04);
+}
+.suas-lah-vial.is-active .suas-lah-vial-glass {
+  box-shadow:
+    0 0 0 3px var(--hot),
+    0 0 14px rgba(255, 90, 180, 0.45),
+    2px 2px 0 rgba(10, 36, 106, 0.18);
+}
+.suas-lah-vial.is-waiting .suas-lah-vial-glass {
+  animation: suas-lah-wait 1.2s ease-in-out infinite;
+}
 .suas-lah-vial-fill {
   position: absolute;
   left: 0; right: 0; bottom: 0;
   height: 0%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 40%), var(--vial, #ddd);
-  transition: height 0.4s ease;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 38%),
+    var(--vial, #ddd);
+  transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .suas-lah-vial.is-filled .suas-lah-vial-fill { height: 72%; }
 .suas-lah-vial.is-base.is-filled .suas-lah-vial-fill { height: 78%; }
+.suas-lah-vial-drip {
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50% 50% 45% 45%;
+  background: var(--pour, var(--hot));
+  opacity: 0;
+  pointer-events: none;
+}
+.suas-lah-vials-wrap.is-pouring .suas-lah-vial.is-active .suas-lah-vial-drip,
+.suas-lah-vials-wrap.is-pouring .suas-lah-vial.is-filled.is-active .suas-lah-vial-drip {
+  animation: suas-lah-drip 0.7s ease-out;
+}
 .suas-lah-vial-tag {
   display: block;
   width: 100%;
   padding: 5px 4px;
   border: 2px solid var(--ink);
+  border-radius: 999px;
   background: var(--lime);
   font-size: 10px;
   font-weight: 800;
@@ -823,6 +900,89 @@ a.suas-lah-winbtn:focus-visible {
 .suas-lah-vial:not(.is-filled) .suas-lah-vial-tag {
   background: #fff;
   color: rgba(17, 17, 17, 0.55);
+}
+.suas-lah-vial.is-waiting .suas-lah-vial-tag {
+  background: linear-gradient(90deg, #fff, var(--blush));
+  color: var(--ink);
+}
+
+.suas-lah-pour-toast {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -40%) scale(0.9);
+  z-index: 5;
+  padding: 8px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--hot);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+  max-width: calc(100% - 16px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 3px 0 var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+.suas-lah-pour-toast.is-show {
+  animation: suas-lah-toast 1.35s ease forwards;
+}
+.suas-lah-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.suas-lah-sparkles i {
+  position: absolute;
+  left: var(--x, 50%);
+  bottom: 18%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lime);
+  opacity: 0;
+  box-shadow: 0 0 0 2px rgba(255, 90, 180, 0.35);
+}
+.suas-lah-sparkles.is-pop i {
+  animation: suas-lah-spark 0.9s ease var(--d, 0s) forwards;
+}
+.suas-lah-sparkles i:nth-child(odd) { background: var(--hot); width: 5px; height: 5px; }
+.suas-lah-sparkles i:nth-child(3n) { background: #fff; border: 1px solid var(--ink); }
+
+@keyframes suas-lah-wait {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes suas-lah-drip {
+  0% { opacity: 0; transform: translateY(-8px) scale(0.6); }
+  35% { opacity: 1; transform: translateY(8px) scale(1); }
+  100% { opacity: 0; transform: translateY(28px) scale(0.7); }
+}
+@keyframes suas-lah-toast {
+  0% { opacity: 0; transform: translate(-50%, -20%) scale(0.85); }
+  18% { opacity: 1; transform: translate(-50%, -55%) scale(1.05); }
+  70% { opacity: 1; transform: translate(-50%, -60%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -75%) scale(0.96); }
+}
+@keyframes suas-lah-spark {
+  0% { opacity: 0; transform: translateY(0) scale(0.4); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-46px) scale(1.1); }
+}
+@keyframes suas-lah-kit-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+@keyframes suas-lah-note-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
 }
 
 .suas-lah-checkout {
@@ -858,6 +1018,7 @@ a.suas-lah-winbtn:focus-visible {
   margin: 0;
   padding: 10px 12px;
   border: 2px solid var(--ink);
+  border-radius: 999px;
   background: var(--lime);
   font-size: clamp(0.88rem, 2.2vw, 1rem);
   font-weight: 800;
@@ -865,7 +1026,8 @@ a.suas-lah-winbtn:focus-visible {
   color: var(--ink);
 }
 .suas-lah-statusbar.is-ready {
-  background: linear-gradient(90deg, var(--lime), #ffe08a);
+  background: linear-gradient(90deg, var(--lime), #ffe08a, var(--pink));
+  animation: suas-lah-kit-pop 0.45s ease;
 }
 .suas-lah-actions { display: grid; gap: 8px; }
 .suas-lah-btn {
@@ -1084,7 +1246,11 @@ a.suas-lah-winbtn:focus-visible {
   .suas-lah-btn,
   .suas-lah-photo-liquid,
   .suas-lah-vial-fill,
-  .suas-lah-slot.is-next {
+  .suas-lah-slot.is-next,
+  .suas-lah-vial.is-waiting .suas-lah-vial-glass,
+  .suas-lah-pour-toast,
+  .suas-lah-sparkles i,
+  .suas-lah-note:hover .suas-lah-note-drop {
     transition: none !important;
     animation: none !important;
   }

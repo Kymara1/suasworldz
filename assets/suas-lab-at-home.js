@@ -132,6 +132,9 @@
     shipsPick: root.querySelector('[data-lah-ships-pick]'),
     statusbar: root.querySelector('[data-lah-statusbar]'),
     appTitle: root.querySelector('[data-lah-app-title]'),
+    pourToast: root.querySelector('[data-lah-pour-toast]'),
+    sparkles: root.querySelector('[data-lah-sparkles]'),
+    vialsWrap: root.querySelector('[data-lah-vials-wrap]'),
     bottle: root.querySelector('[data-lah-bottle]'),
     bottleCard: root.querySelector('.suas-lah-bottle-card'),
     photoBottle: root.querySelector('[data-lah-photo-bottle]'),
@@ -284,32 +287,85 @@
 
     if (left === 0) {
       if (state.mode === 'trio' && state.trioStep !== 'rollon') {
-        return trioPrefix + 'All tubes filled - save and go to the next bottle';
+        return trioPrefix + 'cute. now save + pour the next bottle';
       }
-      return trioPrefix + 'Formula ready - name it (optional) and add to cart';
+      return trioPrefix + 'formula looks fire - name it + checkout';
     }
 
     var idx = state.activeSlot;
     if (idx < 0 || idx >= total || state.picks[idx]) idx = firstEmptySlot();
     var slot = kit.slots[idx];
     if (slot.role === 'base') {
-      return trioPrefix + 'Select your ' + slot.amountMl + ' mL base (favorite)';
+      return trioPrefix + 'tap your favorite ' + slot.amountMl + ' mL base ?';
     }
-    return trioPrefix + 'Pick scent note ' + supportFilledCount() + '/' + supportSlots().length + ' - ' + slot.amountMl + ' mL';
+    return trioPrefix + 'pour note ' + (supportFilledCount() + 1) + '/' + supportSlots().length + ' (' + slot.amountMl + ' mL)';
   }
 
   function statusBarText() {
     var kit = activeKit();
     var supports = supportSlots().length;
     var filledSupports = supportFilledCount();
-    if (!baseLocked()) return 'Select your ' + kit.slots[0].amountMl + ' mL base (favorite)';
+    if (!baseLocked()) return 'tap a note below to lock your ' + kit.slots[0].amountMl + ' mL base ?';
     if (kitComplete()) {
       if (state.mode === 'trio' && state.trioStep !== 'rollon') {
-        return 'Base locked � notes complete - save & continue';
+        return 'all tubes full � save & keep going ?';
       }
-      return 'Base locked � ' + filledSupports + '/' + supports + ' scent notes - ready';
+      return 'base locked � ' + filledSupports + '/' + supports + ' notes � ready to ship';
     }
-    return 'Base locked � ' + filledSupports + '/' + supports + ' scent notes';
+    return 'base locked � ' + filledSupports + '/' + supports + ' notes poured';
+  }
+
+  function celebratePour(note, slotIndex) {
+    var kit = activeKit();
+    var slot = kit.slots[slotIndex];
+    var label = (note && note.label) || 'note';
+    var amount = slot ? slot.amountMl : '';
+    var isBase = slot && slot.role === 'base';
+    var msg = isBase
+      ? ('poured ' + label + ' ' + amount + ' mL BASE ?')
+      : ('splashed ' + label + ' � ' + amount + ' mL');
+
+    if (els.pourToast) {
+      els.pourToast.hidden = false;
+      els.pourToast.textContent = msg;
+      els.pourToast.classList.remove('is-show');
+      // force reflow so animation retriggers
+      void els.pourToast.offsetWidth;
+      els.pourToast.classList.add('is-show');
+      clearTimeout(celebratePour._t);
+      celebratePour._t = setTimeout(function () {
+        if (els.pourToast) {
+          els.pourToast.classList.remove('is-show');
+          els.pourToast.hidden = true;
+        }
+      }, 1400);
+    }
+
+    if (els.vialsWrap) {
+      els.vialsWrap.classList.remove('is-pouring');
+      void els.vialsWrap.offsetWidth;
+      els.vialsWrap.classList.add('is-pouring');
+      els.vialsWrap.style.setProperty('--pour', (note && note.hex) || '#ff5ab4');
+    }
+
+    if (kitComplete() && els.sparkles) {
+      els.sparkles.innerHTML = '';
+      for (var i = 0; i < 10; i++) {
+        var s = document.createElement('i');
+        s.style.setProperty('--i', String(i));
+        s.style.setProperty('--x', (8 + Math.random() * 84) + '%');
+        s.style.setProperty('--d', (0.15 + Math.random() * 0.55) + 's');
+        els.sparkles.appendChild(s);
+      }
+      els.sparkles.classList.add('is-pop');
+      clearTimeout(celebratePour._spark);
+      celebratePour._spark = setTimeout(function () {
+        if (els.sparkles) {
+          els.sparkles.classList.remove('is-pop');
+          els.sparkles.innerHTML = '';
+        }
+      }, 1200);
+    }
   }
 
   function fillStatusText() {
@@ -338,18 +394,18 @@
   function atcLabel(ready) {
     var kit = activeKit();
     if (!baseLocked()) {
-      return 'Select your ' + kit.slots[0].amountMl + ' mL base (favorite)';
+      return 'pour your ' + kit.slots[0].amountMl + ' mL base ?';
     }
     if (!ready) {
       var left = tubesLeft();
-      return 'fill ' + left + ' more tube' + (left === 1 ? '' : 's');
+      return 'pour ' + left + ' more tube' + (left === 1 ? '' : 's');
     }
     if (state.mode === 'trio' && state.trioStep !== 'rollon') {
       var nextKey = TRIO_ORDER[trioStepIndex() + 1];
-      return 'save ' + (TRIO_LABELS[state.trioStep] || '') + ' - next: ' + (TRIO_LABELS[nextKey] || 'next');
+      return 'save ' + (TRIO_LABELS[state.trioStep] || '') + ' ? ' + (TRIO_LABELS[nextKey] || 'next');
     }
-    if (state.mode === 'trio') return 'add trio - ' + money.trio;
-    return 'add to cart - ' + money[state.mode];
+    if (state.mode === 'trio') return 'bag the trio � ' + money.trio;
+    return 'bag it � ' + money[state.mode];
   }
 
   function showScreen(name) {
@@ -540,10 +596,10 @@
       if (isCurrent) classes += ' is-current';
       else if (usedCount) classes += ' is-used';
       return (
-        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
+        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" data-family="' + escapeHtml(note.family) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
           '<span class="suas-lah-note-drop" aria-hidden="true"></span>' +
           '<span class="suas-lah-note-copy"><b>' + escapeHtml(note.label) + '</b><small>' + escapeHtml(note.family) + '</small></span>' +
-          (usedCount ? '<em>x' + usedCount + '</em>' : '') +
+          (usedCount ? '<em>?x' + usedCount + '</em>' : '<em class="suas-lah-note-pour">pour</em>') +
         '</button>'
       );
     }).join('');
@@ -552,22 +608,29 @@
   function renderVials() {
     if (!els.vials) return;
     var kit = activeKit();
+    var nextEmpty = firstEmptySlot();
     els.vials.style.gridTemplateColumns = 'repeat(' + kit.slots.length + ', minmax(0, 1fr))';
     els.vials.innerHTML = kit.slots.map(function (slot, index) {
       var note = state.picks[index] ? noteById(state.picks[index]) : null;
       var isBase = slot.role === 'base';
+      var active = index === state.activeSlot;
       var classes = 'suas-lah-vial';
       if (isBase) classes += ' is-base';
       if (note) classes += ' is-filled';
+      if (active) classes += ' is-active';
+      if (!note && index === nextEmpty) classes += ' is-waiting';
       var color = note ? note.hex : '#dddddd';
       var tag = note
         ? (note.label + ' ' + slot.amountMl + ' mL' + (isBase ? ' BASE' : ''))
-        : (isBase ? (slot.amountMl + ' mL BASE') : (slot.amountMl + ' mL'));
+        : (isBase ? ('empty ' + slot.amountMl + ' mL BASE') : ('empty ' + slot.amountMl + ' mL'));
       return (
-        '<div class="' + classes + '" style="--vial:' + color + '">' +
-          '<div class="suas-lah-vial-glass" aria-hidden="true"><span class="suas-lah-vial-fill"></span></div>' +
+        '<button type="button" class="' + classes + '" style="--vial:' + color + '" data-vial-slot="' + index + '" aria-pressed="' + active + '" aria-label="' + escapeHtml(tag) + '">' +
+          '<span class="suas-lah-vial-glass" aria-hidden="true">' +
+            '<span class="suas-lah-vial-fill"></span>' +
+            '<span class="suas-lah-vial-drip"></span>' +
+          '</span>' +
           '<span class="suas-lah-vial-tag">' + escapeHtml(tag) + '</span>' +
-        '</div>'
+        '</button>'
       );
     }).join('');
   }
@@ -737,6 +800,7 @@
 
     var note = noteById(id);
     setError('');
+    celebratePour(note, slotIndex);
 
     // Always jump to the next empty tube so picking feels like a pour sequence.
     // Do not use Array#every on sparse picks - empty holes are skipped and look "complete".
@@ -760,7 +824,7 @@
       }
     }
     paint();
-    announce((note ? note.label : id) + ' set. ' + coachLine());
+    announce((note ? note.label : id) + ' poured. ' + coachLine());
     if (kitComplete() && els.sticky && window.matchMedia('(max-width: 620px)').matches) {
       try { els.sticky.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
       if (els.stickyAtc) els.stickyAtc.focus();
@@ -876,9 +940,26 @@
       if (els.name) els.name.value = '';
       setError('');
       paint();
+      if (els.kits) {
+        els.kits.classList.remove('is-pop');
+        void els.kits.offsetWidth;
+        els.kits.classList.add('is-pop');
+      }
       announce(state.mode === 'trio'
         ? 'Trio selected - build perfume, then oil, then roll-on.'
         : ('Selected ' + kit.label));
+      return;
+    }
+
+    var vialBtn = event.target.closest('[data-vial-slot]');
+    if (vialBtn && root.contains(vialBtn)) {
+      state.activeSlot = Number(vialBtn.getAttribute('data-vial-slot'));
+      setError('');
+      paint();
+      announce('Tube ' + (state.activeSlot + 1) + ' selected - pick a note to pour.');
+      if (els.notes) {
+        try { els.notes.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
+      }
       return;
     }
 
