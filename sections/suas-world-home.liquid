@@ -255,13 +255,25 @@
               fetchpriority="high"
             >
           </a>
-          {% if section.settings.promo_text != blank %}
-            {% assign promo_href = section.settings.promo_link | default: '/pages/bookings' %}
+          {% liquid
+            assign promo_kicker = section.settings.promo_kicker
+            assign promo_text = section.settings.promo_text
+            assign promo_href = section.settings.promo_link
+            if promo_text == blank or promo_text contains 'book the lab' or promo_text contains '16 seats'
+              assign promo_kicker = 'NEW'
+              assign promo_text = 'dulce is live � caramel vanilla swirl'
+              assign promo_href = '/products/dulce-eau-de-parfum'
+            endif
+            if promo_href == blank
+              assign promo_href = '/products/dulce-eau-de-parfum'
+            endif
+          %}
+          {% if promo_text != blank %}
             <a class="suas-home-promo" href="{{ promo_href }}">
-              {% if section.settings.promo_kicker != blank %}
-                <span class="suas-home-promo-kicker">{{ section.settings.promo_kicker | escape }}</span>
+              {% if promo_kicker != blank %}
+                <span class="suas-home-promo-kicker">{{ promo_kicker | escape }}</span>
               {% endif %}
-              <span class="suas-home-promo-text">{{ section.settings.promo_text | escape }}</span>
+              <span class="suas-home-promo-text">{{ promo_text | escape }}</span>
               <span class="suas-home-promo-go" aria-hidden="true">go</span>
             </a>
           {% endif %}
@@ -519,8 +531,8 @@ setInterval(wireHoursLive,60000);
 {
   "name": "SUAS World Home",
   "settings": [
-    {"type":"text","id":"promo_kicker","label":"Promo bar kicker","default":"LAB"},
-    {"type":"text","id":"promo_text","label":"Promo bar text","default":"16 seats thu-sun � book the lab"},
+    {"type":"text","id":"promo_kicker","label":"Promo bar kicker","default":"NEW"},
+    {"type":"text","id":"promo_text","label":"Promo bar text","default":"dulce is live � caramel vanilla swirl"},
     {"type":"url","id":"promo_link","label":"Promo bar link"},
     {"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},
     {"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."}

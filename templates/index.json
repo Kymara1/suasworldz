@@ -11,7 +11,11 @@
   "sections": {
     "main": {
       "type": "suas-world-home",
-      "settings": {}
+      "settings": {
+        "promo_kicker": "NEW",
+        "promo_text": "dulce is live � caramel vanilla swirl",
+        "promo_link": "/products/dulce-eau-de-parfum"
+      }
     }
   },
   "order": [
