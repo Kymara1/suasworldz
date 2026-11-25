@@ -59,6 +59,8 @@
 
 {% for item in cart.items %}
   {%- liquid
+    assign preview_image = false
+    assign suas_fallback_src = false
     if item.image
       assign preview_image = item.image
     elsif item.variant.featured_image
@@ -66,7 +68,18 @@
     elsif item.product.featured_image
       assign preview_image = item.product.featured_image
     else
-      assign preview_image = false
+      case item.product.handle
+        when 'lab-at-home-trio'
+          assign suas_fallback_src = 'lah-pack-trio.png' | asset_url
+        when 'lab-at-home-body-oil'
+          assign suas_fallback_src = 'lah-pack-oil.png' | asset_url
+        when 'lab-at-home-roll-on'
+          assign suas_fallback_src = 'lah-pack-rollon.png' | asset_url
+        when 'lab-at-home-perfume'
+          assign suas_fallback_src = 'lah-pack-cylinder.png' | asset_url
+        else
+          assign suas_fallback_src = 'suas-s-mark.png' | asset_url
+      endcase
     endif
     assign suas_deposit_lock = false
     if item.product.handle == 'lab-party-deposit'
@@ -87,7 +100,7 @@
       data-line-num="{{ forloop.index }}"
       {% if suas_deposit_lock %}data-suas-lock="deposit"{% endif %}
     >
-      <div class="cart--item--image">
+      <div class="cart--item--image{% if preview_image == false %} suas-cart-thumb-fallback{% endif %}">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
           {%- if preview_image != false -%}
             <img
@@ -97,8 +110,24 @@
               height="480"
               loading="eager"
             >
+          {%- elsif suas_fallback_src != false -%}
+            <img
+              class="suas-cart-logo-fallback"
+              src="{{ suas_fallback_src }}"
+              alt="{{ item.product.title | escape }}"
+              width="480"
+              height="480"
+              loading="eager"
+            >
           {%- else -%}
-            {% render "placeholder", type: 'product', aspect_ratio: 1, placeholder_index: 1 %}
+            <img
+              class="suas-cart-logo-fallback"
+              src="{{ 'suas-s-mark.png' | asset_url }}"
+              alt="{{ item.product.title | escape }}"
+              width="480"
+              height="480"
+              loading="eager"
+            >
           {%- endif -%}
         </a>
       </div>
@@ -265,7 +294,7 @@
       data-line-num="{{ forloop.index }}"
       {% if suas_deposit_lock %}data-suas-lock="deposit"{% endif %}
     >
-      <div class="cart--item--image">
+      <div class="cart--item--image{% if preview_image == false %} suas-cart-thumb-fallback{% endif %}">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
           {%- if preview_image != false -%}
             <img
@@ -275,8 +304,24 @@
               height="480"
               loading="eager"
             >
+          {%- elsif suas_fallback_src != false -%}
+            <img
+              class="suas-cart-logo-fallback"
+              src="{{ suas_fallback_src }}"
+              alt="{{ item.product.title | escape }}"
+              width="480"
+              height="480"
+              loading="eager"
+            >
           {%- else -%}
-            {% render "placeholder", type: 'product', aspect_ratio: 1, placeholder_index: 1 %}
+            <img
+              class="suas-cart-logo-fallback"
+              src="{{ 'suas-s-mark.png' | asset_url }}"
+              alt="{{ item.product.title | escape }}"
+              width="480"
+              height="480"
+              loading="eager"
+            >
           {%- endif -%}
         </a>
       </div>
@@ -353,7 +398,7 @@
             <div class="cart--item--discounts" data-item="light-accent-text">
               {% for discount_allocation in item.line_level_discount_allocations %}
                 {{ discount_allocation.discount_application.title }}&nbsp;
-                (–<span class="money">{{ discount_allocation.amount | money }}</span>)
+                (-<span class="money">{{ discount_allocation.amount | money }}</span>)
               {% endfor %}
             </div>
           {% endif %}
@@ -489,7 +534,7 @@
                   <li>
                     <div data-item="accent-text">{{ discount_application.title }}</div>
                     <span data-item="light-accent-text">
-                      –<span class="money">{{ discount_application.total_allocated_amount | money }}
+                      -<span class="money">{{ discount_application.total_allocated_amount | money }}
                       </span>
                     </span>
                   </li>

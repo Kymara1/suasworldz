@@ -251,6 +251,21 @@ html.suas-halloween .suas-cart-chip {
   background: transparent !important;
   box-shadow: none;
 }
+.template--cart .cart--item--image.suas-cart-thumb-fallback,
+.suas-cart-station .cart--item--image.suas-cart-thumb-fallback {
+  border: 2px solid #101010 !important;
+  background:
+    radial-gradient(circle at 35% 30%, #fff 0 18%, transparent 42%),
+    linear-gradient(135deg, #ffd8e8, #d9ff78) !important;
+  box-shadow: 2px 3px 0 #101010;
+}
+.template--cart .cart--item--image .suas-cart-logo-fallback,
+.suas-cart-station .cart--item--image .suas-cart-logo-fallback {
+  width: 78% !important;
+  height: 78% !important;
+  padding: 0 !important;
+  object-fit: contain !important;
+}
 
 .template--cart .cart--item--image a,
 .suas-cart-station .cart--item--image a {
@@ -752,7 +767,7 @@ html.suas-halloween .suas-cart-dots i:nth-child(1) { background: #ff5f57 !import
 html.suas-halloween .suas-cart-dots i:nth-child(2) { background: #febc2e !important; }
 html.suas-halloween .suas-cart-dots i:nth-child(3) { background: #28c840 !important; }
 
-/* Drawer bag: fill the sidebar (never 100vw — Maker's panel is 80%/400px and clips overflow) */
+/* Drawer bag: fill the sidebar (never 100vw ? Maker's panel is 80%/400px and clips overflow) */
 .off-canvas--right-sidebar {
   z-index: 120 !important;
 }
