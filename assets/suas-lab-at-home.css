@@ -1,4 +1,4 @@
-/* LAB.HOME.EXE - XP install wizard + note pour stage */
+/* Lab@Home.EXE - XP install wizard + note pour stage */
 .suas-lah,
 .suas-lah button,
 .suas-lah input,
@@ -181,7 +181,13 @@ a.suas-lah-winbtn { cursor: pointer; }
   background: linear-gradient(180deg, #f5f4ec, var(--face));
 }
 .suas-lah-install-nav .suas-lah-btn { width: auto; min-width: 110px; }
-.suas-lah-install-nav [data-lah-reset] { margin-right: auto; }
+.suas-lah-install-nav [data-lah-reset] { order: 0; margin-right: auto; }
+.suas-lah-install-nav [data-lah-install-back] { order: 1; }
+.suas-lah-install-nav [data-lah-install-next] { order: 2; }
+.suas-lah-install-nav .suas-lah-nav-atc {
+  order: 3; width: 100%; min-height: 48px;
+}
+.suas-lah-install-nav .suas-lah-nav-atc[hidden] { display: none !important; }
 
 /* Step 1 kits - aligned grid, no overlap */
 .suas-lah-kits {
@@ -209,7 +215,7 @@ a.suas-lah-winbtn { cursor: pointer; }
   box-shadow: 0 0 0 3px var(--hot), 2px 2px 0 var(--ink);
 }
 .suas-lah-kit.is-trio { min-height: 88px; }
-.suas-lah-kit-thumb { width: 56px; height: 32px; object-fit: contain; }
+.suas-lah-kit-thumb { width: 56px; height: 40px; object-fit: contain; }
 
 .suas-lah-trio-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-top: 4px; }
 .suas-lah-trio-step {
@@ -227,6 +233,10 @@ a.suas-lah-winbtn { cursor: pointer; }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin-top: 6px;
+}
+.suas-lah-bottle-options.is-fixed {
+  grid-template-columns: minmax(0, 260px);
+  justify-content: start;
 }
 .suas-lah-bottle-opt {
   appearance: none; min-height: 220px; padding: 12px 10px 14px;
@@ -557,9 +567,10 @@ a.suas-lah-winbtn { cursor: pointer; }
   .suas-lah-note b { font-size: 10px; }
   .suas-lah-search, #LahFormulaName { font-size: 16px; min-height: 42px; }
   .suas-lah-bottle-options { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .suas-lah-bottle-options.is-fixed { grid-template-columns: 1fr; }
   .suas-lah-bottle-opt { min-height: 180px; }
   .suas-lah-bottle-opt img { height: 120px; }
-  .suas-lah-step[data-lah-step='process'] .suas-lah-cta { display: none; }
+  .suas-lah.is-process-step .suas-lah-sticky { display: none; }
   .suas-lah-sticky {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
     display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; align-items: center;
@@ -575,7 +586,8 @@ a.suas-lah-winbtn { cursor: pointer; }
   .suas-lah-sticky-atc { min-height: 42px; min-width: 110px; font-size: .8rem !important; }
   .suas-lah-install-nav { justify-content: stretch; }
   .suas-lah-install-nav .suas-lah-btn { flex: 1; min-width: 0; }
-  .suas-lah-install-nav [data-lah-reset] { flex: 0 0 100%; margin: 0; order: 3; }
+  .suas-lah-install-nav .suas-lah-nav-atc { flex: 0 0 100%; order: 3; }
+  .suas-lah-install-nav [data-lah-reset] { flex: 0 0 100%; margin: 0; order: 4; }
 }
 
 @media (prefers-reduced-motion: reduce) {

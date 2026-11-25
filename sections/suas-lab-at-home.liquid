@@ -28,7 +28,7 @@
 <section
   class="suas-lah"
   id="lab-at-home"
-  aria-label="The Lab at Home"
+  aria-label="Lab @ Home"
   data-suas-lah
   data-variant-perfume="{{ perfume_variant.id | default: 0 }}"
   data-variant-oil="{{ oil_variant.id | default: 0 }}"
@@ -55,17 +55,17 @@
   <div class="suas-lah-wrap">
     <div class="suas-lah-window" data-lah-window>
       <div class="suas-lah-titlebar">
-        <span class="suas-lah-app" data-lah-app-title>LAB.HOME.EXE  -  Setup Wizard</span>
+        <span class="suas-lah-app" data-lah-app-title>Lab@Home.EXE - Setup Wizard</span>
         <span class="suas-lah-winbtns">
           <i class="suas-lah-winbtn" data-kind="min" aria-hidden="true"></i>
           <i class="suas-lah-winbtn" data-kind="max" aria-hidden="true"></i>
-          <a class="suas-lah-winbtn" data-kind="close" href="/pages/bookings" aria-label="Close Lab at Home"></a>
+          <a class="suas-lah-winbtn" data-kind="close" href="/pages/bookings" aria-label="Close Lab @ Home"></a>
         </span>
       </div>
 
       <div class="suas-lah-screen is-on" data-lah-screen="setup" role="region" aria-label="Setup wizard">
         <div class="suas-lah-wizard">
-          <aside class="suas-lah-sidebar" aria-hidden="true"><div class="suas-lah-sidebar-card">LAB<br>HOME</div></aside>
+          <aside class="suas-lah-sidebar" aria-hidden="true"><div class="suas-lah-sidebar-card">Lab<br>@Home</div></aside>
           <div class="suas-lah-wizard-body">
             <p class="suas-lah-wizard-kicker">BLACK FRIDAY RELEASE</p>
             <h1 class="suas-lah-wizard-title">NEW SOFTWARE DETECTED</h1>
@@ -80,7 +80,7 @@
 
       <div class="suas-lah-screen" data-lah-screen="welcome" role="region" aria-label="Welcome" hidden>
         <div class="suas-lah-wizard">
-          <aside class="suas-lah-sidebar" aria-hidden="true"><div class="suas-lah-sidebar-card">LAB<br>HOME</div></aside>
+          <aside class="suas-lah-sidebar" aria-hidden="true"><div class="suas-lah-sidebar-card">Lab<br>@Home</div></aside>
           <div class="suas-lah-wizard-body">
             <h1 class="suas-lah-wizard-title suas-lah-wizard-title-sm">The Lab has officially left the building.</h1>
             <p class="suas-lah-wizard-copy">Create your own signature perfume from anywhere.</p>
@@ -95,10 +95,10 @@
       </div>
 
       {%- comment -%} XP install wizard: kit  ->  bottle  ->  notes  ->  name  ->  process {%- endcomment -%}
-      <div class="suas-lah-screen" data-lah-screen="build" role="region" aria-label="Install Lab Home" hidden>
+      <div class="suas-lah-screen" data-lah-screen="build" role="region" aria-label="Install Lab @ Home" hidden>
         <div class="suas-lah-install" data-lah-install>
           <aside class="suas-lah-install-rail" aria-label="Install steps">
-            <p class="suas-lah-install-rail-title">Installing<br>LAB.HOME.EXE</p>
+            <p class="suas-lah-install-rail-title">Installing<br>Lab@Home.EXE</p>
             <ol class="suas-lah-install-steps" data-lah-install-steps>
               <li data-step-id="kit"><em>1</em><span>Kit type</span></li>
               <li data-step-id="bottle"><em>2</em><span>Bottle</span></li>
@@ -120,8 +120,8 @@
             </div>
 
             <div class="suas-lah-step" data-lah-step="bottle" role="group" aria-labelledby="lah-step-bottle-title" hidden>
-              <h2 id="lah-step-bottle-title" class="suas-lah-step-title">Step 2 - Choose your perfume bottle</h2>
-              <p class="suas-lah-step-copy">Cylinder or round  -  same juice, different silhouette.</p>
+              <h2 id="lah-step-bottle-title" class="suas-lah-step-title" data-lah-bottle-title>Step 2 - Choose your bottle</h2>
+              <p class="suas-lah-step-copy" data-lah-bottle-copy>Pick the pack we ship with your kit.</p>
               <div class="suas-lah-bottle-pick" data-lah-bottle-pick>
                 <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="Bottle"></div>
               </div>
@@ -177,13 +177,13 @@
                 <em data-lah-statusbar>Select your 15 mL base</em>
                 <em data-lah-recipe class="suas-lah-crt-recipe"></em>
               </div>
-              <button class="suas-lah-cta" type="button" data-lah-atc disabled>Select your 15 mL base</button>
               <p class="suas-lah-error" data-lah-error role="alert"></p>
             </div>
 
             <div class="suas-lah-install-nav">
               <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-install-back>&lt; Back</button>
               <button class="suas-lah-btn suas-lah-btn-lime" type="button" data-lah-install-next>Next &gt;</button>
+              <button class="suas-lah-cta suas-lah-nav-atc" type="button" data-lah-atc disabled hidden>add to bag</button>
               <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-reset>start over</button>
             </div>
           </div>

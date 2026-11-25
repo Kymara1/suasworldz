@@ -108,18 +108,18 @@
  };
 
  var SCREEN_TITLES = {
- setup: 'LAB.HOME.EXE - Setup Wizard',
- welcome: 'LAB.HOME.EXE - Welcome',
- build: 'LAB.HOME.EXE - Installing'
+ setup: 'Lab@Home.EXE - Setup Wizard',
+ welcome: 'Lab@Home.EXE - Welcome',
+ build: 'Lab@Home.EXE - Installing'
  };
 
  var INSTALL_STEPS = ['kit', 'bottle', 'notes', 'name', 'process'];
  var INSTALL_TITLES = {
- kit: 'LAB.HOME.EXE - Step 1 of 5',
- bottle: 'LAB.HOME.EXE - Step 2 of 5',
- notes: 'LAB.HOME.EXE - Step 3 of 5',
- name: 'LAB.HOME.EXE - Step 4 of 5',
- process: 'LAB.HOME.EXE - Step 5 of 5'
+ kit: 'Lab@Home.EXE - Step 1 of 5',
+ bottle: 'Lab@Home.EXE - Step 2 of 5',
+ notes: 'Lab@Home.EXE - Step 3 of 5',
+ name: 'Lab@Home.EXE - Step 4 of 5',
+ process: 'Lab@Home.EXE - Step 5 of 5'
  };
 
  var TRIO_ORDER = ['perfume', 'oil', 'rollon'];
@@ -188,15 +188,8 @@
  return KITS[activeKitKey()];
  }
 
- function needsPerfumeBottle() {
- return state.mode === 'perfume' || state.mode === 'trio';
- }
-
  function installPath() {
- return INSTALL_STEPS.filter(function (id) {
- if (id === 'bottle' && !needsPerfumeBottle()) return false;
- return true;
- });
+ return INSTALL_STEPS.slice();
  }
 
  function installIndex() {
@@ -239,6 +232,8 @@
  function renderInstallNav() {
  var path = installPath();
  var idx = installIndex();
+ var onProcess = state.installStep === 'process';
+ root.classList.toggle('is-process-step', onProcess);
  if (els.installBack) {
  els.installBack.disabled = idx <= 0;
  els.installBack.hidden = false;
@@ -256,6 +251,7 @@
  els.installNext.disabled = false;
  }
  }
+ if (els.atc) els.atc.hidden = !onProcess;
  }
 
  function installNext() {
@@ -602,8 +598,13 @@
  ];
  els.kits.innerHTML = options.map(function (opt) {
  var pressed = state.mode === opt.id;
- var thumb = opt.id === 'trio' && trioPackSrc
- ? '<img class="suas-lah-kit-thumb" src="' + escapeHtml(trioPackSrc) + '" alt="" width="72" height="40">'
+ var thumbSrc = '';
+ if (opt.id === 'trio') thumbSrc = trioPackSrc;
+ else if (opt.id === 'oil') thumbSrc = FIXED_PACKS.oil.src;
+ else if (opt.id === 'rollon') thumbSrc = FIXED_PACKS.rollon.src;
+ else if (opt.id === 'perfume') thumbSrc = (BOTTLES.cylinder && BOTTLES.cylinder.src) || '';
+ var thumb = thumbSrc
+ ? '<img class="suas-lah-kit-thumb" src="' + escapeHtml(thumbSrc) + '" alt="" width="72" height="40">'
  : '';
  return (
  '<button type="button" class="suas-lah-kit' + (pressed ? ' is-selected' : '') + (opt.id === 'trio' ? ' is-trio' : '') + '" data-kit="' + opt.id + '" aria-pressed="' + pressed + '">' +
@@ -661,8 +662,37 @@
  }).join('');
  }
 
+ function syncBottleCopy() {
+ var title = root.querySelector('[data-lah-bottle-title]');
+ var copy = root.querySelector('[data-lah-bottle-copy]');
+ var key = activeKitKey();
+ if (key === 'oil') {
+ if (title) title.textContent = 'Step 2 - Your bottle';
+ if (copy) copy.textContent = 'Body oil ships in the airless pump.';
+ } else if (key === 'rollon') {
+ if (title) title.textContent = 'Step 2 - Your bottle';
+ if (copy) copy.textContent = 'Roll-on ships in the 10 mL tube.';
+ } else {
+ if (title) title.textContent = 'Step 2 - Choose your perfume bottle';
+ if (copy) copy.textContent = 'Cylinder or round - same juice, different silhouette.';
+ }
+ }
+
  function renderBottlePick() {
  if (!els.bottleOptions) return;
+ syncBottleCopy();
+ var key = activeKitKey();
+ if (key === 'oil' || key === 'rollon') {
+ var pack = FIXED_PACKS[key];
+ els.bottleOptions.classList.add('is-fixed');
+ els.bottleOptions.innerHTML =
+ '<button type="button" class="suas-lah-bottle-opt is-selected is-fixed" data-bottle="' + pack.id + '" aria-pressed="true">' +
+ (pack.src ? '<img src="' + escapeHtml(pack.src) + '" alt="" width="140" height="160">' : '') +
+ '<strong>' + escapeHtml(pack.label) + '</strong>' +
+ '</button>';
+ return;
+ }
+ els.bottleOptions.classList.remove('is-fixed');
  els.bottleOptions.innerHTML = Object.keys(BOTTLES).map(function (key) {
  var bottle = BOTTLES[key];
  var on = state.bottle === key;
@@ -908,7 +938,7 @@
  Formula: formula.name || 'untitled formula',
  Mix: formulaLine(formula)
  };
- if (formula.kit === 'perfume' && formula.bottle) {
+ if (formula.bottle) {
  props.Bottle = formula.bottle;
  }
  return props;
@@ -1114,8 +1144,7 @@
  if (els.name) els.name.value = '';
  setError('');
  paint();
- if (state.installStep === 'bottle' && !needsPerfumeBottle()) setInstallStep('kit');
- else renderInstallRail();
+ renderInstallRail();
  announce(state.mode === 'trio'
  ? 'Trio selected - build perfume, then oil, then roll-on.'
  : ('Selected ' + kit.label));
@@ -1142,9 +1171,12 @@
 
  var bottleBtn = event.target.closest('[data-bottle]');
  if (bottleBtn && root.contains(bottleBtn)) {
- state.bottle = bottleBtn.getAttribute('data-bottle');
+ var bottleId = bottleBtn.getAttribute('data-bottle');
+ if (BOTTLES[bottleId]) {
+ state.bottle = bottleId;
  paint();
- announce('Bottle: ' + (BOTTLES[state.bottle] || {}).label);
+ announce('Bottle: ' + BOTTLES[bottleId].label);
+ }
  return;
  }
 
