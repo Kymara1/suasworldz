@@ -540,8 +540,8 @@ a.suas-lah-winbtn { cursor: pointer; }
 }
 
 @media (max-width: 620px) {
-  .suas-lah { padding: 4px 0 78px; }
-  .suas-lah-wrap { width: calc(100% - 8px); }
+  .suas-lah { padding: 20px 0 78px; }
+  .suas-lah-wrap { width: calc(100% - 8px); margin-top: 8px; }
   .suas-lah-wizard { flex-direction: column; }
   .suas-lah-sidebar { width: 100%; display: flex; align-items: center; gap: 8px; padding: 8px; }
   .suas-lah-sidebar-card { width: 40px; height: 40px; margin: 0; align-items: center; padding: 0; font-size: 7px; }
