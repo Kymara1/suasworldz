@@ -40,6 +40,9 @@
     .suas-book-hours-grid p b{display:block;margin-bottom:4px;font:900 9px/1 Tahoma,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
     .suas-book-walkin{display:none}
     .suas-book-hours-note{grid-column:1/-1;margin:0;padding:0 12px 12px;font:700 11px/1.35 Tahoma,Arial,sans-serif;color:rgba(16,16,16,.7)}
+    .suas-book-closed-banner{margin:0 0 12px;padding:12px 14px;border:2.5px solid var(--ink);border-radius:16px;background:#d8d4cc;color:var(--ink);box-shadow:3px 4px 0 var(--ink);font:800 14px/1.35 Tahoma,Arial,sans-serif}
+    .suas-book-closed-banner strong{display:block;font:900 11px/1 Tahoma,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+    .suas-book-input.is-closed-day,.suas-book-input:disabled{opacity:.55;filter:grayscale(1);background:#e8e6e0!important;cursor:not-allowed}
     .suas-book-rules{margin:0 18px 14px;padding:0;display:grid}
     .suas-book-rules-body{display:grid;gap:8px;padding:12px}
     .suas-book-rules-body h2{margin:0;font-size:clamp(1.35rem,2.4vw,2rem);line-height:.9}
@@ -257,6 +260,7 @@
         <p class="suas-book-copy">DIY perfume making in Gastonia - pick a seat at The Lab, mix your own fragrance, pay now, we ping you the day before. Self-guided perfume, body oil, or combo. Charm Bar too. Private parties still use the <a class="suas-book-inline-link" href="/pages/party-booking">party order form</a> (request first, invoice later). Address: 188 W Franklin Blvd, Gastonia, NC 28052.</p>
       </div>
     </header>
+    <p class="suas-book-closed-banner" role="status"><strong>closed date</strong>Thursday 11/26 is Thanksgiving - Lab, Charm Bar, and store bookings are closed. Pick another day.</p>
     <div class="suas-book-top">
       <div class="suas-book-card">
         <div class="suas-book-bar" style="background:#d6c21a"><b>S 1. Choose your session</b><span aria-hidden="true"><i></i><i></i><i></i></span></div>
@@ -277,7 +281,7 @@
             <p style="--chip:#d8d4cc;"><b>Guided ? soon</b>Not open for booking yet. We'll announce when seats drop.</p>
             <p style="--chip:#fff2a8;"><b>Charm Bar</b>Thu-Sun - 4 seats / 45 min<br>Bracelet $28 - Necklace $38 - Keychain $25<br>5 charms included - extras $3 each</p>
           </div>
-          <p class="suas-book-hours-note">Lab 16 seats/hour - Charm 4/slot. Closed Mon-Wed.</p>
+          <p class="suas-book-hours-note">Lab 16 seats/hour - Charm 4/slot. Closed Mon-Wed. Closed Thanksgiving Thu 11/26.</p>
         </div>
       </details>
     </div>
@@ -695,6 +699,9 @@
       var root = document.currentScript.closest('.suas-bookings-page');
       if (!root) return;
       var OPENS = '2026-11-14';
+      var CLOSED_DATES = {
+        '2026-11-26': 'Thanksgiving - closed. Lab + Charm Bar bookings are greyed out for Thu 11/26. Pick another day.'
+      };
       var soldSeats = { slots: {}, labCap: 16, charmCap: 4 };
       try {
         var seatNode = document.getElementById('suas-lab-seats-data');
@@ -889,10 +896,24 @@
         var bits = value.split('-').map(Number);
         return new Date(bits[0], bits[1] - 1, bits[2]).getDay();
       }
+      function closedReason(value) {
+        if (!value) return '';
+        return CLOSED_DATES[value] || '';
+      }
       function reject(input, message) {
         alert(message);
-        input.value = '';
-        input.focus();
+        if (input) {
+          input.classList.add('is-closed-day');
+          input.value = '';
+          input.focus();
+          setTimeout(function () { input.classList.remove('is-closed-day'); }, 1200);
+        }
+      }
+      function blockClosedDate(input, messagePrefix) {
+        var reason = closedReason(input && input.value);
+        if (!reason) return false;
+        reject(input, messagePrefix ? (messagePrefix + ' ' + reason) : reason);
+        return true;
       }
       function setOptions(select, options) {
         if (!select) return;
@@ -977,6 +998,11 @@
             reject(selfDate, 'Pick a Lab day from today on (Thu-Sun).');
             return;
           }
+          if (blockClosedDate(selfDate)) {
+            renderSelfChips([], '');
+            paintSelfSeats();
+            return;
+          }
           var day = dateDay(selfDate.value);
           if (day === null) {
             renderSelfChips([], '');
@@ -1004,6 +1030,11 @@
           if (!selfDate.value || selfDate.value < OPENS) {
             event.preventDefault();
             alert('Pick a Lab day from today on (Thu-Sun).');
+            return;
+          }
+          if (closedReason(selfDate.value)) {
+            event.preventDefault();
+            blockClosedDate(selfDate);
             return;
           }
           var day = dateDay(selfDate.value);
@@ -1224,6 +1255,11 @@
             paintSeats();
             return;
           }
+          if (blockClosedDate(guidedDate)) {
+            renderTimeChips([], '');
+            paintSeats();
+            return;
+          }
           var day = dateDay(guidedDate.value);
           if (day === null) {
             renderTimeChips([], '');
@@ -1249,6 +1285,11 @@
           if (!guidedDate.value || guidedDate.value < OPENS) {
             event.preventDefault();
             alert('Pick a Lab day from today on (Thu-Sat for guided).');
+            return;
+          }
+          if (closedReason(guidedDate.value)) {
+            event.preventDefault();
+            blockClosedDate(guidedDate);
             return;
           }
           matchGuidedVariant();
@@ -1430,6 +1471,13 @@
             reject(charmDate, 'Pick a Charm Bar day from today on (Thu-Sun).');
             return;
           }
+          if (blockClosedDate(charmDate)) {
+            if (charmTime) setOptions(charmTime, []);
+            renderCharmChips([], '');
+            paintCharmSeats();
+            if (charmStatus) charmStatus.textContent = 'Thanksgiving - closed. Pick another day.';
+            return;
+          }
           var day = dateDay(charmDate.value);
           var slots = charmSlotsForDay(day);
           if (!slots.length) {
@@ -1463,6 +1511,11 @@
           }
           if (!charmDate.value || charmDate.value < OPENS) {
             if (charmStatus) charmStatus.textContent = 'Pick a Charm Bar day from today on (Thu-Sun).';
+            return;
+          }
+          if (closedReason(charmDate.value)) {
+            if (charmStatus) charmStatus.textContent = 'Thanksgiving - closed. Pick another day.';
+            blockClosedDate(charmDate);
             return;
           }
           if (!slots.length || slots.indexOf(charmTime.value) === -1) {

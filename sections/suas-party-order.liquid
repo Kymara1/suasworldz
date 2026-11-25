@@ -426,9 +426,28 @@
           notes.value = notes.value.trim() + '\n' + line;
         }
       }
+      var CLOSED_DATES = {
+        '2026-11-26': 'Thanksgiving - closed. Party requests cannot hold Thu 11/26. Pick another day.'
+      };
+      var partyDate = document.getElementById('party-date');
+      if (partyDate) {
+        partyDate.addEventListener('change', function () {
+          if (partyDate.value && CLOSED_DATES[partyDate.value]) {
+            alert(CLOSED_DATES[partyDate.value]);
+            partyDate.classList.add('is-closed-day');
+            partyDate.value = '';
+            setTimeout(function () { partyDate.classList.remove('is-closed-day'); }, 1200);
+          }
+        });
+      }
       form.addEventListener('change', refreshTotal);
       form.addEventListener('input', refreshTotal);
-      form.addEventListener('submit', function () {
+      form.addEventListener('submit', function (event) {
+        if (partyDate && partyDate.value && CLOSED_DATES[partyDate.value]) {
+          event.preventDefault();
+          alert(CLOSED_DATES[partyDate.value]);
+          return;
+        }
         refreshTotal();
         var inv = document.getElementById('party-invoice-no');
         var num = inv && inv.value ? inv.value : makeInvoiceNo();

@@ -27,6 +27,7 @@
     .suas-charm-field[data-wide],.suas-charm-button,.suas-charm-note,.suas-charm-addons,.suas-charm-types,.suas-charm-chips{grid-column:1/-1}
     .suas-charm-label{color:rgba(16,16,16,.58)}
     .suas-charm-input{width:100%;min-height:48px;border:2px solid rgba(16,16,16,.18);border-radius:14px;padding:10px 12px;background:#fff;color:var(--ink);font:800 16px/1.2 Futura,'Futura PT',Arial,sans-serif;outline:none}
+    .suas-charm-input.is-closed-day{opacity:.55;filter:grayscale(1);background:#e8e6e0!important;cursor:not-allowed}
     .suas-charm-input:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,159,194,.22)}
     .suas-charm-types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
     .suas-charm-type{position:relative;display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-content:center;padding:10px 12px;border:2px solid rgba(16,16,16,.2);border-radius:16px;background:#fff;cursor:pointer;box-shadow:0 3px 0 rgba(16,16,16,.18)}
@@ -158,6 +159,9 @@
       const form = section?.querySelector('[data-charm-booking-form]');
       if (!form) return;
       const OPENS = '2026-11-14';
+      const CLOSED_DATES = {
+        '2026-11-26': 'Thanksgiving - closed. Charm Bar is greyed out for Thu 11/26. Pick another day.'
+      };
       const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
       const slotMap = {
         0: ['1:00 PM','2:00 PM','3:00 PM','4:00 PM'],
@@ -221,6 +225,14 @@
           renderChips([], '');
           return;
         }
+        if (CLOSED_DATES[date.value]) {
+          status.textContent = CLOSED_DATES[date.value];
+          date.classList.add('is-closed-day');
+          date.value = '';
+          renderChips([], '');
+          setTimeout(() => date.classList.remove('is-closed-day'), 1200);
+          return;
+        }
         const day = dayOf(date.value);
         const slots = slotMap[day] || [];
         time.innerHTML = '<option value="">choose time</option>';
@@ -258,6 +270,10 @@
         }
         if (!date.value || date.value < OPENS) {
           status.textContent = 'Pick a Charm Bar day from today on (Thu-Sun).';
+          return;
+        }
+        if (CLOSED_DATES[date.value]) {
+          status.textContent = CLOSED_DATES[date.value];
           return;
         }
         if (!slots.length || slots.indexOf(time.value) === -1) {
