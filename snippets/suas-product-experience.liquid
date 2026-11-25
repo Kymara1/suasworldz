@@ -84,41 +84,11 @@
     assign ingredients_html = 'Cocos Nucifera (Fractionated Coconut) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Persea Gratissima (Avocado) Oil, Carthamus Tinctorius (Safflower) Seed Oil, Ricinus Communis (Castor) Seed Oil, Isopropyl Myristate, Tocopherol, Parfum.'
     assign scent_line = ''
     assign for_line = ''
-    if pdp_handle contains 'nectar'
-      assign story_html = '<p>wet-skin shine. pineapple that follows you out the door. put it on and stay gone.</p>'
-    elsif pdp_handle contains 'haze'
-      assign story_html = '<p>wildflower in the heat. pretty with an agenda. this is not a spa pamphlet.</p>'
-    elsif pdp_handle contains 'crimson'
-      assign story_html = '<p>the loud red one. slick it on like you meant the stain.</p>'
-    elsif pdp_handle contains 'good-girl'
-      assign story_html = '<p>pear, jasmine, coconut. sweet until it isn&apos;t. you already know.</p>'
-    elsif pdp_handle contains 'ember'
-      assign story_html = '<p>smoke, cocoa, woods. the kind of warm that lingers like you planned it.</p>'
-    else
-      assign story_html = '<p>skin-slick. pulse-loud. oil you put on then invent a reason to leave the house.</p>'
-    endif
   endif
   if is_body_scrub
     assign ingredients_html = 'Sucrose, Butyrospermum Parkii (Shea) Butter, Cocos Nucifera (Coconut) Oil, Oryza Sativa (Rice Bran) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Ricinus Communis (Castor) Seed Oil, Behentrimonium Methosulfate (and) Cetearyl Alcohol, Cetyl Alcohol, Tocopheryl Acetate, Phenoxyethanol (and) Caprylyl Glycol, Parfum.'
     assign scent_line = ''
     assign for_line = ''
-    if pdp_handle contains 'nectar'
-      assign story_html = '<p>sugar that smells like pineapple pulp. rinse, glow, do not explain yourself.</p>'
-    elsif pdp_handle contains 'haze'
-      assign story_html = '<p>wildflower grit. pretty, then rude. your shower is not a spa.</p>'
-    elsif pdp_handle contains 'crimson'
-      assign story_html = '<p>the loud red polish. scrub like you meant the stain.</p>'
-    elsif pdp_handle contains 'good-girl'
-      assign story_html = '<p>pear, jasmine, coconut. sweet grit. you already know.</p>'
-    elsif pdp_handle contains 'ember'
-      assign story_html = '<p>smoke, cocoa, woods. a warm scrape that stays after the water.</p>'
-    elsif pdp_handle contains 'poppy'
-      assign story_html = '<p>bubblegum sugar. pink on purpose. rinse off, stay loud.</p>'
-    elsif pdp_handle contains 'tonic'
-      assign story_html = '<p>blackberry mint. cold then sweet. the scrub with a smirk.</p>'
-    else
-      assign story_html = '<p>sugar, shea, scent. 9 ounces of get-off-me then smell-like-that.</p>'
-    endif
   endif
   if is_perfume
     assign ingredients_html = 'Alcohol Denat., Parfum (Fragrance).'
@@ -232,7 +202,7 @@
           {% endif %}
           <div class="suas-pdp-chip">
             <b>the feel</b>
-            <p>{% if suas_feel != blank %}{{ suas_feel }}{% elsif pdp_home %}Room-filling scent for the house, the car, the after-hours.{% elsif is_perfume %}Spray-loud. Pulse points. A trail, not a lotion.{% else %}Soothes. Moisturizes. Layers. Cushiony handmade formula for skin that wants to smell like something, not like a lecture.{% endif %}</p>
+            <p>{% if suas_feel != blank %}{{ suas_feel }}{% elsif pdp_home %}Room-filling scent for the house, the car, the after-hours.{% elsif is_perfume %}Spray-loud. Pulse points. A trail that lasts.{% elsif is_body_scrub %}Sugar polish with a shea finish. Scrub, rinse, scent stays.{% elsif is_body_oil %}Slick shine that layers under butter or alone.{% else %}Soothes. Moisturizes. Layers. Handmade formula for skin that wants scent that sticks.{% endif %}</p>
           </div>
         </aside>
       </div>
