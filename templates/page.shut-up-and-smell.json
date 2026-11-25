@@ -1,11 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "lab_at_home": {
       "type": "suas-lab-at-home",
       "settings": {
-        "kicker": "SUAS.OS / LAB.HOME.EXE",
+        "kicker": "SUAS.OS / Lab@Home.EXE",
         "heading": "the lab @ home",
-        "copy": "Curate your DIY kit online — we pack it and ship nationwide. Pick a kit, pour your notes, name it, check out.",
+        "copy": "Curate your DIY kit online - we pack it and ship nationwide. Pick a kit, pour your notes, name it, check out.",
         "perfume_product": "lab-at-home-perfume",
         "oil_product": "lab-at-home-body-oil",
         "rollon_product": "lab-at-home-roll-on",
