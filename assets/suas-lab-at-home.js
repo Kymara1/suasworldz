@@ -815,7 +815,6 @@
 
     var note = noteById(id);
     setError('');
-    celebratePour(note, slotIndex);
 
     if (!kitComplete()) {
       var advanced = false;
@@ -837,6 +836,7 @@
       }
     }
     paint();
+    celebratePour(note, slotIndex);
     announce((note ? note.label : id) + ' selected. ' + coachLine());
     if (kitComplete() && els.sticky && window.matchMedia('(max-width: 620px)').matches) {
       try { els.sticky.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
