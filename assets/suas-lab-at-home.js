@@ -903,19 +903,14 @@
  }
 
  function propertiesForFormula(formula) {
+ // Keep cart lines short - one mix line, optional bottle. No duplicate note/amount rows.
  var props = {
- Kit: formula.label,
- 'Formula name': formula.name,
- 'Base note': formula.slots[0] ? formula.slots[0].noteLabel : '',
- 'Base amount': formula.slots[0] ? (formula.slots[0].amountMl + ' mL') : ''
+ Formula: formula.name || 'untitled formula',
+ Mix: formulaLine(formula)
  };
- for (var i = 1; i < formula.slots.length; i++) {
- props['Support ' + i] = formula.slots[i].noteLabel;
- props['Support ' + i + ' amount'] = formula.slots[i].amountMl + ' mL';
+ if (formula.kit === 'perfume' && formula.bottle) {
+ props.Bottle = formula.bottle;
  }
- props.Protocol = formulaLine(formula);
- if (formula.bottle) props.Bottle = formula.bottle;
- if (formula.finish) props.Finish = formula.finish;
  return props;
  }
 
@@ -1041,25 +1036,16 @@
  id: variants.trio,
  quantity: 1,
  properties: {
- Kit: titles.trio,
- 'Formula name': rollF.name,
- 'Perfume formula': perfumeF.name + ' - ' + formulaLine(perfumeF),
- 'Body oil formula': oilF.name + ' - ' + formulaLine(oilF),
- 'Roll-on formula': rollF.name + ' - ' + formulaLine(rollF),
- 'Perfume bottle': perfumeF.bottle || '',
- 'Perfume finish': perfumeF.finish || 'silver sprayer',
- 'Body oil bottle': oilF.bottle || '',
- 'Roll-on bottle': rollF.bottle || '',
- Price: money.trio
+ Perfume: perfumeF.name + ' - ' + formulaLine(perfumeF),
+ 'Body oil': oilF.name + ' - ' + formulaLine(oilF),
+ 'Roll-on': rollF.name + ' - ' + formulaLine(rollF),
+ Bottle: perfumeF.bottle || 'cylinder'
  }
  });
  } else {
  if (!variants[state.mode]) throw new Error('missing variant ' + state.mode);
  var formula = snapshotFormula();
- var props = propertiesForFormula(formula);
- props.Price = money[state.mode];
- props.Product = titles[state.mode];
- items.push({ id: variants[state.mode], quantity: 1, properties: props });
+ items.push({ id: variants[state.mode], quantity: 1, properties: propertiesForFormula(formula) });
  }
 
  var response = await fetch('/cart/add.js', {
