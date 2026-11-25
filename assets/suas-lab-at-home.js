@@ -744,7 +744,7 @@
 
  function renderFilters() {
  if (!els.filters) return;
- var families = ['all', 'fruit', 'gourmand', 'green', 'sparkle'];
+  var families = ['all', 'fruit', 'floral', 'gourmand', 'green', 'sparkle'];
  els.filters.innerHTML = families.map(function (fam) {
  return (
  '<button type="button" class="suas-lah-filter" data-filter="' + fam + '" aria-pressed="' + (state.filter === fam) + '">' +
