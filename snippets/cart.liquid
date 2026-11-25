@@ -61,25 +61,20 @@
   {%- liquid
     assign preview_image = false
     assign suas_fallback_src = false
-    if item.image
+    assign suas_lab_home = false
+    if item.product.handle == 'lab-at-home-trio' or item.product.handle == 'lab-at-home-perfume' or item.product.handle == 'lab-at-home-body-oil' or item.product.handle == 'lab-at-home-roll-on'
+      assign suas_lab_home = true
+    endif
+    if suas_lab_home
+      assign suas_fallback_src = 'suas-s-mark.png' | asset_url
+    elsif item.image
       assign preview_image = item.image
     elsif item.variant.featured_image
       assign preview_image = item.variant.featured_image
     elsif item.product.featured_image
       assign preview_image = item.product.featured_image
     else
-      case item.product.handle
-        when 'lab-at-home-trio'
-          assign suas_fallback_src = 'lah-pack-trio.png' | asset_url
-        when 'lab-at-home-body-oil'
-          assign suas_fallback_src = 'lah-pack-oil.png' | asset_url
-        when 'lab-at-home-roll-on'
-          assign suas_fallback_src = 'lah-pack-rollon.png' | asset_url
-        when 'lab-at-home-perfume'
-          assign suas_fallback_src = 'lah-pack-cylinder.png' | asset_url
-        else
-          assign suas_fallback_src = 'suas-s-mark.png' | asset_url
-      endcase
+      assign suas_fallback_src = 'suas-s-mark.png' | asset_url
     endif
     assign suas_deposit_lock = false
     if item.product.handle == 'lab-party-deposit'
@@ -100,20 +95,11 @@
       data-line-num="{{ forloop.index }}"
       {% if suas_deposit_lock %}data-suas-lock="deposit"{% endif %}
     >
-      <div class="cart--item--image{% if preview_image == false %} suas-cart-thumb-fallback{% endif %}">
+      <div class="cart--item--image{% if preview_image == false or suas_lab_home %} suas-cart-thumb-fallback{% endif %}">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
-          {%- if preview_image != false -%}
+          {%- if preview_image != false and suas_lab_home == false -%}
             <img
               src="{{ preview_image | image_url: width: 480 }}"
-              alt="{{ item.product.title | escape }}"
-              width="480"
-              height="480"
-              loading="eager"
-            >
-          {%- elsif suas_fallback_src != false -%}
-            <img
-              class="suas-cart-logo-fallback"
-              src="{{ suas_fallback_src }}"
               alt="{{ item.product.title | escape }}"
               width="480"
               height="480"
@@ -122,7 +108,7 @@
           {%- else -%}
             <img
               class="suas-cart-logo-fallback"
-              src="{{ 'suas-s-mark.png' | asset_url }}"
+              src="{% if suas_fallback_src != false %}{{ suas_fallback_src }}{% else %}{{ 'suas-s-mark.png' | asset_url }}{% endif %}"
               alt="{{ item.product.title | escape }}"
               width="480"
               height="480"
@@ -294,20 +280,11 @@
       data-line-num="{{ forloop.index }}"
       {% if suas_deposit_lock %}data-suas-lock="deposit"{% endif %}
     >
-      <div class="cart--item--image{% if preview_image == false %} suas-cart-thumb-fallback{% endif %}">
+      <div class="cart--item--image{% if preview_image == false or suas_lab_home %} suas-cart-thumb-fallback{% endif %}">
         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
-          {%- if preview_image != false -%}
+          {%- if preview_image != false and suas_lab_home == false -%}
             <img
               src="{{ preview_image | image_url: width: 480 }}"
-              alt="{{ item.product.title | escape }}"
-              width="480"
-              height="480"
-              loading="eager"
-            >
-          {%- elsif suas_fallback_src != false -%}
-            <img
-              class="suas-cart-logo-fallback"
-              src="{{ suas_fallback_src }}"
               alt="{{ item.product.title | escape }}"
               width="480"
               height="480"
@@ -316,7 +293,7 @@
           {%- else -%}
             <img
               class="suas-cart-logo-fallback"
-              src="{{ 'suas-s-mark.png' | asset_url }}"
+              src="{% if suas_fallback_src != false %}{{ suas_fallback_src }}{% else %}{{ 'suas-s-mark.png' | asset_url }}{% endif %}"
               alt="{{ item.product.title | escape }}"
               width="480"
               height="480"
