@@ -122,6 +122,7 @@
           <div class="suas-charm-field"><label class="suas-charm-label" for="CharmGuests">seats</label><input class="suas-charm-input" id="CharmGuests" type="number" min="1" max="4" value="1" required></div>
           <div class="suas-charm-field"><label class="suas-charm-label" for="CharmPhone">phone</label><input class="suas-charm-input" id="CharmPhone" type="tel" required></div>
           <div class="suas-charm-field"><label class="suas-charm-label" for="CharmName">name</label><input class="suas-charm-input" id="CharmName" type="text" required></div>
+          <div class="suas-charm-field"><label class="suas-charm-label" for="CharmEmail">email</label><input class="suas-charm-input" id="CharmEmail" type="email" autocomplete="email" required></div>
           <div class="suas-charm-field" data-wide>
             <span class="suas-charm-label">arrival time</span>
             <div class="suas-charm-chips" data-charm-chips></div>
@@ -281,14 +282,35 @@
           return;
         }
         const pieceLabel = types?.querySelector('input:checked')?.dataset.label || experience.options[experience.selectedIndex].text;
+        const guestName = form.querySelector('#CharmName').value;
+        const guestPhone = form.querySelector('#CharmPhone').value;
+        const guestEmail = (form.querySelector('#CharmEmail') || {}).value || '';
+        function pad2(n) { return String(n).padStart(2, '0'); }
+        function parseClock(text) {
+          const match = String(text || '').match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+          if (!match) return null;
+          let hour = Number(match[1]);
+          const minute = Number(match[2]);
+          const ap = match[3].toUpperCase();
+          if (ap === 'PM' && hour !== 12) hour += 12;
+          if (ap === 'AM' && hour === 12) hour = 0;
+          return { hour, minute };
+        }
+        const start = parseClock(time.value);
+        const bookingAt = start
+          ? (date.value + 'T' + pad2(start.hour) + ':' + pad2(start.minute) + ':00')
+          : '';
         const properties = {
           'Booking type': 'Charm Bar Reservation',
           'Experience': pieceLabel,
           'Reservation date': date.value,
           'Estimated arrival': time.value,
-          'Guest name': form.querySelector('#CharmName').value,
-          'Phone number': form.querySelector('#CharmPhone').value,
-          'Seats reserved': String(guests)
+          'Guest name': guestName,
+          'Email': guestEmail,
+          'Phone number': guestPhone,
+          'Seats reserved': String(guests),
+          'Booking at': bookingAt,
+          'Booking timezone': 'America/New_York'
         };
         const items = [{ id: Number(experience.value), quantity: guests, properties }];
         form.querySelectorAll('[data-addon-variant]:checked').forEach((box) => {

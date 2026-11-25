@@ -361,13 +361,30 @@
         if (!name || !phone) { showError('Name and phone keep the reservation.'); return; }
         submitBtn.disabled = true;
         submitBtn.textContent = 'holding seats...';
+        function pad2(n) { return String(n).padStart(2, '0'); }
+        function parseClock(text) {
+          const match = String(text || '').match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+          if (!match) return null;
+          let hour = Number(match[1]);
+          const minute = Number(match[2]);
+          const ap = match[3].toUpperCase();
+          if (ap === 'PM' && hour !== 12) hour += 12;
+          if (ap === 'AM' && hour === 12) hour = 0;
+          return { hour, minute };
+        }
+        const start = parseClock(timeValue);
+        const bookingAt = start
+          ? (dateInput.value + 'T' + pad2(start.hour) + ':' + pad2(start.minute) + ':00')
+          : '';
         const properties = {
           'Booking type': choice.kind === 'guided' ? 'Guided Lab Session' : 'Self-Guided Lab Experiment',
           'Selected experience': choice.name,
           'Guest name': name,
           'Phone number': phone,
           'Seats': String(guests),
-          'Seat cap': String(TOTAL)
+          'Seat cap': String(TOTAL),
+          'Booking at': bookingAt,
+          'Booking timezone': 'America/New_York'
         };
         if (choice.kind === 'guided') {
           properties['Class date'] = dateInput.value;

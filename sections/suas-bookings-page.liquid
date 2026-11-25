@@ -475,6 +475,9 @@
             <input type="hidden" name="properties[Booking type]" value="Self-Guided Lab Experiment">
             <input type="hidden" name="properties[Selected experience]" value="" data-self-experience-property>
             <input type="hidden" name="properties[_Staff calendar]" value="" data-staff-calendar>
+            <input type="hidden" name="properties[Booking at]" value="" data-booking-at>
+            <input type="hidden" name="properties[Booking timezone]" value="America/New_York" data-booking-tz>
+            <input type="hidden" name="properties[Add to calendar]" value="" data-guest-calendar>
             <div class="suas-book-field" data-pair><label class="suas-book-label" for="ParfumDate">date</label><input class="suas-book-input" id="ParfumDate" type="date" name="properties[Preferred date]" min="2026-11-14" required></div>
             <div class="suas-book-field" data-pair><label class="suas-book-label" for="ParfumGuests">guests</label><input class="suas-book-input" id="ParfumGuests" type="number" name="quantity" min="1" max="16" value="1" data-self-qty></div>
             <div class="suas-book-field"><label class="suas-book-label" for="ParfumPhone">phone</label><input class="suas-book-input" id="ParfumPhone" type="tel" name="properties[Phone number]" required></div>
@@ -518,6 +521,9 @@
             <input type="hidden" name="properties[Second experiment]" value="" data-guided-plus-property>
             <input type="hidden" name="properties[Guided package price]" value="$85.00" data-guided-price-property>
             <input type="hidden" name="properties[_Staff calendar]" value="" data-staff-calendar>
+            <input type="hidden" name="properties[Booking at]" value="" data-booking-at>
+            <input type="hidden" name="properties[Booking timezone]" value="America/New_York" data-booking-tz>
+            <input type="hidden" name="properties[Add to calendar]" value="" data-guest-calendar>
             <div class="suas-type-grid" data-guided-types>
               <label class="suas-type-card is-on">
                 <input type="radio" name="_guided_type" value="perfume" data-label="Perfume experiment" data-price="$85.00" data-copy="Custom 30 mL perfume with hands-on guidance from start to finish." checked disabled>
@@ -804,14 +810,25 @@
           + '&details=' + encodeURIComponent(details)
           + '&location=' + encodeURIComponent('188 W Franklin Blvd, Gastonia, NC 28052');
       }
+      function bookingAtIso(date, timeText) {
+        var clock = parseClock(timeText);
+        if (!date || !clock) return '';
+        return String(date) + 'T' + pad2(clock.hour) + ':' + pad2(clock.minute) + ':00';
+      }
       function stampCalendar(form, title, date, timeText, minutes) {
         if (!form) return;
         var guest = fieldValue(form, 'properties[Guest name]');
         var phone = fieldValue(form, 'properties[Phone number]');
+        var email = fieldValue(form, 'properties[Email]');
         var staff = form.querySelector('[data-staff-calendar]');
+        var guestCal = form.querySelector('[data-guest-calendar]');
+        var bookingAt = form.querySelector('[data-booking-at]');
+        var bookingTz = form.querySelector('[data-booking-tz]');
         var start = parseClock(timeText);
         if (!date || !start) {
           if (staff) staff.value = '';
+          if (guestCal) guestCal.value = '';
+          if (bookingAt) bookingAt.value = '';
           return;
         }
         var end = addMinutes(start, minutes || 60);
@@ -819,11 +836,16 @@
           title,
           guest ? ('Guest: ' + guest) : '',
           phone ? ('Phone: ' + phone) : '',
-          fieldValue(form, 'properties[Email]') ? ('Email: ' + fieldValue(form, 'properties[Email]')) : '',
-          'The Lab at SUAS ? 188 W Franklin Blvd, Gastonia, NC 28052'
+          email ? ('Email: ' + email) : '',
+          'The Lab at SUAS - 188 W Franklin Blvd, Gastonia, NC 28052',
+          'Timezone: America/New_York'
         ].filter(Boolean).join('\n');
-        var staffTitle = 'LAB ? ' + (guest || 'Guest') + ' ? ' + String(title).replace(/^SUAS Lab ? /, '');
+        var staffTitle = 'LAB - ' + (guest || 'Guest') + ' - ' + String(title).replace(/^SUAS Lab [\u2014\u2013\-?] /, '');
+        var guestUrl = googleCalUrl(title, date, start, end, details);
         if (staff) staff.value = googleCalUrl(staffTitle, date, start, end, details);
+        if (guestCal) guestCal.value = guestUrl;
+        if (bookingAt) bookingAt.value = bookingAtIso(date, timeText);
+        if (bookingTz) bookingTz.value = 'America/New_York';
       }
 
       function showBookKind(kind) {
@@ -1527,16 +1549,35 @@
             return;
           }
           var pieceLabel = (charmTypes && charmTypes.querySelector('input:checked') && charmTypes.querySelector('input:checked').dataset.label) || charmExperience.options[charmExperience.selectedIndex].text;
+          var charmStart = parseClock(charmTime.value);
+          var charmEnd = charmStart ? addMinutes(charmStart, 45) : null;
+          var charmGuest = charmForm.querySelector('#BookCharmName').value;
+          var charmEmail = (charmForm.querySelector('#BookCharmEmail') || {}).value || '';
+          var charmPhone = charmForm.querySelector('#BookCharmPhone').value;
+          var charmDetails = [
+            'SUAS Charm Bar - ' + pieceLabel,
+            charmGuest ? ('Guest: ' + charmGuest) : '',
+            charmPhone ? ('Phone: ' + charmPhone) : '',
+            charmEmail ? ('Email: ' + charmEmail) : '',
+            'The Lab at SUAS - 188 W Franklin Blvd, Gastonia, NC 28052',
+            'Timezone: America/New_York'
+          ].filter(Boolean).join('\n');
           var properties = {
             'Booking type': 'Charm Bar Reservation',
             'Experience': pieceLabel,
             'Reservation date': charmDate.value,
             'Estimated arrival': charmTime.value,
-            'Guest name': charmForm.querySelector('#BookCharmName').value,
-            'Email': (charmForm.querySelector('#BookCharmEmail') || {}).value || '',
-            'Phone number': charmForm.querySelector('#BookCharmPhone').value,
-            'Seats reserved': String(guests)
+            'Guest name': charmGuest,
+            'Email': charmEmail,
+            'Phone number': charmPhone,
+            'Seats reserved': String(guests),
+            'Booking at': bookingAtIso(charmDate.value, charmTime.value),
+            'Booking timezone': 'America/New_York'
           };
+          if (charmStart && charmEnd) {
+            properties['Add to calendar'] = googleCalUrl('SUAS Charm Bar - ' + pieceLabel, charmDate.value, charmStart, charmEnd, charmDetails);
+            properties['_Staff calendar'] = googleCalUrl('CHARM - ' + (charmGuest || 'Guest') + ' - ' + pieceLabel, charmDate.value, charmStart, charmEnd, charmDetails);
+          }
           var items = [{ id: Number(charmExperience.value), quantity: guests, properties: properties }];
           charmForm.querySelectorAll('[data-addon-variant]:checked').forEach(function (box) {
             if (!box.dataset.addonVariant) return;
