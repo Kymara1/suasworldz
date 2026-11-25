@@ -297,9 +297,9 @@
     if (idx < 0 || idx >= total || state.picks[idx]) idx = firstEmptySlot();
     var slot = kit.slots[idx];
     if (slot.role === 'base') {
-      return trioPrefix + 'browsing � pick your ' + slot.amountMl + ' mL base';
+      return trioPrefix + 'tap a note to fill tube 1 � ' + slot.amountMl + ' mL base';
     }
-    return trioPrefix + 'browsing � pick note ' + (supportFilledCount() + 1) + ' of ' + supportSlots().length;
+    return trioPrefix + 'tap a note to fill tube ' + (idx + 1) + ' � ' + slot.amountMl + ' mL';
   }
 
   function statusBarText() {
@@ -339,6 +339,17 @@
           els.pourToast.hidden = true;
         }
       }, 1200);
+    }
+
+    var vialEl = els.vials && els.vials.querySelector('[data-vial-slot="' + slotIndex + '"]');
+    if (vialEl) {
+      vialEl.classList.remove('is-pop');
+      void vialEl.offsetWidth;
+      vialEl.classList.add('is-pop');
+      clearTimeout(celebratePour._pop);
+      celebratePour._pop = setTimeout(function () {
+        if (vialEl) vialEl.classList.remove('is-pop');
+      }, 400);
     }
 
     if (kitComplete() && els.sparkles) {
@@ -598,9 +609,10 @@
       if (isBase) meta += ' � BASE';
       else if (supportIdx >= 0) meta += ' � NOTE ' + supportIdx;
       return (
-        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" data-family="' + escapeHtml(note.family) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
-          '<span class="suas-lah-note-swatch" aria-hidden="true"></span>' +
-          '<span class="suas-lah-note-copy"><b>' + escapeHtml(note.label) + '</b><small>' + escapeHtml(meta) + '</small></span>' +
+        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" data-family="' + escapeHtml(note.family) + '" aria-pressed="' + (usedCount > 0) + '" aria-label="' + escapeHtml(note.label + ' � ' + meta) + '" style="--n1:' + note.hex + ';--n2:' + (note.hex2 || note.hex) + '">' +
+          '<span class="suas-lah-note-blob" aria-hidden="true"></span>' +
+          '<b>' + escapeHtml(note.label) + '</b>' +
+          '<small>' + escapeHtml(meta) + '</small>' +
           (usedCount ? '<span class="suas-lah-note-check" aria-hidden="true">?</span>' : '') +
         '</button>'
       );
@@ -616,20 +628,19 @@
       var note = state.picks[index] ? noteById(state.picks[index]) : null;
       var isBase = slot.role === 'base';
       var active = index === state.activeSlot;
-      var classes = 'suas-lah-slotcard';
+      var classes = 'suas-lah-vial';
       if (isBase) classes += ' is-base';
       if (note) classes += ' is-filled';
       if (active) classes += ' is-active';
       if (!note && index === nextEmpty) classes += ' is-waiting';
-      var color = note ? note.hex : '#dddddd';
-      var role = isBase ? 'BASE' : ('NOTE ' + index);
-      var name = note ? note.label : 'empty';
+      var color = note ? (note.hex2 || note.hex) : '#dddddd';
+      var tag = note
+        ? (note.label + ' � ' + slot.amountMl + 'mL')
+        : (isBase ? ('base ' + slot.amountMl + 'mL') : ('tube ' + (index + 1)));
       return (
-        '<button type="button" class="' + classes + '" style="--slot:' + color + '" data-vial-slot="' + index + '" aria-pressed="' + active + '">' +
-          '<span class="suas-lah-slotcard-role">' + escapeHtml(role) + '</span>' +
-          '<span class="suas-lah-slotcard-bar" aria-hidden="true"></span>' +
-          '<span class="suas-lah-slotcard-name">' + escapeHtml(name) + '</span>' +
-          '<span class="suas-lah-slotcard-ml">' + slot.amountMl + ' mL</span>' +
+        '<button type="button" class="' + classes + '" style="--vial:' + color + '" data-vial-slot="' + index + '" aria-pressed="' + active + '" aria-label="' + escapeHtml(tag) + '">' +
+          '<span class="suas-lah-vial-glass" aria-hidden="true"><span class="suas-lah-vial-fill"></span></span>' +
+          '<span class="suas-lah-vial-tag">' + escapeHtml(tag) + '</span>' +
         '</button>'
       );
     }).join('');

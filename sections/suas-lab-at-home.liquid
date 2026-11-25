@@ -1,8 +1,4 @@
 {%- liquid
-  comment
-    Prefer all_products by handle so kit prices stay locked to Lab @ Home SKUs
-    even if theme-editor product settings are empty or stale.
-  endcomment
   assign perfume_product = all_products['lab-at-home-perfume']
   assign oil_product = all_products['lab-at-home-body-oil']
   assign rollon_product = all_products['lab-at-home-roll-on']
@@ -63,11 +59,10 @@
         <span class="suas-lah-winbtns">
           <i class="suas-lah-winbtn" data-kind="min" aria-hidden="true"></i>
           <i class="suas-lah-winbtn" data-kind="max" aria-hidden="true"></i>
-          <a class="suas-lah-winbtn" data-kind="close" href="/pages/bookings" aria-label="Close Lab at Home and return to bookings"></a>
+          <a class="suas-lah-winbtn" data-kind="close" href="/pages/bookings" aria-label="Close Lab at Home"></a>
         </span>
       </div>
 
-      {%- comment -%} Setup {%- endcomment -%}
       <div class="suas-lah-screen is-on" data-lah-screen="setup" role="region" aria-label="Setup wizard">
         <div class="suas-lah-wizard">
           <aside class="suas-lah-sidebar" aria-hidden="true"><div class="suas-lah-sidebar-card">LAB<br>HOME</div></aside>
@@ -83,7 +78,6 @@
         </div>
       </div>
 
-      {%- comment -%} Welcome {%- endcomment -%}
       <div class="suas-lah-screen" data-lah-screen="welcome" role="region" aria-label="Welcome" hidden>
         <div class="suas-lah-wizard">
           <aside class="suas-lah-sidebar" aria-hidden="true"><div class="suas-lah-sidebar-card">LAB<br>HOME</div></aside>
@@ -91,18 +85,7 @@
             <h1 class="suas-lah-wizard-title suas-lah-wizard-title-sm">The Lab has officially left the building.</h1>
             <p class="suas-lah-wizard-copy">Create your own signature perfume from anywhere.</p>
             <p class="suas-lah-chip suas-lah-chip-lime">30 mL DIY Perfume Kit</p>
-            <p class="suas-lah-wizard-meta">1�15 mL base + 3�5 mL notes - from the Lab @ Home scent list</p>
-            <p class="suas-lah-banner-soft">DIY kit � packed by SUAS � ships to all 50 states</p>
-            <details class="suas-lah-includes">
-              <summary class="suas-lah-includes-label">each kit includes</summary>
-              <ul class="suas-lah-includes-list">
-                <li>15 mL base note</li>
-                <li>three 5 mL vials</li>
-                <li>30 mL perfume bottle</li>
-                <li>beaker + pipettes + funnel</li>
-                <li>label + clear kit case</li>
-              </ul>
-            </details>
+            <p class="suas-lah-wizard-meta">1�15 mL base + 3�5 mL notes</p>
             <div class="suas-lah-wizard-nav">
               <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-goto="setup">&lt; Back</button>
               <button class="suas-lah-btn suas-lah-btn-lime" type="button" data-lah-goto="build">Let's Get Started &gt;</button>
@@ -111,98 +94,85 @@
         </div>
       </div>
 
-      {%- comment -%} Customize - single seamless XP surface {%- endcomment -%}
-      <div class="suas-lah-screen" data-lah-screen="build" role="region" aria-label="Customize your kit" hidden>
+      <div class="suas-lah-screen" data-lah-screen="build" role="region" aria-label="Customize" hidden>
         <div class="suas-lah-build-shell">
           <header class="suas-lah-head">
             <div class="suas-lah-head-row">
               <div>
-                <h1 class="suas-lah-title">{{ section.settings.heading | default: 'the lab @ home' | escape }}</h1>
-                <p class="suas-lah-sub">{{ section.settings.copy | default: 'DIY kit - pick from the Lab @ Home scent list, we pack & ship.' | escape }}</p>
+                <h1 class="suas-lah-title">the lab @ home</h1>
+                <p class="suas-lah-sub">tap a color � fill your tubes � we ship the kit</p>
               </div>
-              <p class="suas-lah-ships-pill">Ships to all 50 states</p>
-            </div>
-            <div class="suas-lah-ships" data-lah-ships hidden>
-              <span class="suas-lah-ships-pick" data-lah-ships-pick hidden></span>
+              <p class="suas-lah-ships-pill">ships all 50</p>
             </div>
           </header>
 
           <div class="suas-lah-body">
-            <div class="suas-lah-kits-row">
-              <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
-              <div class="suas-lah-trio-track" data-lah-trio-track hidden>
-                <div class="suas-lah-trio-steps" data-lah-trio-steps role="tablist" aria-label="Trio product steps"></div>
+            <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
+            <div class="suas-lah-trio-track" data-lah-trio-track hidden>
+              <div class="suas-lah-trio-steps" data-lah-trio-steps role="tablist" aria-label="Trio steps"></div>
+            </div>
+
+            {%- comment -%} HERO: interactive formula vials {%- endcomment -%}
+            <div class="suas-lah-formula" data-lah-vials-wrap>
+              <div class="suas-lah-formula-top">
+                <p class="suas-lah-slot-hint" data-lah-slot-hint role="status" aria-live="polite">tap a note to fill tube 1</p>
+                <span data-lah-fill-status>0 / 30 mL</span>
               </div>
+              <div class="suas-lah-vials" data-lah-vials aria-label="Your formula tubes"></div>
+              <div class="suas-lah-pour-toast" data-lah-pour-toast hidden aria-live="polite"></div>
+              <div class="suas-lah-sparkles" data-lah-sparkles aria-hidden="true"></div>
             </div>
 
-            <div class="suas-lah-browse-bar">
-              <p class="suas-lah-slot-hint" data-lah-slot-hint role="status" aria-live="polite">browsing � pick your 15 mL base</p>
-              <span class="suas-lah-note-count" data-lah-note-count></span>
-            </div>
-
-            <div class="suas-lah-browser">
-              <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Filter scent families"></div>
-              <label class="suas-visually-hidden" for="LahNoteSearch">search notes</label>
-              <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="search notes." data-lah-search autocomplete="off" enterkeyhint="search">
-              <div class="suas-lah-notes" data-lah-notes role="listbox" aria-label="Scent notes" aria-multiselectable="true"></div>
-            </div>
-
-            <p class="suas-lah-step-label">your kit</p>
-            <div class="suas-lah-kitstrip" data-lah-vials aria-label="Your kit slots"></div>
-            <div class="suas-lah-slotbar" data-lah-slots hidden></div>
-            <p class="suas-visually-hidden" data-lah-selected aria-live="polite"></p>
-            <p class="suas-visually-hidden" data-lah-recipe></p>
-            <p class="suas-visually-hidden" data-lah-fill-status>0 / 30 mL</p>
-
-            <div class="suas-lah-extras" data-lah-stage>
-              <div class="suas-lah-bottle-pick" data-lah-bottle-pick hidden>
-                <p class="suas-lah-step-label">bottle shape</p>
-                <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="30 mL perfume bottle"></div>
+            <div class="suas-lah-palette">
+              <div class="suas-lah-palette-bar">
+                <strong>scent palette</strong>
+                <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Families"></div>
               </div>
-              <div class="suas-lah-photo-stage" data-lah-bottle hidden aria-hidden="true">
+              <label class="suas-visually-hidden" for="LahNoteSearch">search</label>
+              <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="find a note." data-lah-search autocomplete="off">
+              <div class="suas-lah-notes" data-lah-notes role="listbox" aria-label="Notes"></div>
+            </div>
+
+            <div class="suas-lah-bottle-pick" data-lah-bottle-pick hidden>
+              <p class="suas-lah-step-label">bottle</p>
+              <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="Bottle"></div>
+            </div>
+            <div data-lah-stage hidden>
+              <div class="suas-lah-photo-stage" data-lah-bottle aria-hidden="true">
                 <div class="suas-lah-photo-body">
-                  <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="210" height="320">
-                  <div class="suas-lah-photo-fill" data-lah-photo-fill>
-                    <span class="suas-lah-photo-liquid" data-lah-liquid></span>
-                  </div>
+                  <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="1" height="1">
+                  <div class="suas-lah-photo-fill" data-lah-photo-fill><span class="suas-lah-photo-liquid" data-lah-liquid></span></div>
                 </div>
               </div>
             </div>
 
             <div class="suas-lah-checkout" data-lah-checkout>
-              <label class="suas-lah-step-label" for="LahFormulaName">name your formula <span class="suas-lah-optional">(optional)</span></label>
-              <input id="LahFormulaName" class="suas-formula-input" type="text" maxlength="48" placeholder="type a name." data-lah-name autocomplete="off">
-
-              <p class="suas-lah-statusbar" data-lah-statusbar role="status" aria-live="polite">Select your 15 mL base (favorite)</p>
-
-              <div class="suas-lah-actions">
-                <button class="suas-lah-btn suas-lah-btn-hot" type="button" data-lah-atc disabled>Select your 15 mL base (favorite)</button>
-                <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-reset>start over</button>
-                <p class="suas-lah-error" data-lah-error role="alert"></p>
-              </div>
+              <label class="suas-lah-step-label" for="LahFormulaName">name your formula</label>
+              <input id="LahFormulaName" type="text" maxlength="48" placeholder="type a name." data-lah-name autocomplete="off">
+              <p class="suas-lah-statusbar" data-lah-statusbar role="status">Select your 15 mL base</p>
+              <button class="suas-lah-btn suas-lah-btn-hot" type="button" data-lah-atc disabled>Select your 15 mL base</button>
+              <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-reset>start over</button>
+              <p class="suas-lah-error" data-lah-error role="alert"></p>
             </div>
 
-            <div class="suas-lah-pour-toast" data-lah-pour-toast hidden aria-live="polite"></div>
-            <div class="suas-lah-sparkles" data-lah-sparkles aria-hidden="true"></div>
-            <div class="suas-lah-vials-wrap" data-lah-vials-wrap hidden></div>
+            <p class="suas-visually-hidden" data-lah-selected></p>
+            <p class="suas-visually-hidden" data-lah-recipe></p>
+            <p class="suas-visually-hidden" data-lah-note-count></p>
+            <div class="suas-lah-slotbar" data-lah-slots hidden></div>
+            <span class="suas-lah-ships-pick" data-lah-ships-pick hidden></span>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="suas-lah-sticky" data-lah-sticky aria-label="Lab at Home progress">
-    <div class="suas-lah-sticky-thumb" aria-hidden="true">
-      <img data-lah-sticky-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="48" height="72">
-      <span class="suas-lah-sticky-liquid" data-lah-sticky-liquid></span>
-    </div>
+  <div class="suas-lah-sticky" data-lah-sticky aria-label="Progress">
     <div class="suas-lah-sticky-copy">
       <strong data-lah-sticky-status>0 / 30 mL</strong>
-      <span data-lah-sticky-coach>pick your 15 mL base</span>
+      <span data-lah-sticky-coach>pick your base</span>
     </div>
     <button class="suas-lah-btn suas-lah-btn-hot suas-lah-sticky-atc" type="button" data-lah-sticky-atc disabled>add to bag</button>
   </div>
-
   <p class="suas-visually-hidden" data-lah-live aria-live="polite"></p>
 </section>
 
@@ -235,15 +205,12 @@
   "settings": [
     {"type":"text","id":"kicker","label":"Kicker (optional)"},
     {"type":"text","id":"heading","label":"Heading","default":"the lab @ home"},
-    {"type":"textarea","id":"copy","label":"Copy","default":"DIY kit - pick from the Lab @ Home scent list, we pack & ship."},
-    {"type":"header","content":"Products"},
-    {"type":"product","id":"perfume_product","label":"Perfume kit product"},
-    {"type":"product","id":"oil_product","label":"Body oil kit product"},
-    {"type":"product","id":"rollon_product","label":"Roll-on kit product"},
-    {"type":"product","id":"trio_product","label":"Trio product"}
+    {"type":"textarea","id":"copy","label":"Copy","default":"tap a color � fill your tubes � we ship the kit"},
+    {"type":"product","id":"perfume_product","label":"Perfume kit"},
+    {"type":"product","id":"oil_product","label":"Body oil kit"},
+    {"type":"product","id":"rollon_product","label":"Roll-on kit"},
+    {"type":"product","id":"trio_product","label":"Trio"}
   ],
-  "presets": [
-    {"name":"SUAS Lab @ Home"}
-  ]
+  "presets": [{"name":"SUAS Lab @ Home"}]
 }
 {% endschema %}
