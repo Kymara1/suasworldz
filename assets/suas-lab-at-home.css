@@ -354,11 +354,175 @@ a.suas-lah-winbtn:focus-visible {
   line-height: 1.3;
   color: var(--ink);
 }
-.suas-lah-build {
+
+/* Charm-bar style playground: tray | stage | register */
+.suas-lah-playground {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(140px, 0.6fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr) minmax(150px, 0.78fr);
   gap: 8px;
-  align-items: start;
+  align-items: stretch;
+  min-width: 0;
+}
+.suas-lah-playground.is-dragging .suas-lah-board {
+  outline: 3px dashed var(--hot);
+  outline-offset: 2px;
+}
+
+.suas-lah-tray,
+.suas-lah-board,
+.suas-lah-register {
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  min-width: 0;
+  box-shadow: 2px 2px 0 rgba(10, 36, 106, 0.2);
+}
+
+.suas-lah-tray {
+  background:
+    linear-gradient(180deg, #ffe3ef 0%, #fff7fb 40%, #ffeef5 100%);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.suas-lah-tray-bar,
+.suas-lah-board-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 2px;
+}
+.suas-lah-tray-bar strong,
+.suas-lah-board-bar strong {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--xp-deep);
+}
+.suas-lah-tray-bar span,
+.suas-lah-board-bar span {
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.suas-lah-board {
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.95), transparent 45%),
+    linear-gradient(180deg, #f3f7ff 0%, #efe8ff 55%, #ffe8f6 100%);
+  padding: 8px;
+  transition: outline 0.15s ease, box-shadow 0.15s ease;
+}
+.suas-lah-board.is-drop-hot,
+.suas-lah-board.is-drop-target,
+.suas-lah-bottle-card.is-drop-target {
+  box-shadow: 0 0 0 3px var(--hot), 2px 2px 0 rgba(10, 36, 106, 0.2);
+}
+.suas-lah-board-coach {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(17, 17, 17, 0.62);
+}
+.suas-lah-board-stage {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+.suas-lah-board .suas-lah-bottle-card {
+  width: min(100%, 180px);
+  padding: 8px;
+  border-radius: 14px;
+}
+.suas-lah-board .suas-lah-photo-stage {
+  width: min(120px, 70%);
+  max-height: 180px;
+}
+.suas-lah-board .suas-lah-photo-body,
+.suas-lah-board .suas-lah-photo-bottle {
+  max-height: 180px;
+}
+.suas-lah-board .suas-lah-vials-wrap {
+  width: 100%;
+  margin: 0;
+}
+
+.suas-lah-register {
+  background:
+    linear-gradient(180deg, #ff7ec0 0%, #ff5ab4 28%, #d93a8f 100%);
+  color: #fff;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    3px 3px 0 rgba(10, 36, 106, 0.25);
+}
+.suas-lah-register-screen {
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: #1a1f2a;
+  color: var(--lime);
+  padding: 10px;
+  display: grid;
+  gap: 4px;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+  text-shadow: 0 0 8px rgba(217, 255, 120, 0.35);
+}
+.suas-lah-register-screen span {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.suas-lah-register-screen strong {
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #fff;
+}
+.suas-lah-register .suas-lah-name-row label {
+  color: #fff;
+  font-size: 0.85rem;
+  text-align: left;
+}
+.suas-lah-register .suas-lah-optional { color: rgba(255, 255, 255, 0.7); }
+.suas-lah-register .suas-lah-name-row input {
+  text-align: left;
+  min-height: 40px;
+  border-width: 2px;
+}
+.suas-lah-register-cta {
+  min-height: 48px;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+.suas-lah-register .suas-lah-btn-ghost {
+  background: rgba(255, 255, 255, 0.92);
+}
+.suas-lah-register .suas-lah-error {
+  color: #fff1a8;
+}
+
+.suas-lah-fly {
+  position: fixed;
+  z-index: 9999;
+  width: 28px;
+  height: 36px;
+  border-radius: 40% 40% 48% 48% / 30% 30% 70% 70%;
+  border: 2px solid var(--ink);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.75), transparent 42%),
+    linear-gradient(180deg, var(--n2, #ffe8ef), var(--n1, #ff5ab4));
+  box-shadow: 0 6px 16px rgba(10, 36, 106, 0.28);
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+  opacity: 1;
 }
 
 .suas-lah-panel {
@@ -610,27 +774,40 @@ a.suas-lah-winbtn:focus-visible {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
-  max-height: min(42vh, 320px);
+  max-height: min(48vh, 380px);
   overflow: auto;
-  padding: 2px;
+  padding: 4px;
   -webkit-overflow-scrolling: touch;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 232, 239, 0.5));
+  border: 2px solid rgba(17, 17, 17, 0.2);
+  border-radius: 10px;
 }
 .suas-lah-note {
   display: grid;
   grid-template-columns: 16px minmax(0, 1fr) auto;
   align-items: center;
   gap: 6px;
-  min-height: 44px;
-  padding: 6px 8px;
+  min-height: 52px;
+  padding: 8px;
   border: 2px solid var(--ink);
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 2px 2px 0 rgba(10, 36, 106, 0.2);
-  cursor: pointer;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.95), transparent 55%),
+    #fff;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+    2px 2px 0 rgba(10, 36, 106, 0.18);
+  cursor: grab;
   color: var(--ink);
   text-align: left;
   font: inherit;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  touch-action: manipulation;
+}
+.suas-lah-note.is-dragging {
+  opacity: 0.45;
+  cursor: grabbing;
 }
 .suas-lah-note:hover {
   transform: translateY(-2px);
@@ -985,9 +1162,9 @@ a.suas-lah-winbtn:focus-visible {
   50% { transform: translateY(-2px); }
 }
 
-.suas-lah-checkout {
-  display: grid;
-  gap: 10px;
+.suas-lah-vial.is-drop-target .suas-lah-vial-glass {
+  box-shadow: 0 0 0 3px var(--hot), 0 0 16px rgba(255, 90, 180, 0.5);
+  transform: translateY(-3px) scale(1.06);
 }
 .suas-lah-optional {
   font-weight: 700;
@@ -1103,13 +1280,17 @@ a.suas-lah-winbtn:focus-visible {
 
 .suas-lah-sticky { display: none; }
 
-@media (max-width: 900px) {
-  .suas-lah-build {
-    grid-template-columns: minmax(0, 1.3fr) minmax(140px, 0.7fr);
+@media (max-width: 980px) {
+  .suas-lah-playground {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
-  .suas-lah-photo-stage,
-  .suas-lah-photo-body,
-  .suas-lah-photo-bottle { max-height: 200px; }
+  .suas-lah-register { grid-column: 1 / -1; }
+  .suas-lah-register {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: center;
+  }
+  .suas-lah-register-screen { grid-column: 1 / -1; }
+  .suas-lah-register .suas-lah-name-row { grid-column: 1 / -1; }
 }
 
 @media (max-width: 700px) {
@@ -1119,13 +1300,14 @@ a.suas-lah-winbtn:focus-visible {
   .suas-lah-wizard-body { padding: 12px 10px; gap: 7px; }
   .suas-lah-kits { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .suas-lah-kit.is-trio { grid-column: 1 / -1; }
-  .suas-lah-build { grid-template-columns: 1fr; }
-  .suas-lah-stage { position: static; }
-  .suas-lah-vials { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+  .suas-lah-playground { grid-template-columns: 1fr; }
   .suas-lah-ships-text { margin-left: 0; width: 100%; }
-  .suas-lah-photo-stage,
-  .suas-lah-photo-body,
-  .suas-lah-photo-bottle { max-height: 160px; }
+  .suas-lah-board .suas-lah-photo-stage,
+  .suas-lah-board .suas-lah-photo-body,
+  .suas-lah-board .suas-lah-photo-bottle { max-height: 150px; }
+  .suas-lah-register {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 620px) {
@@ -1151,13 +1333,8 @@ a.suas-lah-winbtn:focus-visible {
     font-size: 8px;
     line-height: 1.05;
   }
-  .suas-lah-wizard-nav {
-    justify-content: stretch;
-  }
-  .suas-lah-wizard-nav .suas-lah-btn {
-    flex: 1;
-    min-width: 0;
-  }
+  .suas-lah-wizard-nav { justify-content: stretch; }
+  .suas-lah-wizard-nav .suas-lah-btn { flex: 1; min-width: 0; }
   .suas-lah-includes { padding: 6px 8px; }
   .suas-lah-includes-list { grid-template-columns: 1fr; gap: 4px; }
   .suas-lah-includes-list li { font-size: 0.72rem; padding: 6px 8px; }
@@ -1166,30 +1343,28 @@ a.suas-lah-winbtn:focus-visible {
   .suas-lah-panel { padding: 6px; }
   .suas-lah-kit { min-height: 44px; padding: 6px; }
   .suas-lah-kit span { font-size: 10px; }
-  .suas-lah-slot { min-height: 36px; font-size: 11px; padding: 5px 8px; }
-  .suas-lah-fill-status,
-  .suas-lah-photo-stage { display: none; }
-  .suas-lah-bottle-card {
-    padding: 0;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
+  /* Mobile: board (pour stage) first, then tray - like building on the bracelet */
+  .suas-lah-playground {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
-  .suas-lah-stage:has(.suas-lah-bottle-pick[hidden]) { display: none; }
-  .suas-lah-checkout .suas-lah-actions [data-lah-atc] { display: none; }
+  .suas-lah-board { order: 1; }
+  .suas-lah-tray { order: 2; }
+  .suas-lah-register { order: 3; display: none; } /* sticky CTA handles checkout on phone */
+  .suas-lah-board .suas-lah-photo-stage { display: block; }
   .suas-lah-search { min-height: 44px; font-size: 16px; margin-bottom: 6px; }
-  .suas-lah-name-row input { min-height: 44px; font-size: 16px; }
   .suas-lah-notes {
-    max-height: min(46vh, 340px);
+    max-height: min(40vh, 300px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 5px;
   }
-  .suas-lah-note { min-height: 42px; padding: 6px 7px; }
+  .suas-lah-note { min-height: 48px; padding: 7px; cursor: pointer; }
   .suas-lah-note b { font-size: 0.84rem; }
   .suas-lah-vials-wrap { padding: 6px; }
   .suas-lah-vial-glass { max-width: 34px; }
   .suas-lah-vial.is-base .suas-lah-vial-glass { max-width: 40px; }
   .suas-lah-vial-tag { font-size: 8px; padding: 3px 2px; }
-  .suas-lah-statusbar { padding: 8px 10px; font-size: 0.86rem; }
   .suas-lah-sticky {
     position: fixed;
     left: 0; right: 0; bottom: 0;
@@ -1200,10 +1375,14 @@ a.suas-lah-winbtn:focus-visible {
     align-items: center;
     padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
     border-top: 2px solid var(--ink);
-    background: linear-gradient(180deg, #fff, var(--blush));
+    background: linear-gradient(180deg, #ff7ec0, #ff5ab4);
+    color: #fff;
     box-shadow: 0 -4px 18px rgba(10, 36, 106, 0.2);
   }
-  .suas-lah-sticky.is-ready { background: linear-gradient(180deg, var(--lime), var(--blush)); }
+  .suas-lah-sticky.is-ready {
+    background: linear-gradient(180deg, var(--lime), #ffe08a);
+    color: var(--ink);
+  }
   .suas-lah-sticky-thumb { position: relative; width: 34px; height: 48px; }
   .suas-lah-sticky-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
   .suas-lah-sticky-liquid {
@@ -1219,12 +1398,14 @@ a.suas-lah-winbtn:focus-visible {
     font-size: 11px;
     font-weight: 800;
     line-height: 1.15;
+    color: inherit;
   }
   .suas-lah-sticky-copy span {
     font-size: 10px;
     font-weight: 700;
     line-height: 1.2;
-    color: rgba(17, 17, 17, 0.72);
+    color: inherit;
+    opacity: 0.9;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1237,6 +1418,8 @@ a.suas-lah-winbtn:focus-visible {
     font-size: 0.78rem;
     line-height: 1.1;
     white-space: normal;
+    background: #fff;
+    color: var(--ink);
   }
 }
 

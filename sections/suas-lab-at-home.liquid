@@ -137,7 +137,7 @@
 
           <div class="suas-lah-body">
             <div class="suas-lah-panel suas-lah-panel-kit">
-              <p class="suas-lah-step-label">0) pick your kit</p>
+              <p class="suas-lah-step-label">pick your kit</p>
               <p class="suas-visually-hidden" data-lah-selected aria-live="polite"></p>
               <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
               <div class="suas-lah-trio-track" data-lah-trio-track hidden>
@@ -145,59 +145,69 @@
               </div>
             </div>
 
-            <p class="suas-lah-recipe" data-lah-recipe>1) 15 mL base (your favorite) ? 2) 3 � 5 mL notes</p>
+            <p class="suas-lah-recipe" data-lah-recipe>drag (or tap) notes into your tubes � 1 base + 3 notes</p>
+            <p class="suas-lah-slot-hint" data-lah-slot-hint role="status" aria-live="polite">pour your 15 mL base ?</p>
 
-            <div class="suas-lah-build">
-              <div class="suas-lah-panel suas-lah-panel-notes">
-                <p class="suas-lah-slot-hint" data-lah-slot-hint role="status" aria-live="polite">Tube 1 of 4 - pick your 15 mL base</p>
-                <div class="suas-lah-slotbar" data-lah-slots></div>
-
-                <label class="suas-lah-search-label" for="LahNoteSearch">filter notes</label>
-                <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="search notes" data-lah-search autocomplete="off" enterkeyhint="search">
-
+            <div class="suas-lah-playground" data-lah-playground>
+              {%- comment -%} LEFT: scent tray (charm-box energy) {%- endcomment -%}
+              <section class="suas-lah-tray" aria-label="Scent note tray">
+                <div class="suas-lah-tray-bar">
+                  <strong>pick your oils</strong>
+                  <span>drag ? pour</span>
+                </div>
                 <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Filter scent families"></div>
+                <label class="suas-lah-search-label" for="LahNoteSearch">find a note</label>
+                <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="search notes" data-lah-search autocomplete="off" enterkeyhint="search">
                 <div class="suas-lah-notes" data-lah-notes role="listbox" aria-label="Scent notes" aria-multiselectable="true"></div>
-              </div>
+              </section>
 
-              <aside class="suas-lah-stage" data-lah-stage>
-                <div class="suas-lah-bottle-card">
-                  <p class="suas-lah-fill-status" data-lah-fill-status>0 / 30 mL</p>
-                  <div class="suas-lah-photo-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
-                    <div class="suas-lah-photo-body">
-                      <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="210" height="320">
-                      <div class="suas-lah-photo-fill" data-lah-photo-fill>
-                        <span class="suas-lah-photo-liquid" data-lah-liquid></span>
+              {%- comment -%} CENTER: live pour stage {%- endcomment -%}
+              <section class="suas-lah-board" data-lah-board data-lah-dropzone aria-label="Pour stage">
+                <div class="suas-lah-board-bar">
+                  <strong>your formula</strong>
+                  <span data-lah-fill-status>0 / 30 mL</span>
+                </div>
+                <p class="suas-lah-board-coach">drop a note on a tube � or tap a note to pour</p>
+
+                <div class="suas-lah-board-stage" data-lah-stage>
+                  <div class="suas-lah-bottle-card" data-lah-dropzone>
+                    <div class="suas-lah-photo-stage" data-lah-bottle data-shape="perfume" aria-hidden="true">
+                      <div class="suas-lah-photo-body">
+                        <img class="suas-lah-photo-bottle" data-lah-photo-bottle src="{{ 'lah-pack-cylinder.png' | asset_url }}" alt="" width="210" height="320">
+                        <div class="suas-lah-photo-fill" data-lah-photo-fill>
+                          <span class="suas-lah-photo-liquid" data-lah-liquid></span>
+                        </div>
                       </div>
                     </div>
+                    <div class="suas-lah-bottle-pick" data-lah-bottle-pick hidden>
+                      <p class="suas-lah-step-label">bottle shape</p>
+                      <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="30 mL perfume bottle"></div>
+                    </div>
                   </div>
-                  <div class="suas-lah-bottle-pick" data-lah-bottle-pick hidden>
-                    <p class="suas-lah-step-label">bottle shape</p>
-                    <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="30 mL perfume bottle"></div>
+
+                  <div class="suas-lah-vials-wrap" data-lah-vials-wrap>
+                    <div class="suas-lah-slotbar" data-lah-slots hidden></div>
+                    <div class="suas-lah-vials" data-lah-vials aria-label="Formula vials"></div>
+                    <div class="suas-lah-pour-toast" data-lah-pour-toast hidden aria-live="polite"></div>
+                    <div class="suas-lah-sparkles" data-lah-sparkles aria-hidden="true"></div>
                   </div>
                 </div>
-              </aside>
-            </div>
+              </section>
 
-            <div class="suas-lah-vials-wrap" data-lah-vials-wrap>
-              <p class="suas-lah-step-label">your formula <span class="suas-lah-tap-hint">tap a tube to swap</span></p>
-              <div class="suas-lah-vials" data-lah-vials aria-label="Formula vials"></div>
-              <div class="suas-lah-pour-toast" data-lah-pour-toast hidden aria-live="polite"></div>
-              <div class="suas-lah-sparkles" data-lah-sparkles aria-hidden="true"></div>
-            </div>
-
-            <div class="suas-lah-checkout" data-lah-checkout>
-              <div class="suas-lah-name-row">
-                <label for="LahFormulaName">3) name your formula <span class="suas-lah-optional">(optional)</span></label>
-                <input id="LahFormulaName" class="suas-formula-input" type="text" maxlength="48" placeholder="type a name." data-lah-name autocomplete="off">
-              </div>
-
-              <p class="suas-lah-statusbar" data-lah-statusbar role="status" aria-live="polite">Select your 15 mL base (favorite)</p>
-
-              <div class="suas-lah-actions">
-                <button class="suas-lah-btn suas-lah-btn-hot" type="button" data-lah-atc disabled>Select your 15 mL base (favorite)</button>
-                <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-reset>start over</button>
+              {%- comment -%} RIGHT: toy register / checkout {%- endcomment -%}
+              <aside class="suas-lah-register" data-lah-checkout aria-label="Checkout register">
+                <div class="suas-lah-register-screen">
+                  <span data-lah-reg-count>0 / 4 tubes</span>
+                  <strong data-lah-statusbar>pour your base ?</strong>
+                </div>
+                <div class="suas-lah-name-row">
+                  <label for="LahFormulaName">name it <span class="suas-lah-optional">(optional)</span></label>
+                  <input id="LahFormulaName" class="suas-formula-input" type="text" maxlength="48" placeholder="ex: island soft.exe" data-lah-name autocomplete="off">
+                </div>
+                <button class="suas-lah-btn suas-lah-btn-hot suas-lah-register-cta" type="button" data-lah-atc disabled>pour your base ?</button>
+                <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-reset>undo / start over</button>
                 <p class="suas-lah-error" data-lah-error role="alert"></p>
-              </div>
+              </aside>
             </div>
           </div>
         </div>

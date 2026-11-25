@@ -135,12 +135,15 @@
     pourToast: root.querySelector('[data-lah-pour-toast]'),
     sparkles: root.querySelector('[data-lah-sparkles]'),
     vialsWrap: root.querySelector('[data-lah-vials-wrap]'),
+    playground: root.querySelector('[data-lah-playground]'),
+    board: root.querySelector('[data-lah-board]'),
     bottle: root.querySelector('[data-lah-bottle]'),
     bottleCard: root.querySelector('.suas-lah-bottle-card'),
     photoBottle: root.querySelector('[data-lah-photo-bottle]'),
     photoFill: root.querySelector('[data-lah-photo-fill]'),
     liquid: root.querySelector('[data-lah-liquid]'),
     fillStatus: root.querySelector('[data-lah-fill-status]'),
+    regCount: root.querySelector('[data-lah-reg-count]'),
     name: root.querySelector('[data-lah-name]'),
     atc: root.querySelector('[data-lah-atc]'),
     sticky: document.querySelector('[data-lah-sticky]'),
@@ -313,6 +316,39 @@
       return 'base locked � ' + filledSupports + '/' + supports + ' notes � ready to ship';
     }
     return 'base locked � ' + filledSupports + '/' + supports + ' notes poured';
+  }
+
+  function flyNoteToStage(fromEl, note, done) {
+    if (!fromEl || !note || !els.vialsWrap) {
+      if (done) done();
+      return;
+    }
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      if (done) done();
+      return;
+    }
+    var start = fromEl.getBoundingClientRect();
+    var targetBtn = els.vials && els.vials.querySelector('.suas-lah-vial.is-waiting, .suas-lah-vial.is-active');
+    var endEl = targetBtn || els.vialsWrap;
+    var end = endEl.getBoundingClientRect();
+    var ghost = document.createElement('span');
+    ghost.className = 'suas-lah-fly';
+    ghost.style.setProperty('--n1', note.hex || '#ff5ab4');
+    ghost.style.setProperty('--n2', note.hex2 || '#ffe8ef');
+    ghost.style.left = (start.left + start.width / 2 - 14) + 'px';
+    ghost.style.top = (start.top + start.height / 2 - 18) + 'px';
+    document.body.appendChild(ghost);
+    var dx = (end.left + end.width / 2) - (start.left + start.width / 2);
+    var dy = (end.top + end.height / 2) - (start.top + start.height / 2);
+    requestAnimationFrame(function () {
+      ghost.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(0.55)';
+      ghost.style.opacity = '0.15';
+    });
+    setTimeout(function () {
+      if (ghost.parentNode) ghost.parentNode.removeChild(ghost);
+      if (done) done();
+    }, 420);
   }
 
   function celebratePour(note, slotIndex) {
@@ -596,10 +632,10 @@
       if (isCurrent) classes += ' is-current';
       else if (usedCount) classes += ' is-used';
       return (
-        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" data-family="' + escapeHtml(note.family) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
+        '<button type="button" class="' + classes + '" draggable="true" data-note="' + escapeHtml(note.id) + '" data-family="' + escapeHtml(note.family) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '" title="Drag onto a tube or tap to pour">' +
           '<span class="suas-lah-note-drop" aria-hidden="true"></span>' +
           '<span class="suas-lah-note-copy"><b>' + escapeHtml(note.label) + '</b><small>' + escapeHtml(note.family) + '</small></span>' +
-          (usedCount ? '<em>?x' + usedCount + '</em>' : '<em class="suas-lah-note-pour">pour</em>') +
+          (usedCount ? '<em>?x' + usedCount + '</em>' : '<em class="suas-lah-note-pour">drag</em>') +
         '</button>'
       );
     }).join('');
@@ -701,6 +737,14 @@
       els.statusbar.textContent = statusBarText();
       els.statusbar.classList.toggle('is-ready', kitComplete());
     }
+    if (els.regCount) {
+      var filledTubes = kit.slots.length - tubesLeft();
+      els.regCount.textContent = filledTubes + ' / ' + kit.slots.length + ' tubes';
+    }
+    if (els.board) {
+      els.board.classList.toggle('is-ready', kitComplete());
+      els.board.classList.toggle('is-waiting', !kitComplete());
+    }
 
     var complete = kitComplete();
     var ready = complete;
@@ -789,46 +833,123 @@
     renderBottle();
   }
 
-  function pickNote(id) {
+  function pickNote(id, opts) {
+    opts = opts || {};
     var kit = activeKit();
-    var slotIndex = state.activeSlot;
+    var slotIndex = typeof opts.slotIndex === 'number' ? opts.slotIndex : state.activeSlot;
+    if (slotIndex < 0 || slotIndex >= kit.slots.length || (state.picks[slotIndex] && opts.preferEmpty)) {
+      slotIndex = firstEmptySlot();
+    }
     if (slotIndex < 0 || slotIndex >= kit.slots.length) slotIndex = firstEmptySlot();
 
     // Same note can fill multiple tubes (2-3 note formulas).
     state.picks[slotIndex] = id;
     state.picks.length = kit.slots.length;
+    state.activeSlot = slotIndex;
 
     var note = noteById(id);
     setError('');
-    celebratePour(note, slotIndex);
 
-    // Always jump to the next empty tube so picking feels like a pour sequence.
-    // Do not use Array#every on sparse picks - empty holes are skipped and look "complete".
-    if (!kitComplete()) {
-      var advanced = false;
-      for (var i = 1; i < kit.slots.length; i++) {
-        var idx = slotIndex + i;
-        if (idx < kit.slots.length && !state.picks[idx]) {
-          state.activeSlot = idx;
-          advanced = true;
-          break;
-        }
-      }
-      if (!advanced) {
-        for (var j = 0; j < slotIndex; j++) {
-          if (!state.picks[j]) {
-            state.activeSlot = j;
+    function finish() {
+      celebratePour(note, slotIndex);
+
+      // Always jump to the next empty tube so picking feels like a pour sequence.
+      if (!kitComplete()) {
+        var advanced = false;
+        for (var i = 1; i < kit.slots.length; i++) {
+          var idx = slotIndex + i;
+          if (idx < kit.slots.length && !state.picks[idx]) {
+            state.activeSlot = idx;
+            advanced = true;
             break;
           }
         }
+        if (!advanced) {
+          for (var j = 0; j < slotIndex; j++) {
+            if (!state.picks[j]) {
+              state.activeSlot = j;
+              break;
+            }
+          }
+        }
+      }
+      paint();
+      announce((note ? note.label : id) + ' poured. ' + coachLine());
+      if (kitComplete() && els.sticky && window.matchMedia('(max-width: 620px)').matches) {
+        try { els.sticky.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
+        if (els.stickyAtc) els.stickyAtc.focus();
       }
     }
-    paint();
-    announce((note ? note.label : id) + ' poured. ' + coachLine());
-    if (kitComplete() && els.sticky && window.matchMedia('(max-width: 620px)').matches) {
-      try { els.sticky.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
-      if (els.stickyAtc) els.stickyAtc.focus();
+
+    if (opts.fromEl) {
+      flyNoteToStage(opts.fromEl, note, finish);
+    } else {
+      finish();
     }
+  }
+
+  function wireDragDrop() {
+    var dragNoteId = null;
+
+    root.addEventListener('dragstart', function (event) {
+      var noteBtn = event.target.closest('[data-note]');
+      if (!noteBtn || !root.contains(noteBtn)) return;
+      dragNoteId = noteBtn.getAttribute('data-note');
+      try {
+        event.dataTransfer.setData('text/plain', dragNoteId || '');
+        event.dataTransfer.effectAllowed = 'copy';
+      } catch (_e) {}
+      noteBtn.classList.add('is-dragging');
+      if (els.board) els.board.classList.add('is-drop-hot');
+      if (els.playground) els.playground.classList.add('is-dragging');
+    });
+
+    root.addEventListener('dragend', function (event) {
+      var noteBtn = event.target.closest('[data-note]');
+      if (noteBtn) noteBtn.classList.remove('is-dragging');
+      dragNoteId = null;
+      if (els.board) els.board.classList.remove('is-drop-hot');
+      if (els.playground) els.playground.classList.remove('is-dragging');
+      var hot = root.querySelectorAll('.is-drop-target');
+      for (var i = 0; i < hot.length; i++) hot[i].classList.remove('is-drop-target');
+    });
+
+    root.addEventListener('dragover', function (event) {
+      var zone = event.target.closest('[data-lah-dropzone], [data-vial-slot]');
+      if (!zone || !root.contains(zone)) return;
+      event.preventDefault();
+      try { event.dataTransfer.dropEffect = 'copy'; } catch (_e2) {}
+      zone.classList.add('is-drop-target');
+    });
+
+    root.addEventListener('dragleave', function (event) {
+      var zone = event.target.closest('[data-lah-dropzone], [data-vial-slot]');
+      if (!zone || !root.contains(zone)) return;
+      zone.classList.remove('is-drop-target');
+    });
+
+    root.addEventListener('drop', function (event) {
+      var zone = event.target.closest('[data-vial-slot], [data-lah-dropzone]');
+      if (!zone || !root.contains(zone)) return;
+      event.preventDefault();
+      zone.classList.remove('is-drop-target');
+      if (els.board) els.board.classList.remove('is-drop-hot');
+      if (els.playground) els.playground.classList.remove('is-dragging');
+
+      var id = dragNoteId;
+      try { id = event.dataTransfer.getData('text/plain') || id; } catch (_e3) {}
+      if (!id) return;
+
+      var slotIndex;
+      if (zone.hasAttribute('data-vial-slot')) {
+        slotIndex = Number(zone.getAttribute('data-vial-slot'));
+      } else {
+        slotIndex = firstEmptySlot();
+      }
+      var fromEl = root.querySelector('[data-note="' + id + '"]');
+      pickNote(id, { slotIndex: slotIndex, fromEl: fromEl, preferEmpty: false });
+      dragNoteId = null;
+    });
   }
 
   function resetPicks() {
@@ -994,7 +1115,9 @@
 
     var noteBtn = event.target.closest('[data-note]');
     if (noteBtn && root.contains(noteBtn)) {
-      pickNote(noteBtn.getAttribute('data-note'));
+      // Ignore click that follows a drag.
+      if (noteBtn.classList.contains('is-dragging')) return;
+      pickNote(noteBtn.getAttribute('data-note'), { fromEl: noteBtn, preferEmpty: true });
       return;
     }
 
@@ -1025,6 +1148,7 @@
   }
 
   state.picks = new Array(activeKit().slots.length);
+  wireDragDrop();
 
   // Deep-link: bookings CTA + filming shortcuts jump into customize.
   // Fresh /pages/the-lab opens the XP setup wizard first.
