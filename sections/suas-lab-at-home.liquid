@@ -42,9 +42,9 @@
   data-money-oil="{{ oil_variant.price | default: 3500 | money }}"
   data-money-rollon="{{ rollon_variant.price | default: 2800 | money }}"
   data-money-trio="{{ trio_variant.price | default: 9900 | money }}"
-  data-title-perfume="{{ perfume_product.title | default: 'The Lab @ Home - 30 mL Custom Perfume' | escape }}"
-  data-title-oil="{{ oil_product.title | default: 'The Lab @ Home - 30 mL Custom Body Oil' | escape }}"
-  data-title-rollon="{{ rollon_product.title | default: 'The Lab @ Home - 10 mL Custom Roll-On' | escape }}"
+  data-title-perfume="{{ perfume_product.title | default: 'The Lab @ Home  -  30 mL Custom Perfume' | escape }}"
+  data-title-oil="{{ oil_product.title | default: 'The Lab @ Home  -  30 mL Custom Body Oil' | escape }}"
+  data-title-rollon="{{ rollon_product.title | default: 'The Lab @ Home  -  10 mL Custom Roll-On' | escape }}"
   data-title-trio="{{ trio_product.title | default: 'The Lab @ Home Trio' | escape }}"
   data-bottle-cylinder="{{ 'lah-pack-cylinder.png' | asset_url }}"
   data-bottle-round="{{ 'lah-pack-round.png' | asset_url }}"
@@ -55,7 +55,7 @@
   <div class="suas-lah-wrap">
     <div class="suas-lah-window" data-lah-window>
       <div class="suas-lah-titlebar">
-        <span class="suas-lah-app" data-lah-app-title>LAB.HOME.EXE - Setup Wizard</span>
+        <span class="suas-lah-app" data-lah-app-title>LAB.HOME.EXE  -  Setup Wizard</span>
         <span class="suas-lah-winbtns">
           <i class="suas-lah-winbtn" data-kind="min" aria-hidden="true"></i>
           <i class="suas-lah-winbtn" data-kind="max" aria-hidden="true"></i>
@@ -69,7 +69,7 @@
           <div class="suas-lah-wizard-body">
             <p class="suas-lah-wizard-kicker">BLACK FRIDAY RELEASE</p>
             <h1 class="suas-lah-wizard-title">NEW SOFTWARE DETECTED</h1>
-            <p class="suas-lah-wizard-copy">Your fragrance lab is now a DIY kit - build it online, we ship it home.</p>
+            <p class="suas-lah-wizard-copy">Your fragrance lab is now a DIY kit  -  build it online, we ship it home.</p>
             <p class="suas-lah-chip suas-lah-chip-hot">Ships to all 50 states</p>
             <div class="suas-lah-wizard-nav">
               <button class="suas-lah-btn suas-lah-btn-lime" type="button" data-lah-goto="welcome">Continue &gt;</button>
@@ -85,7 +85,7 @@
             <h1 class="suas-lah-wizard-title suas-lah-wizard-title-sm">The Lab has officially left the building.</h1>
             <p class="suas-lah-wizard-copy">Create your own signature perfume from anywhere.</p>
             <p class="suas-lah-chip suas-lah-chip-lime">30 mL DIY Perfume Kit</p>
-            <p class="suas-lah-wizard-meta">1�15 mL base + 3�5 mL notes</p>
+            <p class="suas-lah-wizard-meta">1 x 15 mL base + 3 x 5 mL notes</p>
             <div class="suas-lah-wizard-nav">
               <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-goto="setup">&lt; Back</button>
               <button class="suas-lah-btn suas-lah-btn-lime" type="button" data-lah-goto="build">Let's Get Started &gt;</button>
@@ -94,7 +94,7 @@
         </div>
       </div>
 
-      {%- comment -%} XP install wizard: kit ? bottle ? notes ? name ? process {%- endcomment -%}
+      {%- comment -%} XP install wizard: kit  ->  bottle  ->  notes  ->  name  ->  process {%- endcomment -%}
       <div class="suas-lah-screen" data-lah-screen="build" role="region" aria-label="Install Lab Home" hidden>
         <div class="suas-lah-install" data-lah-install>
           <aside class="suas-lah-install-rail" aria-label="Install steps">
@@ -121,7 +121,7 @@
 
             <div class="suas-lah-step" data-lah-step="bottle" role="group" aria-labelledby="lah-step-bottle-title" hidden>
               <h2 id="lah-step-bottle-title" class="suas-lah-step-title">Step 2 - Choose your perfume bottle</h2>
-              <p class="suas-lah-step-copy">Cylinder or round - same juice, different silhouette.</p>
+              <p class="suas-lah-step-copy">Cylinder or round  -  same juice, different silhouette.</p>
               <div class="suas-lah-bottle-pick" data-lah-bottle-pick>
                 <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="Bottle"></div>
               </div>
@@ -129,7 +129,7 @@
 
             <div class="suas-lah-step" data-lah-step="notes" role="group" aria-labelledby="lah-step-notes-title" hidden>
               <h2 id="lah-step-notes-title" class="suas-lah-step-title">Step 3 - Choose scent notes</h2>
-              <p class="suas-lah-step-copy" data-lah-slot-hint role="status" aria-live="polite">tap a note - it pours into the tube</p>
+              <p class="suas-lah-step-copy" data-lah-slot-hint role="status" aria-live="polite">tap a note  -  it pours into the tube</p>
               <div class="suas-lah-notes-desk">
                 <div class="suas-lah-pane">
                   <div class="suas-lah-pane-head">
@@ -139,7 +139,7 @@
                   <div class="suas-lah-pane-body">
                     <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Families"></div>
                     <label class="suas-visually-hidden" for="LahNoteSearch">search</label>
-                    <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="find a note." data-lah-search autocomplete="off">
+                    <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="find a note..." data-lah-search autocomplete="off">
                     <div class="suas-lah-tray" data-lah-notes role="listbox" aria-label="Scent tray"></div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@
 
             <div class="suas-lah-step" data-lah-step="name" role="group" aria-labelledby="lah-step-name-title" hidden>
               <h2 id="lah-step-name-title" class="suas-lah-step-title">Step 4 - Name your formula</h2>
-              <p class="suas-lah-step-copy">Optional - prints on your kit label vibe.</p>
+              <p class="suas-lah-step-copy">Optional  -  prints on your kit label vibe.</p>
               <label class="suas-lah-step-label" for="LahFormulaName">formula name</label>
               <input id="LahFormulaName" type="text" maxlength="48" placeholder="ex: Island Soft.exe" data-lah-name autocomplete="off">
               <p class="suas-lah-name-preview" data-lah-selected>untitled formula</p>
@@ -172,7 +172,7 @@
               <h2 id="lah-step-process-title" class="suas-lah-step-title">Step 5 - Process your kit</h2>
               <p class="suas-lah-step-copy">Review the install, then add to bag.</p>
               <div class="suas-lah-crt" aria-live="polite">
-                <b>ready to ship</b>
+                <b data-lah-crt-kicker>ready to ship</b>
                 <strong data-lah-crt-price>$49.00</strong>
                 <em data-lah-statusbar>Select your 15 mL base</em>
                 <em data-lah-recipe class="suas-lah-crt-recipe"></em>
@@ -243,7 +243,7 @@
   "settings": [
     {"type":"text","id":"kicker","label":"Kicker (optional)"},
     {"type":"text","id":"heading","label":"Heading","default":"the lab @ home"},
-    {"type":"textarea","id":"copy","label":"Copy","default":"tap a note - it pours into the tube"},
+    {"type":"textarea","id":"copy","label":"Copy","default":"tap a note  -  it pours into the tube"},
     {"type":"product","id":"perfume_product","label":"Perfume kit"},
     {"type":"product","id":"oil_product","label":"Body oil kit"},
     {"type":"product","id":"rollon_product","label":"Roll-on kit"},

@@ -286,16 +286,18 @@ a.suas-lah-winbtn { cursor: pointer; }
   gap: 6px;
   max-height: 280px;
   overflow: auto;
-  padding-right: 2px;
+  padding: 2px 4px 4px 2px;
 }
 .suas-lah-note {
   appearance: none; position: relative;
   border: 2px solid var(--ink); background: #fff;
-  padding: 8px 4px 7px; cursor: pointer; color: var(--ink);
-  display: grid; gap: 4px; justify-items: center; min-height: 86px;
+  padding: 10px 6px 10px; cursor: pointer; color: var(--ink);
+  display: grid; gap: 5px; justify-items: center; align-content: start;
+  min-height: 96px;
   box-shadow: 0 2px 0 rgba(0,0,0,.12);
   transition: transform .1s ease, background .12s ease;
   touch-action: manipulation;
+  overflow: visible;
 }
 .suas-lah-note:hover { transform: translateY(-2px); }
 .suas-lah-note:active { transform: scale(.96); }
@@ -311,38 +313,44 @@ a.suas-lah-winbtn { cursor: pointer; }
     linear-gradient(180deg, var(--n2), var(--n1));
   box-shadow: 0 2px 4px rgba(0,0,0,.12);
 }
+.suas-lah-note-copy {
+  display: grid; gap: 2px; width: 100%; justify-items: center;
+}
 .suas-lah-note b {
   display: block; width: 100%;
-  font-size: 11px; font-weight: 900; line-height: 1.15;
+  font-size: 11px; font-weight: 900; line-height: 1.2;
   text-align: center; color: var(--ink);
   overflow-wrap: anywhere; white-space: normal;
 }
 .suas-lah-note small {
-  display: block; font-size: 8px; font-weight: 800; opacity: .55;
-  text-transform: uppercase; letter-spacing: .04em;
+  display: block; width: 100%;
+  font-size: 8px; font-weight: 800; line-height: 1.2; opacity: .6;
+  text-transform: uppercase; letter-spacing: .04em; text-align: center;
 }
 .suas-lah-note-check {
   position: absolute; top: 3px; right: 3px;
   width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--ink);
   background: var(--lime); font-size: 9px; font-weight: 900; display: grid; place-items: center;
+  line-height: 1;
 }
 .suas-lah-notes-empty { margin: 0; padding: 12px; text-align: center; font-size: 11px; font-weight: 800; opacity: .5; grid-column: 1 / -1; }
 
 .suas-lah-stage-box {
   position: relative;
-  min-height: 220px;
+  min-height: 240px;
   border: 2.5px solid var(--ink);
   background:
     radial-gradient(circle at 50% 0%, rgba(255,255,255,.9), transparent 55%),
     linear-gradient(180deg, var(--blush), #fff);
-  display: grid; place-items: end center;
-  padding: 28px 12px 14px;
-  overflow: hidden;
+  display: grid; place-items: center;
+  padding: 32px 10px 16px;
+  overflow: visible;
 }
 .suas-lah-stage-box::before {
   content: '';
   position: absolute; left: 10px; right: 10px; top: 10px; height: 14px;
   border: 2px solid var(--ink); background: var(--hot);
+  pointer-events: none;
 }
 .suas-lah-vials {
   position: relative; z-index: 1;
@@ -350,7 +358,11 @@ a.suas-lah-winbtn { cursor: pointer; }
   gap: 8px; align-items: end; width: 100%;
 }
 .suas-lah-vial {
-  display: grid; gap: 4px; justify-items: center; padding: 0; border: 0; background: transparent;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 6px;
+  justify-items: center;
+  padding: 0; border: 0; background: transparent;
   cursor: pointer; color: inherit; font: inherit; min-width: 0;
 }
 .suas-lah-vial-glass {
@@ -379,13 +391,21 @@ a.suas-lah-winbtn { cursor: pointer; }
 .suas-lah-vial.is-base.is-filled .suas-lah-vial-fill { height: 80%; }
 .suas-lah-vial.is-pop .suas-lah-vial-glass { animation: suas-lah-pop .35s ease; }
 .suas-lah-vial-tag {
-  display: block; width: 100%; padding: 3px 2px;
+  display: grid; gap: 1px; width: 100%; padding: 4px 3px;
   border: 2px solid var(--ink); background: #fff;
-  font-size: 8px; font-weight: 900; line-height: 1.15;
-  overflow-wrap: anywhere; text-align: center; text-transform: uppercase;
+  text-align: center;
+}
+.suas-lah-vial-tag b {
+  display: block; font-size: 9px; font-weight: 900; line-height: 1.15;
+  text-transform: uppercase; color: var(--ink); overflow-wrap: anywhere;
+}
+.suas-lah-vial-tag small {
+  display: block; font-size: 8px; font-weight: 800; line-height: 1.1;
+  color: rgba(16,16,16,.65); text-transform: none;
 }
 .suas-lah-vial.is-filled .suas-lah-vial-tag { background: var(--lime); }
 .suas-lah-vial.is-waiting .suas-lah-vial-tag { background: var(--blush); }
+.suas-lah-ships-pick { display: none !important; }
 
 /* Step 4 name */
 #LahFormulaName {
