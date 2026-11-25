@@ -96,6 +96,7 @@
   };
   var state = {
     screen: 'setup',
+    installStep: 'kit',
     mode: 'perfume',
     trioStep: 'perfume',
     filter: 'all',
@@ -109,7 +110,16 @@
   var SCREEN_TITLES = {
     setup: 'LAB.HOME.EXE - Setup Wizard',
     welcome: 'LAB.HOME.EXE - Welcome',
-    build: 'LAB.HOME.EXE - Customize'
+    build: 'LAB.HOME.EXE - Installing'
+  };
+
+  var INSTALL_STEPS = ['kit', 'bottle', 'notes', 'name', 'process'];
+  var INSTALL_TITLES = {
+    kit: 'LAB.HOME.EXE - Step 1 of 5',
+    bottle: 'LAB.HOME.EXE - Step 2 of 5',
+    notes: 'LAB.HOME.EXE - Step 3 of 5',
+    name: 'LAB.HOME.EXE - Step 4 of 5',
+    process: 'LAB.HOME.EXE - Step 5 of 5'
   };
 
   var TRIO_ORDER = ['perfume', 'oil', 'rollon'];
@@ -139,6 +149,9 @@
     noteCount: root.querySelector('[data-lah-note-count]'),
     deskbar: root.querySelector('[data-lah-deskbar]'),
     crtPrice: root.querySelector('[data-lah-crt-price]'),
+    installSteps: root.querySelector('[data-lah-install-steps]'),
+    installNext: root.querySelector('[data-lah-install-next]'),
+    installBack: root.querySelector('[data-lah-install-back]'),
     bottle: root.querySelector('[data-lah-bottle]'),
     bottleCard: root.querySelector('.suas-lah-bottle-card'),
     photoBottle: root.querySelector('[data-lah-photo-bottle]'),
@@ -176,7 +189,92 @@
   }
 
   function needsPerfumeBottle() {
-    return activeKitKey() === 'perfume';
+    return state.mode === 'perfume' || state.mode === 'trio';
+  }
+
+  function installPath() {
+    return INSTALL_STEPS.filter(function (id) {
+      if (id === 'bottle' && !needsPerfumeBottle()) return false;
+      return true;
+    });
+  }
+
+  function installIndex() {
+    return installPath().indexOf(state.installStep);
+  }
+
+  function setInstallStep(id) {
+    var path = installPath();
+    if (path.indexOf(id) === -1) id = path[0] || 'kit';
+    state.installStep = id;
+    var panels = root.querySelectorAll('[data-lah-step]');
+    for (var i = 0; i < panels.length; i++) {
+      var on = panels[i].getAttribute('data-lah-step') === id;
+      panels[i].classList.toggle('is-on', on);
+      panels[i].hidden = !on;
+    }
+    if (els.appTitle && state.screen === 'build') {
+      els.appTitle.textContent = INSTALL_TITLES[id] || SCREEN_TITLES.build;
+    }
+    renderInstallRail();
+    renderInstallNav();
+    if (id === 'notes' || id === 'process') paint();
+    announce(INSTALL_TITLES[id] || id);
+  }
+
+  function renderInstallRail() {
+    if (!els.installSteps) return;
+    var path = installPath();
+    var idx = installIndex();
+    var items = els.installSteps.querySelectorAll('[data-step-id]');
+    for (var i = 0; i < items.length; i++) {
+      var id = items[i].getAttribute('data-step-id');
+      var pathIdx = path.indexOf(id);
+      items[i].classList.toggle('is-skip', pathIdx === -1);
+      items[i].classList.toggle('is-current', id === state.installStep);
+      items[i].classList.toggle('is-done', pathIdx !== -1 && pathIdx < idx);
+    }
+  }
+
+  function renderInstallNav() {
+    var path = installPath();
+    var idx = installIndex();
+    if (els.installBack) {
+      els.installBack.disabled = idx <= 0;
+      els.installBack.hidden = false;
+    }
+    if (els.installNext) {
+      var last = idx >= path.length - 1;
+      els.installNext.hidden = last;
+      els.installNext.textContent = 'Next >';
+      if (state.installStep === 'kit') els.installNext.textContent = 'Next >';
+      if (state.installStep === 'bottle') els.installNext.textContent = 'Next >';
+      if (state.installStep === 'notes') {
+        els.installNext.disabled = !kitComplete();
+        els.installNext.textContent = kitComplete() ? 'Next >' : 'fill all tubes';
+      } else if (els.installNext) {
+        els.installNext.disabled = false;
+      }
+    }
+  }
+
+  function installNext() {
+    var path = installPath();
+    var idx = installIndex();
+    if (state.installStep === 'notes' && !kitComplete()) {
+      setError('Fill every tube before continuing.');
+      return;
+    }
+    setError('');
+    if (idx < path.length - 1) setInstallStep(path[idx + 1]);
+  }
+
+  function installBack() {
+    var path = installPath();
+    var idx = installIndex();
+    setError('');
+    if (idx > 0) setInstallStep(path[idx - 1]);
+    else showScreen('welcome');
   }
 
   function activeBottle() {
@@ -457,7 +555,9 @@
     }
     if (els.appTitle) els.appTitle.textContent = SCREEN_TITLES[name];
     if (name === 'build') {
+      state.installStep = 'kit';
       paint();
+      setInstallStep('kit');
       try { root.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_e) {}
     }
     announce(SCREEN_TITLES[name]);
@@ -495,15 +595,15 @@
   function renderKits() {
     if (!els.kits) return;
     var options = [
-      { id: 'perfume', label: 'perfume', meta: money.perfume },
-      { id: 'oil', label: 'body oil', meta: money.oil },
-      { id: 'rollon', label: 'roll-on', meta: money.rollon },
-      { id: 'trio', label: 'trio', meta: money.trio }
+      { id: 'perfume', label: 'perfume', meta: '30 mL � ' + money.perfume },
+      { id: 'oil', label: 'body oil', meta: '30 mL � ' + money.oil },
+      { id: 'rollon', label: 'roll-on', meta: '10 mL � ' + money.rollon },
+      { id: 'trio', label: 'the trio', meta: 'perfume + oil + roll-on � ' + money.trio }
     ];
     els.kits.innerHTML = options.map(function (opt) {
       var pressed = state.mode === opt.id;
       var thumb = opt.id === 'trio' && trioPackSrc
-        ? '<img class="suas-lah-kit-thumb" src="' + escapeHtml(trioPackSrc) + '" alt="" width="22" height="14">'
+        ? '<img class="suas-lah-kit-thumb" src="' + escapeHtml(trioPackSrc) + '" alt="" width="72" height="40">'
         : '';
       return (
         '<button type="button" class="suas-lah-kit' + (pressed ? ' is-selected' : '') + (opt.id === 'trio' ? ' is-trio' : '') + '" data-kit="' + opt.id + '" aria-pressed="' + pressed + '">' +
@@ -517,9 +617,8 @@
     var priceKey = state.mode === 'trio' ? 'trio' : state.mode;
     if (els.crtPrice) els.crtPrice.textContent = money[priceKey] || '';
     if (els.selected) {
-      els.selected.textContent = state.mode === 'trio'
-        ? ('trio � ' + (TRIO_LABELS[state.trioStep] || '') + ' ' + (trioStepIndex() + 1) + '/3')
-        : (activeKit().label);
+      var nameVal = (els.name && els.name.value.trim()) || 'untitled formula';
+      els.selected.textContent = nameVal;
     }
   }
 
@@ -556,16 +655,15 @@
   }
 
   function renderBottlePick() {
-    if (!els.bottlePick || !els.bottleOptions) return;
-    var show = needsPerfumeBottle();
-    els.bottlePick.hidden = !show;
-    if (!show) return;
+    if (!els.bottleOptions) return;
     els.bottleOptions.innerHTML = Object.keys(BOTTLES).map(function (key) {
       var bottle = BOTTLES[key];
       var on = state.bottle === key;
+      var src = bottle.src || '';
       return (
         '<button type="button" class="suas-lah-bottle-opt' + (on ? ' is-selected' : '') + '" data-bottle="' + key + '" aria-pressed="' + on + '">' +
-          escapeHtml(bottle.label) +
+          (src ? '<img src="' + escapeHtml(src) + '" alt="" width="140" height="160">' : '') +
+          '<strong>' + escapeHtml(bottle.label) + '</strong>' +
         '</button>'
       );
     }).join('');
@@ -831,6 +929,14 @@
     renderVials();
     renderShipsPick();
     renderBottle();
+    renderInstallRail();
+    renderInstallNav();
+    if (els.recipe && kitComplete()) {
+      var snap = snapshotFormula();
+      els.recipe.textContent = snap.name + ' - ' + formulaLine(snap);
+    } else if (els.recipe) {
+      els.recipe.textContent = recipeLine();
+    }
   }
 
   function pickNote(id, opts) {
@@ -913,6 +1019,7 @@
       }
       state.activeSlot = 0;
       paint();
+      setInstallStep('notes');
       announce('Saved. Now build your ' + (TRIO_LABELS[next] || next) + ' formula.');
       root.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
@@ -977,6 +1084,25 @@
       return;
     }
 
+    if (event.target.closest('[data-lah-install-next]')) {
+      installNext();
+      return;
+    }
+    if (event.target.closest('[data-lah-install-back]')) {
+      installBack();
+      return;
+    }
+
+    var stepRail = event.target.closest('[data-step-id]');
+    if (stepRail && els.installSteps && els.installSteps.contains(stepRail)) {
+      var want = stepRail.getAttribute('data-step-id');
+      var path = installPath();
+      var wantIdx = path.indexOf(want);
+      var curIdx = installIndex();
+      if (wantIdx !== -1 && wantIdx <= curIdx) setInstallStep(want);
+      return;
+    }
+
     var kitBtn = event.target.closest('[data-kit]');
     if (kitBtn && root.contains(kitBtn)) {
       state.mode = kitBtn.getAttribute('data-kit');
@@ -988,11 +1114,8 @@
       if (els.name) els.name.value = '';
       setError('');
       paint();
-      if (els.kits) {
-        els.kits.classList.remove('is-pop');
-        void els.kits.offsetWidth;
-        els.kits.classList.add('is-pop');
-      }
+      if (state.installStep === 'bottle' && !needsPerfumeBottle()) setInstallStep('kit');
+      else renderInstallRail();
       announce(state.mode === 'trio'
         ? 'Trio selected - build perfume, then oil, then roll-on.'
         : ('Selected ' + kit.label));
@@ -1056,6 +1179,7 @@
         state.trioFormulas = { perfume: null, oil: null, rollon: null };
       }
       resetPicks();
+      setInstallStep('kit');
     }
   });
 
@@ -1068,6 +1192,7 @@
 
   if (els.name) {
     els.name.addEventListener('input', function () {
+      if (els.selected) els.selected.textContent = els.name.value.trim() || 'untitled formula';
       renderBottle();
     });
   }

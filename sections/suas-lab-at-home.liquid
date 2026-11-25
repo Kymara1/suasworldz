@@ -94,68 +94,100 @@
         </div>
       </div>
 
-      {%- comment -%} Charm-Bar interaction: tray | stage | bag - one desk, not a form {%- endcomment -%}
-      <div class="suas-lah-screen" data-lah-screen="build" role="region" aria-label="Customize" hidden>
-        <div class="suas-lah-desk" data-lah-desk>
-          <section class="suas-lah-pane" aria-labelledby="lah-tray-title">
-            <div class="suas-lah-pane-head">
-              <span id="lah-tray-title">notes.exe</span>
-              <span data-lah-note-count>16</span>
-            </div>
-            <div class="suas-lah-pane-body">
-              <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Families"></div>
-              <label class="suas-visually-hidden" for="LahNoteSearch">search</label>
-              <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="find." data-lah-search autocomplete="off">
-              <div class="suas-lah-tray" data-lah-notes role="listbox" aria-label="Scent tray"></div>
-            </div>
-          </section>
+      {%- comment -%} XP install wizard: kit ? bottle ? notes ? name ? process {%- endcomment -%}
+      <div class="suas-lah-screen" data-lah-screen="build" role="region" aria-label="Install Lab Home" hidden>
+        <div class="suas-lah-install" data-lah-install>
+          <aside class="suas-lah-install-rail" aria-label="Install steps">
+            <p class="suas-lah-install-rail-title">Installing<br>LAB.HOME.EXE</p>
+            <ol class="suas-lah-install-steps" data-lah-install-steps>
+              <li data-step-id="kit"><em>1</em><span>Kit type</span></li>
+              <li data-step-id="bottle"><em>2</em><span>Bottle</span></li>
+              <li data-step-id="notes"><em>3</em><span>Scent notes</span></li>
+              <li data-step-id="name"><em>4</em><span>Name it</span></li>
+              <li data-step-id="process"><em>5</em><span>Process</span></li>
+            </ol>
+            <p class="suas-lah-install-rail-foot">ships all 50 states</p>
+          </aside>
 
-          <section class="suas-lah-pane suas-lah-pane-stage" aria-labelledby="lah-stage-title">
-            <div class="suas-lah-pane-head">
-              <span id="lah-stage-title">formula.exe</span>
-              <span data-lah-fill-status>0 / 30 mL</span>
-            </div>
-            <div class="suas-lah-pane-body suas-lah-stage-body">
+          <div class="suas-lah-install-main">
+            <div class="suas-lah-step is-on" data-lah-step="kit" role="group" aria-labelledby="lah-step-kit-title">
+              <h2 id="lah-step-kit-title" class="suas-lah-step-title">Step 1 - Choose your kit</h2>
+              <p class="suas-lah-step-copy">Pick what we pack &amp; ship. You can change this later with Back.</p>
               <div class="suas-lah-kits" data-lah-kits role="group" aria-label="Kit type"></div>
               <div class="suas-lah-trio-track" data-lah-trio-track hidden>
                 <div class="suas-lah-trio-steps" data-lah-trio-steps role="tablist" aria-label="Trio steps"></div>
               </div>
-              <p class="suas-lah-stage-hint" data-lah-slot-hint role="status" aria-live="polite">tap a note - it pours into the tube</p>
-              <div class="suas-lah-stage-box" data-lah-vials-wrap>
-                <div class="suas-lah-vials" data-lah-vials aria-label="Your formula tubes"></div>
-                <div class="suas-lah-pour-toast" data-lah-pour-toast hidden aria-live="polite"></div>
-                <div class="suas-lah-sparkles" data-lah-sparkles aria-hidden="true"></div>
-                <div class="suas-lah-fly" data-lah-fly aria-hidden="true"></div>
-              </div>
             </div>
-          </section>
 
-          <section class="suas-lah-pane suas-lah-pane-bag" aria-labelledby="lah-bag-title">
-            <div class="suas-lah-pane-head">
-              <span id="lah-bag-title">bag.exe</span>
-              <span>ships 50</span>
-            </div>
-            <div class="suas-lah-pane-body">
-              <div class="suas-lah-crt" aria-live="polite">
-                <b data-lah-selected>pick a kit</b>
-                <strong data-lah-crt-price>$49.00</strong>
-                <em data-lah-statusbar>Select your 15 mL base</em>
-              </div>
-              <div class="suas-lah-bottle-pick" data-lah-bottle-pick hidden>
+            <div class="suas-lah-step" data-lah-step="bottle" role="group" aria-labelledby="lah-step-bottle-title" hidden>
+              <h2 id="lah-step-bottle-title" class="suas-lah-step-title">Step 2 - Choose your perfume bottle</h2>
+              <p class="suas-lah-step-copy">Cylinder or round - same juice, different silhouette.</p>
+              <div class="suas-lah-bottle-pick" data-lah-bottle-pick>
                 <div class="suas-lah-bottle-options" data-lah-bottle-options role="group" aria-label="Bottle"></div>
               </div>
-              <label class="suas-visually-hidden" for="LahFormulaName">name your formula</label>
-              <input id="LahFormulaName" type="text" maxlength="48" placeholder="name it." data-lah-name autocomplete="off">
-              <button class="suas-lah-cta" type="button" data-lah-atc disabled>Select your 15 mL base</button>
-              <div class="suas-lah-bag-keys">
-                <button class="suas-lah-key" type="button" data-lah-reset>clear</button>
-                <button class="suas-lah-key" type="button" data-lah-goto="welcome">help</button>
+            </div>
+
+            <div class="suas-lah-step" data-lah-step="notes" role="group" aria-labelledby="lah-step-notes-title" hidden>
+              <h2 id="lah-step-notes-title" class="suas-lah-step-title">Step 3 - Choose scent notes</h2>
+              <p class="suas-lah-step-copy" data-lah-slot-hint role="status" aria-live="polite">tap a note - it pours into the tube</p>
+              <div class="suas-lah-notes-desk">
+                <div class="suas-lah-pane">
+                  <div class="suas-lah-pane-head">
+                    <span>notes.exe</span>
+                    <span data-lah-note-count>16</span>
+                  </div>
+                  <div class="suas-lah-pane-body">
+                    <div class="suas-lah-filters" data-lah-filters role="group" aria-label="Families"></div>
+                    <label class="suas-visually-hidden" for="LahNoteSearch">search</label>
+                    <input id="LahNoteSearch" class="suas-lah-search" type="search" placeholder="find a note." data-lah-search autocomplete="off">
+                    <div class="suas-lah-tray" data-lah-notes role="listbox" aria-label="Scent tray"></div>
+                  </div>
+                </div>
+                <div class="suas-lah-pane suas-lah-pane-stage">
+                  <div class="suas-lah-pane-head">
+                    <span>formula.exe</span>
+                    <span data-lah-fill-status>0 / 30 mL</span>
+                  </div>
+                  <div class="suas-lah-pane-body">
+                    <div class="suas-lah-stage-box" data-lah-vials-wrap>
+                      <div class="suas-lah-vials" data-lah-vials aria-label="Your formula tubes"></div>
+                      <div class="suas-lah-pour-toast" data-lah-pour-toast hidden aria-live="polite"></div>
+                      <div class="suas-lah-sparkles" data-lah-sparkles aria-hidden="true"></div>
+                      <div class="suas-lah-fly" data-lah-fly aria-hidden="true"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+
+            <div class="suas-lah-step" data-lah-step="name" role="group" aria-labelledby="lah-step-name-title" hidden>
+              <h2 id="lah-step-name-title" class="suas-lah-step-title">Step 4 - Name your formula</h2>
+              <p class="suas-lah-step-copy">Optional - prints on your kit label vibe.</p>
+              <label class="suas-lah-step-label" for="LahFormulaName">formula name</label>
+              <input id="LahFormulaName" type="text" maxlength="48" placeholder="ex: Island Soft.exe" data-lah-name autocomplete="off">
+              <p class="suas-lah-name-preview" data-lah-selected>untitled formula</p>
+            </div>
+
+            <div class="suas-lah-step" data-lah-step="process" role="group" aria-labelledby="lah-step-process-title" hidden>
+              <h2 id="lah-step-process-title" class="suas-lah-step-title">Step 5 - Process your kit</h2>
+              <p class="suas-lah-step-copy">Review the install, then add to bag.</p>
+              <div class="suas-lah-crt" aria-live="polite">
+                <b>ready to ship</b>
+                <strong data-lah-crt-price>$49.00</strong>
+                <em data-lah-statusbar>Select your 15 mL base</em>
+                <em data-lah-recipe class="suas-lah-crt-recipe"></em>
+              </div>
+              <button class="suas-lah-cta" type="button" data-lah-atc disabled>Select your 15 mL base</button>
               <p class="suas-lah-error" data-lah-error role="alert"></p>
             </div>
-          </section>
+
+            <div class="suas-lah-install-nav">
+              <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-install-back>&lt; Back</button>
+              <button class="suas-lah-btn suas-lah-btn-lime" type="button" data-lah-install-next>Next &gt;</button>
+              <button class="suas-lah-btn suas-lah-btn-ghost" type="button" data-lah-reset>start over</button>
+            </div>
+          </div>
         </div>
-        <div class="suas-lah-deskbar" data-lah-deskbar role="status">tap a color � fill your tubes � we ship the kit</div>
 
         <div data-lah-stage hidden>
           <div class="suas-lah-photo-stage" data-lah-bottle aria-hidden="true">
@@ -165,7 +197,7 @@
             </div>
           </div>
         </div>
-        <p class="suas-visually-hidden" data-lah-recipe></p>
+        <p class="suas-visually-hidden" data-lah-deskbar></p>
         <div class="suas-lah-slotbar" data-lah-slots hidden></div>
         <span class="suas-lah-ships-pick" data-lah-ships-pick hidden></span>
       </div>
