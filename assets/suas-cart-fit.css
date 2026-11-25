@@ -246,10 +246,10 @@ html.suas-halloween .suas-cart-chip {
   width: 120px !important;
   height: 120px !important;
   overflow: hidden !important;
-  border: 0 !important;
+  border: 2px solid #101010 !important;
   border-radius: 16px !important;
-  background: transparent !important;
-  box-shadow: none;
+  background: #fff !important;
+  box-shadow: 2px 3px 0 #101010;
 }
 .template--cart .cart--item--image.suas-cart-thumb-fallback,
 .suas-cart-station .cart--item--image.suas-cart-thumb-fallback {
@@ -261,9 +261,10 @@ html.suas-halloween .suas-cart-chip {
 }
 .template--cart .cart--item--image .suas-cart-logo-fallback,
 .suas-cart-station .cart--item--image .suas-cart-logo-fallback {
-  width: 78% !important;
-  height: 78% !important;
-  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 10px !important;
+  box-sizing: border-box !important;
   object-fit: contain !important;
 }
 
@@ -274,6 +275,8 @@ html.suas-halloween .suas-cart-chip {
   height: 100%;
   place-items: center;
   position: relative;
+  padding: 10px !important;
+  box-sizing: border-box !important;
 }
 
 .template--cart .cart--item--image .image--root,
@@ -295,15 +298,19 @@ html.suas-halloween .suas-cart-chip {
 .suas-cart-station .cart--item--image svg {
   width: 100% !important;
   height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
   object-fit: contain !important;
   object-position: center !important;
   background: transparent !important;
-  transition: transform 220ms ease;
+  transform: none !important;
 }
 
 .template--cart .cart--item:hover .cart--item--image img,
 .suas-cart-station .cart--item:hover .cart--item--image img {
-  transform: scale(1.04);
+  transform: none !important;
 }
 
 .template--cart .cart--item--title a,
@@ -819,28 +826,35 @@ html.suas-halloween .suas-cart-dots i:nth-child(3) { background: #28c840 !import
   min-height: 88px !important;
   position: relative !important;
   overflow: hidden !important;
+  border: 2px solid #101010 !important;
   border-radius: 14px !important;
   background: #fff !important;
+  box-shadow: 2px 3px 0 #101010;
 }
 .off-canvas--container[data-view="cart"] .cart--item--image a,
 .off-canvas--container[data-view="cart"] .cart--item--image .image--root,
 .off-canvas--container[data-view="cart"] .cart--item--image .image--container {
   position: absolute !important;
   inset: 0 !important;
-  display: block !important;
+  display: grid !important;
+  place-items: center !important;
   width: 100% !important;
   height: 100% !important;
-  padding: 0 !important;
-  padding-top: 0 !important;
+  padding: 8px !important;
+  padding-top: 8px !important;
+  box-sizing: border-box !important;
 }
 .off-canvas--container[data-view="cart"] .cart--item--image img {
-  position: absolute !important;
-  inset: 0 !important;
+  position: static !important;
+  inset: auto !important;
   width: 100% !important;
   height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
   object-fit: contain !important;
   object-position: center !important;
-  background: #fff !important;
+  background: transparent !important;
+  transform: none !important;
 }
 .off-canvas--container[data-view="cart"] .cart--item--title,
 .off-canvas--container[data-view="cart"] .cart--item--info,
