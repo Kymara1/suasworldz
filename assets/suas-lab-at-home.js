@@ -598,7 +598,7 @@
  { id: 'perfume', label: 'perfume', meta: '30 mL - ' + money.perfume },
  { id: 'oil', label: 'body oil', meta: '30 mL - ' + money.oil },
  { id: 'rollon', label: 'roll-on', meta: '10 mL - ' + money.rollon },
- { id: 'trio', label: 'the trio', meta: 'perfume + oil + roll-on - ' + money.trio }
+ { id: 'trio', label: 'the trio', meta: 'all 3 - ' + money.trio }
  ];
  els.kits.innerHTML = options.map(function (opt) {
  var pressed = state.mode === opt.id;

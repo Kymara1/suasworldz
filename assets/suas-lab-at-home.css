@@ -208,8 +208,8 @@ a.suas-lah-winbtn { cursor: pointer; }
   background: var(--lime);
   box-shadow: 0 0 0 3px var(--hot), 2px 2px 0 var(--ink);
 }
-.suas-lah-kit.is-trio { grid-column: 1 / -1; min-height: 72px; grid-auto-flow: column; align-items: center; gap: 12px; }
-.suas-lah-kit-thumb { width: 72px; height: 40px; object-fit: contain; }
+.suas-lah-kit.is-trio { min-height: 88px; }
+.suas-lah-kit-thumb { width: 56px; height: 32px; object-fit: contain; }
 
 .suas-lah-trio-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-top: 4px; }
 .suas-lah-trio-step {
