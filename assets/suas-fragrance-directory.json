@@ -1,14 +1,14 @@
 {
-  "updated": "2026-11-20",
+  "updated": "2026-11-25",
   "source": "SUAS.OS Fragrance Directory (public)",
   "policy": "No designer inspiration. No full staff keyNotes. publicNotes only.",
   "counts": {
-    "total": 21,
-    "active": 21,
+    "total": 22,
+    "active": 22,
     "upcoming": 0,
     "archived": 0,
     "unisex": 5,
-    "feminine-leaning": 8,
+    "feminine-leaning": 9,
     "masculine-leaning": 8
   },
   "categories": [
@@ -119,6 +119,22 @@
         "lavender"
       ],
       "handle": "devotion-eau-de-parfum",
+      "aka": []
+    },
+    {
+      "id": "dulce",
+      "name": "Dulce",
+      "category": "feminine-leaning",
+      "status": "active",
+      "personality": "Rich bakery caramel-vanilla, cozy and dessert-forward",
+      "bestFor": "Lovers of caramel swirl, creamy vanilla, and warm brown sugar without florals",
+      "broaderAppeal": null,
+      "publicNotes": [
+        "caramel",
+        "vanilla",
+        "brown sugar"
+      ],
+      "handle": "dulce-eau-de-parfum",
       "aka": []
     },
     {
@@ -254,7 +270,7 @@
       "publicNotes": [
         "grapefruit",
         "marine",
-        "woods"
+        "oakmoss"
       ],
       "handle": "caspian-cologne",
       "aka": []
