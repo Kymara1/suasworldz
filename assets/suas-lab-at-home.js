@@ -95,7 +95,7 @@
  trio: root.getAttribute('data-title-trio') || 'The Lab @ Home Trio'
  };
  var state = {
- screen: 'setup',
+ screen: 'build',
  installStep: 'kit',
  mode: 'perfume',
  trioStep: 'perfume',
@@ -108,9 +108,7 @@
  };
 
  var SCREEN_TITLES = {
- setup: 'Setup Wizard',
- welcome: 'Welcome',
- build: 'Installing'
+ build: 'Step 1 of 5'
  };
 
  var INSTALL_STEPS = ['kit', 'bottle', 'notes', 'name', 'process'];
@@ -270,7 +268,6 @@
  var idx = installIndex();
  setError('');
  if (idx > 0) setInstallStep(path[idx - 1]);
- else showScreen('welcome');
  }
 
  function activeBottle() {
@@ -553,7 +550,8 @@
  }
 
  function showScreen(name) {
- if (!SCREEN_TITLES[name]) return;
+ // Intro slides removed - always open the install flow.
+ name = 'build';
  state.screen = name;
  var screens = root.querySelectorAll('[data-lah-screen]');
  for (var i = 0; i < screens.length; i++) {
@@ -561,14 +559,11 @@
  screens[i].classList.toggle('is-on', on);
  screens[i].hidden = !on;
  }
- if (els.appTitle) els.appTitle.textContent = SCREEN_TITLES[name];
- if (name === 'build') {
- state.installStep = 'kit';
+ if (els.appTitle) els.appTitle.textContent = INSTALL_TITLES[state.installStep] || SCREEN_TITLES.build;
  paint();
- setInstallStep('kit');
+ setInstallStep(state.installStep || 'kit');
  try { root.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_e) {}
- }
- announce(SCREEN_TITLES[name]);
+ announce(els.appTitle ? els.appTitle.textContent : 'Lab @ Home');
  }
 
  function announce(msg) {
@@ -817,8 +812,8 @@
  var aria = title + ' - ' + sub;
  return (
  '<button type="button" class="' + classes + '" style="--vial:' + color + '" data-vial-slot="' + index + '" aria-pressed="' + active + '" aria-label="' + escapeHtml(aria) + '">' +
- '<span class="suas-lah-vial-tag"><b>' + escapeHtml(title) + '</b><small>' + escapeHtml(sub) + '</small></span>' +
  '<span class="suas-lah-vial-glass" aria-hidden="true"><span class="suas-lah-vial-fill"></span></span>' +
+ '<span class="suas-lah-vial-tag"><b>' + escapeHtml(title) + '</b><small>' + escapeHtml(sub) + '</small></span>' +
  '</button>'
  );
  }).join('');
@@ -1243,18 +1238,5 @@
 
  state.picks = new Array(activeKit().slots.length);
 
- // Deep-link: bookings CTA + filming shortcuts jump into customize.
- // Fresh /pages/the-lab opens the XP setup wizard first.
- var params = new URLSearchParams(window.location.search || '');
- var hash = String(window.location.hash || '').toLowerCase();
- if (
- params.get('build') === '1' ||
- hash === '#lab-at-home' ||
- hash === '#lab-at-home-build' ||
- hash === '#customize'
- ) {
  showScreen('build');
- } else {
- showScreen('setup');
- }
 })();

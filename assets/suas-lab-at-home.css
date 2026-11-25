@@ -358,20 +358,20 @@ a.suas-lah-winbtn { cursor: pointer; }
     linear-gradient(180deg, var(--blush), #fff);
   display: grid; place-items: center;
   padding: 18px 10px 14px;
-  overflow: visible;
+  overflow: hidden;
 }
 .suas-lah-stage-box::before { display: none; }
 .suas-lah-vials {
   position: relative; z-index: 1;
   display: grid; grid-template-columns: repeat(4, minmax(0,1fr));
-  gap: 8px; align-items: start; width: 100%;
+  gap: 8px; align-items: end; width: 100%;
 }
 .suas-lah-vial {
   display: grid;
   grid-template-rows: auto auto;
   gap: 6px;
   justify-items: center;
-  align-content: start;
+  align-content: end;
   padding: 0; border: 0; background: transparent;
   cursor: pointer; color: inherit; font: inherit; min-width: 0;
 }
@@ -545,27 +545,64 @@ a.suas-lah-winbtn { cursor: pointer; }
   .suas-lah-install-steps li { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 3px; }
   .suas-lah-install-steps li span { font-size: 8px !important; }
   .suas-lah-install-rail-foot { display: none; }
-  .suas-lah-notes-desk { grid-template-columns: 1fr; }
-  .suas-lah-pane-stage { order: -1; }
-  .suas-lah-pane-stage .suas-lah-pane-body {
-    padding-top: 4px; padding-bottom: 4px;
-    align-content: start; justify-items: center;
+  .suas-lah-notes-desk {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
+  .suas-lah-pane-stage {
+    order: -1;
+    overflow: hidden;
+  }
+  .suas-lah-pane-stage .suas-lah-pane-body {
+    padding: 0;
+    gap: 0;
+    align-content: stretch;
+    justify-items: stretch;
+  }
+  /* Tubes live inside formula.exe as one surface - no floating card */
   .suas-lah-stage-box {
     min-height: 0;
     width: 100%;
-    padding: 6px 6px 8px;
-    place-items: start center;
-    align-content: start;
+    margin: 0;
+    padding: 10px 8px 12px;
+    border: 0;
+    border-radius: 0;
+    place-items: center;
+    align-content: center;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,255,255,.95), transparent 58%),
+      linear-gradient(180deg, #ffe8ef, #fff);
   }
   .suas-lah-vials {
-    width: min(100%, 360px);
-    margin: 0 auto;
+    width: 100%;
+    max-width: none;
+    margin: 0;
     gap: 6px;
-    align-items: start;
+    align-items: end;
+    justify-items: center;
   }
-  .suas-lah-pour-toast { top: 48%; left: 50%; }
-  .suas-lah-sparkles i { top: 48%; left: var(--x, 50%); }
+  .suas-lah-vial {
+    width: 100%;
+    gap: 5px;
+    grid-template-rows: auto auto;
+  }
+  .suas-lah-vial-glass {
+    max-width: 44px;
+    aspect-ratio: 1 / 1.45;
+  }
+  .suas-lah-vial.is-base .suas-lah-vial-glass {
+    max-width: 50px;
+    aspect-ratio: 1 / 1.35;
+  }
+  .suas-lah-vial-tag {
+    width: 100%;
+    max-width: 72px;
+    padding: 4px 3px;
+  }
+  .suas-lah-pour-toast,
+  .suas-lah-sparkles,
+  .suas-lah-fly { display: none !important; }
   .suas-lah-tray { grid-template-columns: repeat(4, minmax(0,1fr)); max-height: 200px; }
   .suas-lah-kits { grid-template-columns: 1fr 1fr; }
 }
@@ -574,9 +611,11 @@ a.suas-lah-winbtn { cursor: pointer; }
   .suas-lah { padding: 48px 0 78px; scroll-margin-top: 72px; }
   .suas-lah-wrap { width: calc(100% - 8px); margin-top: 16px; }
   .suas-lah-window { margin-top: 4px; }
-  .suas-lah-stage-box { min-height: 0; padding: 4px 4px 6px; }
-  .suas-lah-vials { width: min(100%, 320px); gap: 4px; }
-  .suas-lah-vial-tag { padding: 4px 2px; }
+  .suas-lah-stage-box { padding: 8px 6px 10px; }
+  .suas-lah-vials { gap: 4px; }
+  .suas-lah-vial-glass { max-width: 38px; }
+  .suas-lah-vial.is-base .suas-lah-vial-glass { max-width: 44px; }
+  .suas-lah-vial-tag { max-width: 68px; padding: 3px 2px; }
   .suas-lah-vial-tag b { font-size: 8px; }
   .suas-lah-vial-tag small { font-size: 7px; }
   .suas-lah-wizard { flex-direction: column; }
