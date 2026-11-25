@@ -95,6 +95,7 @@
     trio: root.getAttribute('data-title-trio') || 'The Lab @ Home Trio'
   };
   var state = {
+    screen: 'setup',
     mode: 'perfume',
     trioStep: 'perfume',
     filter: 'all',
@@ -105,6 +106,12 @@
     trioFormulas: { perfume: null, oil: null, rollon: null }
   };
 
+  var SCREEN_TITLES = {
+    setup: 'LAB.HOME.EXE - Setup Wizard',
+    welcome: 'LAB.HOME.EXE - Welcome',
+    build: 'LAB.HOME.EXE - Customize'
+  };
+
   var TRIO_ORDER = ['perfume', 'oil', 'rollon'];
   var TRIO_LABELS = { perfume: 'perfume', oil: 'body oil', rollon: 'roll-on' };
 
@@ -113,7 +120,7 @@
     selected: root.querySelector('[data-lah-selected]'),
     trioTrack: root.querySelector('[data-lah-trio-track]'),
     trioSteps: root.querySelector('[data-lah-trio-steps]'),
-    notesLabel: root.querySelector('[data-lah-notes-label]'),
+    recipe: root.querySelector('[data-lah-recipe]'),
     slotHint: root.querySelector('[data-lah-slot-hint]'),
     bottlePick: root.querySelector('[data-lah-bottle-pick]'),
     bottleOptions: root.querySelector('[data-lah-bottle-options]'),
@@ -121,6 +128,10 @@
     search: root.querySelector('[data-lah-search]'),
     filters: root.querySelector('[data-lah-filters]'),
     notes: root.querySelector('[data-lah-notes]'),
+    vials: root.querySelector('[data-lah-vials]'),
+    shipsPick: root.querySelector('[data-lah-ships-pick]'),
+    statusbar: root.querySelector('[data-lah-statusbar]'),
+    appTitle: root.querySelector('[data-lah-app-title]'),
     bottle: root.querySelector('[data-lah-bottle]'),
     bottleCard: root.querySelector('.suas-lah-bottle-card'),
     photoBottle: root.querySelector('[data-lah-photo-bottle]'),
@@ -246,6 +257,23 @@
     return kit.slots.every(function (_slot, index) { return !!state.picks[index]; });
   }
 
+  function supportSlots() {
+    return activeKit().slots.filter(function (s) { return s.role !== 'base'; });
+  }
+
+  function supportFilledCount() {
+    var kit = activeKit();
+    var n = 0;
+    for (var i = 0; i < kit.slots.length; i++) {
+      if (kit.slots[i].role !== 'base' && state.picks[i]) n += 1;
+    }
+    return n;
+  }
+
+  function baseLocked() {
+    return !!state.picks[0];
+  }
+
   function coachLine() {
     var kit = activeKit();
     var total = kit.slots.length;
@@ -258,29 +286,62 @@
       if (state.mode === 'trio' && state.trioStep !== 'rollon') {
         return trioPrefix + 'All tubes filled - save and go to the next bottle';
       }
-      return trioPrefix + 'All tubes filled - ready to add to cart';
+      return trioPrefix + 'Formula ready - name it (optional) and add to cart';
     }
 
     var idx = state.activeSlot;
     if (idx < 0 || idx >= total || state.picks[idx]) idx = firstEmptySlot();
     var slot = kit.slots[idx];
-    var role = slot.role === 'base' ? 'base' : 'support';
-    var article = role === 'base' ? 'your' : 'a';
-    return trioPrefix + 'Tube ' + (idx + 1) + ' of ' + total + ' - pick ' + article + ' ' + slot.amountMl + ' mL ' + role;
+    if (slot.role === 'base') {
+      return trioPrefix + 'Select your ' + slot.amountMl + ' mL base (favorite)';
+    }
+    return trioPrefix + 'Pick scent note ' + supportFilledCount() + '/' + supportSlots().length + ' - ' + slot.amountMl + ' mL';
+  }
+
+  function statusBarText() {
+    var kit = activeKit();
+    var supports = supportSlots().length;
+    var filledSupports = supportFilledCount();
+    if (!baseLocked()) return 'Select your ' + kit.slots[0].amountMl + ' mL base (favorite)';
+    if (kitComplete()) {
+      if (state.mode === 'trio' && state.trioStep !== 'rollon') {
+        return 'Base locked � notes complete - save & continue';
+      }
+      return 'Base locked � ' + filledSupports + '/' + supports + ' scent notes - ready';
+    }
+    return 'Base locked � ' + filledSupports + '/' + supports + ' scent notes';
   }
 
   function fillStatusText() {
     var kit = activeKit();
     var vol = totalMl(kit);
     var filled = filledMl();
-    var left = tubesLeft();
-    if (left === 0) return filled + ' / ' + vol + ' mL - ready';
-    return filled + ' / ' + vol + ' mL - ' + left + ' tube' + (left === 1 ? '' : 's') + ' left';
+    if (kitComplete()) return filled + ' / ' + vol + ' mL - ready';
+    return filled + ' / ' + vol + ' mL';
+  }
+
+  function recipeLine() {
+    var kit = activeKit();
+    var base = kit.slots[0];
+    var supports = supportSlots();
+    if (!supports.length) return '1) pick your notes';
+    if (supports.length === 1) {
+      return '1) ' + base.amountMl + ' mL base (your favorite) ? 2) ' + supports[0].amountMl + ' mL note';
+    }
+    var same = supports.every(function (s) { return s.amountMl === supports[0].amountMl; });
+    if (same) {
+      return '1) ' + base.amountMl + ' mL base (your favorite) ? 2) ' + supports.length + ' � ' + supports[0].amountMl + ' mL notes';
+    }
+    return '1) ' + base.amountMl + ' mL base ? 2) ' + supports.map(function (s) { return s.amountMl + ' mL'; }).join(' + ') + ' notes';
   }
 
   function atcLabel(ready) {
-    var left = tubesLeft();
+    var kit = activeKit();
+    if (!baseLocked()) {
+      return 'Select your ' + kit.slots[0].amountMl + ' mL base (favorite)';
+    }
     if (!ready) {
+      var left = tubesLeft();
       return 'fill ' + left + ' more tube' + (left === 1 ? '' : 's');
     }
     if (state.mode === 'trio' && state.trioStep !== 'rollon') {
@@ -289,6 +350,23 @@
     }
     if (state.mode === 'trio') return 'add trio - ' + money.trio;
     return 'add to cart - ' + money[state.mode];
+  }
+
+  function showScreen(name) {
+    if (!SCREEN_TITLES[name]) return;
+    state.screen = name;
+    var screens = root.querySelectorAll('[data-lah-screen]');
+    for (var i = 0; i < screens.length; i++) {
+      var on = screens[i].getAttribute('data-lah-screen') === name;
+      screens[i].classList.toggle('is-on', on);
+      screens[i].hidden = !on;
+    }
+    if (els.appTitle) els.appTitle.textContent = SCREEN_TITLES[name];
+    if (name === 'build') {
+      paint();
+      try { root.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (_e) {}
+    }
+    announce(SCREEN_TITLES[name]);
   }
 
   function announce(msg) {
@@ -355,19 +433,15 @@
     var show = state.mode === 'trio';
     if (els.trioTrack) els.trioTrack.hidden = !show;
     if (els.bottle) els.bottle.hidden = false;
+    if (els.recipe) els.recipe.textContent = recipeLine();
 
-    if (els.notesLabel) {
-      els.notesLabel.textContent = show
-        ? ('02 - ' + (TRIO_LABELS[state.trioStep] || 'notes'))
-        : '02 - notes';
-    }
     var nameLabel = root.querySelector('label[for="LahFormulaName"]');
     if (nameLabel) {
       var labelCore = show
-        ? ('name this ' + (TRIO_LABELS[state.trioStep] || 'formula'))
-        : 'name your formula';
+        ? ('3) name this ' + (TRIO_LABELS[state.trioStep] || 'formula'))
+        : '3) name your formula';
       nameLabel.innerHTML = escapeHtml(labelCore) +
-        (show ? '' : ' <span class="suas-lah-optional">(optional)</span>');
+        ' <span class="suas-lah-optional">(optional)</span>';
     }
 
     if (!show || !els.trioSteps) return;
@@ -475,6 +549,42 @@
     }).join('');
   }
 
+  function renderVials() {
+    if (!els.vials) return;
+    var kit = activeKit();
+    els.vials.style.gridTemplateColumns = 'repeat(' + kit.slots.length + ', minmax(0, 1fr))';
+    els.vials.innerHTML = kit.slots.map(function (slot, index) {
+      var note = state.picks[index] ? noteById(state.picks[index]) : null;
+      var isBase = slot.role === 'base';
+      var classes = 'suas-lah-vial';
+      if (isBase) classes += ' is-base';
+      if (note) classes += ' is-filled';
+      var color = note ? note.hex : '#dddddd';
+      var tag = note
+        ? (note.label + ' ' + slot.amountMl + ' mL' + (isBase ? ' BASE' : ''))
+        : (isBase ? (slot.amountMl + ' mL BASE') : (slot.amountMl + ' mL'));
+      return (
+        '<div class="' + classes + '" style="--vial:' + color + '">' +
+          '<div class="suas-lah-vial-glass" aria-hidden="true"><span class="suas-lah-vial-fill"></span></div>' +
+          '<span class="suas-lah-vial-tag">' + escapeHtml(tag) + '</span>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  function renderShipsPick() {
+    if (!els.shipsPick) return;
+    var base = state.picks[0] ? noteById(state.picks[0]) : null;
+    if (!base) {
+      els.shipsPick.hidden = true;
+      els.shipsPick.textContent = '';
+      return;
+    }
+    var amount = activeKit().slots[0] ? activeKit().slots[0].amountMl : 15;
+    els.shipsPick.hidden = false;
+    els.shipsPick.textContent = '? ' + base.label + ' ' + amount + ' mL BASE';
+  }
+
   function renderBottle() {
     var kit = activeKit();
     var bottle = activeBottle();
@@ -524,6 +634,10 @@
     var status = fillStatusText();
     if (els.fillStatus) els.fillStatus.textContent = status;
     if (els.stickyStatus) els.stickyStatus.textContent = status;
+    if (els.statusbar) {
+      els.statusbar.textContent = statusBarText();
+      els.statusbar.classList.toggle('is-ready', kitComplete());
+    }
 
     var complete = kitComplete();
     var ready = complete;
@@ -607,6 +721,8 @@
     renderSlots();
     renderFilters();
     renderNotes();
+    renderVials();
+    renderShipsPick();
     renderBottle();
   }
 
@@ -743,6 +859,12 @@
   }
 
   root.addEventListener('click', function (event) {
+    var gotoBtn = event.target.closest('[data-lah-goto]');
+    if (gotoBtn && root.contains(gotoBtn)) {
+      showScreen(gotoBtn.getAttribute('data-lah-goto'));
+      return;
+    }
+
     var kitBtn = event.target.closest('[data-kit]');
     if (kitBtn && root.contains(kitBtn)) {
       state.mode = kitBtn.getAttribute('data-kit');
@@ -822,5 +944,19 @@
   }
 
   state.picks = new Array(activeKit().slots.length);
-  paint();
+
+  // Deep-link: bookings CTA + filming shortcuts jump into customize.
+  // Fresh /pages/the-lab opens the XP setup wizard first.
+  var params = new URLSearchParams(window.location.search || '');
+  var hash = String(window.location.hash || '').toLowerCase();
+  if (
+    params.get('build') === '1' ||
+    hash === '#lab-at-home' ||
+    hash === '#lab-at-home-build' ||
+    hash === '#customize'
+  ) {
+    showScreen('build');
+  } else {
+    showScreen('setup');
+  }
 })();
