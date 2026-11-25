@@ -74,6 +74,19 @@ html body .suas-side-num {
 html body .suas-side-link.is-active .suas-side-num {
   color: #101010 !important;
 }
+/* Men world is black - don't force ink labels over white text */
+html.suas-men .suas-side-kicker,
+html.suas-men .suas-side-status b,
+html.suas-men .suas-side-foot a,
+html.suas-men .suas-side-foot span,
+html.suas-men body .suas-side-num,
+html.suas-men body .suas-side-link.is-active .suas-side-num {
+  color: #fff !important;
+}
+html.suas-men .suas-side-link.is-active .suas-side-num,
+html.suas-men .suas-side-dropdown[open] > summary.suas-side-link .suas-side-num {
+  color: #101010 !important;
+}
 html body .suas-book-price-card > span {
   color: #101010 !important;
   opacity: 0.8 !important;

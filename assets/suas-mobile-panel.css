@@ -440,5 +440,85 @@
   html body.template--product .suas-kicker {
     font-size: 12px !important;
   }
+
+  /*
+    SUAS Men: keep black rail + white labels on phone.
+    Default mobile panel paints a cream rail (html body .suas-side-rail) that
+    beats men chrome and leaves white Casual Human labels invisible.
+  */
+  html.suas-men body .suas-side-rail,
+  html.suas-men body .suas-frame .suas-side-rail,
+  html.suas-men.suas-panel-open body .suas-side-rail {
+    background: #000 !important;
+    border-right: 1px solid #fff !important;
+    color: #fff !important;
+    box-shadow: none !important;
+  }
+  html.suas-men body .suas-side-brand,
+  html.suas-men body .suas-side-link,
+  html.suas-men body .suas-side-label,
+  html.suas-men body .suas-side-num,
+  html.suas-men body .suas-side-status,
+  html.suas-men body .suas-side-status b,
+  html.suas-men body .suas-side-status span,
+  html.suas-men body .suas-side-foot a,
+  html.suas-men body .suas-side-foot span,
+  html.suas-men body .suas-mobile-home .suas-side-brand {
+    color: #fff !important;
+  }
+  html.suas-men body .suas-side-kicker {
+    color: rgba(255, 255, 255, 0.72) !important;
+    border-top-color: #fff !important;
+  }
+  html.suas-men body .suas-side-link.is-active,
+  html.suas-men body .suas-side-link:hover,
+  html.suas-men body .suas-side-dropdown[open] > summary.suas-side-link {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  html.suas-men body .suas-side-link.is-active .suas-side-label,
+  html.suas-men body .suas-side-link.is-active .suas-side-num,
+  html.suas-men body .suas-side-link:hover .suas-side-label,
+  html.suas-men body .suas-side-dropdown[open] > summary.suas-side-link .suas-side-label,
+  html.suas-men body .suas-side-dropdown[open] > summary.suas-side-link .suas-side-num {
+    color: #000 !important;
+  }
+  html.suas-men body .suas-side-icon {
+    border-color: #fff !important;
+    background: #111 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+  }
+  html.suas-men body .suas-side-link.is-active .suas-side-icon,
+  html.suas-men body .suas-side-link:hover .suas-side-icon {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #000 !important;
+  }
+  html.suas-men body .suas-panel-submenu a {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+    box-shadow: 0 2px 0 #fff !important;
+  }
+  html.suas-men body .suas-side-status {
+    background: #111 !important;
+    box-shadow: none !important;
+  }
+  html.suas-men body .suas-side-foot a {
+    background: #000 !important;
+    border-color: #fff !important;
+    box-shadow: 0 2px 0 #fff !important;
+  }
+  html.suas-men body .suas-mobile-bar {
+    background: #000 !important;
+    color: #fff !important;
+    border-bottom-color: #fff !important;
+  }
+  html.suas-men body .suas-panel-toggle {
+    color: #fff !important;
+    border-color: #fff !important;
+    background: #000 !important;
+  }
 }
 
