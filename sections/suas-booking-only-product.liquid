@@ -1,0 +1,42 @@
+{%- comment -%}
+  Hidden checkout SKUs (Lab bookings, Charm Bar, Lab @ Home, party deposit).
+  Not for browsing - send people to the real flow page.
+{%- endcomment -%}
+{%- liquid
+  assign handle = product.handle | default: ''
+  assign dest = '/pages/bookings'
+  assign label = 'bookings'
+
+  if handle contains 'lab-at-home'
+    assign dest = '/pages/the-lab'
+    assign label = 'The Lab @ Home'
+  elsif handle contains 'charm-bar'
+    assign dest = '/pages/bookings#charm-bar'
+    assign label = 'Charm Bar bookings'
+  elsif handle contains 'party'
+    assign dest = '/pages/parties-events'
+    assign label = 'Parties & Events'
+  else
+    assign dest = '/pages/bookings'
+    assign label = 'Lab bookings'
+  endif
+-%}
+
+<meta http-equiv="refresh" content="0;url={{ dest }}">
+<script>window.location.replace({{ dest | json }});</script>
+
+<section class="suas-booking-only" aria-label="Booking product redirect" style="min-height:40vh;display:grid;place-items:center;padding:40px 16px;font-family:Tahoma,Arial,sans-serif;">
+  <div style="max-width:420px;text-align:center;display:grid;gap:12px;">
+    <p style="margin:0;font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;">not a shelf product</p>
+    <h1 style="margin:0;font-size:1.4rem;line-height:1.2;">This SKU only sells through {{ label }}.</h1>
+    <p style="margin:0;font-weight:700;opacity:.75;">Taking you there now.</p>
+    <p style="margin:0;"><a href="{{ dest }}" style="display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:0 16px;border:2px solid #111;background:#d9ff78;color:#111;font-weight:800;text-decoration:none;">go to {{ label }}</a></p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Booking-only redirect",
+  "settings": []
+}
+{% endschema %}
