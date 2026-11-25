@@ -27,10 +27,6 @@
   assign trio_variant = trio_product.selected_or_first_available_variant
 -%}
 
-<style>
-  @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman.otf' | asset_url }}) format('opentype');font-display:swap}
-  @font-face{font-family:'Casual Human';src:url({{ 'CasualHuman-Bold.otf' | asset_url }}) format('opentype');font-weight:700;font-display:swap}
-</style>
 {{ 'suas-lab-at-home.css' | asset_url | stylesheet_tag }}
 
 <section
@@ -234,10 +230,8 @@
     { id: 'honey', label: 'Honey', family: 'gourmand', hex: '#d4a017', hex2: '#ffe08a' },
     { id: 'bergamot', label: 'Bergamot', family: 'green', hex: '#a9dd59', hex2: '#ffe071' },
     { id: 'caramel', label: 'Caramel', family: 'gourmand', hex: '#b85d19', hex2: '#ffc45f' },
-    { id: 'coffee', label: 'Coffee', family: 'gourmand', hex: '#3e2723', hex2: '#a1887f' },
     { id: 'heavy-cream', label: 'Heavy Cream', family: 'gourmand', hex: '#fff5e6', hex2: '#f5d9b8' },
     { id: 'coconut', label: 'Coconut', family: 'gourmand', hex: '#fff7df', hex2: '#d0a36a' },
-    { id: 'baby-powder', label: 'Baby Powder', family: 'sparkle', hex: '#f7f1e9', hex2: '#e8dff5' },
     { id: 'ocean-scent', label: 'Ocean Scent', family: 'green', hex: '#4fc3f7', hex2: '#b3e5fc' },
     { id: 'white-musk', label: 'White Musk', family: 'sparkle', hex: '#f5f5f5', hex2: '#d8e2ff' },
     { id: 'black-oud', label: 'Black Oud', family: 'sparkle', hex: '#1a1210', hex2: '#5c4033' },
