@@ -775,8 +775,8 @@
  var aria = title + ' - ' + sub;
  return (
  '<button type="button" class="' + classes + '" style="--vial:' + color + '" data-vial-slot="' + index + '" aria-pressed="' + active + '" aria-label="' + escapeHtml(aria) + '">' +
- '<span class="suas-lah-vial-glass" aria-hidden="true"><span class="suas-lah-vial-fill"></span></span>' +
  '<span class="suas-lah-vial-tag"><b>' + escapeHtml(title) + '</b><small>' + escapeHtml(sub) + '</small></span>' +
+ '<span class="suas-lah-vial-glass" aria-hidden="true"><span class="suas-lah-vial-fill"></span></span>' +
  '</button>'
  );
  }).join('');
