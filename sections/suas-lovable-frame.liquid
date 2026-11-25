@@ -148,14 +148,14 @@ Parties & Events|/pages/parties-events{% endcapture %}
     <p class="suas-side-kicker">{% if suas_men_panel %}men terminal{% else %}{{ section.settings.control_label }}{% endif %}</p>
     <nav class="suas-side-nav" aria-label="{% if suas_men_panel %}SUAS Men menu{% else %}SUAS menu{% endif %}">
       {% if suas_men_panel %}
-        <a class="suas-side-link{% if request.path contains '/collections/cologne' %} is-active{% endif %}" href="/collections/cologne"><span class="suas-side-icon" style="--tint:#fff">01</span><span class="suas-side-label">cologne</span><span class="suas-side-num">01</span></a>
-        <a class="suas-side-link{% if request.path contains '/collections/m-body-oil' %} is-active{% endif %}" href="/collections/m-body-oil"><span class="suas-side-icon" style="--tint:#fff">02</span><span class="suas-side-label">oil</span><span class="suas-side-num">02</span></a>
-        <a class="suas-side-link{% if request.path contains '/collections/m-butter-creme' %} is-active{% endif %}" href="/collections/m-butter-creme"><span class="suas-side-icon" style="--tint:#fff">03</span><span class="suas-side-label">butter</span><span class="suas-side-num">03</span></a>
-        <a class="suas-side-link{% if request.path contains '/collections/exfoliating-body-wash' %} is-active{% endif %}" href="/collections/exfoliating-body-wash"><span class="suas-side-icon" style="--tint:#fff">04</span><span class="suas-side-label">wash</span><span class="suas-side-num">04</span></a>
-        <a class="suas-side-link{% if request.path contains '/collections/beard' %} is-active{% endif %}" href="/collections/beard"><span class="suas-side-icon" style="--tint:#fff">05</span><span class="suas-side-label">beard</span><span class="suas-side-num">05</span></a>
-        <details class="suas-side-dropdown"{% if request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' or request.path contains '/pages/parties-events' or request.path contains '/pages/party-booking' %} open{% endif %}><summary class="suas-side-link{% if request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' or request.path contains '/pages/parties-events' or request.path contains '/pages/party-booking' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#fff">06</span><span class="suas-side-label">bookings</span><span class="suas-side-num">06</span></summary><div class="suas-panel-submenu"><a href="/pages/bookings">The Lab Bookings</a><a href="/pages/the-lab">The Lab @ Home</a><a href="/pages/bookings#charm-bar">The Charm Bar Bookings</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>
-        <details class="suas-side-dropdown"{% if request.path contains '/pages/who-are-we' or request.path contains '/pages/visit-us' or request.path contains '/pages/contact' %} open{% endif %}><summary class="suas-side-link{% if request.path contains '/pages/who-are-we' or request.path contains '/pages/visit-us' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#fff">07</span><span class="suas-side-label">about us</span><span class="suas-side-num">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who are we</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact-us">Contact Us</a></div></details>
-        <a class="suas-side-link" href="/"><span class="suas-side-icon" style="--tint:#fff">08</span><span class="suas-side-label">exit</span><span class="suas-side-num">08</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/cologne' %} is-active{% endif %}" href="/collections/cologne"><span class="suas-side-icon" style="--tint:#fff" aria-hidden="true">C</span><span class="suas-side-label">cologne</span><span class="suas-side-num">01</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/m-body-oil' %} is-active{% endif %}" href="/collections/m-body-oil"><span class="suas-side-icon" style="--tint:#fff" aria-hidden="true">O</span><span class="suas-side-label">oil</span><span class="suas-side-num">02</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/m-butter-creme' %} is-active{% endif %}" href="/collections/m-butter-creme"><span class="suas-side-icon" style="--tint:#fff" aria-hidden="true">B</span><span class="suas-side-label">butter</span><span class="suas-side-num">03</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/exfoliating-body-wash' %} is-active{% endif %}" href="/collections/exfoliating-body-wash"><span class="suas-side-icon" style="--tint:#fff" aria-hidden="true">W</span><span class="suas-side-label">wash</span><span class="suas-side-num">04</span></a>
+        <a class="suas-side-link{% if request.path contains '/collections/beard' %} is-active{% endif %}" href="/collections/beard"><span class="suas-side-icon" style="--tint:#fff" aria-hidden="true">R</span><span class="suas-side-label">beard</span><span class="suas-side-num">05</span></a>
+        <details class="suas-side-dropdown"{% if request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' or request.path contains '/pages/parties-events' or request.path contains '/pages/party-booking' %} open{% endif %}><summary class="suas-side-link{% if request.path contains '/pages/bookings' or request.path contains '/pages/the-lab' or request.path contains '/pages/parties-events' or request.path contains '/pages/party-booking' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#fff" aria-hidden="true">L</span><span class="suas-side-label">bookings</span><span class="suas-side-num">06</span></summary><div class="suas-panel-submenu"><a href="/pages/bookings">The Lab Bookings</a><a href="/pages/the-lab">The Lab @ Home</a><a href="/pages/bookings#charm-bar">The Charm Bar Bookings</a><a href="/pages/parties-events">Parties &amp; Events</a></div></details>
+        <details class="suas-side-dropdown"{% if request.path contains '/pages/who-are-we' or request.path contains '/pages/visit-us' or request.path contains '/pages/contact' %} open{% endif %}><summary class="suas-side-link{% if request.path contains '/pages/who-are-we' or request.path contains '/pages/visit-us' or request.path contains '/pages/contact' %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:#fff" aria-hidden="true">i</span><span class="suas-side-label">about us</span><span class="suas-side-num">07</span></summary><div class="suas-panel-submenu"><a href="/pages/who-are-we">Who are we</a><a href="/pages/visit-us">Visit Us</a><a href="/pages/contact-us">Contact Us</a></div></details>
+        <a class="suas-side-link" href="/"><span class="suas-side-icon" style="--tint:#fff" aria-hidden="true">X</span><span class="suas-side-label">exit</span><span class="suas-side-num">08</span></a>
       {% else %}
       {% if section.settings.body_enabled %}
         {% liquid
@@ -257,7 +257,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
             endif
           endfor
         %}
-        <a class="suas-side-link{% if item_active %} is-active{% endif %}" data-suas-mobile-keep="true" href="{{ section.settings.dupe_link | default: '/pages/dupe' }}"><span class="suas-side-icon" style="--tint:{{ section.settings.dupe_tint }}">{{ section.settings.dupe_icon }}</span><span class="suas-side-label">{{ section.settings.dupe_label }}</span><span class="suas-side-num">{{ section.settings.dupe_number }}</span></a>
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" data-suas-mobile-keep="true" href="{{ section.settings.dupe_link | default: '/pages/dupe' }}"><span class="suas-side-icon" style="--tint:{{ section.settings.dupe_tint }}" aria-hidden="true">D</span><span class="suas-side-label">{{ section.settings.dupe_label }}</span><span class="suas-side-num">{{ section.settings.dupe_number }}</span></a>
       {% endif %}
 
       {% if section.settings.clearance_enabled %}
@@ -271,7 +271,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
             endif
           endfor
         %}
-        <a class="suas-side-link{% if item_active %} is-active{% endif %}" data-suas-mobile-keep="true" href="{{ section.settings.clearance_link | default: '/collections/clearance' }}"><span class="suas-side-icon" style="--tint:{{ section.settings.clearance_tint }}">{{ section.settings.clearance_icon }}</span><span class="suas-side-label">{{ section.settings.clearance_label }}</span><span class="suas-side-num">{{ section.settings.clearance_number }}</span></a>
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" data-suas-mobile-keep="true" href="{{ section.settings.clearance_link | default: '/collections/clearance' }}"><span class="suas-side-icon" style="--tint:{{ section.settings.clearance_tint }}" aria-hidden="true">C</span><span class="suas-side-label">{{ section.settings.clearance_label }}</span><span class="suas-side-num">{{ section.settings.clearance_number }}</span></a>
       {% endif %}
 
       {% if section.settings.lab_enabled %}
@@ -288,7 +288,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
           assign bookings_submenu = section.settings.lab_submenu | default: bookings_submenu_default
           assign bookings_rows = bookings_submenu | newline_to_br | split: '<br />'
         %}
-        <details class="suas-side-dropdown" data-suas-mobile-keep="true"{% if item_active %} open{% endif %}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.lab_tint }}">{{ section.settings.lab_icon }}</span><span class="suas-side-label">{{ section.settings.lab_label }}</span><span class="suas-side-num">{{ section.settings.lab_number }}</span></summary><div class="suas-panel-submenu">{% if bookings_menu.links.size > 0 %}{% for link in bookings_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in bookings_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
+        <details class="suas-side-dropdown" data-suas-mobile-keep="true"{% if item_active %} open{% endif %}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.lab_tint }}" aria-hidden="true">B</span><span class="suas-side-label">{{ section.settings.lab_label }}</span><span class="suas-side-num">{{ section.settings.lab_number }}</span></summary><div class="suas-panel-submenu">{% if bookings_menu.links.size > 0 %}{% for link in bookings_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}{% for row in bookings_rows %}{% assign parts = row | strip | split: '|' %}{% assign link_label = parts[0] | strip %}{% assign link_url = parts[1] | strip %}{% if link_label != blank and link_url != blank %}<a href="{{ link_url }}">{{ link_label }}</a>{% endif %}{% endfor %}{% endif %}</div></details>
       {% endif %}
 
       {% if section.settings.scent_enabled %}
@@ -303,7 +303,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
           endfor
         %}
         {%- comment -%} Scent Directory is the customer-facing scent hub; keep profile reachable from that page. {%- endcomment -%}
-        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="/pages/scent-directory"><span class="suas-side-icon" style="--tint:{{ section.settings.scent_tint }}">{{ section.settings.scent_icon }}</span><span class="suas-side-label">Scent Directory</span><span class="suas-side-num">{{ section.settings.scent_number }}</span></a>
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="/pages/scent-directory"><span class="suas-side-icon" style="--tint:{{ section.settings.scent_tint }}" aria-hidden="true">S</span><span class="suas-side-label">Scent Directory</span><span class="suas-side-num">{{ section.settings.scent_number }}</span></a>
       {% endif %}
       {% if section.settings.oddities_enabled %}
         {% liquid
@@ -316,7 +316,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
             endif
           endfor
         %}
-        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.oddities_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.oddities_tint }}">{{ section.settings.oddities_icon }}</span><span class="suas-side-label">{{ section.settings.oddities_label }}</span><span class="suas-side-num">{{ section.settings.oddities_number }}</span></a>
+        <a class="suas-side-link{% if item_active %} is-active{% endif %}" href="{{ section.settings.oddities_link }}"><span class="suas-side-icon" style="--tint:{{ section.settings.oddities_tint }}" aria-hidden="true">O</span><span class="suas-side-label">{{ section.settings.oddities_label }}</span><span class="suas-side-num">{{ section.settings.oddities_number }}</span></a>
       {% endif %}
 
       {% if section.settings.about_enabled %}
@@ -339,7 +339,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
             endif
           endfor
         %}
-        <details class="suas-side-dropdown" data-suas-mobile-keep="true"{% if item_active %} open{% endif %}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}">{{ section.settings.about_icon }}</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">
+        <details class="suas-side-dropdown" data-suas-mobile-keep="true"{% if item_active %} open{% endif %}><summary class="suas-side-link{% if item_active %} is-active{% endif %}"><span class="suas-side-icon" style="--tint:{{ section.settings.about_tint }}" aria-hidden="true">i</span><span class="suas-side-label">{{ section.settings.about_label }}</span><span class="suas-side-num">{{ section.settings.about_number }}</span></summary><div class="suas-panel-submenu">
           {%- if about_menu.links.size > 0 -%}
             {%- assign has_visit_link = false -%}
             {%- for link in about_menu.links -%}
@@ -563,7 +563,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
     {"type":"checkbox","id":"dupe_enabled","label":"Show Dupe?","default":true},
     {"type":"text","id":"dupe_label","label":"Label","default":"Dupe?"},
     {"type":"text","id":"dupe_link","label":"Link","default":"/pages/dupe"},
-    {"type":"text","id":"dupe_icon","label":"Icon","default":"~"},
+    {"type":"text","id":"dupe_icon","label":"Icon","default":"D"},
     {"type":"text","id":"dupe_number","label":"Number","default":"03"},
     {"type":"color","id":"dupe_tint","label":"Icon color","default":"#d9ff78"},
     {"type":"text","id":"dupe_active_paths","label":"Active URL matches, separated by commas","default":"/pages/dupe,/collections/dupe"},
@@ -572,7 +572,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
     {"type":"checkbox","id":"clearance_enabled","label":"Show Clearance","default":true},
     {"type":"text","id":"clearance_label","label":"Label","default":"clearance"},
     {"type":"text","id":"clearance_link","label":"Link","default":"/collections/clearance"},
-    {"type":"text","id":"clearance_icon","label":"Icon","default":"%"},
+    {"type":"text","id":"clearance_icon","label":"Icon","default":"C"},
     {"type":"text","id":"clearance_number","label":"Number","default":"04"},
     {"type":"color","id":"clearance_tint","label":"Icon color","default":"#ff9bc4"},
     {"type":"text","id":"clearance_active_paths","label":"Active URL matches, separated by commas","default":"/collections/clearance"},
@@ -581,7 +581,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
     {"type":"checkbox","id":"scent_enabled","label":"Show Scent Profile","default":true},
     {"type":"text","id":"scent_label","label":"Label","default":"Scent Directory"},
     {"type":"text","id":"scent_link","label":"Link","default":"/pages/scent-directory"},
-    {"type":"text","id":"scent_icon","label":"Icon","default":"?"},
+    {"type":"text","id":"scent_icon","label":"Icon","default":"S"},
     {"type":"text","id":"scent_number","label":"Number","default":"03"},
     {"type":"color","id":"scent_tint","label":"Icon color","default":"#b9ff39"},
     {"type":"text","id":"scent_active_paths","label":"Active URL matches, separated by commas","default":"/pages/scent-directory,/pages/scent-profile"},
@@ -590,7 +590,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
     {"type":"checkbox","id":"oddities_enabled","label":"Show Oddities","default":true},
     {"type":"text","id":"oddities_label","label":"Label","default":"oddities"},
     {"type":"text","id":"oddities_link","label":"Link","default":"/collections/oddities"},
-    {"type":"text","id":"oddities_icon","label":"Icon","default":"*"},
+    {"type":"text","id":"oddities_icon","label":"Icon","default":"O"},
     {"type":"text","id":"oddities_number","label":"Number","default":"04"},
     {"type":"color","id":"oddities_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"text","id":"oddities_active_paths","label":"Active URL matches, separated by commas","default":"/collections/oddities"},
@@ -599,7 +599,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
     {"type":"checkbox","id":"lab_enabled","label":"Show Bookings","default":true},
     {"type":"text","id":"lab_label","label":"Label","default":"bookings"},
     {"type":"text","id":"lab_link","label":"Fallback link","default":"/pages/bookings"},
-    {"type":"text","id":"lab_icon","label":"Icon","default":"/"},
+    {"type":"text","id":"lab_icon","label":"Icon","default":"B"},
     {"type":"text","id":"lab_number","label":"Number","default":"07"},
     {"type":"color","id":"lab_tint","label":"Icon color","default":"#c6f76a"},
     {"type":"link_list","id":"lab_menu","label":"Bookings dropdown menu"},
@@ -620,7 +620,7 @@ Parties & Events|/pages/parties-events{% endcapture %}
     {"type":"header","content":"About dropdown"},
     {"type":"checkbox","id":"about_enabled","label":"Show About dropdown","default":true},
     {"type":"text","id":"about_label","label":"Label","default":"about us"},
-    {"type":"text","id":"about_icon","label":"Icon","default":"?"},
+    {"type":"text","id":"about_icon","label":"Icon","default":"i"},
     {"type":"text","id":"about_number","label":"Number","default":"06"},
     {"type":"color","id":"about_tint","label":"Icon color","default":"#c7b5ff"},
     {"type":"link_list","id":"about_menu","label":"About dropdown menu","info":"Choose a Shopify Navigation menu. Add page links to that menu instead of typing URLs here."},
