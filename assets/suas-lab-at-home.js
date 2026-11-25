@@ -108,18 +108,18 @@
  };
 
  var SCREEN_TITLES = {
- setup: 'Lab@Home.EXE - Setup Wizard',
- welcome: 'Lab@Home.EXE - Welcome',
- build: 'Lab@Home.EXE - Installing'
+ setup: 'Setup Wizard',
+ welcome: 'Welcome',
+ build: 'Installing'
  };
 
  var INSTALL_STEPS = ['kit', 'bottle', 'notes', 'name', 'process'];
  var INSTALL_TITLES = {
- kit: 'Lab@Home.EXE - Step 1 of 5',
- bottle: 'Lab@Home.EXE - Step 2 of 5',
- notes: 'Lab@Home.EXE - Step 3 of 5',
- name: 'Lab@Home.EXE - Step 4 of 5',
- process: 'Lab@Home.EXE - Step 5 of 5'
+ kit: 'Step 1 of 5',
+ bottle: 'Step 2 of 5',
+ notes: 'Step 3 of 5',
+ name: 'Step 4 of 5',
+ process: 'Step 5 of 5'
  };
 
  var TRIO_ORDER = ['perfume', 'oil', 'rollon'];
