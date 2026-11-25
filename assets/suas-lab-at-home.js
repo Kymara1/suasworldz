@@ -394,23 +394,34 @@
  if (idx < 0 || idx >= total || state.picks[idx]) idx = firstEmptySlot();
  var slot = kit.slots[idx];
  if (slot.role === 'base') {
- return trioPrefix + 'tap a note - pours into tube 1 - ' + slot.amountMl + ' mL base';
+ return trioPrefix + 'note 1/' + total + ' - tap for ' + slot.amountMl + ' mL base';
  }
- return trioPrefix + 'tap a note - pours into tube ' + (idx + 1) + ' - ' + slot.amountMl + ' mL';
+ return trioPrefix + 'note ' + (idx + 1) + '/' + total + ' - tap for ' + slot.amountMl + ' mL';
+ }
+
+ function notesFilledCount() {
+ var kit = activeKit();
+ var n = 0;
+ for (var i = 0; i < kit.slots.length; i++) {
+ if (state.picks[i]) n += 1;
+ }
+ return n;
  }
 
  function statusBarText() {
  var kit = activeKit();
- var supports = supportSlots().length;
- var filledSupports = supportFilledCount();
- if (!baseLocked()) return 'Select your ' + kit.slots[0].amountMl + ' mL base (favorite)';
+ var total = kit.slots.length;
+ var filled = notesFilledCount();
+ if (!baseLocked()) {
+ return 'Pick note 1 / ' + total + ' - ' + kit.slots[0].amountMl + ' mL base (favorite)';
+ }
  if (kitComplete()) {
  if (state.mode === 'trio' && state.trioStep !== 'rollon') {
- return 'Base locked - notes complete - save & continue';
+ return filled + '/' + total + ' scent notes - save & continue';
  }
- return 'Base locked - ' + filledSupports + '/' + supports + ' scent notes - ready';
+ return filled + '/' + total + ' scent notes - ready';
  }
- return 'Base locked - ' + filledSupports + '/' + supports + ' scent notes';
+ return filled + '/' + total + ' scent notes (base included)';
  }
 
  function flyNoteToVial(fromEl, note, slotIndex) {
@@ -510,17 +521,18 @@
 
  function recipeLine() {
  var kit = activeKit();
+ var total = kit.slots.length;
  var base = kit.slots[0];
  var supports = supportSlots();
- if (!supports.length) return '1) pick your notes';
+ if (!supports.length) return total + ' scent notes - pick them';
  if (supports.length === 1) {
- return '1) ' + base.amountMl + ' mL base (your favorite) -> 2) ' + supports[0].amountMl + ' mL note';
+ return total + ' scent notes - ' + base.amountMl + ' mL base + ' + supports[0].amountMl + ' mL';
  }
  var same = supports.every(function (s) { return s.amountMl === supports[0].amountMl; });
  if (same) {
- return '1) ' + base.amountMl + ' mL base (your favorite) -> 2) ' + supports.length + ' x ' + supports[0].amountMl + ' mL notes';
+ return total + ' scent notes (base included) - ' + base.amountMl + ' mL + ' + supports.length + ' x ' + supports[0].amountMl + ' mL';
  }
- return '1) ' + base.amountMl + ' mL base -> 2) ' + supports.map(function (s) { return s.amountMl + ' mL'; }).join(' + ') + ' notes';
+ return total + ' scent notes (base included) - ' + base.amountMl + ' mL + ' + supports.map(function (s) { return s.amountMl + ' mL'; }).join(' + ');
  }
 
  function atcLabel(ready) {
