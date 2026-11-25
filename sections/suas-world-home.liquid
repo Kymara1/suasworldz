@@ -259,9 +259,9 @@
             assign promo_kicker = section.settings.promo_kicker
             assign promo_text = section.settings.promo_text
             assign promo_href = section.settings.promo_link
-            if promo_text == blank or promo_text contains 'book the lab' or promo_text contains '16 seats'
+            if promo_text == blank or promo_text contains 'book the lab' or promo_text contains '16 seats' or promo_text contains '�' or promo_text contains 'dulce is live'
               assign promo_kicker = 'NEW'
-              assign promo_text = 'dulce is live � caramel vanilla swirl'
+              assign promo_text = 'dulce is live / caramel vanilla swirl'
               assign promo_href = '/products/dulce-eau-de-parfum'
             endif
             if promo_href == blank
@@ -532,7 +532,7 @@ setInterval(wireHoursLive,60000);
   "name": "SUAS World Home",
   "settings": [
     {"type":"text","id":"promo_kicker","label":"Promo bar kicker","default":"NEW"},
-    {"type":"text","id":"promo_text","label":"Promo bar text","default":"dulce is live � caramel vanilla swirl"},
+    {"type":"text","id":"promo_text","label":"Promo bar text","default":"dulce is live / caramel vanilla swirl"},
     {"type":"url","id":"promo_link","label":"Promo bar link"},
     {"type":"text","id":"announcement_heading","label":"Announcement heading","default":"daily announcement."},
     {"type":"textarea","id":"announcement_text","label":"Daily announcement","default":"SUAS is handmade body + home scent. Butter the skin. Mist the room. Same world, two ways to wear it."}
