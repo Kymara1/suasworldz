@@ -135,15 +135,13 @@
     pourToast: root.querySelector('[data-lah-pour-toast]'),
     sparkles: root.querySelector('[data-lah-sparkles]'),
     vialsWrap: root.querySelector('[data-lah-vials-wrap]'),
-    playground: root.querySelector('[data-lah-playground]'),
-    board: root.querySelector('[data-lah-board]'),
+    noteCount: root.querySelector('[data-lah-note-count]'),
     bottle: root.querySelector('[data-lah-bottle]'),
     bottleCard: root.querySelector('.suas-lah-bottle-card'),
     photoBottle: root.querySelector('[data-lah-photo-bottle]'),
     photoFill: root.querySelector('[data-lah-photo-fill]'),
     liquid: root.querySelector('[data-lah-liquid]'),
     fillStatus: root.querySelector('[data-lah-fill-status]'),
-    regCount: root.querySelector('[data-lah-reg-count]'),
     name: root.querySelector('[data-lah-name]'),
     atc: root.querySelector('[data-lah-atc]'),
     sticky: document.querySelector('[data-lah-sticky]'),
@@ -285,70 +283,37 @@
     var total = kit.slots.length;
     var left = tubesLeft();
     var trioPrefix = state.mode === 'trio'
-      ? ((TRIO_LABELS[state.trioStep] || 'bottle') + ' ' + (trioStepIndex() + 1) + '/3 - ')
+      ? ((TRIO_LABELS[state.trioStep] || 'bottle') + ' ' + (trioStepIndex() + 1) + '/3 � ')
       : '';
 
     if (left === 0) {
       if (state.mode === 'trio' && state.trioStep !== 'rollon') {
-        return trioPrefix + 'cute. now save + pour the next bottle';
+        return trioPrefix + 'kit locked � save & continue';
       }
-      return trioPrefix + 'formula looks fire - name it + checkout';
+      return trioPrefix + 'kit locked � name it';
     }
 
     var idx = state.activeSlot;
     if (idx < 0 || idx >= total || state.picks[idx]) idx = firstEmptySlot();
     var slot = kit.slots[idx];
     if (slot.role === 'base') {
-      return trioPrefix + 'tap your favorite ' + slot.amountMl + ' mL base ?';
+      return trioPrefix + 'browsing � pick your ' + slot.amountMl + ' mL base';
     }
-    return trioPrefix + 'pour note ' + (supportFilledCount() + 1) + '/' + supportSlots().length + ' (' + slot.amountMl + ' mL)';
+    return trioPrefix + 'browsing � pick note ' + (supportFilledCount() + 1) + ' of ' + supportSlots().length;
   }
 
   function statusBarText() {
     var kit = activeKit();
     var supports = supportSlots().length;
     var filledSupports = supportFilledCount();
-    if (!baseLocked()) return 'tap a note below to lock your ' + kit.slots[0].amountMl + ' mL base ?';
+    if (!baseLocked()) return 'Select your ' + kit.slots[0].amountMl + ' mL base (favorite)';
     if (kitComplete()) {
       if (state.mode === 'trio' && state.trioStep !== 'rollon') {
-        return 'all tubes full � save & keep going ?';
+        return 'Base locked � notes complete - save & continue';
       }
-      return 'base locked � ' + filledSupports + '/' + supports + ' notes � ready to ship';
+      return 'Base locked � ' + filledSupports + '/' + supports + ' scent notes - ready';
     }
-    return 'base locked � ' + filledSupports + '/' + supports + ' notes poured';
-  }
-
-  function flyNoteToStage(fromEl, note, done) {
-    if (!fromEl || !note || !els.vialsWrap) {
-      if (done) done();
-      return;
-    }
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) {
-      if (done) done();
-      return;
-    }
-    var start = fromEl.getBoundingClientRect();
-    var targetBtn = els.vials && els.vials.querySelector('.suas-lah-vial.is-waiting, .suas-lah-vial.is-active');
-    var endEl = targetBtn || els.vialsWrap;
-    var end = endEl.getBoundingClientRect();
-    var ghost = document.createElement('span');
-    ghost.className = 'suas-lah-fly';
-    ghost.style.setProperty('--n1', note.hex || '#ff5ab4');
-    ghost.style.setProperty('--n2', note.hex2 || '#ffe8ef');
-    ghost.style.left = (start.left + start.width / 2 - 14) + 'px';
-    ghost.style.top = (start.top + start.height / 2 - 18) + 'px';
-    document.body.appendChild(ghost);
-    var dx = (end.left + end.width / 2) - (start.left + start.width / 2);
-    var dy = (end.top + end.height / 2) - (start.top + start.height / 2);
-    requestAnimationFrame(function () {
-      ghost.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(0.55)';
-      ghost.style.opacity = '0.15';
-    });
-    setTimeout(function () {
-      if (ghost.parentNode) ghost.parentNode.removeChild(ghost);
-      if (done) done();
-    }, 420);
+    return 'Base locked � ' + filledSupports + '/' + supports + ' scent notes';
   }
 
   function celebratePour(note, slotIndex) {
@@ -358,14 +323,13 @@
     var amount = slot ? slot.amountMl : '';
     var isBase = slot && slot.role === 'base';
     var msg = isBase
-      ? ('poured ' + label + ' ' + amount + ' mL BASE ?')
-      : ('splashed ' + label + ' � ' + amount + ' mL');
+      ? ('? ' + label + ' ' + amount + ' mL BASE')
+      : ('? ' + label + ' � ' + amount + ' mL');
 
     if (els.pourToast) {
       els.pourToast.hidden = false;
       els.pourToast.textContent = msg;
       els.pourToast.classList.remove('is-show');
-      // force reflow so animation retriggers
       void els.pourToast.offsetWidth;
       els.pourToast.classList.add('is-show');
       clearTimeout(celebratePour._t);
@@ -374,23 +338,15 @@
           els.pourToast.classList.remove('is-show');
           els.pourToast.hidden = true;
         }
-      }, 1400);
-    }
-
-    if (els.vialsWrap) {
-      els.vialsWrap.classList.remove('is-pouring');
-      void els.vialsWrap.offsetWidth;
-      els.vialsWrap.classList.add('is-pouring');
-      els.vialsWrap.style.setProperty('--pour', (note && note.hex) || '#ff5ab4');
+      }, 1200);
     }
 
     if (kitComplete() && els.sparkles) {
       els.sparkles.innerHTML = '';
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 8; i++) {
         var s = document.createElement('i');
-        s.style.setProperty('--i', String(i));
-        s.style.setProperty('--x', (8 + Math.random() * 84) + '%');
-        s.style.setProperty('--d', (0.15 + Math.random() * 0.55) + 's');
+        s.style.setProperty('--x', (12 + Math.random() * 76) + '%');
+        s.style.setProperty('--d', (0.1 + Math.random() * 0.45) + 's');
         els.sparkles.appendChild(s);
       }
       els.sparkles.classList.add('is-pop');
@@ -400,7 +356,7 @@
           els.sparkles.classList.remove('is-pop');
           els.sparkles.innerHTML = '';
         }
-      }, 1200);
+      }, 1000);
     }
   }
 
@@ -430,18 +386,18 @@
   function atcLabel(ready) {
     var kit = activeKit();
     if (!baseLocked()) {
-      return 'pour your ' + kit.slots[0].amountMl + ' mL base ?';
+      return 'Select your ' + kit.slots[0].amountMl + ' mL base (favorite)';
     }
     if (!ready) {
       var left = tubesLeft();
-      return 'pour ' + left + ' more tube' + (left === 1 ? '' : 's');
+      return 'pick ' + left + ' more note' + (left === 1 ? '' : 's');
     }
     if (state.mode === 'trio' && state.trioStep !== 'rollon') {
       var nextKey = TRIO_ORDER[trioStepIndex() + 1];
       return 'save ' + (TRIO_LABELS[state.trioStep] || '') + ' ? ' + (TRIO_LABELS[nextKey] || 'next');
     }
-    if (state.mode === 'trio') return 'bag the trio � ' + money.trio;
-    return 'bag it � ' + money[state.mode];
+    if (state.mode === 'trio') return 'add trio - ' + money.trio;
+    return 'add to cart - ' + money[state.mode];
   }
 
   function showScreen(name) {
@@ -625,17 +581,27 @@
       els.notes.innerHTML = '<p class="suas-lah-notes-empty">No notes match that filter.</p>';
       return;
     }
+    if (els.noteCount) els.noteCount.textContent = list.length + ' notes';
+
     els.notes.innerHTML = list.map(function (note) {
       var usedCount = state.picks.filter(function (id) { return id === note.id; }).length;
       var isCurrent = state.picks[state.activeSlot] === note.id;
+      var isBase = state.picks[0] === note.id;
+      var supportIdx = -1;
+      for (var i = 1; i < state.picks.length; i++) {
+        if (state.picks[i] === note.id) { supportIdx = i; break; }
+      }
       var classes = 'suas-lah-note';
       if (isCurrent) classes += ' is-current';
       else if (usedCount) classes += ' is-used';
+      var meta = note.family;
+      if (isBase) meta += ' � BASE';
+      else if (supportIdx >= 0) meta += ' � NOTE ' + supportIdx;
       return (
-        '<button type="button" class="' + classes + '" draggable="true" data-note="' + escapeHtml(note.id) + '" data-family="' + escapeHtml(note.family) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '" title="Drag onto a tube or tap to pour">' +
-          '<span class="suas-lah-note-drop" aria-hidden="true"></span>' +
-          '<span class="suas-lah-note-copy"><b>' + escapeHtml(note.label) + '</b><small>' + escapeHtml(note.family) + '</small></span>' +
-          (usedCount ? '<em>?x' + usedCount + '</em>' : '<em class="suas-lah-note-pour">drag</em>') +
+        '<button type="button" class="' + classes + '" data-note="' + escapeHtml(note.id) + '" data-family="' + escapeHtml(note.family) + '" aria-pressed="' + (usedCount > 0) + '" style="--n1:' + note.hex + ';--n2:' + note.hex2 + '">' +
+          '<span class="suas-lah-note-swatch" aria-hidden="true"></span>' +
+          '<span class="suas-lah-note-copy"><b>' + escapeHtml(note.label) + '</b><small>' + escapeHtml(meta) + '</small></span>' +
+          (usedCount ? '<span class="suas-lah-note-check" aria-hidden="true">?</span>' : '') +
         '</button>'
       );
     }).join('');
@@ -650,22 +616,20 @@
       var note = state.picks[index] ? noteById(state.picks[index]) : null;
       var isBase = slot.role === 'base';
       var active = index === state.activeSlot;
-      var classes = 'suas-lah-vial';
+      var classes = 'suas-lah-slotcard';
       if (isBase) classes += ' is-base';
       if (note) classes += ' is-filled';
       if (active) classes += ' is-active';
       if (!note && index === nextEmpty) classes += ' is-waiting';
       var color = note ? note.hex : '#dddddd';
-      var tag = note
-        ? (note.label + ' ' + slot.amountMl + ' mL' + (isBase ? ' BASE' : ''))
-        : (isBase ? ('empty ' + slot.amountMl + ' mL BASE') : ('empty ' + slot.amountMl + ' mL'));
+      var role = isBase ? 'BASE' : ('NOTE ' + index);
+      var name = note ? note.label : 'empty';
       return (
-        '<button type="button" class="' + classes + '" style="--vial:' + color + '" data-vial-slot="' + index + '" aria-pressed="' + active + '" aria-label="' + escapeHtml(tag) + '">' +
-          '<span class="suas-lah-vial-glass" aria-hidden="true">' +
-            '<span class="suas-lah-vial-fill"></span>' +
-            '<span class="suas-lah-vial-drip"></span>' +
-          '</span>' +
-          '<span class="suas-lah-vial-tag">' + escapeHtml(tag) + '</span>' +
+        '<button type="button" class="' + classes + '" style="--slot:' + color + '" data-vial-slot="' + index + '" aria-pressed="' + active + '">' +
+          '<span class="suas-lah-slotcard-role">' + escapeHtml(role) + '</span>' +
+          '<span class="suas-lah-slotcard-bar" aria-hidden="true"></span>' +
+          '<span class="suas-lah-slotcard-name">' + escapeHtml(name) + '</span>' +
+          '<span class="suas-lah-slotcard-ml">' + slot.amountMl + ' mL</span>' +
         '</button>'
       );
     }).join('');
@@ -736,14 +700,6 @@
     if (els.statusbar) {
       els.statusbar.textContent = statusBarText();
       els.statusbar.classList.toggle('is-ready', kitComplete());
-    }
-    if (els.regCount) {
-      var filledTubes = kit.slots.length - tubesLeft();
-      els.regCount.textContent = filledTubes + ' / ' + kit.slots.length + ' tubes';
-    }
-    if (els.board) {
-      els.board.classList.toggle('is-ready', kitComplete());
-      els.board.classList.toggle('is-waiting', !kitComplete());
     }
 
     var complete = kitComplete();
@@ -842,114 +798,39 @@
     }
     if (slotIndex < 0 || slotIndex >= kit.slots.length) slotIndex = firstEmptySlot();
 
-    // Same note can fill multiple tubes (2-3 note formulas).
     state.picks[slotIndex] = id;
     state.picks.length = kit.slots.length;
     state.activeSlot = slotIndex;
 
     var note = noteById(id);
     setError('');
+    celebratePour(note, slotIndex);
 
-    function finish() {
-      celebratePour(note, slotIndex);
-
-      // Always jump to the next empty tube so picking feels like a pour sequence.
-      if (!kitComplete()) {
-        var advanced = false;
-        for (var i = 1; i < kit.slots.length; i++) {
-          var idx = slotIndex + i;
-          if (idx < kit.slots.length && !state.picks[idx]) {
-            state.activeSlot = idx;
-            advanced = true;
+    if (!kitComplete()) {
+      var advanced = false;
+      for (var i = 1; i < kit.slots.length; i++) {
+        var idx = slotIndex + i;
+        if (idx < kit.slots.length && !state.picks[idx]) {
+          state.activeSlot = idx;
+          advanced = true;
+          break;
+        }
+      }
+      if (!advanced) {
+        for (var j = 0; j < slotIndex; j++) {
+          if (!state.picks[j]) {
+            state.activeSlot = j;
             break;
           }
         }
-        if (!advanced) {
-          for (var j = 0; j < slotIndex; j++) {
-            if (!state.picks[j]) {
-              state.activeSlot = j;
-              break;
-            }
-          }
-        }
-      }
-      paint();
-      announce((note ? note.label : id) + ' poured. ' + coachLine());
-      if (kitComplete() && els.sticky && window.matchMedia('(max-width: 620px)').matches) {
-        try { els.sticky.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
-        if (els.stickyAtc) els.stickyAtc.focus();
       }
     }
-
-    if (opts.fromEl) {
-      flyNoteToStage(opts.fromEl, note, finish);
-    } else {
-      finish();
+    paint();
+    announce((note ? note.label : id) + ' selected. ' + coachLine());
+    if (kitComplete() && els.sticky && window.matchMedia('(max-width: 620px)').matches) {
+      try { els.sticky.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
+      if (els.stickyAtc) els.stickyAtc.focus();
     }
-  }
-
-  function wireDragDrop() {
-    var dragNoteId = null;
-
-    root.addEventListener('dragstart', function (event) {
-      var noteBtn = event.target.closest('[data-note]');
-      if (!noteBtn || !root.contains(noteBtn)) return;
-      dragNoteId = noteBtn.getAttribute('data-note');
-      try {
-        event.dataTransfer.setData('text/plain', dragNoteId || '');
-        event.dataTransfer.effectAllowed = 'copy';
-      } catch (_e) {}
-      noteBtn.classList.add('is-dragging');
-      if (els.board) els.board.classList.add('is-drop-hot');
-      if (els.playground) els.playground.classList.add('is-dragging');
-    });
-
-    root.addEventListener('dragend', function (event) {
-      var noteBtn = event.target.closest('[data-note]');
-      if (noteBtn) noteBtn.classList.remove('is-dragging');
-      dragNoteId = null;
-      if (els.board) els.board.classList.remove('is-drop-hot');
-      if (els.playground) els.playground.classList.remove('is-dragging');
-      var hot = root.querySelectorAll('.is-drop-target');
-      for (var i = 0; i < hot.length; i++) hot[i].classList.remove('is-drop-target');
-    });
-
-    root.addEventListener('dragover', function (event) {
-      var zone = event.target.closest('[data-lah-dropzone], [data-vial-slot]');
-      if (!zone || !root.contains(zone)) return;
-      event.preventDefault();
-      try { event.dataTransfer.dropEffect = 'copy'; } catch (_e2) {}
-      zone.classList.add('is-drop-target');
-    });
-
-    root.addEventListener('dragleave', function (event) {
-      var zone = event.target.closest('[data-lah-dropzone], [data-vial-slot]');
-      if (!zone || !root.contains(zone)) return;
-      zone.classList.remove('is-drop-target');
-    });
-
-    root.addEventListener('drop', function (event) {
-      var zone = event.target.closest('[data-vial-slot], [data-lah-dropzone]');
-      if (!zone || !root.contains(zone)) return;
-      event.preventDefault();
-      zone.classList.remove('is-drop-target');
-      if (els.board) els.board.classList.remove('is-drop-hot');
-      if (els.playground) els.playground.classList.remove('is-dragging');
-
-      var id = dragNoteId;
-      try { id = event.dataTransfer.getData('text/plain') || id; } catch (_e3) {}
-      if (!id) return;
-
-      var slotIndex;
-      if (zone.hasAttribute('data-vial-slot')) {
-        slotIndex = Number(zone.getAttribute('data-vial-slot'));
-      } else {
-        slotIndex = firstEmptySlot();
-      }
-      var fromEl = root.querySelector('[data-note="' + id + '"]');
-      pickNote(id, { slotIndex: slotIndex, fromEl: fromEl, preferEmpty: false });
-      dragNoteId = null;
-    });
   }
 
   function resetPicks() {
@@ -1077,7 +958,7 @@
       state.activeSlot = Number(vialBtn.getAttribute('data-vial-slot'));
       setError('');
       paint();
-      announce('Tube ' + (state.activeSlot + 1) + ' selected - pick a note to pour.');
+      announce('Slot ' + (state.activeSlot + 1) + ' selected - pick a note.');
       if (els.notes) {
         try { els.notes.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_e) {}
       }
@@ -1115,9 +996,7 @@
 
     var noteBtn = event.target.closest('[data-note]');
     if (noteBtn && root.contains(noteBtn)) {
-      // Ignore click that follows a drag.
-      if (noteBtn.classList.contains('is-dragging')) return;
-      pickNote(noteBtn.getAttribute('data-note'), { fromEl: noteBtn, preferEmpty: true });
+      pickNote(noteBtn.getAttribute('data-note'), { preferEmpty: true });
       return;
     }
 
@@ -1148,7 +1027,6 @@
   }
 
   state.picks = new Array(activeKit().slots.length);
-  wireDragDrop();
 
   // Deep-link: bookings CTA + filming shortcuts jump into customize.
   // Fresh /pages/the-lab opens the XP setup wizard first.
