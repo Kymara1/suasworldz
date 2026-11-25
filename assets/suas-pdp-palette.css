@@ -133,6 +133,13 @@ html body.template--product[data-suas-handle*='gelato'] {
   --mid: #f7bfe3;
   --on-accent: #101010;
 }
+html body.template--product[data-suas-handle*='dulce'] {
+  --hot: #b46f1c;
+  --wash: #f3e4c8;
+  --mid: #d49a45;
+  --on-accent: #ffffff;
+  --sun: #f0d5a0;
+}
 
 /* Review shell aliases pink ? wash; children inherit body --hot/--wash/--mid */
 html body.template--product .suas-product-review-shell {
