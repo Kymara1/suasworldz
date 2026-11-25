@@ -1068,12 +1068,26 @@
  credentials: 'same-origin',
  body: JSON.stringify({ items: items })
  });
- if (!response.ok) throw new Error('cart');
+ if (!response.ok) {
+ var detail = '';
+ try {
+ var errBody = await response.json();
+ detail = errBody.description || errBody.message || '';
+ } catch (_e) {}
+ throw new Error(detail || ('cart ' + response.status));
+ }
  window.location.assign('/cart');
  } catch (err) {
  els.atc.disabled = false;
  els.atc.textContent = original;
+ var msg = (err && err.message) ? String(err.message) : '';
+ if (/sold out|unavailable|not available/i.test(msg)) {
+ setError('That kit is marked sold out in Shopify. Restock Lab @ Home, then try again.');
+ } else if (msg && msg !== 'cart') {
+ setError(msg);
+ } else {
  setError('Could not add that formula. Try again.');
+ }
  }
  }
 

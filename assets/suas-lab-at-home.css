@@ -31,12 +31,16 @@
   background:
     radial-gradient(circle at 50% 0%, #7ec8ff 0%, transparent 42%),
     linear-gradient(180deg, #5eb3f0 0%, #87c978 55%, #5a9e32 100%);
-  padding: 10px 0 18px;
+  padding: 28px 0 24px;
   font-size: 13px;
   font-weight: 700;
+  scroll-margin-top: 56px;
 }
 .suas-lah * { box-sizing: border-box; }
-.suas-lah-wrap { width: min(920px, calc(100% - 14px)); margin: 0 auto; }
+.suas-lah-wrap {
+  width: min(920px, calc(100% - 14px));
+  margin: 12px auto 0;
+}
 
 .suas-lah-window {
   border: 3px solid var(--xp-deep);
