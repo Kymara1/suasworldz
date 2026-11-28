@@ -143,6 +143,15 @@
     .suas-gr-media{display:flex;gap:8px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:thin;scrollbar-color:#101010 transparent}
     .suas-gr-media a{flex:0 0 auto;display:block;width:108px;height:108px;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;background:#fbfaf7;box-shadow:2px 2px 0 var(--ink)}
     .suas-gr-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+    .suas-gr-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:2px}
+    .suas-gr-date{font-size:8.5px;font-weight:900;letter-spacing:.12em;opacity:.62;text-transform:uppercase}
+    .suas-gr-love{display:inline-flex;align-items:center;gap:5px;min-height:26px;padding:3px 10px;border:1.5px solid var(--ink);border-radius:999px;background:#fbfaf7;color:var(--ink);box-shadow:0 2px 0 var(--ink);font-size:8.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:transform 120ms ease,background 120ms ease}
+    .suas-gr-love:active{transform:translateY(1px)}
+    .suas-gr-love[aria-pressed='true']{background:var(--hot);color:var(--ink)}
+    .suas-gr-love span{font-size:11px;line-height:1}
+    .suas-gr-love em{font-style:normal}
+    .suas-home-clock{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:900;letter-spacing:.12em;color:#d9ff78;white-space:nowrap}
+    @media(max-width:560px){.suas-home-clock{font-size:8px;letter-spacing:.08em}}
     @media(max-width:700px){.suas-gr-body{grid-template-columns:1fr}.suas-gr-quotes{max-height:340px}.suas-gr-media a{width:92px;height:92px}}
     @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
     @media(max-width:1023px){
@@ -259,7 +268,7 @@
               <span class="suas-dot" style="--dot:#f4ecd4"></span>
             </div>
             <h1 class="suas-window-title suas-mono">SUAS.OS</h1>
-            <span class="suas-window-live suas-mono"><b></b>LIVE</span>
+            <span class="suas-window-live suas-mono"><span class="suas-home-clock" data-suas-clock></span><b></b>LIVE</span>
           </div>
           <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS">
             <img
@@ -504,14 +513,17 @@
                   <a href="{{ 'suas-gr-brittany-1.jpg' | asset_url }}" target="_blank" rel="noopener"><img src="{{ 'suas-gr-brittany-1.jpg' | asset_url }}" alt="SUAS Lab scent dispensers" loading="lazy"></a>
                   <a href="{{ 'suas-gr-brittany-2.jpg' | asset_url }}" target="_blank" rel="noopener"><img src="{{ 'suas-gr-brittany-2.jpg' | asset_url }}" alt="Custom perfume bottle made in the SUAS Lab" loading="lazy"></a>
                 </div>
+                <div class="suas-gr-foot"><span class="suas-gr-date suas-mono">nov 27, 2026</span><button type="button" class="suas-gr-love suas-mono" data-suas-gr-love="brittany" aria-pressed="false"><span>&#9825;</span><em>love</em></button></div>
               </blockquote>
               <blockquote class="suas-gr-card">
                 <div class="suas-gr-head"><cite class="suas-mono">r. clements</cite><span aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
                 <p>&ldquo;Went to SUAS today with my family. We loved it. Got to create our own fragrance in the lab. Would highly recommend this spot to create and buy fragrance.&rdquo;</p>
+                <div class="suas-gr-foot"><span class="suas-gr-date suas-mono">nov 27, 2026</span><button type="button" class="suas-gr-love suas-mono" data-suas-gr-love="r-clements" aria-pressed="false"><span>&#9825;</span><em>love</em></button></div>
               </blockquote>
               <blockquote class="suas-gr-card">
                 <div class="suas-gr-head"><cite class="suas-mono">ms c</cite><span aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
                 <p>&ldquo;This was my first time creating my own fragrance. It was a wonderful experience. From the beginning to the end. So many scent profiles to choose from and the set up of the lab was so inviting and professional! I definitely will be back. Also love the fragrances that are available to purchase. I highly recommend coming with family and friends.&rdquo;</p>
+                <div class="suas-gr-foot"><span class="suas-gr-date suas-mono">nov 27, 2026</span><button type="button" class="suas-gr-love suas-mono" data-suas-gr-love="ms-c" aria-pressed="false"><span>&#9825;</span><em>love</em></button></div>
               </blockquote>
               <blockquote class="suas-gr-card">
                 <div class="suas-gr-head"><cite class="suas-mono">alex chinn</cite><span aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
@@ -525,14 +537,17 @@
                   <a href="{{ 'suas-gr-alex-6.jpg' | asset_url }}" target="_blank" rel="noopener"><img src="{{ 'suas-gr-alex-6.jpg' | asset_url }}" alt="Building entrance" loading="lazy"></a>
                   <a href="{{ 'suas-gr-alex-7.jpg' | asset_url }}" target="_blank" rel="noopener"><img src="{{ 'suas-gr-alex-7.jpg' | asset_url }}" alt="Hallway leading to SUAS" loading="lazy"></a>
                 </div>
+                <div class="suas-gr-foot"><span class="suas-gr-date suas-mono">feb 2026</span><button type="button" class="suas-gr-love suas-mono" data-suas-gr-love="alex-chinn" aria-pressed="false"><span>&#9825;</span><em>love</em></button></div>
               </blockquote>
               <blockquote class="suas-gr-card">
                 <div class="suas-gr-head"><cite class="suas-mono">flying dutchman</cite><span aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
                 <p>&ldquo;The candles the body butters the room sprays everything smells good my favorite is the savory pecan. I also have the Manes Nectar hair oil and my hair has been growing rapidly. You can't go wrong with any products on this website please shop!!&rdquo;</p>
+                <div class="suas-gr-foot"><span class="suas-gr-date suas-mono">mar 21, 2024</span><button type="button" class="suas-gr-love suas-mono" data-suas-gr-love="flying-dutchman" aria-pressed="false"><span>&#9825;</span><em>love</em></button></div>
               </blockquote>
               <blockquote class="suas-gr-card">
                 <div class="suas-gr-head"><cite class="suas-mono">paprika clinton</cite><span aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
                 <p>&ldquo;Shop with this company I promise you that you will not regret it! Awesome products!&rdquo;</p>
+                <div class="suas-gr-foot"><span class="suas-gr-date suas-mono">mar 21, 2024</span><button type="button" class="suas-gr-love suas-mono" data-suas-gr-love="paprika-clinton" aria-pressed="false"><span>&#9825;</span><em>love</em></button></div>
               </blockquote>
             </div>
           </div>
@@ -542,6 +557,37 @@
   </div>
   <script>(()=>{function wireFeedLinks(){document.querySelectorAll('.suas-world-home .suas-feed-btn').forEach(link=>{if(link.dataset.suasTapReady==='true')return;link.dataset.suasTapReady='true';link.addEventListener('click',event=>{const href=link.getAttribute('href')||'';if(href.charAt(0)!=='#')return;event.preventDefault();const target=document.querySelector(href);if(target){target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',href)}})})}wireFeedLinks();function wireFeedCart(){document.querySelectorAll('.suas-world-home [data-suas-atc]').forEach(button=>{if(button.dataset.suasAtcReady==='true')return;button.dataset.suasAtcReady='true';button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();if(button.disabled)return;const id=Number(button.getAttribute('data-suas-atc'));if(!id)return;const original=button.textContent;button.disabled=true;button.textContent='adding';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},credentials:'same-origin',body:JSON.stringify({id,quantity:1})}).then(response=>{if(!response.ok)throw new Error('cart');return response.json()}).then(()=>fetch('/cart.js',{credentials:'same-origin'})).then(response=>response.json()).then(cart=>{if(typeof window.suasSetCartCount==='function'){window.suasSetCartCount(cart.item_count)}else{document.querySelectorAll('[data-suas-cart-count]').forEach(node=>{node.textContent=cart.item_count})}if(typeof window.suasAnnounceCart==='function'){window.suasAnnounceCart('added to bag. '+cart.item_count+(cart.item_count===1?' item':' items'))}button.textContent='added';setTimeout(()=>{button.disabled=false;button.textContent=original},1200)}).catch(()=>{if(typeof window.suasAnnounceCart==='function'){window.suasAnnounceCart('could not add that. try again')}button.disabled=false;button.textContent='try again';setTimeout(()=>{button.textContent=original},1400)})})})}wireFeedCart();function launchKey(link){const title=(link.querySelector('strong')?.textContent||link.textContent||'').trim().toLowerCase().replace(/\s+/g,' ');return title.replace(/\b(shop|launch|reserve)\b/g,'').trim()||((link.getAttribute('href')||'').replace(/\?.*$/,''))}function dedupeLaunch(){document.querySelectorAll('.suas-world-home .suas-launch-grid').forEach(grid=>{if(grid.getAttribute('data-suas-fixed-launch')==='true'){;[...grid.querySelectorAll('a.suas-launch')].slice(4).forEach(link=>link.remove());return}const seen=new Set;[...grid.querySelectorAll('a')].forEach(link=>{const key=launchKey(link);if(seen.has(key)||seen.size>=4){link.remove()}else{seen.add(key)}})})}dedupeLaunch();[80,250,700,1500].forEach(t=>setTimeout(dedupeLaunch,t));document.querySelectorAll('[data-suas-product-rotator]').forEach(rotator=>{if(rotator.dataset.ready==='true')return;rotator.dataset.ready='true';const slides=[...rotator.querySelectorAll('.suas-product-slide')];if(slides.length<2)return;const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;const pauseBtn=document.querySelector('[data-suas-rotator-pause]');let active=0;let timer=null;const tick=()=>{slides[active].classList.remove('is-active');active=(active+1)%slides.length;slides[active].classList.add('is-active')};const play=()=>{if(reduce||timer)return;timer=setInterval(tick,7600);if(pauseBtn){pauseBtn.setAttribute('aria-pressed','false');pauseBtn.textContent='pause'}};const pause=()=>{if(timer){clearInterval(timer);timer=null}if(pauseBtn){pauseBtn.setAttribute('aria-pressed','true');pauseBtn.textContent='play'}};if(pauseBtn){pauseBtn.addEventListener('click',()=>{if(timer)pause();else play()})}rotator.addEventListener('mouseenter',pause);rotator.addEventListener('focusin',pause);if(!reduce)play()});
 function wireHoursLive(){
+  const clockEl=document.querySelector('[data-suas-clock]');
+  if(clockEl){
+    const paintClock=()=>{
+      const now=new Date();
+      const d=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',month:'short',day:'numeric'}).format(now).replace(',','');
+      const t=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit',hour12:true}).format(now);
+      clockEl.textContent=(d+' / '+t).toUpperCase();
+    };
+    paintClock();
+    setInterval(paintClock,15000);
+  }
+  const loveStoreKey='suas_gr_loved_v1';
+  let loved={};
+  try{loved=JSON.parse(localStorage.getItem(loveStoreKey)||'{}')||{}}catch(e){loved={}}
+  document.querySelectorAll('[data-suas-gr-love]').forEach(btn=>{
+    if(btn.dataset.suasLoveReady==='true')return;
+    btn.dataset.suasLoveReady='true';
+    const id=btn.getAttribute('data-suas-gr-love');
+    const paint=()=>{
+      const on=!!loved[id];
+      btn.setAttribute('aria-pressed',on?'true':'false');
+      btn.querySelector('span').innerHTML=on?'&#9829;':'&#9825;';
+      btn.querySelector('em').textContent=on?'loved':'love';
+    };
+    paint();
+    btn.addEventListener('click',()=>{
+      loved[id]=!loved[id];
+      try{localStorage.setItem(loveStoreKey,JSON.stringify(loved))}catch(e){}
+      paint();
+    });
+  });
   const live=document.querySelector('[data-suas-hours-live]');
   if(!live)return;
   const label=live.querySelector('[data-suas-hours-label]');
