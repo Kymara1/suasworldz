@@ -476,6 +476,22 @@ a.suas-lah-winbtn { cursor: pointer; }
   font: 800 .9rem/1.15 Tahoma, Arial, sans-serif !important; cursor: pointer;
 }
 .suas-lah-btn-lime { background: linear-gradient(180deg,#f4ffb0,var(--lime)); }
+.suas-lah-copy-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 10px;
+}
+.suas-lah-copy-bar[hidden] { display: none; }
+.suas-lah-copy-btn {
+  min-height: 36px;
+  padding: 6px 12px;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.suas-lah-copy-btn[hidden] { display: none; }
 .suas-lah-btn-hot { background: linear-gradient(180deg,#ff9fd0,var(--hot)); color: #fff; }
 .suas-lah-btn-ghost { min-height: 36px; font-size: 11px !important; letter-spacing: .06em; text-transform: uppercase; background: #fff; }
 .suas-lah-btn:disabled { opacity: .45; cursor: not-allowed; }

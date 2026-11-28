@@ -130,6 +130,7 @@
  trioSteps: root.querySelector('[data-lah-trio-steps]'),
  recipe: root.querySelector('[data-lah-recipe]'),
  slotHint: root.querySelector('[data-lah-slot-hint]'),
+ copyBar: root.querySelector('[data-lah-copy-bar]'),
  bottlePick: root.querySelector('[data-lah-bottle-pick]'),
  bottleOptions: root.querySelector('[data-lah-bottle-options]'),
  slots: root.querySelector('[data-lah-slots]'),
@@ -669,6 +670,33 @@
  }).join('');
  }
 
+ function renderCopyBar() {
+ if (!els.copyBar) return;
+ var showBar = state.mode === 'trio' && state.trioStep !== 'perfume';
+ var hasPerfume = !!(state.trioFormulas.perfume && state.trioFormulas.perfume.picks && state.trioFormulas.perfume.picks.length);
+ var hasOil = !!(state.trioFormulas.oil && state.trioFormulas.oil.picks && state.trioFormulas.oil.picks.length);
+ var btnPerfume = els.copyBar.querySelector('[data-lah-copy-from="perfume"]');
+ var btnOil = els.copyBar.querySelector('[data-lah-copy-from="oil"]');
+ if (btnPerfume) btnPerfume.hidden = !hasPerfume;
+ if (btnOil) btnOil.hidden = !(state.trioStep === 'rollon' && hasOil);
+ els.copyBar.hidden = !(showBar && (hasPerfume || (state.trioStep === 'rollon' && hasOil)));
+ }
+
+ function copyFormulaFrom(sourceKey) {
+ var src = state.trioFormulas[sourceKey];
+ if (!src || !src.picks || !src.picks.length) return;
+ var kit = activeKit();
+ state.picks = new Array(kit.slots.length);
+ for (var i = 0; i < kit.slots.length; i++) {
+ state.picks[i] = src.picks[i] || undefined;
+ }
+ state.activeSlot = Math.max(0, kit.slots.length - 1);
+ setError('');
+ paint();
+ var srcLabel = TRIO_LABELS[sourceKey] || sourceKey;
+ announce('Copied notes from ' + srcLabel);
+ }
+
  function syncBottleCopy() {
  var title = root.querySelector('[data-lah-bottle-title]');
  var copy = root.querySelector('[data-lah-bottle-copy]');
@@ -954,6 +982,7 @@
  function paint() {
  renderKits();
  renderTrioTrack();
+ renderCopyBar();
  renderBottlePick();
  renderSlots();
  renderFilters();
@@ -1173,6 +1202,12 @@
  var trioStepBtn = event.target.closest('[data-trio-step]');
  if (trioStepBtn && root.contains(trioStepBtn) && state.mode === 'trio') {
  loadTrioStep(trioStepBtn.getAttribute('data-trio-step'));
+ return;
+ }
+
+ var copyBtn = event.target.closest('[data-lah-copy-from]');
+ if (copyBtn && root.contains(copyBtn)) {
+ copyFormulaFrom(copyBtn.getAttribute('data-lah-copy-from'));
  return;
  }
 
