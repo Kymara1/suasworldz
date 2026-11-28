@@ -125,6 +125,16 @@
     .suas-boost-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
     .suas-sale{display:inline-flex;align-items:center;min-height:22px;padding:3px 8px;border:1.5px solid var(--ink);border-radius:999px;background:var(--hot);font-size:8px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
     .suas-boost-card s{opacity:.45;font-size:9px}
+    .suas-gr-body{display:grid;grid-template-columns:minmax(200px,.7fr) minmax(0,1.3fr);gap:12px;padding:14px;align-items:stretch}
+    .suas-gr-score{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:8px;padding:14px;border:2px solid var(--ink);border-radius:18px;background:linear-gradient(135deg,var(--lime),#fff 70%)}
+    .suas-gr-score strong{font-size:clamp(2.6rem,5vw,3.6rem);line-height:.85}
+    .suas-gr-stars{font-size:1.5rem;letter-spacing:.12em;color:var(--ink);line-height:1}
+    .suas-gr-all{font-size:9px;font-weight:900;letter-spacing:.12em;text-decoration:underline;color:var(--ink)}
+    .suas-gr-quotes{display:grid;gap:8px;min-width:0}
+    .suas-gr-card{margin:0;padding:10px 12px;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:3px 4px 0 var(--ink)}
+    .suas-gr-card p{margin:0 0 6px;font-size:1rem;line-height:1.05;color:var(--ink)}
+    .suas-gr-card cite{font-style:normal;font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    @media(max-width:700px){.suas-gr-body{grid-template-columns:1fr}}
     @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
     @media(max-width:1023px){
       .suas-world-home{padding-top:12px}
@@ -259,7 +269,7 @@
             assign promo_kicker = section.settings.promo_kicker
             assign promo_text = section.settings.promo_text
             assign promo_href = section.settings.promo_link
-            if promo_text == blank or promo_text contains 'book the lab' or promo_text contains '16 seats' or promo_text contains '�' or promo_text contains 'dulce is live'
+            if promo_text == blank or promo_text contains 'book the lab' or promo_text contains '16 seats' or promo_text contains '·' or promo_text contains 'dulce is live'
               assign promo_kicker = 'NEW'
               assign promo_text = 'dulce is live / caramel vanilla swirl'
               assign promo_href = '/products/dulce-eau-de-parfum'
@@ -452,7 +462,7 @@
                 </ul>
               </div>
             </div>
-            <p class="suas-hours-note">closed thanksgiving thu 11/26 � hours subject to change for events &amp; parties</p>
+            <p class="suas-hours-note">closed thanksgiving thu 11/26 · hours subject to change for events &amp; parties</p>
           </div>
         </div>
         </div>
@@ -465,35 +475,30 @@
               <span class="suas-dot" style="--dot:#febc2e"></span>
               <span class="suas-dot" style="--dot:#28c840"></span>
             </div>
-            <span class="suas-window-title suas-mono">HOT.NOW / best sellers</span>
-            <span class="suas-window-live suas-mono"><b></b>MOVE</span>
+            <span class="suas-window-title suas-mono">GOOGLE.REVIEWS / gastonia</span>
+            <span class="suas-window-live suas-mono"><b></b>5.0</span>
           </div>
-          <div class="suas-boost-body">
-            <div class="suas-boost-copy">
-              <strong class="suas-font">grab it while it lasts.</strong>
-              <a class="suas-btn suas-mono" data-dark href="/collections/best-sellers">shop best sellers</a>
+          <div class="suas-gr-body">
+            <div class="suas-gr-score">
+              <strong class="suas-font">5.0</strong>
+              <span class="suas-gr-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="suas-mono">7 google reviews</span>
+              <a class="suas-btn suas-mono" data-dark href="https://g.page/r/CV0ZzHeCQfp7EAI/review" target="_blank" rel="noopener">leave a review</a>
+              <a class="suas-gr-all suas-mono" href="https://www.google.com/search?q=suas%E2%84%A2+gastonia" target="_blank" rel="noopener">read all on google</a>
             </div>
-            <div class="suas-boost-rail">
-              {% if boost_collection != blank %}
-                {% for product in boost_collection.products limit: 3 %}
-                  <a class="suas-boost-card" href="{{ product.url }}">
-                    {% if product.featured_image %}
-                      {{ product.featured_image | image_url: width: 480 | image_tag: loading: 'lazy', alt: product.title }}
-                    {% else %}
-                      <div class="suas-boost-fallback"></div>
-                    {% endif %}
-                    <b class="suas-font">{{ product.title }}</b>
-                    {% render 'product-rating', product: product %}
-                    <div class="suas-boost-meta">
-                      {% if product.compare_at_price > product.price %}
-                        <span class="suas-sale">sale</span>
-                        <s class="suas-mono">{{ product.compare_at_price | money }}</s>
-                      {% endif %}
-                      <span class="suas-mono">{{ product.price | money }}</span>
-                    </div>
-                  </a>
-                {% endfor %}
-              {% endif %}
+            <div class="suas-gr-quotes">
+              <blockquote class="suas-gr-card">
+                <p class="suas-font">&ldquo;Very friendly and cool variety of products at reasonable prices.&rdquo;</p>
+                <cite class="suas-mono">google review</cite>
+              </blockquote>
+              <blockquote class="suas-gr-card">
+                <p class="suas-font">&ldquo;Shop with this company I promise you that you will not regret it!&rdquo;</p>
+                <cite class="suas-mono">google review</cite>
+              </blockquote>
+              <blockquote class="suas-gr-card">
+                <p class="suas-font">&ldquo;Went to SUAS today with my family. We loved it. Got to create our own fragrance in the lab.&rdquo;</p>
+                <cite class="suas-mono">r. clements</cite>
+              </blockquote>
             </div>
           </div>
         </div>
