@@ -295,26 +295,19 @@
             <h1 class="suas-window-title suas-mono">SUAS.OS</h1>
             <span class="suas-window-live suas-mono"><span class="suas-home-clock" data-suas-clock></span><b></b>LIVE</span>
           </div>
-          <div class="suas-ed-hero">
-            <div class="suas-ed-copy">
-              <div class="suas-ed-brand">
-                <a href="{{ routes.root_url }}" aria-label="SUAS">
-                  <img class="suas-ed-mark" src="{{ 'suas-s-mark.png' | asset_img_url: '168x' }}" width="54" height="54" alt="SUAS" decoding="async" fetchpriority="high">
-                </a>
-                <span class="suas-ed-kicker">gastonia, nc / est. 2022</span>
-              </div>
-              <p class="suas-ed-title suas-font">shut up &amp; smell.</p>
-              <p class="suas-ed-sub">handmade perfume, body butter, and home scent. mix your own custom formula in the lab or wear ours.</p>
-              <div class="suas-ed-ctas">
-                <a class="suas-ed-cta suas-ed-cta--pink" href="/collections/new-arrivals">shop new</a>
-                <a class="suas-ed-cta suas-ed-cta--lime" href="/pages/bookings">book the lab</a>
-              </div>
-            </div>
-            <div class="suas-ed-visual">
-              <img src="{{ 'suas-gr-brittany-1.jpg' | asset_url }}" alt="SUAS Fragrance Lab scent dispensers in Gastonia" loading="eager" fetchpriority="high">
-              <span class="suas-ed-caption">the lab / 188 w franklin blvd</span>
-            </div>
-          </div>
+          <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS">
+            <img
+              class="suas-home-logo-img suas-home-logo-img--core"
+              src="{{ 'suas-s-mark.png' | asset_img_url: '168x' }}"
+              srcset="{{ 'suas-s-mark.png' | asset_img_url: '168x' }} 168w, {{ 'suas-s-mark.png' | asset_img_url: '336x' }} 336w, {{ 'suas-s-mark.png' | asset_img_url: '512x' }} 512w"
+              sizes="(max-width: 560px) 152px, 168px"
+              width="168"
+              height="168"
+              alt="SUAS"
+              decoding="async"
+              fetchpriority="high"
+            >
+          </a>
           {% liquid
             assign promo_kicker = section.settings.promo_kicker
             assign promo_text = section.settings.promo_text
