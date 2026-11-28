@@ -479,17 +479,38 @@ a.suas-lah-winbtn { cursor: pointer; }
 .suas-lah-copy-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px 12px;
   align-items: center;
-  margin: 0 0 10px;
+  justify-content: space-between;
+  margin: 4px 0 12px;
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff1a8 0%, #d9ff78 100%);
+  box-shadow: 3px 4px 0 var(--ink);
 }
 .suas-lah-copy-bar[hidden] { display: none; }
+.suas-lah-copy-label {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.suas-lah-copy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
 .suas-lah-copy-btn {
-  min-height: 36px;
-  padding: 6px 12px;
-  font-size: 11px;
+  min-height: 40px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 900;
   letter-spacing: .08em;
   text-transform: uppercase;
+  box-shadow: 2px 3px 0 var(--ink);
 }
 .suas-lah-copy-btn[hidden] { display: none; }
 .suas-lah-btn-hot { background: linear-gradient(180deg,#ff9fd0,var(--hot)); color: #fff; }
