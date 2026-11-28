@@ -1004,10 +1004,9 @@
  opts = opts || {};
  var kit = activeKit();
  var slotIndex = typeof opts.slotIndex === 'number' ? opts.slotIndex : state.activeSlot;
- if (slotIndex < 0 || slotIndex >= kit.slots.length || (state.picks[slotIndex] && opts.preferEmpty)) {
+ if (slotIndex < 0 || slotIndex >= kit.slots.length) {
  slotIndex = firstEmptySlot();
  }
- if (slotIndex < 0 || slotIndex >= kit.slots.length) slotIndex = firstEmptySlot();
 
  state.picks[slotIndex] = id;
  state.picks.length = kit.slots.length;
