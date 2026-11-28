@@ -151,24 +151,23 @@
     .suas-gr-love span{font-size:11px;line-height:1}
     .suas-gr-love em{font-style:normal}
     .suas-home-clock{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:900;letter-spacing:.12em;color:#d9ff78;white-space:nowrap}
-    /* WOW HERO STAGE: real floating jars flanking the S. mark */
-    .suas-hero-stage{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;width:100%;max-width:920px;padding:14px 18px 8px}
-    .suas-hero-center{display:grid;justify-items:center;gap:6px;min-width:0}
-    .suas-hero-center .suas-home-logo{margin:0 auto!important}
-    .suas-hero-tag{margin:0;font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:.95;letter-spacing:.02em;text-transform:uppercase;color:var(--ink)}
-    .suas-hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:2px}
-    .suas-hero-cta{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:7px 14px;border:2px solid var(--ink);border-radius:999px;box-shadow:2px 3px 0 var(--ink);text-decoration:none;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);transition:transform 160ms ease}
-    .suas-hero-cta:hover{transform:translateY(-2px)}
-    .suas-hero-cta--pink{background:var(--hot)}
-    .suas-hero-cta--lime{background:var(--lime)}
-    .suas-hero-jar{position:relative;display:grid;justify-items:center;gap:6px;text-decoration:none;color:var(--ink);transition:transform 180ms ease}
-    .suas-hero-jar:hover{transform:translateY(-4px) scale(1.03)}
-    .suas-hero-jar img{display:block;width:clamp(112px,15vw,168px);height:clamp(112px,15vw,168px);object-fit:contain;filter:drop-shadow(0 10px 10px rgba(16,16,16,.22));animation:suasBob 4.2s ease-in-out infinite}
-    .suas-hero-jar--right img{animation-delay:-2.1s}
-    .suas-hero-sticker{display:inline-flex;align-items:center;padding:4px 9px;border:1.75px solid var(--ink);border-radius:999px;background:var(--lime);box-shadow:2px 2px 0 var(--ink);font:900 8.5px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-3deg);white-space:nowrap}
-    .suas-hero-jar--right .suas-hero-sticker{background:var(--hot);transform:rotate(3deg)}
-    @media(prefers-reduced-motion:reduce){.suas-hero-jar img{animation:none!important}}
-    @media(max-width:700px){.suas-hero-stage{grid-template-columns:1fr auto 1fr;gap:4px;padding:10px 8px 6px}.suas-hero-jar img{width:clamp(74px,22vw,108px);height:clamp(74px,22vw,108px)}.suas-hero-center .suas-home-logo{width:min(30vw,118px)!important;height:min(30vw,118px)!important}.suas-hero-center .suas-home-logo-img{max-width:118px!important;max-height:118px!important}.suas-hero-sticker{font-size:7px;padding:3px 6px}.suas-hero-tag{font-size:1.05rem}.suas-hero-cta{min-height:30px;padding:5px 10px;font-size:9px}}
+    /* 2000s MAGAZINE-AD EDITORIAL SPLIT HERO */
+    .suas-ed-hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:14px;width:100%;padding:16px 18px 10px;align-items:stretch;text-align:left}
+    .suas-ed-copy{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:10px;min-width:0}
+    .suas-ed-brand{display:flex;align-items:center;gap:10px}
+    .suas-ed-mark{width:54px;height:54px;border-radius:999px;border:2px solid var(--ink);box-shadow:2px 3px 0 var(--ink);object-fit:contain;background:#101010;flex:0 0 auto}
+    .suas-ed-kicker{display:inline-flex;align-items:center;padding:4px 10px;border:1.5px solid var(--ink);border-radius:999px;background:var(--lime);font:900 9px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+    .suas-ed-title{margin:0;font-size:clamp(2.2rem,4.6vw,3.5rem);line-height:.88;letter-spacing:.01em;text-transform:uppercase;color:var(--ink)}
+    .suas-ed-sub{margin:0;max-width:38ch;font:600 13.5px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);opacity:.88}
+    .suas-ed-ctas{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+    .suas-ed-cta{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 16px;border:2px solid var(--ink);border-radius:999px;box-shadow:3px 4px 0 var(--ink);text-decoration:none;font:900 10.5px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);transition:transform 160ms ease}
+    .suas-ed-cta:hover{transform:translateY(-2px)}
+    .suas-ed-cta--pink{background:var(--hot)}
+    .suas-ed-cta--lime{background:var(--lime)}
+    .suas-ed-visual{position:relative;min-height:240px;border:2px solid var(--ink);border-radius:20px;overflow:hidden;box-shadow:4px 5px 0 var(--ink);background:#101010}
+    .suas-ed-visual img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+    .suas-ed-caption{position:absolute;left:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1.5px solid var(--ink);border-radius:999px;background:#101010;color:var(--lime);font:900 8.5px/1 Futura,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+    @media(max-width:760px){.suas-ed-hero{grid-template-columns:1fr;gap:12px;padding:12px 12px 8px}.suas-ed-visual{order:-1;min-height:185px;max-height:210px;border-radius:16px}.suas-ed-mark{width:42px;height:42px}.suas-ed-title{font-size:2rem}.suas-ed-sub{font-size:12.5px}.suas-ed-cta{min-height:34px;padding:7px 13px;font-size:9.5px}}
     /* TABBED SUAS.DECK WINDOW */
     .suas-deck{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.95);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
     .suas-deck-tabs{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fbfaf7,#f1eee6)}
@@ -296,47 +295,25 @@
             <h1 class="suas-window-title suas-mono">SUAS.OS</h1>
             <span class="suas-window-live suas-mono"><span class="suas-home-clock" data-suas-clock></span><b></b>LIVE</span>
           </div>
-          {% liquid
-            assign hero_left = all_products['dulce-eau-de-parfum']
-            assign hero_right = all_products['gelato-eau-de-parfum']
-          %}
-          <div class="suas-hero-stage">
-            {% if hero_left != blank and hero_left.featured_image %}
-              <a class="suas-hero-jar suas-hero-jar--left" href="{{ hero_left.url }}" aria-label="Shop {{ hero_left.title | escape }}">
-                {{ hero_left.featured_image | image_url: width: 420 | image_tag: loading: 'eager', alt: hero_left.title }}
-                <span class="suas-hero-sticker">{{ hero_left.title | escape }} / {{ hero_left.price | money_without_trailing_zeros }}</span>
-              </a>
-            {% else %}
-              <div></div>
-            {% endif %}
-            <div class="suas-hero-center">
-              <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS">
-                <img
-                  class="suas-home-logo-img suas-home-logo-img--core"
-                  src="{{ 'suas-s-mark.png' | asset_img_url: '168x' }}"
-                  srcset="{{ 'suas-s-mark.png' | asset_img_url: '168x' }} 168w, {{ 'suas-s-mark.png' | asset_img_url: '336x' }} 336w, {{ 'suas-s-mark.png' | asset_img_url: '512x' }} 512w"
-                  sizes="(max-width: 560px) 118px, 168px"
-                  width="168"
-                  height="168"
-                  alt="SUAS"
-                  decoding="async"
-                  fetchpriority="high"
-                >
-              </a>
-              <p class="suas-hero-tag suas-font">shut up &amp; smell.</p>
-              <div class="suas-hero-ctas">
-                <a class="suas-hero-cta suas-hero-cta--pink" href="/collections/new-arrivals">shop new</a>
-                <a class="suas-hero-cta suas-hero-cta--lime" href="/pages/bookings">book the lab</a>
+          <div class="suas-ed-hero">
+            <div class="suas-ed-copy">
+              <div class="suas-ed-brand">
+                <a href="{{ routes.root_url }}" aria-label="SUAS">
+                  <img class="suas-ed-mark" src="{{ 'suas-s-mark.png' | asset_img_url: '168x' }}" width="54" height="54" alt="SUAS" decoding="async" fetchpriority="high">
+                </a>
+                <span class="suas-ed-kicker">gastonia, nc / est. 2022</span>
+              </div>
+              <p class="suas-ed-title suas-font">shut up &amp; smell.</p>
+              <p class="suas-ed-sub">handmade perfume, body butter, and home scent. mix your own custom formula in the lab or wear ours.</p>
+              <div class="suas-ed-ctas">
+                <a class="suas-ed-cta suas-ed-cta--pink" href="/collections/new-arrivals">shop new</a>
+                <a class="suas-ed-cta suas-ed-cta--lime" href="/pages/bookings">book the lab</a>
               </div>
             </div>
-            {% if hero_right != blank and hero_right.featured_image %}
-              <a class="suas-hero-jar suas-hero-jar--right" href="{{ hero_right.url }}" aria-label="Shop {{ hero_right.title | escape }}">
-                {{ hero_right.featured_image | image_url: width: 420 | image_tag: loading: 'eager', alt: hero_right.title }}
-                <span class="suas-hero-sticker">{{ hero_right.title | escape }} / edp</span>
-              </a>
-            {% else %}
-              <div></div>
-            {% endif %}
+            <div class="suas-ed-visual">
+              <img src="{{ 'suas-gr-brittany-1.jpg' | asset_url }}" alt="SUAS Fragrance Lab scent dispensers in Gastonia" loading="eager" fetchpriority="high">
+              <span class="suas-ed-caption">the lab / 188 w franklin blvd</span>
+            </div>
           </div>
           {% liquid
             assign promo_kicker = section.settings.promo_kicker
