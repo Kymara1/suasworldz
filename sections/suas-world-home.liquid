@@ -151,6 +151,32 @@
     .suas-gr-love span{font-size:11px;line-height:1}
     .suas-gr-love em{font-style:normal}
     .suas-home-clock{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:900;letter-spacing:.12em;color:#d9ff78;white-space:nowrap}
+    /* WOW HERO STAGE: real floating jars flanking the S. mark */
+    .suas-hero-stage{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;width:100%;max-width:920px;padding:14px 18px 8px}
+    .suas-hero-center{display:grid;justify-items:center;gap:6px;min-width:0}
+    .suas-hero-center .suas-home-logo{margin:0 auto!important}
+    .suas-hero-tag{margin:0;font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:.95;letter-spacing:.02em;text-transform:uppercase;color:var(--ink)}
+    .suas-hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:2px}
+    .suas-hero-cta{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:7px 14px;border:2px solid var(--ink);border-radius:999px;box-shadow:2px 3px 0 var(--ink);text-decoration:none;font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);transition:transform 160ms ease}
+    .suas-hero-cta:hover{transform:translateY(-2px)}
+    .suas-hero-cta--pink{background:var(--hot)}
+    .suas-hero-cta--lime{background:var(--lime)}
+    .suas-hero-jar{position:relative;display:grid;justify-items:center;gap:6px;text-decoration:none;color:var(--ink);transition:transform 180ms ease}
+    .suas-hero-jar:hover{transform:translateY(-4px) scale(1.03)}
+    .suas-hero-jar img{display:block;width:clamp(112px,15vw,168px);height:clamp(112px,15vw,168px);object-fit:contain;filter:drop-shadow(0 10px 10px rgba(16,16,16,.22));animation:suasBob 4.2s ease-in-out infinite}
+    .suas-hero-jar--right img{animation-delay:-2.1s}
+    .suas-hero-sticker{display:inline-flex;align-items:center;padding:4px 9px;border:1.75px solid var(--ink);border-radius:999px;background:var(--lime);box-shadow:2px 2px 0 var(--ink);font:900 8.5px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-3deg);white-space:nowrap}
+    .suas-hero-jar--right .suas-hero-sticker{background:var(--hot);transform:rotate(3deg)}
+    @media(prefers-reduced-motion:reduce){.suas-hero-jar img{animation:none!important}}
+    @media(max-width:700px){.suas-hero-stage{grid-template-columns:1fr auto 1fr;gap:4px;padding:10px 8px 6px}.suas-hero-jar img{width:clamp(74px,22vw,108px);height:clamp(74px,22vw,108px)}.suas-hero-center .suas-home-logo{width:min(30vw,118px)!important;height:min(30vw,118px)!important}.suas-hero-center .suas-home-logo-img{max-width:118px!important;max-height:118px!important}.suas-hero-sticker{font-size:7px;padding:3px 6px}.suas-hero-tag{font-size:1.05rem}.suas-hero-cta{min-height:30px;padding:5px 10px;font-size:9px}}
+    /* TABBED SUAS.DECK WINDOW */
+    .suas-deck{border:2px solid var(--ink);border-radius:24px;background:rgba(255,255,255,.95);box-shadow:5px 6px 0 var(--ink);overflow:hidden}
+    .suas-deck-tabs{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-bottom:2px solid var(--ink);background:linear-gradient(180deg,#fbfaf7,#f1eee6)}
+    .suas-deck-tab{flex:1 1 auto;min-height:36px;padding:7px 12px;border:2px solid var(--ink);border-radius:999px;background:#fff;color:var(--ink);box-shadow:0 2px 0 var(--ink);font:900 10px/1 Futura,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background 140ms ease,transform 140ms ease}
+    .suas-deck-tab[aria-selected='true']{background:var(--ink);color:var(--lime);box-shadow:none;transform:translateY(1px)}
+    .suas-deck-panel[hidden]{display:none!important}
+    .suas-deck-panel-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 14px 0}
+    @media(max-width:600px){.suas-deck-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px}.suas-deck-tab{font-size:9px;padding:7px 6px;letter-spacing:.08em}}
     @media(max-width:560px){.suas-home-clock{font-size:8px;letter-spacing:.08em}}
     @media(max-width:700px){.suas-gr-body{grid-template-columns:1fr}.suas-gr-quotes{max-height:340px}.suas-gr-media a{width:92px;height:92px}}
     @keyframes suasBob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
@@ -270,19 +296,48 @@
             <h1 class="suas-window-title suas-mono">SUAS.OS</h1>
             <span class="suas-window-live suas-mono"><span class="suas-home-clock" data-suas-clock></span><b></b>LIVE</span>
           </div>
-          <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS">
-            <img
-              class="suas-home-logo-img suas-home-logo-img--core"
-              src="{{ 'suas-s-mark.png' | asset_img_url: '168x' }}"
-              srcset="{{ 'suas-s-mark.png' | asset_img_url: '168x' }} 168w, {{ 'suas-s-mark.png' | asset_img_url: '336x' }} 336w, {{ 'suas-s-mark.png' | asset_img_url: '512x' }} 512w"
-              sizes="(max-width: 560px) 152px, 168px"
-              width="168"
-              height="168"
-              alt="SUAS"
-              decoding="async"
-              fetchpriority="high"
-            >
-          </a>
+          {% liquid
+            assign hero_left = all_products['dulce-eau-de-parfum']
+            assign hero_right = all_products['gelato-eau-de-parfum']
+          %}
+          <div class="suas-hero-stage">
+            {% if hero_left != blank and hero_left.featured_image %}
+              <a class="suas-hero-jar suas-hero-jar--left" href="{{ hero_left.url }}" aria-label="Shop {{ hero_left.title | escape }}">
+                {{ hero_left.featured_image | image_url: width: 420 | image_tag: loading: 'eager', alt: hero_left.title }}
+                <span class="suas-hero-sticker">{{ hero_left.title | escape }} / {{ hero_left.price | money_without_trailing_zeros }}</span>
+              </a>
+            {% else %}
+              <div></div>
+            {% endif %}
+            <div class="suas-hero-center">
+              <a class="suas-home-logo" href="{{ routes.root_url }}" aria-label="SUAS">
+                <img
+                  class="suas-home-logo-img suas-home-logo-img--core"
+                  src="{{ 'suas-s-mark.png' | asset_img_url: '168x' }}"
+                  srcset="{{ 'suas-s-mark.png' | asset_img_url: '168x' }} 168w, {{ 'suas-s-mark.png' | asset_img_url: '336x' }} 336w, {{ 'suas-s-mark.png' | asset_img_url: '512x' }} 512w"
+                  sizes="(max-width: 560px) 118px, 168px"
+                  width="168"
+                  height="168"
+                  alt="SUAS"
+                  decoding="async"
+                  fetchpriority="high"
+                >
+              </a>
+              <p class="suas-hero-tag suas-font">shut up &amp; smell.</p>
+              <div class="suas-hero-ctas">
+                <a class="suas-hero-cta suas-hero-cta--pink" href="/collections/new-arrivals">shop new</a>
+                <a class="suas-hero-cta suas-hero-cta--lime" href="/pages/bookings">book the lab</a>
+              </div>
+            </div>
+            {% if hero_right != blank and hero_right.featured_image %}
+              <a class="suas-hero-jar suas-hero-jar--right" href="{{ hero_right.url }}" aria-label="Shop {{ hero_right.title | escape }}">
+                {{ hero_right.featured_image | image_url: width: 420 | image_tag: loading: 'eager', alt: hero_right.title }}
+                <span class="suas-hero-sticker">{{ hero_right.title | escape }} / edp</span>
+              </a>
+            {% else %}
+              <div></div>
+            {% endif %}
+          </div>
           {% liquid
             assign promo_kicker = section.settings.promo_kicker
             assign promo_text = section.settings.promo_text
@@ -356,18 +411,29 @@
             <span class="suas-lah-promo-cta">open the kit</span>
           </div>
         </a>
-        <div class="suas-mid-row">
-        <div class="suas-now-card">
+        <div class="suas-deck" data-suas-deck>
           <div class="suas-window-bar">
             <div class="suas-window-dots">
               <span class="suas-dot" style="--dot:#ff5f57"></span>
               <span class="suas-dot" style="--dot:#febc2e"></span>
               <span class="suas-dot" style="--dot:#28c840"></span>
             </div>
-            <span class="suas-window-title suas-mono">PRODUCT.FEED</span>
-            <button type="button" class="suas-rotator-pause suas-mono" data-suas-rotator-pause aria-pressed="false">pause</button>
+            <span class="suas-window-title suas-mono">SUAS.DECK / gastonia</span>
+            <span class="suas-window-live suas-mono" data-suas-hours-live data-open="false" data-first-open="2026-11-14"><b></b><span data-suas-hours-label>CLOSED</span></span>
           </div>
-          <div class="suas-product-rotator" data-suas-product-rotator>
+          <div class="suas-deck-tabs" role="tablist" aria-label="SUAS home panels">
+            <button type="button" class="suas-deck-tab" role="tab" id="suas-tab-feed" aria-controls="suas-panel-feed" aria-selected="true" data-suas-deck-tab="feed">product.feed</button>
+            <button type="button" class="suas-deck-tab" role="tab" id="suas-tab-reviews" aria-controls="suas-panel-reviews" aria-selected="false" data-suas-deck-tab="reviews">reviews (5.0 &#9733;)</button>
+            <button type="button" class="suas-deck-tab" role="tab" id="suas-tab-hours" aria-controls="suas-panel-hours" aria-selected="false" data-suas-deck-tab="hours">hours</button>
+            <button type="button" class="suas-deck-tab" role="tab" id="suas-tab-launch" aria-controls="suas-panel-launch" aria-selected="false" data-suas-deck-tab="launch">quick.launch</button>
+          </div>
+
+          <div class="suas-deck-panel" id="suas-panel-feed" role="tabpanel" aria-labelledby="suas-tab-feed" data-suas-deck-panel="feed">
+            <div class="suas-deck-panel-bar">
+              <span class="suas-mono" style="font-size:9px;font-weight:900;letter-spacing:.14em;opacity:.7">LIVE PRODUCT ROTATOR</span>
+              <button type="button" class="suas-rotator-pause suas-mono" data-suas-rotator-pause aria-pressed="false">pause</button>
+            </div>
+            <div class="suas-product-rotator" data-suas-product-rotator>
             {% liquid
               assign feed_seen = ''
               assign feed_shown = 0
@@ -417,85 +483,9 @@
               </div>
             {% endif %}
           </div>
-        </div>
+          </div>
 
-        <div class="suas-launch-col">
-        <div class="suas-launch-panel">
-          <div class="suas-window-bar">
-            <div class="suas-window-dots">
-              <span class="suas-dot" style="--dot:#ff5f57"></span>
-              <span class="suas-dot" style="--dot:#febc2e"></span>
-              <span class="suas-dot" style="--dot:#28c840"></span>
-            </div>
-            <span class="suas-window-title suas-mono">QUICK.LAUNCH</span>
-            <span class="suas-window-live suas-mono"><b></b>GO</span>
-          </div>
-          <div class="suas-launch-body">
-            <div class="suas-launch-grid" data-suas-fixed-launch="true">
-              <a class="suas-launch" href="/pages/bookings" style="background:#d9ff78;--launch:#d9ff78">
-                <strong class="suas-font">book the lab</strong>
-                <span class="suas-mono">reserve</span>
-              </a>
-              <a class="suas-launch" href="/pages/the-lab" style="background:#ff9bc4;--launch:#ff9bc4">
-                <strong class="suas-font">lab @ home</strong>
-                <span class="suas-mono">diy kit</span>
-              </a>
-              <a class="suas-launch" href="/collections/new-arrivals" style="background:#cdeeff;--launch:#cdeeff">
-                <strong class="suas-font">new arrivals</strong>
-                <span class="suas-mono">shop</span>
-              </a>
-              <a class="suas-launch" href="/pages/party-booking" style="background:#e4d5ff;--launch:#e4d5ff">
-                <strong class="suas-font">parties</strong>
-                <span class="suas-mono">events</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="suas-hours-win">
-          <div class="suas-window-bar">
-            <div class="suas-window-dots">
-              <span class="suas-dot" style="--dot:#ff5f57"></span>
-              <span class="suas-dot" style="--dot:#febc2e"></span>
-              <span class="suas-dot" style="--dot:#28c840"></span>
-            </div>
-            <span class="suas-window-title suas-mono">HOURS</span>
-            <span class="suas-window-live suas-mono" data-suas-hours-live data-open="false" data-first-open="2026-11-14"><b></b><span data-suas-hours-label>CLOSED</span></span>
-          </div>
-          <div class="suas-hours-body">
-            <div class="suas-hours-split">
-              <div class="suas-hours-block">
-                <b>store</b>
-                <ul class="suas-hours-list">
-                  <li><span>mon&ndash;wed</span><span>closed</span></li>
-                  <li><span>thu&ndash;sat</span><span>12:30&ndash;7 PM</span></li>
-                  <li><span>sunday</span><span>12:30&ndash;5 PM</span></li>
-                </ul>
-              </div>
-              <div class="suas-hours-block">
-                <b>lab</b>
-                <ul class="suas-hours-list">
-                  <li><span>thu&ndash;sun</span><span>1&ndash;6 PM</span></li>
-                  <li><span>self guided</span><span>thu&ndash;sun</span></li>
-                </ul>
-              </div>
-            </div>
-            <p class="suas-hours-note">closed thanksgiving thu 11/26 · hours subject to change for events &amp; parties</p>
-          </div>
-        </div>
-        </div>
-        </div>
-
-        <div class="suas-boost">
-          <div class="suas-window-bar">
-            <div class="suas-window-dots">
-              <span class="suas-dot" style="--dot:#ff5f57"></span>
-              <span class="suas-dot" style="--dot:#febc2e"></span>
-              <span class="suas-dot" style="--dot:#28c840"></span>
-            </div>
-            <span class="suas-window-title suas-mono">GOOGLE.REVIEWS / gastonia</span>
-            <span class="suas-window-live suas-mono"><b></b>5.0</span>
-          </div>
+          <div class="suas-deck-panel" id="suas-panel-reviews" role="tabpanel" aria-labelledby="suas-tab-reviews" data-suas-deck-panel="reviews" hidden>
           <div class="suas-gr-body">
             <div class="suas-gr-score">
               <strong class="suas-font">5.0</strong>
@@ -551,6 +541,53 @@
               </blockquote>
             </div>
           </div>
+          </div>
+
+          <div class="suas-deck-panel" id="suas-panel-hours" role="tabpanel" aria-labelledby="suas-tab-hours" data-suas-deck-panel="hours" hidden>
+            <div class="suas-hours-body" style="padding:14px">
+              <div class="suas-hours-split">
+                <div class="suas-hours-block">
+                  <b>store</b>
+                  <ul class="suas-hours-list">
+                    <li><span>mon&ndash;wed</span><span>closed</span></li>
+                    <li><span>thu&ndash;sat</span><span>12:30&ndash;7 PM</span></li>
+                    <li><span>sunday</span><span>12:30&ndash;5 PM</span></li>
+                  </ul>
+                </div>
+                <div class="suas-hours-block">
+                  <b>lab</b>
+                  <ul class="suas-hours-list">
+                    <li><span>thu&ndash;sun</span><span>1&ndash;6 PM</span></li>
+                    <li><span>self guided</span><span>thu&ndash;sun</span></li>
+                  </ul>
+                </div>
+              </div>
+              <p class="suas-hours-note">closed thanksgiving thu 11/26 / hours subject to change for events &amp; parties</p>
+            </div>
+          </div>
+
+          <div class="suas-deck-panel" id="suas-panel-launch" role="tabpanel" aria-labelledby="suas-tab-launch" data-suas-deck-panel="launch" hidden>
+            <div class="suas-launch-body" style="padding:14px">
+              <div class="suas-launch-grid" data-suas-fixed-launch="true">
+                <a class="suas-launch" href="/pages/bookings" style="background:#d9ff78;--launch:#d9ff78">
+                  <strong class="suas-font">book the lab</strong>
+                  <span class="suas-mono">reserve</span>
+                </a>
+                <a class="suas-launch" href="/pages/the-lab" style="background:#ff9bc4;--launch:#ff9bc4">
+                  <strong class="suas-font">lab @ home</strong>
+                  <span class="suas-mono">diy kit</span>
+                </a>
+                <a class="suas-launch" href="/collections/new-arrivals" style="background:#cdeeff;--launch:#cdeeff">
+                  <strong class="suas-font">new arrivals</strong>
+                  <span class="suas-mono">shop</span>
+                </a>
+                <a class="suas-launch" href="/pages/party-booking" style="background:#e4d5ff;--launch:#e4d5ff">
+                  <strong class="suas-font">parties</strong>
+                  <span class="suas-mono">events</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -587,6 +624,17 @@ function wireHoursLive(){
       try{localStorage.setItem(loveStoreKey,JSON.stringify(loved))}catch(e){}
       paint();
     });
+  });
+  document.querySelectorAll('[data-suas-deck]').forEach(deck=>{
+    if(deck.dataset.suasDeckReady==='true')return;
+    deck.dataset.suasDeckReady='true';
+    const tabs=[...deck.querySelectorAll('[data-suas-deck-tab]')];
+    const panels=[...deck.querySelectorAll('[data-suas-deck-panel]')];
+    const openTab=key=>{
+      tabs.forEach(t=>t.setAttribute('aria-selected',t.getAttribute('data-suas-deck-tab')===key?'true':'false'));
+      panels.forEach(p=>{p.hidden=p.getAttribute('data-suas-deck-panel')!==key});
+    };
+    tabs.forEach(t=>t.addEventListener('click',()=>openTab(t.getAttribute('data-suas-deck-tab'))));
   });
   const live=document.querySelector('[data-suas-hours-live]');
   if(!live)return;
